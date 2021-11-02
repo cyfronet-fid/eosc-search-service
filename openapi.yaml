@@ -1,0 +1,113 @@
+openapi: 3.0.3
+info:
+  title: Search Service
+  version: 1.0.0-alpha0
+servers:
+- url: https://xxx.eosc-portal.eu/v1
+security:
+- api_key: []
+paths:
+  /search:
+    get:
+      description: Returns results
+      parameters:
+      - explode: true
+        in: query
+        name: q
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: collection
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: rows
+        required: false
+        schema:
+          exclusiveMinimum: true
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchResults'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+          description: Bad request
+components:
+  schemas:
+    SearchResults:
+      example:
+        nextCursor: nextCursor
+        results:
+        - attributes: '{}'
+          collection: collection
+          id: id
+        - attributes: '{}'
+          collection: collection
+          id: id
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/SearchResult'
+          title: results
+          type: array
+        nextCursor:
+          title: nextCursor
+          type: string
+      required:
+      - results
+      title: SearchResults
+      type: object
+    SearchResult:
+      example:
+        attributes: '{}'
+        collection: collection
+        id: id
+      properties:
+        collection:
+          title: collection
+          type: string
+        id:
+          title: id
+          type: string
+        attributes:
+          title: attributes
+          type: object
+      required:
+      - collection
+      - id
+      title: SearchResult
+      type: object
+    BadRequest:
+      properties:
+        message:
+          title: message
+          type: string
+      title: BadRequest
+      type: object
+  securitySchemes:
+    api_key:
+      in: header
+      name: Authorization
+      type: apiKey
