@@ -19,7 +19,7 @@ from fastapi import (  # noqa: F401
 from openapi_server.models.extra_models import TokenModel  # noqa: F401
 from openapi_server.models.bad_request import BadRequest
 from openapi_server.models.search_results import SearchResults
-from openapi_server.security_api import get_token_api_key
+
 
 router = APIRouter()
 
@@ -37,9 +37,6 @@ async def search_get(
     collection: str = Query(None, description=""),
     cursor: str = Query(None, description=""),
     rows: int = Query(None, description="", ge=0),
-    token_api_key: TokenModel = Security(
-        get_token_api_key
-    ),
 ) -> SearchResults:
     """Returns results"""
     ...

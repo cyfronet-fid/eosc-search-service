@@ -107,7 +107,7 @@ components:
       title: BadRequest
       type: object
   securitySchemes:
-    api_key:
-      in: header
-      name: Authorization
-      type: apiKey
+    main_security_scheme:
+      bearerFormat: JWT
+      scheme: bearer
+      type: http

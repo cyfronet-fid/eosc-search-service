@@ -19,19 +19,16 @@ from fastapi.security.api_key import APIKeyCookie, APIKeyHeader, APIKeyQuery  # 
 from openapi_server.models.extra_models import TokenModel
 
 
-def get_token_api_key(
-    token_api_key_header: str = Security(
-        APIKeyHeader(name="Authorization", auto_error=False)
-    ),
-) -> TokenModel:
-    """
-    Check and retrieve authentication information from api_key.
+bearer_auth = HTTPBearer()
 
-    :param token_api_key_header API key provided by Authorization[Authorization] header
-    
-    
-    :type token_api_key_header: str
-    :return: Information attached to provided api_key or None if api_key is invalid or does not allow access to called API
+
+def get_token_main_security_scheme(credentials: HTTPAuthorizationCredentials = Depends(bearer_auth)) -> TokenModel:
+    """
+    Check and retrieve authentication information from custom bearer token.
+
+    :param credentials Credentials provided by Authorization header
+    :type credentials: HTTPAuthorizationCredentials
+    :return: Decoded token information or None if token is invalid
     :rtype: TokenModel | None
     """
 
