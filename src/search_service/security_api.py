@@ -16,7 +16,7 @@ from fastapi.security import (  # noqa: F401
 )
 from fastapi.security.api_key import APIKeyCookie, APIKeyHeader, APIKeyQuery  # noqa: F401
 
-from openapi_server.models.extra_models import TokenModel
+from search_service.models.extra_models import TokenModel
 
 
 bearer_auth = HTTPBearer()

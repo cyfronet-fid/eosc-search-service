@@ -1,15 +1,19 @@
 openapi: 3.0.3
 info:
+  description: EOSC Search Service
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
   title: Search Service
   version: 1.0.0-alpha0
 servers:
 - url: https://xxx.eosc-portal.eu/v1
 security:
-- api_key: []
+- main_security_scheme: []
 paths:
   /search:
     get:
-      description: Returns results
+      operationId: search_get
       parameters:
       - explode: true
         in: query
@@ -24,6 +28,21 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Sorting of the results
+        examples:
+          sort-example:
+            value:
+            - name, desc
+            - another,asc
+        explode: true
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
         style: form
       - explode: true
         in: query
@@ -54,7 +73,83 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequest'
           description: Bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+          description: Forbidden
+      summary: Returns results
+  /recommend:
+    post:
+      operationId: recommend_post
+      parameters:
+      - explode: true
+        in: query
+        name: q
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: collection
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/json:
+            schema:
+              properties:
+                context:
+                  $ref: '#/components/schemas/RecommendContext'
+              required:
+              - context
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendResults'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequest'
+          description: Bad request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Unauthorized'
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forbidden'
+          description: Forbidden
+      summary: Returns results
 components:
+  requestBodies:
+    inline_object:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+      required: true
   schemas:
     SearchResults:
       example:
@@ -99,12 +194,79 @@ components:
       - id
       title: SearchResult
       type: object
+    RecommendResults:
+      example:
+        results:
+        - attributes: '{}'
+          collection: collection
+          id: id
+        - attributes: '{}'
+          collection: collection
+          id: id
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/SearchResult'
+          title: results
+          type: array
+      required:
+      - results
+      title: RecommendResults
+      type: object
+    RecommendContext:
+      properties:
+        user_uid:
+          description: User uid
+          example: 1234567890abcdef@egi.eu
+          format: uid
+          title: user_uid
+          type: string
+        visit_id:
+          description: Unique visit identification
+          example: e679feac-1f3f-4ac2-a470-89e110bcc30f
+          title: visit_id
+          type: string
+        page_id:
+          description: URL of the visited page
+          example: https://marketplace.eosc-portal.eu/services
+          title: page_id
+          type: string
+        panel_id:
+          description: Page panel identification
+          example: panel_a
+          title: panel_id
+          type: string
+      required:
+      - user_uid
+      title: RecommendContext
+      type: object
     BadRequest:
       properties:
         message:
           title: message
           type: string
       title: BadRequest
+      type: object
+    Unauthorized:
+      properties:
+        message:
+          title: message
+          type: string
+      title: Unauthorized
+      type: object
+    Forbidden:
+      properties:
+        message:
+          title: message
+          type: string
+      title: Forbidden
+      type: object
+    inline_object:
+      properties:
+        context:
+          $ref: '#/components/schemas/RecommendContext'
+      required:
+      - context
       type: object
   securitySchemes:
     main_security_scheme:
