@@ -1,0 +1,8 @@
+version: "3.9"
+
+services:
+  backend:
+    image: "eosc-search-service-backend:latest"
+
+  frontend:
+    image: "eosc-search-service-frontend:latest"
