@@ -30,7 +30,6 @@ jobs:
           ${{ runner.os }}-pipenv
 
     - name: Install dependencies
-      if: steps.cache-dependencies.outputs.cache-hit != 'true'
       run: pipenv sync --dev
       working-directory: ./backend
 

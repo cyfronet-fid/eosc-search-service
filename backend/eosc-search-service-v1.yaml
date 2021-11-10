@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0-alpha1
+  title: Search Service
+  description: EOSC Search Service
+  license:
+    name: MIT
+    url: https://spdx.org/licenses/MIT
+servers:
+  - url: https://xxx.eosc-portal.eu/v1
+paths:
+  /dumps:
+    get:
+      operationId: dumps_get
+      summary: Returns available dumps
+      parameters:
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: rows
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+            exclusiveMinimum: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DumpResults"
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequest"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Unauthorized"
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Forbidden"
+components:
+  schemas:
+    DumpResults:
+      type: object
+      properties:
+        dumps:
+          type: array
+          items:
+            $ref: "#/components/schemas/Dump"
+        nextCursor:
+          type: string
+      required:
+        - dumps
+    Dump:
+      type: object
+      properties:
+        name:
+          type: string
+        created_at:
+          type: string
+          format: datetime
+        updated_at:
+          type: string
+          format: datetime
+        elements:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              reference_type:
+                type: string
+              reference:
+                type: string
+            required:
+              - name
+              - reference_type
+              - reference
+      required:
+        - name
+        - created_at
+        - updated_at
+        - elements
+    BadRequest:
+      type: object
+      properties:
+        message:
+          type: string
+    Unauthorized:
+      type: object
+      properties:
+        message:
+          type: string
+    Forbidden:
+      type: object
+      properties:
+        message:
+          type: string
+  securitySchemes:
+    main_security_scheme:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - main_security_scheme: []

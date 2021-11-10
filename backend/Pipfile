@@ -5,12 +5,14 @@ name = "pypi"
 
 [packages]
 fastapi = {extras = ["all"], version = "*"}
+pydantic = "*"
 
 [dev-packages]
 black = "*"
 pylint = "*"
 pytest = "*"
 isort = "*"
+schemathesis = "*"
 
 [requires]
 python_version = "3.10"
