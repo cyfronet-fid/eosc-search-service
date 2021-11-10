@@ -17,3 +17,5 @@ Otherwise pipx is ready to go! ✨ 🌟 ✨
 ```
 
 Then, `pipx install pipenv` and `pipenv --python 3.10`.
+
+To install the dependencies `pipenv install`.
