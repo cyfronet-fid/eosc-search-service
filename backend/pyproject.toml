@@ -1,0 +1,4 @@
+[tool.isort]
+profile = "black"
+src_paths = ["app", "tests"]
+skip_gitignore = true

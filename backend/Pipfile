@@ -9,6 +9,8 @@ fastapi = {extras = ["all"], version = "*"}
 [dev-packages]
 black = "*"
 pylint = "*"
+pytest = "*"
+isort = "*"
 
 [requires]
 python_version = "3.10"
