@@ -19,4 +19,4 @@ async def root():
     return {"message": "Hello World"}
 
 
-app.include_router(DefaultApiRouter)
+app.include_router(router=DefaultApiRouter, prefix="/v1")
