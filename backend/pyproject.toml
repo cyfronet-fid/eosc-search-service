@@ -3,5 +3,10 @@ profile = "black"
 src_paths = ["app", "tests"]
 skip_gitignore = true
 
+[tool.pylint.'messages control']
+enable=["useless-suppression"]
+# Ignore imports when checking for similarities
+ignore-imports=true
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]

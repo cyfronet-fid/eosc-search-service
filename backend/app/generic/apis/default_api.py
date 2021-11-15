@@ -1,8 +1,9 @@
+# pylint: disable=missing-module-docstring,unused-import
 # coding: utf-8
 
-from typing import Dict, List  # noqa: F401
+from typing import Dict, List
 
-from fastapi import (  # noqa: F401
+from fastapi import (
     APIRouter,
     Body,
     Cookie,
@@ -18,7 +19,7 @@ from fastapi import (  # noqa: F401
 
 from app.generic.models.bad_request import BadRequest
 from app.generic.models.dump_results import DumpResults
-from app.generic.models.extra_models import TokenModel  # noqa: F401
+from app.generic.models.extra_models import TokenModel
 from app.generic.models.forbidden import Forbidden
 from app.generic.models.unauthorized import Unauthorized
 from app.generic.security_api import get_token_main_security_scheme
@@ -42,4 +43,6 @@ async def dumps_get(
     rows: int = Query(None, description="", ge=0, le=100),
     token_main_security_scheme: TokenModel = Security(get_token_main_security_scheme),
 ) -> DumpResults:
+    """Returns available dumps"""
+    # pylint: disable=unused-argument
     ...

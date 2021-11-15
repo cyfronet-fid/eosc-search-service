@@ -1,10 +1,13 @@
+# pylint: disable=missing-module-docstring,unused-import
+
+
 # coding: utf-8
 
 from typing import List
 
-from fastapi import Depends, Security  # noqa: F401
-from fastapi.openapi.models import OAuthFlowImplicit, OAuthFlows  # noqa: F401
-from fastapi.security import (  # noqa: F401
+from fastapi import Depends, Security
+from fastapi.openapi.models import OAuthFlowImplicit, OAuthFlows
+from fastapi.security import (
     HTTPAuthorizationCredentials,
     HTTPBasic,
     HTTPBasicCredentials,
@@ -14,11 +17,7 @@ from fastapi.security import (  # noqa: F401
     OAuth2PasswordBearer,
     SecurityScopes,
 )
-from fastapi.security.api_key import (  # noqa: F401
-    APIKeyCookie,
-    APIKeyHeader,
-    APIKeyQuery,
-)
+from fastapi.security.api_key import APIKeyCookie, APIKeyHeader, APIKeyQuery
 
 from app.generic.models.extra_models import TokenModel
 
@@ -36,5 +35,4 @@ def get_token_main_security_scheme(
     :return: Decoded token information or None if token is invalid
     :rtype: TokenModel | None
     """
-
-    ...
+    print(credentials)
