@@ -19,3 +19,15 @@ Otherwise pipx is ready to go! ✨ 🌟 ✨
 Then, `pipx install pipenv` and `pipenv --python 3.10`.
 
 To install the dependencies `pipenv install`.
+
+## Styles
+
+`pipenv run black app tests`
+
+`pipenv run isort .`
+
+`pipenv run pylint app tests`
+
+## Running tests
+
+`pipenv run pytest`

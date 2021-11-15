@@ -1,4 +1,4 @@
-name: Styles
+name: Test
 
 on: push
 
@@ -34,15 +34,6 @@ jobs:
       run: pipenv sync --dev
       working-directory: ./backend
 
-    - name: Check with black
-      run: |
-        pipenv run black --check app tests
-      working-directory: ./backend
-    - name: Check with isort
-      run: |
-        pipenv run isort . --check --diff
-      working-directory: ./backend
-    - name: Lint with pylint
-      run: |
-        pipenv run pylint app tests
+    - name: Run tests
+      run: pipenv run pytest
       working-directory: ./backend

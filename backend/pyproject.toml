@@ -2,3 +2,6 @@
 profile = "black"
 src_paths = ["app", "tests"]
 skip_gitignore = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
