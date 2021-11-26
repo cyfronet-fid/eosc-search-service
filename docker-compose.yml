@@ -5,3 +5,18 @@ services:
     build: ./backend
     ports:
       - 8000:8000
+    networks:
+      - ess-local
+  db:
+    image: postgres:14
+    ports:
+      - 5442:5432
+    networks:
+      - ess-local
+    environment:
+      POSTGRES_DB: ${DB_POSTGRES_DB:-ess}
+      POSTGRES_USER: ${DB_POSTGRES_USER:-ess}
+      POSTGRES_PASSWORD: ${DB_POSTGRES_PASSWORD:-ess}
+
+networks:
+  ess-local:

@@ -20,13 +20,32 @@ Then, `pipx install pipenv` and `pipenv --python 3.10`.
 
 To install the dependencies `pipenv install`.
 
+
+## Database
+
+The DB can be run using docker-compose in the root directory.
+```console
+docker-compose up db
+```
+
+It spawns a database on `localhost:5442`.
+
+### Migrations
+
+To run missing migrations: `pipenv run alembic upgrade head`.
+
+To auto-generate migrations after models changes:
+`pipenv run alembic revision --autogenerate -m "<revision message>"`.
+
+
 ## Styles
 
-`pipenv run black app tests`
+```console
+pipenv run black app tests
+pipenv run isort .
+pipenv run pylint app tests
+```
 
-`pipenv run isort .`
-
-`pipenv run pylint app tests`
 
 ## Running tests
 
