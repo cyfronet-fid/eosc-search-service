@@ -17,6 +17,7 @@ from fastapi import (
     status,
 )
 
+from app.db import select_dumps
 from app.generic.models.bad_request import BadRequest
 from app.generic.models.dump import Dump
 from app.generic.models.dump_elements import DumpElements
@@ -48,6 +49,5 @@ async def dumps_get(
 ) -> DumpResults:
     """Returns available dumps"""
     # pylint: disable=unused-argument
-    element = DumpElements(name="eee", reference_type="asdf", reference="asdfsdf")
-    dump = Dump(name="asdf", created_at="asdf", updated_at="sdfsdf", elements=[element])
-    return DumpResults(dumps=[dump])
+    dumps = select_dumps()
+    return DumpResults(dumps=dumps)
