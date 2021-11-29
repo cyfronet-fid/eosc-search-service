@@ -37,6 +37,13 @@ To run missing migrations: `pipenv run alembic upgrade head`.
 To auto-generate migrations after models changes:
 `pipenv run alembic revision --autogenerate -m "<revision message>"`.
 
+### Seed
+
+To create basic DB seed, run:
+```shell
+pipenv run python -m app.manager db seed-basic
+```
+
 
 ## Styles
 

@@ -8,6 +8,7 @@ fastapi = {extras = ["all"], version = "*"}
 pydantic = "*"
 alembic = "*"
 psycopg2 = "*"
+typer = "*"
 
 [dev-packages]
 black = "*"

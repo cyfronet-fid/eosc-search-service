@@ -40,8 +40,8 @@ def select_dumps():
         out.append(
             DumpModel(
                 name=dump.name,
-                created_at=dump.created_at.isoformat(),
-                updated_at=dump.updated_at.isoformat(),
+                created_at=dump.created_at.isoformat() + "Z",
+                updated_at=dump.updated_at.isoformat() + "Z",
                 elements=elements,
             )
         )
