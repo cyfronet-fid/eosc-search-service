@@ -7,16 +7,31 @@ services:
       - 8000:8000
     networks:
       - ess-local
+    environment:
+      DATABASE_URI: postgresql+psycopg2://${DB_POSTGRES_USER:-ess}:${DB_POSTGRES_PASSWORD:-ess}@localhost:5442/${DB_POSTGRES_DB:-ess}
   db:
     image: postgres:14
     ports:
       - 5442:5432
+    volumes:
+      - db-data:/var/lib/postgresql/data
     networks:
       - ess-local
     environment:
       POSTGRES_DB: ${DB_POSTGRES_DB:-ess}
       POSTGRES_USER: ${DB_POSTGRES_USER:-ess}
       POSTGRES_PASSWORD: ${DB_POSTGRES_PASSWORD:-ess}
+  solr:
+    image: solr:8.11
+    ports:
+      - "8983:8983"
+    volumes:
+      - solr-data:/var/solr
+    command: solr-precreate ess
+
+volumes:
+  db-data:
+  solr-data:
 
 networks:
   ess-local:

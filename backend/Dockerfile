@@ -2,6 +2,11 @@ FROM python:3.10
 
 WORKDIR /app
 
+# Don't write pyc files to disk
+ENV PYTHONDONTWRITEBYTECODE 1
+# Don't buffer stdout and stderr
+ENV PYTHONUNBUFFERED 1
+
 COPY Pipfile Pipfile.lock /app/
 
 RUN pip install --upgrade pip pipenv
