@@ -9,6 +9,7 @@ services:
       - ess-local
     environment:
       DATABASE_URI: postgresql+psycopg2://${DB_POSTGRES_USER:-ess}:${DB_POSTGRES_PASSWORD:-ess}@localhost:5442/${DB_POSTGRES_DB:-ess}
+      SOLR_URL: http://solr:8983/solr/
   db:
     image: postgres:14
     ports:
@@ -27,6 +28,8 @@ services:
       - "8983:8983"
     volumes:
       - solr-data:/var/solr
+    networks:
+      - ess-local
     command: solr-precreate ess
 
 volumes:

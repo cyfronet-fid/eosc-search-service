@@ -39,7 +39,7 @@ router = APIRouter()
         401: {"model": Unauthorized, "description": "Unauthorized"},
         403: {"model": Forbidden, "description": "Forbidden"},
     },
-    tags=["default"],
+    tags=["v1"],
     summary="Returns available dumps",
 )
 async def dumps_get(

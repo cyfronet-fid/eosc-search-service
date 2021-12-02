@@ -2,7 +2,9 @@
 
 from fastapi import FastAPI
 
-from app.generic.apis.default_api import router as DefaultApiRouter
+from app.generic.apis.default_api import router as generic_router
+
+from .apis import internal_api_router
 
 app = FastAPI(
     title="Search Service",
@@ -11,12 +13,5 @@ app = FastAPI(
 )
 
 
-@app.get("/")
-async def root():
-    """
-    Hello World
-    """
-    return {"message": "Hello World"}
-
-
-app.include_router(router=DefaultApiRouter, prefix="/v1")
+app.include_router(router=generic_router, prefix="/v1")
+app.include_router(router=internal_api_router, prefix="/internal")

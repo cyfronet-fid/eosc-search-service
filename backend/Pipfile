@@ -9,6 +9,7 @@ pydantic = "*"
 alembic = "*"
 psycopg2 = "*"
 typer = "*"
+httpx = "*"
 
 [dev-packages]
 black = "*"
