@@ -7,6 +7,8 @@ skip_gitignore = true
 enable=["useless-suppression"]
 # Ignore imports when checking for similarities
 ignore-imports=true
+# Allow single- and two-character names
+good-names-rgxs="^[_a-z][_a-z0-9]?$"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
