@@ -4,16 +4,16 @@ services:
   api:
     build: ./backend
     ports:
-      - 8000:8000
+      - "8000:8000"
     networks:
       - ess-local
     environment:
-      DATABASE_URI: postgresql+psycopg2://${DB_POSTGRES_USER:-ess}:${DB_POSTGRES_PASSWORD:-ess}@localhost:5442/${DB_POSTGRES_DB:-ess}
+      DATABASE_URI: postgresql+psycopg2://${DB_POSTGRES_USER:-ess}:${DB_POSTGRES_PASSWORD:-ess}@db:5432/${DB_POSTGRES_DB:-ess}
       SOLR_URL: http://solr:8983/solr/
   db:
     image: postgres:14
     ports:
-      - 5442:5432
+      - "5442:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:

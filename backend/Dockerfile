@@ -12,6 +12,8 @@ COPY Pipfile Pipfile.lock /app/
 RUN pip install --upgrade pip pipenv
 RUN pipenv install --deploy
 
+COPY alembic alembic
+COPY alembic.ini .
 COPY app app
 
 CMD pipenv run uvicorn --host 0.0.0.0 --port 8000 app.main:app
