@@ -8,9 +8,17 @@ Run `docker-compose up`.
 ## Solr
 
 To run a standalone Solr instance run: `docker-compose up -d solr`.
-It creates a single core, named `ess`.
+It creates two cores: `ess` and `marketplace`.
 
 To access the web interface go to http://localhost:8983/solr.
+
+Obtain an example data sample using for example selects from
+https://docs.cyfronet.pl/display/FID/OpenAire+indexable+data.
+
+Below assumes that Solr instance is available under localhost:8983, i.e. the port 8983
+is forwarded to host network.
+
+### mock-dump-1
 
 Then, to load an example dataset, stored in CSV:
 ```
@@ -19,11 +27,21 @@ docker run --rm -v "$PWD/data.csv:/mydata/data.csv" \
            solr:8.11 \
            post -c ess /mydata/data.csv
 ```
-This assumes, that Solr instance is available under localhost:8983, i.e. the port 8983
-is forwarded to host network.
 
-Obtain an example data sample using for example selects from
-https://docs.cyfronet.pl/display/FID/OpenAire+indexable+data.
+### mock-dump-2
+
+Either use directly the jsonl file or transform the original using (assuming the file is placed in `tmp/000017_0`):
+```
+python transform/tsv-to-jsonl-1.py tmp/000017_0 > tmp/000017_0.jsonl
+```
+
+Then, load such a sanitized dataset:
+```
+docker run --rm -v "$PWD/tmp/000017_0.jsonl:/mydata/data.jsonl" \
+           --network=host \
+           solr:8.11 \
+           post -c ess /mydata/data.jsonl
+```
 
 
 ## Running RS locally
