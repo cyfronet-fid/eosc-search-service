@@ -28,9 +28,11 @@ services:
       - "8983:8983"
     volumes:
       - solr-data:/var/solr
+      - ./solr/config/configsets:/configsets
+      - ./solr/config/solr.xml:/opt/solr/server/solr/solr.xml
+      - ./solr/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
     networks:
       - ess-local
-    command: solr-precreate ess
 
 volumes:
   db-data:
