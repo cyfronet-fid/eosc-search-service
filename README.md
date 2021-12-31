@@ -111,3 +111,17 @@ To populate the default core `ess`, follow the guide from the section Solr above
 The link to the sample data is in a comment to
 https://docs.cyfronet.pl/display/FID/OpenAire+indexable+data, for now only import
 `publications_0.csv` this way.
+
+## Releasing
+
+To create a release commit use the [standard-version](https://github.com/conventional-changelog/standard-version).
+
+To create a release:
+```
+npx standard-version
+```
+It will update the changelog and create a tag (according to the Conventional Commits spec).
+
+Then you have to push the tag and the commit to the remote.
+
+On pushing to remote a release with an extended changelog should be created.
