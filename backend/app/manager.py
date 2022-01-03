@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 import typer
 
-from .db import Session
+from .db import SessionLocal
 from .models import Dump, DumpElement
 
 db_group = typer.Typer()
@@ -15,7 +15,7 @@ def seed_basic():
     """
     Seed with a basic data-set
     """
-    with Session() as session:
+    with SessionLocal() as session:
         dump = Dump(
             name="openaire_1",
             created_at=datetime.now(timezone.utc),
@@ -39,7 +39,7 @@ def seed_oag_1():
     Seed with oag-1 data-set
     """
     s3_prefix = "https://ess-mock-dumps.s3.cloud.cyfronet.pl"
-    with Session() as session:
+    with SessionLocal() as session:
         dump = Dump(
             name="oag_1",
             created_at=datetime.now(timezone.utc),

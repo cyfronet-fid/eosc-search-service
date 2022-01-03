@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:14
+    ports:
+      - "5452:5432"
+    networks:
+      - ess-local-test
+    environment:
+      POSTGRES_DB: ${DB_POSTGRES_DB:-ess_test}
+      POSTGRES_USER: ${DB_POSTGRES_USER:-ess_test}
+      POSTGRES_PASSWORD: ${DB_POSTGRES_PASSWORD:-ess_test}
+
+networks:
+  ess-local-test:

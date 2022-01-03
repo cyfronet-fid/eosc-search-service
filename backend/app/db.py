@@ -1,7 +1,8 @@
 """DB connection and operations"""
+from typing import Generator, List
 
 from sqlalchemy import create_engine, select
-from sqlalchemy.orm import selectinload, sessionmaker
+from sqlalchemy.orm import Session, selectinload, sessionmaker
 
 from app.generic.models.dump import Dump as DumpModel
 from app.generic.models.dump_elements import DumpElements as DumpElementModel
@@ -11,20 +12,27 @@ from .models import Dump
 
 engine = create_engine(DATABASE_URI, future=True, echo=True)
 
-Session = sessionmaker(engine)
+SessionLocal = sessionmaker(engine)
 
 
-def select_dumps():
+def get_db() -> Generator[Session, None, None]:
+    """
+    Yields a Session object and takes care of closing it.
+    """
+    with SessionLocal() as db:
+        yield db
+
+
+def select_dumps(db: Session) -> List[DumpModel]:
     """
     Select all Dumps and its DumpElements, and return its API mapping.
     """
-    with Session() as session:
-        stmt = (
-            select(Dump)
-            .options(selectinload(Dump.elements))
-            .order_by(Dump.created_at.desc())
-        )
-        dumps = session.execute(stmt).scalars().all()
+    stmt = (
+        select(Dump)
+        .options(selectinload(Dump.elements))
+        .order_by(Dump.created_at.desc())
+    )
+    dumps = db.execute(stmt).scalars().all()
 
     out = []
     for dump in dumps:

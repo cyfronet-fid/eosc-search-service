@@ -16,8 +16,9 @@ from fastapi import (
     Security,
     status,
 )
+from sqlalchemy.orm import Session
 
-from app.db import select_dumps
+from app.db import get_db, select_dumps
 from app.generic.models.bad_request import BadRequest
 from app.generic.models.dump import Dump
 from app.generic.models.dump_elements import DumpElements
@@ -46,8 +47,9 @@ async def dumps_get(
     cursor: str = Query(None, description=""),
     rows: int = Query(None, description="", ge=0, le=100),
     token_main_security_scheme: TokenModel = Security(get_token_main_security_scheme),
+    db: Session = Depends(get_db),
 ) -> DumpResults:
     """Returns available dumps"""
     # pylint: disable=unused-argument
-    dumps = select_dumps()
+    dumps = select_dumps(db=db)
     return DumpResults(dumps=dumps)
