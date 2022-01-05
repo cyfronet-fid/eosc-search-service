@@ -61,4 +61,8 @@ pipenv run pylint app tests
 
 ## Running tests
 
-`pipenv run pytest`
+You need to run the test DB first `docker-compose -f dc-test.yml up -d`.
+
+```console
+TESTING=1 pipenv run pytest
+```

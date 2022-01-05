@@ -2,8 +2,6 @@
 
 """Test config"""
 
-import os
-
 import pytest
 from asgi_lifespan import LifespanManager
 from fastapi import FastAPI
@@ -14,15 +12,7 @@ from app.server import get_app
 
 
 @pytest.fixture(scope="session")
-def set_testing_env() -> None:
-    """Set TESTING env."""
-    os.environ["TESTING"] = "1"
-    yield
-    os.environ.pop("TESTING")
-
-
-@pytest.fixture(scope="session")
-def apply_migrations(set_testing_env: None):
+def apply_migrations():
     """Apply DB migrations in TESTING environment."""
     config = Config("alembic.ini")
 
