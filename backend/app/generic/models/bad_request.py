@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring,unused-import
+# pylint: disable=missing-module-docstring,unused-import,no-name-in-module,too-few-public-methods
 # coding: utf-8
 
 from __future__ import annotations

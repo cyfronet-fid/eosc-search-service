@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring
+# pylint: disable=missing-module-docstring,no-name-in-module,too-few-public-methods
 # coding: utf-8
 
 from pydantic import BaseModel

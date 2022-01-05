@@ -1,10 +1,13 @@
+import os
 from logging.config import fileConfig
 from os import getenv
 
-from alembic import context
+from psycopg2 import DatabaseError
 from sqlalchemy import create_engine
 
+from alembic import context
 from app import models
+from app.config import DATABASE_URI, IS_TESTING
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -27,7 +30,7 @@ target_metadata = models.Base.metadata
 
 
 def get_url():
-    return getenv("DATABASE_URI", config.get_main_option("sqlalchemy.url"))
+    return DATABASE_URI
 
 
 def run_migrations_offline():
@@ -42,6 +45,11 @@ def run_migrations_offline():
     script output.
 
     """
+    if IS_TESTING:
+        raise DatabaseError(
+            "Running testing migrations offline currently not permitted."
+        )
+
     context.configure(
         url=get_url(),
         target_metadata=target_metadata,

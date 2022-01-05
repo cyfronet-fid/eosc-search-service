@@ -11,6 +11,8 @@ alembic = "*"
 psycopg2 = "*"
 typer = "*"
 httpx = "*"
+asgi-lifespan = "*"
+pytest-asyncio = "*"
 
 [dev-packages]
 black = "*"

@@ -18,7 +18,8 @@ from fastapi import (
 )
 from sqlalchemy.orm import Session
 
-from app.db import get_db, select_dumps
+from app.db import select_dumps
+from app.deps import get_db
 from app.generic.models.bad_request import BadRequest
 from app.generic.models.dump import Dump
 from app.generic.models.dump_elements import DumpElements

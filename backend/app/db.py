@@ -1,26 +1,17 @@
 """DB connection and operations"""
-from typing import Generator, List
+from typing import List
 
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session, selectinload, sessionmaker
 
+from app.config import DATABASE_URI
 from app.generic.models.dump import Dump as DumpModel
 from app.generic.models.dump_elements import DumpElements as DumpElementModel
-
-from .config import DATABASE_URI
-from .models import Dump
+from app.models import Dump
 
 engine = create_engine(DATABASE_URI, future=True, echo=True)
 
 SessionLocal = sessionmaker(engine)
-
-
-def get_db() -> Generator[Session, None, None]:
-    """
-    Yields a Session object and takes care of closing it.
-    """
-    with SessionLocal() as db:
-        yield db
 
 
 def select_dumps(db: Session) -> List[DumpModel]:

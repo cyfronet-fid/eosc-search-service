@@ -1,6 +1,6 @@
 [tool.isort]
 profile = "black"
-src_paths = ["app", "tests"]
+src_paths = ["alembic", "app", "tests"]
 skip_gitignore = true
 
 [tool.pylint.'messages control']
@@ -12,3 +12,4 @@ good-names-rgxs="^[_a-z][_a-z0-9]?$"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
