@@ -7,10 +7,15 @@ Run `docker-compose up`.
 
 ## Solr
 
-To run a standalone Solr instance run: `docker-compose up -d solr`.
-It creates two cores: `ess` and `marketplace`.
+To run a standalone Solr instance run: `docker-compose up -d solr1 zoo1`.
+It registers all configsets from `/solr/config/configsets/`.
 
 To access the web interface go to http://localhost:8983/solr.
+
+To create a new collection, run
+```shell
+solr/create-collection.sh --name ess --config-name base-1
+```
 
 Obtain an example data sample using for example selects from
 https://docs.cyfronet.pl/display/FID/OpenAire+indexable+data.
@@ -74,7 +79,7 @@ docker-compose.yml for components).
 - `DB_POSTGRES_USER`
 - `DB_POSTGRES_PASSWORD`
 
-`solr` doesn't have any envs.
+`solr1` doesn't have any envs.
 
 ### DB migration
 
@@ -103,9 +108,6 @@ docker run --rm \
 
 
 ### Solr
-
-It should be placed on another machine. We don't use SolrCloud for now, only
-a single-instance installation.
 
 To populate the default core `ess`, follow the guide from the section Solr above.
 The link to the sample data is in a comment to
