@@ -2,8 +2,8 @@
 
 from fastapi import FastAPI
 
-from app.apis import internal_api_router
 from app.generic.apis.default_api import router as generic_router
+from app.routes import internal_api_router
 from app.tasks import create_start_app_handler, create_stop_app_handler
 
 

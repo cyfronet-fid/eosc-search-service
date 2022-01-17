@@ -11,3 +11,6 @@ DATABASE_URI = (
 )
 
 SOLR_URL = os.getenv("SOLR_URL", "http://localhost:8983/solr/")
+
+RS_URL = os.getenv("RS_URL", "http://localhost:9080/")
+RS_ROWS = int(os.getenv("RS_ROWS", "1000"))

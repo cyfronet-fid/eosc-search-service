@@ -50,10 +50,23 @@ Available seeds:
 - `seed-oag-1`
 
 
+## Running in console
+
+To run in console, ensure you have spun up required services (e.g. migrated db, Solr, etc.) and execute:
+```shell
+pipenv run uvicorn app.main:app
+```
+
+To reload on changes:
+```shell
+pipenv run uvicorn app.main:app --reload
+```
+
+
 ## Styles
 
 ```console
-pipenv run black app tests
+pipenv run black alembic app tests
 pipenv run isort .
 pipenv run pylint app tests
 ```
@@ -61,8 +74,8 @@ pipenv run pylint app tests
 
 ## Running tests
 
-You need to run the test DB first `docker-compose -f dc-test.yml up -d`.
+You need to run the test services first `docker-compose -f dc-test.yml up -d`.
 
 ```console
-TESTING=1 pipenv run pytest
+TESTING=1 SOLR_URL=http://localhost:8993/solr/ pipenv run pytest
 ```

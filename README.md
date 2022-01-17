@@ -73,6 +73,8 @@ docker-compose.yml for components).
 `api` envs:
 - `DATABASE_URI`, in format: `postgresql+psycopg2://<db_user>:<db_password>@db:5432/<db_name>`
 - `SOLR_URL`, for example `http://solr.domain:8983/solr/`
+- `RS_URL`, for example `http://localhost:9080/`
+- `RS_ROWS`, number of first results to pass to recommender, for example `1000`
 
 `db` envs:
 - `DB_POSTGRES_DB`

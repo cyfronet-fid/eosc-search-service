@@ -35,6 +35,10 @@ jobs:
       working-directory: ./backend
       env:
         TESTING: 1
+        SOLR_URL: http://localhost:8993/solr/
+    - name: Containers logs
+      if: always()
+      run: docker-compose logs
     - name: Stop containers
       if: always()
       run: docker-compose -f dc-test.yml down

@@ -5,12 +5,45 @@ services:
     image: postgres:14
     ports:
       - "5452:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
     networks:
       - ess-local-test
     environment:
       POSTGRES_DB: ${DB_POSTGRES_DB:-ess_test}
       POSTGRES_USER: ${DB_POSTGRES_USER:-ess_test}
       POSTGRES_PASSWORD: ${DB_POSTGRES_PASSWORD:-ess_test}
+  solr1:
+    image: solr:8.11
+    ports:
+      - "8993:8983"
+    volumes:
+      - solr-data:/var/solr
+      - ./solr/config/configsets:/configsets
+      - ./solr/config/solr.xml:/opt/solr/server/solr/solr.xml
+      - ./solr/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    networks:
+      - ess-local-test
+    environment:
+      ZK_HOST: zoo1:2181
+    depends_on:
+      - zoo1
+  zoo1:
+    image: zookeeper:3.7
+    restart: always
+    volumes:
+      - zoo1-data:/data
+      - zoo1-datalog:/datalog
+    networks:
+      - ess-local-test
+    environment:
+      ZOO_4LW_COMMANDS_WHITELIST: mntr, conf, ruok
+
+volumes:
+  db-data:
+  solr-data:
+  zoo1-data:
+  zoo1-datalog:
 
 networks:
   ess-local-test:
