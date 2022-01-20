@@ -5,33 +5,46 @@ from json import JSONDecodeError
 from fastapi import HTTPException, Query
 from httpx import AsyncClient
 
-from app.config import SOLR_URL
+from app.solr.operations import search
 
 from .util import DEFAULT_SORT, internal_api_router
 
 
+# pylint: disable=too-many-arguments
 @internal_api_router.get("/search", name="apis:get-search")
 async def search_get(
-    q: str = Query(..., description="Query string"),
     collection: str = Query(..., description="Collection"),
-    rows: int = Query(10, description="Row count", gte=0, le=100),
-    cursor: str = Query("*", description="Cursor"),
+    q: str = Query(..., description="Free-form query string"),
+    qf: list[str] = Query([], description="Query fields", example=["authors", "title"]),
+    fq: list[str] = Query(
+        [],
+        description="Filter query",
+        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+    ),
     sort: list[str] = Query(
         [], description="Sort order", example=["description asc", "name desc"]
     ),
+    rows: int = Query(10, description="Row count", gte=0, le=100),
+    cursor: str = Query("*", description="Cursor"),
 ):
-    """Do a search against the specified collection"""
+    """
+    Do a search against the specified collection.
+
+    The q, qf, fq, sort params correspond to
+    https://solr.apache.org/guide/8_11/query-syntax-and-parsing.html.
+    Paging is cursor-based, see
+    https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
+    """
     async with AsyncClient() as client:
-        response = await client.get(
-            f"{SOLR_URL}{collection}/select",
-            params={
-                "defType": "edismax",
-                "q": q,
-                "rows": rows,
-                "cursorMark": cursor,
-                "sort": ", ".join(sort + DEFAULT_SORT),
-                "wt": "json",
-            },
+        response = await search(
+            client,
+            collection,
+            q=q,
+            qf=qf,
+            fq=fq,
+            sort=sort + DEFAULT_SORT,
+            rows=rows,
+            cursor=cursor,
         )
     if response.is_error:
         try:

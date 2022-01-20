@@ -5,8 +5,7 @@ skip_gitignore = true
 
 [tool.pylint.'messages control']
 enable=["useless-suppression"]
-# Ignore imports when checking for similarities
-ignore-imports=true
+disable=["similarities"]
 # Allow single- and two-character names
 good-names-rgxs="^[_a-z][_a-z0-9]?$"
 # pydantic issue workaround: https://github.com/samuelcolvin/pydantic/issues/1961
