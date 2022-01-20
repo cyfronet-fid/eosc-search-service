@@ -5,26 +5,14 @@ on: push
 jobs:
   backend:
     runs-on: ubuntu-latest
-    env:
-      PIPENV_VENV_IN_PROJECT: enabled
     steps:
     - uses: actions/checkout@v2
+    - name: Install pipenv
+      run: pipx install pipenv
     - uses: actions/setup-python@v2
       with:
-        python-version: "3.10"
-    - name: Upgrade pip and install pipenv
-      run: |
-        pip install --upgrade pip
-        pip install pipenv
-      working-directory: ./backend
-    - name: Cache dependencies
-      uses: actions/cache@v2
-      id: cache-dependencies
-      with:
-        path: ./backend/.venv
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('./backend/Pipfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pipenv
+        python-version: '3.10.2'
+        cache: 'pipenv'
     - name: Install dependencies
       run: pipenv sync --dev
       working-directory: ./backend
