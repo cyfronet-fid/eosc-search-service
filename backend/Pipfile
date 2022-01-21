@@ -13,6 +13,9 @@ typer = "*"
 httpx = "*"
 asgi-lifespan = "*"
 pytest-asyncio = "*"
+fastapi-sessions = "*"
+cryptojwt = "*"
+oidcrp = "*"
 
 [dev-packages]
 black = "*"
