@@ -41,7 +41,6 @@ if __name__ == "__main__":
         ("subject", True),
         ("fulltext", False),
     ]
-    headers = ["id", "pid", "title", "authors", "description", "journal", "language", "subject", "fulltext"]
     try:
         for i, row in enumerate(reader):
             count += 1

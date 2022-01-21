@@ -48,6 +48,25 @@ docker run --rm -v "$PWD/tmp/000017_0.jsonl:/mydata/data.jsonl" \
            post -c ess /mydata/data.jsonl
 ```
 
+### queries v2
+
+How to load output of version 2 of the Hive queries, as available in: https://docs.cyfronet.pl/display/FID/Queries+v2.
+
+Either use directly the jsonl file or transform the original using (assuming the file is placed in `tmp/qv2-pub/000550_0`):
+```
+python transform/v2/tsv-to-jsonl.py tmp/qv2-pub/000550_0 > tmp/qv2-pub/000550_0.jsonl
+```
+
+To process datafiles without journal set envvar `OMIT_JOURNAL=1` for processing.
+
+Then, load such a sanitized dataset:
+```
+docker run --rm -v "$PWD/tmp/000017_0.jsonl:/mydata/data.jsonl" \
+           --network=host \
+           solr:8.11 \
+           post -c ess /mydata/data.jsonl
+```
+
 
 ## Running RS locally
 
