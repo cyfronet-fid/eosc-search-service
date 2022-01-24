@@ -1,0 +1,144 @@
+<div class="search-bar">
+  <div class="row">
+    <div class="col-3 d-grid">
+      <a href=".">
+        <img id="logo" src="assets/eosc-logo-color.png" alt="EOSC logo">
+      </a>
+    </div>
+    <div class="col-6 d-grid vertical-center">
+      <input type="text" id="search" class="rounded-pill" />
+    </div>
+    <div class="col-3 d-grid vertical-center">
+      <button id="btn--search" class="btn btn-primary" type="button">Navigation</button>
+    </div>
+  </div>
+</div>
+<div class="dashboard">
+  <div id="dashboard__header">
+    <div id="header__search-phrase">
+      <p class="text-secondary">SEARCH RESULTS FOR:</p>
+      <h3>(display current search value)</h3>
+    </div>
+    <button type="button" id="dahboard__header-btn">
+      Switch to recommended results only
+    </button>
+  </div>
+  <div class="row" id="dashboard__labels">
+    <div class="col dashboard__label">
+      MARKETPLACE&nbsp;<strong>148 results</strong>
+    </div>
+    <div class="col dashboard__label">
+      RESEARCH OUTCOMES&nbsp;<strong>2053 results</strong>
+    </div>
+    <div class="col dashboard__label">
+      CONTENT PROVIDERS&nbsp;<strong>12243 results</strong>
+    </div>
+    <div class="col dashboard__label">
+      ORGANSATIONS&nbsp;<strong>538 results</strong>
+    </div>
+    <div class="col dashboard__label">
+      KNOWLEDGE HUB&nbsp;<strong>188 results</strong>
+    </div>
+  </div>
+  <br><br><br>
+  <div class="row" id="dashboard__main">
+    <div class="col-3" id="dashboard__filters">
+      <section class="dashboard__filter">
+        <h5>Categories</h5>
+        <ng-container *ngFor="let category of categories">
+          <p>
+            {{ category.label }}
+            <span class="text-secondary" style="float: right">
+              {{ category.count }}
+            </span>
+          </p>
+        </ng-container>
+      </section>
+      <section class="dashboard__filter">
+        <h5>Filter by</h5>
+        <h6 class="text-secondary">SCIENTIFIC DOMAINS</h6>
+        <input type="text" id="domains-filter" placeholder="Find or choose from the list below" />
+        <nz-tree
+          [nzData]="nodes"
+          nzCheckable
+          nzMultiple
+          [nzCheckedKeys]="[]"
+          [nzExpandedKeys]="[]"
+          [nzSelectedKeys]="[]"
+        ></nz-tree>
+      </section>
+    </div>
+    <div class="col-9">
+      <section id="dashboard__recommendations">
+        <p>
+          <b>Recommended for you</b>
+          &nbsp;&nbsp;
+          <span class="text-secondary">See more recommendations in Your EOSC</span>
+        </p>
+        <div class="row">
+          <ng-container *ngFor="let recommendedResource of recommendedResources">
+            <div class="col-4 dashboard__recommendation">
+              <div class="card__container">
+                <p class="fs-4 text-secondary">{{ recommendedResource.label }}</p>
+                <ngb-rating
+                  [max]="recommendedResource.rating"
+                  [rate]="recommendedResource.rating"
+                  [readonly]="true"
+                >
+                </ngb-rating>
+                ({{ recommendedResource.rating }})
+                <p class="text-muted"><small>{{ recommendedResource.description }}</small></p>
+                <p><small>Organisation: {{ recommendedResource.organisation }}</small></p>
+              </div>
+            </div>
+          </ng-container>        </div>
+      </section>
+      <section id="dashboard__recommended-resources">
+        <p>
+          <b>Recommended resources</b>
+          &nbsp;&nbsp;
+          <span class="text-secondary">Browse recommended resources (20)</span>
+        </p>
+        <ng-container *ngFor="let recommendedResource of recommendedResources">
+          <div class="card__container dashboard__recommended-resource">
+            <div class="row">
+              <div class="col-3 recommended-resource__img">
+                <img src="{{ recommendedResource.imageSrc }}" />
+              </div>
+              <div class="col-9 recommended-resource__details">
+                <p class="fs-4 text-secondary">{{ recommendedResource.label }}</p>
+                <ngb-rating
+                  [max]="recommendedResource.rating"
+                  [rate]="recommendedResource.rating"
+                  [readonly]="true"
+                >
+                </ngb-rating>
+                ({{ recommendedResource.rating }})
+                <p class="text-muted"><small>{{ recommendedResource.description }}</small></p>
+                <p><small>Organisation: {{ recommendedResource.organisation }}</small></p>
+                <div class="row">
+                  <div class="col">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="compare">
+                      <label class="form-check-label" for="compare">
+                        Default checkbox
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="favourite">
+                      <label class="form-check-label" for="favourite">
+                        Default checkbox
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </section>
+    </div>
+  </div>
+</div>
