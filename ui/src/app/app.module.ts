@@ -7,11 +7,13 @@ import { MainPageComponent } from './main-page/main-page.component';
 import {NgbRatingModule} from "@ng-bootstrap/ng-bootstrap";
 import {NzTreeModule} from "ng-zorro-antd/tree";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MainHeaderComponent} from "./main-header.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainPageComponent
+    MainPageComponent,
+    MainHeaderComponent
   ],
   imports: [
     BrowserModule,
