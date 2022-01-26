@@ -32,3 +32,23 @@
   display: flex;
   align-items: center;
 }
+
+#dashboard__labels {
+  padding-top: 50px;
+  min-width: 100%;
+}
+#dashboard__header {
+  clear: both;
+}
+#dahboard__header-btn {
+  float: right;
+}
+#header__search-phrase {
+  float: left;
+  max-width: 50%;
+}
+
+.dashboard__label {
+  background-color: #F7F9FF;
+  padding: 12px;
+}
