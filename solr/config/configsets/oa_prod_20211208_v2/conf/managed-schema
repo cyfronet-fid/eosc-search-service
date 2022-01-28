@@ -116,11 +116,30 @@
 
     <!-- If you don't use child/nested documents, then you should remove the next two fields:  -->
     <!-- for nested documents (minimal; points to root document) -->
-    <field name="_root_" type="string" indexed="true" stored="false" docValues="false" />
+    <!-- <field name="_root_" type="string" indexed="true" stored="false" docValues="false" /> -->
     <!-- for nested documents (relationship tracking) -->
-    <field name="_nest_path_" type="_nest_path_" /><fieldType name="_nest_path_" class="solr.NestPathField" />
+    <!-- <field name="_nest_path_" type="_nest_path_" /><fieldType name="_nest_path_" class="solr.NestPathField" /> -->
 
     <field name="_text_" type="text_general" indexed="true" stored="false" multiValued="true"/>
+
+    <field name="pid" type="strings"/>
+    <field name="title" type="text_general"/>
+    <field name="description" type="text_general"/>
+    <field name="subject" type="strings"/>
+    <field name="publisher" type="string"/>
+    <field name="bestaccessright" type="strings"/>
+    <field name="language" type="strings"/>
+    <field name="journal" type="string"/>
+    <field name="fulltext" type="text_general"/>
+    <field name="published" type="strings"/>
+    <field name="author_names" type="text_general"/>
+    <field name="author_pids" type="strings"/>
+    <field name="organization_names" type="text_general"/>
+    <field name="organization_shorts" type="strings"/>
+    <field name="organization_ids" type="strings"/>
+    <field name="project_titles" type="text_general"/>
+    <field name="project_ids" type="strings"/>
+    <field name="project_codes" type="strings"/>
 
     <!-- This can be enabled, in case the client does not know what fields may be searched. It isn't enabled by default
          because it's very expensive to index everything twice. -->

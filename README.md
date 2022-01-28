@@ -12,6 +12,12 @@ It registers all configsets from `/solr/config/configsets/`.
 
 To access the web interface go to http://localhost:8983/solr.
 
+To upload an additional configset:
+```shell
+docker run --rm -v "$PWD/solr/config/configsets:/configsets" --network=host solr:8.11 \
+       solr zk upconfig -n "<name>" -d "/configsets/<name>" -z localhost:2181
+```
+
 To create a new collection, run
 ```shell
 solr/create-collection.sh --name ess --config-name base-1
