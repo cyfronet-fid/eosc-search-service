@@ -7,7 +7,6 @@ from starlette import status
 from starlette.responses import RedirectResponse
 
 from app.config import OIDC_ISSUER, UI_DOMAIN
-from app.schemas.logout_response import LogoutResponse
 from app.schemas.session_data import SessionData
 from app.schemas.user_info_response import UserInfoResponse
 from app.utils.cookie_validators import backend, cookie, verifier
@@ -58,8 +57,8 @@ async def user_info(session_data: SessionData = Depends(verifier)) -> UserInfoRe
     return UserInfoResponse(username=session_data.username)
 
 
-@router.post("/logout")
+@router.get("/logout")
 async def logout(response: Response, session_id: UUID = Depends(cookie)):
     await backend.delete(session_id)
     cookie.delete_from_response(response)
-    return LogoutResponse(msg="Session have been removed")
+    return RedirectResponse(status_code=303, url=UI_DOMAIN)
