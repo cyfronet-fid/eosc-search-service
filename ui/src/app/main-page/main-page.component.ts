@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import {NzContextMenuService, NzDropdownMenuComponent} from "ng-zorro-antd/dropdown";
-import {NzTreeNodeOptions} from "ng-zorro-antd/tree";
+import {MocksService} from "./mocks.service";
 
 @Component({
   selector: 'app-main-page',
@@ -8,72 +7,12 @@ import {NzTreeNodeOptions} from "ng-zorro-antd/tree";
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-  recommendedResources = [
-    {
-      imageSrc: "https://picsum.photos/150/150",
-      label: "Test",
-      rating: 3,
-      description: "Lorem ipsum",
-      organisation: "New organisation"
-    },
-    {
-      imageSrc: "https://picsum.photos/150/150",
-      label: "Test",
-      rating: 3,
-      description: "Lorem ipsum",
-      organisation: "New organisation"
-    },
-    {
-      imageSrc: "https://picsum.photos/150/150",
-      label: "Test",
-      rating: 3,
-      description: "Lorem ipsum",
-      organisation: "New organisation"
-    }
-  ]
-  categories = [
-    {
-      label: "Access physical & eifrastructures",
-      count: 3,
-    },
-    {
-      label: "Aggregators & Integrators",
-      count: 12
-    },
-    {
-      label: "Other",
-      count: 36
-    }
-  ]
-  nodes: NzTreeNodeOptions[] = [
-    {
-      title: "Generic",
-      key: "generic",
-      isLeaf: true,
-    },
-    {
-      title: 'Natural Sciences',
-      key: 'natural-sciences',
-      expanded: true,
-      children: [
-        {
-          title: 'Earth & Related Environmental Sciences',
-          key: 'earth-and-related-environmental-sciences',
-          isLeaf: true
-        },
-        {
-          title: 'Biological Sciences',
-          key: 'biological-sciences',
-          isLeaf: true
-        },
-        {
-          title: 'Chemical sciences',
-          key: 'chemical-sciences',
-          isLeaf: true
-        }
-      ]
-    },
-  ];
+  searchResults$ = this._mocksService.getSearchResults$()
+  labels$ = this._mocksService.getLabels$()
+  categories$ = this._mocksService.getCategories$()
+  filters$ = this._mocksService.getFilters$()
+  recommendations$ = this._mocksService.getRecommendations$()
+  recommendedResources$ = this._mocksService.getRecommendedResources$()
 
-  constructor() { }
+  constructor(private _mocksService: MocksService) { }
 }

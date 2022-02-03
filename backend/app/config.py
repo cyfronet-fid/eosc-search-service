@@ -1,4 +1,11 @@
-"""Application configuration"""
+"""
+    IMPORTANT!!! We're using environment variables served from system instead of
+    keeping them in file due security risks.
+
+    Configuration of the app based on
+    https://www.starlette.io/config/
+"""
+
 import os
 
 from starlette.config import Config
