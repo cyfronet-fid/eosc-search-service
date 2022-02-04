@@ -10,22 +10,25 @@ export class MocksService {
 
   constructor(private _http: HttpClient) {}
 
+  getUserInfo$() {
+    return this._http.get<any>(`${backendUrlBase}/auth/userinfo`, { withCredentials: true})
+  }
   getSearchResults$() {
-    return this._http.get<any[]>(`${backendUrlBase}/search-results`)
+    return this._http.get<any[]>(`${backendUrlBase}/search-results`, { withCredentials: true })
   }
   getLabels$() {
-    return this._http.get<any[]>(`${backendUrlBase}/labels`)
+    return this._http.get<any[]>(`${backendUrlBase}/labels`, { withCredentials: true })
   }
   getCategories$() {
-    return this._http.get<any[]>(`${backendUrlBase}/categories`)
+    return this._http.get<any[]>(`${backendUrlBase}/categories`, { withCredentials: true })
   }
   getFilters$() {
-    return this._http.get<any[]>(`${backendUrlBase}/filters`)
+    return this._http.get<any[]>(`${backendUrlBase}/filters`, { withCredentials: true })
   }
   getRecommendations$() {
-    return this._http.get<any[]>(`${backendUrlBase}/recommendations`)
+    return this._http.get<any[]>(`${backendUrlBase}/recommendations`, { withCredentials: true })
   }
   getRecommendedResources$() {
-    return this._http.get<any[]>(`${backendUrlBase}/recommended-resources`)
+    return this._http.get<any[]>(`${backendUrlBase}/recommended-resources`, { withCredentials: true })
   }
 }

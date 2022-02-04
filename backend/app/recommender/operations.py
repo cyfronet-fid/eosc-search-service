@@ -2,7 +2,7 @@
 from httpx import AsyncClient, Response
 
 from app.config import RS_URL
-from app.requests import RecommendRequest
+from app.schemas.recommend_request import RecommendRequest
 
 
 async def recommendations(

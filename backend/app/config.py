@@ -57,7 +57,7 @@ OIDC_CLIENT_OPTIONS = client_options = dict(
         token_endpoint=f"https://{OIDC_HOST}/oidc/token",
         userinfo_endpoint=f"https://{OIDC_HOST}/oidc/userinfo",
     ),
-    redirect_uris=[f"{HOST}/api/v1/auth/checkin"],
+    redirect_uris=[f"{HOST}/api/web/auth/checkin"],
     post_logout_redirect_uri=f"{HOST}/auth/logout",
     backchannel_logout_uri=f"{HOST}/auth/logout",
     backchannel_logout_session_required=True,
