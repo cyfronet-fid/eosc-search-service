@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../../../eosc-profile-service/ui/src/environments/environment";
+import {environment} from "../../environments/environment";
 
 const backendUrlBase = `${environment.backendUrl}/${environment.webApiPath}`
 

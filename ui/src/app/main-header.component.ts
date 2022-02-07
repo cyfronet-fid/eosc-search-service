@@ -6,20 +6,23 @@ import {
   ViewEncapsulation
 } from "@angular/core";
 import {MocksService} from "./main-page/mocks.service";
+import {environment} from "../environments/environment";
 
 @Component({
   selector: 'app-main-header',
   template: `
     <div
       id="eosc-common-main-header"
-      data-login-url="http://localhost:8000/api/web/auth/request"
-      data-logout-url="http://localhost:8000/api/web/auth/logout"
+      [attr.data-login-url]="backendUrl + '/auth/request'"
+      [attr.data-logout-url]="backendUrl + '/auth/logout'"
       #eoscCommonMainHeader
     ></div>
   `,
   encapsulation: ViewEncapsulation.None
 })
 export class MainHeaderComponent implements OnInit {
+  backendUrl = `${environment.backendUrl}/${environment.webApiPath}`
+
   @ViewChild("eoscCommonMainHeader", {static: false}) containerRef: ElementRef | undefined;
 
   constructor(private _mocksService: MocksService, private _renderer: Renderer2) {}
