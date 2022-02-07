@@ -63,7 +63,8 @@ Either use directly the jsonl file or transform the original using (assuming the
 python transform/v2/tsv-to-jsonl.py tmp/qv2-pub/000550_0 > tmp/qv2-pub/000550_0.jsonl
 ```
 
-To process datafiles without journal set envvar `OMIT_JOURNAL=1` for processing.
+To process datafiles without journal (you can check for it in the confluence page) set envvar `OMIT_JOURNAL=1` for
+processing.
 
 Then, load such a sanitized dataset:
 ```
@@ -92,21 +93,31 @@ docker run -p 9080:80 omae:0.0.1
 
 ## Deployment
 
-There are to be two machines, one for db and api, another for solr (see
-docker-compose.yml for components).
+There are to be two machines:
+- (I) for db, api and RS mock
+- (II) for solr.
+See docker-compose.yml for components.
 
 `api` envs:
 - `DATABASE_URI`, in format: `postgresql+psycopg2://<db_user>:<db_password>@db:5432/<db_name>`
 - `SOLR_URL`, for example `http://solr.domain:8983/solr/`
 - `RS_URL`, for example `http://localhost:9080/`
-- `RS_ROWS`, number of first results to pass to recommender, for example `1000`
+- `SECRET_KEY`
+- `OIDC_CLIENT_ID`
+- `OIDC_CLIENT_SECRET`
 
 `db` envs:
 - `DB_POSTGRES_DB`
 - `DB_POSTGRES_USER`
 - `DB_POSTGRES_PASSWORD`
 
-`solr1` doesn't have any envs.
+The RS mock (online-ml-ai-engine, omae) should be deployed as described in "Running RS locally",
+with `api`'s RS_URL pointed at it.
+
+`solr1` envs:
+- `ZK_HOST`, comma separated Zookeeper hosts, e.g. `zoo1:2181` or `zoo1:2181,zoo2:2181,zoo3:2181`
+
+`zoo1` doesn't have any envs.
 
 ### DB migration
 
@@ -136,10 +147,15 @@ docker run --rm \
 
 ### Solr
 
-To populate the default core `ess`, follow the guide from the section Solr above.
-The link to the sample data is in a comment to
-https://docs.cyfronet.pl/display/FID/OpenAire+indexable+data, for now only import
-`publications_0.csv` this way.
+Run `solr1` with the explicit volumes as in `docker-compose.yml`, so that it creates missing configsets in Zookeeper
+on startup.
+
+Then, you will need to create collections manually, see the section on Solr.
+The cluster should have collection: `publication_oa_prod_20211208_v2` (schema: `oa_prod_20211208_v2`).
+
+Populate it using v2 publication data (see v2 comment to https://docs.cyfronet.pl/display/FID/OpenAire+indexable+data).
+The records are in `publication/000550_0`. They need to be transformed and pushed to the collection (see also
+the Solr section above for how to do it for v2).
 
 ## Releasing
 
