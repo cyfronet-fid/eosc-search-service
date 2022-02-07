@@ -13,6 +13,7 @@ services:
       OIDC_CLIENT_ID: "${OIDC_CLIENT_ID}"
       OIDC_CLIENT_SECRET: "${OIDC_CLIENT_SECRET}"
       SECRET_KEY: "${SECRET_KEY}"
+      UI_DOMAIN: "${UI_DOMAIN}"
     depends_on:
       - db
       - solr1

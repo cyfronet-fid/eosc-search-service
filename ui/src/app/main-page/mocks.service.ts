@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../../../eosc-profile-service/ui/src/environments/environment";
 
-const backendUrlBase = "http://localhost:8000/api/web"
+const backendUrlBase = `${environment.backendUrl}/${environment.webApiPath}`
 
 @Injectable({
   providedIn: 'root'
