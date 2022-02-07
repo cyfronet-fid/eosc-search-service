@@ -1,28 +1,45 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
-  OnChanges,
-  OnDestroy,
-  SimpleChanges,
+  OnInit, Renderer2,
   ViewChild,
   ViewEncapsulation
 } from "@angular/core";
+import {MocksService} from "./main-page/mocks.service";
 
-const mainHeaderElementName = "eosc-main-header";
 @Component({
   selector: 'app-main-header',
-  template: '<div #${mainHeaderElementName}></div>',
+  template: `
+    <div
+      id="eosc-common-main-header"
+      data-login-url="http://localhost:8000/api/web/auth/request"
+      data-logout-url="http://localhost:8000/api/web/auth/logout"
+      #eoscCommonMainHeader
+    ></div>
+  `,
   encapsulation: ViewEncapsulation.None
 })
-export class MainHeaderComponent implements OnChanges, AfterViewInit {
-  @ViewChild(mainHeaderElementName, {static: false}) containerRef: ElementRef | undefined;
+export class MainHeaderComponent implements OnInit {
+  @ViewChild("eoscCommonMainHeader", {static: false}) containerRef: ElementRef | undefined;
 
-  ngOnChanges(changes: SimpleChanges) {
-    // render
-  }
+  constructor(private _mocksService: MocksService, private _renderer: Renderer2) {}
 
-  ngAfterViewInit() {
-    // render
+  ngOnInit() {
+    this._mocksService.getUserInfo$()
+      .toPromise()
+      .then(userinfo => {
+        this._renderer.setAttribute(this.containerRef?.nativeElement, "username", userinfo?.username);
+        (window as any).renderCustomComponent(
+          (window as any).EoscCommonMainHeader,
+          { id: "eosc-common-main-header" }
+        )
+      })
+      .catch(error => {
+        this._renderer.setAttribute(this.containerRef?.nativeElement, "username", "");
+        (window as any).renderCustomComponent(
+          (window as any).EoscCommonMainHeader,
+          { id: "eosc-common-main-header" }
+        )
+      })
   }
 }
