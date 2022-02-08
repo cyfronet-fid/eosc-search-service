@@ -1,4 +1,4 @@
-"""Request bodies"""
+"""Recommend request schema"""
 from datetime import datetime
 
 from pydantic import BaseModel
