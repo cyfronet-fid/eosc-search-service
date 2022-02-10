@@ -15,4 +15,8 @@ export class MainPageComponent {
   recommendedResources$ = this._mocksService.getRecommendedResources$()
 
   constructor(private _mocksService: MocksService) { }
+
+  randomRating() {
+    return Math.random() * 5
+  }
 }

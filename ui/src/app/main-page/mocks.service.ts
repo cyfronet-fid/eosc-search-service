@@ -15,7 +15,11 @@ export class MocksService {
     return this._http.get<any>(`${backendUrlBase}/auth/userinfo`, { withCredentials: true})
   }
   getSearchResults$() {
-    return this._http.get<any[]>(`${backendUrlBase}/search-results`, { withCredentials: true })
+    const params = {
+      q: "*",
+      collection: "oag_researchoutcomes_prod_20211208_v2"
+    }
+    return this._http.get<any>(`${backendUrlBase}/search-results`, { params: params, withCredentials: true })
   }
   getLabels$() {
     return this._http.get<any[]>(`${backendUrlBase}/labels`, { withCredentials: true })
