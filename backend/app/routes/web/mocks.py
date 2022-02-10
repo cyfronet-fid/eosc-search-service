@@ -5,14 +5,8 @@ from app.schemas.category_response import CategoryResponse
 from app.schemas.filter_response import FilterNodeResponse, FilterResponse
 from app.schemas.label_response import LabelResponse
 from app.schemas.resource_response import ResourceResponse
-from app.schemas.search_result_response import SearchResultResponse
 
 router = APIRouter()
-
-
-@router.get("/search-results")
-async def search_results():
-    return [SearchResultResponse(label="Categories > category", value="category")]
 
 
 @router.get("/labels")

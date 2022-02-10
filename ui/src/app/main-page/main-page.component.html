@@ -85,6 +85,31 @@
             </div>
           </ng-container>        </div>
       </section>
+      <section id="dashboard__search-results" class="mt-3">
+        <ng-container *ngFor="let result of searchResults$ | async">
+          <div class="card__container dashboard__search-result">
+            <div class="row">
+              <div class="col-12 search-result__details">
+                <a
+                  href="{{ 'https://explore.openaire.eu/search/publication?articleId=' + ('' + result.id).substring(3) }}"
+                  target="_blank"
+                  class="fs-4 text-secondary"
+                >
+                  {{ result.title }}
+                </a>
+                <ngb-rating
+                  [max]=5
+                  [rate]="randomRating()"
+                  [readonly]="true"
+                >
+                </ngb-rating>
+                <p class="text-muted"><small>{{ result.title }}</small></p>
+                <p><small>Authors: {{ (result.author_names || []).join("; ") }}</small></p>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </section>
       <section id="dashboard__recommended-resources">
         <p>
           <b>Recommended resources</b>
