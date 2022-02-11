@@ -2,6 +2,7 @@
 from httpx import AsyncClient, Response
 
 from app.config import SOLR_URL
+from app.schemas.search_request import TermsFacet
 
 
 async def search(
@@ -14,6 +15,7 @@ async def search(
     sort: list[str],
     rows: int,
     cursor: str = "*",
+    facets: dict[str, TermsFacet] = None,
 ) -> Response:
     # pylint: disable=line-too-long
     """
@@ -26,10 +28,11 @@ async def search(
     https://solr.apache.org/guide/8_11/query-syntax-and-parsing.html.
     Paging is cursor-based, see
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
+
+    Facets support a subset of parameters from: https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
-    return await client.get(
-        f"{SOLR_URL}{collection}/select",
-        params={
+    request_body = {
+        "params": {
             "defType": "edismax",
             "q": q,
             "qf": qf,
@@ -38,5 +41,11 @@ async def search(
             "cursorMark": cursor,
             "sort": ", ".join(sort),
             "wt": "json",
-        },
+        }
+    }
+    if facets is not None and len(facets) > 0:
+        request_body["facet"] = {k: v.dict() for k, v in facets.items()}
+    return await client.post(
+        f"{SOLR_URL}{collection}/select",
+        json=request_body,
     )
