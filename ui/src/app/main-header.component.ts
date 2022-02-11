@@ -1,12 +1,21 @@
 import {
   Component,
-  ElementRef,
-  OnInit, Renderer2,
-  ViewChild,
+  OnInit,
   ViewEncapsulation
 } from "@angular/core";
 import {MocksService} from "./main-page/mocks.service";
 import {environment} from "../environments/environment";
+import {catchError, of} from "rxjs";
+
+
+interface EoscCommonWindow extends Window {
+  eosccommon: {
+    renderMainFooter: (cssSelector: string) => void,
+    renderMainHeader: (cssSelector: string, elementAttr?: {}) => void,
+    renderEuInformation: (cssSelector: string) => void,
+  }
+}
+declare let window: EoscCommonWindow;
 
 @Component({
   selector: 'app-main-header',
@@ -22,27 +31,17 @@ import {environment} from "../environments/environment";
 })
 export class MainHeaderComponent implements OnInit {
   backendUrl = `${environment.backendUrl}/${environment.webApiPath}`
-
-  @ViewChild("eoscCommonMainHeader", {static: false}) containerRef: ElementRef | undefined;
-
-  constructor(private _mocksService: MocksService, private _renderer: Renderer2) {}
+  constructor(private _mocksService: MocksService) {}
 
   ngOnInit() {
     this._mocksService.getUserInfo$()
-      .toPromise()
-      .then(userinfo => {
-        this._renderer.setAttribute(this.containerRef?.nativeElement, "username", userinfo?.username);
-        (window as any).renderCustomComponent(
-          (window as any).EoscCommonMainHeader,
-          { id: "eosc-common-main-header" }
-        )
-      })
-      .catch(error => {
-        this._renderer.setAttribute(this.containerRef?.nativeElement, "username", "");
-        (window as any).renderCustomComponent(
-          (window as any).EoscCommonMainHeader,
-          { id: "eosc-common-main-header" }
-        )
+      .pipe(catchError(_ => {
+        window.eosccommon.renderMainHeader("#eosc-common-main-header")
+        return of()
+      }))
+      .subscribe((response: any) => {
+        const { username } = response;
+        window.eosccommon.renderMainHeader("#eosc-common-main-header", { username })
       })
   }
 }
