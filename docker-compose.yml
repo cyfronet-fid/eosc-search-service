@@ -12,6 +12,7 @@ services:
       SOLR_URL: http://solr1:8983/solr/
       OIDC_CLIENT_ID: "${OIDC_CLIENT_ID}"
       OIDC_CLIENT_SECRET: "${OIDC_CLIENT_SECRET}"
+      OIDC_HOST: "${OIDC_HOST}"
       SECRET_KEY: "${SECRET_KEY}"
       UI_DOMAIN: "${UI_DOMAIN}"
     depends_on:
