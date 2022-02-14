@@ -2,9 +2,10 @@
 
 from json import JSONDecodeError
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Body, HTTPException, Query
 from httpx import AsyncClient
 
+from app.schemas.web import SearchRequest
 from app.solr.operations import search
 
 from ..util import DEFAULT_SORT
@@ -13,8 +14,8 @@ router = APIRouter()
 
 
 # pylint: disable=too-many-arguments
-@router.get("/search-results", name="web:post-search")
-async def search_get(
+@router.post("/search-results", name="web:post-search")
+async def search_post(
     collection: str = Query(..., description="Collection"),
     q: str = Query(..., description="Free-form query string"),
     qf: list[str] = Query([], description="Query fields", example=["authors", "title"]),
@@ -28,6 +29,7 @@ async def search_get(
     ),
     rows: int = Query(10, description="Row count", gte=0, le=100),
     cursor: str = Query("*", description="Cursor"),
+    request: SearchRequest = Body(..., description="Request body"),
 ):
     """
     Do a search against the specified collection.
@@ -47,6 +49,7 @@ async def search_get(
             sort=sort + DEFAULT_SORT,
             rows=rows,
             cursor=cursor,
+            facets=request.facets,
         )
     if response.is_error:
         try:
@@ -55,4 +58,11 @@ async def search_get(
             detail = None
         raise HTTPException(status_code=response.status_code, detail=detail)
     res_json = response.json()
-    return res_json["response"]["docs"]
+    out = {
+        "results": res_json["response"]["docs"],
+    }
+    try:
+        out["facets"] = res_json["facets"]
+    except KeyError:
+        pass
+    return out
