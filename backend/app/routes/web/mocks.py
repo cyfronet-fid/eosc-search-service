@@ -2,7 +2,6 @@
 from fastapi import APIRouter
 
 from app.schemas.category_response import CategoryResponse
-from app.schemas.filter_response import FilterNodeResponse, FilterResponse
 from app.schemas.label_response import LabelResponse
 from app.schemas.resource_response import ResourceResponse
 
@@ -26,42 +25,6 @@ async def categories():
         CategoryResponse(label="Access physical & einfrastructures", count=3),
         CategoryResponse(label="Aggregators & Integrators", count=12),
         CategoryResponse(label="Other", count=36),
-    ]
-
-
-@router.get("/filters")
-async def filters():
-    return [
-        FilterResponse(
-            label="scientific domains",
-            field="scientific_domains",
-            collection="resources",
-            nodes=[
-                FilterNodeResponse(title="Generic", key="generic", isLeaf=True),
-                FilterNodeResponse(
-                    title="Natural sciences",
-                    key="natural-sciences",
-                    expanded=True,
-                    children=[
-                        FilterNodeResponse(
-                            title="Earth & Related Environmental Sciences",
-                            key="earth-and-related-environmental-sciences",
-                            isLeaf=True,
-                        ),
-                        FilterNodeResponse(
-                            title="Biological Sciences",
-                            key="biological-sciences",
-                            isLeaf=True,
-                        ),
-                        FilterNodeResponse(
-                            title="Chemical sciences",
-                            key="chemical-sciences",
-                            isLeaf=True,
-                        ),
-                    ],
-                ),
-            ],
-        )
     ]
 
 

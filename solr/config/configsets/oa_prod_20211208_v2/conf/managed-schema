@@ -134,10 +134,10 @@
     <field name="published" type="strings"/>
     <field name="author_names" type="text_general"/>
     <field name="author_pids" type="strings"/>
-    <field name="organization_names" type="text_general"/>
+    <field name="organization_names" type="strings"/>
     <field name="organization_shorts" type="strings"/>
     <field name="organization_ids" type="strings"/>
-    <field name="project_titles" type="text_general"/>
+    <field name="project_titles" type="strings"/>
     <field name="project_ids" type="strings"/>
     <field name="project_codes" type="strings"/>
 
