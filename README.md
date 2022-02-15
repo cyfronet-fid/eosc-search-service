@@ -151,7 +151,7 @@ Run `solr1` with the explicit volumes as in `docker-compose.yml`, so that it cre
 on startup.
 
 Then, you will need to create collections manually, see the section on Solr.
-The cluster should have collection: `publication_oa_prod_20211208_v2` (schema: `oa_prod_20211208_v2`).
+The cluster should have collection: `oag_researchoutcomes_prod_20211208_v2` (schema: `oa_prod_20211208_v2`).
 
 Populate it using v2 publication data (see v2 comment to https://docs.cyfronet.pl/display/FID/OpenAire+indexable+data).
 The records are in `publication/000550_0`. They need to be transformed and pushed to the collection (see also
