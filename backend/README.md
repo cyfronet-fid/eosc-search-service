@@ -48,6 +48,7 @@ pipenv run python -m app.manager db seed-basic
 Available seeds:
 - `seed-basic`
 - `seed-oag-1`
+- `seed-oag-2`
 
 
 ## Running in console

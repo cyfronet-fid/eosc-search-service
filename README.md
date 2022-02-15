@@ -60,7 +60,7 @@ How to load output of version 2 of the Hive queries, as available in: https://do
 
 Either use directly the jsonl file or transform the original using (assuming the file is placed in `tmp/qv2-pub/000550_0`):
 ```
-python transform/v2/tsv-to-jsonl.py tmp/qv2-pub/000550_0 > tmp/qv2-pub/000550_0.jsonl
+python transform/v2/tsv_to_jsonl.py tmp/qv2-pub/000550_0 > tmp/qv2-pub/000550_0.jsonl
 ```
 
 To process datafiles without journal (you can check for it in the confluence page) set envvar `OMIT_JOURNAL=1` for
@@ -135,13 +135,13 @@ docker run --rm \
 
 ### DB seed
 
-Add the default dump content by running:
+Add the new dump content by running:
 ```shell
 docker run --rm \
            --network "<ess-local_network>" \
            -e "DATABASE_URI=<as_for_api_above>" \
            -it $(docker build -q ./backend) \
-           pipenv run python -m app.manager db seed-oag-1
+           pipenv run python -m app.manager db seed-oag-2
 ```
 
 
