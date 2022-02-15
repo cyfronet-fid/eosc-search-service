@@ -30,11 +30,12 @@ RS_ROWS = config("RS_ROWS", cast=int, default="1000")
 
 UI_DOMAIN = config("UI_DOMAIN", cast=str, default="http://localhost:4200")
 DOMAIN = config("DOMAIN", cast=str, default="localhost")
-DOMAIN_PORT = config("DOMAIN_PORT", cast=int, default=8000)
+DOMAIN_PORT = config("DOMAIN_PORT", cast=int, default=-1)
+DOMAIN_PROTOCOL = config("DOMAIN_PROTOCOL", cast=str, default="https")
 HOST = config(
     "OIDC_HOST",
     cast=str,
-    default=f'http://{DOMAIN}{f":{DOMAIN_PORT}" if DOMAIN_PORT else ""}',
+    default=f'${DOMAIN_PROTOCOL}://{DOMAIN}{f":{DOMAIN_PORT}" if DOMAIN_PORT > 0 else ""}',
 )
 OIDC_HOST = config("OIDC_HOST", cast=str, default="aai-demo.eosc-portal.eu")
 OIDC_ISSUER = config("OIDC_ISSUER", cast=str, default=f"https://{OIDC_HOST}/oidc/")
