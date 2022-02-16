@@ -7,6 +7,7 @@
 """
 
 import os
+from urllib.parse import urlparse
 
 from starlette.config import Config
 
@@ -28,17 +29,10 @@ SOLR_URL = config("SOLR_URL", cast=str, default="http://localhost:8983/solr/")
 RS_URL = config("RS_URL", cast=str, default="http://localhost:9080/")
 RS_ROWS = config("RS_ROWS", cast=int, default="1000")
 
-UI_DOMAIN = config("UI_DOMAIN", cast=str, default="http://localhost:4200")
-DOMAIN = config("DOMAIN", cast=str, default="localhost")
-DOMAIN_PORT = config("DOMAIN_PORT", cast=int, default=-1)
-DOMAIN_PROTOCOL = config("DOMAIN_PROTOCOL", cast=str, default="https")
-HOST = config(
-    "OIDC_HOST",
-    cast=str,
-    default=f'${DOMAIN_PROTOCOL}://{DOMAIN}{f":{DOMAIN_PORT}" if DOMAIN_PORT > 0 else ""}',
-)
-OIDC_HOST = config("OIDC_HOST", cast=str, default="aai-demo.eosc-portal.eu")
-OIDC_ISSUER = config("OIDC_ISSUER", cast=str, default=f"https://{OIDC_HOST}/oidc/")
+BASE_URL = config("BASE_URL", cast=str, default="http://localhost:8000")
+
+OIDC_HOST = config("OIDC_HOST", cast=str, default="https://aai-demo.eosc-portal.eu")
+OIDC_ISSUER = config("OIDC_ISSUER", cast=str, default=f"{OIDC_HOST}/oidc/")
 OIDC_CLIENT_ID = config("OIDC_CLIENT_ID", cast=str, default="NO_CLIENT_ID")
 OIDC_CLIENT_SECRET = config("OIDC_CLIENT_SECRET", cast=str, default="NO_CLIENT_SECRET")
 
@@ -54,19 +48,21 @@ OIDC_CLIENT_OPTIONS = client_options = dict(
         token_endpoint_auth_method=["client_secret_basic", "client_secret_post"],
     ),
     provider_info=dict(
-        authorization_endpoint=f"https://{OIDC_HOST}/oidc/authorize",
-        token_endpoint=f"https://{OIDC_HOST}/oidc/token",
-        userinfo_endpoint=f"https://{OIDC_HOST}/oidc/userinfo",
+        authorization_endpoint=f"{OIDC_HOST}/oidc/authorize",
+        token_endpoint=f"{OIDC_HOST}/oidc/token",
+        userinfo_endpoint=f"{OIDC_HOST}/oidc/userinfo",
     ),
-    redirect_uris=[f"{HOST}/api/web/auth/checkin"],
-    post_logout_redirect_uri=f"{HOST}/auth/logout",
-    backchannel_logout_uri=f"{HOST}/auth/logout",
+    redirect_uris=[f"{BASE_URL}/api/web/auth/checkin"],
+    post_logout_redirect_uri=f"{BASE_URL}/auth/logout",
+    backchannel_logout_uri=f"{BASE_URL}/auth/logout",
     backchannel_logout_session_required=True,
 )
+
+parsed_url = urlparse(BASE_URL)
 OIDC_CONFIG = dict(
-    port=DOMAIN_PORT,
-    domain=DOMAIN,
-    base_url=HOST,
+    port=parsed_url.port if parsed_url.port else None,
+    domain=f"{parsed_url.scheme}://{parsed_url.netloc}",
+    base_url=BASE_URL,
     httpc_params=dict(verify=False),
     services=dict(
         discovery={
@@ -84,7 +80,7 @@ OIDC_CONFIG = dict(
     ),
 )
 OIDC_JWT_ENCRYPT_CONFIG = dict(
-    public_path=f"https://{OIDC_HOST}/oidc/jwk",
+    public_path=f"{OIDC_HOST}/oidc/jwk",
     key_defs=[
         {"type": "RSA", "use": ["sig"]},
     ],

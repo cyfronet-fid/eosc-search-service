@@ -16,6 +16,7 @@ pytest-asyncio = "*"
 fastapi-sessions = "*"
 cryptojwt = "*"
 oidcrp = "*"
+uvicorn = "*"
 
 [dev-packages]
 black = "*"
