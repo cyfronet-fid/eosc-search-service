@@ -3,6 +3,7 @@ version: '3.9'
 services:
   api:
     build: ./backend
+    command: uvicorn app.main:app --workers i --host 0.0.0.0 --port 8000
     ports:
       - "8000:8000"
     networks:
@@ -14,8 +15,7 @@ services:
       OIDC_CLIENT_SECRET: "${OIDC_CLIENT_SECRET}"
       OIDC_HOST: "${OIDC_HOST}"
       SECRET_KEY: "${SECRET_KEY}"
-      DOMAIN: "${DOMAIN}"
-      UI_DOMAIN: "${UI_DOMAIN}"
+      BASE_URL: "${BASE_URL}"
     depends_on:
       - db
       - solr1
