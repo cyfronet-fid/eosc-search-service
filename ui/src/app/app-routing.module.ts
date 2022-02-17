@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {MainPageComponent} from "./main-page/main-page.component";
+import {ArticlesPageComponent} from "./articles-page/articles-page.component";
+import {MarketplacePageComponent} from "./marketplace-page/marketplace-page.component";
 
 const routes: Routes = [
-  { path: "", pathMatch: "full", component: MainPageComponent },
-  // { path: 'auth/:action', component: AuthComponent },
-  // { path: "**", pathMatch: "full", component: ErrorPageComponent }
+  { path: "", pathMatch: "full", redirectTo: "marketplace" },
+  { path: "marketplace", component: MarketplacePageComponent },
+  { path: "articles", component: ArticlesPageComponent },
+  { path: "**", pathMatch: "full", redirectTo: "" } // TODO: Create Error page
 ];
 
 @NgModule({

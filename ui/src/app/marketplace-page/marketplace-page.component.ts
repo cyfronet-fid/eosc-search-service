@@ -1,17 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {MocksService} from "./mocks.service";
+import { Component, OnInit } from '@angular/core';
 import {Observable, Subscriber} from "rxjs";
+import {MocksService} from "../mocks.service";
 
 @Component({
-  selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.scss']
+  selector: 'app-marketplace-page',
+  templateUrl: './marketplace-page.component.html'
 })
-export class MainPageComponent implements OnInit {
+export class MarketplacePageComponent implements OnInit {
   searchResults$!: Observable<any>
   filters$!: Observable<any>
 
-  labels$ = this._mocksService.getLabels$()
   categories$ = this._mocksService.getCategories$()
   recommendations$ = this._mocksService.getRecommendations$()
   recommendedResources$ = this._mocksService.getRecommendedResources$()
@@ -28,7 +26,7 @@ export class MainPageComponent implements OnInit {
     this._mocksService.getSearchResults$(
       "*",
       "oag_researchoutcomes_prod_20211208_v2",
-      MainPageComponent.getFacetsFor([
+      MarketplacePageComponent.getFacetsFor([
         "subject", "publisher", "bestaccessright", "language", "journal", "organization_names", "project_titles"
       ])
     ).subscribe(response => {
@@ -38,7 +36,7 @@ export class MainPageComponent implements OnInit {
             id: res["id"],
             title: res["title"],
             author_names: res["author_names"],
-            rating: MainPageComponent.randomRating()
+            rating: MarketplacePageComponent.randomRating()
           }
         })
       )
@@ -74,4 +72,5 @@ export class MainPageComponent implements OnInit {
     }
     return out
   }
+
 }
