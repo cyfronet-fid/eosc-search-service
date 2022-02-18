@@ -3,7 +3,7 @@ import {
   OnInit,
   ViewEncapsulation
 } from "@angular/core";
-import {MocksService} from "./main-page/mocks.service";
+import {MocksService} from "./mocks.service";
 import {environment} from "../environments/environment";
 import {catchError, of} from "rxjs";
 
