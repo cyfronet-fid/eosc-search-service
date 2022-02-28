@@ -12,7 +12,7 @@ export class MocksService {
   constructor(private _http: HttpClient) {}
 
   getUserInfo$() {
-    return this._http.get<any>(`${backendUrlBase}/auth/userinfo`, { withCredentials: true})
+    return this._http.get<any>(`${backendUrlBase}/auth/userinfo`)
   }
   getSearchResults$(q: string, collection: string, facets: object) {
     return this._http.post<any>(
@@ -22,15 +22,15 @@ export class MocksService {
     )
   }
   getLabels$() {
-    return this._http.get<any[]>(`${backendUrlBase}/labels`, { withCredentials: true })
+    return this._http.get<any[]>(`${backendUrlBase}/labels`)
   }
   getCategories$() {
-    return this._http.get<any[]>(`${backendUrlBase}/categories`, { withCredentials: true })
+    return this._http.get<any[]>(`${backendUrlBase}/categories`)
   }
   getRecommendations$() {
-    return this._http.get<any[]>(`${backendUrlBase}/recommendations`, { withCredentials: true })
+    return this._http.get<any[]>(`${backendUrlBase}/recommendations`)
   }
   getRecommendedResources$() {
-    return this._http.get<any[]>(`${backendUrlBase}/recommended-resources`, { withCredentials: true })
+    return this._http.get<any[]>(`${backendUrlBase}/recommended-resources`)
   }
 }
