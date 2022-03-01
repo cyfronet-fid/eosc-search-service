@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  backendUrl: "https://eosc-search-service.docker-fid.grid.cyf-kr.edu.pl/",
-  webApiPath: "api/web"
+  backendUrl: "https://api.eosc-search-service.grid.cyfronet.pl/",
+  webApiPath: "api/web",
 };
