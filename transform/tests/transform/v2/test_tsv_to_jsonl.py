@@ -1,5 +1,5 @@
 import pytest
-from tsv_to_jsonl import empty_or_n
+from transform.v2.tsv_to_jsonl import empty_or_n
 
 
 @pytest.mark.parametrize("s,expected", [
