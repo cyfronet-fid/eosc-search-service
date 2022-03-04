@@ -41,12 +41,13 @@ docker run --rm -v "$PWD/data.csv:/mydata/data.csv" \
 
 ### mock-dump-2
 
-Either use directly the jsonl file or transform the original using (assuming the file is placed in `tmp/000017_0`):
+Either use directly the jsonl file or transform the original using (assuming the file is placed in `transform/tmp/000017_0`):
 ```
-python transform/tsv-to-jsonl-1.py tmp/000017_0 > tmp/000017_0.jsonl
+cd transform
+pipenv run python transform/tsv-to-jsonl-1.py tmp/000017_0 > tmp/000017_0.jsonl
 ```
 
-Then, load such a sanitized dataset:
+Then, load such a sanitized dataset (shell again in the root dir):
 ```
 docker run --rm -v "$PWD/tmp/000017_0.jsonl:/mydata/data.jsonl" \
            --network=host \
@@ -58,9 +59,10 @@ docker run --rm -v "$PWD/tmp/000017_0.jsonl:/mydata/data.jsonl" \
 
 How to load output of version 2 of the Hive queries, as available in: https://docs.cyfronet.pl/display/FID/Queries+v2.
 
-Either use directly the jsonl file or transform the original using (assuming the file is placed in `tmp/qv2-pub/000550_0`):
+Either use directly the jsonl file or transform the original using (assuming the file is placed in `transform/tmp/qv2-pub/000550_0`):
 ```
-python transform/v2/tsv_to_jsonl.py tmp/qv2-pub/000550_0 > tmp/qv2-pub/000550_0.jsonl
+cd transform
+pipenv run python transform/v2/tsv_to_jsonl.py tmp/qv2-pub/000550_0 > tmp/qv2-pub/000550_0.jsonl
 ```
 
 To process datafiles without journal (you can check for it in the confluence page) set envvar `OMIT_JOURNAL=1` for
@@ -68,7 +70,7 @@ processing.
 
 Then, load such a sanitized dataset:
 ```
-docker run --rm -v "$PWD/tmp/000017_0.jsonl:/mydata/data.jsonl" \
+docker run --rm -v "$PWD/transform/tmp/000017_0.jsonl:/mydata/data.jsonl" \
            --network=host \
            solr:8.11 \
            post -c ess /mydata/data.jsonl
