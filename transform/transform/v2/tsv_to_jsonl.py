@@ -5,12 +5,12 @@ import sys
 import json
 
 
-class CustomIterator:
+class NullRemovingIterator:
     """
     Removes all nulls from input lines
     """
 
-    def __init__(self, input):
+    def __init__(self, input: [str]):
         self.input = input
 
     def __iter__(self):
@@ -28,12 +28,10 @@ def empty_or_n(s: str):
 list_sep = '\u0002'
 struct_sep = '\u0003'
 
-if __name__ == "__main__":
+
+def transform(it: NullRemovingIterator, stdout=sys.stdout, stderr=sys.stderr):
     csv.field_size_limit(sys.maxsize)
     csv.register_dialect("tsv", delimiter='\t')
-
-    inp = fileinput.input(encoding="utf-8")
-    it = CustomIterator(inp)
 
     reader = csv.reader(it, "tsv")
     columns = [
@@ -62,7 +60,7 @@ if __name__ == "__main__":
             count += 1
             if len(row) != target_len:
                 err += 1
-                print(f"Incorrect length. Line {i}: length {len(row)}", file=sys.stderr)
+                print(f"Incorrect length. Line {i}: length {len(row)}", file=stderr)
             else:
                 row_errored = False
                 out = dict()
@@ -75,11 +73,11 @@ if __name__ == "__main__":
                         named_struct = None
                     if list_sep in row[j] and not is_list:
                         print(f"Possible array column {col_name}, in row {i} => {row[j].replace(list_sep, '<0002>')}",
-                              file=sys.stderr)
+                              file=stderr)
                     if struct_sep in row[j] and named_struct is None:
                         print(
                             f"Possible struct column {col_name}, in row {i} => {row[j].replace(struct_sep, '<0003>')}",
-                            file=sys.stderr)
+                            file=stderr)
                     if is_list:
                         out_val = [v for v in row[j].split(list_sep) if not empty_or_n(v)]
                         if named_struct is None:
@@ -92,17 +90,23 @@ if __name__ == "__main__":
                                 except IndexError:
                                     print(
                                         f"IndexError {col_name}, in row {i} => {row[j].replace(struct_sep, '<0003>')}",
-                                        file=sys.stderr)
+                                        file=stderr)
                                     if not row_errored:
                                         err += 1
                                     row_errored = True
                     else:
                         out[col_name] = None if empty_or_n(row[j]) else row[j]
                 if not row_errored:
-                    print(json.dumps(out))
+                    print(json.dumps(out), file=stdout)
             prev_i = i
     except csv.Error as e:
-        print(e, file=sys.stderr)
-        print(f"{prev_i + 1}", file=sys.stderr)
+        print(e, file=stderr)
+        print(f"{prev_i + 1}", file=stderr)
 
-    print(f"{err}/{count}", file=sys.stderr)
+    print(f"{err}/{count}", file=stderr)
+
+
+if __name__ == "__main__":
+    inp = fileinput.input(encoding="utf-8")
+    it = NullRemovingIterator(inp)
+    transform(it)
