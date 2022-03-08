@@ -49,3 +49,8 @@ async def search(
         f"{SOLR_URL}{collection}/select",
         json=request_body,
     )
+
+
+def search_dep():
+    """FastAPI search method dependency"""
+    return search

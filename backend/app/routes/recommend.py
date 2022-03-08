@@ -1,12 +1,12 @@
 """The Recommend endpoint"""
 from json import JSONDecodeError
 
-from fastapi import Body, HTTPException, Query
+from fastapi import Body, Depends, HTTPException, Query
 from httpx import AsyncClient
 
 from app.config import RS_ROWS
 from app.recommender.operations import recommendations
-from app.solr.operations import search
+from app.solr.operations import search_dep
 
 from ..schemas.recommend_request import RecommendRequest
 from .util import DEFAULT_SORT, internal_api_router
@@ -36,6 +36,7 @@ async def recommend_post(
             "panel_id": "string",
         },
     ),
+    search=Depends(search_dep),
 ):
     """
     Do a search against the specified collection, pass results to RS.
