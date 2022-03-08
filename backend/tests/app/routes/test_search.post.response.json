@@ -1,0 +1,85 @@
+{
+  "responseHeader": {
+    "zkConnected": true,
+    "status": 0,
+    "QTime": 68,
+    "params": {
+      "q": "*:*",
+      "indent": "true",
+      "q.op": "OR",
+      "fq": [
+        "subject:energy",
+        "subject:monitoring"
+      ],
+      "_": "1646736215079"
+    }
+  },
+  "response": {
+    "numFound": 1,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+      {
+        "id": "50|dedup_wf_001::553fcef019776e6a6081c436faf76c3b",
+        "pid": [
+          "10029/261956"
+        ],
+        "title": [
+          "CO2 en afvalbeleid. Resultaten monitoring 1991/1992  en knelpunten"
+        ],
+        "description": [
+          "Abstract niet beschikbaar"
+        ],
+        "subject": [
+          "09",
+          "afval",
+          "beleid",
+          "samenstelling",
+          "organisch afval",
+          "kunststof",
+          "hout",
+          "mest",
+          "gft",
+          "aluminium",
+          "kooldioxide",
+          "energie",
+          "afname",
+          "monitoring",
+          "waste",
+          "policy",
+          "composition",
+          "organic waste",
+          "synthetics",
+          "wood",
+          "manure",
+          "vfg waste",
+          "carbon dioxide",
+          "energy",
+          "reduction"
+        ],
+        "bestaccessright": [
+          "Open Access"
+        ],
+        "language": [
+          "Dutch; Flemish"
+        ],
+        "published": [
+          "2012-12-12",
+          "2012-12-12"
+        ],
+        "author_names": [
+          "Oh KMM",
+          "Joosten JM",
+          "Martens WG"
+        ],
+        "author_pids": [
+          "",
+          "",
+          ""
+        ],
+        "_version_": 1723121639825080325
+      }
+    ]
+  },
+  "nextCursorMark": "asdf"
+}

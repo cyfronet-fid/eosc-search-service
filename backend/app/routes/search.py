@@ -2,11 +2,11 @@
 
 from json import JSONDecodeError
 
-from fastapi import Body, HTTPException, Query
+from fastapi import Body, Depends, HTTPException, Query
 from httpx import AsyncClient
 
 from app.schemas.search_request import SearchRequest
-from app.solr.operations import search
+from app.solr.operations import search_dep
 
 from .util import DEFAULT_SORT, internal_api_router
 
@@ -28,6 +28,7 @@ async def search_post(
     rows: int = Query(10, description="Row count", gte=0, le=100),
     cursor: str = Query("*", description="Cursor"),
     request: SearchRequest = Body(..., description="Request body"),
+    search=Depends(search_dep),
 ):
     """
     Do a search against the specified collection.

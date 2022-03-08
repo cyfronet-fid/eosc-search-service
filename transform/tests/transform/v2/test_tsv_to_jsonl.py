@@ -1,4 +1,4 @@
-import os.path
+import os
 from io import StringIO
 
 import pytest
