@@ -8,11 +8,11 @@ from app.config import RS_ROWS
 from app.recommender.operations import recommendations
 from app.solr.operations import search
 
-# pylint: disable=too-many-arguments
 from ..schemas.recommend_request import RecommendRequest
 from .util import DEFAULT_SORT, internal_api_router
 
 
+# pylint: disable=too-many-arguments
 @internal_api_router.post("/recommend")
 async def recommend_post(
     collection: str = Query(..., description="Collection"),

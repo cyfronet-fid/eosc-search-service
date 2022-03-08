@@ -1,5 +1,4 @@
 """DB connection and operations"""
-from typing import List
 
 from sqlalchemy import create_engine, select
 from sqlalchemy.orm import Session, selectinload, sessionmaker
@@ -14,7 +13,7 @@ engine = create_engine(DATABASE_URI, future=True, echo=True)
 SessionLocal = sessionmaker(engine)
 
 
-def select_dumps(db: Session) -> List[DumpModel]:
+def select_dumps(db: Session) -> list[DumpModel]:
     """
     Select all Dumps and its DumpElements, and return its API mapping.
     """

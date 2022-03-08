@@ -1,9 +1,6 @@
 # pylint: disable=too-few-public-methods
 
 """Application DB models"""
-
-import typing
-
 from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -15,7 +12,7 @@ Base = declarative_base()
 class BaseModel:
     """Class with __repr__ helper"""
 
-    def _repr(self, **fields: typing.Dict[str, typing.Any]) -> str:
+    def _repr(self, **fields: dict[str, any]) -> str:
         """
         Helper for __repr__
         """
