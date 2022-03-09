@@ -61,6 +61,8 @@ async def search_post(
     res_json = response.json()
     out = {
         "results": res_json["response"]["docs"],
+        "numFound": res_json["response"]["numFound"],
+        "nextCursorMark": res_json["nextCursorMark"],
     }
     try:
         out["facets"] = res_json["facets"]
