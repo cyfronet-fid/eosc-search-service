@@ -5,14 +5,15 @@
   padding: 25px 50px 75px 25px;
 }
 
-#latest-info, #user-activities {
+#latest-info,
+#user-activities {
   .custom-card {
     cursor: pointer;
   }
 }
 
 .card__container {
-  background-color: #F7F9FF;
+  background-color: #f7f9ff;
   padding: 12px;
 }
 
@@ -24,7 +25,8 @@
   padding: 4px;
 }
 
-#search, #btn--search {
+#search,
+#btn--search {
   max-height: 45px;
 }
 
@@ -49,7 +51,7 @@
 }
 
 .dashboard__label {
-  background-color: #F7F9FF;
+  background-color: #f7f9ff;
   padding: 12px;
 }
 
