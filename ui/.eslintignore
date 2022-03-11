@@ -1,0 +1,12 @@
+package.json
+package-lock.json
+dist
+node_modules
+.tool-versions
+angular.json
+karma.conf.js
+README.md
+.editorconfig
+.browserslistrc
+tsconfig*
+**/*.spec.ts
