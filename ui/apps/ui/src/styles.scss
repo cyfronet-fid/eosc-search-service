@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~ng-zorro-antd/ng-zorro-antd.min.css';
+
+.container--xxl {
+  padding: 25px 50px 75px 25px;
+}
+
+#latest-info,
+#user-activities {
+  .custom-card {
+    cursor: pointer;
+  }
+}
+
+.card__container {
+  background-color: #f7f9ff;
+  padding: 12px;
+}
+
+#logo {
+  max-height: 90px;
+}
+
+#search {
+  padding: 4px;
+}
+
+#search,
+#btn--search {
+  max-height: 45px;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
+#dashboard__labels {
+  padding-top: 50px;
+  min-width: 100%;
+}
+#dashboard__header {
+  clear: both;
+}
+#dahboard__header-btn {
+  float: right;
+}
+#header__search-phrase {
+  float: left;
+  max-width: 50%;
+}
+
+.dashboard__label {
+  background-color: #f7f9ff;
+  padding: 12px;
+}
+
+#filters--horizontal {
+  margin-bottom: 15px;
+}

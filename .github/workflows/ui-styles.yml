@@ -3,7 +3,7 @@ name: UI styles
 on: push
 
 jobs:
-  backend:
+  ui:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,8 +18,8 @@ jobs:
         run: npm i
         working-directory: ./ui
       - name: Linter check
-        run: npm run lint
+        run: npx nx lint
         working-directory: ./ui
       - name: Prettier check
-        run: npm run prettier:check
+        run: npx nx format:check --files 'apps/ui/src/**/*.{js,ts,html,scss}'
         working-directory: ./ui

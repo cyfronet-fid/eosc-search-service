@@ -4,6 +4,19 @@
 
 Run `docker-compose up`.
 
+## UI
+**IMPORTANT!!! UI working directory is `ui`, commands will work only in the catalog.**
+
+### Install dependencies
+`npm i`
+
+### Run
+`npx nx serve ui`
+
+### Build
+Build artifacts can be found in `ui/dist/apps/ui`.
+
+`npx nx build ui`
 
 ## Solr
 
@@ -101,12 +114,19 @@ There are to be two machines:
 See docker-compose.yml for components.
 
 `api` envs:
-- `DATABASE_URI`, in format: `postgresql+psycopg2://<db_user>:<db_password>@db:5432/<db_name>`
-- `SOLR_URL`, for example `http://solr.domain:8983/solr/`
-- `RS_URL`, for example `http://localhost:9080/`
+- `DATABASE_URI`
+  > Format: `postgresql+psycopg2://<db_user>:<db_password>@db:5432/<db_name>`
+- `SOLR_URL`
+  > Example: `http://solr.domain:8983/solr/`
+- `RS_URL`
+  > Example: `http://localhost:9080/`
+- `BASE_URL`
+  > URL of the backend instance, required by AAI. Need to be set before any request will be made. 
 - `SECRET_KEY`
 - `OIDC_CLIENT_ID`
+  > The service ID stored in AAI for auth purposes
 - `OIDC_CLIENT_SECRET`
+  > Private key of the service need in AAI auth process
 
 `db` envs:
 - `DB_POSTGRES_DB`
