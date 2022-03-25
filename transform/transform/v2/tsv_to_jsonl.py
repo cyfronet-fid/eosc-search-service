@@ -18,7 +18,7 @@ class NullRemovingIterator:
 
     def __next__(self):
         next = self.input.__next__()
-        return next.replace('\x00', '')
+        return next.replace('\x00', '').replace('\x01', '\t')
 
 
 def empty_or_n(s: str):

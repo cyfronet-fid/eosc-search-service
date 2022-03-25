@@ -192,3 +192,16 @@ It will update the changelog and create a tag (according to the Conventional Com
 Then you have to push the tag and the commit to the remote.
 
 On pushing to remote a release with an extended changelog should be created.
+
+
+## Memory and disk benchmark
+
+The benchmark is supposed to measure the actual disk and memory usage when indexing data to
+extrapolate for the full OpenAIRE dataset.
+
+To run it, you need a solr instance running at http://localhost:8993 with oa_prod_20211208_v2 configset loaded.
+Moreover, you'll need valid Ceph credentials for getting from `ess-mock-dumps` bucket in aws-cli profile
+`ess_mock_admin`.
+
+Then, generate the arguments (the chunks to load) using `bin/gen_chunks.py`.
+Pass the chunks to as arguments to `bin/run.sh`.
