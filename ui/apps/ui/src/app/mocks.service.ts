@@ -1,9 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any  */
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { Observable } from 'rxjs';
 
-const backendUrlBase = `${environment.backendUrl}/${environment.webApiPath}`;
+const backendUrlBase = `${environment.backend.url}/${environment.backend.apiPath}`;
 
 @Injectable({
   providedIn: 'root',
@@ -16,23 +18,21 @@ export class MocksService {
       `${backendUrlBase}/auth/userinfo`
     );
   }
-  getSearchResults$(q: string, collection: string, facets: any) {
-    return this._http.post<any[]>(
-      `${backendUrlBase}/search-results`,
-      { facets },
-      { params: { q, collection }, withCredentials: true }
-    );
-  }
+
   getLabels$() {
-    return this._http.get<any[]>(`${backendUrlBase}/labels`);
+    return this._http.get(`${backendUrlBase}/labels`) as Observable<any[]>;
   }
   getCategories$() {
-    return this._http.get<any[]>(`${backendUrlBase}/categories`);
+    return this._http.get(`${backendUrlBase}/categories`) as Observable<any[]>;
   }
   getRecommendations$() {
-    return this._http.get<any[]>(`${backendUrlBase}/recommendations`);
+    return this._http.get(`${backendUrlBase}/recommendations`) as Observable<
+      any[]
+    >;
   }
   getRecommendedResources$() {
-    return this._http.get<any[]>(`${backendUrlBase}/recommended-resources`);
+    return this._http.get(
+      `${backendUrlBase}/recommended-resources`
+    ) as Observable<any[]>;
   }
 }

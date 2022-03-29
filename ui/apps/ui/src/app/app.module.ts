@@ -11,7 +11,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ArticlesPageComponent } from './articles-page/articles-page.component';
 import { MarketplacePageComponent } from './marketplace-page/marketplace-page.component';
 import { NzSelectModule } from 'ng-zorro-antd/select';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 /** config angular i18n **/
@@ -22,6 +22,7 @@ registerLocaleData(en);
 /** config ng-zorro-antd i18n **/
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { AuthInterceptor } from './auth.interceptor';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AuthInterceptor } from './auth.interceptor';
     MainHeaderComponent,
     ArticlesPageComponent,
     MarketplacePageComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +42,7 @@ import { AuthInterceptor } from './auth.interceptor';
     NzSelectModule,
     FormsModule,
     NzDatePickerModule,
+    ReactiveFormsModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

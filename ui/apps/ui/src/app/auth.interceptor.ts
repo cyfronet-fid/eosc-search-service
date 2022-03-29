@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from '@angular/core';
 import {
   HttpEvent,
@@ -12,15 +11,16 @@ import { environment } from '../environments/environment';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   intercept(
-    req: HttpRequest<any>,
+    req: HttpRequest<object>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  ): Observable<HttpEvent<object>> {
     req = req.clone({
+      setHeaders: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': environment.backend.url,
+      },
       withCredentials: true,
     });
-    req.headers
-      .set('Content-Type', 'application/json')
-      .set('Access-Control-Allow-Origin', environment.backendUrl);
     return next.handle(req);
   }
 }
