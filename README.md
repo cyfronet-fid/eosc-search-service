@@ -18,6 +18,10 @@ Build artifacts can be found in `ui/dist/apps/ui`.
 
 `npx nx build ui`
 
+### Code automatic formatting
+
+`npx nx lint --fix && npx nx format:write --base main`
+
 ## Solr
 
 To run a standalone Solr instance run: `docker-compose up -d solr1 zoo1`.

@@ -6,23 +6,7 @@ import { MocksService } from './mocks.service';
   template: `
     <ui-main-header></ui-main-header>
     <div class="container--xxl">
-      <div class="search-bar">
-        <div class="row">
-          <div class="col-3 d-grid">
-            <a href=".">
-              <img id="logo" src="assets/eosc-logo-color.png" alt="EOSC logo" />
-            </a>
-          </div>
-          <div class="col-6 d-grid vertical-center">
-            <input type="text" id="search" class="rounded-pill" />
-          </div>
-          <div class="col-3 d-grid vertical-center">
-            <button id="btn--search" class="btn btn-primary" type="button">
-              Navigation
-            </button>
-          </div>
-        </div>
-      </div>
+      <ui-search></ui-search>
       <div class="dashboard">
         <div id="dashboard__header">
           <div id="header__search-phrase">
@@ -38,6 +22,7 @@ import { MocksService } from './mocks.service';
             <div class="col">
               <a
                 [routerLink]="getLabelUrl(label.label)"
+                queryParamsHandling="merge"
                 class="dashboard__label"
                 >{{ label.label }}&nbsp;<strong
                   >{{ label.count }} results</strong

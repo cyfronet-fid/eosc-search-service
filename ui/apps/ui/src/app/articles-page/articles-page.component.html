@@ -55,43 +55,49 @@
 
 <div class="row">
   <div class="col-3" id="results">
-    <h3>Results (6)</h3>
-    <div class="card__container">
-      <p class="fs-4 text-secondary">Lorem ipsum</p>
-      <p><small>Published: 01 Jan 2013</small></p>
-      <p><small>OPEN ACCESS GERMAN</small></p>
-    </div>
-    <div class="card__container">
-      <p class="fs-4 text-secondary">Lorem ipsum</p>
-      <p><small>Published: 01 Jan 2013</small></p>
-      <p><small>OPEN ACCESS GERMAN</small></p>
-    </div>
-    <div class="card__container">
-      <p class="fs-4 text-secondary">Lorem ipsum</p>
-      <p><small>Published: 01 Jan 2013</small></p>
-      <p><small>OPEN ACCESS GERMAN</small></p>
-    </div>
-    <div class="card__container">
-      <p class="fs-4 text-secondary">Lorem ipsum</p>
-      <p><small>Published: 01 Jan 2013</small></p>
-      <p><small>OPEN ACCESS GERMAN</small></p>
-    </div>
-    <div class="card__container">
-      <p class="fs-4 text-secondary">Lorem ipsum</p>
-      <p><small>Published: 01 Jan 2013</small></p>
-      <p><small>OPEN ACCESS GERMAN</small></p>
-    </div>
-    <div class="card__container">
-      <p class="fs-4 text-secondary">Lorem ipsum</p>
-      <p><small>Published: 01 Jan 2013</small></p>
-      <p><small>OPEN ACCESS GERMAN</small></p>
-    </div>
+    <h3>Results ({{ articlesSize$ | async }})</h3>
+    <ng-container *ngFor="let result of articles$ | async">
+      <div
+        class="card__container dashboard__search-result"
+        (click)="setActive(result)"
+      >
+        <div class="row">
+          <div class="col-12 search-result__details">
+            <a
+              href="{{
+                'https://explore.openaire.eu/search/publication?articleId=' +
+                  ('' + result.id).substring(3)
+              }}"
+              target="_blank"
+              class="fs-4 text-secondary"
+            >
+              {{ result.title }}
+            </a>
+            <ngb-rating [max]="5" [rate]="5" [readonly]="true"> </ngb-rating>
+            <p class="text-muted">
+              <small>{{ result.title }}</small>
+            </p>
+            <p>
+              <small
+                >Authors: {{ (result.author_names || []).join('; ') }}</small
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
-  <div class="col-9" id="item-details">
-    <h2 class="text-secondary">Lorem ipsum</h2>
+  <div *ngIf="!!(activeArticle$ | async)" class="col-9" id="item-details">
+    <h2 class="text-secondary">{{ (activeArticle$ | async)?.title }}</h2>
     <p><small>Published: 01 Jan 2013</small></p>
     <p><small>Publisher: University</small></p>
     <p><small>OPEN ACCESS GERMAN</small></p>
+    <p>
+      <small
+        >Authors:
+        {{ (activeArticle$ | async)?.author_names?.join(', ') }}</small
+      >
+    </p>
 
     <div class="row">
       <div class="col-9">
