@@ -4,10 +4,18 @@ from datetime import datetime, timezone
 
 import typer
 
+from .db.repositories.dumps import DumpsRepository
 from .models import Dump, DumpElement
 from .tasks import create_session_local
 
 db_group = typer.Typer()
+
+
+def create_dump(new_dump: Dump):
+    """Create dump using a fresh DB session"""
+    with create_session_local()() as db:
+        dumps_repo = DumpsRepository(db)
+        dumps_repo.create_dump(new_dump=new_dump)
 
 
 @db_group.command()
@@ -15,8 +23,8 @@ def seed_basic():
     """
     Seed with a basic data-set
     """
-    with create_session_local()() as session:
-        dump = Dump(
+    create_dump(
+        new_dump=Dump(
             name="openaire_1",
             created_at=datetime.now(timezone.utc),
             updated_at=datetime.now(timezone.utc),
@@ -29,8 +37,7 @@ def seed_basic():
                 for it in range(10)
             ],
         )
-        session.add(dump)
-        session.commit()
+    )
 
 
 @db_group.command()
@@ -39,8 +46,8 @@ def seed_oag_1():
     Seed with oag-1 data-set
     """
     s3_prefix = "https://ess-mock-dumps.s3.cloud.cyfronet.pl"
-    with create_session_local()() as session:
-        dump = Dump(
+    create_dump(
+        Dump(
             name="oag_1",
             created_at=datetime.now(timezone.utc),
             updated_at=datetime.now(timezone.utc),
@@ -60,8 +67,7 @@ def seed_oag_1():
                 ]
             ],
         )
-        session.add(dump)
-        session.commit()
+    )
 
 
 @db_group.command()
@@ -70,8 +76,8 @@ def seed_oag_2():
     Seed with oag-2 data-set
     """
     s3_prefix = "https://ess-mock-dumps.s3.cloud.cyfronet.pl"
-    with create_session_local()() as session:
-        dump = Dump(
+    create_dump(
+        Dump(
             name="oag_2",
             created_at=datetime.now(timezone.utc),
             updated_at=datetime.now(timezone.utc),
@@ -91,8 +97,7 @@ def seed_oag_2():
                 ]
             ],
         )
-        session.add(dump)
-        session.commit()
+    )
 
 
 app = typer.Typer()
