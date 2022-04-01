@@ -4,17 +4,25 @@ import logging
 from typing import Callable
 
 from fastapi import FastAPI
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-from app.db import SessionLocal
+from app.config import DATABASE_URI
 
 logger = logging.getLogger(__name__)
 
 
-def connect_to_db(app: FastAPI) -> None:
+def create_session_local() -> sessionmaker:
+    """Just creates a new session_local"""
+    engine = create_engine(DATABASE_URI, future=True, echo=True)
+    return sessionmaker(engine)
+
+
+def connect_to_db(app: FastAPI, session_local: sessionmaker) -> None:
     """Connect to DB"""
     try:
         # pylint: disable=protected-access
-        app.state._db = SessionLocal()
+        app.state._db = session_local()
     # pylint: disable=broad-except
     except Exception as e:
         logger.warning("--- DB CONNECTION ERROR ---")
@@ -38,7 +46,7 @@ def create_start_app_handler(app: FastAPI) -> Callable:
     """Start app handler"""
 
     async def start_app() -> None:
-        connect_to_db(app)
+        connect_to_db(app, create_session_local())
 
     return start_app
 
