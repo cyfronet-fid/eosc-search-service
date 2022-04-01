@@ -9,9 +9,13 @@ from app.generic.models.dump_elements import DumpElements as DumpElementModel
 from app.models import Dump
 
 
-# pylint: disable=too-few-public-methods
 class DumpsRepository(BaseRepository):
     """All database actions associated with Dumps"""
+
+    def create_dump(self, *, new_dump: Dump):
+        """Creates a new Dump"""
+        self.db.add(new_dump)
+        self.db.commit()
 
     def list_all_dumps(self) -> list[DumpModel]:
         """
