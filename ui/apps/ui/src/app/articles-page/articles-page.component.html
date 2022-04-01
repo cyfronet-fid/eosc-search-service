@@ -54,38 +54,64 @@
 </div>
 
 <div class="row">
-  <div class="col-3" id="results">
-    <h3>Results ({{ articlesSize$ | async }})</h3>
-    <ng-container *ngFor="let result of articles$ | async">
-      <div
-        class="card__container dashboard__search-result"
-        (click)="setActive(result)"
-      >
-        <div class="row">
-          <div class="col-12 search-result__details">
-            <a
-              href="{{
-                'https://explore.openaire.eu/search/publication?articleId=' +
-                  ('' + result.id).substring(3)
-              }}"
-              target="_blank"
-              class="fs-4 text-secondary"
-            >
-              {{ result.title }}
-            </a>
-            <ngb-rating [max]="5" [rate]="5" [readonly]="true"> </ngb-rating>
-            <p class="text-muted">
-              <small>{{ result.title }}</small>
-            </p>
-            <p>
-              <small
-                >Authors: {{ (result.author_names || []).join('; ') }}</small
+  <div class="col-3">
+    <h3>
+      Results {{ currentResultsNumber$ | async }} of {{ articlesSize$ | async }}
+    </h3>
+    <div class="row">
+      <div class="col d-grid gap-1">
+        <button
+          class="btn btn-light"
+          type="button"
+          [disabled]="(hasPrevPage$ | async) === false"
+          (click)="prevPage$()"
+        >
+          << Prev
+        </button>
+      </div>
+      <div class="col d-grid gap-1">
+        <button
+          class="btn btn-light"
+          type="button"
+          [disabled]="(hasNextPage$ | async) === false"
+          (click)="nextPage$()"
+        >
+          Next >>
+        </button>
+      </div>
+    </div>
+    <div id="results">
+      <ng-container *ngFor="let result of articles$ | async">
+        <div
+          class="card__container dashboard__search-result"
+          (click)="setActive(result)"
+        >
+          <div class="row">
+            <div class="col-12 search-result__details">
+              <a
+                href="{{
+                  'https://explore.openaire.eu/search/publication?articleId=' +
+                    ('' + result.id).substring(3)
+                }}"
+                target="_blank"
+                class="fs-4 text-secondary"
               >
-            </p>
+                {{ result.title }}
+              </a>
+              <ngb-rating [max]="5" [rate]="5" [readonly]="true"> </ngb-rating>
+              <p class="text-muted">
+                <small>{{ result.title }}</small>
+              </p>
+              <p>
+                <small
+                  >Authors: {{ (result.author_names || []).join('; ') }}</small
+                >
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </ng-container>
+      </ng-container>
+    </div>
   </div>
   <div *ngIf="!!(activeArticle$ | async)" class="col-9" id="item-details">
     <h2 class="text-secondary">{{ (activeArticle$ | async)?.title }}</h2>
@@ -104,18 +130,7 @@
         <article>
           <b>Summary</b>
           <p class="text-secondary">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-            aliquam, elit sed sagittis semper, mi orci ultricies nunc, ut
-            condimentum quam quam vel elit. Nulla facilisi. Aliquam gravida,
-            libero nec elementum gravida, lacus augue pharetra nibh, non aliquam
-            justo nibh ut neque. Etiam vel leo nec quam hendrerit mollis quis a
-            nibh. Maecenas convallis arcu id nulla pulvinar porta. Quisque
-            posuere velit id ipsum vestibulum venenatis. In vulputate lectus a
-            finibus maximus. Mauris maximus dolor vitae metus facilisis, in
-            dictum purus sodales. Mauris ultricies consectetur faucibus. Quisque
-            vitae scelerisque ipsum. Nullam molestie hendrerit erat nec
-            vehicula. Sed ullamcorper dui at magna suscipit, ac blandit erat
-            placerat. Proin tincidunt eu nulla et elementum.
+            {{ (activeArticle$ | async)?.description?.join(' ') }}
           </p>
         </article>
       </div>

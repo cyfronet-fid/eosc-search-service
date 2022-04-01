@@ -5,6 +5,12 @@
   padding: 25px 50px 75px 25px;
 }
 
+#results {
+  max-height: 699px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 #latest-info,
 #user-activities {
   .custom-card {

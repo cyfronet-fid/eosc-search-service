@@ -8,8 +8,11 @@ import {
   withEntities,
 } from '@ngneat/elf-entities';
 import { IArticle } from './article.interface';
-import { map } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { IStore } from '../store.interface';
+import { ISearchResults } from '../search/search-results.interface';
+import { Router } from '@angular/router';
 
 const store = createStore(
   { name: 'articles' },
@@ -17,13 +20,17 @@ const store = createStore(
   withActiveId()
 );
 @Injectable({ providedIn: 'root' })
-export class ArticlesStore {
+export class ArticlesStore implements IStore<IArticle> {
   articles$ = store.pipe(selectAllEntities());
-  articlesSize$ = this.articles$.pipe(map((articles) => articles?.length || 0));
+  articlesSize$ = new BehaviorSubject<number>(0);
   activeArticle$ = store.pipe(selectActiveEntity());
 
-  set(articles: IArticle[]) {
-    store.update(setEntities(articles), setActiveId(articles[0]?.id));
+  constructor(private _router: Router) {}
+
+  set(results: ISearchResults<IArticle>) {
+    store.update(setEntities(results.results));
+    this.setActive(results.results[0]);
+    this.articlesSize$.next(results.numFound);
   }
   setActive(article: IArticle) {
     store.update(setActiveId(article.id));

@@ -1,39 +1,73 @@
 /* eslint-disable @typescript-eslint/no-explicit-any  */
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { FACETS } from './facet-param.interface';
 import { ISearchResults } from './search-results.interface';
 import { Observable, map, tap } from 'rxjs';
-import { IFacetResponse } from './facet-response.interface';
+import { ISolrPagination } from './solr-pagination.interface';
+import {
+  filterContainingBuckets,
+  toTreeParams,
+} from '../marketplace-page/utils';
+import { SolrQueryParams } from './solr-query-params.interface';
+import { FACETS } from './facet-param.interface';
+
+export class SearchServiceError extends Error {
+  constructor(msg: string) {
+    super(`Search service query error: ${msg}`);
+  }
+}
 
 @Injectable({
   providedIn: 'root',
 })
-export class SearchService {
-  constructor(private _http: HttpClient) {}
-
-  getResults$<T>(
-    q: string,
-    collection = environment.search.collection,
-    facets = FACETS
-  ): Observable<T[]> {
-    const url = `${environment.backend.url}/${environment.backend.apiPath}/${environment.search.apiPath}`;
-    const params = { params: { q, collection, qf: 'title' } };
-    return this._http
-      .post<ISearchResults<T>>(url, { facets }, params)
-      .pipe(map((response) => response.results));
+export class SearchService extends ISolrPagination {
+  constructor(private _http: HttpClient) {
+    super();
   }
 
-  getFacetsCounts$(
-    q: string,
-    collection = environment.search.collection,
-    facets = FACETS
-  ): Observable<{ [facedName: string]: IFacetResponse }> {
-    const url = `${environment.backend.url}/${environment.backend.apiPath}/${environment.search.apiPath}`;
-    const params = { params: { q, collection, qf: 'title' } };
+  getFilters$() {
+    const params = new SolrQueryParams();
     return this._http
-      .post<ISearchResults<any>>(url, { facets }, params)
-      .pipe(map((response) => response.facets));
+      .post<ISearchResults<any>>(
+        SearchService._URL,
+        { facets: FACETS },
+        { params: params.toJson() as any }
+      )
+      .pipe(
+        map((response) => response.facets),
+        map(filterContainingBuckets),
+        map(toTreeParams)
+      );
+  }
+  get$<T>(
+    params: SolrQueryParams,
+    facets = FACETS
+  ): Observable<ISearchResults<T>> {
+    this._updateSearchParams$(params, facets);
+    return this._http
+      .post<ISearchResults<T>>(
+        SearchService._URL,
+        { facets },
+        { params: params.toJson() }
+      )
+      .pipe(tap((response) => this._updatePaginationParams$<T>(response)));
+  }
+  nextPage$<T>(): Observable<ISearchResults<T>> {
+    const params = this._getNthPageParams$(
+      this._currentPage$.value + 1
+    ).toJson();
+    const facets = this._latestFacets$.value;
+    return this._http
+      .post<ISearchResults<T>>(SearchService._URL, { facets }, { params })
+      .pipe(tap((response) => this._updatePaginationParams$<T>(response)));
+  }
+  prevPage$<T>(): Observable<ISearchResults<T>> {
+    const params = this._getNthPageParams$(
+      this._currentPage$.value - 1
+    ).toJson();
+    const facets = this._latestFacets$.value;
+    return this._http
+      .post<ISearchResults<T>>(SearchService._URL, { facets }, { params })
+      .pipe(tap((response) => this._updatePaginationParams$<T>(response)));
   }
 }
