@@ -12,7 +12,7 @@ from alembic.config import Config
 from app.server import get_app
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture
 def apply_migrations():
     """Apply DB migrations in TESTING environment."""
     config = Config("alembic.ini")
