@@ -17,16 +17,16 @@ schema = schemathesis.from_path(
 
 @schema.parametrize()
 @settings(suppress_health_check=[HealthCheck.function_scoped_fixture])
-async def test_empty_db(case, app) -> None:
-    response = case.call_asgi(app)
+async def test_empty_db(case, managed_app) -> None:
+    response = case.call_asgi(managed_app)
     case.validate_response(response)
 
 
 @schema.parametrize()
 @settings(suppress_health_check=[HealthCheck.function_scoped_fixture])
 # pylint: disable=redefined-outer-name,unused-argument
-async def test_non_empty_db(case, app, prepare_db) -> None:
-    response = case.call_asgi(app)
+async def test_non_empty_db(case, managed_app, prepare_db) -> None:
+    response = case.call_asgi(managed_app)
     case.validate_response(response)
 
 
