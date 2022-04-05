@@ -8,6 +8,7 @@ from fastapi import FastAPI
 from httpx import AsyncClient
 from starlette.status import HTTP_200_OK, HTTP_422_UNPROCESSABLE_ENTITY
 
+from app.schemas.search_request import TermsFacet
 from app.solr.operations import search, search_dep
 
 
@@ -42,6 +43,87 @@ async def test_post(
         rows=10,
         cursor="*",
         facets=None,
+    )
+
+
+@pytest.mark.asyncio
+async def test_passes_all_query_params(
+    app: FastAPI, client: AsyncClient, mock_post_search: AsyncMock
+) -> None:
+    res = await client.post(
+        app.url_path_for("apis:post-search"),
+        params={
+            "q": "bar",
+            "collection": "foo",
+            "qf": ["bar", "baz"],
+            "fq": ['foo:"bar"'],
+            "sort": ["fizz asc"],
+            "rows": 42,
+            "cursor": "transparent",
+        },
+        json={},
+    )
+
+    assert res.status_code == HTTP_200_OK
+    mock_post_search.assert_called_once_with(
+        ANY,
+        "foo",
+        q="bar",
+        qf=["bar", "baz"],
+        fq=['foo:"bar"'],
+        sort=["fizz asc", "score desc", "id asc"],
+        rows=42,
+        cursor="transparent",
+        facets=None,
+    )
+
+
+@pytest.mark.asyncio
+async def test_passes_all_facets(
+    app: FastAPI, client: AsyncClient, mock_post_search: AsyncMock
+) -> None:
+    res = await client.post(
+        app.url_path_for("apis:post-search"),
+        params={
+            "q": "bar",
+            "collection": "foo",
+        },
+        json={
+            "facets": {
+                "faz": {
+                    "type": "terms",
+                    "field": "baz",
+                    "offset": 42,
+                    "limit": 10,
+                    "sort": "name desc",
+                    "mincount": 5,
+                    "missing": False,
+                }
+            }
+        },
+    )
+
+    assert res.status_code == HTTP_200_OK
+    mock_post_search.assert_called_once_with(
+        ANY,
+        "foo",
+        q="bar",
+        qf=[],
+        fq=[],
+        sort=["score desc", "id asc"],
+        rows=10,
+        cursor="*",
+        facets={
+            "faz": TermsFacet(
+                type="terms",
+                field="baz",
+                offset=42,
+                limit=10,
+                sort="name desc",
+                mincount=5,
+                missing=False,
+            )
+        },
     )
 
 
