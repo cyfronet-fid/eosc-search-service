@@ -4,7 +4,6 @@
 import pytest
 from asgi_lifespan import LifespanManager
 from fastapi import FastAPI
-from httpx import AsyncClient
 from sqlalchemy.orm import Session
 
 import alembic
@@ -23,26 +22,20 @@ def apply_migrations():
 
 
 @pytest.fixture
-async def app(apply_migrations: None) -> FastAPI:
+async def app() -> FastAPI:
+    """FastAPI application"""
+    return get_app()
+
+
+@pytest.fixture
+async def managed_app(app: FastAPI, apply_migrations: None) -> FastAPI:
     """FastAPI application with managed lifecycle"""
-    app = get_app()
     async with LifespanManager(app):
         yield app
 
 
 @pytest.fixture
-def db(app: FastAPI) -> Session:
+def db(managed_app) -> Session:
     """Extract Session from app state"""
     # pylint: disable=protected-access
-    return app.state._db
-
-
-@pytest.fixture
-async def client(app: FastAPI) -> AsyncClient:
-    """Get lifecycle-managed AsyncClient"""
-    async with AsyncClient(
-        app=app,
-        base_url="http://testserver",
-        headers={"Content-Type": "application/json"},
-    ) as client:
-        yield client
+    return managed_app.state._db

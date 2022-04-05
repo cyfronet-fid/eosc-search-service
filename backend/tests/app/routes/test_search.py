@@ -54,6 +54,17 @@ def mock_post_search(app: FastAPI) -> AsyncMock:
     del app.dependency_overrides[search_dep]
 
 
+@pytest.fixture
+async def client(app: FastAPI) -> AsyncClient:
+    """Get lifecycle-managed AsyncClient"""
+    async with AsyncClient(
+        app=app,
+        base_url="http://testserver",
+        headers={"Content-Type": "application/json"},
+    ) as client:
+        yield client
+
+
 def get_mock(file: str) -> AsyncMock:
     mock_json = json.loads(read_file_contents(file))
     mock_return = Mock()
