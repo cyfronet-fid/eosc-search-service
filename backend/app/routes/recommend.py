@@ -2,7 +2,7 @@
 from json import JSONDecodeError
 
 from fastapi import Body, Depends, HTTPException, Query
-from httpx import AsyncClient
+from httpx import AsyncClient, TransportError
 
 from app.config import RS_ROWS
 from app.recommender.operations import recommendations
@@ -45,32 +45,37 @@ async def recommend_post(
     https://solr.apache.org/guide/8_11/query-syntax-and-parsing.html.
     """
     async with AsyncClient() as client:
-        solr_response = await search(
-            client,
-            collection,
-            q=q,
-            qf=qf,
-            fq=fq,
-            sort=sort + DEFAULT_SORT,
-            rows=RS_ROWS,
-            cursor="*",
-        )
-        if solr_response.is_error:
-            try:
-                detail = solr_response.json()["error"]["msg"]
-            except (KeyError, JSONDecodeError):
-                detail = None
-            raise HTTPException(status_code=solr_response.status_code, detail=detail)
-        rs_response = await recommendations(
-            client,
-            collection,
-            solr_response.json()["response"]["docs"],
-            context=request,
-            q=q,
-            qf=qf,
-            fq=fq,
-            sort=sort,
-        )
+        try:
+            solr_response = await search(
+                client,
+                collection,
+                q=q,
+                qf=qf,
+                fq=fq,
+                sort=sort + DEFAULT_SORT,
+                rows=RS_ROWS,
+                cursor="*",
+            )
+            if solr_response.is_error:
+                try:
+                    detail = solr_response.json()["error"]["msg"]
+                except (KeyError, JSONDecodeError):
+                    detail = None
+                raise HTTPException(
+                    status_code=solr_response.status_code, detail=detail
+                )
+            rs_response = await recommendations(
+                client,
+                collection,
+                solr_response.json()["response"]["docs"],
+                context=request,
+                q=q,
+                qf=qf,
+                fq=fq,
+                sort=sort,
+            )
+        except TransportError as e:
+            raise HTTPException(status_code=500, detail="Try again later") from e
     if rs_response.is_error:
         try:
             detail = rs_response.json()["detail"]

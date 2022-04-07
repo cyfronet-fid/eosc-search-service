@@ -67,7 +67,7 @@ pipenv run uvicorn app.main:app --reload
 ## Styles
 
 ```console
-pipenv run black alembic app tests
+pipenv run --experimental-string-processing black alembic app tests
 pipenv run isort .
 pipenv run pylint app tests
 ```
@@ -79,4 +79,9 @@ You need to run the test services first `docker-compose -f dc-test.yml up -d`.
 
 ```console
 TESTING=1 SOLR_URL=http://localhost:8993/solr/ pipenv run pytest
+```
+
+To skip integration tests:
+```console
+TESTING=1 SOLR_URL=http://localhost:8993/solr/ pipenv run pytest -m "not integration"
 ```

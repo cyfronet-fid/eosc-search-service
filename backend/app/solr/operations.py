@@ -1,7 +1,6 @@
 """Operations on Solr"""
 from httpx import AsyncClient, Response
 
-from app.config import SOLR_URL
 from app.schemas.search_request import TermsFacet
 
 
@@ -45,6 +44,9 @@ async def search(
     }
     if facets is not None and len(facets) > 0:
         request_body["facet"] = {k: v.dict() for k, v in facets.items()}
+    # pylint: disable=import-outside-toplevel
+    from app.config import SOLR_URL
+
     return await client.post(
         f"{SOLR_URL}{collection}/select",
         json=request_body,

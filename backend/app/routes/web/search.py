@@ -3,7 +3,7 @@
 from json import JSONDecodeError
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
-from httpx import AsyncClient
+from httpx import AsyncClient, TransportError
 
 from app.schemas.web import SearchRequest
 from app.solr.operations import search_dep
@@ -41,17 +41,20 @@ async def search_post(
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
     """
     async with AsyncClient() as client:
-        response = await search(
-            client,
-            collection,
-            q=q,
-            qf=qf,
-            fq=fq,
-            sort=sort + DEFAULT_SORT,
-            rows=rows,
-            cursor=cursor,
-            facets=request.facets,
-        )
+        try:
+            response = await search(
+                client,
+                collection,
+                q=q,
+                qf=qf,
+                fq=fq,
+                sort=sort + DEFAULT_SORT,
+                rows=rows,
+                cursor=cursor,
+                facets=request.facets,
+            )
+        except TransportError as e:
+            raise HTTPException(status_code=500, detail="Try again later") from e
     if response.is_error:
         try:
             detail = response.json()["error"]["msg"]

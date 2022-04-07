@@ -12,7 +12,7 @@ from app.server import get_app
 
 
 @pytest.fixture
-def apply_migrations():
+def apply_migrations() -> None:
     """Apply DB migrations in TESTING environment."""
     config = Config("alembic.ini")
 

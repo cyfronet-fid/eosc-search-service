@@ -6,19 +6,20 @@ jobs:
   backend:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install pipenv
-      run: pipx install pipenv
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
       with:
         python-version: '3.10.2'
         cache: 'pipenv'
+        cache-dependency-path: backend/Pipfile.lock
+    - name: Install pipenv
+      run: pipx install pipenv
     - name: Install dependencies
       run: pipenv sync --dev
       working-directory: ./backend
     - name: Check with black
       run: |
-        pipenv run black --check alembic app tests
+        pipenv run black --check --experimental-string-processing alembic app tests
       working-directory: ./backend
     - name: Check with isort
       run: |
