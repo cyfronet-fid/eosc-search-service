@@ -14,3 +14,6 @@ extension-pkg-whitelist = "pydantic"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 filterwarnings = ["ignore::DeprecationWarning"]
+addopts = "--strict-markers"
+markers = ["integration: mark the test as an integration test for easier exclusion"]
+

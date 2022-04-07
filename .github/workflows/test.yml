@@ -6,20 +6,48 @@ jobs:
   backend:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Start containers
-      run: docker-compose -f dc-test.yml up -d
-    - name: Install pipenv
-      run: pipx install pipenv
-    - uses: actions/setup-python@v2
+      run: docker-compose -f dc-test.yml up -d db_test
+    - uses: actions/setup-python@v3
       with:
         python-version: '3.10.2'
         cache: 'pipenv'
+        cache-dependency-path: backend/Pipfile.lock
+    - name: Install pipenv
+      run: pipx install pipenv
     - name: Install dependencies
       run: pipenv sync --dev
       working-directory: ./backend
     - name: Run tests
-      run: pipenv run pytest
+      run: pipenv run pytest -m "not integration"
+      working-directory: ./backend
+      env:
+        TESTING: 1
+    - name: Containers logs
+      if: always()
+      run: docker-compose logs
+    - name: Stop containers
+      if: always()
+      run: docker-compose -f dc-test.yml down
+  backend-integration:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Start containers
+      run: docker-compose -f dc-test.yml up -d
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.10.2'
+        cache: 'pipenv'
+        cache-dependency-path: backend/Pipfile.lock
+    - name: Install pipenv
+      run: pipx install pipenv
+    - name: Install dependencies
+      run: pipenv sync --dev
+      working-directory: ./backend
+    - name: Run tests
+      run: pipenv run pytest -m "integration"
       working-directory: ./backend
       env:
         TESTING: 1
@@ -33,13 +61,14 @@ jobs:
   transform:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Install pipenv
-      run: pipx install pipenv
-    - uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
       with:
         python-version: '3.10.2'
         cache: 'pipenv'
+        cache-dependency-path: transform/Pipfile.lock
+    - name: Install pipenv
+      run: pipx install pipenv
     - name: Install dependencies
       run: pipenv sync --dev
       working-directory: ./transform
