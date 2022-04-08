@@ -256,4 +256,4 @@ dmypy.json
 # IDE
 .idea
 
-/tmp
+tmp
