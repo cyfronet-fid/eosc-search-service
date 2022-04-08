@@ -93,6 +93,9 @@ docker run --rm -v "$PWD/transform/tmp/000017_0.jsonl:/mydata/data.jsonl" \
            post -c ess /mydata/data.jsonl
 ```
 
+After transitioning from hand-run Hive queries to a workflow, the output TSV files changed to include a `\x01` as
+a column separator instead of a tab. Use transform `v3` if you deal with such input files.
+
 
 ## Running RS locally
 
