@@ -2,7 +2,15 @@
 
 Tools for data loading.
 
-## How to use
+
+## Prerequisites
+
+You need to have a python installed from the root directory `.tool-versions` (preferably using asdf).
+
+Loading the records depends on being able to run the `../transform` module.
+This on the other hand requires you to have an up to date `pipenv` environment created in `../transform`.
+Please follow the instructions from `../backend/README.md` on pipenv installation, and
+then `cd ../transform; pipenv install`.
 
 The scripts here are meant to facilitate loading data into a Solr collection.
 They assume the data (~TSV) is stored in a Ceph bucket under a common prefix and objects are named `XXXXXX_0`,
@@ -15,6 +23,9 @@ Refer to `../README.md` for exact instructions.
 
 You will also need read access to Ceph, configure an [aws-cli](https://github.com/aws/aws-cli/) with appropriate
 credentials. Save the credentials in profile `loader_user`.
+
+
+## How to use
 
 (Bear in mind that the commands must be run in the folder this README is placed in and all the repo should be in place.)
 
