@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MocksService } from './mocks.service';
+import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'ui-root',
@@ -11,7 +13,7 @@ import { MocksService } from './mocks.service';
         <div id="dashboard__header">
           <div id="header__search-phrase">
             <p class="text-secondary">SEARCH RESULTS FOR:</p>
-            <h3>(display current search value)</h3>
+            <h3>Searched phrase: {{ searchedValue$ | async }}</h3>
           </div>
           <button type="button" id="dahboard__header-btn">
             Switch to recommended results only
@@ -39,8 +41,24 @@ import { MocksService } from './mocks.service';
 })
 export class AppComponent {
   labels$ = this._mocksService.getLabels$();
+  searchedValue$ = this._route.queryParams.pipe(
+    map((params) => {
+      switch (params['q']) {
+        case '*':
+          return 'all available';
+        case undefined:
+        case null:
+          return 'nothing';
+        default:
+          return params['q'];
+      }
+    })
+  );
 
-  constructor(private _mocksService: MocksService) {}
+  constructor(
+    private _mocksService: MocksService,
+    private _route: ActivatedRoute
+  ) {}
 
   // TODO: Provide identifiers in backend for each label available
   getLabelUrl(label: string) {
