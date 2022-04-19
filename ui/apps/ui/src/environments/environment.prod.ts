@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   backend: {
-    url: 'https://api.eosc-search-service.grid.cyfronet.pl/',
+    url: 'https://api.eosc-search-service.grid.cyfronet.pl',
     apiPath: 'api/web',
   },
   search: {

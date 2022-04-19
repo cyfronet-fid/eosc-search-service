@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { Observable } from 'rxjs';
 
-const backendUrlBase = `${environment.backend.url}/${environment.backend.apiPath}`;
+const backendUrlBase = `/${environment.backendApiPath}`;
 
 @Injectable({
   providedIn: 'root',
