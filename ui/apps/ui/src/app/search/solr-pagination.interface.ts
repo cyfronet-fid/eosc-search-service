@@ -6,7 +6,7 @@ import * as hash from 'object-hash';
 import { ISearchResults } from './search-results.interface';
 
 export abstract class ISolrPagination {
-  protected static _URL = `${environment.backend.url}/${environment.backend.apiPath}/${environment.search.apiPath}`;
+  protected static _URL = `/${environment.backendApiPath}/${environment.search.apiPath}`;
 
   protected _latestHash$ = new BehaviorSubject<string | null>(null);
   protected _latestParams$ = new BehaviorSubject<SolrQueryParams>(

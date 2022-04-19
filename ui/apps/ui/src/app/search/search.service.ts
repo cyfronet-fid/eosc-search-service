@@ -35,8 +35,8 @@ export class SearchService extends ISolrPagination {
       )
       .pipe(
         map((response) => response.facets),
-        map(filterContainingBuckets),
-        map(toTreeParams)
+        map((facets) => filterContainingBuckets(facets)),
+        map((facets) => toTreeParams(facets))
       );
   }
   get$<T>(

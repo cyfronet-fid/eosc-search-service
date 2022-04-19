@@ -25,7 +25,7 @@ declare let window: EoscCommonWindow;
   encapsulation: ViewEncapsulation.None,
 })
 export class MainHeaderComponent implements OnInit {
-  backendUrl = `${environment.backend.url}/${environment.backend.apiPath}`;
+  backendUrl = `/${environment.backendApiPath}`;
   constructor(private _mocksService: MocksService) {}
 
   ngOnInit() {
