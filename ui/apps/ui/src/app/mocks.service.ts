@@ -13,12 +13,6 @@ const backendUrlBase = `/${environment.backendApiPath}`;
 export class MocksService {
   constructor(private _http: HttpClient) {}
 
-  getUserInfo$() {
-    return this._http.get<{ username: string }>(
-      `${backendUrlBase}/auth/userinfo`
-    );
-  }
-
   getLabels$() {
     return this._http.get(`${backendUrlBase}/labels`) as Observable<any[]>;
   }

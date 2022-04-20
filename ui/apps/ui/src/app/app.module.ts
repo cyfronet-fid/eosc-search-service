@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MainHeaderComponent } from './main-header.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ArticlesPageComponent } from './articles-page/articles-page.component';
 import { MarketplacePageComponent } from './marketplace-page/marketplace-page.component';
@@ -22,15 +21,15 @@ registerLocaleData(en);
 /** config ng-zorro-antd i18n **/
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { AuthInterceptor } from './auth.interceptor';
-import { SearchComponent } from './search/search.component';
+import { CoreModule } from '@ui/core';
+import { SubHeaderComponent } from './sub-header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainHeaderComponent,
     ArticlesPageComponent,
     MarketplacePageComponent,
-    SearchComponent,
+    SubHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,11 +42,13 @@ import { SearchComponent } from './search/search.component';
     FormsModule,
     NzDatePickerModule,
     ReactiveFormsModule,
+    CoreModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
+  exports: [],
 })
 export class AppModule {}

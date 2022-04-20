@@ -4,18 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { ISearchResults } from './search-results.interface';
 import { Observable, map, tap } from 'rxjs';
 import { ISolrPagination } from './solr-pagination.interface';
-import {
-  filterContainingBuckets,
-  toTreeParams,
-} from '../marketplace-page/utils';
+import { filterContainingBuckets, toTreeParams } from './utils';
 import { SolrQueryParams } from './solr-query-params.interface';
 import { FACETS } from './facet-param.interface';
-
-export class SearchServiceError extends Error {
-  constructor(msg: string) {
-    super(`Search service query error: ${msg}`);
-  }
-}
+import { IArticle } from '../articles-page/article.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +30,11 @@ export class SearchService extends ISolrPagination {
         map((facets) => filterContainingBuckets(facets)),
         map((facets) => toTreeParams(facets))
       );
+  }
+  getByQuery$<T>(q: string): Observable<ISearchResults<T>> {
+    const qf = q && q.trim() === '*' ? [] : ['title'];
+    const newSolrParams = new SolrQueryParams({ q, qf });
+    return this.get$<T>(newSolrParams);
   }
   get$<T>(
     params: SolrQueryParams,
