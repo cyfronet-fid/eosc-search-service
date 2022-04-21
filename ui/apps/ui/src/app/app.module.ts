@@ -23,6 +23,10 @@ import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { AuthInterceptor } from './auth.interceptor';
 import { CoreModule } from '@ui/core';
 import { SubHeaderComponent } from './sub-header.component';
+import { FiltersComponent } from './marketplace-page/filters/filters.component';
+import { CategoriesComponent } from './marketplace-page/categories/categories.component';
+import { RecommendationsComponent } from './marketplace-page/recommendations/recommendations.component';
+import { ResourcesComponent } from './marketplace-page/resources/resources.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,10 @@ import { SubHeaderComponent } from './sub-header.component';
     ArticlesPageComponent,
     MarketplacePageComponent,
     SubHeaderComponent,
+    FiltersComponent,
+    CategoriesComponent,
+    RecommendationsComponent,
+    ResourcesComponent,
   ],
   imports: [
     BrowserModule,

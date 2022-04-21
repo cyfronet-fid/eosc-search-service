@@ -24,7 +24,7 @@ export class MocksService {
       any[]
     >;
   }
-  getRecommendedResources$() {
+  getResources$() {
     return this._http.get(
       `${backendUrlBase}/recommended-resources`
     ) as Observable<any[]>;

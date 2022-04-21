@@ -4,13 +4,26 @@ import { SearchService } from '../search/search.service';
 
 @Component({
   selector: 'ui-marketplace-page',
-  templateUrl: './marketplace-page.component.html',
+  template: `
+    <div class="row" id="dashboard__main">
+      <div class="col-3" id="dashboard__filters">
+        <ui-categories [categories]="categories$ | async"></ui-categories>
+        <ui-filters [filters]="filters$ | async"></ui-filters>
+      </div>
+      <div class="col-9">
+        <ui-recommendations
+          [recommendations]="recommendations$ | async"
+        ></ui-recommendations>
+        <ui-resources [resources]="resources$ | async"></ui-resources>
+      </div>
+    </div>
+  `,
 })
 export class MarketplacePageComponent {
   filters$ = this._searchService.getFilters$();
   categories$ = this._mocksService.getCategories$();
   recommendations$ = this._mocksService.getRecommendations$();
-  recommendedResources$ = this._mocksService.getRecommendedResources$();
+  resources$ = this._mocksService.getResources$();
 
   constructor(
     private _mocksService: MocksService,

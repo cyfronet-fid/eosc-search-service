@@ -4,10 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { ISearchResults } from './search-results.interface';
 import { Observable, map, tap } from 'rxjs';
 import { ISolrPagination } from './solr-pagination.interface';
-import { filterContainingBuckets, toTreeParams } from './utils';
+import {
+  filterContainingBuckets,
+  toTreeParams,
+} from '../marketplace-page/filters/utils';
 import { SolrQueryParams } from './solr-query-params.interface';
 import { FACETS } from './facet-param.interface';
-import { IArticle } from '../articles-page/article.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +19,7 @@ export class SearchService extends ISolrPagination {
     super();
   }
 
+  // TODO: move to filters service
   getFilters$() {
     const params = new SolrQueryParams();
     return this._http

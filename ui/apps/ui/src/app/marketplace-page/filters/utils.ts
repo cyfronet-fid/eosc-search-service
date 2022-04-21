@@ -1,4 +1,5 @@
-import { IFacetResponse } from './facet-response.interface';
+import { IFacetResponse } from '../../search/facet-response.interface';
+import { IFilterTreeParams } from './filter-tree-params.interface';
 
 const pick = <T>(obj: T, keys: string[]) => {
   const picked = {};
@@ -19,7 +20,9 @@ export const filterContainingBuckets = (facets: {
     Object.keys(facets).filter((facet) => !!facets[facet].buckets)
   );
 
-export const toTreeParams = (facets: { [name: string]: IFacetResponse }) =>
+export const toTreeParams = (facets: {
+  [name: string]: IFacetResponse;
+}): IFilterTreeParams[] =>
   Object.keys(facets).map((facet) => ({
     label: facet,
     buckets: facets[facet].buckets.map((bucket) => ({
