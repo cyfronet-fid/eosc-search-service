@@ -27,6 +27,9 @@ import { FiltersComponent } from './marketplace-page/filters/filters.component';
 import { CategoriesComponent } from './marketplace-page/categories/categories.component';
 import { RecommendationsComponent } from './marketplace-page/recommendations/recommendations.component';
 import { ResourcesComponent } from './marketplace-page/resources/resources.component';
+import { ResourceComponent } from './marketplace-page/resources/resource.component';
+import { RecommendationComponent } from './marketplace-page/recommendations/recommendation.component';
+import { FilterComponent } from './marketplace-page/filters/filter.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,9 @@ import { ResourcesComponent } from './marketplace-page/resources/resources.compo
     CategoriesComponent,
     RecommendationsComponent,
     ResourcesComponent,
+    ResourceComponent,
+    RecommendationComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,

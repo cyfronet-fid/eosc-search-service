@@ -19,7 +19,6 @@ export class SearchService extends ISolrPagination {
     super();
   }
 
-  // TODO: move to filters service
   getFilters$() {
     const params = new SolrQueryParams();
     return this._http
@@ -36,8 +35,7 @@ export class SearchService extends ISolrPagination {
   }
   getByQuery$<T>(q: string): Observable<ISearchResults<T>> {
     const qf = q && q.trim() === '*' ? [] : ['title'];
-    const newSolrParams = new SolrQueryParams({ q, qf });
-    return this.get$<T>(newSolrParams);
+    return this.get$<T>(new SolrQueryParams({ q, qf }));
   }
   get$<T>(
     params: SolrQueryParams,
