@@ -7,7 +7,7 @@ import { ISolrPagination } from './solr-pagination.interface';
 import {
   filterContainingBuckets,
   toTreeParams,
-} from '../marketplace-page/filters/utils';
+} from '../../../../../libs/core/src/lib/vertical-filters/vertical-filters.utils';
 import { SolrQueryParams } from './solr-query-params.interface';
 import { FACETS } from './facet-param.interface';
 

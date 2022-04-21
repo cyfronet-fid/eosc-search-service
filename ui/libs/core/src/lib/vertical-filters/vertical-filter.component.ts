@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { IFilterTreeParams } from './filter-tree-params.interface';
 
 @Component({
-  selector: 'ui-filter',
+  selector: 'core-vertical-filter',
   template: `
     <h6 class="text-secondary">{{ filter?.label }}</h6>
     <input
@@ -20,7 +20,7 @@ import { IFilterTreeParams } from './filter-tree-params.interface';
     ></nz-tree>
   `,
 })
-export class FilterComponent {
+export class VerticalFilterComponent {
   @Input()
   filter!: IFilterTreeParams | null;
 }
