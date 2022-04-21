@@ -1,6 +1,6 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {UserInfoService} from "./user-info.service";
-import {rerenderComponent} from "./utils";
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { UserInfoService } from './user-info.service';
+import { rerenderComponent } from './utils';
 
 @Component({
   selector: 'core-main-header',
@@ -15,7 +15,7 @@ import {rerenderComponent} from "./utils";
   encapsulation: ViewEncapsulation.None,
 })
 export class MainHeaderComponent implements OnInit {
-  id = "eosc-common-main-header"
+  id = 'eosc-common-main-header';
 
   @Input() backendUrl = ``;
 

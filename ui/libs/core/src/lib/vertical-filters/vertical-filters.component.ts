@@ -6,7 +6,8 @@ import { IFilterTreeParams } from './filter-tree-params.interface';
   template: `
     <section class="dashboard__filter">
       <h5>Filter by</h5>
-      <core-vertical-filter *ngFor="let filter of filters" [filter]="filter"> </core-vertical-filter>
+      <core-vertical-filter *ngFor="let filter of filters" [filter]="filter">
+      </core-vertical-filter>
     </section>
   `,
 })

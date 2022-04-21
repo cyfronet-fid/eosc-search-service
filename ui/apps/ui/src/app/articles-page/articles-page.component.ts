@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { SearchService } from '../search/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesStore } from './articles.store';
 import { IArticle } from './article.interface';
-import { Subscription, filter, map } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-articles-page',
@@ -32,7 +32,7 @@ import { Subscription, filter, map } from 'rxjs';
     </div>
   `,
 })
-export class ArticlesPageComponent implements OnInit, OnDestroy {
+export class ArticlesPageComponent implements OnDestroy {
   articles$ = this._articlesStore.articles$;
   foundArticlesNumber$ = this._articlesStore.articlesSize$;
   activeArticle$ = this._articlesStore.activeArticle$;
@@ -49,17 +49,6 @@ export class ArticlesPageComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private _router: Router
   ) {}
-
-  ngOnInit() {
-    this._setActiveSub$ = this._route.queryParams
-      .pipe(
-        map((params) => params['articleId']),
-        filter((id) => !!id)
-      )
-      .subscribe(async (id) =>
-        this._articlesStore.setActive({ id } as IArticle)
-      );
-  }
 
   setActive = (article: IArticle) => this._articlesStore.setActive(article);
   nextPage$ = () =>

@@ -1,5 +1,5 @@
-import { IFacetResponse } from '../../../../../apps/ui/src/app/search/facet-response.interface';
-import { IFilterTreeParams } from './filter-tree-params.interface';
+import { IFacetResponse } from './facet-response.interface';
+import { IFilterTreeParams } from '@ui/core';
 
 const pick = <T>(obj: T, keys: string[]) => {
   const picked = {};
