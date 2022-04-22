@@ -57,6 +57,11 @@
 }
 
 .dashboard__label {
+  &.active-link {
+    background-color: #1890ff;
+    color: white;
+  }
+
   background-color: #f7f9ff;
   padding: 12px;
 }

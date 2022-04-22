@@ -3,7 +3,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'ui-categories',
+  selector: 'core-categories',
   template: `
     <section class="dashboard__filter">
       <h5>Categories</h5>

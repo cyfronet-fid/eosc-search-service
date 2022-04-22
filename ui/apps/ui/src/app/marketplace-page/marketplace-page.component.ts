@@ -7,7 +7,7 @@ import { SearchService } from '../search/search.service';
   template: `
     <div class="row" id="dashboard__main">
       <div class="col-3" id="dashboard__filters">
-        <ui-categories [categories]="categories$ | async"></ui-categories>
+        <core-categories [categories]="categories$ | async"></core-categories>
         <core-vertical-filters
           [filters]="filters$ | async"
         ></core-vertical-filters>

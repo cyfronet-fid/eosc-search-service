@@ -18,6 +18,13 @@ import { MarketplacePageModule } from './marketplace-page/marketplace-page.modul
 import { ArticlesPageModule } from './articles-page/articles-page.module';
 import { SubHeaderComponent } from './sub-header.component';
 import { MainHeaderModule, SearchModule } from '@ui/core';
+import { TrainingCatalogPageModule } from './training-catalog-page/training-catalog-page.module';
+
+const PAGES_MODULES = [
+  MarketplacePageModule,
+  ArticlesPageModule,
+  TrainingCatalogPageModule,
+];
 
 @NgModule({
   declarations: [AppComponent, SubHeaderComponent],
@@ -26,10 +33,9 @@ import { MainHeaderModule, SearchModule } from '@ui/core';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
-    MarketplacePageModule,
-    ArticlesPageModule,
     MainHeaderModule,
     SearchModule,
+    ...PAGES_MODULES,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

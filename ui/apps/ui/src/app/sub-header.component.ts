@@ -18,6 +18,7 @@ import { ActivatedRoute } from '@angular/router';
       <div class="col">
         <a
           routerLink="marketplace"
+          routerLinkActive="active-link"
           queryParamsHandling="merge"
           class="dashboard__label"
           >Marketplace&nbsp;<strong>148 results</strong></a
@@ -26,14 +27,19 @@ import { ActivatedRoute } from '@angular/router';
       <div class="col">
         <a
           routerLink="articles"
+          routerLinkActive="active-link"
           queryParamsHandling="merge"
           class="dashboard__label"
           >Research outcomes&nbsp;<strong>2053 results</strong></a
         >
       </div>
       <div class="col">
-        <a routerLink="" queryParamsHandling="merge" class="dashboard__label"
-          >Content providers&nbsp;<strong>148 results</strong></a
+        <a
+          routerLink="training-catalog"
+          routerLinkActive="active-link"
+          queryParamsHandling="merge"
+          class="dashboard__label"
+          >Training Catalog &nbsp;<strong>148 results</strong></a
         >
       </div>
       <div class="col">
