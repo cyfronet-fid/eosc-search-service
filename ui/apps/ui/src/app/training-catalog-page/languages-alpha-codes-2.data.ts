@@ -1,4 +1,4 @@
-export const languagesAlphaCodes2 = <const>[
+export const languagesAlphaCodes2 = [
   'ab',
   'aa',
   'af',
@@ -181,5 +181,4 @@ export const languagesAlphaCodes2 = <const>[
   'yi',
   'yo',
   'za',
-  'default',
-];
+] as const;

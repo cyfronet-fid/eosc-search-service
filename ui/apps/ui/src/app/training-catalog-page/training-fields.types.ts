@@ -1,4 +1,3 @@
-import * as languages from './languages.json';
 import { languagesAlphaCodes2 } from './languages-alpha-codes-2.data';
 import { licencesIds } from './licences-ids.data';
 

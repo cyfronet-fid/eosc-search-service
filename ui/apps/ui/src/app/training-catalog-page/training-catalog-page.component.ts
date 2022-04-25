@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import * as trainingsJSON from './training-catalog-data.mock.json';
+import { ITraining } from './training.interface';
 
 @Component({
   selector: 'ui-training-catalog-page',
@@ -14,6 +16,16 @@ import { Component } from '@angular/core';
   `,
 })
 export class TrainingCatalogPageComponent {
-  categories = [];
-  trainings = [];
+  categories = [
+    {
+      label: 'Access physical & e-infrastructures',
+      count: 12,
+    },
+    {
+      label: 'Aggregators & integrators',
+      count: 3,
+    },
+  ];
+  trainings = (trainingsJSON as unknown as { default: unknown })
+    .default as ITraining[];
 }

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any  */
 
 import { Component, Input } from '@angular/core';
+import {ICategory} from "./category.intereface";
 
 @Component({
   selector: 'core-categories',
@@ -20,5 +21,5 @@ import { Component, Input } from '@angular/core';
 })
 export class CategoriesComponent {
   @Input()
-  categories!: any[] | null;
+  categories!: ICategory[] | null;
 }

@@ -12,9 +12,9 @@ export interface ITraining {
   title: string;
   author: string;
   description: string;
-  languageAlphaCode2: languageAlphaCode2;
+  languageAlphaCode2: languageAlphaCode2[number];
   keywords: string[];
-  licence: licenceId;
+  licence: licenceId[number];
   accessRights: accessRight[];
   format: string;
   targetGroup: string;
