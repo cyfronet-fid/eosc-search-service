@@ -6,7 +6,7 @@ import { ResourceComponent } from './resource.component';
 import { RecommendationsComponent } from './recommendations.component';
 import { RecommendationComponent } from './recommendation.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
-import { CategoriesModule, VerticalFitlersModule } from '@ui/core';
+import { CategoriesModule, MultiselectWithSearchModule } from '@ui/core';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,7 @@ import { CategoriesModule, VerticalFitlersModule } from '@ui/core';
   imports: [
     CommonModule,
     NgbRatingModule,
-    VerticalFitlersModule,
+    MultiselectWithSearchModule,
     CategoriesModule,
   ],
 })

@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { IFilterTreeParams } from './filter-tree-params.interface';
+import { IMultiselectWithSearchParams } from './filter-tree-params.interface';
 
 @Component({
-  selector: 'core-vertical-filter',
+  selector: 'core-multiselect-with-search',
   template: `
     <h6 class="text-secondary">{{ filter?.label }}</h6>
     <input
@@ -20,7 +20,7 @@ import { IFilterTreeParams } from './filter-tree-params.interface';
     ></nz-tree>
   `,
 })
-export class VerticalFilterComponent {
+export class MultiselectWithSearchComponent {
   @Input()
-  filter!: IFilterTreeParams | null;
+  filter!: IMultiselectWithSearchParams | null;
 }

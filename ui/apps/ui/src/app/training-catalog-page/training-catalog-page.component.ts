@@ -8,6 +8,7 @@ import { ITraining } from './training.interface';
     <div class="row" id="dashboard__main">
       <div class="col-3" id="dashboard__filters">
         <core-categories [categories]="categories"></core-categories>
+        <ui-training-filters></ui-training-filters>
       </div>
       <div class="col-9">
         <ui-trainings [trainings]="trainings"></ui-trainings>

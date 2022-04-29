@@ -1,5 +1,5 @@
 import { IFacetResponse } from './facet-response.interface';
-import { IFilterTreeParams } from '@ui/core';
+import { IMultiselectWithSearchParams } from '@ui/core';
 
 const pick = <T>(obj: T, keys: string[]) => {
   const picked = {};
@@ -22,7 +22,7 @@ export const filterContainingBuckets = (facets: {
 
 export const toTreeParams = (facets: {
   [name: string]: IFacetResponse;
-}): IFilterTreeParams[] =>
+}): IMultiselectWithSearchParams[] =>
   Object.keys(facets).map((facet) => ({
     label: facet,
     buckets: facets[facet].buckets.map((bucket) => ({

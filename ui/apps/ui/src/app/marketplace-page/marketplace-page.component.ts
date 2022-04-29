@@ -8,9 +8,14 @@ import { SearchService } from '../search/search.service';
     <div class="row" id="dashboard__main">
       <div class="col-3" id="dashboard__filters">
         <core-categories [categories]="categories$ | async"></core-categories>
-        <core-vertical-filters
-          [filters]="filters$ | async"
-        ></core-vertical-filters>
+        <section class="dashboard__filter">
+          <h5>Filter by</h5>
+          <core-multiselect-with-search
+            *ngFor="let filter of filters$ | async"
+            [filter]="filter"
+          >
+          </core-multiselect-with-search>
+        </section>
       </div>
       <div class="col-9">
         <ui-recommendations

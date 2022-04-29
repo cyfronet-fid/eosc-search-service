@@ -1,7 +1,6 @@
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-export interface IFilterTreeParams {
+export interface IMultiselectWithSearchParams {
   label: string;
   buckets: NzTreeNodeOptions[];
-  isLeaf: true;
 }
