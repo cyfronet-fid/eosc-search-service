@@ -1,22 +1,45 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { SearchService } from '../search/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticlesStore } from './articles.store';
 import { IArticle } from './article.interface';
-import { Subscription, filter, map } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ui-articles-page',
-  templateUrl: './articles-page.component.html',
+  template: `
+    <ui-horizontal-filters></ui-horizontal-filters>
+    <div class="row">
+      <div class="col-3">
+        <ui-articles-pagination
+          [pageResultsNumber]="pageResultsNumber$ | async"
+          [foundResultsNumber]="foundArticlesNumber$ | async"
+          [hasNextPage]="hasNextPage$ | async"
+          [hasPrevPage]="hasPrevPage$ | async"
+          (prevPage)="prevPage$()"
+          (nextPage)="nextPage$()"
+        ></ui-articles-pagination>
+        <ui-articles
+          [articles]="articles$ | async"
+          (setActive)="setActive($event)"
+        ></ui-articles>
+      </div>
+      <div *ngIf="!!(activeArticle$ | async)" class="col-9" id="item-details">
+        <ui-detailed-article
+          [article]="activeArticle$ | async"
+        ></ui-detailed-article>
+      </div>
+    </div>
+  `,
 })
-export class ArticlesPageComponent implements OnInit, OnDestroy {
+export class ArticlesPageComponent implements OnDestroy {
   articles$ = this._articlesStore.articles$;
-  articlesSize$ = this._articlesStore.articlesSize$;
+  foundArticlesNumber$ = this._articlesStore.articlesSize$;
   activeArticle$ = this._articlesStore.activeArticle$;
 
   hasNextPage$ = this._searchService.hasNextPage$;
   hasPrevPage$ = this._searchService.hasPrevPage$;
-  currentResultsNumber$ = this._searchService.currentResultsNumber$;
+  pageResultsNumber$ = this._searchService.currentResultsNumber$;
 
   private _setActiveSub$: Subscription | null = null;
 
@@ -26,17 +49,6 @@ export class ArticlesPageComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private _router: Router
   ) {}
-
-  ngOnInit() {
-    this._setActiveSub$ = this._route.queryParams
-      .pipe(
-        map((params) => params['articleId']),
-        filter((id) => !!id)
-      )
-      .subscribe(async (id) =>
-        this._articlesStore.setActive({ id } as IArticle)
-      );
-  }
 
   setActive = (article: IArticle) => this._articlesStore.setActive(article);
   nextPage$ = () =>

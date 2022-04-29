@@ -1,0 +1,6126 @@
+[
+  {
+    "referenceUrl": "https://spdx.org/licenses/Interbase-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Interbase-1.0.json",
+    "name": "Interbase Public License v1.0",
+    "id": "Interbase-1.0",
+    "seeAlso": [
+      "https://web.archive.org/web/20060319014854/http://info.borland.com/devsupport/interbase/opensource/IPL.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Mup.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Mup.json",
+    "name": "Mup License",
+    "id": "Mup",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Mup"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-2.0-with-autoconf-exception.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-2.0-with-autoconf-exception.json",
+    "name": "GNU General Public License v2.0 w/Autoconf exception",
+    "id": "GPL-2.0-with-autoconf-exception",
+    "seeAlso": [
+      "http://ac-archive.sourceforge.net/doc/copyright.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.1.json",
+    "name": "Open LDAP Public License v2.1",
+    "id": "OLDAP-2.1",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003db0d176738e96a0d3b9f85cb51e140a86f21be715"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OSL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OSL-1.1.json",
+    "name": "Open Software License 1.1",
+    "id": "OSL-1.1",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/OSL1.1"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-SA-3.0-IGO.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-SA-3.0-IGO.json",
+    "name": "Creative Commons Attribution Non Commercial Share Alike 3.0 IGO",
+    "id": "CC-BY-NC-SA-3.0-IGO",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-sa/3.0/igo/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/KiCad-libraries-exception.html",
+
+    "detailsUrl": "https://spdx.org/licenses/KiCad-libraries-exception.json",
+    "name": "KiCad Libraries Exception",
+    "id": "KiCad-libraries-exception",
+    "seeAlso": [
+      "https://www.kicad.org/libraries/license/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/EPL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/EPL-2.0.json",
+    "name": "Eclipse Public License 2.0",
+    "id": "EPL-2.0",
+    "seeAlso": [
+      "https://www.eclipse.org/legal/epl-2.0",
+      "https://www.opensource.org/licenses/EPL-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/xpp.html",
+
+    "detailsUrl": "https://spdx.org/licenses/xpp.json",
+
+    "name": "XPP License",
+    "id": "xpp",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/xpp"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CNRI-Python.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CNRI-Python.json",
+
+    "name": "CNRI Python License",
+    "id": "CNRI-Python",
+    "seeAlso": [
+      "https://opensource.org/licenses/CNRI-Python"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Linux-man-pages-copyleft.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Linux-man-pages-copyleft.json",
+
+    "name": "Linux man-pages Copyleft",
+    "id": "Linux-man-pages-copyleft",
+    "seeAlso": [
+      "https://www.kernel.org/doc/man-pages/licenses.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GLWTPL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GLWTPL.json",
+
+    "name": "Good Luck With That Public License",
+    "id": "GLWTPL",
+    "seeAlso": [
+      "https://github.com/me-shaon/GLWTPL/commit/da5f6bc734095efbacb442c0b31e33a65b9d6e85"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MIT-Modern-Variant.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MIT-Modern-Variant.json",
+
+    "name": "MIT License Modern Variant",
+    "id": "MIT-Modern-Variant",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing:MIT#Modern_Variants",
+      "https://ptolemy.berkeley.edu/copyright.htm",
+      "https://pirlwww.lpl.arizona.edu/s/guide/software/PerlTk/Tixlic.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-1-Clause.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-1-Clause.json",
+
+    "name": "BSD 1-Clause License",
+    "id": "BSD-1-Clause",
+    "seeAlso": [
+      "https://svnweb.freebsd.org/base/head/include/ifaddrs.h?revision\u003d326823"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/psfrag.html",
+
+    "detailsUrl": "https://spdx.org/licenses/psfrag.json",
+
+    "name": "psfrag License",
+    "id": "psfrag",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/psfrag"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-2.0+.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/LGPL-2.0+.json",
+
+    "name": "GNU Library General Public License v2 or later",
+    "id": "LGPL-2.0+",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/lgpl-2.0-standalone.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-PDDC.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-PDDC.json",
+
+    "name": "Creative Commons Public Domain Dedication and Certification",
+    "id": "CC-PDDC",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/publicdomain/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.2.json",
+
+    "name": "Open LDAP Public License v2.2",
+    "id": "OLDAP-2.2",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003d470b0c18ec67621c85881b2733057fecf4a1acc3"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OFL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OFL-1.1.json",
+
+    "name": "SIL Open Font License 1.1",
+    "id": "OFL-1.1",
+    "seeAlso": [
+      "http://scripts.sil.org/cms/scripts/page.php?item_id\u003dOFL_web",
+      "https://opensource.org/licenses/OFL-1.1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SGI-B-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SGI-B-1.0.json",
+
+    "name": "SGI Free Software License B v1.0",
+    "id": "SGI-B-1.0",
+    "seeAlso": [
+      "http://oss.sgi.com/projects/FreeB/SGIFreeSWLicB.1.0.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OML.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OML.json",
+
+    "name": "Open Market License",
+    "id": "OML",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Open_Market_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MTLL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MTLL.json",
+
+    "name": "Matrix Template Library License",
+    "id": "MTLL",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Matrix_Template_Library_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Sendmail.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Sendmail.json",
+
+    "name": "Sendmail License",
+    "id": "Sendmail",
+    "seeAlso": [
+      "http://www.sendmail.com/pdfs/open_source/sendmail_license.pdf",
+      "https://web.archive.org/web/20160322142305/https://www.sendmail.com/pdfs/open_source/sendmail_license.pdf"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Artistic-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Artistic-1.0.json",
+
+    "name": "Artistic License 1.0",
+    "id": "Artistic-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/Artistic-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OGL-UK-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OGL-UK-1.0.json",
+
+    "name": "Open Government Licence v1.0",
+    "id": "OGL-UK-1.0",
+    "seeAlso": [
+      "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/1/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NAIST-2003.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NAIST-2003.json",
+
+    "name": "Nara Institute of Science and Technology License (2003)",
+    "id": "NAIST-2003",
+    "seeAlso": [
+      "https://enterprise.dejacode.com/licenses/public/naist-2003/#license-text",
+      "https://github.com/nodejs/node/blob/4a19cc8947b1bba2b2d27816ec3d0edf9b28e503/LICENSE#L343"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ANTLR-PD-fallback.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ANTLR-PD-fallback.json",
+
+    "name": "ANTLR Software Rights Notice with license fallback",
+    "id": "ANTLR-PD-fallback",
+    "seeAlso": [
+      "http://www.antlr2.org/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/PostgreSQL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/PostgreSQL.json",
+
+    "name": "PostgreSQL License",
+    "id": "PostgreSQL",
+    "seeAlso": [
+      "http://www.postgresql.org/about/licence",
+      "https://opensource.org/licenses/PostgreSQL"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CPOL-1.02.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CPOL-1.02.json",
+
+    "name": "Code Project Open License 1.02",
+    "id": "CPOL-1.02",
+    "seeAlso": [
+      "http://www.codeproject.com/info/cpol10.aspx"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/EUPL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/EUPL-1.1.json",
+
+    "name": "European Union Public License 1.1",
+    "id": "EUPL-1.1",
+    "seeAlso": [
+      "https://joinup.ec.europa.eu/software/page/eupl/licence-eupl",
+      "https://joinup.ec.europa.eu/sites/default/files/custom-page/attachment/eupl1.1.-licence-en_0.pdf",
+      "https://opensource.org/licenses/EUPL-1.1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/eGenix.html",
+
+    "detailsUrl": "https://spdx.org/licenses/eGenix.json",
+
+    "name": "eGenix.com Public License 1.1.0",
+    "id": "eGenix",
+    "seeAlso": [
+      "http://www.egenix.com/products/eGenix.com-Public-License-1.1.0.pdf",
+      "https://fedoraproject.org/wiki/Licensing/eGenix.com_Public_License_1.1.0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.2-no-invariants-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.2-no-invariants-only.json",
+
+    "name": "GNU Free Documentation License v1.2 only - no invariants",
+    "id": "GFDL-1.2-no-invariants-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.2.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AGPL-1.0-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AGPL-1.0-or-later.json",
+
+    "name": "Affero General Public License v1.0 or later",
+    "id": "AGPL-1.0-or-later",
+    "seeAlso": [
+      "http://www.affero.org/oagpl.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/FSFULLR.html",
+
+    "detailsUrl": "https://spdx.org/licenses/FSFULLR.json",
+
+    "name": "FSF Unlimited License (with License Retention)",
+    "id": "FSFULLR",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/FSF_Unlimited_License#License_Retention_Variant"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/PSF-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/PSF-2.0.json",
+
+    "name": "Python Software Foundation License 2.0",
+    "id": "PSF-2.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/Python-2.0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-ND-4.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-ND-4.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial No Derivatives 4.0 International",
+    "id": "CC-BY-NC-ND-4.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OSL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OSL-1.0.json",
+
+    "name": "Open Software License 1.0",
+    "id": "OSL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/OSL-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ADSL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ADSL.json",
+
+    "name": "Amazon Digital Services License",
+    "id": "ADSL",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/AmazonDigitalServicesLicense"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NGPL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NGPL.json",
+
+    "name": "Nethack General Public License",
+    "id": "NGPL",
+    "seeAlso": [
+      "https://opensource.org/licenses/NGPL"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Net-SNMP.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Net-SNMP.json",
+
+    "name": "Net-SNMP License",
+    "id": "Net-SNMP",
+    "seeAlso": [
+      "http://net-snmp.sourceforge.net/about/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CNRI-Jython.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CNRI-Jython.json",
+
+    "name": "CNRI Jython License",
+    "id": "CNRI-Jython",
+    "seeAlso": [
+      "http://www.jython.org/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Sendmail-8.23.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Sendmail-8.23.json",
+
+    "name": "Sendmail License 8.23",
+    "id": "Sendmail-8.23",
+    "seeAlso": [
+      "https://www.proofpoint.com/sites/default/files/sendmail-license.pdf",
+      "https://web.archive.org/web/20181003101040/https://www.proofpoint.com/sites/default/files/sendmail-license.pdf"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/RPL-1.5.html",
+
+    "detailsUrl": "https://spdx.org/licenses/RPL-1.5.json",
+
+    "name": "Reciprocal Public License 1.5",
+    "id": "RPL-1.5",
+    "seeAlso": [
+      "https://opensource.org/licenses/RPL-1.5"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-2-Clause-Patent.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-2-Clause-Patent.json",
+
+    "name": "BSD-2-Clause Plus Patent License",
+    "id": "BSD-2-Clause-Patent",
+    "seeAlso": [
+      "https://opensource.org/licenses/BSDplusPatent"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OFL-1.1-no-RFN.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OFL-1.1-no-RFN.json",
+
+    "name": "SIL Open Font License 1.1 with no Reserved Font Name",
+    "id": "OFL-1.1-no-RFN",
+    "seeAlso": [
+      "http://scripts.sil.org/cms/scripts/page.php?item_id\u003dOFL_web",
+      "https://opensource.org/licenses/OFL-1.1"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/APSL-1.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/APSL-1.2.json",
+
+    "name": "Apple Public Source License 1.2",
+    "id": "APSL-1.2",
+    "seeAlso": [
+      "http://www.samurajdata.se/opensource/mirror/licenses/apsl.php"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AFL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AFL-1.1.json",
+
+    "name": "Academic Free License v1.1",
+    "id": "AFL-1.1",
+    "seeAlso": [
+      "http://opensource.linux-mirror.org/licenses/afl-1.1.txt",
+      "http://wayback.archive.org/web/20021004124254/http://www.opensource.org/licenses/academic.php"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MPL-2.0-no-copyleft-exception.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MPL-2.0-no-copyleft-exception.json",
+
+    "name": "Mozilla Public License 2.0 (no copyleft exception)",
+    "id": "MPL-2.0-no-copyleft-exception",
+    "seeAlso": [
+      "https://www.mozilla.org/MPL/2.0/",
+      "https://opensource.org/licenses/MPL-2.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ISC.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ISC.json",
+
+    "name": "ISC License",
+    "id": "ISC",
+    "seeAlso": [
+      "https://www.isc.org/licenses/",
+      "https://www.isc.org/downloads/software-support-policy/isc-license/",
+      "https://opensource.org/licenses/ISC"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-SA-2.5.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-SA-2.5.json",
+
+    "name": "Creative Commons Attribution Share Alike 2.5 Generic",
+    "id": "CC-BY-SA-2.5",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-sa/2.5/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.4.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.4.json",
+
+    "name": "Open LDAP Public License v2.4",
+    "id": "OLDAP-2.4",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003dcd1284c4a91a8a380d904eee68d1583f989ed386"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NLOD-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NLOD-2.0.json",
+
+    "name": "Norwegian Licence for Open Government Data (NLOD) 2.0",
+    "id": "NLOD-2.0",
+    "seeAlso": [
+      "http://data.norge.no/nlod/en/2.0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CUA-OPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CUA-OPL-1.0.json",
+
+    "name": "CUA Office Public License v1.0",
+    "id": "CUA-OPL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/CUA-OPL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MIT-open-group.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MIT-open-group.json",
+
+    "name": "MIT Open Group variant",
+    "id": "MIT-open-group",
+    "seeAlso": [
+      "https://gitlab.freedesktop.org/xorg/app/iceauth/-/blob/master/COPYING",
+      "https://gitlab.freedesktop.org/xorg/app/xvinfo/-/blob/master/COPYING",
+      "https://gitlab.freedesktop.org/xorg/app/xsetroot/-/blob/master/COPYING",
+      "https://gitlab.freedesktop.org/xorg/app/xauth/-/blob/master/COPYING"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CPAL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CPAL-1.0.json",
+
+    "name": "Common Public Attribution License 1.0",
+    "id": "CPAL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/CPAL-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-2.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial 2.0 Generic",
+    "id": "CC-BY-NC-2.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc/2.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Newsletr.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Newsletr.json",
+
+    "name": "Newsletr License",
+    "id": "Newsletr",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Newsletr"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.1-no-invariants-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.1-no-invariants-or-later.json",
+
+    "name": "GNU Free Documentation License v1.1 or later - no invariants",
+    "id": "GFDL-1.1-no-invariants-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.1.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-2.5.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-2.5.json",
+
+    "name": "Creative Commons Attribution 2.5 Generic",
+    "id": "CC-BY-2.5",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/2.5/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Leptonica.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Leptonica.json",
+
+    "name": "Leptonica License",
+    "id": "Leptonica",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Leptonica"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Parity-7.0.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Parity-7.0.0.json",
+
+    "name": "The Parity Public License 7.0.0",
+    "id": "Parity-7.0.0",
+    "seeAlso": [
+      "https://paritylicense.com/versions/7.0.0.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NPL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NPL-1.1.json",
+
+    "name": "Netscape Public License v1.1",
+    "id": "NPL-1.1",
+    "seeAlso": [
+      "http://www.mozilla.org/MPL/NPL/1.1/"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Baekmuk.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Baekmuk.json",
+
+    "name": "Baekmuk License",
+    "id": "Baekmuk",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing:Baekmuk?rd\u003dLicensing/Baekmuk"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/APAFML.html",
+
+    "detailsUrl": "https://spdx.org/licenses/APAFML.json",
+
+    "name": "Adobe Postscript AFM License",
+    "id": "APAFML",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/AdobePostscriptAFM"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MIT-CMU.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MIT-CMU.json",
+
+    "name": "CMU License",
+    "id": "MIT-CMU",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing:MIT?rd\u003dLicensing/MIT#CMU_Style",
+      "https://github.com/python-pillow/Pillow/blob/fffb426092c8db24a5f4b6df243a8a3c01fb63cd/LICENSE"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-2.5.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-2.5.json",
+
+    "name": "Creative Commons Attribution Non Commercial 2.5 Generic",
+    "id": "CC-BY-NC-2.5",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc/2.5/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CAL-1.0-Combined-Work-Exception.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CAL-1.0-Combined-Work-Exception.json",
+
+    "name": "Cryptographic Autonomy License 1.0 (Combined Work Exception)",
+    "id": "CAL-1.0-Combined-Work-Exception",
+    "seeAlso": [
+      "http://cryptographicautonomylicense.com/license-text.html",
+      "https://opensource.org/licenses/CAL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-4-Clause-Shortened.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-4-Clause-Shortened.json",
+
+    "name": "BSD 4 Clause Shortened",
+    "id": "BSD-4-Clause-Shortened",
+    "seeAlso": [
+      "https://metadata.ftp-master.debian.org/changelogs//main/a/arpwatch/arpwatch_2.1a15-7_copyright"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Qhull.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Qhull.json",
+
+    "name": "Qhull License",
+    "id": "Qhull",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Qhull"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CECILL-C.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CECILL-C.json",
+
+    "name": "CeCILL-C Free Software License Agreement",
+    "id": "CECILL-C",
+    "seeAlso": [
+      "http://www.cecill.info/licences/Licence_CeCILL-C_V1-en.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Multics.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Multics.json",
+
+    "name": "Multics License",
+    "id": "Multics",
+    "seeAlso": [
+      "https://opensource.org/licenses/Multics"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-1.0-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GPL-1.0-only.json",
+
+    "name": "GNU General Public License v1.0 only",
+    "id": "GPL-1.0-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/gpl-1.0-standalone.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-ND-3.0-DE.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-ND-3.0-DE.json",
+
+    "name": "Creative Commons Attribution Non Commercial No Derivatives 3.0 Germany",
+    "id": "CC-BY-NC-ND-3.0-DE",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-nd/3.0/de/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-SA-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-SA-3.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial Share Alike 3.0 Unported",
+    "id": "CC-BY-NC-SA-3.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-SA-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-SA-1.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial Share Alike 1.0 Generic",
+    "id": "CC-BY-NC-SA-1.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-sa/1.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SWL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SWL.json",
+
+    "name": "Scheme Widget Library (SWL) Software License Agreement",
+    "id": "SWL",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/SWL"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Frameworx-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Frameworx-1.0.json",
+
+    "name": "Frameworx Open License 1.0",
+    "id": "Frameworx-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/Frameworx-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-1.0+.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-1.0+.json",
+
+    "name": "GNU General Public License v1.0 or later",
+    "id": "GPL-1.0+",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/gpl-1.0-standalone.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-3.0-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GPL-3.0-or-later.json",
+
+    "name": "GNU General Public License v3.0 or later",
+    "id": "GPL-3.0-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/gpl-3.0-standalone.html",
+      "https://opensource.org/licenses/GPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/DOC.html",
+
+    "detailsUrl": "https://spdx.org/licenses/DOC.json",
+
+    "name": "DOC License",
+    "id": "DOC",
+    "seeAlso": [
+      "http://www.cs.wustl.edu/~schmidt/ACE-copying.html",
+      "https://www.dre.vanderbilt.edu/~schmidt/ACE-copying.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CDL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CDL-1.0.json",
+
+    "name": "Common Documentation License 1.0",
+    "id": "CDL-1.0",
+    "seeAlso": [
+      "http://www.opensource.apple.com/cdl/",
+      "https://fedoraproject.org/wiki/Licensing/Common_Documentation_License",
+      "https://www.gnu.org/licenses/license-list.html#ACDL"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/PHP-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/PHP-3.0.json",
+
+    "name": "PHP License v3.0",
+    "id": "PHP-3.0",
+    "seeAlso": [
+      "http://www.php.net/license/3_0.txt",
+      "https://opensource.org/licenses/PHP-3.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SISSL-1.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SISSL-1.2.json",
+
+    "name": "Sun Industry Standards Source License v1.2",
+    "id": "SISSL-1.2",
+    "seeAlso": [
+      "http://gridscheduler.sourceforge.net/Gridengine_SISSL_license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause.json",
+
+    "name": "BSD 3-Clause \"New\" or \"Revised\" License",
+    "id": "BSD-3-Clause",
+    "seeAlso": [
+      "https://opensource.org/licenses/BSD-3-Clause"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/RHeCos-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/RHeCos-1.1.json",
+
+    "name": "Red Hat eCos Public License v1.1",
+    "id": "RHeCos-1.1",
+    "seeAlso": [
+      "http://ecos.sourceware.org/old-license.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LAL-1.3.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LAL-1.3.json",
+
+    "name": "Licence Art Libre 1.3",
+    "id": "LAL-1.3",
+    "seeAlso": [
+      "https://artlibre.org/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LPL-1.0.json",
+
+    "name": "Lucent Public License Version 1.0",
+    "id": "LPL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/LPL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-SA-3.0-DE.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-SA-3.0-DE.json",
+
+    "name": "Creative Commons Attribution Share Alike 3.0 Germany",
+    "id": "CC-BY-SA-3.0-DE",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-sa/3.0/de/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CDLA-Permissive-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CDLA-Permissive-1.0.json",
+
+    "name": "Community Data License Agreement Permissive 1.0",
+    "id": "CDLA-Permissive-1.0",
+    "seeAlso": [
+      "https://cdla.io/permissive-1-0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/gnuplot.html",
+
+    "detailsUrl": "https://spdx.org/licenses/gnuplot.json",
+
+    "name": "gnuplot License",
+    "id": "gnuplot",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Gnuplot"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/App-s2p.html",
+
+    "detailsUrl": "https://spdx.org/licenses/App-s2p.json",
+
+    "name": "App::s2p License",
+    "id": "App-s2p",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/App-s2p"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/iMatix.html",
+
+    "detailsUrl": "https://spdx.org/licenses/iMatix.json",
+
+    "name": "iMatix Standard Function Library Agreement",
+    "id": "iMatix",
+    "seeAlso": [
+      "http://legacy.imatix.com/html/sfl/sfl4.htm#license"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MS-PL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MS-PL.json",
+
+    "name": "Microsoft Public License",
+    "id": "MS-PL",
+    "seeAlso": [
+      "http://www.microsoft.com/opensource/licenses.mspx",
+      "https://opensource.org/licenses/MS-PL"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/eCos-2.0.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/eCos-2.0.json",
+
+    "name": "eCos license version 2.0",
+    "id": "eCos-2.0",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/ecos-license.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AGPL-3.0-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AGPL-3.0-or-later.json",
+
+    "name": "GNU Affero General Public License v3.0 or later",
+    "id": "AGPL-3.0-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/agpl.txt",
+      "https://opensource.org/licenses/AGPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-ND-3.0-IGO.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-ND-3.0-IGO.json",
+
+    "name": "Creative Commons Attribution Non Commercial No Derivatives 3.0 IGO",
+    "id": "CC-BY-NC-ND-3.0-IGO",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-nd/3.0/igo/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ICU.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ICU.json",
+
+    "name": "ICU License",
+    "id": "ICU",
+    "seeAlso": [
+      "http://source.icu-project.org/repos/icu/icu/trunk/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-1.4.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-1.4.json",
+
+    "name": "Open LDAP Public License v1.4",
+    "id": "OLDAP-1.4",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003dc9f95c2f3f2ffb5e0ae55fe7388af75547660941"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-SA-2.1-JP.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-SA-2.1-JP.json",
+
+    "name": "Creative Commons Attribution Share Alike 2.1 Japan",
+    "id": "CC-BY-SA-2.1-JP",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-sa/2.1/jp/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-SA-4.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-SA-4.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial Share Alike 4.0 International",
+    "id": "CC-BY-NC-SA-4.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Unlicense.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Unlicense.json",
+
+    "name": "The Unlicense",
+    "id": "Unlicense",
+    "seeAlso": [
+      "https://unlicense.org/"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-3.0-DE.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-3.0-DE.json",
+
+    "name": "Creative Commons Attribution Non Commercial 3.0 Germany",
+    "id": "CC-BY-NC-3.0-DE",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc/3.0/de/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CERN-OHL-W-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CERN-OHL-W-2.0.json",
+
+    "name": "CERN Open Hardware Licence Version 2 - Weakly Reciprocal",
+    "id": "CERN-OHL-W-2.0",
+    "seeAlso": [
+      "https://www.ohwr.org/project/cernohl/wikis/Documents/CERN-OHL-version-2"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SugarCRM-1.1.3.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SugarCRM-1.1.3.json",
+
+    "name": "SugarCRM Public License v1.1.3",
+    "id": "SugarCRM-1.1.3",
+    "seeAlso": [
+      "http://www.sugarcrm.com/crm/SPL"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Unicode-DFS-2016.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Unicode-DFS-2016.json",
+
+    "name": "Unicode License Agreement - Data Files and Software (2016)",
+    "id": "Unicode-DFS-2016",
+    "seeAlso": [
+      "http://www.unicode.org/copyright.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/COIL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/COIL-1.0.json",
+
+    "name": "Copyfree Open Innovation License",
+    "id": "COIL-1.0",
+    "seeAlso": [
+      "https://coil.apotheon.org/plaintext/01.0.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AFL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AFL-2.0.json",
+
+    "name": "Academic Free License v2.0",
+    "id": "AFL-2.0",
+    "seeAlso": [
+      "http://wayback.archive.org/web/20060924134533/http://www.opensource.org/licenses/afl-2.0.txt"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/IPA.html",
+
+    "detailsUrl": "https://spdx.org/licenses/IPA.json",
+
+    "name": "IPA Font License",
+    "id": "IPA",
+    "seeAlso": [
+      "https://opensource.org/licenses/IPA"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-ND-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-ND-3.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial No Derivatives 3.0 Unported",
+    "id": "CC-BY-NC-ND-3.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-nd/3.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CERN-OHL-P-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CERN-OHL-P-2.0.json",
+
+    "name": "CERN Open Hardware Licence Version 2 - Permissive",
+    "id": "CERN-OHL-P-2.0",
+    "seeAlso": [
+      "https://www.ohwr.org/project/cernohl/wikis/Documents/CERN-OHL-version-2"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-3.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial 3.0 Unported",
+    "id": "CC-BY-NC-3.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc/3.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LiLiQ-P-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LiLiQ-P-1.1.json",
+
+    "name": "Licence Libre du Québec – Permissive version 1.1",
+    "id": "LiLiQ-P-1.1",
+    "seeAlso": [
+      "https://forge.gouv.qc.ca/licence/fr/liliq-v1-1/",
+      "http://opensource.org/licenses/LiLiQ-P-1.1"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LPL-1.02.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LPL-1.02.json",
+
+    "name": "Lucent Public License v1.02",
+    "id": "LPL-1.02",
+    "seeAlso": [
+      "http://plan9.bell-labs.com/plan9/license.html",
+      "https://opensource.org/licenses/LPL-1.02"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OFL-1.1-RFN.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OFL-1.1-RFN.json",
+
+    "name": "SIL Open Font License 1.1 with Reserved Font Name",
+    "id": "OFL-1.1-RFN",
+    "seeAlso": [
+      "http://scripts.sil.org/cms/scripts/page.php?item_id\u003dOFL_web",
+      "https://opensource.org/licenses/OFL-1.1"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-SA-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-SA-2.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial Share Alike 2.0 Generic",
+    "id": "CC-BY-NC-SA-2.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-sa/2.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OGDL-Taiwan-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OGDL-Taiwan-1.0.json",
+
+    "name": "Taiwan Open Government Data License, version 1.0",
+    "id": "OGDL-Taiwan-1.0",
+    "seeAlso": [
+      "https://data.gov.tw/license"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Sleepycat.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Sleepycat.json",
+
+    "name": "Sleepycat License",
+    "id": "Sleepycat",
+    "seeAlso": [
+      "https://opensource.org/licenses/Sleepycat"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-1.3.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-1.3.json",
+
+    "name": "Open LDAP Public License v1.3",
+    "id": "OLDAP-1.3",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003de5f8117f0ce088d0bd7a8e18ddf37eaa40eb09b1"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CAL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CAL-1.0.json",
+
+    "name": "Cryptographic Autonomy License 1.0",
+    "id": "CAL-1.0",
+    "seeAlso": [
+      "http://cryptographicautonomylicense.com/license-text.html",
+      "https://opensource.org/licenses/CAL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Python-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Python-2.0.json",
+
+    "name": "Python License 2.0",
+    "id": "Python-2.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/Python-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NTP-0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NTP-0.json",
+
+    "name": "NTP No Attribution",
+    "id": "NTP-0",
+    "seeAlso": [
+      "https://github.com/tytso/e2fsprogs/blob/master/lib/et/et_name.c"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/FSFAP.html",
+
+    "detailsUrl": "https://spdx.org/licenses/FSFAP.json",
+
+    "name": "FSF All Permissive License",
+    "id": "FSFAP",
+    "seeAlso": [
+      "https://www.gnu.org/prep/maintain/html_node/License-Notices-for-Other-Files.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ErlPL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ErlPL-1.1.json",
+
+    "name": "Erlang Public License v1.1",
+    "id": "ErlPL-1.1",
+    "seeAlso": [
+      "http://www.erlang.org/EPLICENSE"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Barr.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Barr.json",
+
+    "name": "Barr License",
+    "id": "Barr",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Barr"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-3.0-US.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-3.0-US.json",
+
+    "name": "Creative Commons Attribution 3.0 United States",
+    "id": "CC-BY-3.0-US",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/3.0/us/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause-No-Nuclear-License-2014.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause-No-Nuclear-License-2014.json",
+
+    "name": "BSD 3-Clause No Nuclear License 2014",
+    "id": "BSD-3-Clause-No-Nuclear-License-2014",
+    "seeAlso": [
+      "https://java.net/projects/javaeetutorial/pages/BerkeleyLicense"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NLPL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NLPL.json",
+
+    "name": "No Limit Public License",
+    "id": "NLPL",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/NLPL"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/PDDL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/PDDL-1.0.json",
+
+    "name": "Open Data Commons Public Domain Dedication \u0026 License 1.0",
+    "id": "PDDL-1.0",
+    "seeAlso": [
+      "http://opendatacommons.org/licenses/pddl/1.0/",
+      "https://opendatacommons.org/licenses/pddl/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SGI-B-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SGI-B-1.1.json",
+
+    "name": "SGI Free Software License B v1.1",
+    "id": "SGI-B-1.1",
+    "seeAlso": [
+      "http://oss.sgi.com/projects/FreeB/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause-Clear.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause-Clear.json",
+
+    "name": "BSD 3-Clause Clear License",
+    "id": "BSD-3-Clause-Clear",
+    "seeAlso": [
+      "http://labs.metacarta.com/license-explanation.html#license"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CDDL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CDDL-1.0.json",
+
+    "name": "Common Development and Distribution License 1.0",
+    "id": "CDDL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/cddl1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/FDK-AAC.html",
+
+    "detailsUrl": "https://spdx.org/licenses/FDK-AAC.json",
+
+    "name": "Fraunhofer FDK AAC Codec Library",
+    "id": "FDK-AAC",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/FDK-AAC",
+      "https://directory.fsf.org/wiki/License:Fdk"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BlueOak-1.0.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BlueOak-1.0.0.json",
+
+    "name": "Blue Oak Model License 1.0.0",
+    "id": "BlueOak-1.0.0",
+    "seeAlso": [
+      "https://blueoakcouncil.org/license/1.0.0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-SA-2.0-FR.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-SA-2.0-FR.json",
+
+    "name": "Creative Commons Attribution-NonCommercial-ShareAlike 2.0 France",
+    "id": "CC-BY-NC-SA-2.0-FR",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-sa/2.0/fr/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-2.1-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LGPL-2.1-or-later.json",
+
+    "name": "GNU Lesser General Public License v2.1 or later",
+    "id": "LGPL-2.1-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html",
+      "https://opensource.org/licenses/LGPL-2.1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Info-ZIP.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Info-ZIP.json",
+
+    "name": "Info-ZIP License",
+    "id": "Info-ZIP",
+    "seeAlso": [
+      "http://www.info-zip.org/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CECILL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CECILL-1.0.json",
+
+    "name": "CeCILL Free Software License Agreement v1.0",
+    "id": "CECILL-1.0",
+    "seeAlso": [
+      "http://www.cecill.info/licences/Licence_CeCILL_V1-fr.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AAL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AAL.json",
+
+    "name": "Attribution Assurance License",
+    "id": "AAL",
+    "seeAlso": [
+      "https://opensource.org/licenses/attribution"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SSH-short.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SSH-short.json",
+
+    "name": "SSH short notice",
+    "id": "SSH-short",
+    "seeAlso": [
+      "https://github.com/openssh/openssh-portable/blob/1b11ea7c58cd5c59838b5fa574cd456d6047b2d4/pathnames.h",
+      "http://web.mit.edu/kolya/.f/root/athena.mit.edu/sipb.mit.edu/project/openssh/OldFiles/src/openssh-2.9.9p2/ssh-add.1",
+      "https://joinup.ec.europa.eu/svn/lesoll/trunk/italc/lib/src/dsa_key.cpp"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-2.0-with-font-exception.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-2.0-with-font-exception.json",
+
+    "name": "GNU General Public License v2.0 w/Font exception",
+    "id": "GPL-2.0-with-font-exception",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/gpl-faq.html#FontException"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/StandardML-NJ.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/StandardML-NJ.json",
+
+    "name": "Standard ML of New Jersey License",
+    "id": "StandardML-NJ",
+    "seeAlso": [
+      "http://www.smlnj.org//license.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AGPL-1.0-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AGPL-1.0-only.json",
+
+    "name": "Affero General Public License v1.0 only",
+    "id": "AGPL-1.0-only",
+    "seeAlso": [
+      "http://www.affero.org/oagpl.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-2.0-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GPL-2.0-or-later.json",
+
+    "name": "GNU General Public License v2.0 or later",
+    "id": "GPL-2.0-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html",
+      "https://opensource.org/licenses/GPL-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SSH-OpenSSH.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SSH-OpenSSH.json",
+
+    "name": "SSH OpenSSH license",
+    "id": "SSH-OpenSSH",
+    "seeAlso": [
+      "https://github.com/openssh/openssh-portable/blob/1b11ea7c58cd5c59838b5fa574cd456d6047b2d4/LICENCE#L10"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ClArtistic.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ClArtistic.json",
+
+    "name": "Clarified Artistic License",
+    "id": "ClArtistic",
+    "seeAlso": [
+      "http://gianluca.dellavedova.org/2011/01/03/clarified-artistic-license/",
+      "http://www.ncftp.com/ncftp/doc/LICENSE.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause-No-Military-License.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause-No-Military-License.json",
+
+    "name": "BSD 3-Clause No Military License",
+    "id": "BSD-3-Clause-No-Military-License",
+    "seeAlso": [
+      "https://gitlab.syncad.com/hive/dhive/-/blob/master/LICENSE",
+      "https://github.com/greymass/swift-eosio/blob/master/LICENSE"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.1-invariants-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.1-invariants-only.json",
+
+    "name": "GNU Free Documentation License v1.1 only - invariants",
+    "id": "GFDL-1.1-invariants-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.1.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MPL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MPL-1.1.json",
+
+    "name": "Mozilla Public License 1.1",
+    "id": "MPL-1.1",
+    "seeAlso": [
+      "http://www.mozilla.org/MPL/MPL-1.1.html",
+      "https://opensource.org/licenses/MPL-1.1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.1.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.1.json",
+
+    "name": "GNU Free Documentation License v1.1",
+    "id": "GFDL-1.1",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.1.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OCLC-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OCLC-2.0.json",
+
+    "name": "OCLC Research Public License 2.0",
+    "id": "OCLC-2.0",
+    "seeAlso": [
+      "http://www.oclc.org/research/activities/software/license/v2final.htm",
+      "https://opensource.org/licenses/OCLC-2.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-1.1.json",
+
+    "name": "Open LDAP Public License v1.1",
+    "id": "OLDAP-1.1",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003d806557a5ad59804ef3a44d5abfbe91d706b0791f"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/JSON.html",
+
+    "detailsUrl": "https://spdx.org/licenses/JSON.json",
+
+    "name": "JSON License",
+    "id": "JSON",
+    "seeAlso": [
+      "http://www.json.org/license.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.3-no-invariants-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.3-no-invariants-only.json",
+
+    "name": "GNU Free Documentation License v1.3 only - no invariants",
+    "id": "GFDL-1.3-no-invariants-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/fdl-1.3.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/FreeBSD-DOC.html",
+
+    "detailsUrl": "https://spdx.org/licenses/FreeBSD-DOC.json",
+
+    "name": "FreeBSD Documentation License",
+    "id": "FreeBSD-DOC",
+    "seeAlso": [
+      "https://www.freebsd.org/copyright/freebsd-doc-license/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.0.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.0.1.json",
+
+    "name": "Open LDAP Public License v2.0.1",
+    "id": "OLDAP-2.0.1",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003db6d68acd14e51ca3aab4428bf26522aa74873f0e"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CPL-1.0.json",
+
+    "name": "Common Public License 1.0",
+    "id": "CPL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/CPL-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-1.0-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GPL-1.0-or-later.json",
+
+    "name": "GNU General Public License v1.0 or later",
+    "id": "GPL-1.0-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/gpl-1.0-standalone.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/YPL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/YPL-1.1.json",
+
+    "name": "Yahoo! Public License v1.1",
+    "id": "YPL-1.1",
+    "seeAlso": [
+      "http://www.zimbra.com/license/yahoo_public_license_1.1.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OFL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OFL-1.0.json",
+
+    "name": "SIL Open Font License 1.0",
+    "id": "OFL-1.0",
+    "seeAlso": [
+      "http://scripts.sil.org/cms/scripts/page.php?item_id\u003dOFL10_web"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Apache-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Apache-1.0.json",
+
+    "name": "Apache License 1.0",
+    "id": "Apache-1.0",
+    "seeAlso": [
+      "http://www.apache.org/licenses/LICENSE-1.0"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-4.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-4.0.json",
+
+    "name": "Creative Commons Attribution 4.0 International",
+    "id": "CC-BY-4.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/4.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/IBM-pibs.html",
+
+    "detailsUrl": "https://spdx.org/licenses/IBM-pibs.json",
+
+    "name": "IBM PowerPC Initialization and Boot Software",
+    "id": "IBM-pibs",
+    "seeAlso": [
+      "http://git.denx.de/?p\u003du-boot.git;a\u003dblob;f\u003darch/powerpc/cpu/ppc4xx/miiphy.c;h\u003d297155fdafa064b955e53e9832de93bfb0cfb85b;hb\u003d9fab4bf4cc077c21e43941866f3f2c196f28670d"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/DSDP.html",
+
+    "detailsUrl": "https://spdx.org/licenses/DSDP.json",
+
+    "name": "DSDP License",
+    "id": "DSDP",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/DSDP"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Eurosym.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Eurosym.json",
+
+    "name": "Eurosym License",
+    "id": "Eurosym",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Eurosym"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SNIA.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SNIA.json",
+
+    "name": "SNIA Public License 1.1",
+    "id": "SNIA",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/SNIA_Public_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/APL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/APL-1.0.json",
+
+    "name": "Adaptive Public License 1.0",
+    "id": "APL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/APL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/EUPL-1.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/EUPL-1.2.json",
+
+    "name": "European Union Public License 1.2",
+    "id": "EUPL-1.2",
+    "seeAlso": [
+      "https://joinup.ec.europa.eu/page/eupl-text-11-12",
+      "https://joinup.ec.europa.eu/sites/default/files/custom-page/attachment/eupl_v1.2_en.pdf",
+      "https://joinup.ec.europa.eu/sites/default/files/custom-page/attachment/2020-03/EUPL-1.2%20EN.txt",
+      "https://joinup.ec.europa.eu/sites/default/files/inline-files/EUPL%20v1_2%20EN(1).txt",
+      "http://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri\u003dCELEX:32017D0863",
+      "https://opensource.org/licenses/EUPL-1.2"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Watcom-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Watcom-1.0.json",
+
+    "name": "Sybase Open Watcom Public License 1.0",
+    "id": "Watcom-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/Watcom-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/DRL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/DRL-1.0.json",
+
+    "name": "Detection Rule License 1.0",
+    "id": "DRL-1.0",
+    "seeAlso": [
+      "https://github.com/Neo23x0/sigma/blob/master/LICENSE.Detection.Rules.md"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-2.0-with-GCC-exception.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-2.0-with-GCC-exception.json",
+
+    "name": "GNU General Public License v2.0 w/GCC Runtime Library exception",
+    "id": "GPL-2.0-with-GCC-exception",
+    "seeAlso": [
+      "https://gcc.gnu.org/git/?p\u003dgcc.git;a\u003dblob;f\u003dgcc/libgcc1.c;h\u003d762f5143fc6eed57b6797c82710f3538aa52b40b;hb\u003dcb143a3ce4fb417c68f5fa2691a1b1b1053dfba9#l10"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Zlib.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Zlib.json",
+
+    "name": "zlib License",
+    "id": "Zlib",
+    "seeAlso": [
+      "http://www.zlib.net/zlib_license.html",
+      "https://opensource.org/licenses/Zlib"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/FSFUL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/FSFUL.json",
+
+    "name": "FSF Unlimited License",
+    "id": "FSFUL",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/FSF_Unlimited_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NASA-1.3.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NASA-1.3.json",
+
+    "name": "NASA Open Source Agreement 1.3",
+    "id": "NASA-1.3",
+    "seeAlso": [
+      "http://ti.arc.nasa.gov/opensource/nosa/",
+      "https://opensource.org/licenses/NASA-1.3"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-2-Clause.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-2-Clause.json",
+
+    "name": "BSD 2-Clause \"Simplified\" License",
+    "id": "BSD-2-Clause",
+    "seeAlso": [
+      "https://opensource.org/licenses/BSD-2-Clause"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/XFree86-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/XFree86-1.1.json",
+
+    "name": "XFree86 License 1.1",
+    "id": "XFree86-1.1",
+    "seeAlso": [
+      "http://www.xfree86.org/current/LICENSE4.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/dvipdfm.html",
+
+    "detailsUrl": "https://spdx.org/licenses/dvipdfm.json",
+
+    "name": "dvipdfm License",
+    "id": "dvipdfm",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/dvipdfm"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.8.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.8.json",
+
+    "name": "Open LDAP Public License v2.8",
+    "id": "OLDAP-2.8",
+    "seeAlso": [
+      "http://www.openldap.org/software/release/license.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NIST-PD.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NIST-PD.json",
+
+    "name": "NIST Public Domain Notice",
+    "id": "NIST-PD",
+    "seeAlso": [
+      "https://github.com/tcheneau/simpleRPL/blob/e645e69e38dd4e3ccfeceb2db8cba05b7c2e0cd3/LICENSE.txt",
+      "https://github.com/tcheneau/Routing/blob/f09f46fcfe636107f22f2c98348188a65a135d98/README.md"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Apache-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Apache-1.1.json",
+
+    "name": "Apache License 1.1",
+    "id": "Apache-1.1",
+    "seeAlso": [
+      "http://apache.org/licenses/LICENSE-1.1",
+      "https://opensource.org/licenses/Apache-1.1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-3.0+.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/LGPL-3.0+.json",
+
+    "name": "GNU Lesser General Public License v3.0 or later",
+    "id": "LGPL-3.0+",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/lgpl-3.0-standalone.html",
+      "https://opensource.org/licenses/LGPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/RSCPL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/RSCPL.json",
+
+    "name": "Ricoh Source Code Public License",
+    "id": "RSCPL",
+    "seeAlso": [
+      "http://wayback.archive.org/web/20060715140826/http://www.risource.org/RPL/RPL-1.0A.shtml",
+      "https://opensource.org/licenses/RSCPL"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Parity-6.0.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Parity-6.0.0.json",
+
+    "name": "The Parity Public License 6.0.0",
+    "id": "Parity-6.0.0",
+    "seeAlso": [
+      "https://paritylicense.com/versions/6.0.0.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LPPL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LPPL-1.1.json",
+
+    "name": "LaTeX Project Public License v1.1",
+    "id": "LPPL-1.1",
+    "seeAlso": [
+      "http://www.latex-project.org/lppl/lppl-1-1.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-2.0-with-classpath-exception.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-2.0-with-classpath-exception.json",
+
+    "name": "GNU General Public License v2.0 w/Classpath exception",
+    "id": "GPL-2.0-with-classpath-exception",
+    "seeAlso": [
+      "https://www.gnu.org/software/classpath/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause-No-Nuclear-Warranty.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause-No-Nuclear-Warranty.json",
+
+    "name": "BSD 3-Clause No Nuclear Warranty",
+    "id": "BSD-3-Clause-No-Nuclear-Warranty",
+    "seeAlso": [
+      "https://jogamp.org/git/?p\u003dgluegen.git;a\u003dblob_plain;f\u003dLICENSE.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/X11.html",
+
+    "detailsUrl": "https://spdx.org/licenses/X11.json",
+
+    "name": "X11 License",
+    "id": "X11",
+    "seeAlso": [
+      "http://www.xfree86.org/3.3.6/COPYRIGHT2.html#3"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/HaskellReport.html",
+
+    "detailsUrl": "https://spdx.org/licenses/HaskellReport.json",
+
+    "name": "Haskell Language Report License",
+    "id": "HaskellReport",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Haskell_Language_Report_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-2.0.json",
+
+    "name": "Creative Commons Attribution 2.0 Generic",
+    "id": "CC-BY-2.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/2.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CDLA-Permissive-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CDLA-Permissive-2.0.json",
+
+    "name": "Community Data License Agreement Permissive 2.0",
+    "id": "CDLA-Permissive-2.0",
+    "seeAlso": [
+      "https://cdla.dev/permissive-2-0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Artistic-1.0-cl8.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Artistic-1.0-cl8.json",
+
+    "name": "Artistic License 1.0 w/clause 8",
+    "id": "Artistic-1.0-cl8",
+    "seeAlso": [
+      "https://opensource.org/licenses/Artistic-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/APSL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/APSL-2.0.json",
+
+    "name": "Apple Public Source License 2.0",
+    "id": "APSL-2.0",
+    "seeAlso": [
+      "http://www.opensource.apple.com/license/apsl/"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Condor-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Condor-1.1.json",
+
+    "name": "Condor Public License v1.1",
+    "id": "Condor-1.1",
+    "seeAlso": [
+      "http://research.cs.wisc.edu/condor/license.html#condor",
+      "http://web.archive.org/web/20111123062036/http://research.cs.wisc.edu/condor/license.html#condor"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-3.0+.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-3.0+.json",
+
+    "name": "GNU General Public License v3.0 or later",
+    "id": "GPL-3.0+",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/gpl-3.0-standalone.html",
+      "https://opensource.org/licenses/GPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SHL-0.5.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SHL-0.5.json",
+
+    "name": "Solderpad Hardware License v0.5",
+    "id": "SHL-0.5",
+    "seeAlso": [
+      "https://solderpad.org/licenses/SHL-0.5/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BUSL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BUSL-1.1.json",
+
+    "name": "Business Source License 1.1",
+    "id": "BUSL-1.1",
+    "seeAlso": [
+      "https://mariadb.com/bsl11/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CNRI-Python-GPL-Compatible.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CNRI-Python-GPL-Compatible.json",
+
+    "name": "CNRI Python Open Source GPL Compatible License Agreement",
+    "id": "CNRI-Python-GPL-Compatible",
+    "seeAlso": [
+      "http://www.python.org/download/releases/1.6.1/download_win/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-2.0-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GPL-2.0-only.json",
+
+    "name": "GNU General Public License v2.0 only",
+    "id": "GPL-2.0-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html",
+      "https://opensource.org/licenses/GPL-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LiLiQ-R-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LiLiQ-R-1.1.json",
+
+    "name": "Licence Libre du Québec – Réciprocité version 1.1",
+    "id": "LiLiQ-R-1.1",
+    "seeAlso": [
+      "https://www.forge.gouv.qc.ca/participez/licence-logicielle/licence-libre-du-quebec-liliq-en-francais/licence-libre-du-quebec-reciprocite-liliq-r-v1-1/",
+      "http://opensource.org/licenses/LiLiQ-R-1.1"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/copyleft-next-0.3.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/copyleft-next-0.3.1.json",
+
+    "name": "copyleft-next 0.3.1",
+    "id": "copyleft-next-0.3.1",
+    "seeAlso": [
+      "https://github.com/copyleft-next/copyleft-next/blob/master/Releases/copyleft-next-0.3.1"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CATOSL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CATOSL-1.1.json",
+
+    "name": "Computer Associates Trusted Open Source License 1.1",
+    "id": "CATOSL-1.1",
+    "seeAlso": [
+      "https://opensource.org/licenses/CATOSL-1.1"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AMPAS.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AMPAS.json",
+
+    "name": "Academy of Motion Picture Arts and Sciences BSD",
+    "id": "AMPAS",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/BSD#AMPASBSD"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.3-invariants-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.3-invariants-or-later.json",
+
+    "name": "GNU Free Documentation License v1.3 or later - invariants",
+    "id": "GFDL-1.3-invariants-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/fdl-1.3.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CDLA-Sharing-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CDLA-Sharing-1.0.json",
+
+    "name": "Community Data License Agreement Sharing 1.0",
+    "id": "CDLA-Sharing-1.0",
+    "seeAlso": [
+      "https://cdla.io/sharing-1-0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OSL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OSL-2.0.json",
+
+    "name": "Open Software License 2.0",
+    "id": "OSL-2.0",
+    "seeAlso": [
+      "http://web.archive.org/web/20041020171434/http://www.rosenlaw.com/osl2.0.html"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.7.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.7.json",
+
+    "name": "Open LDAP Public License v2.7",
+    "id": "OLDAP-2.7",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003d47c2415c1df81556eeb39be6cad458ef87c534a2"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Unicode-DFS-2015.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Unicode-DFS-2015.json",
+
+    "name": "Unicode License Agreement - Data Files and Software (2015)",
+    "id": "Unicode-DFS-2015",
+    "seeAlso": [
+      "https://web.archive.org/web/20151224134844/http://unicode.org/copyright.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.3-no-invariants-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.3-no-invariants-or-later.json",
+
+    "name": "GNU Free Documentation License v1.3 or later - no invariants",
+    "id": "GFDL-1.3-no-invariants-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/fdl-1.3.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/libpng-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/libpng-2.0.json",
+
+    "name": "PNG Reference Library version 2",
+    "id": "libpng-2.0",
+    "seeAlso": [
+      "http://www.libpng.org/pub/png/src/libpng-LICENSE.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/IJG.html",
+
+    "detailsUrl": "https://spdx.org/licenses/IJG.json",
+
+    "name": "Independent JPEG Group License",
+    "id": "IJG",
+    "seeAlso": [
+      "http://dev.w3.org/cvsweb/Amaya/libjpeg/Attic/README?rev\u003d1.2"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CERN-OHL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CERN-OHL-1.1.json",
+
+    "name": "CERN Open Hardware Licence v1.1",
+    "id": "CERN-OHL-1.1",
+    "seeAlso": [
+      "https://www.ohwr.org/project/licenses/wikis/cern-ohl-v1.1"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Glulxe.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Glulxe.json",
+
+    "name": "Glulxe License",
+    "id": "Glulxe",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Glulxe"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CDDL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CDDL-1.1.json",
+
+    "name": "Common Development and Distribution License 1.1",
+    "id": "CDDL-1.1",
+    "seeAlso": [
+      "http://glassfish.java.net/public/CDDL+GPL_1_1.html",
+      "https://javaee.github.io/glassfish/LICENSE"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-1.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-1.2.json",
+
+    "name": "Open LDAP Public License v1.2",
+    "id": "OLDAP-1.2",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003d42b0383c50c299977b5893ee695cf4e486fb0dc7"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.3.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.3.json",
+
+    "name": "Open LDAP Public License v2.3",
+    "id": "OLDAP-2.3",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003dd32cf54a32d581ab475d23c810b0a7fbaf8d63c3"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-Source-Code.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-Source-Code.json",
+
+    "name": "BSD Source Code Attribution",
+    "id": "BSD-Source-Code",
+    "seeAlso": [
+      "https://github.com/robbiehanson/CocoaHTTPServer/blob/master/LICENSE.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Zimbra-1.4.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Zimbra-1.4.json",
+
+    "name": "Zimbra Public License v1.4",
+    "id": "Zimbra-1.4",
+    "seeAlso": [
+      "http://www.zimbra.com/legal/zimbra-public-license-1-4"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/wxWindows.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/wxWindows.json",
+
+    "name": "wxWindows Library License",
+    "id": "wxWindows",
+    "seeAlso": [
+      "https://opensource.org/licenses/WXwindows"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ZPL-2.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ZPL-2.1.json",
+
+    "name": "Zope Public License 2.1",
+    "id": "ZPL-2.1",
+    "seeAlso": [
+      "http://old.zope.org/s/ZPL/"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MIT-0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MIT-0.json",
+
+    "name": "MIT No Attribution",
+    "id": "MIT-0",
+    "seeAlso": [
+      "https://github.com/aws/mit-0",
+      "https://romanrm.net/mit-zero",
+      "https://github.com/awsdocs/aws-cloud9-user-guide/blob/master/LICENSE-SAMPLECODE"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CECILL-B.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CECILL-B.json",
+
+    "name": "CeCILL-B Free Software License Agreement",
+    "id": "CECILL-B",
+    "seeAlso": [
+      "http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AGPL-3.0.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/AGPL-3.0.json",
+
+    "name": "GNU Affero General Public License v3.0",
+    "id": "AGPL-3.0",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/agpl.txt",
+      "https://opensource.org/licenses/AGPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Abstyles.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Abstyles.json",
+
+    "name": "Abstyles License",
+    "id": "Abstyles",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Abstyles"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NTP.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NTP.json",
+
+    "name": "NTP License",
+    "id": "NTP",
+    "seeAlso": [
+      "https://opensource.org/licenses/NTP"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Adobe-2006.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Adobe-2006.json",
+
+    "name": "Adobe Systems Incorporated Source Code License Agreement",
+    "id": "Adobe-2006",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/AdobeLicense"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-SA-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-SA-1.0.json",
+
+    "name": "Creative Commons Attribution Share Alike 1.0 Generic",
+    "id": "CC-BY-SA-1.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-sa/1.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-ND-4.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-ND-4.0.json",
+
+    "name": "Creative Commons Attribution No Derivatives 4.0 International",
+    "id": "CC-BY-ND-4.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nd/4.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-2.1-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LGPL-2.1-only.json",
+
+    "name": "GNU Lesser General Public License v2.1 only",
+    "id": "LGPL-2.1-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html",
+      "https://opensource.org/licenses/LGPL-2.1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/diffmark.html",
+
+    "detailsUrl": "https://spdx.org/licenses/diffmark.json",
+
+    "name": "diffmark license",
+    "id": "diffmark",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/diffmark"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Plexus.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Plexus.json",
+
+    "name": "Plexus Classworlds License",
+    "id": "Plexus",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Plexus_Classworlds_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/xinetd.html",
+
+    "detailsUrl": "https://spdx.org/licenses/xinetd.json",
+
+    "name": "xinetd License",
+    "id": "xinetd",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Xinetd_License"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Adobe-Glyph.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Adobe-Glyph.json",
+
+    "name": "Adobe Glyph List License",
+    "id": "Adobe-Glyph",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/MIT#AdobeGlyph"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/JPNIC.html",
+
+    "detailsUrl": "https://spdx.org/licenses/JPNIC.json",
+
+    "name": "Japan Network Information Center License",
+    "id": "JPNIC",
+    "seeAlso": [
+      "https://gitlab.isc.org/isc-projects/bind9/blob/master/COPYRIGHT#L366"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-ND-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-ND-2.0.json",
+
+    "name": "Creative Commons Attribution No Derivatives 2.0 Generic",
+    "id": "CC-BY-ND-2.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nd/2.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/EPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/EPL-1.0.json",
+
+    "name": "Eclipse Public License 1.0",
+    "id": "EPL-1.0",
+    "seeAlso": [
+      "http://www.eclipse.org/legal/epl-v10.html",
+      "https://opensource.org/licenses/EPL-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/TCP-wrappers.html",
+
+    "detailsUrl": "https://spdx.org/licenses/TCP-wrappers.json",
+
+    "name": "TCP Wrappers License",
+    "id": "TCP-wrappers",
+    "seeAlso": [
+      "http://rc.quest.com/topics/openssh/license.php#tcpwrappers"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/0BSD.html",
+
+    "detailsUrl": "https://spdx.org/licenses/0BSD.json",
+
+    "name": "BSD Zero Clause License",
+    "id": "0BSD",
+    "seeAlso": [
+      "http://landley.net/toybox/license.html",
+      "https://opensource.org/licenses/0BSD"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Cube.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Cube.json",
+
+    "name": "Cube License",
+    "id": "Cube",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Cube"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-2.1+.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/LGPL-2.1+.json",
+
+    "name": "GNU Library General Public License v2.1 or later",
+    "id": "LGPL-2.1+",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html",
+      "https://opensource.org/licenses/LGPL-2.1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-2-Clause-FreeBSD.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/BSD-2-Clause-FreeBSD.json",
+
+    "name": "BSD 2-Clause FreeBSD License",
+    "id": "BSD-2-Clause-FreeBSD",
+    "seeAlso": [
+      "http://www.freebsd.org/copyright/freebsd-license.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OGL-Canada-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OGL-Canada-2.0.json",
+
+    "name": "Open Government Licence - Canada",
+    "id": "OGL-Canada-2.0",
+    "seeAlso": [
+      "https://open.canada.ca/en/open-government-licence-canada"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/psutils.html",
+
+    "detailsUrl": "https://spdx.org/licenses/psutils.json",
+
+    "name": "psutils License",
+    "id": "psutils",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/psutils"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ANTLR-PD.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ANTLR-PD.json",
+
+    "name": "ANTLR Software Rights Notice",
+    "id": "ANTLR-PD",
+    "seeAlso": [
+      "http://www.antlr2.org/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SCEA.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SCEA.json",
+
+    "name": "SCEA Shared Source License",
+    "id": "SCEA",
+    "seeAlso": [
+      "http://research.scea.com/scea_shared_source_license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Hippocratic-2.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Hippocratic-2.1.json",
+
+    "name": "Hippocratic License 2.1",
+    "id": "Hippocratic-2.1",
+    "seeAlso": [
+      "https://firstdonoharm.dev/version/2/1/license.html",
+      "https://github.com/EthicalSource/hippocratic-license/blob/58c0e646d64ff6fbee275bfe2b9492f914e3ab2a/LICENSE.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MirOS.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MirOS.json",
+
+    "name": "The MirOS Licence",
+    "id": "MirOS",
+    "seeAlso": [
+      "https://opensource.org/licenses/MirOS"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OSL-2.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OSL-2.1.json",
+
+    "name": "Open Software License 2.1",
+    "id": "OSL-2.1",
+    "seeAlso": [
+      "http://web.archive.org/web/20050212003940/http://www.rosenlaw.com/osl21.htm",
+      "https://opensource.org/licenses/OSL-2.1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CECILL-2.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CECILL-2.1.json",
+
+    "name": "CeCILL Free Software License Agreement v2.1",
+    "id": "CECILL-2.1",
+    "seeAlso": [
+      "http://www.cecill.info/licences/Licence_CeCILL_V2.1-en.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Entessa.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Entessa.json",
+
+    "name": "Entessa Public License v1.0",
+    "id": "Entessa",
+    "seeAlso": [
+      "https://opensource.org/licenses/Entessa"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MS-RL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MS-RL.json",
+
+    "name": "Microsoft Reciprocal License",
+    "id": "MS-RL",
+    "seeAlso": [
+      "http://www.microsoft.com/opensource/licenses.mspx",
+      "https://opensource.org/licenses/MS-RL"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-1.0.json",
+
+    "name": "Creative Commons Attribution 1.0 Generic",
+    "id": "CC-BY-1.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/1.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Imlib2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Imlib2.json",
+
+    "name": "Imlib2 License",
+    "id": "Imlib2",
+    "seeAlso": [
+      "http://trac.enlightenment.org/e/browser/trunk/imlib2/COPYING",
+      "https://git.enlightenment.org/legacy/imlib2.git/tree/COPYING"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Libpng.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Libpng.json",
+
+    "name": "libpng License",
+    "id": "Libpng",
+    "seeAlso": [
+      "http://www.libpng.org/pub/png/src/libpng-LICENSE.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.2-invariants-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.2-invariants-only.json",
+
+    "name": "GNU Free Documentation License v1.2 only - invariants",
+    "id": "GFDL-1.2-invariants-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.2.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MPL-1.0.json",
+
+    "name": "Mozilla Public License 1.0",
+    "id": "MPL-1.0",
+    "seeAlso": [
+      "http://www.mozilla.org/MPL/MPL-1.0.html",
+      "https://opensource.org/licenses/MPL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SchemeReport.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SchemeReport.json",
+
+    "name": "Scheme Language Report License",
+    "id": "SchemeReport",
+    "seeAlso": [],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SimPL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SimPL-2.0.json",
+
+    "name": "Simple Public License 2.0",
+    "id": "SimPL-2.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/SimPL-2.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SAX-PD.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SAX-PD.json",
+
+    "name": "Sax Public Domain Notice",
+    "id": "SAX-PD",
+    "seeAlso": [
+      "http://www.saxproject.org/copying.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NLOD-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NLOD-1.0.json",
+
+    "name": "Norwegian Licence for Open Government Data (NLOD) 1.0",
+    "id": "NLOD-1.0",
+    "seeAlso": [
+      "http://data.norge.no/nlod/en/1.0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/libselinux-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/libselinux-1.0.json",
+
+    "name": "libselinux public domain notice",
+    "id": "libselinux-1.0",
+    "seeAlso": [
+      "https://github.com/SELinuxProject/selinux/blob/master/libselinux/LICENSE"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/TU-Berlin-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/TU-Berlin-1.0.json",
+
+    "name": "Technische Universitaet Berlin License 1.0",
+    "id": "TU-Berlin-1.0",
+    "seeAlso": [
+      "https://github.com/swh/ladspa/blob/7bf6f3799fdba70fda297c2d8fd9f526803d9680/gsm/COPYRIGHT"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.1-no-invariants-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.1-no-invariants-only.json",
+
+    "name": "GNU Free Documentation License v1.1 only - no invariants",
+    "id": "GFDL-1.1-no-invariants-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.1.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/bzip2-1.0.5.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/bzip2-1.0.5.json",
+
+    "name": "bzip2 and libbzip2 License v1.0.5",
+    "id": "bzip2-1.0.5",
+    "seeAlso": [
+      "https://sourceware.org/bzip2/1.0.5/bzip2-manual-1.0.5.html",
+      "http://bzip.org/1.0.5/bzip2-manual-1.0.5.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-ND-3.0-DE.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-ND-3.0-DE.json",
+
+    "name": "Creative Commons Attribution No Derivatives 3.0 Germany",
+    "id": "CC-BY-ND-3.0-DE",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nd/3.0/de/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/EPICS.html",
+
+    "detailsUrl": "https://spdx.org/licenses/EPICS.json",
+
+    "name": "EPICS Open License",
+    "id": "EPICS",
+    "seeAlso": [
+      "https://epics.anl.gov/license/open.php"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.3-invariants-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.3-invariants-only.json",
+
+    "name": "GNU Free Documentation License v1.3 only - invariants",
+    "id": "GFDL-1.3-invariants-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/fdl-1.3.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MakeIndex.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MakeIndex.json",
+
+    "name": "MakeIndex License",
+    "id": "MakeIndex",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/MakeIndex"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/HPND.html",
+
+    "detailsUrl": "https://spdx.org/licenses/HPND.json",
+
+    "name": "Historical Permission Notice and Disclaimer",
+    "id": "HPND",
+    "seeAlso": [
+      "https://opensource.org/licenses/HPND"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GL2PS.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GL2PS.json",
+
+    "name": "GL2PS License",
+    "id": "GL2PS",
+    "seeAlso": [
+      "http://www.geuz.org/gl2ps/COPYING.GL2PS"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/XSkat.html",
+
+    "detailsUrl": "https://spdx.org/licenses/XSkat.json",
+
+    "name": "XSkat License",
+    "id": "XSkat",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/XSkat_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/bzip2-1.0.6.html",
+
+    "detailsUrl": "https://spdx.org/licenses/bzip2-1.0.6.json",
+
+    "name": "bzip2 and libbzip2 License v1.0.6",
+    "id": "bzip2-1.0.6",
+    "seeAlso": [
+      "https://sourceware.org/git/?p\u003dbzip2.git;a\u003dblob;f\u003dLICENSE;hb\u003dbzip2-1.0.6",
+      "http://bzip.org/1.0.5/bzip2-manual-1.0.5.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-2.0.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/LGPL-2.0.json",
+
+    "name": "GNU Library General Public License v2 only",
+    "id": "LGPL-2.0",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/lgpl-2.0-standalone.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Community-Spec-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Community-Spec-1.0.json",
+
+    "name": "Community Specification License 1.0",
+    "id": "Community-Spec-1.0",
+    "seeAlso": [
+      "https://github.com/CommunitySpecification/1.0/blob/master/1._Community_Specification_License-v1.md"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Glide.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Glide.json",
+
+    "name": "3dfx Glide License",
+    "id": "Glide",
+    "seeAlso": [
+      "http://www.users.on.net/~triforce/glidexp/COPYING.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-SA-4.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-SA-4.0.json",
+
+    "name": "Creative Commons Attribution Share Alike 4.0 International",
+    "id": "CC-BY-SA-4.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-sa/4.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ZPL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ZPL-2.0.json",
+
+    "name": "Zope Public License 2.0",
+    "id": "ZPL-2.0",
+    "seeAlso": [
+      "http://old.zope.org/s/License/ZPL-2.0",
+      "https://opensource.org/licenses/ZPL-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Wsuipa.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Wsuipa.json",
+
+    "name": "Wsuipa License",
+    "id": "Wsuipa",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Wsuipa"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC0-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC0-1.0.json",
+
+    "name": "Creative Commons Zero v1.0 Universal",
+    "id": "CC0-1.0",
+    "seeAlso": [
+      "https://creativecommons.org/publicdomain/zero/1.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MIT-enna.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MIT-enna.json",
+
+    "name": "enna License",
+    "id": "MIT-enna",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/MIT#enna"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/PHP-3.01.html",
+
+    "detailsUrl": "https://spdx.org/licenses/PHP-3.01.json",
+
+    "name": "PHP License v3.01",
+    "id": "PHP-3.01",
+    "seeAlso": [
+      "http://www.php.net/license/3_01.txt"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/RSA-MD.html",
+
+    "detailsUrl": "https://spdx.org/licenses/RSA-MD.json",
+
+    "name": "RSA Message-Digest License",
+    "id": "RSA-MD",
+    "seeAlso": [
+      "http://www.faqs.org/rfcs/rfc1321.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/VOSTROM.html",
+
+    "detailsUrl": "https://spdx.org/licenses/VOSTROM.json",
+
+    "name": "VOSTROM Public License for Open Source",
+    "id": "VOSTROM",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/VOSTROM"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/mplus.html",
+
+    "detailsUrl": "https://spdx.org/licenses/mplus.json",
+
+    "name": "mplus Font License",
+    "id": "mplus",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing:Mplus?rd\u003dLicensing/mplus"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/O-UDA-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/O-UDA-1.0.json",
+
+    "name": "Open Use of Data Agreement v1.0",
+    "id": "O-UDA-1.0",
+    "seeAlso": [
+      "https://github.com/microsoft/Open-Use-of-Data-Agreement/blob/v1.0/O-UDA-1.0.md",
+      "https://cdla.dev/open-use-of-data-agreement-v1-0/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CERN-OHL-S-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CERN-OHL-S-2.0.json",
+
+    "name": "CERN Open Hardware Licence Version 2 - Strongly Reciprocal",
+    "id": "CERN-OHL-S-2.0",
+    "seeAlso": [
+      "https://www.ohwr.org/project/cernohl/wikis/Documents/CERN-OHL-version-2"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/HPND-sell-variant.html",
+
+    "detailsUrl": "https://spdx.org/licenses/HPND-sell-variant.json",
+
+    "name": "Historical Permission Notice and Disclaimer - sell variant",
+    "id": "HPND-sell-variant",
+    "seeAlso": [
+      "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/net/sunrpc/auth_gss/gss_generic_token.c?h\u003dv4.19"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/copyleft-next-0.3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/copyleft-next-0.3.0.json",
+
+    "name": "copyleft-next 0.3.0",
+    "id": "copyleft-next-0.3.0",
+    "seeAlso": [
+      "https://github.com/copyleft-next/copyleft-next/blob/master/Releases/copyleft-next-0.3.0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/X11-distribute-modifications-variant.html",
+
+    "detailsUrl": "https://spdx.org/licenses/X11-distribute-modifications-variant.json",
+
+    "name": "X11 License Distribution Modification Variant",
+    "id": "X11-distribute-modifications-variant",
+    "seeAlso": [
+      "https://github.com/mirror/ncurses/blob/master/COPYING"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NIST-PD-fallback.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NIST-PD-fallback.json",
+
+    "name": "NIST Public Domain Notice with license fallback",
+    "id": "NIST-PD-fallback",
+    "seeAlso": [
+      "https://github.com/usnistgov/jsip/blob/59700e6926cbe96c5cdae897d9a7d2656b42abe3/LICENSE",
+      "https://github.com/usnistgov/fipy/blob/86aaa5c2ba2c6f1be19593c5986071cf6568cc34/LICENSE.rst"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Nokia.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Nokia.json",
+
+    "name": "Nokia Open Source License",
+    "id": "Nokia",
+    "seeAlso": [
+      "https://opensource.org/licenses/nokia"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OFL-1.0-RFN.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OFL-1.0-RFN.json",
+
+    "name": "SIL Open Font License 1.0 with Reserved Font Name",
+    "id": "OFL-1.0-RFN",
+    "seeAlso": [
+      "http://scripts.sil.org/cms/scripts/page.php?item_id\u003dOFL10_web"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AFL-2.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AFL-2.1.json",
+
+    "name": "Academic Free License v2.1",
+    "id": "AFL-2.1",
+    "seeAlso": [
+      "http://opensource.linux-mirror.org/licenses/afl-2.1.txt"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ODbL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ODbL-1.0.json",
+
+    "name": "Open Data Commons Open Database License v1.0",
+    "id": "ODbL-1.0",
+    "seeAlso": [
+      "http://www.opendatacommons.org/licenses/odbl/1.0/",
+      "https://opendatacommons.org/licenses/odbl/1-0/"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/zlib-acknowledgement.html",
+
+    "detailsUrl": "https://spdx.org/licenses/zlib-acknowledgement.json",
+
+    "name": "zlib/libpng License with Acknowledgement",
+    "id": "zlib-acknowledgement",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/ZlibWithAcknowledgement"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/IPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/IPL-1.0.json",
+
+    "name": "IBM Public License v1.0",
+    "id": "IPL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/IPL-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Afmparse.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Afmparse.json",
+
+    "name": "Afmparse License",
+    "id": "Afmparse",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Afmparse"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-1.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial 1.0 Generic",
+    "id": "CC-BY-NC-1.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc/1.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MIT-feh.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MIT-feh.json",
+
+    "name": "feh License",
+    "id": "MIT-feh",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/MIT#feh"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/PolyForm-Small-Business-1.0.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/PolyForm-Small-Business-1.0.0.json",
+
+    "name": "PolyForm Small Business License 1.0.0",
+    "id": "PolyForm-Small-Business-1.0.0",
+    "seeAlso": [
+      "https://polyformproject.org/licenses/small-business/1.0.0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CECILL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CECILL-1.1.json",
+
+    "name": "CeCILL Free Software License Agreement v1.1",
+    "id": "CECILL-1.1",
+    "seeAlso": [
+      "http://www.cecill.info/licences/Licence_CeCILL_V1.1-US.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/W3C-19980720.html",
+
+    "detailsUrl": "https://spdx.org/licenses/W3C-19980720.json",
+
+    "name": "W3C Software Notice and License (1998-07-20)",
+    "id": "W3C-19980720",
+    "seeAlso": [
+      "http://www.w3.org/Consortium/Legal/copyright-software-19980720.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/TMate.html",
+
+    "detailsUrl": "https://spdx.org/licenses/TMate.json",
+
+    "name": "TMate Open Source License",
+    "id": "TMate",
+    "seeAlso": [
+      "http://svnkit.com/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Zimbra-1.3.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Zimbra-1.3.json",
+
+    "name": "Zimbra Public License v1.3",
+    "id": "Zimbra-1.3",
+    "seeAlso": [
+      "http://web.archive.org/web/20100302225219/http://www.zimbra.com/license/zimbra-public-license-1-3.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause-No-Nuclear-License.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause-No-Nuclear-License.json",
+
+    "name": "BSD 3-Clause No Nuclear License",
+    "id": "BSD-3-Clause-No-Nuclear-License",
+    "seeAlso": [
+      "http://download.oracle.com/otn-pub/java/licenses/bsd.txt?AuthParam\u003d1467140197_43d516ce1776bd08a58235a7785be1cc"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SPL-1.0.json",
+
+    "name": "Sun Public License v1.0",
+    "id": "SPL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/SPL-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CrystalStacker.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CrystalStacker.json",
+
+    "name": "CrystalStacker License",
+    "id": "CrystalStacker",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing:CrystalStacker?rd\u003dLicensing/CrystalStacker"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/RPSL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/RPSL-1.0.json",
+
+    "name": "RealNetworks Public Source License v1.0",
+    "id": "RPSL-1.0",
+    "seeAlso": [
+      "https://helixcommunity.org/content/rpsl",
+      "https://opensource.org/licenses/RPSL-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Aladdin.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Aladdin.json",
+
+    "name": "Aladdin Free Public License",
+    "id": "Aladdin",
+    "seeAlso": [
+      "http://pages.cs.wisc.edu/~ghost/doc/AFPL/6.01/Public.htm"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AMDPLPA.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AMDPLPA.json",
+
+    "name": "AMD\u0027s plpa_map.c License",
+    "id": "AMDPLPA",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/AMD_plpa_map_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NetCDF.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NetCDF.json",
+
+    "name": "NetCDF license",
+    "id": "NetCDF",
+    "seeAlso": [
+      "http://www.unidata.ucar.edu/software/netcdf/copyright.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Intel-ACPI.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Intel-ACPI.json",
+
+    "name": "Intel ACPI Software License Agreement",
+    "id": "Intel-ACPI",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Intel_ACPI_Software_License_Agreement"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CERN-OHL-1.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CERN-OHL-1.2.json",
+
+    "name": "CERN Open Hardware Licence v1.2",
+    "id": "CERN-OHL-1.2",
+    "seeAlso": [
+      "https://www.ohwr.org/project/licenses/wikis/cern-ohl-v1.2"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-SA-3.0-DE.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-SA-3.0-DE.json",
+
+    "name": "Creative Commons Attribution Non Commercial Share Alike 3.0 Germany",
+    "id": "CC-BY-NC-SA-3.0-DE",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-sa/3.0/de/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MIT.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MIT.json",
+
+    "name": "MIT License",
+    "id": "MIT",
+    "seeAlso": [
+      "https://opensource.org/licenses/MIT"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Zed.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Zed.json",
+
+    "name": "Zed License",
+    "id": "Zed",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Zed"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.0.json",
+
+    "name": "Open LDAP Public License v2.0 (or possibly 2.0A and 2.0B)",
+    "id": "OLDAP-2.0",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003dcbf50f4e1185a21abd4c0a54d3f4341fe28f36ea"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/EFL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/EFL-2.0.json",
+
+    "name": "Eiffel Forum License v2.0",
+    "id": "EFL-2.0",
+    "seeAlso": [
+      "http://www.eiffel-nice.org/license/eiffel-forum-license-2.html",
+      "https://opensource.org/licenses/EFL-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Xerox.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Xerox.json",
+
+    "name": "Xerox License",
+    "id": "Xerox",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Xerox"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Latex2e.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Latex2e.json",
+
+    "name": "Latex2e License",
+    "id": "Latex2e",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Latex2e"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Spencer-94.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Spencer-94.json",
+
+    "name": "Spencer License 94",
+    "id": "Spencer-94",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Henry_Spencer_Reg-Ex_Library_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BitTorrent-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BitTorrent-1.1.json",
+
+    "name": "BitTorrent Open Source License v1.1",
+    "id": "BitTorrent-1.1",
+    "seeAlso": [
+      "http://directory.fsf.org/wiki/License:BitTorrentOSL1.1"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-4.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-4.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial 4.0 International",
+    "id": "CC-BY-NC-4.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc/4.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-3.0-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LGPL-3.0-or-later.json",
+
+    "name": "GNU Lesser General Public License v3.0 or later",
+    "id": "LGPL-3.0-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/lgpl-3.0-standalone.html",
+      "https://opensource.org/licenses/LGPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MulanPSL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MulanPSL-1.0.json",
+
+    "name": "Mulan Permissive Software License, Version 1",
+    "id": "MulanPSL-1.0",
+    "seeAlso": [
+      "https://license.coscl.org.cn/MulanPSL/",
+      "https://github.com/yuwenlong/longphp/blob/25dfb70cc2a466dc4bb55ba30901cbce08d164b5/LICENSE"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/UPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/UPL-1.0.json",
+
+    "name": "Universal Permissive License v1.0",
+    "id": "UPL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/UPL"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SGI-B-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SGI-B-2.0.json",
+
+    "name": "SGI Free Software License B v2.0",
+    "id": "SGI-B-2.0",
+    "seeAlso": [
+      "http://oss.sgi.com/projects/FreeB/SGIFreeSWLicB.2.0.pdf"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-3.0-with-GCC-exception.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-3.0-with-GCC-exception.json",
+
+    "name": "GNU General Public License v3.0 w/GCC Runtime Library exception",
+    "id": "GPL-3.0-with-GCC-exception",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/gcc-exception-3.1.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Zend-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Zend-2.0.json",
+
+    "name": "Zend License v2.0",
+    "id": "Zend-2.0",
+    "seeAlso": [
+      "https://web.archive.org/web/20130517195954/http://www.zend.com/license/2_00.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ImageMagick.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ImageMagick.json",
+
+    "name": "ImageMagick License",
+    "id": "ImageMagick",
+    "seeAlso": [
+      "http://www.imagemagick.org/script/license.php"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NCSA.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NCSA.json",
+
+    "name": "University of Illinois/NCSA Open Source License",
+    "id": "NCSA",
+    "seeAlso": [
+      "http://otm.illinois.edu/uiuc_openSource",
+      "https://opensource.org/licenses/NCSA"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Unicode-TOU.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Unicode-TOU.json",
+
+    "name": "Unicode Terms of Use",
+    "id": "Unicode-TOU",
+    "seeAlso": [
+      "http://www.unicode.org/copyright.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-3.0-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GPL-3.0-only.json",
+
+    "name": "GNU General Public License v3.0 only",
+    "id": "GPL-3.0-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/gpl-3.0-standalone.html",
+      "https://opensource.org/licenses/GPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Fair.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Fair.json",
+
+    "name": "Fair License",
+    "id": "Fair",
+    "seeAlso": [
+      "http://fairlicense.org/",
+      "https://opensource.org/licenses/Fair"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/blessing.html",
+
+    "detailsUrl": "https://spdx.org/licenses/blessing.json",
+
+    "name": "SQLite Blessing",
+    "id": "blessing",
+    "seeAlso": [
+      "https://www.sqlite.org/src/artifact/e33a4df7e32d742a?ln\u003d4-9",
+      "https://sqlite.org/src/artifact/df5091916dbb40e6"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/etalab-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/etalab-2.0.json",
+
+    "name": "Etalab Open License 2.0",
+    "id": "etalab-2.0",
+    "seeAlso": [
+      "https://github.com/DISIC/politique-de-contribution-open-source/blob/master/LICENSE.pdf",
+      "https://raw.githubusercontent.com/DISIC/politique-de-contribution-open-source/master/LICENSE"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.2-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.2-only.json",
+
+    "name": "GNU Free Documentation License v1.2 only",
+    "id": "GFDL-1.2-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.2.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Artistic-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Artistic-2.0.json",
+
+    "name": "Artistic License 2.0",
+    "id": "Artistic-2.0",
+    "seeAlso": [
+      "http://www.perlfoundation.org/artistic_license_2_0",
+      "https://www.perlfoundation.org/artistic-license-20.html",
+      "https://opensource.org/licenses/artistic-license-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Rdisc.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Rdisc.json",
+
+    "name": "Rdisc License",
+    "id": "Rdisc",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Rdisc_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LPPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LPPL-1.0.json",
+
+    "name": "LaTeX Project Public License v1.0",
+    "id": "LPPL-1.0",
+    "seeAlso": [
+      "http://www.latex-project.org/lppl/lppl-1-0.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MPL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MPL-2.0.json",
+
+    "name": "Mozilla Public License 2.0",
+    "id": "MPL-2.0",
+    "seeAlso": [
+      "https://www.mozilla.org/MPL/2.0/",
+      "https://opensource.org/licenses/MPL-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause-Modification.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause-Modification.json",
+
+    "name": "BSD 3-Clause Modification",
+    "id": "BSD-3-Clause-Modification",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing:BSD#Modification_Variant"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OPL-1.0.json",
+
+    "name": "Open Public License v1.0",
+    "id": "OPL-1.0",
+    "seeAlso": [
+      "http://old.koalateam.com/jackaroo/OPL_1_0.TXT",
+      "https://fedoraproject.org/wiki/Licensing/Open_Public_License"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-ND-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-ND-2.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial No Derivatives 2.0 Generic",
+    "id": "CC-BY-NC-ND-2.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-nd/2.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SISSL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SISSL.json",
+
+    "name": "Sun Industry Standards Source License v1.1",
+    "id": "SISSL",
+    "seeAlso": [
+      "http://www.openoffice.org/licenses/sissl_license.html",
+      "https://opensource.org/licenses/SISSL"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/libtiff.html",
+
+    "detailsUrl": "https://spdx.org/licenses/libtiff.json",
+
+    "name": "libtiff License",
+    "id": "libtiff",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/libtiff"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-SA-2.0-UK.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-SA-2.0-UK.json",
+
+    "name": "Creative Commons Attribution Non Commercial Share Alike 2.0 England and Wales",
+    "id": "CC-BY-NC-SA-2.0-UK",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-sa/2.0/uk/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/D-FSL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/D-FSL-1.0.json",
+
+    "name": "Deutsche Freie Software Lizenz",
+    "id": "D-FSL-1.0",
+    "seeAlso": [
+      "http://www.dipp.nrw.de/d-fsl/lizenzen/",
+      "http://www.dipp.nrw.de/d-fsl/index_html/lizenzen/de/D-FSL-1_0_de.txt",
+      "http://www.dipp.nrw.de/d-fsl/index_html/lizenzen/en/D-FSL-1_0_en.txt",
+      "https://www.hbz-nrw.de/produkte/open-access/lizenzen/dfsl",
+      "https://www.hbz-nrw.de/produkte/open-access/lizenzen/dfsl/deutsche-freie-software-lizenz",
+      "https://www.hbz-nrw.de/produkte/open-access/lizenzen/dfsl/german-free-software-license",
+      "https://www.hbz-nrw.de/produkte/open-access/lizenzen/dfsl/D-FSL-1_0_de.txt/at_download/file",
+      "https://www.hbz-nrw.de/produkte/open-access/lizenzen/dfsl/D-FSL-1_0_en.txt/at_download/file"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LPPL-1.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LPPL-1.2.json",
+
+    "name": "LaTeX Project Public License v1.2",
+    "id": "LPPL-1.2",
+    "seeAlso": [
+      "http://www.latex-project.org/lppl/lppl-1-2.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/TAPR-OHL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/TAPR-OHL-1.0.json",
+
+    "name": "TAPR Open Hardware License v1.0",
+    "id": "TAPR-OHL-1.0",
+    "seeAlso": [
+      "https://www.tapr.org/OHL"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SHL-0.51.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SHL-0.51.json",
+
+    "name": "Solderpad Hardware License, Version 0.51",
+    "id": "SHL-0.51",
+    "seeAlso": [
+      "https://solderpad.org/licenses/SHL-0.51/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/FTL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/FTL.json",
+
+    "name": "Freetype Project License",
+    "id": "FTL",
+    "seeAlso": [
+      "http://freetype.fis.uniroma2.it/FTL.TXT",
+      "http://git.savannah.gnu.org/cgit/freetype/freetype2.git/tree/docs/FTL.TXT",
+      "http://gitlab.freedesktop.org/freetype/freetype/-/raw/master/docs/FTL.TXT"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/EUPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/EUPL-1.0.json",
+
+    "name": "European Union Public License 1.0",
+    "id": "EUPL-1.0",
+    "seeAlso": [
+      "http://ec.europa.eu/idabc/en/document/7330.html",
+      "http://ec.europa.eu/idabc/servlets/Doc027f.pdf?id\u003d31096"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/W3C-20150513.html",
+
+    "detailsUrl": "https://spdx.org/licenses/W3C-20150513.json",
+
+    "name": "W3C Software Notice and Document License (2015-05-13)",
+    "id": "W3C-20150513",
+    "seeAlso": [
+      "https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OSET-PL-2.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OSET-PL-2.1.json",
+
+    "name": "OSET Public License version 2.1",
+    "id": "OSET-PL-2.1",
+    "seeAlso": [
+      "http://www.osetfoundation.org/public-license",
+      "https://opensource.org/licenses/OPL-2.1"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/EUDatagrid.html",
+
+    "detailsUrl": "https://spdx.org/licenses/EUDatagrid.json",
+
+    "name": "EU DataGrid Software License",
+    "id": "EUDatagrid",
+    "seeAlso": [
+      "http://eu-datagrid.web.cern.ch/eu-datagrid/license.html",
+      "https://opensource.org/licenses/EUDatagrid"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/UCL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/UCL-1.0.json",
+
+    "name": "Upstream Compatibility License v1.0",
+    "id": "UCL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/UCL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Borceux.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Borceux.json",
+
+    "name": "Borceux license",
+    "id": "Borceux",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Borceux"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause-Open-MPI.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause-Open-MPI.json",
+
+    "name": "BSD 3-Clause Open MPI variant",
+    "id": "BSD-3-Clause-Open-MPI",
+    "seeAlso": [
+      "https://www.open-mpi.org/community/license.php",
+      "http://www.netlib.org/lapack/LICENSE.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Motosoto.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Motosoto.json",
+
+    "name": "Motosoto License",
+    "id": "Motosoto",
+    "seeAlso": [
+      "https://opensource.org/licenses/Motosoto"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-2-Clause-NetBSD.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/BSD-2-Clause-NetBSD.json",
+
+    "name": "BSD 2-Clause NetBSD License",
+    "id": "BSD-2-Clause-NetBSD",
+    "seeAlso": [
+      "http://www.netbsd.org/about/redistribution.html#default"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OSL-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OSL-3.0.json",
+
+    "name": "Open Software License 3.0",
+    "id": "OSL-3.0",
+    "seeAlso": [
+      "https://web.archive.org/web/20120101081418/http://rosenlaw.com:80/OSL3.0.htm",
+      "https://opensource.org/licenses/OSL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/curl.html",
+
+    "detailsUrl": "https://spdx.org/licenses/curl.json",
+
+    "name": "curl License",
+    "id": "curl",
+    "seeAlso": [
+      "https://github.com/bagder/curl/blob/master/COPYING"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSL-1.0.json",
+
+    "name": "Boost Software License 1.0",
+    "id": "BSL-1.0",
+    "seeAlso": [
+      "http://www.boost.org/LICENSE_1_0.txt",
+      "https://opensource.org/licenses/BSL-1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Spencer-86.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Spencer-86.json",
+
+    "name": "Spencer License 86",
+    "id": "Spencer-86",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Henry_Spencer_Reg-Ex_Library_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Arphic-1999.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Arphic-1999.json",
+
+    "name": "Arphic Public License",
+    "id": "Arphic-1999",
+    "seeAlso": [
+      "http://ftp.gnu.org/gnu/non-gnu/chinese-fonts-truetype/LICENSE"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SMLNJ.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SMLNJ.json",
+
+    "name": "Standard ML of New Jersey License",
+    "id": "SMLNJ",
+    "seeAlso": [
+      "https://www.smlnj.org/license.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/TOSL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/TOSL.json",
+
+    "name": "Trusster Open Source License",
+    "id": "TOSL",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/TOSL"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NOSL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NOSL.json",
+
+    "name": "Netizen Open Source License",
+    "id": "NOSL",
+    "seeAlso": [
+      "http://bits.netizen.com.au/licenses/NOSL/nosl.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AFL-1.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AFL-1.2.json",
+
+    "name": "Academic Free License v1.2",
+    "id": "AFL-1.2",
+    "seeAlso": [
+      "http://opensource.linux-mirror.org/licenses/afl-1.2.txt",
+      "http://wayback.archive.org/web/20021204204652/http://www.opensource.org/licenses/academic.php"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ZPL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ZPL-1.1.json",
+
+    "name": "Zope Public License 1.1",
+    "id": "ZPL-1.1",
+    "seeAlso": [
+      "http://old.zope.org/s/License/ZPL-1.1"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.3-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.3-or-later.json",
+
+    "name": "GNU Free Documentation License v1.3 or later",
+    "id": "GFDL-1.3-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/fdl-1.3.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-SA-2.5.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-SA-2.5.json",
+
+    "name": "Creative Commons Attribution Non Commercial Share Alike 2.5 Generic",
+    "id": "CC-BY-NC-SA-2.5",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-sa/2.5/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/JasPer-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/JasPer-2.0.json",
+
+    "name": "JasPer License",
+    "id": "JasPer-2.0",
+    "seeAlso": [
+      "http://www.ece.uvic.ca/~mdadams/jasper/LICENSE"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-4-Clause-UC.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-4-Clause-UC.json",
+
+    "name": "BSD-4-Clause (University of California-Specific)",
+    "id": "BSD-4-Clause-UC",
+    "seeAlso": [
+      "http://www.freebsd.org/copyright/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Bahyph.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Bahyph.json",
+
+    "name": "Bahyph License",
+    "id": "Bahyph",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Bahyph"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/VSL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/VSL-1.0.json",
+
+    "name": "Vovida Software License v1.0",
+    "id": "VSL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/VSL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/W3C.html",
+
+    "detailsUrl": "https://spdx.org/licenses/W3C.json",
+
+    "name": "W3C Software Notice and License (2002-12-31)",
+    "id": "W3C",
+    "seeAlso": [
+      "http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231.html",
+      "https://opensource.org/licenses/W3C"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Elastic-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Elastic-2.0.json",
+
+    "name": "Elastic License 2.0",
+    "id": "Elastic-2.0",
+    "seeAlso": [
+      "https://www.elastic.co/licensing/elastic-license",
+      "https://github.com/elastic/elasticsearch/blob/master/licenses/ELASTIC-LICENSE-2.0.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BitTorrent-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BitTorrent-1.0.json",
+
+    "name": "BitTorrent Open Source License v1.0",
+    "id": "BitTorrent-1.0",
+    "seeAlso": [
+      "http://sources.gentoo.org/cgi-bin/viewvc.cgi/gentoo-x86/licenses/BitTorrent?r1\u003d1.1\u0026r2\u003d1.1.1.1\u0026diff_format\u003ds"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OGL-UK-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OGL-UK-2.0.json",
+
+    "name": "Open Government Licence v2.0",
+    "id": "OGL-UK-2.0",
+    "seeAlso": [
+      "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/2/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-3.0-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LGPL-3.0-only.json",
+
+    "name": "GNU Lesser General Public License v3.0 only",
+    "id": "LGPL-3.0-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/lgpl-3.0-standalone.html",
+      "https://opensource.org/licenses/LGPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Xnet.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Xnet.json",
+
+    "name": "X.Net License",
+    "id": "Xnet",
+    "seeAlso": [
+      "https://opensource.org/licenses/Xnet"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Ruby.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Ruby.json",
+
+    "name": "Ruby License",
+    "id": "Ruby",
+    "seeAlso": [
+      "http://www.ruby-lang.org/en/LICENSE.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OCCT-PL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OCCT-PL.json",
+
+    "name": "Open CASCADE Technology Public License",
+    "id": "OCCT-PL",
+    "seeAlso": [
+      "http://www.opencascade.com/content/occt-public-license"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AFL-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AFL-3.0.json",
+
+    "name": "Academic Free License v3.0",
+    "id": "AFL-3.0",
+    "seeAlso": [
+      "http://www.rosenlaw.com/AFL3.0.htm",
+      "https://opensource.org/licenses/afl-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LPPL-1.3c.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LPPL-1.3c.json",
+
+    "name": "LaTeX Project Public License v1.3c",
+    "id": "LPPL-1.3c",
+    "seeAlso": [
+      "http://www.latex-project.org/lppl/lppl-1-3c.txt",
+      "https://opensource.org/licenses/LPPL-1.3c"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GD.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GD.json",
+
+    "name": "GD License",
+    "id": "GD",
+    "seeAlso": [
+      "https://libgd.github.io/manuals/2.3.0/files/license-txt.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Apache-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Apache-2.0.json",
+
+    "name": "Apache License 2.0",
+    "id": "Apache-2.0",
+    "seeAlso": [
+      "https://www.apache.org/licenses/LICENSE-2.0",
+      "https://opensource.org/licenses/Apache-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-3.0-NL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-3.0-NL.json",
+
+    "name": "Creative Commons Attribution 3.0 Netherlands",
+    "id": "CC-BY-3.0-NL",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/3.0/nl/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-2.5-AU.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-2.5-AU.json",
+
+    "name": "Creative Commons Attribution 2.5 Australia",
+    "id": "CC-BY-2.5-AU",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/2.5/au/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LPPL-1.3a.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LPPL-1.3a.json",
+
+    "name": "LaTeX Project Public License v1.3a",
+    "id": "LPPL-1.3a",
+    "seeAlso": [
+      "http://www.latex-project.org/lppl/lppl-1-3a.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ODC-By-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ODC-By-1.0.json",
+
+    "name": "Open Data Commons Attribution License v1.0",
+    "id": "ODC-By-1.0",
+    "seeAlso": [
+      "https://opendatacommons.org/licenses/by/1.0/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.1-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.1-only.json",
+
+    "name": "GNU Free Documentation License v1.1 only",
+    "id": "GFDL-1.1-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.1.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.1-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.1-or-later.json",
+
+    "name": "GNU Free Documentation License v1.1 or later",
+    "id": "GFDL-1.1-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.1.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OGL-UK-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OGL-UK-3.0.json",
+
+    "name": "Open Government Licence v3.0",
+    "id": "OGL-UK-3.0",
+    "seeAlso": [
+      "http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/YPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/YPL-1.0.json",
+
+    "name": "Yahoo! Public License v1.0",
+    "id": "YPL-1.0",
+    "seeAlso": [
+      "http://www.zimbra.com/license/yahoo_public_license_1.0.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/RPL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/RPL-1.1.json",
+
+    "name": "Reciprocal Public License 1.1",
+    "id": "RPL-1.1",
+    "seeAlso": [
+      "https://opensource.org/licenses/RPL-1.1"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-2.0-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LGPL-2.0-or-later.json",
+
+    "name": "GNU Library General Public License v2 or later",
+    "id": "LGPL-2.0-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/lgpl-2.0-standalone.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OPUBL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OPUBL-1.0.json",
+
+    "name": "Open Publication License v1.0",
+    "id": "OPUBL-1.0",
+    "seeAlso": [
+      "http://opencontent.org/openpub/",
+      "https://www.debian.org/opl",
+      "https://www.ctan.org/license/opl"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Noweb.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Noweb.json",
+
+    "name": "Noweb License",
+    "id": "Noweb",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Noweb"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MulanPSL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MulanPSL-2.0.json",
+
+    "name": "Mulan Permissive Software License, Version 2",
+    "id": "MulanPSL-2.0",
+    "seeAlso": [
+      "https://license.coscl.org.cn/MulanPSL2/"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Nunit.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/Nunit.json",
+
+    "name": "Nunit License",
+    "id": "Nunit",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Nunit"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-3.0.json",
+
+    "name": "Creative Commons Attribution 3.0 Unported",
+    "id": "CC-BY-3.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/3.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Beerware.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Beerware.json",
+
+    "name": "Beerware License",
+    "id": "Beerware",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Beerware",
+      "https://people.freebsd.org/~phk/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Caldera.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Caldera.json",
+
+    "name": "Caldera License",
+    "id": "Caldera",
+    "seeAlso": [
+      "http://www.lemis.com/grog/UNIX/ancient-source-all.pdf"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-1.0.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-1.0.json",
+
+    "name": "GNU General Public License v1.0 only",
+    "id": "GPL-1.0",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/gpl-1.0-standalone.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-2.0+.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-2.0+.json",
+
+    "name": "GNU General Public License v2.0 or later",
+    "id": "GPL-2.0+",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html",
+      "https://opensource.org/licenses/GPL-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.6.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.6.json",
+
+    "name": "Open LDAP Public License v2.6",
+    "id": "OLDAP-2.6",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003d1cae062821881f41b73012ba816434897abf4205"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-2.0.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-2.0.json",
+
+    "name": "GNU General Public License v2.0 only",
+    "id": "GPL-2.0",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html",
+      "https://opensource.org/licenses/GPL-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OFL-1.0-no-RFN.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OFL-1.0-no-RFN.json",
+
+    "name": "SIL Open Font License 1.0 with no Reserved Font Name",
+    "id": "OFL-1.0-no-RFN",
+    "seeAlso": [
+      "http://scripts.sil.org/cms/scripts/page.php?item_id\u003dOFL10_web"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Intel.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Intel.json",
+
+    "name": "Intel Open Source License",
+    "id": "Intel",
+    "seeAlso": [
+      "https://opensource.org/licenses/Intel"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-SA-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-SA-2.0.json",
+
+    "name": "Creative Commons Attribution Share Alike 2.0 Generic",
+    "id": "CC-BY-SA-2.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-sa/2.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Vim.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Vim.json",
+
+    "name": "Vim License",
+    "id": "Vim",
+    "seeAlso": [
+      "http://vimdoc.sourceforge.net/htmldoc/uganda.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MITNFA.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MITNFA.json",
+
+    "name": "MIT +no-false-attribs license",
+    "id": "MITNFA",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/MITNFA"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-ND-2.5.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-ND-2.5.json",
+
+    "name": "Creative Commons Attribution No Derivatives 2.5 Generic",
+    "id": "CC-BY-ND-2.5",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nd/2.5/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.2-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.2-or-later.json",
+
+    "name": "GNU Free Documentation License v1.2 or later",
+    "id": "GFDL-1.2-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.2.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause-Attribution.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause-Attribution.json",
+
+    "name": "BSD with attribution",
+    "id": "BSD-3-Clause-Attribution",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/BSD_with_Attribution"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPLLR.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LGPLLR.json",
+
+    "name": "Lesser General Public License For Linguistic s",
+    "id": "LGPLLR",
+    "seeAlso": [
+      "http://www-igm.univ-mlv.fr/~unitex/lgpllr.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Naumen.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Naumen.json",
+
+    "name": "Naumen Public License",
+    "id": "Naumen",
+    "seeAlso": [
+      "https://opensource.org/licenses/Naumen"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-ND-2.5.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-ND-2.5.json",
+
+    "name": "Creative Commons Attribution Non Commercial No Derivatives 2.5 Generic",
+    "id": "CC-BY-NC-ND-2.5",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nc-nd/2.5/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/C-UDA-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/C-UDA-1.0.json",
+
+    "name": "Computational Use of Data Agreement v1.0",
+    "id": "C-UDA-1.0",
+    "seeAlso": [
+      "https://github.com/microsoft/Computational-Use-of-Data-Agreement/blob/master/C-UDA-1.0.md",
+      "https://cdla.dev/computational-use-of-data-agreement-v1-0/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/APSL-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/APSL-1.1.json",
+
+    "name": "Apple Public Source License 1.1",
+    "id": "APSL-1.1",
+    "seeAlso": [
+      "http://www.opensource.apple.com/source/IOSerialFamily/IOSerialFamily-7/APPLE_LICENSE"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/mpich2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/mpich2.json",
+
+    "name": "mpich2 License",
+    "id": "mpich2",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/MIT"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/APSL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/APSL-1.0.json",
+
+    "name": "Apple Public Source License 1.0",
+    "id": "APSL-1.0",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Apple_Public_Source_License_1.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Linux-OpenIB.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Linux-OpenIB.json",
+
+    "name": "Linux Kernel Variant of OpenIB.org license",
+    "id": "Linux-OpenIB",
+    "seeAlso": [
+      "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/drivers/infiniband/core/sa.h"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/MIT-advertising.html",
+
+    "detailsUrl": "https://spdx.org/licenses/MIT-advertising.json",
+
+    "name": "Enlightenment License (e16)",
+    "id": "MIT-advertising",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/MIT_With_Advertising"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.2.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.2.json",
+
+    "name": "GNU Free Documentation License v1.2",
+    "id": "GFDL-1.2",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.2.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OGTSL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OGTSL.json",
+
+    "name": "Open Group Test Suite License",
+    "id": "OGTSL",
+    "seeAlso": [
+      "http://www.opengroup.org/testing/downloads/The_Open_Group_TSL.txt",
+      "https://opensource.org/licenses/OGTSL"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Dotseqn.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Dotseqn.json",
+
+    "name": "Dotseqn License",
+    "id": "Dotseqn",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Dotseqn"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Saxpath.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Saxpath.json",
+
+    "name": "Saxpath License",
+    "id": "Saxpath",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Saxpath_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/DL-DE-BY-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/DL-DE-BY-2.0.json",
+
+    "name": "Data licence Germany – attribution – version 2.0",
+    "id": "DL-DE-BY-2.0",
+    "seeAlso": [
+      "https://www.govdata.de/dl-de/by-2-0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/TORQUE-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/TORQUE-1.1.json",
+
+    "name": "TORQUE v2.5+ Software License v1.1",
+    "id": "TORQUE-1.1",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/TORQUEv1.1"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Crossword.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Crossword.json",
+
+    "name": "Crossword License",
+    "id": "Crossword",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Crossword"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-SA-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-SA-3.0.json",
+
+    "name": "Creative Commons Attribution Share Alike 3.0 Unported",
+    "id": "CC-BY-SA-3.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-sa/3.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Giftware.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Giftware.json",
+
+    "name": "Giftware License",
+    "id": "Giftware",
+    "seeAlso": [
+      "http://liballeg.org/license.html#allegro-4-the-giftware-license"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/FreeImage.html",
+
+    "detailsUrl": "https://spdx.org/licenses/FreeImage.json",
+
+    "name": "FreeImage Public License v1.0",
+    "id": "FreeImage",
+    "seeAlso": [
+      "http://freeimage.sourceforge.net/freeimage-license.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Jam.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Jam.json",
+
+    "name": "Jam License",
+    "id": "Jam",
+    "seeAlso": [
+      "https://www.boost.org/doc/libs/1_35_0/doc/html/jam.html",
+      "https://web.archive.org/web/20160330173339/https://swarm.workshop.perforce.com/files/guest/perforce_software/jam/src/README"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.2-no-invariants-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.2-no-invariants-or-later.json",
+
+    "name": "GNU Free Documentation License v1.2 or later - no invariants",
+    "id": "GFDL-1.2-no-invariants-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.2.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ECL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ECL-2.0.json",
+
+    "name": "Educational Community License v2.0",
+    "id": "ECL-2.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/ECL-2.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.1-invariants-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.1-invariants-or-later.json",
+
+    "name": "GNU Free Documentation License v1.1 or later - invariants",
+    "id": "GFDL-1.1-invariants-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.1.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.3.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.3.json",
+
+    "name": "GNU Free Documentation License v1.3",
+    "id": "GFDL-1.3",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/fdl-1.3.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NCGL-UK-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NCGL-UK-2.0.json",
+
+    "name": "Non-Commercial Government Licence",
+    "id": "NCGL-UK-2.0",
+    "seeAlso": [
+      "http://www.nationalarchives.gov.uk/doc/non-commercial-government-licence/version/2/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LiLiQ-Rplus-1.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LiLiQ-Rplus-1.1.json",
+
+    "name": "Licence Libre du Québec – Réciprocité forte version 1.1",
+    "id": "LiLiQ-Rplus-1.1",
+    "seeAlso": [
+      "https://www.forge.gouv.qc.ca/participez/licence-logicielle/licence-libre-du-quebec-liliq-en-francais/licence-libre-du-quebec-reciprocite-forte-liliq-r-v1-1/",
+      "http://opensource.org/licenses/LiLiQ-Rplus-1.1"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-3.0-with-autoconf-exception.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-3.0-with-autoconf-exception.json",
+
+    "name": "GNU General Public License v3.0 w/Autoconf exception",
+    "id": "GPL-3.0-with-autoconf-exception",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/autoconf-exception-3.0.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-2-Clause-Views.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-2-Clause-Views.json",
+
+    "name": "BSD 2-Clause with views sentence",
+    "id": "BSD-2-Clause-Views",
+    "seeAlso": [
+      "http://www.freebsd.org/copyright/freebsd-license.html",
+      "https://people.freebsd.org/~ivoras/wine/patch-wine-nvidia.sh",
+      "https://github.com/protegeproject/protege/blob/master/license.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/PolyForm-Noncommercial-1.0.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/PolyForm-Noncommercial-1.0.0.json",
+
+    "name": "PolyForm Noncommercial License 1.0.0",
+    "id": "PolyForm-Noncommercial-1.0.0",
+    "seeAlso": [
+      "https://polyformproject.org/licenses/noncommercial/1.0.0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CECILL-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CECILL-2.0.json",
+
+    "name": "CeCILL Free Software License Agreement v2.0",
+    "id": "CECILL-2.0",
+    "seeAlso": [
+      "http://www.cecill.info/licences/Licence_CeCILL_V2-en.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OGC-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OGC-1.0.json",
+
+    "name": "OGC Software License, Version 1.0",
+    "id": "OGC-1.0",
+    "seeAlso": [
+      "https://www.ogc.org/ogc/software/1.0"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-ND-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-ND-3.0.json",
+
+    "name": "Creative Commons Attribution No Derivatives 3.0 Unported",
+    "id": "CC-BY-ND-3.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nd/3.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/QPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/QPL-1.0.json",
+
+    "name": "Q Public License 1.0",
+    "id": "QPL-1.0",
+    "seeAlso": [
+      "http://doc.qt.nokia.com/3.3/license.html",
+      "https://opensource.org/licenses/QPL-1.0",
+      "https://doc.qt.io/archives/3.3/license.html"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LAL-1.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LAL-1.2.json",
+
+    "name": "Licence Art Libre 1.2",
+    "id": "LAL-1.2",
+    "seeAlso": [
+      "http://artlibre.org/licence/lal/licence-art-libre-12/"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-3.0-DE.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-3.0-DE.json",
+
+    "name": "Creative Commons Attribution 3.0 Germany",
+    "id": "CC-BY-3.0-DE",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/3.0/de/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OpenSSL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OpenSSL.json",
+
+    "name": "OpenSSL License",
+    "id": "OpenSSL",
+    "seeAlso": [
+      "http://www.openssl.org/source/license.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Spencer-99.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Spencer-99.json",
+
+    "name": "Spencer License 99",
+    "id": "Spencer-99",
+    "seeAlso": [
+      "http://www.opensource.apple.com/source/tcl/tcl-5/tcl/generic/regfronts.c"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-SA-3.0-AT.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-SA-3.0-AT.json",
+
+    "name": "Creative Commons Attribution Share Alike 3.0 Austria",
+    "id": "CC-BY-SA-3.0-AT",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-sa/3.0/at/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-Protection.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-Protection.json",
+
+    "name": "BSD Protection License",
+    "id": "BSD-Protection",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/BSD_Protection_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.2.2.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.2.2.json",
+
+    "name": "Open LDAP Public License 2.2.2",
+    "id": "OLDAP-2.2.2",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003ddf2cc1e21eb7c160695f5b7cffd6296c151ba188"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NRL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NRL.json",
+
+    "name": "NRL License",
+    "id": "NRL",
+    "seeAlso": [
+      "http://web.mit.edu/network/isakmp/nrllicense.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SSPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SSPL-1.0.json",
+
+    "name": "Server Side Public License, v 1",
+    "id": "SSPL-1.0",
+    "seeAlso": [
+      "https://www.mongodb.com/licensing/server-side-public-license"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/HTMLTIDY.html",
+
+    "detailsUrl": "https://spdx.org/licenses/HTMLTIDY.json",
+
+    "name": "HTML Tidy License",
+    "id": "HTMLTIDY",
+    "seeAlso": [
+      "https://github.com/htacg/tidy-html5/blob/next/README/LICENSE.md"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AGPL-3.0-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AGPL-3.0-only.json",
+
+    "name": "GNU Affero General Public License v3.0 only",
+    "id": "AGPL-3.0-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/agpl.txt",
+      "https://opensource.org/licenses/AGPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NPL-1.0.json",
+
+    "name": "Netscape Public License v1.0",
+    "id": "NPL-1.0",
+    "seeAlso": [
+      "http://www.mozilla.org/MPL/NPL/1.0/"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-2.0-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/LGPL-2.0-only.json",
+
+    "name": "GNU Library General Public License v2 only",
+    "id": "LGPL-2.0-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/lgpl-2.0-standalone.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-NC-ND-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-NC-ND-1.0.json",
+
+    "name": "Creative Commons Attribution Non Commercial No Derivatives 1.0 Generic",
+    "id": "CC-BY-NC-ND-1.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nd-nc/1.0/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.2-invariants-or-later.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.2-invariants-or-later.json",
+
+    "name": "GNU Free Documentation License v1.2 or later - invariants",
+    "id": "GFDL-1.2-invariants-or-later",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/fdl-1.2.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-2.0-with-bison-exception.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-2.0-with-bison-exception.json",
+
+    "name": "GNU General Public License v2.0 w/Bison exception",
+    "id": "GPL-2.0-with-bison-exception",
+    "seeAlso": [
+      "http://git.savannah.gnu.org/cgit/bison.git/tree/data/yacc.c?id\u003d193d7c7054ba7197b0789e14965b739162319b5e#n141"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/TU-Berlin-2.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/TU-Berlin-2.0.json",
+
+    "name": "Technische Universitaet Berlin License 2.0",
+    "id": "TU-Berlin-2.0",
+    "seeAlso": [
+      "https://github.com/CorsixTH/deps/blob/fd339a9f526d1d9c9f01ccf39e438a015da50035/licences/libgsm.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/ECL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/ECL-1.0.json",
+
+    "name": "Educational Community License v1.0",
+    "id": "ECL-1.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/ECL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/WTFPL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/WTFPL.json",
+
+    "name": "Do What The F*ck You Want To Public License",
+    "id": "WTFPL",
+    "seeAlso": [
+      "http://www.wtfpl.net/about/",
+      "http://sam.zoy.org/wtfpl/COPYING"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-SA-2.0-UK.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-SA-2.0-UK.json",
+
+    "name": "Creative Commons Attribution Share Alike 2.0 England and Wales",
+    "id": "CC-BY-SA-2.0-UK",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-sa/2.0/uk/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GPL-3.0.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/GPL-3.0.json",
+
+    "name": "GNU General Public License v3.0 only",
+    "id": "GPL-3.0",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/gpl-3.0-standalone.html",
+      "https://opensource.org/licenses/GPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.2.1.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.2.1.json",
+
+    "name": "Open LDAP Public License v2.2.1",
+    "id": "OLDAP-2.2.1",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003d4bc786f34b50aa301be6f5600f58a980070f481e"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/SMPPL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/SMPPL.json",
+
+    "name": "Secure Messaging Protocol Public License",
+    "id": "SMPPL",
+    "seeAlso": [
+      "https://github.com/dcblake/SMP/blob/master/Documentation/License.txt"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-3.0-AT.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-3.0-AT.json",
+
+    "name": "Creative Commons Attribution 3.0 Austria",
+    "id": "CC-BY-3.0-AT",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by/3.0/at/legalcode"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/EFL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/EFL-1.0.json",
+
+    "name": "Eiffel Forum License v1.0",
+    "id": "EFL-1.0",
+    "seeAlso": [
+      "http://www.eiffel-nice.org/license/forum.txt",
+      "https://opensource.org/licenses/EFL-1.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NBPL-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NBPL-1.0.json",
+
+    "name": "Net Boolean Public License v1",
+    "id": "NBPL-1.0",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003d37b4b3f6cc4bf34e1d3dec61e69914b9819d8894"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-3-Clause-LBNL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-3-Clause-LBNL.json",
+
+    "name": "Lawrence Berkeley National Labs BSD variant license",
+    "id": "BSD-3-Clause-LBNL",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/LBNLBSD"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AGPL-1.0.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/AGPL-1.0.json",
+
+    "name": "Affero General Public License v1.0",
+    "id": "AGPL-1.0",
+    "seeAlso": [
+      "http://www.affero.org/oagpl.html"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/TCL.html",
+
+    "detailsUrl": "https://spdx.org/licenses/TCL.json",
+
+    "name": "TCL/TK License",
+    "id": "TCL",
+    "seeAlso": [
+      "http://www.tcl.tk/software/tcltk/license.html",
+      "https://fedoraproject.org/wiki/Licensing/TCL"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/CC-BY-ND-1.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/CC-BY-ND-1.0.json",
+
+    "name": "Creative Commons Attribution No Derivatives 1.0 Generic",
+    "id": "CC-BY-ND-1.0",
+    "seeAlso": [
+      "https://creativecommons.org/licenses/by-nd/1.0/legalcode"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/AML.html",
+
+    "detailsUrl": "https://spdx.org/licenses/AML.json",
+
+    "name": "Apple MIT License",
+    "id": "AML",
+    "seeAlso": [
+      "https://fedoraproject.org/wiki/Licensing/Apple_MIT_License"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/GFDL-1.3-only.html",
+
+    "detailsUrl": "https://spdx.org/licenses/GFDL-1.3-only.json",
+
+    "name": "GNU Free Documentation License v1.3 only",
+    "id": "GFDL-1.3-only",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/fdl-1.3.txt"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/Artistic-1.0-Perl.html",
+
+    "detailsUrl": "https://spdx.org/licenses/Artistic-1.0-Perl.json",
+
+    "name": "Artistic License 1.0 (Perl)",
+    "id": "Artistic-1.0-Perl",
+    "seeAlso": [
+      "http://dev.perl.org/licenses/artistic.html"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/OLDAP-2.5.html",
+
+    "detailsUrl": "https://spdx.org/licenses/OLDAP-2.5.json",
+
+    "name": "Open LDAP Public License v2.5",
+    "id": "OLDAP-2.5",
+    "seeAlso": [
+      "http://www.openldap.org/devel/gitweb.cgi?p\u003dopenldap.git;a\u003dblob;f\u003dLICENSE;hb\u003d6852b9d90022e8593c98205413380536b1b5a7cf"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/NPOSL-3.0.html",
+
+    "detailsUrl": "https://spdx.org/licenses/NPOSL-3.0.json",
+
+    "name": "Non-Profit Open Software License 3.0",
+    "id": "NPOSL-3.0",
+    "seeAlso": [
+      "https://opensource.org/licenses/NOSL3.0"
+    ],
+    "isOsiApproved": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/BSD-4-Clause.html",
+
+    "detailsUrl": "https://spdx.org/licenses/BSD-4-Clause.json",
+
+    "name": "BSD 4-Clause \"Original\" or \"Old\" License",
+    "id": "BSD-4-Clause",
+    "seeAlso": [
+      "http://directory.fsf.org/wiki/License:BSD_4Clause"
+    ],
+    "isOsiApproved": false,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/gSOAP-1.3b.html",
+
+    "detailsUrl": "https://spdx.org/licenses/gSOAP-1.3b.json",
+
+    "name": "gSOAP Public License v1.3b",
+    "id": "gSOAP-1.3b",
+    "seeAlso": [
+      "http://www.cs.fsu.edu/~engelen/license.html"
+    ],
+    "isOsiApproved": false
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-2.1.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/LGPL-2.1.json",
+
+    "name": "GNU Lesser General Public License v2.1 only",
+    "id": "LGPL-2.1",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/old-licenses/lgpl-2.1-standalone.html",
+      "https://opensource.org/licenses/LGPL-2.1"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  },
+  {
+    "referenceUrl": "https://spdx.org/licenses/LGPL-3.0.html",
+    "isDeprecatedLicenseId": true,
+    "detailsUrl": "https://spdx.org/licenses/LGPL-3.0.json",
+
+    "name": "GNU Lesser General Public License v3.0 only",
+    "id": "LGPL-3.0",
+    "seeAlso": [
+      "https://www.gnu.org/licenses/lgpl-3.0-standalone.html",
+      "https://opensource.org/licenses/LGPL-3.0"
+    ],
+    "isOsiApproved": true,
+    "isFsfLibre": true
+  }
+]

@@ -1,38 +1,21 @@
 import { Component } from '@angular/core';
 import { MocksService } from './mocks.service';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs';
+import { IArticle } from './articles-page/article.interface';
+import { SearchService } from './search/search.service';
+import { ArticlesStore } from './articles-page/articles.store';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'ui-root',
   template: `
-    <ui-main-header></ui-main-header>
+    <core-main-header
+      backendUrl="/${environment.backendApiPath}"
+    ></core-main-header>
     <div class="container--xxl">
-      <ui-search></ui-search>
+      <core-search (searchedValue)="getByQuery($event)"></core-search>
       <div class="dashboard">
-        <div id="dashboard__header">
-          <div id="header__search-phrase">
-            <p class="text-secondary">SEARCH RESULTS FOR:</p>
-            <h3>Searched phrase: {{ searchedValue$ | async }}</h3>
-          </div>
-          <button type="button" id="dahboard__header-btn">
-            Switch to recommended results only
-          </button>
-        </div>
-        <div class="row gx-5" id="dashboard__labels">
-          <ng-container *ngFor="let label of labels$ | async">
-            <div class="col">
-              <a
-                [routerLink]="getLabelUrl(label.label)"
-                queryParamsHandling="merge"
-                class="dashboard__label"
-                >{{ label.label }}&nbsp;<strong
-                  >{{ label.count }} results</strong
-                ></a
-              >
-            </div>
-          </ng-container>
-        </div>
+        <ui-sub-header></ui-sub-header>
         <br /><br /><br />
         <router-outlet></router-outlet>
       </div>
@@ -40,35 +23,15 @@ import { map } from 'rxjs';
   `,
 })
 export class AppComponent {
-  labels$ = this._mocksService.getLabels$();
-  searchedValue$ = this._route.queryParams.pipe(
-    map((params) => {
-      switch (params['q']) {
-        case '*':
-          return 'all available';
-        case undefined:
-        case null:
-          return 'nothing';
-        default:
-          return params['q'];
-      }
-    })
-  );
-
   constructor(
+    private _searchService: SearchService,
+    private _articlesStore: ArticlesStore,
     private _mocksService: MocksService,
     private _route: ActivatedRoute
   ) {}
 
-  // TODO: Provide identifiers in backend for each label available
-  getLabelUrl(label: string) {
-    switch (label.toLowerCase()) {
-      case 'marketplace':
-        return ['/marketplace'];
-      case 'research outcomes':
-        return ['/articles'];
-      default:
-        return ['/'];
-    }
-  }
+  getByQuery = (q: string) =>
+    this._searchService
+      .getByQuery$<IArticle>(q)
+      .subscribe((articles) => this._articlesStore.set(articles));
 }

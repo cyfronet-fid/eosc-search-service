@@ -22,6 +22,8 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ui/core": ["libs/core/src/index.ts"]
+    }
   }
 }
