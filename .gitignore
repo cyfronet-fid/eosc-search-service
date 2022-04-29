@@ -254,3 +254,4 @@ dmypy.json
 .idea
 
 tmp
+.DS_Store

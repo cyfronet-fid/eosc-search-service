@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/pages/openaire",
+  "sourceRoot": "libs/pages/openaire/src",
+  "prefix": "ess",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/pages/openaire"],
+      "options": {
+        "jestConfig": "libs/pages/openaire/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/pages/openaire/src/**/*.ts",
+          "libs/pages/openaire/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

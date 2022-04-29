@@ -23,7 +23,19 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@ui/core": ["libs/core/src/index.ts"]
+      "@environment/*": ["apps/ui/src/environments/*"],
+      "@eosc-search-service/common": ["libs/common/src/index.ts"],
+      "@eosc-search-service/layout": ["libs/layout/src/index.ts"],
+      "@eosc-search-service/pages/marketplace": [
+        "libs/pages/marketplace/src/index.ts"
+      ],
+      "@eosc-search-service/pages/openaire": [
+        "libs/pages/openaire/src/index.ts"
+      ],
+      "@eosc-search-service/pages/training-catalog": [
+        "libs/pages/training-catalog/src/index.ts"
+      ],
+      "@eosc-search-service/search": ["libs/search/src/index.ts"]
     }
   }
 }

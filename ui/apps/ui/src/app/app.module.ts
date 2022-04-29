@@ -1,41 +1,45 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routing.module';
+import { AppComponent } from './pages/root/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 /** config angular i18n **/
-import { registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
+
 registerLocaleData(en);
 
 /** config ng-zorro-antd i18n **/
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
-import { AuthInterceptor } from './auth.interceptor';
-import { MarketplacePageModule } from './marketplace-page/marketplace-page.module';
-import { ArticlesPageModule } from './articles-page/articles-page.module';
-import { SubHeaderComponent } from './sub-header.component';
-import { MainHeaderModule, SearchModule } from '@ui/core';
-import { TrainingCatalogPageModule } from './training-catalog-page/training-catalog-page.module';
+import { AuthInterceptor, ESSCommonModule } from '@eosc-search-service/common';
+import { environment } from '../environments/environment';
+import { PagesMarketplaceModule } from '@eosc-search-service/pages/marketplace';
+import { PagesOpenaireModule } from '@eosc-search-service/pages/openaire';
+import { PagesTrainingCatalogModule } from '@eosc-search-service/pages/training-catalog';
+import { LayoutModule } from '@eosc-search-service/layout';
+import { SearchModule } from '@eosc-search-service/search';
 
 const PAGES_MODULES = [
-  MarketplacePageModule,
-  ArticlesPageModule,
-  TrainingCatalogPageModule,
+  PagesMarketplaceModule,
+  PagesOpenaireModule,
+  PagesTrainingCatalogModule,
 ];
 
 @NgModule({
-  declarations: [AppComponent, SubHeaderComponent],
+  declarations: [AppComponent],
   imports: [
+    CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     HttpClientModule,
-    MainHeaderModule,
+    ESSCommonModule.forRoot(environment),
+    LayoutModule,
     SearchModule,
     ...PAGES_MODULES,
+    AppRoutingModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
