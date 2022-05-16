@@ -15,8 +15,8 @@ import { environment } from '../../../environments/environment';
     <div class="container--xxl">
       <ess-search-input (searchedValue)="getByQuery($event)"></ess-search-input>
       <div class="dashboard">
-        <ess-sub-header></ess-sub-header>
-        <br /><br /><br />
+        <ess-sub-nav></ui-sub-nav>
+        <ess-sub-header></ui-sub-header>
         <router-outlet></router-outlet>
       </div>
     </div>

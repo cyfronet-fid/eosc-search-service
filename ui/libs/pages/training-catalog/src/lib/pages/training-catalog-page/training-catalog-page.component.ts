@@ -19,10 +19,12 @@ import { ITraining } from '../../state';
 export class TrainingCatalogPageComponent {
   categories = [
     {
+      id: 'test11',
       label: 'Access physical & e-infrastructures',
       count: 12,
     },
     {
+      id: 'test45',
       label: 'Aggregators & integrators',
       count: 3,
     },
