@@ -19,6 +19,8 @@
     "@angular/platform-browser": "~13.2.0",
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
+    "@fortawesome/angular-fontawesome": "^0.10.2",
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@ng-bootstrap/ng-bootstrap": "^12.0.0-beta.4",
     "@ngneat/elf": "^1.5.5",
     "@ngneat/elf-entities": "^4.2.1",

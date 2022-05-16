@@ -14,20 +14,14 @@ registerLocaleData(en);
 /** config ng-zorro-antd i18n **/
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { AuthInterceptor } from './auth.interceptor';
-import { MarketplacePageModule } from './marketplace-page/marketplace-page.module';
-import { ArticlesPageModule } from './articles-page/articles-page.module';
-import { SubHeaderComponent } from './sub-header.component';
-import { MainHeaderModule, SearchModule } from '@ui/core';
-import { TrainingCatalogPageModule } from './training-catalog-page/training-catalog-page.module';
-
-const PAGES_MODULES = [
-  MarketplacePageModule,
-  ArticlesPageModule,
-  TrainingCatalogPageModule,
-];
+import { CategoriesModule, MainHeaderModule, SearchModule } from '@ui/core';
+import { SubNavModule } from './sub-nav/sub-nav.module';
+import { SubHeaderModule } from './sub-header/sub-header.module';
+import { ResultModule } from './result/result.module';
+import { SearchPageModule } from './search-page/search-page.module';
 
 @NgModule({
-  declarations: [AppComponent, SubHeaderComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -35,7 +29,11 @@ const PAGES_MODULES = [
     HttpClientModule,
     MainHeaderModule,
     SearchModule,
-    ...PAGES_MODULES,
+    SubNavModule,
+    SubHeaderModule,
+    ResultModule,
+    CategoriesModule,
+    SearchPageModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

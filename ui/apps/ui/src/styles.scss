@@ -2,7 +2,7 @@
 @import '~ng-zorro-antd/ng-zorro-antd.min.css';
 
 .container--xxl {
-  padding: 25px 50px 75px 25px;
+  padding: 25px 50px;
 }
 
 #results {
@@ -21,19 +21,6 @@
 .card__container {
   background-color: #f7f9ff;
   padding: 12px;
-}
-
-#logo {
-  max-height: 90px;
-}
-
-#search {
-  padding: 4px;
-}
-
-#search,
-#btn--search {
-  max-height: 45px;
 }
 
 .vertical-center {

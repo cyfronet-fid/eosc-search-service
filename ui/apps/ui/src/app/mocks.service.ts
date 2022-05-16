@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 const backendUrlBase = `/${environment.backendApiPath}`;
 
@@ -13,11 +13,24 @@ const backendUrlBase = `/${environment.backendApiPath}`;
 export class MocksService {
   constructor(private _http: HttpClient) {}
 
-  getLabels$() {
-    return this._http.get(`${backendUrlBase}/labels`) as Observable<any[]>;
-  }
   getCategories$() {
-    return this._http.get(`${backendUrlBase}/categories`) as Observable<any[]>;
+    return of([
+      {
+        id: 'test',
+        label: 'Access physical & e-infrastructures',
+        count: 15,
+      },
+      {
+        id: 'test2',
+        label: 'Aggregators & integrators',
+        count: 10,
+      },
+      {
+        id: 'test3',
+        label: 'Other',
+        count: 50,
+      },
+    ]);
   }
   getRecommendations$() {
     return this._http.get(`${backendUrlBase}/recommendations`) as Observable<

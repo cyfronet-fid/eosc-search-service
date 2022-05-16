@@ -15,8 +15,8 @@ import { environment } from '../environments/environment';
     <div class="container--xxl">
       <core-search (searchedValue)="getByQuery($event)"></core-search>
       <div class="dashboard">
+        <ui-sub-nav></ui-sub-nav>
         <ui-sub-header></ui-sub-header>
-        <br /><br /><br />
         <router-outlet></router-outlet>
       </div>
     </div>
