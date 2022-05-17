@@ -1,34 +1,29 @@
 import { Component } from '@angular/core';
-import { map, of } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-
-const ALL_CATALOGS_LABEL = 'All catalogs';
-const PUBLICATIONS_LABEL = 'Publications';
-const TRAININGS_LABEL = 'Trainings';
-const SERVICES_LABEL = 'Services';
-
-interface IBreadcrumb {
-  label: string;
-  url?: string;
-}
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { SearchService } from '../search-service/search.service';
+import { filter, map } from 'rxjs';
+import { TrainingService } from '../training-service/training.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ui-sub-header',
   template: `
     <div id="container">
-      <h3>{{ pageTitle }}</h3>
+      <h3>{{ (set$ | async)?.title }}</h3>
       <span id="results-count" class="text-secondary"
         >(around {{ resultsCount$ | async }} results)</span
       >
       <div id="breadcrumbs">
         <nz-breadcrumb nzSeparator=">">
           <nz-breadcrumb-item
-            *ngFor="let breadcrumb of breadcrumbs.slice(0, -1)"
+            *ngFor="
+              let breadcrumb of $any(set$ | async)?.breadcrumbs?.slice(0, -1)
+            "
           >
             <a [routerLink]="breadcrumb?.url">{{ breadcrumb?.label }}</a>
           </nz-breadcrumb-item>
           <nz-breadcrumb-item
-            >{{ breadcrumbs.slice(-1)[0]?.label }}
+            >{{ $any(set$ | async)?.breadcrumbs?.slice(-1)[0]?.label }}
           </nz-breadcrumb-item>
         </nz-breadcrumb>
       </div>
@@ -53,64 +48,19 @@ interface IBreadcrumb {
   ],
 })
 export class SubHeaderComponent {
-  resultsCount$ = of(1000);
-  constructor(private _route: ActivatedRoute, private _router: Router) {}
+  resultsCount$ = this._searchService.maxResultsNumber$;
+  set$ = this._router.events.pipe(
+    filter((event) => event instanceof NavigationEnd),
+    map((event) => (event as NavigationEnd)?.url?.split('?')[0]),
+    map((urlPath: string) =>
+      environment.search.sets.find((set) => urlPath.endsWith(set.urlPath))
+    )
+  );
 
-  get pageTitle() {
-    switch (this._router.url.split('?')[0]) {
-      case '/all':
-        return ALL_CATALOGS_LABEL;
-      case '/publications':
-        return PUBLICATIONS_LABEL;
-      case '/trainings':
-        return TRAININGS_LABEL;
-      case '/services':
-        return SERVICES_LABEL;
-      default:
-        return [];
-    }
-  }
-
-  get breadcrumbs(): IBreadcrumb[] {
-    switch (this._router.url.split('?')[0]) {
-      case '/all':
-        return [
-          {
-            label: ALL_CATALOGS_LABEL,
-          },
-        ];
-      case '/publications':
-        return [
-          {
-            label: ALL_CATALOGS_LABEL,
-            url: '/',
-          },
-          {
-            label: PUBLICATIONS_LABEL,
-          },
-        ];
-      case '/trainings':
-        return [
-          {
-            label: ALL_CATALOGS_LABEL,
-            url: '/',
-          },
-          {
-            label: TRAININGS_LABEL,
-          },
-        ];
-      case '/services':
-        return [
-          {
-            label: ALL_CATALOGS_LABEL,
-            url: '/',
-          },
-          {
-            label: SERVICES_LABEL,
-          },
-        ];
-      default:
-        return [];
-    }
-  }
+  constructor(
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _searchService: SearchService,
+    private _trainingsService: TrainingService
+  ) {}
 }

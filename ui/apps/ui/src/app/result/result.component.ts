@@ -1,13 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { shortText } from './utils';
+import { ITag } from './result.model';
+import { addFq } from '../search-page/utils';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_DESCRIPTION_WORDS_LENGTH = 64;
-
-interface ITag {
-  type: string;
-  value: string;
-}
 
 @Component({
   selector: 'ui-result',
@@ -21,7 +19,7 @@ interface ITag {
           ><b
             ><i>
               Type:
-              <a href="javascript:void(0)" (click)="queryParams = { type }">{{
+              <a [routerLink]="'/' + typeUrlPath" queryParamsHandling="merge">{{
                 type
               }}</a
               >,
@@ -30,15 +28,32 @@ interface ITag {
         >
         <ng-container *ngFor="let tag of tags">
           <span class="tag"
-            ><i
-              >{{ tag.type }}:
-              <a
-                href="javascript:void(0)"
-                (click)="queryParams = toParam(tag)"
-                >{{ tag.value }}</a
-              ></i
-            >,</span
+            ><i>{{ tag.type }}: </i></span
           >
+          <ng-container *ngIf="isArray(tag.value)">
+            <ng-container *ngFor="let singleValue of $any(tag.value)">
+              <span class="tag"
+                ><i
+                  ><a
+                    href="javascript:void(0)"
+                    (click)="addFilter(tag.originalField, singleValue)"
+                    >{{ singleValue }}</a
+                  >,&nbsp;</i
+                ></span
+              >
+            </ng-container>
+          </ng-container>
+          <ng-container *ngIf="!isArray(tag.value)">
+            <span class="tag"
+              ><i>
+                <a
+                  href="javascript:void(0)"
+                  (click)="addFilter(tag.originalField, $any(tag.value))"
+                  >{{ tag.value }}</a
+                > </i
+              >,&nbsp;</span
+            >
+          </ng-container>
         </ng-container>
       </p>
       <p class="description">
@@ -55,13 +70,10 @@ interface ITag {
         margin-bottom: 20px;
       }
       h6 {
-        margin-bottom: 4px;
-      }
-      h6:hover {
-        color: rgba(57, 135, 190);
+        margin-bottom: 0;
       }
       #tags {
-        margin-bottom: 4px;
+        margin-bottom: 0;
       }
       .tag {
         font-size: 12px;
@@ -81,48 +93,45 @@ interface ITag {
 export class ResultComponent {
   shortDescription = '';
   shortTitle = '';
+  validUrl: string | null = null;
 
   @Input()
   set title(title: string) {
-    const words = title.split(' ');
-    const isTooLong = words.length > MAX_TITLE_WORDS_LENGTH;
-    if (!isTooLong) {
-      this.shortTitle = title;
-      return;
-    }
-
-    this.shortTitle =
-      words.slice(0, MAX_TITLE_WORDS_LENGTH).join(' ') + ' [...]';
+    this.shortTitle = shortText(title, MAX_TITLE_WORDS_LENGTH);
   }
 
   @Input()
   set description(description: string) {
-    const words = description.split(' ');
-    const isTooLong = words.length > MAX_DESCRIPTION_WORDS_LENGTH;
-    if (!isTooLong) {
-      this.shortDescription = description;
-      return;
-    }
-
-    this.shortDescription =
-      words.slice(0, MAX_DESCRIPTION_WORDS_LENGTH).join(' ') + ' [...]';
+    this.shortDescription = shortText(
+      description,
+      MAX_DESCRIPTION_WORDS_LENGTH
+    );
   }
 
   @Input()
-  type: 'Publication' | 'Training' | 'Service' | 'Unknown' | string = 'Unknown';
+  set url(url: string) {
+    if (url && url.trim() !== '') {
+      this.validUrl = url;
+      return;
+    }
+  }
+
+  @Input()
+  type!: string;
+
+  @Input()
+  typeUrlPath!: string;
 
   @Input()
   tags: ITag[] = [];
 
   constructor(private _router: Router, private _route: ActivatedRoute) {}
-
-  set queryParams(queryParams: { [param: string]: any }) {
-    this._router.navigate([], {
-      relativeTo: this._route,
-      queryParams,
+  isArray = (tagValue: string | string[]) => Array.isArray(tagValue);
+  addFilter = async (filterName: string, value: string) => {
+    const fq = addFq(this._router.url, filterName, value);
+    await this._router.navigate([], {
+      queryParams: { fq },
       queryParamsHandling: 'merge',
     });
-  }
-
-  toParam = (tag: ITag) => ({ [tag.type]: tag.value });
+  };
 }

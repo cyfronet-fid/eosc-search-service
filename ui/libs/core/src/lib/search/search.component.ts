@@ -1,52 +1,36 @@
 import {
   Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
+  EventEmitter, OnInit,
   Output,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
-import { Subscription, debounceTime, filter, map, tap } from 'rxjs';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import {filter, map} from "rxjs";
 
 @Component({
   selector: 'core-search',
   template: `
-    <div class="search-bar">
-      <div class="row">
-        <div class="col-3">
-          <a href="/">
-            <img id="logo" src="assets/eosc-logo-color.png" alt="EOSC logo" />
-          </a>
-        </div>
-        <div class="col-9" style="padding: 0">
-          <input
-            type="text"
-            id="search"
-            placeholder="Search in catalogs"
-            [formControl]="form"
-          />
-          <button id="btn--search" class="btn btn-primary" type="button">
-            <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-            <span>&nbsp;&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;</span>
-          </button>
-        </div>
-      </div>
-    </div>
+    <input
+      type="text"
+      id="search"
+      placeholder="Search in catalogs"
+      [formControl]="form"
+    />
+    <button id="btn--search" class="btn btn-primary" type="button" (click)="setParam()">
+      <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;</span>
+    </button>
   `,
   styles: [`
-    #logo {
-      max-width: 120px;
-    }
-
     #search {
       width: calc(100% - 120px);
       border: solid 1px rgba(0, 0, 0, 0.1);
       border-radius: 25px 0 0 25px;
-    }
-    #search::placeholder {
       padding-left: 20px;
+    }
+    #search:focus {
+      border: solid 1px rgba(0, 0, 0, 0.1);
     }
     #btn--search {
       border-radius: 0 25px 25px 0;
@@ -58,50 +42,31 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
     }
   `]
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass
-
   form = new FormControl();
 
   @Output() searchedValue = new EventEmitter<string>();
 
-  private _queryToValue$: Subscription | null = null;
-  private _valueToResults$: Subscription | null = null;
-
-  constructor(private _route: ActivatedRoute, private _router: Router) {}
-
-  ngOnInit() {
-    // Load search query from URL params
-    this._queryToValue$ = this._route.queryParams
-      .pipe(
-        map((params) => params['q']),
-        tap((q: string) => {
-          const searchQuery = (q !== '*' && q) || '';
-          const emitEvent = q !== '*' && q != this.form.value;
-          this.form.setValue(searchQuery, { emitEvent });
-        }),
-        map((q) => (q && q.trim() !== '' ? q : '*')),
-        filter((q) => q === '*')
-      )
-      .subscribe((q) => this.searchedValue.emit(q));
-
-    // Load data from search query
-    this._valueToResults$ = this.form.valueChanges
-      .pipe(
-        debounceTime(500),
-        map((q: string) => q.trim()),
-        tap((q: string) =>
-          this._router.navigate([], {
-            queryParams: { q: q || '*' },
-            queryParamsHandling: 'merge',
-          })
-        )
-      )
-      .subscribe((q) => this.searchedValue.emit(q));
+  constructor(private _route: ActivatedRoute, private _router: Router) {
   }
 
-  ngOnDestroy() {
-    this._queryToValue$?.unsubscribe();
-    this._valueToResults$?.unsubscribe();
+  ngOnInit() {
+    this._route.queryParamMap
+      .pipe(
+        map((params) => params.get('q')),
+        filter((q) => q == this.form.value || q !== '*')
+      )
+      .subscribe((q) => this.form.setValue(q))
+  }
+
+  async setParam() {
+    const q = this.form.value;
+    const currentPath = this._router.url.split("?")[0];
+    const newPath = currentPath === '/' ? ['all'] : [];
+    await this._router.navigate(newPath, {
+      queryParams: {q: q || '*'},
+      queryParamsHandling: 'merge',
+    })
   }
 }

@@ -23,6 +23,7 @@ import {ActivatedRoute, Router} from "@angular/router";
     #categories {
       padding: 15px;
       margin-left: -15px;
+      margin-bottom: 15px;
       background-color: rgba(57, 135, 190, 0.05);
     }
     .category {

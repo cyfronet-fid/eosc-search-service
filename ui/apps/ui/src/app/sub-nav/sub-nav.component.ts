@@ -1,10 +1,7 @@
-import { Component } from '@angular/core';
-
-interface ISubNavBtn {
-  label: string;
-  routerLink: string;
-  queryParamsHandling: 'merge';
-}
+import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, filter, map, tap } from 'rxjs';
+import { NavigationEnd, Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'ui-sub-nav',
@@ -12,11 +9,11 @@ interface ISubNavBtn {
     <div id="sub-nav">
       <a
         class="nav-btn"
-        *ngFor="let btnConfig of btns"
-        [routerLink]="btnConfig.routerLink"
+        *ngFor="let btnConfig of btns$ | async"
+        [routerLink]="'/' + btnConfig?.routerLink"
         routerLinkActive="active"
-        [queryParamsHandling]="btnConfig.queryParamsHandling"
-        >{{ btnConfig.label }}</a
+        queryParamsHandling="merge"
+        >{{ btnConfig?.label }}</a
       >
     </div>
   `,
@@ -44,27 +41,30 @@ interface ISubNavBtn {
     `,
   ],
 })
-export class SubNavComponent {
-  btns: ISubNavBtn[] = [
-    {
-      label: 'All catalogs',
-      routerLink: 'all',
-      queryParamsHandling: 'merge',
-    },
-    {
-      label: 'Publications',
-      routerLink: 'publications',
-      queryParamsHandling: 'merge',
-    },
-    {
-      label: 'Trainings',
-      routerLink: 'trainings',
-      queryParamsHandling: 'merge',
-    },
-    {
-      label: 'Services',
-      routerLink: 'services',
-      queryParamsHandling: 'merge',
-    },
-  ];
+export class SubNavComponent implements OnInit {
+  btns$ = new BehaviorSubject<any[]>([]);
+
+  constructor(private _router: Router) {}
+
+  ngOnInit() {
+    this.btns$.next(
+      environment.search.sets.map(({ urlPath: routerLink, title: label }) => ({
+        label,
+        routerLink,
+      }))
+    );
+    this._router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() =>
+          environment.search.sets.map(
+            ({ urlPath: routerLink, title: label }) => ({
+              label,
+              routerLink,
+            })
+          )
+        )
+      )
+      .subscribe((results) => this.btns$.next(results));
+  }
 }

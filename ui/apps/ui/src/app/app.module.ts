@@ -19,9 +19,10 @@ import { SubNavModule } from './sub-nav/sub-nav.module';
 import { SubHeaderModule } from './sub-header/sub-header.module';
 import { ResultModule } from './result/result.module';
 import { SearchPageModule } from './search-page/search-page.module';
+import { LandingPageComponent } from './landing-page/landing-page.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LandingPageComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

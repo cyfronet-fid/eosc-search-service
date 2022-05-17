@@ -1,0 +1,312 @@
+<main>
+  <section class="py-3 pb-5 text-center heading">
+    <div class="container">
+      <div class="row py-lg-3">
+        <div class="col-md-8 col-sm-12 mx-auto">
+          <div class="logo-box">
+            <a routerLink="/"><img src="assets/logo.png" alt="EOSC Portal Catalogue and Marketplace"></a>
+          </div>
+
+          <h1>EOSC Portal Catalogue and Marketplace</h1>
+
+          <div class="search-box">
+            <form>
+              <div class="input-group">
+                <core-search></core-search>
+              </div>
+            </form>
+          </div>
+
+          <p class="lead text-muted">-- or -- </p>
+          <p class="lead">Browse solutions</p>
+
+          <div class="solutions-box">
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Medical & Health Sciences')" >
+                Medical & Health Sciences
+              </a>
+
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Engineering & Technology')" >
+                Engineering & Technology
+              </a>
+
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Natural Sciences')">
+
+                Natural Sciences
+              </a>
+
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Generic')" >
+
+                Generic
+              </a>
+
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Humanitites')">
+
+                Humanitites
+              </a>
+
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Agricultural Sciences')">
+
+                Agricultural Sciences
+              </a>
+
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Social sciences')">
+            Social sciences
+              </a>
+
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Other')">
+                Other
+              </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="who-are-you py-5 text-center">
+    <div class="container">
+
+      <h2>Who are you?</h2>
+
+      <div class="col-md-6 col-sm-12 mx-auto">
+        <div class="row">
+
+          <a href="#services" class="col-lg-5 col-sm-12 bg-light mx-auto py-4 px-4">
+            <div class="icon-box">
+              <img src="assets/research.png" alt="Researcher Citizen science Educator" class="img-responsive vertical-center">
+            </div>
+
+            <div class="card-title">Researcher</div>
+            <div class="card-title">Citizen science</div>
+            <div class="card-title">Educator</div>
+          </a>
+
+          <a href="#provider" class="col-lg-5 col-sm-12 bg-light mx-auto py-4 px-4">
+            <div class="icon-box">
+              <img src="assets/provider.png" alt="Provider" class="img-responsive vertical-center">
+            </div>
+            <div class="card-title">Provider</div>
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="help py-5 text-center bg-light" id="services">
+    <div class="container">
+
+      <h2>How can we help you today in you research?</h2>
+
+<!--      <h4 class="fw-light text-muted mt-4 mb-3">Domains</h4>-->
+
+<!--      <div class="row">-->
+
+<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
+<!--          <a href="#" class="card">-->
+<!--            <div class="icon-box">-->
+<!--              <img src="assets/ico-01.png" alt="Discover research outputs" class="img-responsive">-->
+<!--            </div>-->
+<!--            <div class="card-title">Discover research outputs</div>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
+<!--          <a href="#" class="card">-->
+<!--            <div class="icon-box">-->
+<!--              <img src="assets/ico-02.png" alt="Publish research outputs" class="img-responsive">-->
+<!--            </div>-->
+<!--            <div class="card-title">Publish research outputs</div>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
+<!--          <a href="#" class="card">-->
+<!--            <div class="icon-box">-->
+<!--              <img src="assets/ico-03.png" alt="Process and analyses" class="img-responsive">-->
+<!--            </div>-->
+<!--            <div class="card-title">Process and analyse</div>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
+<!--          <a href="#" class="card">-->
+<!--            <div class="icon-box">-->
+<!--              <img src="assets/ico-04.png" alt="Access computing resources" class="img-responsive">-->
+<!--            </div>-->
+<!--            <div class="card-title">Access computing resources</div>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
+<!--          <a href="#" class="card">-->
+<!--            <div class="icon-box">-->
+<!--              <img src="assets/ico-05.png" alt="Find instruments & equipment" class="img-responsive">-->
+<!--            </div>-->
+<!--            <div class="card-title">Find instruments & equipment</div>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
+<!--          <a href="#" class="card">-->
+<!--            <div class="icon-box">-->
+<!--              <img src="assets/ico-06.png" alt="Access training material" class="img-responsive">-->
+<!--            </div>-->
+<!--            <div class="card-title">Access training material</div>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
+<!--          <a href="#" class="card">-->
+<!--            <div class="icon-box">-->
+<!--              <img src="assets/ico-07.png" alt="Access research infrastructures" class="img-responsive">-->
+<!--            </div>-->
+<!--            <div class="card-title">Access research infrastructures</div>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
+<!--          <a href="#" class="card">-->
+<!--            <div class="icon-box">-->
+<!--              <img src="assets/ico-08.png" alt="Find bundles" class="img-responsive">-->
+<!--            </div>-->
+<!--            <div class="card-title">Find bundles</div>-->
+<!--          </a>-->
+<!--        </div>-->
+
+<!--      </div>-->
+
+      <h4 class="fw-light text-muted mt-5 mb-3">Domains</h4>
+
+      <div class="row">
+
+        <div class="col-6 col-sm-3 gx-3 py-2">
+          <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Medical & Health Sciences')" class="card">
+            <div class="icon-box">
+              <img src="assets/ico-09.png" alt="Medical & Health Sciences" class="img-responsive">
+            </div>
+            <div class="card-title">Medical & Health Sciences</div>
+          </a>
+        </div>
+
+        <div class="col-6 col-sm-3 gx-3 py-2">
+          <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Engineering & Technology')" class="card">
+            <div class="icon-box">
+              <img src="assets/ico-10.png" alt="Engineering & technology" class="img-responsive">
+            </div>
+            <div class="card-title">Engineering & Technology</div>
+          </a>
+        </div>
+
+        <div class="col-6 col-sm-3 gx-3 py-2">
+          <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Natural Sciences')" class="card">
+            <div class="icon-box">
+              <img src="assets/ico-11.png" alt="Natural Sciences" class="img-responsive">
+            </div>
+            <div class="card-title">Natural Sciences</div>
+          </a>
+        </div>
+
+        <div class="col-6 col-sm-3 gx-3 py-2">
+          <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Generic')" class="card">
+            <div class="icon-box">
+              <img src="assets/ico-12.png" alt="Generic" class="img-responsive">
+            </div>
+            <div class="card-title">Generic</div>
+          </a>
+        </div>
+
+        <div class="col-6 col-sm-3 gx-3 py-2">
+          <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Humanitites')" class="card">
+            <div class="icon-box">
+              <img src="assets/ico-13.png" alt="Humanitites" class="img-responsive">
+            </div>
+            <div class="card-title">Humanitites</div>
+          </a>
+        </div>
+
+        <div class="col-6 col-sm-3 gx-3 py-2">
+          <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Agricultural Sciences')" class="card">
+            <div class="icon-box">
+              <img src="assets/ico-14.png" alt="Agricultural sciences" class="img-responsive">
+            </div>
+            <div class="card-title">Agricultural Sciences</div>
+          </a>
+        </div>
+
+        <div class="col-6 col-sm-3 gx-3 py-2">
+          <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Social sciences')" class="card">
+            <div class="icon-box">
+              <img src="assets/ico-15.png" alt="Social sciences" class="img-responsive">
+            </div>
+            <div class="card-title">Social sciences</div>
+          </a>
+        </div>
+
+        <div class="col-6 col-sm-3 gx-3 py-2">
+          <a [routerLink]="allUrlPath" [queryParams]="fqBy('scientific_domains_ss', 'Other')" class="card">
+            <div class="icon-box">
+              <img src="assets/ico-16.png" alt="Other" class="img-responsive">
+            </div>
+            <div class="card-title">Other</div>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <section class="provider py-5 text-center" id="provider">
+    <div class="container">
+      <h2 class="mb-2">How can we help you with providing your services?</h2>
+      <h4 class="fw-light text-muted mt-3 mb-4">Features & services</h4>
+
+      <div class="row">
+
+        <div class="col-lg-3 gx-4">
+          <a href="https://providers.eosc-portal.eu/becomeAProvider" class="card bg-light py-4 px-4">
+            <div class="icon-box">
+              <img src="assets/provider-01.png" alt="Onboard resources" class="img-responsive vertical-center">
+            </div>
+
+            <div class="card-title">Onboard resources</div>
+          </a>
+        </div>
+
+        <div class="col-lg-3 gx-4">
+          <a href="https://providers.eosc-portal.eu/home" class="card bg-light py-4 px-4">
+            <div class="icon-box">
+              <img src="assets/provider-02.png" alt="Provider dashboard" class="img-responsive vertical-center">
+            </div>
+
+            <div class="card-title">Provider dashboard</div>
+          </a>
+        </div>
+
+        <div class="col-lg-3 gx-4">
+          <a href="https://providers.eosc-portal.eu/developers" class="card bg-light py-4 px-4">
+            <div class="icon-box">
+              <img src="assets/provider-03.png" alt="API" class="img-responsive vertical-center">
+            </div>
+
+            <div class="card-title">API</div>
+          </a>
+        </div>
+
+        <div class="col-lg-3 gx-4">
+          <a href="https://eosc-portal.eu/providers-documentation" class="card bg-light py-4 px-4">
+            <div class="icon-box">
+              <img src="assets/provider-04.png" alt="Documentation" class="img-responsive vertical-center">
+            </div>
+
+            <div class="card-title">Documentation</div>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
