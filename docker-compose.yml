@@ -5,7 +5,7 @@ services:
     build: ./backend
     command: uvicorn app.main:app --workers 1 --host 0.0.0.0 --port 8000
     ports:
-      - "8000:8000"
+      - "127.0.0.1:8000:8000"
     networks:
       - ess-local
     environment:
@@ -22,7 +22,7 @@ services:
   db:
     image: postgres:14
     ports:
-      - "5442:5432"
+      - "127.0.0.1:5442:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -34,7 +34,7 @@ services:
   solr1:
     image: solr:8.11
     ports:
-      - "8983:8983"
+      - "127.0.0.1:8983:8983"
     volumes:
       - solr-data:/var/solr
       - ./solr/config/configsets:/configsets
@@ -50,7 +50,7 @@ services:
     image: zookeeper:3.7
     restart: always
     ports:
-      - "2181:2181"
+      - "127.0.0.1:2181:2181"
     volumes:
       - zoo1-data:/data
       - zoo1-datalog:/datalog

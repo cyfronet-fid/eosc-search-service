@@ -2,7 +2,7 @@
   "projectType": "application",
   "root": "apps/ui",
   "sourceRoot": "apps/ui/src",
-  "prefix": "ui",
+  "prefix": "ess",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
