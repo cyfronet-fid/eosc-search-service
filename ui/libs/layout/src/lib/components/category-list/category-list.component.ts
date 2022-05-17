@@ -2,6 +2,7 @@
 
 import { Component, Input } from '@angular/core';
 import {ICategory} from "@eosc-search-service/common";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'ess-category-list',

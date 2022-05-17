@@ -1,26 +1,26 @@
 import { Component } from '@angular/core';
-import { Observable, concatMap, filter, map, mergeMap, of } from 'rxjs';
-import { MocksService } from '../mocks.service';
+import { Observable, filter, map, of } from 'rxjs';
 import { NavigationEnd, Router } from '@angular/router';
+import {MocksService} from "@eosc-search-service/common";
 
 @Component({
-  selector: 'ui-search-page',
+  selector: 'ess-search-page',
   template: `
     <div class="row" id="dashboard__main">
       <div class="col-3" id="dashboard__filters">
-        <core-categories
+        <ess-category-list
           *ngIf="categories.length > 0"
           [categories]="categories"
-        ></core-categories>
+        ></ess-category-list>
       </div>
       <div class="col-9">
-        <ui-result
+        <ess-result
           *ngFor="let result of getResults$() | async"
           [title]="result.title"
           [description]="result.description"
           [type]="result.type"
           [tags]="toTags(result)"
-        ></ui-result>
+        ></ess-result>
       </div>
     </div>
   `,
@@ -35,7 +35,7 @@ export class SearchPageComponent {
     switch (this._router.url.split('?')[0]) {
       case '/services':
         return this._mocksService.getResources$().pipe(
-          map((resources) =>
+          map((resources: any[]) =>
             resources.map(({ label, description, organisation }) => ({
               title: label,
               description,

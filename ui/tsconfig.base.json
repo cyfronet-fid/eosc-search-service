@@ -32,6 +32,7 @@
       "@eosc-search-service/pages/openaire": [
         "libs/pages/openaire/src/index.ts"
       ],
+      "@eosc-search-service/pages/search": ["libs/pages/search/src/index.ts"],
       "@eosc-search-service/pages/training-catalog": [
         "libs/pages/training-catalog/src/index.ts"
       ],

@@ -10,7 +10,7 @@ interface ITag {
 }
 
 @Component({
-  selector: 'ui-result',
+  selector: 'ess-result',
   template: `
     <div id="container">
       <h6>

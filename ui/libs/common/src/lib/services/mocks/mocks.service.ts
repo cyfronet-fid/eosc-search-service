@@ -2,7 +2,7 @@
 
 import {Inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {CommonSettings, ICategory} from "../../types";
 import {ESS_SETTINGS} from "../../common.providers";
 
@@ -17,9 +17,31 @@ export class MocksService {
   getLabels$() {
     return this._http.get(`${this.CONSTANTS.backendApiPath}/labels`) as Observable<any[]>;
   }
+
   getCategories$() {
-    return this._http.get<ICategory[]>(`${this.CONSTANTS.backendApiPath}/categories`);
+    return of([
+      {
+        id: 'test',
+        label: 'Access physical & e-infrastructures',
+        count: 15,
+      },
+      {
+        id: 'test2',
+        label: 'Aggregators & integrators',
+        count: 10,
+      },
+      {
+        id: 'test3',
+        label: 'Other',
+        count: 50,
+      },
+    ]);
   }
+
+  // getCategories$() {
+  //   return this._http.get<ICategory[]>(`${this.CONSTANTS.backendApiPath}/categories`);
+  // }
+
   getRecommendations$() {
     return this._http.get(`${this.CONSTANTS.backendApiPath}/recommendations`) as Observable<
       any[]

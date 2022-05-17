@@ -2,11 +2,12 @@
   "version": 2,
   "projects": {
     "common": "libs/common",
-    "search": "libs/search",
     "layout": "libs/layout",
     "pages-marketplace": "libs/pages/marketplace",
     "pages-openaire": "libs/pages/openaire",
+    "pages-search": "libs/pages/search",
     "pages-training-catalog": "libs/pages/training-catalog",
+    "search": "libs/search",
     "ui": "apps/ui",
     "ui-e2e": "apps/ui-e2e"
   }

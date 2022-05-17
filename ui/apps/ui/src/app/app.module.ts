@@ -16,17 +16,16 @@ registerLocaleData(en);
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 import { AuthInterceptor, ESSCommonModule } from '@eosc-search-service/common';
 import { environment } from '../environments/environment';
-import { PagesMarketplaceModule } from '@eosc-search-service/pages/marketplace';
-import { PagesOpenaireModule } from '@eosc-search-service/pages/openaire';
-import { PagesTrainingCatalogModule } from '@eosc-search-service/pages/training-catalog';
 import { LayoutModule } from '@eosc-search-service/layout';
 import { SearchModule } from '@eosc-search-service/search';
+import { PagesSearchModule } from '@eosc-search-service/pages/search';
 
-const PAGES_MODULES = [
-  PagesMarketplaceModule,
-  PagesOpenaireModule,
-  PagesTrainingCatalogModule,
-];
+// Replaced by PagesSearchModule
+// const PAGES_MODULES = [
+//   PagesMarketplaceModule,
+//   PagesOpenaireModule,
+//   PagesTrainingCatalogModule,
+// ];
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +37,8 @@ const PAGES_MODULES = [
     ESSCommonModule.forRoot(environment),
     LayoutModule,
     SearchModule,
-    ...PAGES_MODULES,
+    PagesSearchModule,
+    // ...PAGES_MODULES,
     AppRoutingModule,
   ],
   providers: [

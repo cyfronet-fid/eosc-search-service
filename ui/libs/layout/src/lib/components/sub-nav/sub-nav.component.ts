@@ -7,7 +7,7 @@ interface ISubNavBtn {
 }
 
 @Component({
-  selector: 'ui-sub-nav',
+  selector: 'ess-sub-nav',
   template: `
     <div id="sub-nav">
       <a

@@ -1,69 +1,116 @@
 import { Component } from '@angular/core';
-import { map } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { map, of } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+
+const ALL_CATALOGS_LABEL = 'All catalogs';
+const PUBLICATIONS_LABEL = 'Publications';
+const TRAININGS_LABEL = 'Trainings';
+const SERVICES_LABEL = 'Services';
+
+interface IBreadcrumb {
+  label: string;
+  url?: string;
+}
 
 @Component({
   selector: 'ess-sub-header',
   template: `
-    <div id="dashboard__header">
-      <div id="header__search-phrase">
-        <p class="text-secondary">SEARCH RESULTS FOR:</p>
-        <h3>Searched phrase: {{ searchedValue$ | async }}</h3>
-      </div>
-      <button type="button" id="dahboard__header-btn">
-        Switch to recommended results only
-      </button>
-    </div>
-    <div class="row gx-5" id="dashboard__labels">
-      <div class="col">
-        <a
-          routerLink="marketplace"
-          routerLinkActive="active-link"
-          queryParamsHandling="merge"
-          class="dashboard__label"
-          >Marketplace&nbsp;<strong>148 results</strong></a
-        >
-      </div>
-      <div class="col">
-        <a
-          routerLink="articles"
-          routerLinkActive="active-link"
-          queryParamsHandling="merge"
-          class="dashboard__label"
-          >Research outcomes&nbsp;<strong>2053 results</strong></a
-        >
-      </div>
-      <div class="col">
-        <a
-          routerLink="training-catalog"
-          routerLinkActive="active-link"
-          queryParamsHandling="merge"
-          class="dashboard__label"
-          >Training Catalog &nbsp;<strong>148 results</strong></a
-        >
-      </div>
-      <div class="col">
-        <a routerLink="" queryParamsHandling="merge" class="dashboard__label"
-          >Organisations&nbsp;<strong>148 results</strong></a
-        >
+    <div id="container">
+      <h3>{{ pageTitle }}</h3>
+      <span id="results-count" class="text-secondary"
+        >(around {{ resultsCount$ | async }} results)</span
+      >
+      <div id="breadcrumbs">
+        <nz-breadcrumb nzSeparator=">">
+          <nz-breadcrumb-item
+            *ngFor="let breadcrumb of breadcrumbs.slice(0, -1)"
+          >
+            <a [routerLink]="breadcrumb?.url">{{ breadcrumb?.label }}</a>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item
+            >{{ breadcrumbs.slice(-1)[0]?.label }}
+          </nz-breadcrumb-item>
+        </nz-breadcrumb>
       </div>
     </div>
   `,
+  styles: [
+    `
+      #container {
+        margin-top: 20px;
+      }
+      #results-count {
+        padding-left: 10px;
+      }
+      h3,
+      #results-count {
+        display: inline;
+      }
+      #breadcrumbs {
+        padding: 5px 0 15px;
+      }
+    `,
+  ],
 })
 export class SubHeaderComponent {
-  searchedValue$ = this._route.queryParams.pipe(
-    map((params) => {
-      switch (params['q']) {
-        case '*':
-          return 'all available';
-        case undefined:
-        case null:
-          return 'nothing';
-        default:
-          return params['q'];
-      }
-    })
-  );
+  resultsCount$ = of(1000);
+  constructor(private _route: ActivatedRoute, private _router: Router) {}
 
-  constructor(private _route: ActivatedRoute) {}
+  get pageTitle() {
+    switch (this._router.url.split('?')[0]) {
+      case '/all':
+        return ALL_CATALOGS_LABEL;
+      case '/publications':
+        return PUBLICATIONS_LABEL;
+      case '/trainings':
+        return TRAININGS_LABEL;
+      case '/services':
+        return SERVICES_LABEL;
+      default:
+        return [];
+    }
+  }
+
+  get breadcrumbs(): IBreadcrumb[] {
+    switch (this._router.url.split('?')[0]) {
+      case '/all':
+        return [
+          {
+            label: ALL_CATALOGS_LABEL,
+          },
+        ];
+      case '/publications':
+        return [
+          {
+            label: ALL_CATALOGS_LABEL,
+            url: '/',
+          },
+          {
+            label: PUBLICATIONS_LABEL,
+          },
+        ];
+      case '/trainings':
+        return [
+          {
+            label: ALL_CATALOGS_LABEL,
+            url: '/',
+          },
+          {
+            label: TRAININGS_LABEL,
+          },
+        ];
+      case '/services':
+        return [
+          {
+            label: ALL_CATALOGS_LABEL,
+            url: '/',
+          },
+          {
+            label: SERVICES_LABEL,
+          },
+        ];
+      default:
+        return [];
+    }
+  }
 }
