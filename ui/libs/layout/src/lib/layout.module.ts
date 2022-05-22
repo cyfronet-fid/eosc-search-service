@@ -1,13 +1,22 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   CategoryListComponent,
-  MainHeaderComponent, SearchInputComponent, SubHeaderComponent
+  CheckboxesTreeComponent,
+  MainHeaderComponent,
+  MultiselectWithSearchComponent,
+  SearchInputComponent,
+  SubHeaderComponent,
 } from './components';
-import {MultiselectWithSearchComponent} from "./components";
-import {NzTreeModule} from "ng-zorro-antd/tree";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {RouterModule} from "@angular/router";
+import { NzTreeModule } from 'ng-zorro-antd/tree';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
+import { SubNavComponent } from './components/sub-nav';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 @NgModule({
   declarations: [
@@ -15,22 +24,31 @@ import {RouterModule} from "@angular/router";
     MainHeaderComponent,
     MultiselectWithSearchComponent,
     SearchInputComponent,
-    SubHeaderComponent
+    CheckboxesTreeComponent,
+    SubNavComponent,
+    SubHeaderComponent,
   ],
   imports: [
     CommonModule,
     NzTreeModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    FontAwesomeModule,
+    NzTreeViewModule,
+    NzIconModule,
+    NzTreeModule,
+    NzBadgeModule,
+    NzBreadCrumbModule,
   ],
   exports: [
     CategoryListComponent,
     MainHeaderComponent,
     MultiselectWithSearchComponent,
     SearchInputComponent,
-    SubHeaderComponent
-  ]
+    CheckboxesTreeComponent,
+    SubNavComponent,
+    SubHeaderComponent,
+  ],
 })
-export class LayoutModule {
-}
+export class LayoutModule {}

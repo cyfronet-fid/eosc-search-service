@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/pages/search",
+  "sourceRoot": "libs/pages/search/src",
+  "prefix": "ess",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/pages/search"],
+      "options": {
+        "jestConfig": "libs/pages/search/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/pages/search/src/**/*.ts",
+          "libs/pages/search/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

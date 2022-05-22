@@ -2,13 +2,15 @@ import {NzTreeNodeOptions} from "ng-zorro-antd/tree";
 
 export interface CommonSettings {
   backendApiPath: string;
-  search: {
-    collection: string;
-    apiPath: string;
-  };
+  // search: {
+  //   collection: string;
+  //   apiPath: string;
+  // };
+  search: any
 }
 
 export interface ICategory {
+  id: string;
   label: string;
   count: number;
 }

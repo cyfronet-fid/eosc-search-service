@@ -1,1 +1,3 @@
-export * from './search/index'
+// export * from './search'
+export * from './training'
+export * from './search-service'
