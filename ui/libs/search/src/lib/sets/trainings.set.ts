@@ -1,6 +1,6 @@
 import { ISet } from './set.model';
 import { ALL_CATALOGS_LABEL } from './all.set';
-import { trainingsCollection } from '../collections/trainings/tranings.collection';
+import {trainingsCollection} from '../collections/trainings/tranings.collection';
 
 export const trainingsSet: ISet = {
   title: 'Trainings',
@@ -14,5 +14,5 @@ export const trainingsSet: ISet = {
     },
   ],
   urlPath: 'trainings',
-  collections: [trainingsCollection],
+  collections: [trainingsCollection]
 };

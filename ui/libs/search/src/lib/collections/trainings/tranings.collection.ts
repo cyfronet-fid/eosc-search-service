@@ -1,32 +1,37 @@
-import { IResult } from '../../result.model';
-import { CollectionSearchMetadata } from '../collection.model';
 import { ITraining } from './training.model';
-import {SolrQueryParams} from "../../services/search";
+import { ICollectionSearchMetadata } from '../../state/results/results.service';
+import { IResult } from '../../result.model';
+import { IHasId } from '@eosc-search-service/types';
+import { v4 as uuidv4 } from 'uuid';
 
-export const trainingsCollection = new CollectionSearchMetadata(
-  new SolrQueryParams({
+export const trainingAdapter = (
+  training: Partial<ITraining> & IHasId
+): IResult => ({
+  id: uuidv4(),
+  title: training.title || '',
+  description: training.description || '',
+  type: 'Trainings',
+  typeUrlPath: 'trainings',
+  collection: 'to be set',
+  url: '',
+  tags: [
+    {
+      label: 'Author',
+      value: training.author || '',
+      originalField: 'author',
+    },
+  ],
+});
+
+export const trainingsCollection: ICollectionSearchMetadata = {
+  type: 'Training',
+  facets: {},
+  filterToField: {},
+  fieldToFilter: {},
+  _hash: '',
+  inputAdapter: trainingAdapter,
+  params: {
     qf: [],
     collection: 'to be set',
-  }),
-  {},
-  (
-    training: Partial<ITraining>,
-  ): IResult => ({
-    title: training.title || '',
-    description: training.description || '',
-    type: 'Trainings',
-    typeUrlPath: 'trainings',
-    collection: 'to be set',
-    url: '',
-    tags: [
-      {
-        label: 'Author',
-        value: training.author || '',
-        originalField: 'author'
-      }
-    ],
-  }),
-  {},
-  {},
-  'Training'
-);
+  },
+};

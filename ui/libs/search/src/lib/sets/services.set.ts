@@ -1,6 +1,6 @@
 import { ISet } from './set.model';
 import { ALL_CATALOGS_LABEL } from './all.set';
-import { servicesCollection } from '../collections/services/services.collection';
+import {servicesCollection} from '../collections/services/services.collection';
 
 export const servicesSet: ISet = {
   title: 'Services',
@@ -14,5 +14,5 @@ export const servicesSet: ISet = {
     },
   ],
   urlPath: 'services',
-  collections: [servicesCollection],
+  collections: [servicesCollection]
 };

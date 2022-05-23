@@ -1,20 +1,20 @@
 import {isArray, parseQueryParams} from "@eosc-search-service/common";
 import {ISet} from "./sets";
 
-export const getCollections = (urlPathWithQueries: string, sets: ISet[]) => {
-  const [path, params] = urlPathWithQueries.split('?');
-  const parsedParams = parseQueryParams(params);
-  const set = sets.find(
-    (set) => path.endsWith(set.urlPath) && set.urlPath !== 'trainings'
-  );
-
-  set?.collections.forEach((collection) => {
-    collection.params.cursor = '*'; // clear last cursor
-    collection.q = (parsedParams['q'] as string) || '*'; // update query
-    collection.params.fq = parseFqToArray(parsedParams['fq']); // update filters
-  });
-  return set?.collections || [];
-};
+// export const getCollections = (urlPathWithQueries: string, sets: ISet[]) => {
+//   const [path, params] = urlPathWithQueries.split('?');
+//   const parsedParams = parseQueryParams(params);
+//   const set = sets.find(
+//     (set) => path.endsWith(set.urlPath) && set.urlPath !== 'trainings'
+//   );
+//
+//   set?.collections.forEach((collection) => {
+//     collection.params.cursor = '*'; // clear last cursor
+//     collection.q = (parsedParams['q'] as string) || '*'; // update query
+//     collection.params.fq = parseFqToArray(parsedParams['fq']); // update filters
+//   });
+//   return set?.collections || [];
+// };
 
 export const parseFqToArray = (fq: string | string[]): string[] => {
   if (!fq) {

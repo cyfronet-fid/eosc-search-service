@@ -1,4 +1,4 @@
-import { CollectionSearchMetadata } from '../collections/collection.model';
+import {ICollectionSearchMetadata} from "../state/results/results.service";
 
 export interface IBreadcrumb {
   label: string;
@@ -9,5 +9,5 @@ export interface ISet {
   title: string;
   breadcrumbs: IBreadcrumb[];
   urlPath: string;
-  collections: CollectionSearchMetadata<any>[];
+  collections: ICollectionSearchMetadata[];
 }

@@ -1,8 +1,9 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ISearchResults } from './services';
+import {ModuleWithProviders, NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {MAIN_SEARCH_SET, SEARCH_SET_LIST} from "./search.providers";
 import {ISet} from "./sets";
+import {ISearchResults} from "./state";
+import {IHasId} from "@eosc-search-service/types";
 
 @NgModule({
   declarations: [],
@@ -29,7 +30,7 @@ export class SearchModule {
   }
 }
 
-export interface IStore<T> {
+export interface IStore<T extends IHasId> {
   set(results: ISearchResults<T>): void;
   setActive(item: T): void;
 }

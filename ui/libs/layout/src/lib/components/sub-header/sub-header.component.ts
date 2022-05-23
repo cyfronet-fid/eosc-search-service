@@ -1,6 +1,5 @@
-import {Component, Inject, Input,} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ISet, SEARCH_SET_LIST, SearchService, TrainingService,} from '@eosc-search-service/search';
+import {Component, Input,} from '@angular/core';
+import {ISet,} from '@eosc-search-service/search';
 
 @Component({
   selector: 'ess-sub-header',
