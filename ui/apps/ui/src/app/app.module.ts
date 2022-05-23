@@ -72,7 +72,7 @@ import { SearchPageModule } from '@eosc-search-service/pages/search';
 import {
   SearchModule,
   allSet,
-  researchProductsSet,
+  publicationsSet,
   servicesSet,
   trainingsSet,
 } from '@eosc-search-service/search';
@@ -84,7 +84,7 @@ import {
     BrowserAnimationsModule,
     HttpClientModule,
     SearchModule.forRoot({
-      setList: [allSet, researchProductsSet, servicesSet, trainingsSet],
+      setList: [allSet, publicationsSet, servicesSet, trainingsSet],
       mainSet: allSet,
     }),
     SearchPageModule,

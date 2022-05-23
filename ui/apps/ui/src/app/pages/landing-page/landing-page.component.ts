@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {
   allSet,
-  researchProductsSet,
+  publicationsSet,
   trainingsSet,
 } from '@eosc-search-service/search';
 
@@ -12,7 +12,7 @@ import {
 })
 export class LandingPageComponent {
   allUrlPath = '/search/' + allSet.urlPath;
-  researchProductsPath = '/search/' + researchProductsSet.urlPath;
+  researchProductsPath = '/search/' + publicationsSet.urlPath;
   trainingsPath = '/search/' + trainingsSet.urlPath;
   fqBy = (filterName: string, value: string) => ({
     q: '*',

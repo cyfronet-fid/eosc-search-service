@@ -7,11 +7,12 @@ import {
   withActiveId,
   withEntities,
 } from '@ngneat/elf-entities';
-import {IArticle} from './research-products/research-products.model';
+import {IArticle} from './publications/publications.model';
 import {BehaviorSubject} from 'rxjs';
 import {Injectable} from '@angular/core';
-import {ISearchResults, IStore} from '@eosc-search-service/search';
+import { IStore } from '../search.module';
 import {Router} from '@angular/router';
+import {ISearchResults} from "@eosc-search-service/search";
 
 const store = createStore(
   { name: 'articles' },

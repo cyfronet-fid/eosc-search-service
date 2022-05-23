@@ -23,7 +23,7 @@ import {
   TrainingService,
 } from '@eosc-search-service/search';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { IArticle } from '../../../../../../search/src/lib/collections/research-products/research-products.model';
+import { IArticle } from '../../../../../../search/src/lib/collections/publications/publications.model';
 import { IService } from '../../../../../../search/src/lib/collections/services/service.model';
 import { CollectionSearchMetadata } from '../../../../../../search/src/lib/collections/collection.model';
 import { SEARCH_SET_LIST } from '@eosc-search-service/search';
