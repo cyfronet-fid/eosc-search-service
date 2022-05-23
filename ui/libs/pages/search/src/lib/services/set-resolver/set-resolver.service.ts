@@ -12,6 +12,7 @@ export class SetResolver implements Resolve<ISet> {
 
   resolve(
     route: ActivatedRouteSnapshot,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     state: RouterStateSnapshot
   ): Observable<ISet> | Promise<ISet> | ISet {
     const urlId = route.paramMap.get('set');

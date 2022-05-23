@@ -3,7 +3,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {map, Subscription} from 'rxjs';
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
+import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 
+@UntilDestroy()
 @Component({
   selector: 'ess-search-input',
   template: `
@@ -59,10 +61,9 @@ import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
     }
   `]
 })
-export class SearchInputComponent implements OnInit, OnDestroy {
+export class SearchInputComponent implements OnInit {
   faMagnifyingGlass = faMagnifyingGlass
   form = new FormControl();
-  subscription$: Subscription | undefined;
 
   @Output() searchedValue = new EventEmitter<string>();
 
@@ -71,10 +72,11 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription$ = this._route.queryParamMap
+    this._route.queryParamMap
       .pipe(
         map((params) => params.get('q')),
-        map((q) => q === '*' ? '' : q)
+        map((q) => q === '*' ? '' : q),
+        untilDestroyed(this)
       )
       .subscribe((q) => this.form.setValue(q))
   }
@@ -96,9 +98,5 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     if (currentPath !== '/') {
       await this.setParam();
     }
-  }
-
-  ngOnDestroy() {
-    this.subscription$?.unsubscribe();
   }
 }

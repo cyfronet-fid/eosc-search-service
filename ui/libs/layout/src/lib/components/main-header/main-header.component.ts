@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { UserInfoService } from './user-info.service';
-import { rerenderComponent } from './utils';
+import { rerenderComponent$ } from './utils';
+import {user$, UserProfileService} from '@eosc-search-service/common';
+import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 
+@UntilDestroy()
 @Component({
   selector: 'ess-main-header',
   template: `
@@ -19,10 +21,10 @@ export class MainHeaderComponent implements OnInit {
 
   @Input() backendUrl = ``;
 
-  constructor(private _userInfoService: UserInfoService) {}
+  constructor(private _userProfileService: UserProfileService) {}
 
   ngOnInit() {
-    const userInfo$ = this._userInfoService.get$();
-    rerenderComponent(this.id, userInfo$).subscribe();
+    rerenderComponent$(this.id, user$).pipe(untilDestroyed(this)).subscribe();
+    this._userProfileService.get$().subscribe();
   }
 }

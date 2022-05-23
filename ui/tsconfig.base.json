@@ -27,7 +27,8 @@
       "@eosc-search-service/common": ["libs/common/src/index.ts"],
       "@eosc-search-service/layout": ["libs/layout/src/index.ts"],
       "@eosc-search-service/pages/search": ["libs/pages/search/src/index.ts"],
-      "@eosc-search-service/search": ["libs/search/src/index.ts"]
+      "@eosc-search-service/search": ["libs/search/src/index.ts"],
+      "@eosc-search-service/types": ["libs/types/src/index.ts"]
     }
   }
 }

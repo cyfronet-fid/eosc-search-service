@@ -1,5 +1,3 @@
 export * from './utils'
-export * from './search-results.interface'
 export * from './vertical-filters.utils'
 export * from './solr-query-params.interface'
-export * from './search.service'

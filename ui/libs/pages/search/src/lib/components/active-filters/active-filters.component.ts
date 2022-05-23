@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BehaviorSubject, map} from "rxjs";
 import {getFqsFromUrl, removeFq} from "@eosc-search-service/search";
 import {ActivatedRoute, Router} from "@angular/router";
-import { CollectionSearchMetadata } from '../../../../../../search/src/lib/collections/collection.model';
+import {ICollectionSearchMetadata} from "../../../../../../search/src/lib/state/results/results.service";
 
 
 interface IActiveFilter {
@@ -85,7 +85,7 @@ export class ActiveFiltersComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 
   @Input()
-  set collections(collections: CollectionSearchMetadata<any>[] | null) {
+  set collections(collections: ICollectionSearchMetadata[] | null) {
     this.filterToField$.next(
       (collections || [])
         .map((collection) => collection.filterToField)

@@ -1,12 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CollectionSearchMetadata } from '../../../../../../search/src/lib/collections/collection.model';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {addFq, getFqsFromUrl, IFacetResponse, removeFq} from '@eosc-search-service/search';
-import { BehaviorSubject } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
-import {
-  FlatNode,
-  TreeNode,
-} from '@eosc-search-service/layout';
+import {BehaviorSubject} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FlatNode, TreeNode,} from '@eosc-search-service/layout';
+import {ICollectionSearchMetadata} from "../../../../../../search/src/lib/state/results/results.service";
 
 interface IFilter {
   title: string;
@@ -61,11 +58,12 @@ export class FiltersComponent {
   set filters(
     filters:
       | [
-          CollectionSearchMetadata<any>,
+          ICollectionSearchMetadata,
           { [facetName: string]: IFacetResponse }
         ][]
       | null
   ) {
+    console.log(filters)
     if (!filters) {
       return;
     }
@@ -101,6 +99,7 @@ export class FiltersComponent {
           }
         });
     });
+    console.log(filtersTree)
     this.filtersTree$.next(filtersTree);
   }
 

@@ -1,5 +1,6 @@
-export const isArray = (val: any) =>
-  Object.prototype.toString.call(val) === '[object Array]';
+export function isArray<T>(val: any): val is T[] {
+  return Object.prototype.toString.call(val) === '[object Array]';
+}
 
 export const parseQueryParams = (queryParams: string) => {
   if (!queryParams || queryParams.trim() === '') {

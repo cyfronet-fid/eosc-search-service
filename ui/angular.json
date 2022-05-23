@@ -5,6 +5,7 @@
     "layout": "libs/layout",
     "pages-search": "libs/pages/search",
     "search": "libs/search",
+    "types": "libs/types",
     "ui": "apps/ui",
     "ui-e2e": "apps/ui-e2e"
   }

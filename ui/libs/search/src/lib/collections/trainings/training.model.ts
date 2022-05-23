@@ -9,6 +9,7 @@ import {
 } from './training-fields.types';
 
 export interface ITraining {
+  id: string;
   title: string;
   author: string;
   description: string;
