@@ -1,4 +1,4 @@
-import { IArticle } from './research-products.model';
+import { IArticle } from './publications.model';
 import { IResult } from '../../result.model';
 
 export const researchProductToResult = (
@@ -11,7 +11,7 @@ export const researchProductToResult = (
   'Published (date)': publication?.published?.pop() || '',
   'Author names': publication.author_names || [],
   'Access right': publication?.bestaccessright?.pop() || '',
-  type: 'Research products',
+  type: 'Publication',
   typeUrlPath,
   collection,
   url: '',

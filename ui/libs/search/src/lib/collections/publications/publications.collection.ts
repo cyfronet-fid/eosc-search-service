@@ -6,9 +6,9 @@ import {
   researchProductFilterToField,
   researchProductToResult,
 } from './adapter';
-import { IArticle } from './research-products.model';
+import { IArticle } from './publications.model';
 
-export const researchProductsCollection = new CollectionSearchMetadata(
+export const publicationsCollection = new CollectionSearchMetadata(
   new SolrQueryParams({
     qf: ['title', 'author_names', 'publisher', 'bestaccessright', 'published'],
     collection: 'oag_researchoutcomes_prod_20211208_v2',
@@ -17,10 +17,10 @@ export const researchProductsCollection = new CollectionSearchMetadata(
   (item: Partial<IArticle>) =>
     researchProductToResult(
       item,
-      'research-products',
+      'publications',
       'oag_researchoutcomes_prod_20211208_v2'
     ),
   fieldToResearchProductFilter,
   researchProductFilterToField,
-  'Research Product'
+  'Publication'
 );
