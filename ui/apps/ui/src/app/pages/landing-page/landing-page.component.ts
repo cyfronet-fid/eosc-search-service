@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { allSet } from '@eosc-search-service/search';
+import {
+  allSet,
+  researchProductsSet,
+  trainingsSet,
+} from '@eosc-search-service/search';
 
 @Component({
   selector: 'ess-landing-page',
@@ -8,6 +12,8 @@ import { allSet } from '@eosc-search-service/search';
 })
 export class LandingPageComponent {
   allUrlPath = '/search/' + allSet.urlPath;
+  researchProductsPath = '/search/' + researchProductsSet.urlPath;
+  trainingsPath = '/search/' + trainingsSet.urlPath;
   fqBy = (filterName: string, value: string) => ({
     q: '*',
     fq: [`${filterName}:"${value}"`],
