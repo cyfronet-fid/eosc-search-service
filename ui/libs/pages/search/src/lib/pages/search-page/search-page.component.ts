@@ -7,7 +7,6 @@ import {
   debounceTime,
   finalize,
   map,
-  merge,
   of,
   ReplaySubject,
   skip,
@@ -23,16 +22,16 @@ import {
   TrainingService,
 } from '@eosc-search-service/search';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { IArticle } from '../../../../../../search/src/lib/collections/publications/publications.model';
-import { IService } from '../../../../../../search/src/lib/collections/services/service.model';
-import { CollectionSearchMetadata } from '../../../../../../search/src/lib/collections/collection.model';
 import { SEARCH_SET_LIST } from '@eosc-search-service/search';
 import { from } from 'rxjs';
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
+import { IService } from '../../../../../../search/src/lib/collections/services/service.model';
+import { CollectionSearchMetadata } from '../../../../../../search/src/lib/collections/collection.model';
+import { IArticle } from '../../../../../../search/src/lib/collections/publications/publications.model';
 
 @UntilDestroy()
 @Component({
-  selector: 'ui-search-service-page',
+  selector: 'ess-search-service-page',
   template: `
     <div class="container--xxl">
       <div class="search-bar">
@@ -75,6 +74,7 @@ import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
               <ess-filters [filters]="filters$ | async"></ess-filters>
             </div>
             <div class="col-9">
+              <ess-active-filters [collections]="collections$ | async"></ess-active-filters>
               <nz-empty *ngIf="(results$ | async)?.length === 0"></nz-empty>
               <cdk-virtual-scroll-viewport
                 itemSize="100"
@@ -94,6 +94,7 @@ import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
             </div>
           </div>
           <ng-template #noFilterRef>
+            <ess-active-filters [collections]="collections$ | async"></ess-active-filters>
             <nz-empty *ngIf="(results$ | async)?.length === 0"></nz-empty>
             <cdk-virtual-scroll-viewport
               itemSize="100"
@@ -143,6 +144,7 @@ export class SearchPageComponent implements OnInit {
   results$ = new BehaviorSubject<IResult[]>([]);
   categories: any[] = [];
   filters$ = this._searchService.filters$;
+  collections$ = this.filters$.pipe(map(filters => filters.map(([collection, facets]) => collection)));
   loadNextPage$ = new BehaviorSubject<void>(undefined);
   resultsCount$ = this._searchService.maxResultsNumber$;
   activeSet$ = this._route.data.pipe(map((data) => data['activeSet']));
