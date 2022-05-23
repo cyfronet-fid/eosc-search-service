@@ -22,8 +22,8 @@
 -->
 <config>
   <!-- In all configuration below, a prefix of "solr." for class names
-       is an alias that causes solr to search appropriate packages,
-       including org.apache.solr.(search|update|request|core|analysis)
+       is an alias that causes solr to search-service appropriate packages,
+       including org.apache.solr.(search-service|update|request|core|analysis)
 
        You may also specify a fully qualified Java classname if you
        have your own custom plugins.
@@ -494,14 +494,14 @@
     <!-- Use Filter For Sorted Query
 
          A possible optimization that attempts to use a filter to
-         satisfy a search.  If the requested sort does not include
+         satisfy a search-service.  If the requested sort does not include
          score, then the filterCache will be checked for a filter
          matching the query. If found, the filter will be used as the
          source of document ids, and then the sort will be applied to
          that.
 
          For most situations, this will not be useful unless you
-         frequently get the same search repeatedly with different sort
+         frequently get the same search-service repeatedly with different sort
          options, and none of them ever use "score"
       -->
     <!--
@@ -510,9 +510,9 @@
 
     <!-- Result Window Size
 
-         An optimization for use with the queryResultCache.  When a search
+         An optimization for use with the queryResultCache.  When a search-service
          is requested, a superset of the requested number of document ids
-         are collected.  For example, if a search for a particular query
+         are collected.  For example, if a search-service for a particular query
          requests matching documents 10 through 19, and queryWindowSize is 50,
          then documents 0 through 49 will be collected and cached.  Any further
          requests in that range can be satisfied via the cache.
@@ -527,14 +527,14 @@
   <!-- Use Filter For Sorted Query
 
    A possible optimization that attempts to use a filter to
-   satisfy a search.  If the requested sort does not include
+   satisfy a search-service.  If the requested sort does not include
    score, then the filterCache will be checked for a filter
    matching the query. If found, the filter will be used as the
    source of document ids, and then the sort will be applied to
    that.
 
    For most situations, this will not be useful unless you
-   frequently get the same search repeatedly with different sort
+   frequently get the same search-service repeatedly with different sort
    options, and none of them ever use "score"
 -->
     <!--
@@ -580,7 +580,7 @@
 
     <!-- Use Cold Searcher
 
-         If a search request comes in and there is no current
+         If a search-service request comes in and there is no current
          registered searcher, then immediately register the still
          warming searcher and use it.  If "false" then all requests
          will block until the first searcher is done warming.
@@ -771,7 +771,7 @@
     <lst name="defaults">
       <str name="echoParams">explicit</str>
       <int name="rows">10</int>
-      <!-- Default search field
+      <!-- Default search-service field
          <str name="df">text</str>
         -->
       <!-- Change from JSON to XML format (the default prior to Solr 7.0)

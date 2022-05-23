@@ -1,69 +1,53 @@
-import { Component } from '@angular/core';
-import { map } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import {Component, Inject, Input,} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ISet, SEARCH_SET_LIST, SearchService, TrainingService,} from '@eosc-search-service/search';
 
 @Component({
   selector: 'ess-sub-header',
   template: `
-    <div id="dashboard__header">
-      <div id="header__search-phrase">
-        <p class="text-secondary">SEARCH RESULTS FOR:</p>
-        <h3>Searched phrase: {{ searchedValue$ | async }}</h3>
-      </div>
-      <button type="button" id="dahboard__header-btn">
-        Switch to recommended results only
-      </button>
-    </div>
-    <div class="row gx-5" id="dashboard__labels">
-      <div class="col">
-        <a
-          routerLink="marketplace"
-          routerLinkActive="active-link"
-          queryParamsHandling="merge"
-          class="dashboard__label"
-          >Marketplace&nbsp;<strong>148 results</strong></a
+    <div id="container">
+      <ng-container *ngIf="activeSet !== null">
+        <h3>{{ activeSet.title }}</h3>
+        <span id="results-count" class="text-secondary" i18n
+          >(around {{ resultsCount }} results)</span
         >
-      </div>
-      <div class="col">
-        <a
-          routerLink="articles"
-          routerLinkActive="active-link"
-          queryParamsHandling="merge"
-          class="dashboard__label"
-          >Research outcomes&nbsp;<strong>2053 results</strong></a
-        >
-      </div>
-      <div class="col">
-        <a
-          routerLink="training-catalog"
-          routerLinkActive="active-link"
-          queryParamsHandling="merge"
-          class="dashboard__label"
-          >Training Catalog &nbsp;<strong>148 results</strong></a
-        >
-      </div>
-      <div class="col">
-        <a routerLink="" queryParamsHandling="merge" class="dashboard__label"
-          >Organisations&nbsp;<strong>148 results</strong></a
-        >
-      </div>
+        <div id="breadcrumbs">
+          <nz-breadcrumb nzSeparator=">">
+            <ng-container
+              *ngFor="let breadcrumb of activeSet.breadcrumbs; last as $last"
+            >
+              <nz-breadcrumb-item *ngIf="!$last; else lastRef">
+                <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+              </nz-breadcrumb-item>
+              <ng-template #lastRef>
+                <nz-breadcrumb-item>{{ breadcrumb.label }} </nz-breadcrumb-item>
+              </ng-template>
+            </ng-container>
+          </nz-breadcrumb>
+        </div>
+      </ng-container>
     </div>
   `,
+  styles: [
+    `
+      #container {
+        margin-top: 20px;
+      }
+      #results-count {
+        padding-left: 10px;
+      }
+      h3,
+      #results-count {
+        display: inline;
+      }
+      #breadcrumbs {
+        padding: 5px 0 15px;
+      }
+    `,
+  ],
 })
 export class SubHeaderComponent {
-  searchedValue$ = this._route.queryParams.pipe(
-    map((params) => {
-      switch (params['q']) {
-        case '*':
-          return 'all available';
-        case undefined:
-        case null:
-          return 'nothing';
-        default:
-          return params['q'];
-      }
-    })
-  );
-
-  constructor(private _route: ActivatedRoute) {}
+  // resultsCount$ = this._searchService.maxResultsNumber$;
+  @Input() activeSet: ISet | null = null;
+  @Input() resultsCount: number | null = null;
 }
