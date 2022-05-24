@@ -1,26 +1,34 @@
-import {Component, EventEmitter, OnInit, Output,} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output,} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
-import {filter, map} from 'rxjs';
+import {map, Subscription} from 'rxjs';
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'ess-search-input',
   template: `
-    <input
-      type="text"
-      id="search"
-      i18n-placeholder
-      placeholder="Search in catalogs"
-      (keydown.enter)="setParam()"
-      [formControl]="form"
-    />
-    <button id="btn--search" class="btn btn-primary" type="button" (click)="setParam()">
-      <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-      <span>&nbsp;&nbsp;&nbsp;&nbsp;<ng-container i18n>Search</ng-container>&nbsp;&nbsp;</span>
-    </button>
+   <div id="container">
+     <input
+       type="text"
+       id="search"
+       i18n-placeholder
+       placeholder="Search in catalogs"
+       (keydown.enter)="setParam()"
+       [formControl]="form"
+     />
+     <button id="btn--search" class="btn btn-primary" type="button" (click)="setParam()">
+       <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
+       <span>&nbsp;&nbsp;&nbsp;&nbsp;<ng-container i18n>Search</ng-container>&nbsp;&nbsp;</span>
+     </button>
+     <button  *ngIf="form.value !== ''" id="btn--clear-query" type="button" class="btn btn-secondary" (click)="clearQuery()">
+       Clear phrase <span>X</span>
+     </button>
+   </div>
   `,
   styles: [`
+    #container {
+      position: relative;
+    }
     #search {
       width: calc(100% - 120px);
       border: solid 1px rgba(0, 0, 0, 0.1);
@@ -33,6 +41,17 @@ import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
     #btn--search {
       border-radius: 0 25px 25px 0;
       width: 120px;
+      background-color: #3987be;
+    }
+    #btn--clear-query {
+      position: absolute;
+      top: 7px;
+      right: 130px;
+      font-size: 12px;
+      border-radius: 50px;
+      padding: 4px 14px;
+      background-color: rgba(0, 0, 0, 0.3);
+      border: none;
     }
     #search, #btn--search {
       float: left;
@@ -40,74 +59,42 @@ import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
     }
   `]
 })
-export class SearchInputComponent implements OnInit {
+export class SearchInputComponent implements OnInit, OnDestroy {
   faMagnifyingGlass = faMagnifyingGlass
   form = new FormControl();
+  subscription$: Subscription | undefined;
 
   @Output() searchedValue = new EventEmitter<string>();
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit() {
-    this._route.queryParamMap
+    this.subscription$ = this._route.queryParamMap
       .pipe(
         map((params) => params.get('q')),
-        filter((q) => q == this.form.value || q !== '*')
+        map((q) => q === '*' ? '' : q)
       )
       .subscribe((q) => this.form.setValue(q))
   }
 
   async setParam() {
-    const q = this.form.value;
+    const q = this.form.value || '*';
     const currentPath = this._router.url.split("?")[0];
-    const newPath = currentPath === '/' ? ['search/all'] : [];
+    const newPath = currentPath === '/' ? ['/search/all'] : [];
     await this._router.navigate(newPath, {
-      queryParams: {q: q || '*'},
+      queryParams: { q },
       queryParamsHandling: 'merge',
     })
   }
-  // form = new FormControl();
-  //
-  // @Output() searchedValue = new EventEmitter<string>();
-  //
-  // private _queryToValue$: Subscription | null = null;
-  // private _valueToResults$: Subscription | null = null;
-  //
-  // constructor(private _route: ActivatedRoute, private _router: Router) {}
-  //
-  // ngOnInit() {
-  //   // Load search-input query from URL params
-  //   this._queryToValue$ = this._route.queryParams
-  //     .pipe(
-  //       map((params) => params['q']),
-  //       tap((q: string) => {
-  //         const searchQuery = (q !== '*' && q) || '';
-  //         const emitEvent = q !== '*' && q != this.form.value;
-  //         this.form.setValue(searchQuery, { emitEvent });
-  //       }),
-  //       map((q) => (q && q.trim() !== '' ? q : '*')),
-  //       filter((q) => q === '*')
-  //     )
-  //     .subscribe((q) => this.searchedValue.emit(q));
-  //
-  //   // Load data from search-input query
-  //   this._valueToResults$ = this.form.valueChanges
-  //     .pipe(
-  //       debounceTime(500),
-  //       map((q: string) => q.trim()),
-  //       tap((q: string) =>
-  //         this._router.navigate([], {
-  //           queryParams: { q: q || '*' },
-  //           queryParamsHandling: 'merge',
-  //         })
-  //       )
-  //     )
-  //     .subscribe((q) => this.searchedValue.emit(q));
-  // }
-  //
-  // ngOnDestroy() {
-  //   this._queryToValue$?.unsubscribe();
-  //   this._valueToResults$?.unsubscribe();
-  // }
+
+  async clearQuery() {
+    this.form.setValue('');
+    await this.setParam();
+  }
+
+  ngOnDestroy() {
+    this.subscription$?.unsubscribe();
+  }
 }
