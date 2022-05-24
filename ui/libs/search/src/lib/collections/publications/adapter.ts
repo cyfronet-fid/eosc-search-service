@@ -14,7 +14,7 @@ export const researchProductToResult = (
   type: 'Publication',
   typeUrlPath,
   collection,
-  url: '',
+  url: `https://explore.eosc-portal.eu/search/result?id=${publication?.id?.split("|")?.pop()}`,
   fieldToFilter: fieldToResearchProductFilter,
   fieldsToTags: ['Author names', 'Published (date)', 'Access right'],
 });
