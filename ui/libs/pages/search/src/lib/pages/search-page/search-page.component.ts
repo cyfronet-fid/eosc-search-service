@@ -165,9 +165,6 @@ export class SearchPageComponent implements OnInit {
       this._route.data.pipe(map((data) => data['activeSet']))
     )
       .pipe(
-        tap(([params, activeSet]) => {
-          console.log(params, activeSet);
-        }),
         tap(() => this.loading$.next(true)),
         switchMap(([params, activeSet]) =>
           this._loadResults(

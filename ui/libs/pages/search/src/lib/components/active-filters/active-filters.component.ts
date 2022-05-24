@@ -23,6 +23,11 @@ interface IActiveFilter {
         Clear all filters
       </span>
 
+      <div class="badge" *ngIf="(q$ | async) !== '*'">
+        <span>Searched phrase: </span>
+        <span><i>"{{ q$ | async }}" </i></span>
+        <span class="close-btn" (click)="clearQuery()">x</span>
+      </div>
       <div class="badge" *ngFor="let activeFilter of activeFilters$ | async">
         <span>{{ activeFilter.label }}: </span>
         <span><i>{{ activeFilter.value }} </i></span>
@@ -38,42 +43,45 @@ interface IActiveFilter {
       background: none !important;
     }
     #clear-all-badge {
-      background-color: #0b5ed7;
-      font-size: 14px;
-      padding: 14px;
+      background-color: #3987be;
+      font-size: 12px;
+      padding: 8px 12px;
       border: 1px solid rgba(0, 0, 0, 0.3);
       color: rgba(0, 0, 0, 0.6);
       border-radius: .25rem;
       color: #fff;
       font-weight: bold;
-      margin-right: 8px;
-      margin-bottom: 8px;
+      margin-right: 4px;
+      margin-bottom: 4px;
     }
     .badge {
       color: rgba(0, 0, 0, 0.6);
-      margin-right: 8px;
-      margin-bottom: 8px;
-      font-size: 14px;
-      padding: 14px 52px 14px 14px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+      font-size: 12px;
+      padding: 8px 40px 8px 12px;
       border: 1px solid rgba(0, 0, 0, 0.3);
       position: relative;
     }
     .badge .close-btn {
-       cursor: pointer;
-       background-color: #0b5ed7;
-       color: #fff;
-       font-size: 14px;
-       position: absolute;
-       right: -1px;
-       border-radius: 0 0.25rem 0.25rem 0;
-       top: -1px;
-       padding: 15px 17px;
+      cursor: pointer;
+      background-color: #3987be;
+      color: #fff;
+      font-size: 17px;
+      position: absolute;
+      right: -1px;
+      border-radius: 0 0.25rem 0.25rem 0;
+      top: -1px;
+      padding: 6px 10px 7px;
     }
   `]
 })
 export class ActiveFiltersComponent implements OnInit {
   filterToField$ = new BehaviorSubject<{ [filter: string]: string }>({});
   activeFilters$ = new BehaviorSubject<IActiveFilter[]>([]);
+  q$ = this._route.queryParamMap
+    .pipe(map(params => params.get('q')))
+
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 
   @Input()
@@ -115,4 +123,10 @@ export class ActiveFiltersComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
   };
+  clearQuery = async () => {
+    await this._router.navigate([], {
+      queryParams: { q: '*' },
+      queryParamsHandling: 'merge'
+    })
+  }
 }

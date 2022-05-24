@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ng-zorro-antd/ng-zorro-antd.min.css';
 
+.ant-tree-checkbox-checked .ant-tree-checkbox-inner {
+  background-color: #3987be;
+  border-color: #3987be;
+}
+
 .container--xxl {
   padding: 25px 50px;
 }
