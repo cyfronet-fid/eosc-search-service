@@ -3,15 +3,13 @@ export interface IResult {
   description: string;
   type: string;
   typeUrlPath: string;
-  fieldToFilter: { [field: string]: string };
   collection: string;
   url: string;
-  fieldsToTags: string[];
-  [tagName: string]: string | string[] | any | any[];
+  tags: ITag[];
 }
 
 export interface ITag {
-  type: string;
+  label: string;
   value: string | string[];
   originalField: string;
 }

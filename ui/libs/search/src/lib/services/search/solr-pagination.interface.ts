@@ -2,8 +2,8 @@ import {SolrQueryParams} from './solr-query-params.interface';
 import {FACETS, IFacetParam} from './facet-param.interface';
 import {BehaviorSubject, combineLatest, map, Observable} from 'rxjs';
 import * as hash from 'object-hash';
-import {ISearchResults} from '../../model';
 import {CommonSettings} from "@eosc-search-service/common";
+import {ISearchResults} from "@eosc-search-service/search";
 
 export abstract class ISolrPagination {
   protected readonly URL = `${this.settings.backendApiPath}/${this.settings.search.apiPath}`;

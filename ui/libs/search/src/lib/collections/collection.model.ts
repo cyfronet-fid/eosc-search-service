@@ -1,7 +1,7 @@
-import { SolrQueryParams } from '../services/search-service/solr-query-params.interface';
 import { IFacetParam } from '../services/search-service/facet-param.interface';
-import { calcHash } from '../services/search-service/utils';
 import { IResult } from '../result.model';
+import {SolrQueryParams} from "../services/search";
+import {calcHash} from "./utils";
 
 export class CollectionSearchMetadata<T> {
   public _hash: string;
