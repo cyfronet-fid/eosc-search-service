@@ -19,15 +19,22 @@ export interface ISolrQueryParams {
 
 export class SolrQueryParams implements ISolrQueryParams {
   q = '*';
-  collection: string;
-  qf = [];
-  fq = [];
-  sort = [];
+  collection = '';
+  _qf: string[] = [];
+  fq: string[] = [];
+  sort: string[] = [];
   rows = 10;
   cursor = '*';
 
-  constructor(params: Partial<ISolrQueryParams> & {collection: string}) {
-    this.collection = params.collection;
+  get qf(): string[] {
+    return this.q === '*' ? [] : this._qf;
+  }
+
+  set qf(qf: string[]) {
+    this._qf = qf;
+  }
+
+  constructor(params: Partial<ISolrQueryParams>) {
     Object.assign(this, params);
   }
 
@@ -49,7 +56,15 @@ export class SolrQueryParams implements ISolrQueryParams {
     }
 
     /* eslint-disable @typescript-eslint/no-explicit-any  */
-    return { ...(this as any) };
+    return {
+      q: this.q,
+      collection: this.collection,
+      qf: this.qf,
+      fq: this.fq,
+      sort: this.sort,
+      rows: this.rows,
+      cursor: this.cursor
+    };
   }
 }
 

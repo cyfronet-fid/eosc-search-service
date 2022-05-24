@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any  */
 import {Inject, Injectable} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ISearchResults } from '../../model';
 import { Observable, map, tap } from 'rxjs';
 import { ISolrPagination } from './solr-pagination.interface';
 import {
@@ -12,6 +11,7 @@ import { SolrQueryParams } from './solr-query-params.interface';
 import { FACETS } from './facet-param.interface';
 import {ESS_SETTINGS} from "@eosc-search-service/common";
 import {CommonSettings} from "@eosc-search-service/common";
+import {ISearchResults} from "@eosc-search-service/search";
 
 @Injectable()
 export class SearchService extends ISolrPagination {

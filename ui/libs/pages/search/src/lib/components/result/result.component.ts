@@ -10,50 +10,50 @@ const MAX_DESCRIPTION_WORDS_LENGTH = 64;
   selector: 'ess-result',
   template: `
     <div id="container">
-        <h6>
-          <a *ngIf="validUrl; else onlyTitleRef" [href]="validUrl" target="_blank">
-              <b>{{ shortTitle }}</b>
-          </a>
-          <ng-template #onlyTitleRef><b>{{ shortTitle }}</b></ng-template>
-        </h6>
+      <h6>
+        <a *ngIf="validUrl; else onlyTitleRef" [href]="validUrl" target="_blank">
+          <b>{{ shortTitle }}</b>
+        </a>
+        <ng-template #onlyTitleRef><b>{{ shortTitle }}</b></ng-template>
+      </h6>
       <p id="tags">
         <span class="tag"
-          ><b
-            ><i>
+        ><b
+        ><i>
               Type:
               <a [routerLink]="typeUrlPath" queryParamsHandling="merge">{{
                 type
-              }}</a
+                }}</a
               >,
             </i></b
-          ></span
+        ></span
         >
         <ng-container *ngFor="let tag of tags">
           <span class="tag"
-            ><i>{{ tag.type }}: </i></span
+          ><i>{{ tag.label }}: </i></span
           >
           <ng-container *ngIf="isArray(tag.value)">
             <ng-container *ngFor="let singleValue of $any(tag.value)">
               <span class="tag"
-                ><i
-                  ><a
-                    href="javascript:void(0)"
-                    (click)="addFilter(tag.originalField, singleValue)"
-                    >{{ singleValue }}</a
-                  >,&nbsp;</i
-                ></span
+              ><i
+              ><a
+                href="javascript:void(0)"
+                (click)="addFilter(tag.originalField, singleValue)"
+              >{{ singleValue }}</a
+              >,&nbsp;</i
+              ></span
               >
             </ng-container>
           </ng-container>
           <ng-container *ngIf="!isArray(tag.value)">
             <span class="tag"
-              ><i>
+            ><i>
                 <a
                   href="javascript:void(0)"
                   (click)="addFilter(tag.originalField, $any(tag.value))"
-                  >{{ tag.value }}</a
+                >{{ tag.value }}</a
                 > </i
-              >,&nbsp;</span
+            >,&nbsp;</span
             >
           </ng-container>
         </ng-container>

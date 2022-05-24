@@ -1,8 +1,6 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ArticlesStore } from './collections/articles.store';
 import { ISearchResults } from './services';
-import { CommonSettings, ESS_SETTINGS } from '@eosc-search-service/common';
 import {MAIN_SEARCH_SET, SEARCH_SET_LIST} from "./search.providers";
 import {ISet} from "./sets";
 
@@ -11,8 +9,6 @@ import {ISet} from "./sets";
   imports: [CommonModule],
   exports: [],
   providers: [
-    // SearchService,
-    ArticlesStore,
   ],
 })
 export class SearchModule {

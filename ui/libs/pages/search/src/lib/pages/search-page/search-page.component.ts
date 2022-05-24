@@ -88,7 +88,7 @@ import { IArticle } from '../../../../../../search/src/lib/collections/publicati
                   [type]="result.type"
                   [url]="result.url"
                   [typeUrlPath]="'/search/' + result.typeUrlPath"
-                  [tags]="toTags(result)"
+                  [tags]="result.tags"
                 ></ess-result>
               </cdk-virtual-scroll-viewport>
             </div>
@@ -107,7 +107,7 @@ import { IArticle } from '../../../../../../search/src/lib/collections/publicati
                 [description]="result.description"
                 [type]="result.type"
                 [typeUrlPath]="'/search/' + result.typeUrlPath"
-                [tags]="toTags(result)"
+                [tags]="result.tags"
               ></ess-result>
             </cdk-virtual-scroll-viewport>
           </ng-template>
@@ -166,7 +166,7 @@ export class SearchPageComponent implements OnInit {
     )
       .pipe(
         tap(() => this.loading$.next(true)),
-        switchMap(([params, activeSet]) =>
+        switchMap(() =>
           this._loadResults(
             getCollections(this._router.url, this._search_sets)
           ).pipe(finalize(() => this.loading$.next(false)))
@@ -185,16 +185,6 @@ export class SearchPageComponent implements OnInit {
       )
       .subscribe((results) => this.results$.next(results));
   }
-
-  toTags = (result: IResult): ITag[] => {
-    return result.fieldsToTags
-      .filter((field: string) => !!result[field])
-      .map((field: string) => ({
-        type: field,
-        value: result[field],
-        originalField: result.fieldToFilter[field],
-      }));
-  };
 
   loadNext() {
     const end = this.viewport?.getRenderedRange().end;
