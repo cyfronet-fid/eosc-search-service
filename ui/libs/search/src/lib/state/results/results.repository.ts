@@ -1,135 +1,27 @@
-import { HashMap, IHasId } from '@eosc-search-service/types';
-import { createStore, select, setProp, withProps } from '@ngneat/elf';
-import {
-  addEntities,
-  selectAllEntities,
-  setEntities,
-  withEntities,
-} from '@ngneat/elf-entities';
+import {HashMap} from '@eosc-search-service/types';
+import {createStore, select, setProp, withProps} from '@ngneat/elf';
+import {addEntities, selectAllEntities, setEntities, withEntities,} from '@ngneat/elf-entities';
 import {
   createRequestsStatusOperator,
   selectRequestStatus,
   updateRequestStatus,
   withRequestsStatus,
 } from '@ngneat/elf-requests';
-import { map, Observable, shareReplay } from 'rxjs';
-import { ISet } from '../../sets';
-import { Inject, Injectable } from '@angular/core';
-import { SEARCH_SET_LIST } from '../../search.providers';
-import { ICollectionSearchMetadata } from './results.service';
-import { IResult } from '../../result.model';
-import { isArray } from '@eosc-search-service/common';
+import {map, Observable, shareReplay} from 'rxjs';
+import {ISet} from '../../sets';
+import {Inject, Injectable} from '@angular/core';
+import {SEARCH_SET_LIST} from '../../search.providers';
+import {ICollectionSearchMetadata} from './results.service';
+import {
+  clearSearchState,
+  CollectionsSearchState,
+  IFacetResponse,
+  IResult,
+  makeSearchState,
+  SearchState
+} from './results.model';
 
 export const RESULTS_ROWS = 100;
-
-// export interface IResult {
-//   // temporary required for hashing purposes
-//   id: string;
-//
-//   title: string;
-//   description: string;
-//   type: string;
-//   typeUrlPath: string;
-//   fieldToFilter: HashMap<string>;
-//   collection: string;
-//   url: string;
-//   fieldsToTags: string[];
-//
-//   [tagName: string]: string | string[] | any | any[];
-// }
-
-// export interface ITag {
-//   type: string;
-//   value: string | string[];
-//   originalField: string;
-// }
-
-export interface SearchState {
-  hasNext: boolean;
-  maxResults: number;
-  currentPage: number;
-  maxPage: number;
-  cursor: string;
-  facets: HashMap<IFacetResponse>;
-  active: boolean;
-}
-
-export function makeSearchState(
-  params: Partial<SearchState> = {}
-): SearchState {
-  return {
-    hasNext: true,
-    maxResults: 0,
-    currentPage: 0,
-    maxPage: 0,
-    cursor: '*',
-    facets: {},
-    active: false,
-    ...params,
-  };
-}
-
-export function clearSearchState(
-  collections: HashMap<SearchState>
-): HashMap<SearchState> {
-  const output: HashMap<SearchState> = {};
-
-  Object.keys(collections).forEach((key) => (output[key] = makeSearchState()));
-  return output;
-}
-
-export interface CollectionsSearchState {
-  collectionSearchStates: HashMap<SearchState>;
-}
-
-export interface IFacetBucket {
-  val: string | number;
-  count: number;
-}
-
-export interface IFacetResponse {
-  buckets: IFacetBucket[];
-}
-
-export interface ISearchResults<T extends IHasId> {
-  results: T[];
-  facets: HashMap<IFacetResponse>;
-  nextCursorMark: string;
-  numFound: number;
-}
-
-export interface ISolrCollectionParams {
-  qf: string[];
-  collection: string;
-}
-
-export interface ISolrQueryParams {
-  q: string;
-  fq: string[];
-  sort: string[];
-  cursor: string;
-}
-
-export function toSolrQueryParams(params: HashMap<unknown>): ISolrQueryParams {
-  return {
-    q: typeof params['q'] === 'string' ? params['q'] : '*',
-    fq: isArray<string>(params['fq']) ? params['fq'] : [],
-    sort: isArray<string>(params['sort']) ? params['sort'] : [],
-    cursor: '*',
-  };
-}
-
-export function makeEmptySolrQueryParams(
-  params: Partial<ISolrQueryParams> = {}
-): ISolrQueryParams {
-  return {
-    q: '*',
-    fq: [],
-    sort: [],
-    cursor: '*',
-    ...params,
-  };
-}
 
 export class ResultsRepository {
   protected _collectionsMap: HashMap<ICollectionSearchMetadata>;

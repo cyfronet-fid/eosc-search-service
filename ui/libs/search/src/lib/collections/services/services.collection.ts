@@ -1,6 +1,6 @@
 import {IService} from './service.model';
 import {ICollectionSearchMetadata} from '../../state/results/results.service';
-import {IResult} from "../../result.model";
+import {IResult} from "../../state/results/results.model";
 import {IHasId} from "@eosc-search-service/types";
 
 export const publicationAdapter =  (

@@ -1,6 +1,6 @@
 import { ITraining } from './training.model';
 import { ICollectionSearchMetadata } from '../../state/results/results.service';
-import { IResult } from '../../result.model';
+import { IResult } from '../../state/results/results.model';
 import { IHasId } from '@eosc-search-service/types';
 import { v4 as uuidv4 } from 'uuid';
 

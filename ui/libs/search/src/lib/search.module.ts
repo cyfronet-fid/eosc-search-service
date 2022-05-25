@@ -29,8 +29,3 @@ export class SearchModule {
     };
   }
 }
-
-export interface IStore<T extends IHasId> {
-  set(results: ISearchResults<T>): void;
-  setActive(item: T): void;
-}

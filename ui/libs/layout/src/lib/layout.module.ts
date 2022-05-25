@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {
   CategoryListComponent,
   CheckboxesTreeComponent,
@@ -8,15 +8,16 @@ import {
   SearchInputComponent,
   SubHeaderComponent,
 } from './components';
-import { NzTreeModule } from 'ng-zorro-antd/tree';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { SubNavComponent } from './components/sub-nav';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import {NzTreeModule} from 'ng-zorro-antd/tree';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {NzTreeViewModule} from 'ng-zorro-antd/tree-view';
+import {NzIconModule} from 'ng-zorro-antd/icon';
+import {NzBadgeModule} from 'ng-zorro-antd/badge';
+import {SubNavComponent} from './components/sub-nav';
+import {NzBreadCrumbModule} from 'ng-zorro-antd/breadcrumb';
+import {ESSCommonModule} from "@eosc-search-service/common";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
   ],
   imports: [
     CommonModule,
+    ESSCommonModule,
     NzTreeModule,
     FormsModule,
     ReactiveFormsModule,

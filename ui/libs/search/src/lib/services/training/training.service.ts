@@ -4,7 +4,7 @@ import * as trainingsJSON from './trainings.data.json';
 import { ITraining } from '../../collections/trainings/training.model';
 import Fuse from 'fuse.js';
 import { trainingsCollection } from '../../collections/trainings/tranings.collection';
-import {IResult} from "../../result.model";
+import {IResult} from "../../state/results/results.model";
 
 @Injectable({providedIn: 'root'})
 export class TrainingService {

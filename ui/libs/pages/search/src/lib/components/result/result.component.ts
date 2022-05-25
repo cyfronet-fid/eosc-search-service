@@ -1,8 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { shortText } from './utils';
-import {addFq} from '@eosc-search-service/search';
-import { ITag } from '../../../../../../search/src/lib/result.model';
+import {addFq, ITag} from '@eosc-search-service/search';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_DESCRIPTION_WORDS_LENGTH = 64;
