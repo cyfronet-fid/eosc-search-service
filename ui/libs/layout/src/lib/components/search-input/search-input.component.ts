@@ -20,7 +20,7 @@ import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons'
        <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
        <span>&nbsp;&nbsp;&nbsp;&nbsp;<ng-container i18n>Search</ng-container>&nbsp;&nbsp;</span>
      </button>
-     <button  *ngIf="form.value !== ''" id="btn--clear-query" type="button" class="btn btn-secondary" (click)="clearQuery()">
+     <button  *ngIf="form.value && form.value.trim() !== ''" id="btn--clear-query" type="button" class="btn btn-secondary" (click)="clearQuery()">
        Clear phrase <span>X</span>
      </button>
    </div>
@@ -80,9 +80,9 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   }
 
   async setParam() {
-    const q = this.form.value || '*';
     const currentPath = this._router.url.split("?")[0];
     const newPath = currentPath === '/' ? ['/search/all'] : [];
+    const q = this.form.value || '*';
     await this._router.navigate(newPath, {
       queryParams: { q },
       queryParamsHandling: 'merge',
@@ -91,7 +91,11 @@ export class SearchInputComponent implements OnInit, OnDestroy {
 
   async clearQuery() {
     this.form.setValue('');
-    await this.setParam();
+
+    const currentPath = this._router.url.split("?")[0];
+    if (currentPath !== '/') {
+      await this.setParam();
+    }
   }
 
   ngOnDestroy() {

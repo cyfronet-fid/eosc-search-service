@@ -17,7 +17,6 @@ import {
   getCollections,
   IResult,
   ISet,
-  ITag,
   SearchService,
   TrainingService,
 } from '@eosc-search-service/search';
@@ -77,6 +76,7 @@ import { IArticle } from '../../../../../../search/src/lib/collections/publicati
               <ess-active-filters [collections]="collections$ | async"></ess-active-filters>
               <nz-empty *ngIf="(results$ | async)?.length === 0"></nz-empty>
               <cdk-virtual-scroll-viewport
+                *ngIf="$any(results$ | async)?.length > 0"
                 itemSize="100"
                 style="height: 1200px; margin-bottom: 50px"
                 (scrolledIndexChange)="loadNext()"
@@ -97,6 +97,7 @@ import { IArticle } from '../../../../../../search/src/lib/collections/publicati
             <ess-active-filters [collections]="collections$ | async"></ess-active-filters>
             <nz-empty *ngIf="(results$ | async)?.length === 0"></nz-empty>
             <cdk-virtual-scroll-viewport
+              *ngIf="$any(results$ | async)?.length > 0"
               itemSize="100"
               style="height: 1000px; margin-bottom: 50px"
               (scrolledIndexChange)="loadNext()"
@@ -126,6 +127,7 @@ import { IArticle } from '../../../../../../search/src/lib/collections/publicati
 
       .ant-empty {
         margin-top: 50px;
+        margin-bottom: 100px;
       }
 
       .loading-block {
