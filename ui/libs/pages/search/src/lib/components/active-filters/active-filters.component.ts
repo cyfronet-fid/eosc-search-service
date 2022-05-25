@@ -14,7 +14,7 @@ interface IActiveFilter {
 @Component({
   selector: 'ess-active-filters',
   template: `
-    <section *ngIf="$any(activeFilters$ | async)?.length > 0" id="filters">
+    <section *ngIf="$any(activeFilters$ | async)?.length > 0 || (q$ | async) !== '*'" id="filters">
       <span
         id="clear-all-badge"
         style="cursor: pointer"
