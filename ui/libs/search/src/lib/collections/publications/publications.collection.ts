@@ -1,5 +1,5 @@
 import { IArticle } from './publications.model';
-import { IResult } from '../../result.model';
+import { IResult } from '../../state/results/results.model';
 import {ICollectionSearchMetadata} from "../../state/results/results.service";
 import {IHasId} from "@eosc-search-service/types";
 
