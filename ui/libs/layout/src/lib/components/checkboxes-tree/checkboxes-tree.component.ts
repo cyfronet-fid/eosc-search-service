@@ -8,6 +8,7 @@ export interface TreeNode {
   name: string;
   value: any;
   filter: string;
+  count: string;
   disabled?: boolean;
   children?: TreeNode[];
   isSelected: boolean;
@@ -18,6 +19,7 @@ export interface FlatNode {
   name: string;
   value: any;
   filter: string;
+  count: string;
   level: number;
   disabled: boolean;
   isSelected: boolean;
@@ -38,7 +40,7 @@ export interface FlatNode {
           [nzDisabled]="node.disabled"
           (nzClick)="leafItemSelectionToggle(node)"
         >
-          {{ node.name }}
+          {{ node.name }} <span class="filter-count">&nbsp;({{ node.count }})</span>
         </nz-tree-node-option>
       </nz-tree-node>
 
@@ -59,11 +61,27 @@ export interface FlatNode {
           [nzDisabled]="node.disabled"
           (nzClick)="itemSelectionToggle(node)"
         >
-          {{ node.name }}
+          {{ node.name }} <span class="filter-count">&nbsp;({{ node.count }})</span>
         </nz-tree-node-option>
       </nz-tree-node>
     </nz-tree-view>
   `,
+  styles: [`
+    .filter-count {
+      color: rgba(0, 0, 0, 0.45);
+    }
+    .ant-tree .ant-tree-node-content-wrapper
+    {
+      line-height: 18px !important;
+    }
+    .ant-tree-checkbox {
+      margin: 1px 2px 0 0 !important;
+    }
+
+    .ant-tree .ant-tree-treenode {
+      padding: 0 !important;
+    }
+  `]
 })
 export class CheckboxesTreeComponent {
   @Input()
@@ -94,6 +112,7 @@ export class CheckboxesTreeComponent {
             filter: node.filter,
             value: node.value,
             level,
+            count: node.count,
             disabled: !!node.disabled,
             isSelected: node.isSelected,
           };
