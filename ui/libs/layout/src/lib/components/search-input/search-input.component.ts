@@ -142,6 +142,9 @@ export class SuggestionsResultsService extends ResultsService {
       .suggestions .result {
         padding-left: 40px;
       }
+      .suggestions a.result {
+        color: #3987be;
+      }
 
       #container {
         z-index: 11;
@@ -224,16 +227,13 @@ export class SearchInputComponent implements OnInit {
 
     combineLatest({
       queryParams: this._route.queryParams.pipe(map(toSolrQueryParams)),
-      activeSet: this._route.data.pipe(
-        map((data) => (data['activeSet'] ?? this._defaultSet) as ISet)
-      ),
       q: this.fc.valueChanges.pipe(distinctUntilChanged()),
     })
       .pipe(
         debounceTime(150),
         tap(() => this.onFocus()),
-        switchMap(({ activeSet, queryParams, q }) =>
-          this._service.search$(activeSet.collections, { ...queryParams, q }, RESULTS_PER_CATEGORY)
+        switchMap(({ queryParams, q }) =>
+          this._service.search$(this._defaultSet.collections, { ...queryParams, q }, RESULTS_PER_CATEGORY)
         ),
         untilDestroyed(this)
       )
