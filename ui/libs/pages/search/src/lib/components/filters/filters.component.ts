@@ -3,7 +3,7 @@ import {addFq, getFqsFromUrl, IFacetResponse, removeFq} from '@eosc-search-servi
 import {BehaviorSubject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FlatNode, TreeNode,} from '@eosc-search-service/layout';
-import {ICollectionSearchMetadata} from "../../../../../../search/src/lib/state/results/results.service";
+import { ICollectionSearchMetadata } from '../../../../../../search/src/lib/state/results/results.service';
 
 interface IFilter {
   title: string;
@@ -19,7 +19,7 @@ interface IFilter {
       <ng-container *ngFor="let filterTree of filtersTree$ | async">
         <ng-container *ngIf="filterTree.data.length > 0">
           <div class="filter">
-            <h6>{{ filterTree.title }}</h6>
+            <span class="filter-title"><b>{{ filterTree.title }}</b></span>
             <ess-checkboxes-tree
               [data]="filterTree.data"
               (checkboxesChange)="addFilter($event)"
@@ -32,13 +32,16 @@ interface IFilter {
   styles: [
     `
       #filters {
-        padding: 15px;
+        padding: 0 15px 15px 15px;
         margin-left: -15px;
         margin-bottom: 15px;
-        background-color: rgba(57, 135, 190, 0.05);
       }
       .filter {
-        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+      .filter-title {
+        padding-bottom: 6px;
+        display: block;
       }
       .ant-tree {
         background: none !important;
@@ -63,13 +66,13 @@ export class FiltersComponent {
         ][]
       | null
   ) {
-    console.log(filters)
     if (!filters) {
       return;
     }
     const filtersTree: IFilter[] = [];
     this.filterToField$.next(
       filters
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .map(([collection, facets]) => collection)
         .map((collection) => collection.filterToField)
         .reduce((acc, filterToField) => ({ ...acc, ...filterToField }), {})
@@ -84,8 +87,9 @@ export class FiltersComponent {
             (filter) => filter.title === filterName
           );
           const data = facets[facet].buckets.map(({ val, count }) => ({
-            name: val + ` (${count})`,
+            name: val + '',
             value: val + '',
+            count: count + '',
             filter: facet,
             isSelected: fqs.some((filter) => filter === `${facet}:"${val}"`),
           }));
@@ -99,7 +103,6 @@ export class FiltersComponent {
           }
         });
     });
-    console.log(filtersTree)
     this.filtersTree$.next(filtersTree);
   }
 

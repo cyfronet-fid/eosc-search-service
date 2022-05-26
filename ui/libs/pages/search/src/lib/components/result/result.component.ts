@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { shortText } from './utils';
 import {addFq} from '@eosc-search-service/search';
-import {ITag} from "../../../../../../search/src/lib/result.model";
+import { ITag } from '../../../../../../search/src/lib/result.model';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_DESCRIPTION_WORDS_LENGTH = 64;
@@ -18,43 +18,45 @@ const MAX_DESCRIPTION_WORDS_LENGTH = 64;
         <ng-template #onlyTitleRef><b>{{ shortTitle }}</b></ng-template>
       </h6>
       <p id="tags">
-        <span class="tag"
+        <span class="tag tag-title"
         ><b
-        ><i>
-              Type:
-              <a [routerLink]="typeUrlPath" queryParamsHandling="merge">{{
-                type
-                }}</a
-              >,
-            </i></b
+        >
+          Type:
+            </b
         ></span
         >
+        <span class="tag">
+          <b>
+            <a [routerLink]="typeUrlPath" queryParamsHandling="merge">{{
+              type
+              }}</a
+            >
+          </b>,
+        </span>
+
         <ng-container *ngFor="let tag of tags">
-          <span class="tag"
+          <span class="tag tag-title"
           ><i>{{ tag.label }}: </i></span
           >
           <ng-container *ngIf="isArray(tag.value)">
             <ng-container *ngFor="let singleValue of $any(tag.value)">
               <span class="tag"
-              ><i
               ><a
                 href="javascript:void(0)"
                 (click)="addFilter(tag.originalField, singleValue)"
               >{{ singleValue }}</a
-              >,&nbsp;</i
-              ></span
+              >,&nbsp;</span
               >
             </ng-container>
           </ng-container>
           <ng-container *ngIf="!isArray(tag.value)">
             <span class="tag"
-            ><i>
+            >
                 <a
                   href="javascript:void(0)"
                   (click)="addFilter(tag.originalField, $any(tag.value))"
                 >{{ tag.value }}</a
-                > </i
-            >,&nbsp;</span
+                > ,&nbsp;</span
             >
           </ng-container>
         </ng-container>
@@ -81,11 +83,11 @@ const MAX_DESCRIPTION_WORDS_LENGTH = 64;
       .tag {
         font-size: 12px;
       }
-      .tag a {
+      .tag-title {
         color: rgba(0, 0, 0, 0.6);
       }
-      .tag a:hover {
-        color: rgba(57, 135, 190);
+      a {
+        color: #3987be;
       }
       #description {
         font-size: 12px;
