@@ -63,3 +63,21 @@ export const publicationsCollection: ICollectionSearchMetadata<IArticle> = {
     collection: 'oag_researchoutcomes_prod_20211208_v2',
   }
 };
+
+export const dataCollection = {
+  ...publicationsCollection,
+  type: 'Data',
+  params: {
+    ...publicationsCollection.params,
+    collection: 'oag_datasets'
+  }
+}
+
+export const softwareCollection = {
+  ...publicationsCollection,
+  type: 'Software',
+  params: {
+    ...publicationsCollection.params,
+    collection: 'oag_sotfwares'
+  }
+}
