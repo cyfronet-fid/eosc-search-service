@@ -57,32 +57,52 @@ export class SuggestionsResultsService extends ResultsService {
 @Component({
   selector: 'ess-search-input',
   template: `
+
     <div id="container">
-      <input
-        autocomplete="off"
-        type="text"
-        id="search"
-        i18n-placeholder
-        placeholder="Search in catalogs"
-        (focus)="onFocus()"
-        (keydown.enter)="setParam()"
-        [formControl]="fc"
-      />
-      <button
-        id="btn--search"
-        class="btn btn-primary"
-        type="button"
-        (click)="setParam()"
-      >
-        <fa-icon [icon]="faMagnifyingGlass"></fa-icon>
-        <span
-        >&nbsp;&nbsp;&nbsp;&nbsp;<ng-container i18n>Search</ng-container
-        >&nbsp;&nbsp;</span
-        >
-      </button>
+          <div class="search-box">
+            <form>
+              <div class="input-group">
+                <input type="text" class="form-control"
+                        autocomplete="off"
+                        i18n-placeholder
+                        placeholder="Search in catalogs"
+                        (focus)="onFocus()"
+                        (keydown.enter)="setParam()"
+                        [formControl]="fc">
+                <div class="input-group-btn">
+                  <button class="btn btn-primary" type="button" (click)="setParam()">
+                    <i class="bi bi-search"></i> Search
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+
+
+<!--      <input-->
+<!--        autocomplete="off"-->
+<!--        type="text"-->
+<!--        id="search"-->
+<!--        i18n-placeholder-->
+<!--        placeholder="Search in catalogs"-->
+<!--        (focus)="onFocus()"-->
+<!--        (keydown.enter)="setParam()"-->
+<!--        [formControl]="fc"-->
+<!--      />-->
+<!--      <button-->
+<!--        id="btn&#45;&#45;search"-->
+<!--        class="btn btn-primary"-->
+<!--        type="button"-->
+<!--        (click)="setParam()"-->
+<!--      >-->
+<!--        <i class="bi bi-search"></i> Search-->
+<!--      </button>-->
+
       <button
         *ngIf="fc.value && fc.value.trim() !== ''"
         id="btn--clear-query"
+        style="margin-right: 5px;"
         type="button"
         class="btn btn-secondary"
         (click)="clearQuery()"
@@ -130,7 +150,7 @@ export class SuggestionsResultsService extends ResultsService {
         text-align: left;
         position: absolute;
         top: 40px;
-        width: calc(100% - 140px);
+        width: calc(100% - 150px);
         left: 20px;
         border-radius: 0 0 10px 10px;
         z-index: 10;

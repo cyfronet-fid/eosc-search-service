@@ -110,7 +110,8 @@ import {
   styles: [
     `
       #logo {
-        max-width: 120px;
+        max-width: 200px;
+        margin-top: 25px;
       }
       #dashboard__main {
         min-height: 900px;
