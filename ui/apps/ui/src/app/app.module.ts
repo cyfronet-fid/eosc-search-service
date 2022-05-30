@@ -36,10 +36,10 @@ registerLocaleData(en);
       setList: [
         allSet,
         publicationsSet,
-        servicesSet,
-        trainingsSet,
         dataSet,
         softwareSet,
+        servicesSet,
+        trainingsSet,
       ],
       mainSet: allSet,
     }),

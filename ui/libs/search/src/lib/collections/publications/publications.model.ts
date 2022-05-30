@@ -1,4 +1,4 @@
-export interface IArticle {
+export interface IOpenAIREResult {
   id: string;
   title: string[];
   author_names: string[];

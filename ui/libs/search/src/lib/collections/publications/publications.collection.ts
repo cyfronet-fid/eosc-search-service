@@ -1,54 +1,60 @@
-import { IArticle } from './publications.model';
+import { IOpenAIREResult } from './publications.model';
 import { IResult } from '../../state/results/results.model';
 import {ICollectionSearchMetadata} from "../../state/results/results.service";
 import {IHasId} from "@eosc-search-service/types";
 
-export const publicationAdapter = (
-  publication: Partial<IArticle> & IHasId,
-): IResult => ({
-  id: publication.id,
-  title: publication?.title?.join(' ') || '',
-  description: publication?.description?.join(' ') || '',
-  type: 'Publication',
-  typeUrlPath: 'publications',
-  collection: 'oag_researchoutcomes_prod_20211208_v2',
-  url: `https://explore.eosc-portal.eu/search/result?id=${publication?.id?.split("|")?.pop()}`,
+export const openAIREResultAdapter = (
+  openAIREResult: Partial<IOpenAIREResult> & IHasId,
+): Partial<IResult> => ({
+  id: openAIREResult.id,
+  title: openAIREResult?.title?.join(' ') || '',
+  description: openAIREResult?.description?.join(' ') || '',
+  url: `https://explore.eosc-portal.eu/search/result?id=${openAIREResult?.id?.split("|")?.pop()}`,
   tags: [
     {
       label: 'Author names',
-      value: publication.author_names || [],
+      value: openAIREResult.author_names || [],
       originalField: 'author_names'
     },
     {
       label: 'Published (date)',
-      value: publication?.published?.pop() || '',
+      value: openAIREResult?.published?.pop() || '',
       originalField: 'published'
     },
     {
       label: 'Access right',
-      value: publication?.bestaccessright?.pop() || '',
+      value: openAIREResult?.bestaccessright?.pop() || '',
       originalField: 'bestaccessright'
     }
   ]
 })
 
-export const publicationsCollection: ICollectionSearchMetadata<IArticle> = {
-  type: 'Research Product',
+export const publicationsCollection: ICollectionSearchMetadata<IOpenAIREResult> = {
+  type: 'Publication',
   fieldToFilter: {
     'Author names': 'author_names',
     'Published (date)': 'published',
     'Access right': 'bestaccessright',
-    Provider: 'publisher',
+    Publisher: 'publisher',
+    Language: 'language',
   },
   filterToField: {
-    publisher: 'Provider',
+    publisher: 'Publisher',
     subject: 'Scientific domain',
     author_names: 'Author names',
     bestaccessright: 'Access right',
     published: 'Published (date)',
+    language: 'Language',
   },
   _hash: '',
-  inputAdapter: publicationAdapter,
+  inputAdapter: (
+    openAIREResult: Partial<IOpenAIREResult> & IHasId,
+  ): IResult => ({
+    ...openAIREResultAdapter(openAIREResult),
+    type: 'Publication',
+    typeUrlPath: 'publications',
+    collection: 'oag_researchoutcomes_prod_20211208_v2',
+  } as IResult),
   facets: {
     subject: { field: 'subject', type: 'terms' },
     publisher: { field: 'publisher', type: 'terms' },
@@ -70,7 +76,15 @@ export const dataCollection = {
   params: {
     ...publicationsCollection.params,
     collection: 'oag_datasets'
-  }
+  },
+  inputAdapter: (
+    openAIREResult: Partial<IOpenAIREResult> & IHasId,
+  ): IResult => ({
+    ...openAIREResultAdapter(openAIREResult),
+    type: 'Data',
+    typeUrlPath: 'data',
+    collection: 'oag_datasets',
+  } as IResult),
 }
 
 export const softwareCollection = {
@@ -78,6 +92,14 @@ export const softwareCollection = {
   type: 'Software',
   params: {
     ...publicationsCollection.params,
-    collection: 'oag_sotfwares'
-  }
+    collection: 'oag_softwares'
+  },
+  inputAdapter: (
+    openAIREResult: Partial<IOpenAIREResult> & IHasId,
+  ): IResult => ({
+    ...openAIREResultAdapter(openAIREResult),
+    type: 'Software',
+    typeUrlPath: 'software',
+    collection: 'oag_softwares',
+  } as IResult),
 }
