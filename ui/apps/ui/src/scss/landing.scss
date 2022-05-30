@@ -1,0 +1,281 @@
+h1 {
+  font-family: Ubuntu, sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 37px;
+  letter-spacing: 0em;
+}
+
+h1 span {
+  color: #FFCD00
+}
+
+h2 {
+  font-family: Ubuntu, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0em;
+}
+
+.btn-primary {
+  background: linear-gradient(88.93deg, #05A6E7 1.83%, #0C2BD5 124.59%);
+  border-radius: 25px;
+  padding: 10px 30px;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(88.93deg, #0C2BD5 1.83%, #05A6E7 124.59%);
+}
+
+.heading {
+  background: linear-gradient(117.95deg, rgba(12, 43, 213, 0.6) 12.72%, rgba(248, 206, 46, 0.4052) 99.99%, rgba(251, 206, 44, 0.5) 100%);
+  padding: 80px 0 110px;
+}
+
+.bg-light {
+  background: #3987BE0D !important;
+}
+
+.heading .text-muted {
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 14px;
+}
+
+.logo-box {
+  margin-bottom: 40px;
+}
+
+.search-box {
+  margin: 50px 0 25px 0;
+}
+
+.search-box input {
+  height: 40px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 25px;
+  padding-left: 35px;
+}
+
+.search-box .btn-primary {
+  height: 40px;
+  background: linear-gradient(88.93deg, #05A6E7 1.83%, #0C2BD5 124.59%);
+  padding-left: 20px;
+  padding-right: 30px;
+  border: none;
+  border-radius: 0 25px 25px 0;
+}
+
+.search-box .btn-primary i {
+  margin-right: 10px;
+}
+
+.search-box .btn-primary:hover {
+  background: linear-gradient(88.93deg, #0C2BD5 1.83%, #05A6E7 124.59%);
+}
+
+.heading .lead {
+  font-weight: 400;
+  color: RGB(0,0,0,0.8);
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.solutions-box a {
+  color: #0C2BD5;
+  font-size: 15px;
+  font-weight: 400;
+  margin: 0 5px 2px;
+  display:inline-block;
+  text-decoration: none;
+}
+
+.solutions-box a:hover {
+  color: #3987BE;
+  text-decoration: underline;
+}
+
+.who-are-you {
+  padding-bottom: 3.5rem !important;
+}
+
+.who-are-you h2,
+.provider h2 {
+  margin-bottom: 1.5rem;
+}
+
+.intro-box {
+  font-size: 14px;
+  line-height: 16px;
+  text-align: left;
+  position: relative;
+  margin-bottom: 50px;
+  padding-bottom: 10px;
+}
+
+.intro-box::after {
+  content:'';
+  position: absolute;
+  width: 30px;
+  height: 3px;
+  background: #FFCD00;
+  left: calc(50% - 30px/2);
+  bottom: 0;
+}
+
+.who-are-you .bg-light,
+.provider .bg-light {
+  transition: box-shadow .25s ease,transform .25s ease;
+  text-decoration: none;
+  border: none;
+  border-radius: 0;
+}
+
+.who-are-you .bg-light:hover,
+.provider .bg-light:hover {
+  background-color: rgba(51,94,234,.15);
+  color: #335eea;
+  box-shadow: 0 1rem 2.5rem rgba(22,28,45,.1),0 .5rem 1rem -.75rem rgba(22,28,45,.1)!important;
+  transform: translate3d(0,-3px,0);
+}
+
+.who-are-you .bg-light .icon-box,
+.provider .bg-light .icon-box {
+  height: 170px;
+}
+
+.provider .bg-light .icon-box img {
+  max-height: 170px;
+  width: auto;
+}
+
+.who-are-you .bg-light:hover .card-title,
+.provider .bg-light:hover .card-title {
+  color: #000;
+}
+
+.who-are-you .bg-light .card-title,
+.provider .bg-light .card-title {
+  color: #0C2BD5;
+  font-size: 24px;
+  line-height: 28px;
+  margin-top: 40px;
+  text-decoration: none;
+}
+
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.help {
+  padding: 90px 0;
+}
+
+.help h3,
+.looking h3 {
+  font-size: 24px;
+  padding-bottom: 20px;
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.help h3::after,
+.looking h3::after {
+  content:'';
+  position: absolute;
+  width: 50px;
+  height: 3px;
+  background: #FFCD00;
+  left: 0;
+  bottom: 0;
+}
+
+.help .card {
+  border: none;
+  text-decoration: none;
+  border-radius: 0;
+  background: RGB(255,255,255,0.6);
+  padding: 15px 0;
+  text-align: center;
+  transition: box-shadow .25s ease,transform .25s ease;
+}
+
+.help .card:hover {
+  background: RGB(255,255,255,1.0);
+  color: #335eea;
+  box-shadow: 0 1rem 2.5rem rgba(22,28,45,.1),0 .5rem 1rem -.75rem rgba(22,28,45,.1)!important;
+  transform: translate3d(0,-3px,0);
+}
+
+.help .card .icon-box {
+  margin: 5px 0 20px;
+  text-align: center;
+  width: 100%;
+}
+
+.help .card .icon-box img {
+  max-height: 100px;
+}
+
+.help .card .card-title {
+  color: #0C2BD5;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.help h2 {
+  margin-bottom: 2rem;
+}
+
+.looking {
+  background: linear-gradient(117.95deg, rgba(12, 43, 213, 0.8) 12.72%, rgba(248, 206, 46, 0.4852) 99.99%, rgba(251, 206, 44, 0.5) 100%);
+}
+
+.looking h3 {
+  margin-top: 60px;
+}
+
+@media (max-width:992px) {
+
+  .logo-box {
+    margin-bottom: 25px;
+  }
+
+  h1 {
+    font-size: 27px;
+    line-height: 35px;
+  }
+  .heading {
+    padding-bottom: 2rem !important;
+  }
+  .search-box {
+    margin: 30px 0 30px 0;
+  }
+  .search-box .btn-primary {
+    padding-left: 10px;
+    padding-right: 15px;
+  }
+  .solutions-box a {
+    font-size: 13px;
+    margin: 0 5px 7px;
+  }
+  .who-are-you .bg-light, .provider .bg-light {
+    margin-bottom: 20px;
+  }
+  .help .card {
+    min-height: 173px;
+  }
+  .help .card .card-title {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .help .card .icon-box img {
+    max-height: 70px;
+  }
+}

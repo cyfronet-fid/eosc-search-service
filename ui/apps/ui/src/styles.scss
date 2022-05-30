@@ -1,70 +1,73 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ng-zorro-antd/ng-zorro-antd.min.css';
 
-body {
-  background-color: #f8f9fa85;
-}
+//body {
+//  background-color: #f8f9fa85;
+//}
+//
+//.ant-tree-checkbox-checked .ant-tree-checkbox-inner {
+//  background-color: #3987be;
+//  border-color: #3987be;
+//}
+//
+//.container--xxl {
+//  padding: 25px 50px;
+//}
+//
+//#results {
+//  max-height: 699px;
+//  overflow-y: scroll;
+//  overflow-x: hidden;
+//}
+//
+//#latest-info,
+//#user-activities {
+//  .custom-card {
+//    cursor: pointer;
+//  }
+//}
+//
+//.card__container {
+//  background-color: #f7f9ff;
+//  padding: 12px;
+//}
+//
+//.vertical-center {
+//  display: flex;
+//  align-items: center;
+//}
+//
+//#dashboard__labels {
+//  padding-top: 50px;
+//  min-width: 100%;
+//}
+//#dashboard__header {
+//  clear: both;
+//}
+//#dahboard__header-btn {
+//  float: right;
+//}
+//#header__search-phrase {
+//  float: left;
+//  max-width: 50%;
+//}
+//
+//.dashboard__label {
+//  &.active-link {
+//    background-color: #1890ff;
+//    color: white;
+//  }
+//
+//  background-color: #f7f9ff;
+//  padding: 12px;
+//}
+//
+//#filters--horizontal {
+//  margin-bottom: 15px;
+//}
+//
 
-.ant-tree-checkbox-checked .ant-tree-checkbox-inner {
-  background-color: #3987be;
-  border-color: #3987be;
-}
-
-.container--xxl {
-  padding: 25px 50px;
-}
-
-#results {
-  max-height: 699px;
-  overflow-y: scroll;
-  overflow-x: hidden;
-}
-
-#latest-info,
-#user-activities {
-  .custom-card {
-    cursor: pointer;
-  }
-}
-
-.card__container {
-  background-color: #f7f9ff;
-  padding: 12px;
-}
-
-.vertical-center {
-  display: flex;
-  align-items: center;
-}
-
-#dashboard__labels {
-  padding-top: 50px;
-  min-width: 100%;
-}
-#dashboard__header {
-  clear: both;
-}
-#dahboard__header-btn {
-  float: right;
-}
-#header__search-phrase {
-  float: left;
-  max-width: 50%;
-}
-
-.dashboard__label {
-  &.active-link {
-    background-color: #1890ff;
-    color: white;
-  }
-
-  background-color: #f7f9ff;
-  padding: 12px;
-}
-
-#filters--horizontal {
-  margin-bottom: 15px;
-}
+@import "scss/landing";
 
 .container--xxl {
   padding: 25px 50px;
