@@ -20,7 +20,7 @@ import {
     <div class="container--xxl">
       <div class="search-bar">
         <div class="row">
-          <div class="col-3">
+          <div class="col-sm-3 col-12">
             <a href="/">
               <img
                 id="logo"
@@ -30,7 +30,7 @@ import {
               />
             </a>
           </div>
-          <div class="col-9" style="padding: 0">
+          <div class="col-sm-9 col-12 search-row">
             <ess-search-input></ess-search-input>
           </div>
         </div>
@@ -54,10 +54,10 @@ import {
             class="row"
             id="dashboard__main"
           >
-            <div class="col-3" id="dashboard__filters">
+            <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
               <ess-filters [filters]="filters$ | async"></ess-filters>
             </div>
-            <div class="col-9">
+            <div class="col-sm-9 col-12 right-column">
               <ess-active-filters
                 [collections]="collections$ | async"
               ></ess-active-filters>

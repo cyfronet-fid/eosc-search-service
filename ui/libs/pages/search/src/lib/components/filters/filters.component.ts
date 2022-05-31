@@ -33,8 +33,6 @@ interface IFilter {
     `
       #filters {
         padding: 0 15px 15px 15px;
-        margin-left: -15px;
-        margin-bottom: 15px;
       }
       .filter {
         margin-bottom: 10px;

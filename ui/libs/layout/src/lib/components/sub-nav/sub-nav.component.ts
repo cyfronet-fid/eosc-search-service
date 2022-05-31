@@ -24,25 +24,7 @@ export interface INavigationLink {
   `,
   styles: [
     `
-      #sub-nav {
-        width: 100%;
-        margin-top: 15px;
-        padding: 10px 0;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      }
-      .active {
-        color: rgba(57, 135, 190) !important;
-        border-bottom: 4px solid rgba(57, 135, 190);
-        font-weight: bold;
-      }
-      .nav-btn {
-        color: rgba(0, 0, 0, 0.6000000238418579);
-        margin-right: 20px;
-        padding: 10px 0;
-      }
-      .nav-btn:hover {
-        color: rgba(57, 135, 190) !important;
-      }
+
     `,
   ],
 })

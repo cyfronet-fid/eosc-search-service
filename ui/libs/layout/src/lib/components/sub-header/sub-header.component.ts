@@ -4,7 +4,7 @@ import {ISet,} from '@eosc-search-service/search';
 @Component({
   selector: 'ess-sub-header',
   template: `
-    <div id="container">
+    <div id="container" class="page-heading">
       <ng-container *ngIf="activeSet !== null">
         <h3>{{ activeSet.title }}</h3>
         <span id="results-count" class="text-secondary" i18n
@@ -27,23 +27,7 @@ import {ISet,} from '@eosc-search-service/search';
       </ng-container>
     </div>
   `,
-  styles: [
-    `
-      #container {
-        margin-top: 20px;
-      }
-      #results-count {
-        padding-left: 10px;
-      }
-      h3,
-      #results-count {
-        display: inline;
-      }
-      #breadcrumbs {
-        padding: 5px 0 15px;
-      }
-    `,
-  ],
+
 })
 export class SubHeaderComponent {
   // resultsCount$ = this._searchService.maxResultsNumber$;
