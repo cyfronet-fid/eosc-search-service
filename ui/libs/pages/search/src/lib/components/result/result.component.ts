@@ -68,31 +68,7 @@ const MAX_DESCRIPTION_WORDS_LENGTH = 64;
     </div>
   `,
   styles: [
-    `
-      #container {
-        /*cursor: pointer;*/
-        margin-bottom: 20px;
-      }
-      h6 {
-        margin-bottom: 0;
-      }
-      #tags {
-        margin-bottom: 0;
-      }
-      .tag {
-        font-size: 12px;
-      }
-      .tag-title {
-        color: rgba(0, 0, 0, 0.6);
-      }
-      a {
-        color: #3987be;
-      }
-      #description {
-        font-size: 12px;
-      }
 
-    `,
   ],
 })
 export class ResultComponent {
