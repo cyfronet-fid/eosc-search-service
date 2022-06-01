@@ -46,11 +46,6 @@ interface IFilter {
       .ant-tree {
         background: none !important;
       }
-      .ant-tree-title {
-        word-wrap: break-word;
-        display: block;
-        max-width: 200px;
-      }
 `,
   ],
 })

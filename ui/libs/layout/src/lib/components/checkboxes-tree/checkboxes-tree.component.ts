@@ -81,6 +81,11 @@ export interface FlatNode {
     .ant-tree .ant-tree-treenode {
       padding: 0 !important;
     }
+    .ant-tree-title {
+      word-wrap: break-word;
+      display: block;
+      max-width: 200px;
+    }
   `]
 })
 export class CheckboxesTreeComponent {
