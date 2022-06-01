@@ -1,433 +1,3 @@
-<!--<main>-->
-<!--  <section class="py-3 pb-5 text-center heading">-->
-<!--    <div class="container">-->
-<!--      <div class="row py-lg-3">-->
-<!--        <div class="col-md-8 col-sm-12 mx-auto">-->
-<!--          <div class="logo-box">-->
-<!--            <a routerLink="/"-->
-<!--              ><img-->
-<!--                src="assets/logo.png"-->
-<!--                alt="EOSC Portal Catalogue and Marketplace"-->
-<!--            /></a>-->
-<!--          </div>-->
-
-<!--          <h1 i18n>EOSC Portal Catalogue and Marketplace</h1>-->
-
-<!--          <div class="search-box">-->
-<!--            <form>-->
-<!--              <div class="input-group">-->
-<!--                <ess-search-input></ess-search-input>-->
-<!--              </div>-->
-<!--            </form>-->
-<!--          </div>-->
-
-<!--          <p class="lead text-muted" i18n>－ or －</p>-->
-<!--          <p class="lead" i18n>Browse solutions</p>-->
-
-<!--          <div class="solutions-box">-->
-
-<!--              <a [routerLink]="researchProductsPath" >-->
-<!--                Discover research outputs-->
-<!--              </a>-->
-
-<!--              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Aggregators & Integrators')" >-->
-<!--                Publish research outputs-->
-<!--              </a>-->
-
-<!--              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Processing & Analysis>Data Analysis')" >-->
-<!--                Process and analyse-->
-<!--              </a>-->
-
-<!--              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra>Compute')" >-->
-<!--                Access computing resources-->
-<!--              </a>-->
-
-<!--              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra>Instrument & Equipment')" >-->
-<!--                Find instruments & equipment-->
-<!--              </a>-->
-
-<!--              <a [routerLink]="trainingsPath" [queryParams]="{ q: '*' }" >-->
-<!--                Access training material-->
-<!--              </a>-->
-
-<!--              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra')" >-->
-<!--                Access research infrastructures-->
-<!--              </a>-->
-
-<!--              <a  href="#" >-->
-<!--                Find bundles-->
-<!--              </a>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
-
-<!--  <section class="who-are-you py-5 text-center">-->
-<!--    <div class="container">-->
-<!--      <h2 i18n>Who are you?</h2>-->
-
-<!--      <div class="col-md-6 col-sm-12 mx-auto">-->
-<!--        <div class="row">-->
-<!--          <a-->
-<!--            href="#services"-->
-<!--            class="col-lg-5 col-sm-12 bg-light mx-auto py-4 px-4"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/research.png"-->
-<!--                alt="Researcher Citizen science Educator"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive vertical-center"-->
-<!--              />-->
-<!--            </div>-->
-
-<!--            <div class="card-title" i18n>Researcher</div>-->
-<!--            <div class="card-title" i18n>Citizen science</div>-->
-<!--            <div class="card-title" i18n>Educator</div>-->
-<!--          </a>-->
-
-<!--          <a-->
-<!--            href="#provider"-->
-<!--            class="col-lg-5 col-sm-12 bg-light mx-auto py-4 px-4"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/provider.png"-->
-<!--                alt="Provider"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive vertical-center"-->
-<!--              />-->
-<!--            </div>-->
-<!--            <div class="card-title" i18n>Provider</div>-->
-<!--          </a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
-
-<!--  <section class="help py-5 text-center bg-light" id="services">-->
-<!--    <div class="container">-->
-<!--      <h2 i18n>How can we help you today in you research?</h2>-->
-
-<!--            <h4 class="fw-light text-muted mt-4 mb-3">Categories</h4>-->
-
-<!--            <div class="row">-->
-
-<!--              <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--                <a [routerLink]="researchProductsPath" class="card">-->
-<!--                  <div class="icon-box">-->
-<!--                    <img src="assets/ico-01.png" alt="Discover research outputs" class="img-responsive">-->
-<!--                  </div>-->
-<!--                  <div class="card-title">Discover research outputs</div>-->
-<!--                </a>-->
-<!--              </div>-->
-
-<!--              <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--                <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Aggregators & Integrators')" class="card">-->
-<!--                  <div class="icon-box">-->
-<!--                    <img src="assets/ico-02.png" alt="Publish research outputs" class="img-responsive">-->
-<!--                  </div>-->
-<!--                  <div class="card-title">Publish research outputs</div>-->
-<!--                </a>-->
-<!--              </div>-->
-
-<!--              <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--                <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Processing & Analysis>Data Analysis')" class="card">-->
-<!--                  <div class="icon-box">-->
-<!--                    <img src="assets/ico-03.png" alt="Process and analyses" class="img-responsive">-->
-<!--                  </div>-->
-<!--                  <div class="card-title">Process and analyse</div>-->
-<!--                </a>-->
-<!--              </div>-->
-
-<!--              <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--                <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra>Compute')" class="card">-->
-<!--                  <div class="icon-box">-->
-<!--                    <img src="assets/ico-04.png" alt="Access computing resources" class="img-responsive">-->
-<!--                  </div>-->
-<!--                  <div class="card-title">Access computing resources</div>-->
-<!--                </a>-->
-<!--              </div>-->
-
-<!--              <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--                <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra>Instrument & Equipment')" class="card">-->
-<!--                  <div class="icon-box">-->
-<!--                    <img src="assets/ico-05.png" alt="Find instruments & equipment" class="img-responsive">-->
-<!--                  </div>-->
-<!--                  <div class="card-title">Find instruments & equipment</div>-->
-<!--                </a>-->
-<!--              </div>-->
-
-<!--              <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--                <a [routerLink]="trainingsPath" [queryParams]="{ q: '*' }" class="card">-->
-<!--                  <div class="icon-box">-->
-<!--                    <img src="assets/ico-06.png" alt="Access training material" class="img-responsive">-->
-<!--                  </div>-->
-<!--                  <div class="card-title">Access training material</div>-->
-<!--                </a>-->
-<!--              </div>-->
-
-<!--              <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--                <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra')" class="card">-->
-<!--                  <div class="icon-box">-->
-<!--                    <img src="assets/ico-07.png" alt="Access research infrastructures" class="img-responsive">-->
-<!--                  </div>-->
-<!--                  <div class="card-title">Access research infrastructures</div>-->
-<!--                </a>-->
-<!--              </div>-->
-
-<!--              <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--                <a  href="#" class="card">-->
-<!--                  <div class="icon-box">-->
-<!--                    <img src="assets/ico-08.png" alt="Find bundles" class="img-responsive">-->
-<!--                  </div>-->
-<!--                  <div class="card-title">Find bundles</div>-->
-<!--                </a>-->
-<!--              </div>-->
-
-<!--            </div>-->
-
-<!--      <h4 class="fw-light text-muted mt-5 mb-3" i18n>Domains</h4>-->
-
-<!--      <div class="row">-->
-<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--          <a-->
-<!--            [routerLink]="allUrlPath"-->
-<!--            [queryParams]="-->
-<!--              fqBy('scientific_domains_ss', 'Medical & Health Sciences')-->
-<!--            "-->
-<!--            class="card"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/ico-09.png"-->
-<!--                alt="Medical & Health Sciences"-->
-<!--                class="img-responsive"-->
-<!--              />-->
-<!--            </div>-->
-<!--            <div class="card-title" i18n>Medical & Health Sciences</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--          <a-->
-<!--            [routerLink]="allUrlPath"-->
-<!--            [queryParams]="-->
-<!--              fqBy('scientific_domains_ss', 'Engineering & Technology')-->
-<!--            "-->
-<!--            class="card"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/ico-10.png"-->
-<!--                alt="Engineering & technology"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive"-->
-<!--              />-->
-<!--            </div>-->
-<!--            <div class="card-title" i18n>Engineering & Technology</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--          <a-->
-<!--            [routerLink]="allUrlPath"-->
-<!--            [queryParams]="fqBy('scientific_domains_ss', 'Natural Sciences')"-->
-<!--            class="card"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/ico-11.png"-->
-<!--                alt="Natural Sciences"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive"-->
-<!--              />-->
-<!--            </div>-->
-<!--            <div class="card-title" i18n>Natural Sciences</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--          <a-->
-<!--            [routerLink]="allUrlPath"-->
-<!--            [queryParams]="fqBy('scientific_domains_ss', 'Generic')"-->
-<!--            class="card"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/ico-12.png"-->
-<!--                alt="Generic"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive"-->
-<!--              />-->
-<!--            </div>-->
-<!--            <div class="card-title" i18n>Generic</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--          <a-->
-<!--            [routerLink]="allUrlPath"-->
-<!--            [queryParams]="fqBy('scientific_domains_ss', 'Humanitites')"-->
-<!--            class="card"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/ico-13.png"-->
-<!--                alt="Humanitites"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive"-->
-<!--              />-->
-<!--            </div>-->
-<!--            <div class="card-title" i18n>Humanitites</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--          <a-->
-<!--            [routerLink]="allUrlPath"-->
-<!--            [queryParams]="-->
-<!--              fqBy('scientific_domains_ss', 'Agricultural Sciences')-->
-<!--            "-->
-<!--            class="card"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/ico-14.png"-->
-<!--                alt="Agricultural sciences"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive"-->
-<!--              />-->
-<!--            </div>-->
-<!--            <div class="card-title" i18n>Agricultural Sciences</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--          <a-->
-<!--            [routerLink]="allUrlPath"-->
-<!--            [queryParams]="fqBy('scientific_domains_ss', 'Social sciences')"-->
-<!--            class="card"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/ico-15.png"-->
-<!--                alt="Social sciences"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive"-->
-<!--              />-->
-<!--            </div>-->
-<!--            <div class="card-title" i18n>Social sciences</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-6 col-sm-3 gx-3 py-2">-->
-<!--          <a-->
-<!--            [routerLink]="allUrlPath"-->
-<!--            [queryParams]="fqBy('scientific_domains_ss', 'Other')"-->
-<!--            class="card"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/ico-16.png"-->
-<!--                alt="Other"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive"-->
-<!--              />-->
-<!--            </div>-->
-<!--            <div class="card-title" i18n>Other</div>-->
-<!--          </a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
-
-<!--  <section class="provider py-5 text-center" id="provider">-->
-<!--    <div class="container">-->
-<!--      <h2 class="mb-2" i18n>-->
-<!--        How can we help you with providing your services?-->
-<!--      </h2>-->
-<!--      <h4 class="fw-light text-muted mt-3 mb-4" i18n>Features & services</h4>-->
-
-<!--      <div class="row">-->
-<!--        <div class="col-lg-3 gx-4">-->
-<!--          <a-->
-<!--            href="https://providers.eosc-portal.eu/becomeAProvider"-->
-<!--            class="card bg-light py-4 px-4"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/provider-01.png"-->
-<!--                alt="Onboard resources"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive vertical-center"-->
-<!--              />-->
-<!--            </div>-->
-
-<!--            <div class="card-title" i18n>Onboard resources</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-lg-3 gx-4">-->
-<!--          <a-->
-<!--            href="https://providers.eosc-portal.eu/home"-->
-<!--            class="card bg-light py-4 px-4"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/provider-02.png"-->
-<!--                alt="Provider dashboard"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive vertical-center"-->
-<!--              />-->
-<!--            </div>-->
-
-<!--            <div class="card-title" i18n>Provider dashboard</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-lg-3 gx-4">-->
-<!--          <a-->
-<!--            href="https://providers.eosc-portal.eu/developers"-->
-<!--            class="card bg-light py-4 px-4"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/provider-03.png"-->
-<!--                alt="API"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive vertical-center"-->
-<!--              />-->
-<!--            </div>-->
-
-<!--            <div class="card-title" i18n>API</div>-->
-<!--          </a>-->
-<!--        </div>-->
-
-<!--        <div class="col-lg-3 gx-4">-->
-<!--          <a-->
-<!--            href="https://eosc-portal.eu/providers-documentation"-->
-<!--            class="card bg-light py-4 px-4"-->
-<!--          >-->
-<!--            <div class="icon-box">-->
-<!--              <img-->
-<!--                src="assets/provider-04.png"-->
-<!--                alt="Documentation"-->
-<!--                i18n-alt-->
-<!--                class="img-responsive vertical-center"-->
-<!--              />-->
-<!--            </div>-->
-
-<!--            <div class="card-title" i18n>Documentation</div>-->
-<!--          </a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </section>-->
-<!--</main>-->
-
-
 <main>
   <section class="text-center heading">
     <div class="container">
@@ -444,14 +14,14 @@
           <p class="lead">Browse solutions</p>
 
           <div class="solutions-box">
-            <a [routerLink]="researchProductsPath">Discover research outputs</a>
+            <a [routerLink]="researchProductsPath" [queryParams]="{ q: '*' }">Discover research outputs</a>
             <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Aggregators & Integrators')">Publish research outputs</a>
-            <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Processing & Analysis>Data Analysis')">Process and analyse</a>
-            <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra>Compute')">Access computing resources</a>
+            <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Processing & Analysis')">Process and analyse</a>
+            <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfrastructures>Compute')">Access computing resources</a>
             <a href="#">Find bundles</a>
-            <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra>Instrument & Equipment')">Find instruments & equipment</a>
+            <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfrastructures>Instrument & Equipment')">Find instruments & equipment</a>
             <a [routerLink]="trainingsPath" [queryParams]="{ q: '*' }">Access training materials</a>
-            <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra')">Access research infrastructures </a>
+            <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfrastructures')">Access research infrastructures </a>
           </div>
         </div>
       </div>
@@ -498,7 +68,7 @@
 
 
         <div class="col-md-4 col-sm-12">
-          <h3>Hundreds of thousands solutions grouped by categories.</h3>
+          <h3>Hundreds of thousands of solutions grouped by categories.</h3>
           <p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</strong></p>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com modo consequat.</p>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comm odo consequat.</p>
@@ -511,7 +81,7 @@
           <div class="row">
 
             <div class="col-6 gx-1 gy-1 py-0">
-              <a [routerLink]="researchProductsPath" class="card">
+              <a [routerLink]="researchProductsPath" [queryParams]="{ q: '*' }" class="card">
                 <div class="icon-box">
                   <img src="assets/ico-01.png" alt="Discover research outputs" class="img-responsive">
                 </div>
@@ -529,7 +99,7 @@
             </div>
 
             <div class="col-6 gx-1 gy-1 py-0">
-              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Processing & Analysis>Data Analysis')" class="card">
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Processing & Analysis')" class="card">
                 <div class="icon-box">
                   <img src="assets/ico-03.png" alt="Process and analyses" class="img-responsive">
                 </div>
@@ -538,7 +108,7 @@
             </div>
 
             <div class="col-6 gx-1 gy-1 py-0">
-              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra>Compute')" class="card">
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfrastructures>Compute')" class="card">
                 <div class="icon-box">
                   <img src="assets/ico-04.png" alt="Access computing resources" class="img-responsive">
                 </div>
@@ -547,7 +117,7 @@
             </div>
 
             <div class="col-6 gx-1 gy-1 py-0">
-              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra>Instrument & Equipment')" class="card">
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfrastructures>Instrument & Equipment')" class="card">
                 <div class="icon-box">
                   <img src="assets/ico-05.png" alt="Find instruments & equipment" class="img-responsive">
                 </div>
@@ -565,7 +135,7 @@
             </div>
 
             <div class="col-6 gx-1 gy-1 py-0">
-              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfra')" class="card">
+              <a [routerLink]="allUrlPath" [queryParams]="fqBy('categories_ss', 'Access Physical & eInfrastructures')" class="card">
                 <div class="icon-box">
                   <img src="assets/ico-07.png" alt="Access research infrastructures" class="img-responsive">
                 </div>
@@ -662,11 +232,11 @@
 
             <div class="col-6 gx-1 gy-1 py-0">
               <a [routerLink]="allUrlPath"
-                 [queryParams]="fqBy('scientific_domains_ss', 'Humanitites')" class="card">
+                 [queryParams]="fqBy('scientific_domains_ss', 'Humanities')" class="card">
                 <div class="icon-box">
-                  <img src="assets/ico-13.png" alt="Humanitites" class="img-responsive">
+                  <img src="assets/ico-13.png" alt="Humanities" class="img-responsive">
                 </div>
-                <div class="card-title">Humanitites</div>
+                <div class="card-title">Humanities</div>
               </a>
             </div>
 
@@ -682,9 +252,9 @@
 
             <div class="col-6 gx-1 gy-1 py-0">
               <a [routerLink]="allUrlPath"
-                 [queryParams]="fqBy('scientific_domains_ss', 'Social sciences')" class="card">
+                 [queryParams]="fqBy('scientific_domains_ss', 'Social Sciences')" class="card">
                 <div class="icon-box">
-                  <img src="assets/ico-15.png" alt="Social sciences" class="img-responsive">
+                  <img src="assets/ico-15.png" alt="Social Sciences" class="img-responsive">
                 </div>
                 <div class="card-title">Social sciences</div>
               </a>
@@ -707,7 +277,7 @@
         <div class="col-md-2 col-sm-12"></div>
 
         <div class="col-md-4 col-sm-12">
-          <h3>Hundreds of thousands solutions grouped by categories.</h3>
+          <h3>Hundreds of thousands of solutions grouped by scientific field.</h3>
           <p><strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</strong></p>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea com modo consequat.</p>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea comm odo consequat.</p>
