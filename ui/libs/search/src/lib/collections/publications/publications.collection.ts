@@ -53,7 +53,7 @@ export const publicationsCollection: ICollectionSearchMetadata<IOpenAIREResult> 
     ...openAIREResultAdapter(openAIREResult),
     type: 'Publication',
     typeUrlPath: 'publications',
-    collection: 'oag_researchoutcomes_prod_20211208_v2',
+    collection: 'oag_publications',
   } as IResult),
   facets: {
     subject: { field: 'subject', type: 'terms' },
@@ -66,7 +66,7 @@ export const publicationsCollection: ICollectionSearchMetadata<IOpenAIREResult> 
   },
   params: {
     qf: ['title', 'author_names', 'publisher', 'bestaccessright', 'published'],
-    collection: 'oag_researchoutcomes_prod_20211208_v2',
+    collection: 'oag_publications',
   }
 };
 
