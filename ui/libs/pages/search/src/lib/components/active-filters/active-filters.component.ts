@@ -16,6 +16,7 @@ interface IActiveFilter {
   template: `
     <section *ngIf="$any(activeFilters$ | async)?.length > 0 || (q$ | async) !== '*'" id="filters">
       <span
+        *ngIf="$any(activeFilters$ | async)?.length > 0"
         id="clear-all-badge"
         class="btn btn-primary"
         style="cursor: pointer"

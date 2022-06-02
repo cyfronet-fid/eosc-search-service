@@ -38,6 +38,7 @@ export const publicationsCollection: ICollectionSearchMetadata<IOpenAIREResult> 
     Publisher: 'publisher',
     Language: 'language',
   },
+  queryMutator: (q: string) => q,
   filterToField: {
     publisher: 'Publisher',
     subject: 'Scientific domain',
@@ -65,7 +66,7 @@ export const publicationsCollection: ICollectionSearchMetadata<IOpenAIREResult> 
     project_titles: { field: 'project_titles', type: 'terms' },
   },
   params: {
-    qf: ['title', 'author_names', 'publisher', 'bestaccessright', 'published'],
+    qf: ['title^50', 'author_names^30', 'publisher^30', 'bestaccessright', 'description^10'],
     collection: 'oag_publications',
   }
 };

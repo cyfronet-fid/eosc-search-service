@@ -22,6 +22,7 @@ import { IFacetParam } from '../../services/search-service/facet-param.interface
 import { HashMap, IHasId } from '@eosc-search-service/types';
 import { updateRequestStatus } from '@ngneat/elf-requests';
 import {
+  concatArrays, escapeQuery,
   ISearchResults,
   ISet, ISolrCollectionParams, ISolrQueryParams,
   shuffleArray, toSolrQueryParams,
@@ -34,6 +35,7 @@ export interface ICollectionSearchMetadata<T = unknown> {
   _hash: string;
   facets: HashMap<IFacetParam>;
   inputAdapter: (item: Partial<T> & IHasId) => IResult;
+  queryMutator: (q: string) => string;
   fieldToFilter: HashMap<string>;
   filterToField: HashMap<string>;
   type: string;
@@ -55,14 +57,7 @@ export class ResultsService {
   protected reduceResults = (
     results: ISearchResults<IResult>[],
     metadataList: ICollectionSearchMetadata[]
-  ): IResult[] => {
-    return shuffleArray(
-      results.reduce(
-        (acc, response) => [...acc, ...response.results],
-        [] as IResult[]
-      )
-    );
-  };
+  ): IResult[] => concatArrays(results.map(result => result.results));
 
   public search$<T extends IHasId>(
     metadataList: ICollectionSearchMetadata<T>[],
@@ -108,7 +103,7 @@ export class ResultsService {
     const _params = { ...params, ...metadata.params, rows: rows };
 
     if (_params.q !== '*') {
-      _params.q = _params.q + '*';
+      _params.q = metadata.queryMutator(escapeQuery(_params.q));
     }
     if (loadNext) {
       _params.cursor =
