@@ -18,4 +18,7 @@ export class LandingPageComponent {
     q: '*',
     fq: [`${filterName}:"${value}"`],
   });
+  scroll = (el: HTMLElement) => {
+    el.scrollIntoView();
+  };
 }
