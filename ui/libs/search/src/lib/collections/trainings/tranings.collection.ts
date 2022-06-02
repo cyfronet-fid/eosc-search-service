@@ -29,6 +29,7 @@ export const trainingsCollection: ICollectionSearchMetadata = {
   filterToField: {},
   fieldToFilter: {},
   _hash: '',
+  queryMutator: (q: string) => q,
   inputAdapter: trainingAdapter,
   params: {
     qf: [],
