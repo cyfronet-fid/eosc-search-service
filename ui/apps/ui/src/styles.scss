@@ -1,72 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ng-zorro-antd/ng-zorro-antd.min.css';
-
-//body {
-//  background-color: #f8f9fa85;
-//}
-//
-//.ant-tree-checkbox-checked .ant-tree-checkbox-inner {
-//  background-color: #3987be;
-//  border-color: #3987be;
-//}
-//
-//.container--xxl {
-//  padding: 25px 50px;
-//}
-//
-//#results {
-//  max-height: 699px;
-//  overflow-y: scroll;
-//  overflow-x: hidden;
-//}
-//
-//#latest-info,
-//#user-activities {
-//  .custom-card {
-//    cursor: pointer;
-//  }
-//}
-//
-//.card__container {
-//  background-color: #f7f9ff;
-//  padding: 12px;
-//}
-//
-//.vertical-center {
-//  display: flex;
-//  align-items: center;
-//}
-//
-//#dashboard__labels {
-//  padding-top: 50px;
-//  min-width: 100%;
-//}
-//#dashboard__header {
-//  clear: both;
-//}
-//#dahboard__header-btn {
-//  float: right;
-//}
-//#header__search-phrase {
-//  float: left;
-//  max-width: 50%;
-//}
-//
-//.dashboard__label {
-//  &.active-link {
-//    background-color: #1890ff;
-//    color: white;
-//  }
-//
-//  background-color: #f7f9ff;
-//  padding: 12px;
-//}
-//
-//#filters--horizontal {
-//  margin-bottom: 15px;
-//}
-//
-
 @import "scss/landing";
 
 body {
@@ -79,24 +12,13 @@ body {
 a {
   color: #0C2BD5;
 }
-
 a:hover {
-  color: #000;
+  color: #05A6E7;
 }
 
 .page-heading {
-  margin-bottom: 30px;
+  margin-bottom: 15px;
   position: relative;
-}
-
-.page-heading::after {
-  content: "";
-  position: absolute;
-  width: 50px;
-  height: 3px;
-  background: #FFCD00;
-  left: 0;
-  bottom: 0;
 }
 
 .container--xxl {
@@ -118,8 +40,8 @@ a:hover {
   padding: 10px 0;
 }
 .active {
-  color: #000;
-  border-bottom: 4px solid #FFCD00;
+  color: #0C2BD5;
+  border-bottom: 4px solid #0C2BD5;
   font-weight: bold;
 }
 .nav-btn:hover {
@@ -179,7 +101,7 @@ h3,
 #dashboard__filters #filters {
   background: RGB(255, 255, 255, 1);
   padding-top: 10px;
-  box-shadow: 0 1rem 1.5rem rgba(22, 28, 45, 0.1), 0 0.5rem 1rem -0.75rem rgba(22, 28, 45, 0.1) !important;
+  box-shadow: 0 1rem 1.5rem rgba(12,43,213,.1), 0 0.5rem 1rem -0.75rem rgba(12,43,213,.1) !important;
   transform: translate3d(0, -3px, 0);
 }
 
@@ -203,7 +125,7 @@ h3,
   height: 2px;
   background: #FFCD00;
   left: 0;
-  bottom: 0;
+  bottom: -3px;
 }
 
 .ant-tree-switcher {

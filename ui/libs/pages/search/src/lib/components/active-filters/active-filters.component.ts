@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BehaviorSubject, map} from "rxjs";
 import {getFqsFromUrl, removeFq} from "@eosc-search-service/search";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ICollectionSearchMetadata} from "../../../../../../search/src/lib/state/results/results.service";
+import { ICollectionSearchMetadata } from '../../../../../../search/src/lib/state/results/results.service';
 
 
 interface IActiveFilter {
@@ -32,7 +32,7 @@ interface IActiveFilter {
       <div class="badge" *ngFor="let activeFilter of activeFilters$ | async">
         <span>{{ activeFilter.label }}: </span>
         <span><i>{{ activeFilter.value }} </i></span>
-        <span class="close-btn" (click)="removeFilter(activeFilter)">x</span>
+        <span class="close-btn btn-primary" (click)="removeFilter(activeFilter)">x</span>
       </div>
     </section>
   `,
