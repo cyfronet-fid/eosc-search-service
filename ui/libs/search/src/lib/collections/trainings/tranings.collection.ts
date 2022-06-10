@@ -8,31 +8,44 @@ export const trainingAdapter = (
   training: Partial<ITraining> & IHasId
 ): IResult => ({
   id: uuidv4(),
-  title: training.title || '',
-  description: training.description || '',
-  type: 'Trainings',
+  title: training["Resource title"] || '',
+  description: '',
+  type: 'Training',
   typeUrlPath: 'trainings',
-  collection: 'to be set',
-  url: '',
+  collection: 'trainings',
+  url: training.URL || '',
   tags: [
     {
-      label: 'Author',
-      value: training.author || '',
-      originalField: 'author',
+      label: 'Resource type',
+      value: training["Resource Type"] || '',
+      originalField: 'Resource Type',
     },
   ],
 });
 
-export const trainingsCollection: ICollectionSearchMetadata = {
+export const trainingsCollection: ICollectionSearchMetadata<ITraining> = {
   type: 'Training',
-  facets: {},
-  filterToField: {},
-  fieldToFilter: {},
+  facets: {
+    "Resource title": { field: 'Resource title', type: 'terms' },
+    "Resource Type": { field: 'Resource Type', type: 'terms' },
+    "Content Type": { field: 'Content Type', type: 'terms' },
+    "Pilot Catalogue": { field: 'Pilot Catalogue', type: 'terms' },
+  },
+  filterToField: {
+    'Resource Type': 'Resource type',
+    'Content Type': 'Content type',
+    'Pilot Catalogue': 'Pilot catalogue'
+  },
+  fieldToFilter: {
+    'Resource type': 'Resource Type',
+    'Content type': 'Content Type',
+    'Pilot catalogue': 'Pilot Catalogue'
+  },
   _hash: '',
   queryMutator: (q: string) => q,
   inputAdapter: trainingAdapter,
   params: {
-    qf: [],
-    collection: 'to be set',
+    qf: ["Resource title"],
+    collection: 'trainings',
   },
 };

@@ -26,7 +26,6 @@ import {
   ISearchResults,
   ISet, ISolrCollectionParams, ISolrQueryParams,
   shuffleArray, toSolrQueryParams,
-  TrainingService,
 } from '@eosc-search-service/search';
 import { ActivatedRoute } from '@angular/router';
 import { IResult } from './results.model';
@@ -47,7 +46,6 @@ export class ResultsService {
 
   constructor(
     protected http: HttpClient,
-    protected _trainingService: TrainingService,
     protected _repository: ResultsRepository,
     protected settings: CommonSettings
   ) {
@@ -112,25 +110,12 @@ export class ResultsService {
         ].cursor;
     }
 
-    return (
-      metadata.type === 'Training'
-        ? this._trainingService.getByQuery$(_params.q).pipe(
-            map(
-              (trainings) =>
-                ({
-                  results: trainings as any[],
-                  facets: {},
-                  numFound: trainings.length,
-                  nextCursorMark: '',
-                } as ISearchResults<T>)
-            )
-          )
-        : this.http.post<ISearchResults<T>>(
-            this.url,
-            { facets: metadata.facets },
-            { params: _params }
-          )
-    ).pipe(
+    return  this.http.post<ISearchResults<T>>(
+      this.url,
+      { facets: metadata.facets },
+      { params: _params }
+    )
+    .pipe(
       catchError(() =>
         of({
           results: [],
@@ -167,8 +152,10 @@ export class ResultsService {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   private _loadNextImpulse$ = new BehaviorSubject(null);
-  private _loadNext: boolean = false;
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  private _loadNext = false;
 
   public loadNextPage(): void {
     if (this._repository.isLoading()) {
@@ -196,9 +183,8 @@ export class PrimaryResultsService extends ResultsService {
   constructor(
     http: HttpClient,
     _repository: PrimaryResultsRepository,
-    _trainingService: TrainingService,
     @Inject(ESS_SETTINGS) settings: CommonSettings
   ) {
-    super(http, _trainingService, _repository, settings);
+    super(http, _repository, settings);
   }
 }
