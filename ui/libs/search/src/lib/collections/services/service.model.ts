@@ -1,5 +1,3 @@
-import { languageAlphaCode2 } from '../trainings/training-fields.types';
-
 export interface IService {
   id: string;
   pid_s?: string;
@@ -15,5 +13,5 @@ export interface IService {
   target_users_ss: string[];
   platforms_ss: string[];
   order_type_s: string;
-  geographical_availabilities_ss: languageAlphaCode2;
+  geographical_availabilities_ss: string;
 }

@@ -1,31 +1,21 @@
-import {
-  accessCost,
-  accessRight,
-  expertiseLevel,
-  languageAlphaCode2,
-  learningResourceType,
-  licenceId,
-  urlResourceType,
-} from './training-fields.types';
-
 export interface ITraining {
   id: string;
-  title: string;
-  author: string;
-  description: string;
-  languageAlphaCode2: languageAlphaCode2[number];
-  keywords: string[];
-  licence: licenceId[number];
-  accessRights: accessRight[];
-  format: string;
-  targetGroup: string;
-  organization: string;
-  rating: number;
-  versionDate: string;
-  urlToResource: string;
-  urlResourceType: urlResourceType;
-  learningResourceType: learningResourceType;
-  learningOutcomes: string;
-  accessCost: accessCost;
-  expertiseLevel: expertiseLevel;
+  "Resource title": string;
+  Description: string;
+  Author: string;
+  Language: string;
+  Keywords: string;
+  License: string;
+  "Access Rights": string;
+  "Version date (created in)": string;
+  "Resource Type": string;
+  "Content Type": string;
+  URL: string;
+  "EOSC PROVIDER": string;
+  Format: string;
+  "Level of expertise": string;
+  "Target group": string;
+  "Qualification": string;
+  Duration: string;
+  [field: string]: string;
 }

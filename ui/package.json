@@ -14,7 +14,7 @@
     "@angular/animations": "*",
     "@angular/common": "*",
     "@angular/compiler": "*",
-    "@angular/core": "13.3.9",
+    "@angular/core": "13.2.6",
     "@angular/forms": "*",
     "@angular/localize": "*",
     "@angular/platform-browser": "*",

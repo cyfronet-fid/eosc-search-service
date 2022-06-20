@@ -14,7 +14,6 @@ import {
   ResultsService,
   SEARCH_SET_LIST,
   toSolrQueryParams,
-  TrainingService,
 } from '@eosc-search-service/search';
 import {HttpClient} from '@angular/common/http';
 import {CommonSettings, ESS_SETTINGS} from '@eosc-search-service/common';
@@ -46,10 +45,9 @@ export class SuggestionsResultsService extends ResultsService {
   constructor(
     http: HttpClient,
     _repository: SuggestionsResultsRepository,
-    _trainingService: TrainingService,
     @Inject(ESS_SETTINGS) settings: CommonSettings
   ) {
-    super(http, _trainingService, _repository, settings);
+    super(http, _repository, settings);
   }
 }
 
