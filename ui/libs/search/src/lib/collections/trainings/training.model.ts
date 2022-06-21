@@ -7,7 +7,7 @@ export interface ITraining {
   Keywords: string;
   License: string;
   "Access_Rights": string;
-  "Version_date_(created_in)": string;
+  "Version_date__created_in_": string;
   "Resource_Type": string;
   "Content_Type": string;
   URL: string;

@@ -37,8 +37,8 @@ export const trainingAdapter = (
     },
     {
       label: 'Created on',
-      value: training['Version_date_(created_in)'] || '',
-      originalField: 'Version_date_(created_in)',
+      value: training['Version_date__created_in_'] || '',
+      originalField: 'Version_date__created_in_',
     },
   ],
 });
@@ -57,7 +57,7 @@ export const trainingsCollection: ICollectionSearchMetadata<ITraining> = {
     'Target_group': { field: 'Target_group', type: 'terms' },
     'Qualification': { field: 'Qualification', type: 'terms' },
     'Duration': { field: 'Duration', type: 'terms' },
-    'Version_date_(created_in)': { field: 'Version_date_(created_in)', type: 'terms' },
+    'Version_date__created_in_': { field: 'Version_date__created_in_', type: 'terms' },
   },
   filterToField: {
     'Resource_Type': 'Resource type',
@@ -70,7 +70,7 @@ export const trainingsCollection: ICollectionSearchMetadata<ITraining> = {
     'Target_group': 'Target group',
     'Qualification': 'Qualification',
     'Duration': 'Duration',
-    'Version_date_(created_in)': 'Created on',
+    'Version_date__created_in_': 'Created on',
   },
   fieldToFilter: {
     'Resource type': 'Resource_Type',
@@ -83,7 +83,7 @@ export const trainingsCollection: ICollectionSearchMetadata<ITraining> = {
     'Target group': 'Target_group',
     'Qualification': 'Qualification',
     'Duration': 'Duration',
-    'Created on': 'Version_date_(created_in)',
+    'Created on': 'Version_date__created_in_',
   },
   _hash: '',
   queryMutator: (q: string) => q,
