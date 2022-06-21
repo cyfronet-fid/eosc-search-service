@@ -1,20 +1,20 @@
 export interface ITraining {
   id: string;
-  "Resource title": string;
+  "Resource_title": string;
   Description: string;
   Author: string;
   Language: string;
   Keywords: string;
   License: string;
-  "Access Rights": string;
-  "Version date (created in)": string;
-  "Resource Type": string;
-  "Content Type": string;
+  "Access_Rights": string;
+  "Version_date_(created_in)": string;
+  "Resource_Type": string;
+  "Content_Type": string;
   URL: string;
-  "EOSC PROVIDER": string;
+  "EOSC_PROVIDER": string;
   Format: string;
-  "Level of expertise": string;
-  "Target group": string;
+  "Level_of_expertise": string;
+  "Target_group": string;
   "Qualification": string;
   Duration: string;
   [field: string]: string;
