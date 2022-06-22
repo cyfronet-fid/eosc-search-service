@@ -25,7 +25,7 @@ import {
   concatArrays, escapeQuery,
   ISearchResults,
   ISet, ISolrCollectionParams, ISolrQueryParams,
-  shuffleArray, toSolrQueryParams,
+  toSolrQueryParams,
 } from '@eosc-search-service/search';
 import { ActivatedRoute } from '@angular/router';
 import { IResult } from './results.model';

@@ -1,6 +1,0 @@
-export * from './facet-param.interface'
-export * from './facet-response.interface'
-export * from './solr-pagination.interface'
-export * from './solr-query-params.interface'
-export * from './vertical-filters.utils'
-export * from './search.service'
