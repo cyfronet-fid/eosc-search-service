@@ -39,3 +39,4 @@ testem.log
 Thumbs.db
 
 .angular
+/apps/ui/src/environments/environment.generated.ts

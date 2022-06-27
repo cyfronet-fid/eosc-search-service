@@ -1,0 +1,95 @@
+<div class="container--xxl">
+  <div class="search-bar">
+    <div class="row">
+      <div class="col-sm-3 col-12">
+        <a href="/">
+          <img
+            id="logo"
+            src="assets/eosc-logo-color.png"
+            i18n-alt
+            alt="EOSC logo"
+          />
+        </a>
+      </div>
+      <div class="col-sm-9 col-12 search-row">
+        <ess-search-input></ess-search-input>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard" style="position: relative;">
+    <ess-sub-nav></ess-sub-nav>
+    <ess-sub-header
+      [activeSet]="activeSet$ | async"
+      [resultsCount]="resultsCount$ | async"
+    ></ess-sub-header>
+    <ess-pagination style="position: absolute; top: 80px; right: 0;" [activePage]="(activePage$ | async) ?? 0" [loading]="true" [pages]="(pages$ | async) ?? []"
+                    [maxPage]="(maxPage$ | async) ?? 0"
+                    (pageSelected)="selectPage($event)"></ess-pagination>
+    <div class="loading-block" *ngIf="loading$ | async; else dataLoadedRef">
+      <nz-spin nzSimple></nz-spin>
+    </div>
+    <ng-template #dataLoadedRef>
+      <div
+        *ngIf="
+              $any(filters$ | async)?.length > 0 &&
+                $any(results$ | async)?.length > 0;
+              else noFilterRef
+            "
+        class="row"
+        id="dashboard__main"
+      >
+        <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
+          <section id="filters">
+            <h5>Filters</h5>
+            <ng-container *ngFor="let filter of (filters$ | async)">
+              <ng-container *ngIf="filter.data.length > 0">
+                <ess-filter (searchFilter)="searchFilter(filter.id, $event)" (toggleShowMore)="toggleShowMore(filter.id)" [filter]="filter"></ess-filter>
+              </ng-container>
+            </ng-container>
+          </section>
+        </div>
+        <div class="col-sm-9 col-12 right-column">
+          <ess-active-filters
+            [collections]="collections$ | async"
+          ></ess-active-filters>
+          <nz-empty *ngIf="(results$ | async)?.length === 0"></nz-empty>
+            <ess-result
+              class="results"
+              *ngFor="let result of results$ | async"
+              [title]="result.title"
+              [description]="result.description"
+              [type]="result.type"
+              [url]="result.url"
+              [typeUrlPath]="'/search/' + result.typeUrlPath"
+              [tags]="result.tags"
+            ></ess-result>
+        </div>
+      </div>
+      <ng-template #noFilterRef>
+        <ess-active-filters
+          [collections]="collections$ | async"
+        ></ess-active-filters>
+        <nz-empty *ngIf="(results$ | async)?.length === 0"></nz-empty>
+        <cdk-virtual-scroll-viewport
+          #viewport
+          *ngIf="$any(results$ | async)?.length > 0"
+          itemSize="100"
+          style="height: 1000px; margin-bottom: 50px"
+        >
+          <ess-result
+            class="results"
+            *cdkVirtualFor="let result of results$ | async"
+            [title]="result.title"
+            [description]="result.description"
+            [type]="result.type"
+            [typeUrlPath]="'/search/' + result.typeUrlPath"
+            [tags]="result.tags"
+          ></ess-result>
+        </cdk-virtual-scroll-viewport>
+      </ng-template>
+      <ess-pagination style="position: absolute; bottom: 0; right: 0;" [activePage]="(activePage$ | async) ?? 0" [loading]="true" [pages]="(pages$ | async) ?? []"
+                      [maxPage]="(maxPage$ | async) ?? 0"
+                      (pageSelected)="selectPage($event)"></ess-pagination>
+    </ng-template>
+  </div>
+</div>

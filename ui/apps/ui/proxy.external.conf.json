@@ -1,0 +1,8 @@
+{
+  "/api/*": {
+    "target": "https://api.eosc-search-service.grid.cyfronet.pl",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

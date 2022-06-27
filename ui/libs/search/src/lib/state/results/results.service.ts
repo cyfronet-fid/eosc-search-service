@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonSettings, ESS_SETTINGS } from '@eosc-search-service/common';
 import {
-  BehaviorSubject,
   catchError,
   combineLatest,
   forkJoin,
@@ -16,19 +15,30 @@ import {
   PrimaryResultsRepository,
   RESULTS_ROWS,
   ResultsRepository,
-
 } from './results.repository';
 import { IFacetParam } from '../../services/search-service/facet-param.interface';
 import { HashMap, IHasId } from '@eosc-search-service/types';
 import { updateRequestStatus } from '@ngneat/elf-requests';
 import {
-  concatArrays, escapeQuery,
+  concatArrays,
+  escapeQuery, FiltersRepository,
   ISearchResults,
+  ISet,
+  ISolrCollectionParams,
+  ISolrQueryParams,
+  toSolrQueryParams,
+  TrainingService,
   ISet, ISolrCollectionParams, ISolrQueryParams,
   toSolrQueryParams,
 } from '@eosc-search-service/search';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IResult } from './results.model';
+import {
+  setPage,
+  skipWhilePageExists,
+  updatePaginationData,
+} from '@ngneat/elf-pagination';
+import { from } from 'rxjs';
 
 export interface ICollectionSearchMetadata<T = unknown> {
   _hash: string;
@@ -45,8 +55,11 @@ export class ResultsService {
 
   constructor(
     protected http: HttpClient,
+    protected _router: Router,
+    protected _trainingService: TrainingService,
     protected _repository: ResultsRepository,
-    protected settings: CommonSettings
+    protected settings: CommonSettings,
+    protected _filtersRepository: FiltersRepository | null = null
   ) {
     this.url = `/${this.settings.backendApiPath}/${this.settings.search.apiPath}`;
   }
@@ -54,40 +67,82 @@ export class ResultsService {
   protected reduceResults = (
     results: ISearchResults<IResult>[],
     metadataList: ICollectionSearchMetadata[]
-  ): IResult[] => concatArrays(results.map(result => result.results));
+  ): IResult[] => concatArrays(results.map((result) => result.results));
 
   public search$<T extends IHasId>(
     metadataList: ICollectionSearchMetadata<T>[],
     params: ISolrQueryParams,
     rowsPerCollection: number = RESULTS_ROWS,
-    loadNext: boolean = false
+    page: number | null = null
   ): Observable<IResult[]> {
-    if (!loadNext) {
+    let freshSearch = false;
+    if (page === null || this._repository.resultsStore.getValue().lastQuery != params.q) {
       this._repository.clearResults();
+      freshSearch = true;
     }
+    const pageNumber = page || 0;
     if (metadataList.length === 0) {
       this._repository.setResults([]);
       this._repository.resultsStore.update(
-        updateRequestStatus('results', 'success')
+        updateRequestStatus('results', 'success'),
+        state => ({...state, lastQuery: params.q})
       );
       return of([]);
     }
 
-    return forkJoin<ISearchResults<IResult>[]>(
-      metadataList.map((metadata) =>
-        this._getSingle$(metadata, params, rowsPerCollection, loadNext)
-      )
+    const isPageCached = this._repository.isPageCached(pageNumber);
+
+    if (!isPageCached) {
+      this._repository.clearActiveCollections();
+    }
+
+    const lastPage = isPageCached
+      ? this._repository.resultsStore.getValue().pagination.lastPage
+      : pageNumber;
+
+    return (
+      isPageCached
+        ? of([])
+        : forkJoin<ISearchResults<IResult>[]>(
+            metadataList.map((metadata) =>
+              this._getSingle$(metadata, params, rowsPerCollection, pageNumber)
+            )
+          ).pipe(
+            // return merged data
+            map((allResults) => this.reduceResults(allResults, metadataList)),
+            tap((results) => this._repository.addResults(results)),
+            tap((results) =>
+              this._repository.resultsStore.update(
+                setPage(
+                  pageNumber,
+                  results.map((r) => r.id)
+                )
+              )
+            )
+          )
     ).pipe(
-      // return merged data
-      map((allResults) => this.reduceResults(allResults, metadataList)),
-      tap((results) => this._repository.addResults(results)),
+      tap((results) =>
+        this._repository.resultsStore.update(
+          updatePaginationData({
+            currentPage: pageNumber,
+            perPage: metadataList.length * RESULTS_ROWS,
+            total: results.length,
+            lastPage: lastPage,
+          }),
+          state => ({...state, lastQuery: params.q})
+        )
+      ),
+      tap((results) => {
+        if (this._filtersRepository === null || !freshSearch) {
+          return;
+        }
+        this._filtersRepository.intialize(this._repository.collectionsMap, this._repository.collectionSearchStates, this._router.url);
+      }),
       tap(() => updateRequestStatus('results', 'success')),
       catchError((error) => {
         updateRequestStatus('results', 'error', error);
         return of([]);
-      }),
-      tap(() => (this._loadNext = false))
-      // this._repository.trackResultsRequestsStatus('results')
+      })
     );
   }
 
@@ -95,14 +150,14 @@ export class ResultsService {
     metadata: ICollectionSearchMetadata<T>,
     params: ISolrQueryParams,
     rows: number,
-    loadNext: boolean = false
+    pageNumber: number = 0
   ): Observable<ISearchResults<IResult>> {
     const _params = { ...params, ...metadata.params, rows: rows };
 
     if (_params.q !== '*') {
       _params.q = metadata.queryMutator(escapeQuery(_params.q));
     }
-    if (loadNext) {
+    if (pageNumber > 0) {
       _params.cursor =
         this._repository.resultsStore.getValue().collectionSearchStates[
           metadata.type
@@ -125,6 +180,7 @@ export class ResultsService {
       ),
       tap((data) => {
         this._repository.resultsStore.update((state) => {
+          const maxPage = Math.ceil(data.numFound / rows)
           return {
             ...state,
             collectionSearchStates: {
@@ -133,10 +189,10 @@ export class ResultsService {
                 ...state.collectionSearchStates[metadata.type],
                 maxResults: data.numFound,
                 cursor: data.nextCursorMark,
-                maxPage: Math.ceil(data.numFound / rows),
+                maxPage: maxPage,
                 hasNext:
-                  state.collectionSearchStates[metadata.type].currentPage <
-                  state.collectionSearchStates[metadata.type].maxPage,
+                  pageNumber <
+                  maxPage,
                 facets: data.facets,
                 active: true,
               },
@@ -168,10 +224,39 @@ export class ResultsService {
     return combineLatest({
       queryParams: route.queryParams.pipe(map(toSolrQueryParams)),
       activeSet: route.data.pipe(map((data) => data['activeSet'] as ISet)),
-      loadNextImpulse: this._loadNextImpulse$,
+      page: route.queryParams.pipe(
+        map((param) => param['page'] ? Number(param['page']) : null)
+      ),
     }).pipe(
-      switchMap(({ activeSet, queryParams }) => {
-        return this.search$(activeSet.collections, queryParams, RESULTS_ROWS, this._loadNext);
+      switchMap((data) => {
+        if (
+          (data.page ?? 0) >
+          Object.keys(this._repository.resultsStore.getValue().pagination.pages)
+            .length
+        ) {
+          return from(
+            this._router.navigate([], {
+              queryParams: { page: undefined },
+              replaceUrl: true,
+              queryParamsHandling: 'merge',
+            })
+          ).pipe(map(() => data));
+        }
+        return of(data);
+      }),
+      switchMap(({ activeSet, queryParams, page }) =>
+        this.search$(activeSet.collections, queryParams, RESULTS_ROWS, page)
+      )
+    );
+  }
+
+  public loadPage$(page: number): Observable<unknown> {
+    return from(
+      this._router.navigate([], {
+        queryParams: {
+          page: page,
+        },
+        queryParamsHandling: 'merge',
       })
     );
   }
@@ -181,9 +266,12 @@ export class ResultsService {
 export class PrimaryResultsService extends ResultsService {
   constructor(
     http: HttpClient,
+    _router: Router,
     _repository: PrimaryResultsRepository,
-    @Inject(ESS_SETTINGS) settings: CommonSettings
+    _trainingService: TrainingService,
+    @Inject(ESS_SETTINGS) settings: CommonSettings,
+    _filtersRepository: FiltersRepository
   ) {
-    super(http, _repository, settings);
+    super(http, _router, _trainingService, _repository, settings, _filtersRepository);
   }
 }

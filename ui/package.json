@@ -5,7 +5,12 @@
   "scripts": {
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2015 browser module main",
+    "generate:vars": "node node_modules/ng-node-environment/index.js --out='./apps/ui/src/environments/environment.generated.ts' && eslint --fix ./apps/ui/src/environments/environment.generated.ts",
+    "make:requirements": "npm run generate:vars",
+    "prestart": "npm run make:requirements",
     "start": "nx serve",
+    "start:external": "nx serve --proxy-config apps/ui/proxy.external.conf.json",
+    "prebuild": "npm run make:requirements",
     "build": "nx build",
     "test": "nx test"
   },
@@ -51,6 +56,7 @@
     "@angular/language-service": "*",
     "@ngneat/elf-cli": "^3.0.0",
     "@ngneat/elf-devtools": "^1.2.1",
+    "@ngneat/elf-pagination": "^1.0.1",
     "@nrwl/cypress": "13.9.0",
     "@nrwl/eslint-plugin-nx": "13.9.0",
     "@nrwl/jest": "13.9.0",
@@ -71,6 +77,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "27.2.3",
     "jest-preset-angular": "11.1.1",
+    "ng-node-environment": "^1.1.1",
     "nx": "13.9.0",
     "prettier": "^2.6.0",
     "ts-jest": "27.0.5",

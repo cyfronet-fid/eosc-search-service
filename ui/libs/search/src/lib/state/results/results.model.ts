@@ -1,6 +1,13 @@
 import {HashMap, IHasId} from "@eosc-search-service/types";
 import {isArray} from "@eosc-search-service/common";
 
+export interface IQueryPage {
+  cursor: string;
+  last: boolean;
+}
+
+export type IQueryPages = HashMap<IQueryPage>
+
 export interface IResult {
   id: string;
   title: string;
@@ -103,4 +110,8 @@ export function makeEmptySolrQueryParams(
     cursor: '*',
     ...params,
   };
+}
+
+export interface IPage {
+  index: number
 }

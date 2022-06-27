@@ -18,6 +18,7 @@ import {NzBadgeModule} from 'ng-zorro-antd/badge';
 import {SubNavComponent} from './components/sub-nav';
 import {NzBreadCrumbModule} from 'ng-zorro-antd/breadcrumb';
 import {ESSCommonModule} from "@eosc-search-service/common";
+import {PaginationComponent} from "./components/pagination/pagination.component";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {ESSCommonModule} from "@eosc-search-service/common";
     CheckboxesTreeComponent,
     SubNavComponent,
     SubHeaderComponent,
+    PaginationComponent
   ],
   imports: [
     CommonModule,
@@ -51,6 +53,7 @@ import {ESSCommonModule} from "@eosc-search-service/common";
     CheckboxesTreeComponent,
     SubNavComponent,
     SubHeaderComponent,
+    PaginationComponent
   ],
 })
 export class LayoutModule {}

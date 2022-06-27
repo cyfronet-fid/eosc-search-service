@@ -1,0 +1,39 @@
+#logo {
+  max-width: 200px;
+  margin-top: 25px;
+}
+#dashboard__main {
+  /*min-height: 900px;*/
+}
+
+.ant-empty {
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+.loading-block {
+  width: 100%;
+  min-height: 300px;
+  text-align: center;
+  padding: 100px 50px;
+}
+
+.results:last-child {
+  margin-bottom: 100px;
+}
+
+// FILTERS
+
+#filters {
+  padding: 0 15px 15px 15px;
+}
+.filter {
+  margin-bottom: 10px;
+}
+.filter-title {
+  padding-bottom: 6px;
+  display: block;
+}
+.ant-tree {
+  background: none !important;
+}
