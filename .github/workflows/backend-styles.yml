@@ -19,7 +19,7 @@ jobs:
       working-directory: ./backend
     - name: Check with black
       run: |
-        pipenv run black --check --experimental-string-processing alembic app tests
+        pipenv run black --check --preview alembic app tests
       working-directory: ./backend
     - name: Check with isort
       run: |

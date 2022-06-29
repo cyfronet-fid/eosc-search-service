@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {
-  CategoryListComponent,
+  CategoriesComponent,
   CheckboxesTreeComponent,
   MainHeaderComponent,
   MultiselectWithSearchComponent,
@@ -21,7 +21,7 @@ import {ESSCommonModule} from "@eosc-search-service/common";
 
 @NgModule({
   declarations: [
-    CategoryListComponent,
+    CategoriesComponent,
     MainHeaderComponent,
     MultiselectWithSearchComponent,
     SearchInputComponent,
@@ -44,7 +44,7 @@ import {ESSCommonModule} from "@eosc-search-service/common";
     NzBreadCrumbModule,
   ],
   exports: [
-    CategoryListComponent,
+    CategoriesComponent,
     MainHeaderComponent,
     MultiselectWithSearchComponent,
     SearchInputComponent,

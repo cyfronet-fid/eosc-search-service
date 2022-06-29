@@ -11,6 +11,7 @@ export const dataSet: ISet = {
     },
     {
       label: 'Data',
+      url: '/search/data'
     },
   ],
   urlPath: 'data',

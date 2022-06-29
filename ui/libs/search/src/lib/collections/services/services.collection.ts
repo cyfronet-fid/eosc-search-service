@@ -38,7 +38,6 @@ export const servicesCollection: ICollectionSearchMetadata<IService> = {
   queryMutator: (q: string) => q + '*',
   filterToField: {
     providers_ss: 'Provider',
-    scientific_domains_ss: 'Scientific domain',
     resource_organisation_s: 'Organisation',
     geographical_availabilities_ss: 'Country',
     categories_ss: 'Categories',

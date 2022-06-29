@@ -11,10 +11,14 @@ export interface CommonSettings {
 
 export interface ICategory {
   id: string;
-  label: string;
   count: number;
-}
+  label: string;
+  filters: string[];
+  level: number;
 
+  isLeaf?: boolean;
+  parentId?: string;
+}
 export interface EoscCommonWindow extends Window {
   eosccommon: {
     renderMainFooter: (cssSelector: string) => void;

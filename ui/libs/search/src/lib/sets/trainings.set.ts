@@ -11,6 +11,7 @@ export const trainingsSet: ISet = {
     },
     {
       label: 'Trainings',
+      url: '/search/trainings'
     },
   ],
   urlPath: 'trainings',

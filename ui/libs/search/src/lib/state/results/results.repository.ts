@@ -2,7 +2,6 @@ import {HashMap} from '@eosc-search-service/types';
 import {createStore, select, setProp, withProps} from '@ngneat/elf';
 import {addEntities, selectAllEntities, setEntities, withEntities,} from '@ngneat/elf-entities';
 import {
-  createRequestsStatusOperator,
   selectRequestStatus,
   updateRequestStatus,
   withRequestsStatus,
@@ -25,22 +24,6 @@ export const RESULTS_ROWS = 100;
 
 export class ResultsRepository {
   protected _collectionsMap: HashMap<ICollectionSearchMetadata>;
-
-  constructor(private _storeName = 'base', private sets: ISet[]) {
-    this._initializeStoreCollection(this.sets);
-    this._collectionsMap = {};
-    this.sets.forEach((set) => {
-      set.collections.forEach(
-        (collection) => (this._collectionsMap[collection.type] = collection)
-      );
-    });
-  }
-
-  isLoading(): boolean {
-    return (
-      this.resultsStore.getValue().requestsStatus.results.value === 'pending'
-    );
-  }
 
   readonly resultsStore = createStore(
     {
@@ -86,7 +69,7 @@ export class ResultsRepository {
       ICollectionSearchMetadata<unknown>,
       { [facetName: string]: IFacetResponse }
     ][]
-  > = this.resultsStore.pipe(
+    > = this.resultsStore.pipe(
     select((state) => state.collectionSearchStates),
     map((searchStates) =>
       Object.entries(searchStates)
@@ -95,16 +78,23 @@ export class ResultsRepository {
     )
   );
 
-  readonly activeCollectionMetadata$ = this.resultsStore.pipe(
-    select((state) => state.collectionSearchStates),
-    map((collections) =>
-      Object.values(collections).filter((collection) => collection.active)
-    )
-  );
+  constructor(private _storeName = 'base', private sets: ISet[]) {
+    this._initializeStoreCollection(this.sets);
+    this._collectionsMap = {};
+    this.sets.forEach((set) => {
+      set.collections.forEach(
+        (collection) => (this._collectionsMap[collection.type] = collection)
+      );
+    });
+  }
 
-  readonly trackResultsRequestsStatus = createRequestsStatusOperator(
-    this.resultsStore
-  );
+  isLoading(): boolean {
+    return (
+      this.resultsStore.getValue().requestsStatus.results.value === 'pending'
+    );
+  }
+
+
 
   setResults(results: IResult[]) {
     this.resultsStore.update(

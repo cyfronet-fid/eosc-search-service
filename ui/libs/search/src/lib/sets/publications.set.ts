@@ -11,6 +11,7 @@ export const publicationsSet: ISet = {
     },
     {
       label: 'Publications',
+      url: '/search/publications'
     },
   ],
   urlPath: 'publications',

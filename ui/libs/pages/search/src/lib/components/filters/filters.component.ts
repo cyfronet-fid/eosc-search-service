@@ -13,7 +13,7 @@ interface IFilter {
 @Component({
   selector: 'ess-filters',
   template: `
-    <section id="filters">
+    <section class="filters">
       <h5>Filters</h5>
       <ess-checkboxes-tree></ess-checkboxes-tree>
       <ng-container *ngFor="let filterTree of filtersTree$ | async">
@@ -31,7 +31,7 @@ interface IFilter {
   `,
   styles: [
     `
-      #filters {
+      .filters {
         padding: 0 15px 15px 15px;
       }
       .filter {

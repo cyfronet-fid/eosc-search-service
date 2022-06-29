@@ -1,4 +1,4 @@
-export * from './category-list'
+export * from './categories'
 export * from './main-header'
 export * from './multiselect-with-search'
 export * from './search-input'

@@ -62,7 +62,7 @@ h3,
   padding: 5px 0 15px;
 }
 
-#filters {
+.filters {
   margin-bottom: 15px;
 }
 .ant-tree {
@@ -98,14 +98,14 @@ h3,
   padding: 6px 11px 9px;
 }
 
-#dashboard__filters #filters {
+#dashboard__filters .filters {
   background: RGB(255, 255, 255, 1);
   padding-top: 10px;
   box-shadow: 0 1rem 1.5rem rgba(12,43,213,.1), 0 0.5rem 1rem -0.75rem rgba(12,43,213,.1) !important;
   transform: translate3d(0, -3px, 0);
 }
 
-#dashboard__filters #filters h5 {
+#dashboard__filters .filters h5 {
   border-bottom: 1px solid #eee;
   font-weight: 400;
 }
