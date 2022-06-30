@@ -1,5 +1,9 @@
-Incorrect length. Line 0: length 9
-Incorrect length. Line 1: length 1
-Incorrect length. Line 2: length 6
-Incorrect length. Line 7: length 4
+Incorrect length. Line 0: length 9, should be: 16
+Incorrect length. Line 1: length 0, should be: 16
+Incorrect length. Line 2: length 6, should be: 16
+Possible struct subjects, in row 3 => keyword<0003>reproductive health, students, contraceptionmesh<0003>education
+Possible struct subjects, in row 4 => keyword<0003>reproductive health, students, contraceptionmesh<0003>education
+Possible struct subjects, in row 5 => keyword<0003>reproductive health, students, contraceptionmesh<0003>education
+Possible struct subjects, in row 6 => keyword<0003>reproductive health, students, contraceptionmesh<0003>education
+Incorrect length. Line 7: length 4, should be: 16
 4/8

@@ -46,6 +46,8 @@ def transform(it: FilteringIterator, stdout=sys.stdout, stderr=sys.stderr):
         ("journal", False),
         ("fulltext", False),
         ("published", True),
+        ("resourceType", False),
+        ("subjects", True),
         ("author", True, ["names", "pids"]),
         ("organization", True, ["names", "shorts", "ids"]),
         ("project", True, ["titles", "ids", "codes"]),
@@ -60,7 +62,7 @@ def transform(it: FilteringIterator, stdout=sys.stdout, stderr=sys.stderr):
             count += 1
             if len(row) != target_len:
                 err += 1
-                print(f"Incorrect length. Line {i}: length {len(row)}", file=stderr)
+                print(f"Incorrect length. Line {i}: length {len(row)}, should be: {target_len}", file=stderr)
             else:
                 row_errored = False
                 out = dict()
@@ -75,13 +77,15 @@ def transform(it: FilteringIterator, stdout=sys.stdout, stderr=sys.stderr):
                         print(f"Possible array column {col_name}, in row {i} => {row[j].replace(list_sep, '<0002>')}",
                               file=stderr)
                     if struct_sep in row[j] and named_struct is None:
-                        print(
-                            f"Possible struct column {col_name}, in row {i} => {row[j].replace(struct_sep, '<0003>')}",
-                            file=stderr)
+                        print(f"Possible struct {col_name}, in row {i} => {row[j].replace(struct_sep, '<0003>')}",
+                              file=stderr)
                     if is_list:
                         out_val = [v for v in row[j].split(list_sep) if not empty_or_n(v)]
                         if named_struct is None:
-                            out[col_name] = out_val
+                            if col_name == "subjects":
+                                out[col_name] = [v.replace(struct_sep, ':') for v in out_val]
+                            else:
+                                out[col_name] = out_val
                         else:
                             split_val = [v.split(struct_sep) for v in out_val]
                             for k, field in enumerate(named_struct):
