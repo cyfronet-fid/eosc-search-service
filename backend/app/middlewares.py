@@ -1,0 +1,70 @@
+# pylint: disable=too-few-public-methods
+"""
+API middlewares on different hooks
+"""
+
+import ast
+from typing import Awaitable, Callable
+from uuid import uuid4
+
+from starlette.concurrency import iterate_in_threadpool
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import Request
+from starlette.responses import Response, StreamingResponse
+
+from app.utils.logger import logger
+
+
+class LogRequestsMiddleware(BaseHTTPMiddleware):
+    """
+    Requests and its responses logger containing
+    - headers
+    - cookies
+    - referer
+    - path
+    """
+
+    async def dispatch(
+        self,
+        request: Request,
+        call_next: Callable[[Request], Awaitable[StreamingResponse]],
+    ) -> Response:
+        # REQUEST
+        uuid = uuid4()
+        referer = request.headers["referer"] if "referer" in request.headers else ""
+        logger.info(
+            "\n\n-----------------------\n\n"
+            "START REQUEST:\n id=%s\n path=%s\n referer=%s\n cookies=%s\n headers=%s"
+            "\n\n---------------------------\n\n",
+            uuid,
+            request.url.path,
+            referer,
+            request.cookies,
+            request.headers,
+        )
+
+        # RESPONSE
+        response = await call_next(request)
+        response_body = [section async for section in response.body_iterator]
+        response.body_iterator = iterate_in_threadpool(iter(response_body))
+
+        body = response_body[0].decode()
+        # REMOVE SEARCH DATA FOR CLEAR LOG
+        try:
+            body = ast.literal_eval(body)
+            del body["results"]
+            del body["facets"]
+            del body["nextCursorMark"]
+        except (KeyError, ValueError):
+            pass
+        logger.info(
+            "\n\n-----------------------\n\n"
+            "RESPONSE:\n id=%s\n status_code=%s\n body=%s\n headers=%s"
+            "\n\n---------------------------\n\n",
+            uuid,
+            response.status_code,
+            body,
+            response.headers,
+        )
+
+        return response
