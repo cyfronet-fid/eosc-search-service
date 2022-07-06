@@ -15,7 +15,8 @@ services:
       OIDC_CLIENT_SECRET: "${OIDC_CLIENT_SECRET}"
       OIDC_HOST: "${OIDC_HOST}"
       SECRET_KEY: "${SECRET_KEY}"
-      BASE_URL: "${BASE_URL}"
+      BACKEND_BASE_URL: "${BACKEND_BASE_URL}"
+      UI_BASE_URL: "${UI_BASE_URL}"
     depends_on:
       - db
       - solr1

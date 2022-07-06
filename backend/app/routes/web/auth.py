@@ -1,44 +1,23 @@
-# pylint: disable=missing-module-docstring,broad-except,missing-function-docstring,import-outside-toplevel,cyclic-import
-from urllib.parse import urlparse
+# pylint: disable=missing-module-docstring,broad-except,missing-function-docstring,cyclic-import
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, Response
 from starlette import status
-from starlette.requests import Request
 from starlette.responses import RedirectResponse
 
-from app.config import OIDC_ISSUER
+from app.config import OIDC_ISSUER, UI_BASE_URL
 from app.schemas.session_data import SessionData
 from app.schemas.user_info_response import UserInfoResponse
 from app.utils.cookie_validators import backend, cookie, verifier
-from app.utils.logger import logger
 from app.utils.rp_handler import rp_handler
 
 router = APIRouter()
 
 
 @router.get("/request")
-async def auth_request(request: Request):
+async def auth_request():
     try:
-        from app.main import app
-
-        if not app.UI_BASE_URL:
-            parsed_url = urlparse(request.headers.get("referer"))
-            app.UI_BASE_URL = f"{parsed_url.scheme}://{parsed_url.netloc}"
-
-        uuid = uuid4()
-        logger.info(
-            "id=%s\n AUTH REQUEST - set ui base url: \n UI URL=%s",
-            uuid,
-            app.UI_BASE_URL,
-        )
-
         result = rp_handler.begin(issuer_id=OIDC_ISSUER)
-        logger.info(
-            "id=%s\n AUTH REQUEST - gone to AAI: \n UI URL=%s",
-            uuid,
-            app.UI_BASE_URL,
-        )
     except Exception as err:
         raise HTTPException(
             status_code=400, detail=f"Something went wrong: {err} {repr(err)}"
@@ -49,23 +28,8 @@ async def auth_request(request: Request):
 
 @router.get("/checkin")
 async def auth_checkin(code: str, state: str):
-    from app.main import app
-
-    uuid = uuid4()
-    logger.info(
-        "id=%s\n AUTH REQUEST - return from AAI: \n UI URL=%s",
-        uuid,
-        app.UI_BASE_URL,
-    )
-
     if not state:
-        return RedirectResponse(status_code=400, url=app.UI_BASE_URL)
-
-    logger.info(
-        "id=%s\n AUTH REQUEST - return from AAI without 400: \n UI URL=%s",
-        uuid,
-        app.UI_BASE_URL,
-    )
+        return RedirectResponse(status_code=400, url=UI_BASE_URL)
 
     try:
         aai_response = rp_handler.finalize(OIDC_ISSUER, dict(code=code, state=state))
@@ -73,22 +37,15 @@ async def auth_checkin(code: str, state: str):
         session_id = uuid4()
         username = aai_response["userinfo"]["name"]
 
-        logger.info(
-            "id=%s\n AUTH REQUEST - fetch userdata: \n UI URL=%s username=%s",
-            uuid,
-            app.UI_BASE_URL,
-            username,
-        )
-
         session_data = SessionData(username=username, aai_state=state)
         await backend.create(session_id, session_data)
-        auth_response = RedirectResponse(status_code=303, url=app.UI_BASE_URL)
+        auth_response = RedirectResponse(status_code=303, url=UI_BASE_URL)
         cookie.attach_to_response(auth_response, session_id)
         return auth_response
     except Exception:
         return RedirectResponse(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            url=app.UI_BASE_URL,
+            url=UI_BASE_URL,
             headers={"WWW-Authenticate": "Bearer"},
         )
 
@@ -101,16 +58,11 @@ async def user_info(session_data: SessionData = Depends(verifier)) -> UserInfoRe
 
 
 @router.get("/logout")
-async def logout(
-    response: Response, request: Request, session_id: UUID = Depends(cookie)
-):
+async def logout(response: Response, session_id: UUID = Depends(cookie)):
     try:
         await backend.delete(session_id)
     except KeyError:
         pass
 
     cookie.delete_from_response(response)
-    parsed_url = urlparse(request.headers.get("referer"))
-    return RedirectResponse(
-        status_code=303, url=f"{parsed_url.scheme}://{parsed_url.netloc}"
-    )
+    return RedirectResponse(status_code=303, url=UI_BASE_URL)

@@ -16,7 +16,7 @@ from fastapi_sessions.frontends.implementations import CookieParameters, Session
 from fastapi_sessions.session_verifier import SessionVerifier
 from starlette import status
 
-from app.config import AUTH_COOKIES_CONFIG
+from app.config import AUTH_COOKIES_CONFIG, UI_BASE_URL
 from app.schemas.session_data import SessionData
 
 
@@ -60,7 +60,7 @@ cookie = SessionCookie(
     identifier=AUTH_COOKIES_CONFIG["identifier"],
     secret_key=AUTH_COOKIES_CONFIG["secret_key"],
     auto_error=AUTH_COOKIES_CONFIG["auto_error"],
-    cookie_params=CookieParameters(**AUTH_COOKIES_CONFIG),
+    cookie_params=CookieParameters(**AUTH_COOKIES_CONFIG, domain=UI_BASE_URL),
 )
 backend = InMemoryBackend[UUID, SessionData]()
 verifier = BasicVerifier(
