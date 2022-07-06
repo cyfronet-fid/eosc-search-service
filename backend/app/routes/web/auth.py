@@ -28,18 +28,14 @@ async def auth_request(request: Request):
 
         uuid = uuid4()
         logger.info(
-            "\n\n-----------------------\n\n"
-            "id=%s\n AUTH REQUEST - set ui base url: \n UI URL=%s"
-            "\n\n-----------------------\n\n",
+            "id=%s\n AUTH REQUEST - set ui base url: \n UI URL=%s",
             uuid,
             app.UI_BASE_URL,
         )
 
         result = rp_handler.begin(issuer_id=OIDC_ISSUER)
         logger.info(
-            "\n\n-----------------------\n\n"
-            "id=%s\n AUTH REQUEST - gone to AAI: \n UI URL=%s"
-            "\n\n-----------------------\n\n",
+            "id=%s\n AUTH REQUEST - gone to AAI: \n UI URL=%s",
             uuid,
             app.UI_BASE_URL,
         )
@@ -57,9 +53,7 @@ async def auth_checkin(code: str, state: str):
 
     uuid = uuid4()
     logger.info(
-        "\n\n-----------------------\n\n"
-        "id=%s\n AUTH REQUEST - return from AAI: \n UI URL=%s"
-        "\n\n-----------------------\n\n",
+        "id=%s\n AUTH REQUEST - return from AAI: \n UI URL=%s",
         uuid,
         app.UI_BASE_URL,
     )
@@ -68,9 +62,7 @@ async def auth_checkin(code: str, state: str):
         return RedirectResponse(status_code=400, url=app.UI_BASE_URL)
 
     logger.info(
-        "\n\n-----------------------\n\n"
-        "id=%s\n AUTH REQUEST - return from AAI without 400: \n UI URL=%s"
-        "\n\n-----------------------\n\n",
+        "id=%s\n AUTH REQUEST - return from AAI without 400: \n UI URL=%s",
         uuid,
         app.UI_BASE_URL,
     )
@@ -82,9 +74,7 @@ async def auth_checkin(code: str, state: str):
         username = aai_response["userinfo"]["name"]
 
         logger.info(
-            "\n\n-----------------------\n\n"
-            "id=%s\n AUTH REQUEST - fetch userdata: \n UI URL=%s username=%s"
-            "\n\n-----------------------\n\n",
+            "id=%s\n AUTH REQUEST - fetch userdata: \n UI URL=%s username=%s",
             uuid,
             app.UI_BASE_URL,
             username,

@@ -140,7 +140,7 @@ export class SearchPageComponent implements OnInit {
     map((data) => data['activeSet'] as ISet),
     map((set) => set.collections)
   );
-  filters$ = this._resultsRepository.filters$.pipe(tap(f => console.log('filters', f)));
+  filters$ = this._resultsRepository.filters$;
   // loadNextPage$ = new BehaviorSubject<void>(undefined);
   resultsCount$ = this._resultsRepository.maxResults$;
   activeSet$ = this._route.data.pipe(map((data) => data['activeSet']));

@@ -33,9 +33,7 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
         uuid = uuid4()
         referer = request.headers["referer"] if "referer" in request.headers else ""
         logger.info(
-            "\n\n-----------------------\n\n"
-            "START REQUEST:\n id=%s\n path=%s\n referer=%s\n cookies=%s\n headers=%s"
-            "\n\n---------------------------\n\n",
+            "\n\nREQUEST:\n\n id=%s\n path=%s\n referer=%s\n cookies=%s\n headers=%s\n\n",
             uuid,
             request.url.path,
             referer,
@@ -49,18 +47,8 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
         response.body_iterator = iterate_in_threadpool(iter(response_body))
 
         body = response_body[0].decode()
-        # REMOVE SEARCH DATA FOR CLEAR LOG
-        try:
-            body = ast.literal_eval(body)
-            del body["results"]
-            del body["facets"]
-            del body["nextCursorMark"]
-        except (KeyError, ValueError):
-            pass
         logger.info(
-            "\n\n-----------------------\n\n"
-            "RESPONSE:\n id=%s\n status_code=%s\n body=%s\n headers=%s"
-            "\n\n---------------------------\n\n",
+            "\n\nRESPONSE:\n\n id=%s\n status_code=%s\n body=%s\n headers=%s\n\n",
             uuid,
             response.status_code,
             body,
