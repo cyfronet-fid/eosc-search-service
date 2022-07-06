@@ -11,6 +11,7 @@ export const softwareSet: ISet = {
     },
     {
       label: 'Software',
+      url: '/search/software'
     },
   ],
   urlPath: 'software',

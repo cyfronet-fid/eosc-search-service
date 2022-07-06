@@ -1,7 +1,6 @@
 import {createStore, select, setProps, withProps} from "@ngneat/elf";
 import {
   createRequestsStatusOperator,
-  selectRequestStatus,
   updateRequestStatus,
   withRequestsStatus
 } from "@ngneat/elf-requests";
@@ -29,8 +28,6 @@ export function setUserProfile(profile: UserProfile) {
     updateRequestStatus('profile', 'success')
   );
 }
-
-export const userProfileStatus$ = userProfileStore.pipe(selectRequestStatus('profile'));
 
 export const user$ = userProfileStore.pipe(select(s => s.profile), shareReplay({refCount: true}));
 

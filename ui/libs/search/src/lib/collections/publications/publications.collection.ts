@@ -31,13 +31,6 @@ export const openAIREResultAdapter = (
 
 export const publicationsCollection: ICollectionSearchMetadata<IOpenAIREResult> = {
   type: 'Publication',
-  fieldToFilter: {
-    'Author names': 'author_names',
-    'Published (date)': 'published',
-    'Access right': 'bestaccessright',
-    Publisher: 'publisher',
-    Language: 'language',
-  },
   queryMutator: (q: string) => q,
   filterToField: {
     publisher: 'Publisher',

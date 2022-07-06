@@ -3,7 +3,6 @@
 API middlewares on different hooks
 """
 
-import ast
 from typing import Awaitable, Callable
 from uuid import uuid4
 
@@ -33,7 +32,8 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
         uuid = uuid4()
         referer = request.headers["referer"] if "referer" in request.headers else ""
         logger.info(
-            "\n\nREQUEST:\n\n id=%s\n path=%s\n referer=%s\n cookies=%s\n headers=%s\n\n",
+            "\n\nREQUEST:\n\n id=%s\n path=%s\n referer=%s\n cookies=%s\n"
+            " headers=%s\n\n",
             uuid,
             request.url.path,
             referer,

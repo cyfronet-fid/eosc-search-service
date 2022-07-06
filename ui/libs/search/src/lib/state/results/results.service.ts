@@ -35,7 +35,6 @@ export interface ICollectionSearchMetadata<T = unknown> {
   facets: HashMap<IFacetParam>;
   inputAdapter: (item: Partial<T> & IHasId) => IResult;
   queryMutator: (q: string) => string;
-  fieldToFilter: HashMap<string>;
   filterToField: HashMap<string>;
   type: string;
   params: ISolrCollectionParams;

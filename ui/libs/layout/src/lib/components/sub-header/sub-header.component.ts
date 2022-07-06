@@ -1,5 +1,8 @@
-import {Component, Input,} from '@angular/core';
-import {ISet,} from '@eosc-search-service/search';
+import {Component, Input} from '@angular/core';
+import {IBreadcrumb, ISet,} from '@eosc-search-service/search';
+import {BehaviorSubject, map} from "rxjs";
+import {CategoriesRepository, ICategory} from "@eosc-search-service/common";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'ess-sub-header',
@@ -13,10 +16,12 @@ import {ISet,} from '@eosc-search-service/search';
         <div id="breadcrumbs">
           <nz-breadcrumb nzSeparator=">">
             <ng-container
-              *ngFor="let breadcrumb of activeSet.breadcrumbs; last as $last"
+              *ngFor="let breadcrumb of breadcrumbs$ | async; last as $last"
             >
               <nz-breadcrumb-item *ngIf="!$last; else lastRef">
-                <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+                <a (click)="breadcrumb.filters ? goToCategory(breadcrumb) : goToUrl(breadcrumb.url)">
+                  {{ breadcrumb.label }}
+                </a>
               </nz-breadcrumb-item>
               <ng-template #lastRef>
                 <nz-breadcrumb-item>{{ breadcrumb.label }} </nz-breadcrumb-item>
@@ -30,7 +35,37 @@ import {ISet,} from '@eosc-search-service/search';
 
 })
 export class SubHeaderComponent {
-  // resultsCount$ = this._searchService.maxResultsNumber$;
   @Input() activeSet: ISet | null = null;
   @Input() resultsCount: number | null = null;
+  @Input()
+  set categoriesTree(tree: ICategory[]) {
+    const categoriesBreadcrumbs = tree.map((category) => ({ ...category, url: '' })) as IBreadcrumb[];
+    this.breadcrumbs$.next([...(this.activeSet?.breadcrumbs || []), ...(categoriesBreadcrumbs)])
+  }
+  breadcrumbs$ = new BehaviorSubject<(IBreadcrumb & Partial<ICategory>)[]>([]);
+
+  constructor(
+    private _router: Router,
+    private _route: ActivatedRoute
+  ) {}
+
+  async goToUrl(url: string | undefined): Promise<boolean> {
+    return await this._router.navigate(
+      [url as string],
+      {
+        relativeTo: this._route,
+        queryParams: { activeCategoryId: null },
+        queryParamsHandling: 'merge'
+      }
+    )
+  }
+
+  async goToCategory(category: IBreadcrumb & Partial<ICategory>): Promise<boolean> {
+    return await this._router.navigate([],
+      {
+        relativeTo: this._route,
+        queryParams: { qf: category.filters || [], activeCategoryId: category.id },
+        queryParamsHandling: 'merge'
+      })
+  }
 }

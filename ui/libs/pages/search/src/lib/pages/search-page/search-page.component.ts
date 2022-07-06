@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {BehaviorSubject, map, Observable, tap} from 'rxjs';
+import {map, Observable} from 'rxjs';
 import {
   ISet,
   PrimaryResultsRepository,
@@ -8,10 +8,8 @@ import {
 } from '@eosc-search-service/search';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import {
-  ICollectionSearchMetadata,
-  PrimaryResultsService,
-} from '../../../../../../search/src/lib/state/results/results.service';
+import { ICollectionSearchMetadata, PrimaryResultsService } from '../../../../../../search/src/lib/state/results/results.service';
+import {CategoriesRepository} from "@eosc-search-service/common";
 
 @UntilDestroy()
 @Component({
@@ -40,6 +38,7 @@ import {
         <ess-sub-header
           [activeSet]="activeSet$ | async"
           [resultsCount]="resultsCount$ | async"
+          [categoriesTree]="(categoriesTree$ | async) || []"
         ></ess-sub-header>
         <div class="loading-block" *ngIf="loading$ | async; else dataLoadedRef">
           <nz-spin nzSimple></nz-spin>
@@ -55,6 +54,11 @@ import {
             id="dashboard__main"
           >
             <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
+              <ess-categories
+                *ngIf="((currentCategories$ | async) || []).length > 0"
+                [currentCategories]="(currentCategories$ | async) || []"
+                [activeId]="activeId$ | async"
+              ></ess-categories>
               <ess-filters [filters]="filters$ | async"></ess-filters>
             </div>
             <div class="col-sm-9 col-12 right-column">
@@ -135,22 +139,25 @@ export class SearchPageComponent implements OnInit {
   @ViewChild(CdkVirtualScrollViewport, { static: false })
   viewport?: CdkVirtualScrollViewport;
   results$ = this._resultsRepository.results$;
-  categories: any[] = [];
   collections$: Observable<ICollectionSearchMetadata[]> = this._route.data.pipe(
     map((data) => data['activeSet'] as ISet),
     map((set) => set.collections)
   );
   filters$ = this._resultsRepository.filters$;
-  // loadNextPage$ = new BehaviorSubject<void>(undefined);
   resultsCount$ = this._resultsRepository.maxResults$;
   activeSet$ = this._route.data.pipe(map((data) => data['activeSet']));
   loading$ = this._resultsRepository.loading$;
+
+  currentCategories$ = this._categoriesRepository.currentCategories$;
+  activeId$ = this._categoriesRepository.activeId$;
+  categoriesTree$ = this._categoriesRepository.tree$;
 
   constructor(
     private _route: ActivatedRoute,
     //refactor new services
     private _resultsService: PrimaryResultsService,
     private _resultsRepository: PrimaryResultsRepository,
+    private _categoriesRepository: CategoriesRepository,
     @Inject(SEARCH_SET_LIST) private _search_sets: ISet[]
   ) {}
 
@@ -159,6 +166,9 @@ export class SearchPageComponent implements OnInit {
       .connectToURLQuery$(this._route)
       .pipe(untilDestroyed(this))
       .subscribe();
+    this.activeSet$
+      .pipe(untilDestroyed(this))
+      .subscribe(({ categories }) => this._categoriesRepository.setCategories(categories));
   }
 
   loadNext() {
