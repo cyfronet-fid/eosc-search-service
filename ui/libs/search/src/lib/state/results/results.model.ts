@@ -1,5 +1,6 @@
-import {HashMap, IHasId} from "@eosc-search-service/types";
+import {HashMap} from "@eosc-search-service/types";
 import {isArray} from "@eosc-search-service/common";
+import {IFacetResponse} from "../common";
 
 export interface IQueryPage {
   cursor: string;
@@ -63,22 +64,6 @@ export interface CollectionsSearchState {
   collectionSearchStates: HashMap<SearchState>;
 }
 
-export interface IFacetBucket {
-  val: string | number;
-  count: number;
-}
-
-export interface IFacetResponse {
-  buckets: IFacetBucket[];
-}
-
-export interface ISearchResults<T extends IHasId> {
-  results: T[];
-  facets: HashMap<IFacetResponse>;
-  nextCursorMark: string;
-  numFound: number;
-}
-
 export interface ISolrCollectionParams {
   qf: string[];
   collection: string;
@@ -92,9 +77,25 @@ export interface ISolrQueryParams {
 }
 
 export function toSolrQueryParams(params: HashMap<unknown>): ISolrQueryParams {
+  const fqs: HashMap<string[]> = {};
+  if (isArray<string>(params['fq'])) {
+    params['fq'].map(fq => {
+      const parts = fq.split(':')
+      if (fqs[parts[0]]) {
+        fqs[parts[0]].push(parts[1]);
+      } else {
+        fqs[parts[0]] = [parts[1]];
+      }
+    })
+  }
+
+  const altFq: string[] = Object.entries(fqs).map(([key, values]) => {
+    return key + ':(' + values.join(` OR `) + ')'
+  })
+
   return {
     q: typeof params['q'] === 'string' ? params['q'] : '*',
-    fq: isArray<string>(params['fq']) ? params['fq'] : [],
+    fq: altFq,
     sort: isArray<string>(params['sort']) ? params['sort'] : [],
     cursor: '*',
   };

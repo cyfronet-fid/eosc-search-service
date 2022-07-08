@@ -1,59 +1,26 @@
 import {HashMap} from '@eosc-search-service/types';
 import {createStore, select, setProp, withProps} from '@ngneat/elf';
-import {addEntities, selectAllEntities, setEntities, withEntities,} from '@ngneat/elf-entities';
+import {addEntities, setEntities, withEntities,} from '@ngneat/elf-entities';
 import {
   createRequestsStatusOperator,
   selectRequestStatus,
   updateRequestStatus,
   withRequestsStatus,
 } from '@ngneat/elf-requests';
-import {map, Observable, shareReplay, tap} from 'rxjs';
+import {map, Observable, shareReplay} from 'rxjs';
 import {ISet} from '../../sets';
 import {Inject, Injectable} from '@angular/core';
 import {SEARCH_SET_LIST} from '../../search.providers';
 import {ICollectionSearchMetadata} from './results.service';
-import {
-  clearSearchState,
-  CollectionsSearchState,
-  IFacetResponse, IPage,
-  IResult,
-  makeSearchState,
-  SearchState
-} from './results.model';
-import {
-  deleteAllPages,
-  selectCurrentPageEntities,
-  selectPaginationData,
-  withPagination
-} from "@ngneat/elf-pagination";
-import {getFqsFromUrl} from "../../utils";
+import {clearSearchState, CollectionsSearchState, IPage, IResult, makeSearchState, SearchState} from './results.model';
+import {deleteAllPages, selectCurrentPageEntities, selectPaginationData, withPagination} from "@ngneat/elf-pagination";
 import {Router} from "@angular/router";
-import {IFilter} from "../filters";
 
 export const RESULTS_ROWS = 20;
 
 export class ResultsRepository {
   readonly collectionsMap: HashMap<ICollectionSearchMetadata>;
-  get collectionSearchStates(): HashMap<SearchState> {
-    return this.resultsStore.getValue().collectionSearchStates;
-  }
-
-  constructor(private _storeName = 'base', private sets: ISet[], private _router: Router) {
-    this._initializeStoreCollection(this.sets);
-    this.collectionsMap = {};
-    this.sets.forEach((set) => {
-      set.collections.forEach(
-        (collection) => (this.collectionsMap[collection.type] = collection)
-      );
-    });
-  }
-
-  isLoading(): boolean {
-    return (
-      this.resultsStore.getValue().requestsStatus.results.value === 'pending'
-    );
-  }
-
+  // noinspection TypeScriptExplicitMemberType
   readonly resultsStore = createStore(
     {
       name: `results-${this._storeName}`,
@@ -106,7 +73,6 @@ export class ResultsRepository {
   readonly pages$: Observable<IPage[]> = this.resultsStore.pipe(
     selectPaginationData(),
     map(data => Object.keys(data.pages).map(p => ({index: Number(p)}))),
-    tap(console.log)
   );
 
   readonly activeCollectionMetadata$ = this.resultsStore.pipe(
@@ -119,6 +85,20 @@ export class ResultsRepository {
   readonly trackResultsRequestsStatus = createRequestsStatusOperator(
     this.resultsStore
   );
+
+  get collectionSearchStates(): HashMap<SearchState> {
+    return this.resultsStore.getValue().collectionSearchStates;
+  }
+
+  constructor(private _storeName = 'base', private sets: ISet[], private _router: Router) {
+    this._initializeStoreCollection(this.sets);
+    this.collectionsMap = {};
+    this.sets.forEach((set) => {
+      set.collections.forEach(
+        (collection) => (this.collectionsMap[collection.type] = collection)
+      );
+    });
+  }
 
   isLoading(): boolean {
     return (

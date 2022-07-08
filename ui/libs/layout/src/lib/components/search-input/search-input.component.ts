@@ -7,8 +7,7 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {
   FiltersRepository,
   ICollectionSearchMetadata,
-  IResult,
-  ISearchResults,
+  IResult, ISearchResults,
   ISet,
   MAIN_SEARCH_SET,
   ResultsRepository,
@@ -47,10 +46,9 @@ export class SuggestionsResultsService extends ResultsService {
     http: HttpClient,
     _router: Router,
     _repository: SuggestionsResultsRepository,
-    _trainingService: TrainingService,
     @Inject(ESS_SETTINGS) settings: CommonSettings
   ) {
-    super(http, _router, _trainingService, _repository, settings);
+    super(http, _router, _repository, settings);
   }
 }
 

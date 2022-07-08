@@ -1,44 +1,22 @@
-import { Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { CommonSettings, ESS_SETTINGS } from '@eosc-search-service/common';
-import {
-  catchError,
-  combineLatest,
-  forkJoin,
-  map,
-  Observable,
-  of,
-  switchMap,
-  tap,
-} from 'rxjs';
-import {
-  PrimaryResultsRepository,
-  RESULTS_ROWS,
-  ResultsRepository,
-} from './results.repository';
-import { IFacetParam } from '../../services/search-service/facet-param.interface';
-import { HashMap, IHasId } from '@eosc-search-service/types';
-import { updateRequestStatus } from '@ngneat/elf-requests';
+import {Inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {CommonSettings, ESS_SETTINGS} from '@eosc-search-service/common';
+import {BehaviorSubject, catchError, combineLatest, forkJoin, from, map, Observable, of, switchMap, tap,} from 'rxjs';
+import {PrimaryResultsRepository, RESULTS_ROWS, ResultsRepository,} from './results.repository';
+import {IFacetParam} from '../../services/search-service/facet-param.interface';
+import {HashMap, IHasId} from '@eosc-search-service/types';
+import {updateRequestStatus} from '@ngneat/elf-requests';
 import {
   concatArrays,
-  escapeQuery, FiltersRepository,
-  ISearchResults,
-  ISet,
+  escapeQuery,
+  FiltersRepository, INITIAL_FILTER_OPTION_COUNT, ISearchResults, ISet,
   ISolrCollectionParams,
   ISolrQueryParams,
   toSolrQueryParams,
-  TrainingService,
-  ISet, ISolrCollectionParams, ISolrQueryParams,
-  toSolrQueryParams,
 } from '@eosc-search-service/search';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IResult } from './results.model';
-import {
-  setPage,
-  skipWhilePageExists,
-  updatePaginationData,
-} from '@ngneat/elf-pagination';
-import { from } from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
+import {IResult} from './results.model';
+import {setPage, updatePaginationData,} from '@ngneat/elf-pagination';
 
 export interface ICollectionSearchMetadata<T = unknown> {
   _hash: string;
@@ -56,7 +34,6 @@ export class ResultsService {
   constructor(
     protected http: HttpClient,
     protected _router: Router,
-    protected _trainingService: TrainingService,
     protected _repository: ResultsRepository,
     protected settings: CommonSettings,
     protected _filtersRepository: FiltersRepository | null = null
@@ -166,7 +143,10 @@ export class ResultsService {
 
     return  this.http.post<ISearchResults<T>>(
       this.url,
-      { facets: metadata.facets },
+      { facets: Object.entries(metadata.facets).reduce((pv, [key, facet]) => {
+        pv[key] = {...facet, offset: 0, limit: INITIAL_FILTER_OPTION_COUNT};
+        return pv
+        }, {} as HashMap<unknown>)},
       { params: _params }
     )
     .pipe(
@@ -268,10 +248,9 @@ export class PrimaryResultsService extends ResultsService {
     http: HttpClient,
     _router: Router,
     _repository: PrimaryResultsRepository,
-    _trainingService: TrainingService,
     @Inject(ESS_SETTINGS) settings: CommonSettings,
     _filtersRepository: FiltersRepository
   ) {
-    super(http, _router, _trainingService, _repository, settings, _filtersRepository);
+    super(http, _router, _repository, settings, _filtersRepository);
   }
 }

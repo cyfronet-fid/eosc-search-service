@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewEncapsulation
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation} from '@angular/core';
 import {IPage} from "@eosc-search-service/search";
 
 @Component({
@@ -31,16 +23,10 @@ import {IPage} from "@eosc-search-service/search";
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaginationComponent implements OnInit {
+export class PaginationComponent {
   @Input() pages: IPage[] = [];
   @Input() maxPage: number | null = null;
   @Input() loading = false;
   @Input() activePage = 0;
   @Output() pageSelected = new EventEmitter<number>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }

@@ -1,34 +1,14 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { SelectionModel } from '@angular/cdk/collections';
-import { FlatTreeControl } from '@angular/cdk/tree';
+import {Component, EventEmitter, Input, Output, TrackByFunction} from '@angular/core';
+import {SelectionModel} from '@angular/cdk/collections';
+import {FlatTreeControl} from '@angular/cdk/tree';
 
-import { NzTreeFlatDataSource, NzTreeFlattener } from 'ng-zorro-antd/tree-view';
-
-export interface TreeNode {
-  name: string;
-  value: any;
-  filter: string;
-  count: string;
-  disabled?: boolean;
-  children?: TreeNode[];
-  isSelected: boolean;
-}
-
-export interface FlatNode {
-  expandable: boolean;
-  name: string;
-  value: any;
-  filter: string;
-  count: string;
-  level: number;
-  disabled: boolean;
-  isSelected: boolean;
-}
+import {NzTreeFlatDataSource, NzTreeFlattener} from 'ng-zorro-antd/tree-view';
+import {FlatNode, TreeNode} from "@eosc-search-service/common";
 
 @Component({
   selector: 'ess-checkboxes-tree',
   template: `
-    <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource">
+    <nz-tree-view [nzTreeControl]="treeControl" [nzDataSource]="dataSource" [trackBy]="trackByName">
       <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding="">
         <nz-tree-node-toggle nzTreeNodeNoopToggle></nz-tree-node-toggle>
         <nz-tree-node-checkbox
@@ -84,7 +64,7 @@ export interface FlatNode {
     ::ng-deep .ant-tree-node-content-wrapper .ant-tree-title {
       word-wrap: break-word;
       display: block;
-      max-width: 200px;
+      max-width: 180px;
     }
   `]
 })
@@ -105,6 +85,7 @@ export class CheckboxesTreeComponent {
     (node) => node.level,
     (node) => node.expandable
   );
+  readonly trackByName: TrackByFunction<TreeNode> = (index: number, item: TreeNode) => item.name;
 
   private transformer = (node: TreeNode, level: number): FlatNode => {
     const existingNode = this.nestedNodeMap.get(node);

@@ -21,6 +21,7 @@
     <ess-sub-header
       [activeSet]="activeSet$ | async"
       [resultsCount]="resultsCount$ | async"
+      [categoriesTree]="(categoriesTree$ | async) || []"
     ></ess-sub-header>
     <ess-pagination style="position: absolute; top: 80px; right: 0;" [activePage]="(activePage$ | async) ?? 0" [loading]="true" [pages]="(pages$ | async) ?? []"
                     [maxPage]="(maxPage$ | async) ?? 0"
@@ -39,11 +40,16 @@
         id="dashboard__main"
       >
         <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
+          <ess-categories
+            *ngIf="((currentCategories$ | async) || []).length > 0"
+            [currentCategories]="(currentCategories$ | async) || []"
+            [activeId]="activeId$ | async"
+          ></ess-categories>
           <section id="filters">
             <h5>Filters</h5>
-            <ng-container *ngFor="let filter of (filters$ | async)">
+            <ng-container *ngFor="let filter of (filters$ | async); trackBy: trackById">
               <ng-container *ngIf="filter.data.length > 0">
-                <ess-filter (searchFilter)="searchFilter(filter.id, $event)" (toggleShowMore)="toggleShowMore(filter.id)" [filter]="filter"></ess-filter>
+                <ess-filter (searchFilter)="searchFilter(filter.id, $event)" (fetchMore)="filterFetchMore(filter.id, $event)" (toggleShowMore)="toggleShowMore(filter.id)" [filter]="filter"></ess-filter>
               </ng-container>
             </ng-container>
           </section>

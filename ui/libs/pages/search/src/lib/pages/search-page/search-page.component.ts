@@ -1,18 +1,20 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, Inject, OnInit, TrackByFunction, ViewChild} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 import {combineLatest, map, Observable, switchMap, tap} from 'rxjs';
 import {
-  FiltersRepository, FiltersService,
-  ICollectionSearchMetadata, IPage,
+  FiltersRepository,
+  FiltersService,
+  ICollectionSearchMetadata, IFilter,
+  IPage,
   ISet,
   PrimaryResultsRepository,
   PrimaryResultsService,
   SEARCH_SET_LIST,
 } from '@eosc-search-service/search';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ICollectionSearchMetadata, PrimaryResultsService } from '../../../../../../search/src/lib/state/results/results.service';
+import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {CategoriesRepository} from "@eosc-search-service/common";
+import {IHasId} from "@eosc-search-service/types";
 
 @UntilDestroy()
 @Component({
@@ -29,9 +31,7 @@ export class SearchPageComponent implements OnInit {
     map((data) => data['activeSet'] as ISet),
     map((set) => set.collections)
   );
-  filters$ = this._filtersRepository.entries$.pipe(
-    tap((f) => console.log('filters', f))
-  );
+  filters$ = this._filtersRepository.entries$;
   // loadNextPage$ = new BehaviorSubject<void>(undefined);
   resultsCount$ = this._resultsRepository.maxResults$;
   activeSet$ = this._route.data.pipe(map((data) => data['activeSet']));
@@ -43,6 +43,8 @@ export class SearchPageComponent implements OnInit {
   currentCategories$ = this._categoriesRepository.currentCategories$;
   activeId$ = this._categoriesRepository.activeId$;
   categoriesTree$ = this._categoriesRepository.tree$;
+
+  readonly trackById: TrackByFunction<IHasId> = (index: number, item: IHasId) => item.id;
 
   constructor(
     private _route: ActivatedRoute,
@@ -70,7 +72,12 @@ export class SearchPageComponent implements OnInit {
   }
 
   toggleShowMore(id: string) {
-    this._filtersService.showMore$(id).subscribe();
+    combineLatest({
+      params: this._route.queryParams,
+      activeSet: this._route.data.pipe(map((data) => data['activeSet'] as ISet)),
+    }).pipe(
+      switchMap(({params, activeSet}) => this._filtersService.showMore$(id, params, activeSet))
+    ).subscribe();
   }
 
   searchFilter(id: string, query: string) {
@@ -79,6 +86,15 @@ export class SearchPageComponent implements OnInit {
       activeSet: this._route.data.pipe(map((data) => data['activeSet'] as ISet)),
     }).pipe(
       switchMap(({params, activeSet}) => this._filtersService.searchFilters$(id, query, params, activeSet))
+    ).subscribe();
+  }
+
+  filterFetchMore(id: string, query: string) {
+    combineLatest({
+      params: this._route.queryParams,
+      activeSet: this._route.data.pipe(map((data) => data['activeSet'] as ISet)),
+    }).pipe(
+      switchMap(({params, activeSet}) => this._filtersService.searchFilters$(id, query, params, activeSet, true))
     ).subscribe();
   }
 }
