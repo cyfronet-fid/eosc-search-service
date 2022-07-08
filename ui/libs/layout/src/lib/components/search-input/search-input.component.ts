@@ -5,9 +5,9 @@ import {combineLatest, debounceTime, distinctUntilChanged, map, Observable, swit
 import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {
+  FiltersRepository,
   ICollectionSearchMetadata,
-  IResult,
-  ISearchResults,
+  IResult, ISearchResults,
   ISet,
   MAIN_SEARCH_SET,
   ResultsRepository,
@@ -23,8 +23,8 @@ export const RESULTS_PER_CATEGORY = 3;
 
 @Injectable()
 class SuggestionsResultsRepository extends ResultsRepository {
-  constructor(@Inject(SEARCH_SET_LIST) sets: ISet[]) {
-    super('suggestions', sets);
+  constructor(@Inject(SEARCH_SET_LIST) sets: ISet[], _router: Router) {
+    super('suggestions', sets, _router);
   }
 }
 
@@ -44,10 +44,11 @@ export class SuggestionsResultsService extends ResultsService {
 
   constructor(
     http: HttpClient,
+    _router: Router,
     _repository: SuggestionsResultsRepository,
     @Inject(ESS_SETTINGS) settings: CommonSettings
   ) {
-    super(http, _repository, settings);
+    super(http, _router, _repository, settings);
   }
 }
 

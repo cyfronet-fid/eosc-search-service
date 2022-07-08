@@ -68,7 +68,9 @@ const MAX_DESCRIPTION_WORDS_LENGTH = 64;
     </div>
   `,
   styles: [
-
+    `:host {
+      display: block;
+    }`
   ],
 })
 export class ResultComponent {

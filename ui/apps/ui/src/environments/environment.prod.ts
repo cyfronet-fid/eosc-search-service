@@ -1,7 +1,6 @@
+import { commonEnvironment } from './environment.common';
+
 export const environment = {
+  ...commonEnvironment,
   production: true,
-  backendApiPath: 'api/web',
-  search: {
-    apiPath: 'search-results',
-  },
 };

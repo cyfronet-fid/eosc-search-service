@@ -1,7 +1,8 @@
 import {HashMap} from '@eosc-search-service/types';
 import {createStore, select, setProp, withProps} from '@ngneat/elf';
-import {addEntities, selectAllEntities, setEntities, withEntities,} from '@ngneat/elf-entities';
+import {addEntities, setEntities, withEntities,} from '@ngneat/elf-entities';
 import {
+  createRequestsStatusOperator,
   selectRequestStatus,
   updateRequestStatus,
   withRequestsStatus,
@@ -11,26 +12,23 @@ import {ISet} from '../../sets';
 import {Inject, Injectable} from '@angular/core';
 import {SEARCH_SET_LIST} from '../../search.providers';
 import {ICollectionSearchMetadata} from './results.service';
-import {
-  clearSearchState,
-  CollectionsSearchState,
-  IFacetResponse,
-  IResult,
-  makeSearchState,
-  SearchState
-} from './results.model';
+import {clearSearchState, CollectionsSearchState, IPage, IResult, makeSearchState, SearchState} from './results.model';
+import {deleteAllPages, selectCurrentPageEntities, selectPaginationData, withPagination} from "@ngneat/elf-pagination";
+import {Router} from "@angular/router";
 
-export const RESULTS_ROWS = 100;
+export const RESULTS_ROWS = 20;
 
 export class ResultsRepository {
-  protected _collectionsMap: HashMap<ICollectionSearchMetadata>;
-
+  readonly collectionsMap: HashMap<ICollectionSearchMetadata>;
+  // noinspection TypeScriptExplicitMemberType
   readonly resultsStore = createStore(
     {
       name: `results-${this._storeName}`,
     },
     withProps<CollectionsSearchState>({ collectionSearchStates: {} }),
+    withProps<{lastQuery: string | null}>({lastQuery: null}),
     withEntities<IResult>(),
+    withPagination(),
     withRequestsStatus<'results'>()
   );
 
@@ -44,10 +42,18 @@ export class ResultsRepository {
 
   readonly hasNextPage$: Observable<boolean> = this.resultsStore.pipe(
     select((state) =>
-      Object.values(state.collectionSearchStates).some(
+      Object.values(state.collectionSearchStates).filter(collection => collection.active).some(
         (searchState) => searchState.hasNext
       )
-    )
+    ),
+    shareReplay({refCount: true})
+  );
+
+  readonly maxPage$: Observable<number> = this.resultsStore.pipe(
+    select((state) =>
+      Object.values(state.collectionSearchStates).filter(collection => collection.active).reduce((pv, cv) => Math.max(pv, cv.maxPage), 0)
+    ),
+    shareReplay({refCount: true})
   );
 
   readonly resultsStatus$ = this.resultsStore.pipe(
@@ -60,30 +66,36 @@ export class ResultsRepository {
   );
 
   readonly results$ = this.resultsStore.pipe(
-    selectAllEntities(),
+    selectCurrentPageEntities(),
     shareReplay({ refCount: true })
   );
 
-  readonly filters$: Observable<
-    [
-      ICollectionSearchMetadata<unknown>,
-      { [facetName: string]: IFacetResponse }
-    ][]
-    > = this.resultsStore.pipe(
+  readonly pages$: Observable<IPage[]> = this.resultsStore.pipe(
+    selectPaginationData(),
+    map(data => Object.keys(data.pages).map(p => ({index: Number(p)}))),
+  );
+
+  readonly activeCollectionMetadata$ = this.resultsStore.pipe(
     select((state) => state.collectionSearchStates),
-    map((searchStates) =>
-      Object.entries(searchStates)
-        .filter(([key, state]) => Object.keys(state.facets).length > 0)
-        .map(([key, state]) => [this._collectionsMap[key], state.facets])
+    map((collections) =>
+      Object.values(collections).filter((collection) => collection.active)
     )
   );
 
-  constructor(private _storeName = 'base', private sets: ISet[]) {
+  readonly trackResultsRequestsStatus = createRequestsStatusOperator(
+    this.resultsStore
+  );
+
+  get collectionSearchStates(): HashMap<SearchState> {
+    return this.resultsStore.getValue().collectionSearchStates;
+  }
+
+  constructor(private _storeName = 'base', private sets: ISet[], private _router: Router) {
     this._initializeStoreCollection(this.sets);
-    this._collectionsMap = {};
+    this.collectionsMap = {};
     this.sets.forEach((set) => {
       set.collections.forEach(
-        (collection) => (this._collectionsMap[collection.type] = collection)
+        (collection) => (this.collectionsMap[collection.type] = collection)
       );
     });
   }
@@ -93,8 +105,6 @@ export class ResultsRepository {
       this.resultsStore.getValue().requestsStatus.results.value === 'pending'
     );
   }
-
-
 
   setResults(results: IResult[]) {
     this.resultsStore.update(
@@ -114,6 +124,7 @@ export class ResultsRepository {
     this.resultsStore.update(
       setEntities([]),
       setProp('collectionSearchStates', (state) => clearSearchState(state)),
+      deleteAllPages(),
       updateRequestStatus('results', 'pending')
     );
   }
@@ -132,11 +143,25 @@ export class ResultsRepository {
       }, {} as HashMap<SearchState>),
     }));
   }
+
+  isPageCached(pageNumber: number) {
+    return Object.keys(this.resultsStore.getValue().pagination.pages).map(key => Number(key)).includes(pageNumber)
+  }
+
+  clearActiveCollections() {
+    this.resultsStore.update(state => {
+      const collections = {...state.collectionSearchStates};
+      Object.entries(collections).forEach(([key, value]) => {
+        collections[key] = {...value, active: false};
+      });
+      return {...state, collectionSearchStates: collections};
+    })
+  }
 }
 
 @Injectable({ providedIn: 'root' })
 export class PrimaryResultsRepository extends ResultsRepository {
-  constructor(@Inject(SEARCH_SET_LIST) sets: ISet[]) {
-    super('base', sets);
+  constructor(@Inject(SEARCH_SET_LIST) sets: ISet[], _router: Router) {
+    super('base', sets, _router);
   }
 }

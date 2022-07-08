@@ -31,3 +31,24 @@ export interface IMultiselectWithSearchParams {
   label: string;
   buckets: NzTreeNodeOptions[];
 }
+
+export interface TreeNode {
+    name: string;
+    value: any;
+    filter: string;
+    count: string;
+    disabled?: boolean;
+    children?: TreeNode[];
+    isSelected: boolean;
+}
+
+export interface FlatNode {
+    expandable: boolean;
+    name: string;
+    value: any;
+    filter: string;
+    count: string;
+    level: number;
+    disabled: boolean;
+    isSelected: boolean;
+}
