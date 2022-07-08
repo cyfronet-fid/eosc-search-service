@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import Literal, Optional
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class TermsFacet(BaseModel):
@@ -21,6 +21,9 @@ class TermsFacet(BaseModel):
     sort: Optional[str]
     mincount: Optional[int]
     missing: Optional[bool]
+    prefix: Optional[str]
+    contains: Optional[str]
+    containsIgnoreCase: Optional[str] = Field(alias="contains.ignoreCase", default=None)
 
 
 class SearchRequest(BaseModel):
