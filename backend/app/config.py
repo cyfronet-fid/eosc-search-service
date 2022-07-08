@@ -63,7 +63,7 @@ parsed_url = urlparse(BACKEND_BASE_URL)
 OIDC_CONFIG = dict(
     port=parsed_url.port if parsed_url.port else None,
     domain=f"{parsed_url.scheme}://{parsed_url.netloc}",
-    base_url=BACKEND_BASE_URL,
+    base_url=f"{parsed_url.scheme}://{parsed_url.netloc}",
     httpc_params=dict(verify=False),
     services=dict(
         discovery={
@@ -91,7 +91,9 @@ OIDC_JWT_ENCRYPT_CONFIG = dict(
 OIDC_CONFIG["clients"] = {}
 OIDC_CONFIG["clients"][OIDC_ISSUER] = OIDC_CLIENT_OPTIONS
 
+parsed_url = urlparse(UI_BASE_URL)
 AUTH_COOKIES_CONFIG = dict(
+    domain=parsed_url.hostname,
     max_age=24 * 60 * 60,  # 1 day
     cookie_name="_mp_service_auth",
     identifier="general_verifier",
