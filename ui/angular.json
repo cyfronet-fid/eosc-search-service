@@ -4,6 +4,7 @@
     "common": "libs/common",
     "layout": "libs/layout",
     "pages-search": "libs/pages/search",
+    "pages-training": "libs/pages/training",
     "search": "libs/search",
     "types": "libs/types",
     "ui": "apps/ui",
