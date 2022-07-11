@@ -32,14 +32,38 @@ export const openAIREResultAdapter = (
 export const publicationsCollection: ICollectionSearchMetadata<IOpenAIREResult> = {
   type: 'Publication',
   queryMutator: (q: string) => q,
-  filterToField: {
-    publisher: 'Publisher',
-    subject: 'Scientific domain',
-    author_names: 'Author names',
-    bestaccessright: 'Access right',
-    published: 'Published (date)',
-    language: 'Language',
-  },
+  filtersConfigurations: [
+    {
+      filter: 'publisher',
+      label: 'Publisher',
+      type: "multiselect"
+    },
+    {
+      filter: 'subject',
+      label: 'Subject',
+      type: "multiselect"
+    },
+    {
+      filter: 'author_names',
+      label: 'Author names',
+      type: "multiselect"
+    },
+    {
+      filter: 'bestaccessright',
+      label: 'Access right',
+      type: "multiselect"
+    },
+    {
+      filter: 'published',
+      label: 'Published (date)',
+      type: "multiselect"
+    },
+    {
+      filter: 'language',
+      label: 'Language',
+      type: "multiselect"
+    },
+  ],
   _hash: '',
   inputAdapter: (
     openAIREResult: Partial<IOpenAIREResult> & IHasId,

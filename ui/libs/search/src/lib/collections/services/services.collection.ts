@@ -36,12 +36,28 @@ export const servicesCollection: ICollectionSearchMetadata<IService> = {
   inputAdapter: publicationAdapter,
   _hash: '',
   queryMutator: (q: string) => q + '*',
-  filterToField: {
-    providers_ss: 'Provider',
-    resource_organisation_s: 'Organisation',
-    geographical_availabilities_ss: 'Country',
-    categories_ss: 'Categories',
-  },
+  filtersConfigurations: [
+    {
+      filter: 'providers_ss',
+      label: 'Provider',
+      type: "multiselect"
+    },
+    {
+      filter: 'resource_organisation_s',
+      label: 'Organisation',
+      type: "multiselect"
+    },
+    {
+      filter: 'geographical_availabilities_ss',
+      label: 'Country',
+      type: "multiselect"
+    },
+    {
+      filter: 'categories_ss',
+      label: 'Categories',
+      type: "multiselect"
+    },
+  ],
   params: {
     qf: [
       'name_t',

@@ -3,13 +3,7 @@ import {BehaviorSubject, map} from "rxjs";
 import {getFqsFromUrl, removeFq} from "@eosc-search-service/search";
 import {ActivatedRoute, Router} from "@angular/router";
 import { ICollectionSearchMetadata } from '../../../../../../search/src/lib/state/results/results.service';
-
-
-interface IActiveFilter {
-  label: string;
-  filter: string;
-  value: string;
-}
+import {IActiveFilter, IFilterConfiguration} from "@eosc-search-service/common";
 
 @Component({
   selector: 'ess-active-filters',
@@ -42,7 +36,7 @@ interface IActiveFilter {
   `]
 })
 export class ActiveFiltersComponent implements OnInit {
-  filterToField$ = new BehaviorSubject<{ [filter: string]: string }>({});
+  filtersConfigurations$ = new BehaviorSubject<IFilterConfiguration[]>([]);
   activeFilters$ = new BehaviorSubject<IActiveFilter[]>([]);
   q$ = this._route.queryParamMap
     .pipe(map(params => params.get('q')))
@@ -51,10 +45,10 @@ export class ActiveFiltersComponent implements OnInit {
 
   @Input()
   set collections(collections: ICollectionSearchMetadata[] | null) {
-    this.filterToField$.next(
+    this.filtersConfigurations$.next(
       (collections || [])
-        .map((collection) => collection.filterToField)
-        .reduce((acc, filterToField) => ({ ...acc, ...filterToField }), {})
+        .map((collection) => collection.filtersConfigurations)
+        .reduce((acc, filterConfigurations) => [ ...acc, ...filterConfigurations ], [])
     );
   }
 
@@ -64,11 +58,10 @@ export class ActiveFiltersComponent implements OnInit {
         map(() => getFqsFromUrl(this._router.url)),
         map((fqs) => fqs.map((fq) => fq.split(':') as [string, string])),
         map((filtersValues) =>
-          filtersValues.map(([filter, value]) => ({
-            label: this.filterToField$.getValue()[filter],
-            filter,
+          filtersValues.map(([activeFilter, value]) => ({
+            ...this.filtersConfigurations$.getValue().find(({ filter }) => filter === activeFilter),
             value,
-          }))
+          } as IActiveFilter))
         )
       )
       .subscribe((activeFilters: IActiveFilter[]) =>

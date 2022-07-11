@@ -1,7 +1,7 @@
 import {HashMap} from "@eosc-search-service/types";
 import {IFacetResponse, INITIAL_FILTER_OPTION_COUNT} from "../common";
 import {ICollectionSearchMetadata} from "../results";
-import {TreeNode} from "@eosc-search-service/common";
+import {IFilterConfiguration, TreeNode} from "@eosc-search-service/common";
 
 export interface IFilter {
   id: string;
@@ -28,17 +28,17 @@ export function mapFacetToTreeNodes(facet: IFacetResponse, facetName: string, fq
 
 export function addFacetsToFilter(collection: ICollectionSearchMetadata, facets: HashMap<IFacetResponse>, filtersTree: IFilter[], fqs?: string[]): void {
   Object.keys(facets)
-    .filter((facet) => collection.filterToField[facet])
-    .forEach((facet) => {
-      const filterName = collection.filterToField[facet];
+    .map((facet) => collection.filtersConfigurations.find(({ filter }) => filter === facet) as IFilterConfiguration)
+    .filter(filterConfiguration => filterConfiguration)
+    .forEach(({ label, filter}) => {
       const existingFilter = filtersTree.find(
-        (filter) => filter.title === filterName
+        (filterNode) => filterNode.title === filter
       );
-      const data = mapFacetToTreeNodes(facets[facet], facet, fqs)
+      const data = mapFacetToTreeNodes(facets[filter], filter, fqs)
       if (!existingFilter) {
         filtersTree.push({
-          id: facet,
-          title: filterName,
+          id: filter,
+          title: label,
           data,
           cursors: {[collection.type]: {moreAvailable: data.length === INITIAL_FILTER_OPTION_COUNT, offset: INITIAL_FILTER_OPTION_COUNT}},
           showMore: false,
