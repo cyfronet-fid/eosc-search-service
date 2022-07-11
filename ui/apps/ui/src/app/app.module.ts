@@ -23,6 +23,7 @@ import {
   softwareSet,
   trainingsSet,
 } from '@eosc-search-service/search';
+import { TrainingPagesModule } from '@eosc-search-service/pages/training';
 
 registerLocaleData(en);
 
@@ -44,6 +45,7 @@ registerLocaleData(en);
       mainSet: allSet,
     }),
     SearchPageModule,
+    TrainingPagesModule,
     LayoutModule,
     ESSCommonModule.forRoot({
       backendApiPath: 'api/web',
