@@ -8,7 +8,7 @@ import {CategoriesRepository, ICategory} from "@eosc-search-service/common";
 @Component({
   selector: 'ess-categories',
   template: `
-    <section class="filters">
+    <section id="categories">
       <h5>Categories</h5>
       <ng-container *ngFor="let category of currentCategories">
         <div
@@ -22,8 +22,8 @@ import {CategoriesRepository, ICategory} from "@eosc-search-service/common";
     </section>
   `,
   styles: [`
-    .filters {
-      padding: 0 15px 15px 15px;
+    #categories {
+      padding-bottom: 10px;
     }
     .category {
       width: 100%;

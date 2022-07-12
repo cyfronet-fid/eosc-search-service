@@ -49,7 +49,7 @@
             <h5>Filters</h5>
             <ng-container *ngFor="let filter of (filters$ | async); trackBy: trackById">
               <ng-container *ngIf="filter.data.length > 0">
-                <ess-filter (searchFilter)="searchFilter(filter.id, $event)" (fetchMore)="filterFetchMore(filter.id, $event)" (toggleShowMore)="toggleShowMore(filter.id)" [filter]="filter"></ess-filter>
+                <ess-filter-multiselect (searchFilter)="searchFilter(filter.id, $event)" (fetchMore)="filterFetchMore(filter.id, $event)" (toggleShowMore)="toggleShowMore(filter.id)" [filter]="filter"></ess-filter-multiselect>
               </ng-container>
             </ng-container>
           </section>

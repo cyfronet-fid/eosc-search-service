@@ -9,7 +9,7 @@ import {FlatNode, TreeNode} from "@eosc-search-service/common";
 
 @UntilDestroy()
 @Component({
-  selector: 'ess-filter',
+  selector: 'ess-filter-multiselect',
   template: `
     <div class="filter" *ngIf="filter">
       <span class="filter-title"
@@ -67,7 +67,7 @@ import {FlatNode, TreeNode} from "@eosc-search-service/common";
     `,
   ],
 })
-export class FilterComponent implements OnChanges {
+export class FilterMultiselectComponent implements OnChanges {
   @ViewChild('content', {static: false}) content?: any;
   @Input() filter: IFilter | null = null;
   @Output() toggleShowMore = new EventEmitter<void>();
