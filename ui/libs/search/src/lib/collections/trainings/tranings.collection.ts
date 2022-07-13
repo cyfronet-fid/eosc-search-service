@@ -59,19 +59,58 @@ export const trainingsCollection: ICollectionSearchMetadata<ITraining> = {
     'Duration_s': { field: 'Duration_s', type: 'terms' },
     'Version_date__created_in__s': { field: 'Version_date__created_in__s', type: 'terms' },
   },
-  filterToField: {
-    'Resource_Type_s': 'Resource type',
-    'Content_Type_s': 'Content type',
-    'Language_s': 'Language',
-    'License_s': 'License',
-    'EOSC_PROVIDER_s': 'Organization',
-    'Format_ss': 'Format',
-    'Level_of_expertise_s': 'Level of expertise',
-    'Target_group_s': 'Target group',
-    'Qualification_s': 'Qualification',
-    'Duration_s': 'Duration',
-    'Version_date__created_in__s': 'Created on',
-  },
+  filtersConfigurations: [
+    {
+      filter: 'Resource_Type_s',
+      label: 'Resource type',
+      type: "multiselect"
+    },
+    {
+      filter: 'Content_Type_s',
+      label: 'Content type',
+      type: "multiselect"
+    },
+    {
+      filter: 'Language_s',
+      label: 'Language',
+      type: "multiselect"
+    },
+    {
+      filter: 'EOSC_PROVIDER_s',
+      label: 'Organisation',
+      type: "multiselect"
+    },
+    {
+      filter: 'Format_ss',
+      label: 'Format',
+      type: "multiselect"
+    },
+    {
+      filter: 'Level_of_expertise_s',
+      label: 'Level of expertise',
+      type: "multiselect"
+    },
+    {
+      filter: 'Target_group_s',
+      label: 'Target group',
+      type: "multiselect"
+    },
+    {
+      filter: 'Qualification_s',
+      label: 'Qualification',
+      type: "multiselect"
+    },
+    {
+      filter: 'Duration_s',
+      label: 'Duration',
+      type: "multiselect"
+    },
+    {
+      filter: 'Version_date__created_in__s',
+      label: 'Created on',
+      type: "multiselect"
+    },
+  ],
   _hash: '',
   queryMutator: (q: string) => q,
   inputAdapter: trainingAdapter,

@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {CommonSettings, ESS_SETTINGS} from '@eosc-search-service/common';
+import {CommonSettings, ESS_SETTINGS, IFilterConfiguration} from '@eosc-search-service/common';
 import {BehaviorSubject, catchError, combineLatest, forkJoin, from, map, Observable, of, switchMap, tap,} from 'rxjs';
 import {PrimaryResultsRepository, RESULTS_ROWS, ResultsRepository,} from './results.repository';
 import {IFacetParam} from '../../services/search-service/facet-param.interface';
@@ -23,7 +23,7 @@ export interface ICollectionSearchMetadata<T = unknown> {
   facets: HashMap<IFacetParam>;
   inputAdapter: (item: Partial<T> & IHasId) => IResult;
   queryMutator: (q: string) => string;
-  filterToField: HashMap<string>;
+  filtersConfigurations: IFilterConfiguration[];
   type: string;
   params: ISolrCollectionParams;
 }

@@ -9,6 +9,17 @@ export interface CommonSettings {
   search: any
 }
 
+
+export interface IActiveFilter extends IFilterConfiguration {
+  value: string;
+}
+
+export interface IFilterConfiguration {
+  filter: string;
+  label: string;
+  type: 'multiselect' | 'select' | 'date';
+}
+
 export interface ICategory {
   id: string;
   count: number;
