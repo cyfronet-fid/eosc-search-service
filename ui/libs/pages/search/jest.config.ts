@@ -1,6 +1,7 @@
-module.exports = {
-  displayName: 'ui',
-  preset: '../../jest.preset.js',
+/* eslint-disable */
+export default {
+  displayName: 'pages-search',
+  preset: '../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
     'ts-jest': {
@@ -8,7 +9,7 @@ module.exports = {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../coverage/apps/ui',
+  coverageDirectory: '../../../coverage/libs/pages/search',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

@@ -1,6 +1,6 @@
 {
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "root": "libs/pages/search",
   "sourceRoot": "libs/pages/search/src",
   "prefix": "ess",
   "targets": {
@@ -8,7 +8,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/pages/search"],
       "options": {
-        "jestConfig": "libs/pages/search/jest.config.js",
+        "jestConfig": "libs/pages/search/jest.config.ts",
         "passWithNoTests": true
       }
     },
