@@ -1,13 +1,29 @@
-import {Component, EventEmitter, Inject, Injectable, OnInit, Output,} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormControl} from '@angular/forms';
-import {combineLatest, debounceTime, distinctUntilChanged, map, Observable, switchMap, tap,} from 'rxjs';
-import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
-import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {
+  Component,
+  EventEmitter,
+  Inject,
+  Injectable,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UntypedFormControl } from '@angular/forms';
+import {
+  combineLatest,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import {
   FiltersRepository,
   ICollectionSearchMetadata,
-  IResult, ISearchResults,
+  IResult,
+  ISearchResults,
   ISet,
   MAIN_SEARCH_SET,
   ResultsRepository,
@@ -15,9 +31,9 @@ import {
   SEARCH_SET_LIST,
   toSolrQueryParams,
 } from '@eosc-search-service/search';
-import {HttpClient} from '@angular/common/http';
-import {CommonSettings, ESS_SETTINGS} from '@eosc-search-service/common';
-import {HashMap} from "@eosc-search-service/types";
+import { HttpClient } from '@angular/common/http';
+import { CommonSettings, ESS_SETTINGS } from '@eosc-search-service/common';
+import { HashMap } from '@eosc-search-service/types';
 
 export const RESULTS_PER_CATEGORY = 3;
 
@@ -34,11 +50,9 @@ export class SuggestionsResultsService extends ResultsService {
     results: ISearchResults<IResult>[],
     metadataList: ICollectionSearchMetadata[]
   ): IResult[] => {
-    return (
-      results.reduce(
-        (acc, response) => [...acc, ...response.results.slice(0, 3)],
-        [] as IResult[]
-      )
+    return results.reduce(
+      (acc, response) => [...acc, ...response.results.slice(0, 3)],
+      [] as IResult[]
     );
   };
 
@@ -56,47 +70,51 @@ export class SuggestionsResultsService extends ResultsService {
 @Component({
   selector: 'ess-search-input',
   template: `
-
     <div id="container">
-          <div class="search-box">
-            <form>
-              <div class="input-group">
-                <input type="text" class="form-control"
-                        autocomplete="off"
-                        i18n-placeholder
-                        placeholder="Search in catalogs"
-                        (focus)="onFocus()"
-                        (keydown.enter)="setParam()"
-                        [formControl]="fc">
-                <div class="input-group-btn">
-                  <button class="btn btn-primary" type="button" (click)="setParam()">
-                    <i class="bi bi-search"></i> Search
-                  </button>
-                </div>
-              </div>
-            </form>
+      <div class="search-box">
+        <form>
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control"
+              autocomplete="off"
+              i18n-placeholder
+              placeholder="Search in catalogs"
+              (focus)="onFocus()"
+              (keydown.enter)="setParam()"
+              [formControl]="fc"
+            />
+            <div class="input-group-btn">
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="setParam()"
+              >
+                <i class="bi bi-search"></i> Search
+              </button>
+            </div>
           </div>
+        </form>
+      </div>
 
-
-
-<!--      <input-->
-<!--        autocomplete="off"-->
-<!--        type="text"-->
-<!--        id="search"-->
-<!--        i18n-placeholder-->
-<!--        placeholder="Search in catalogs"-->
-<!--        (focus)="onFocus()"-->
-<!--        (keydown.enter)="setParam()"-->
-<!--        [formControl]="fc"-->
-<!--      />-->
-<!--      <button-->
-<!--        id="btn&#45;&#45;search"-->
-<!--        class="btn btn-primary"-->
-<!--        type="button"-->
-<!--        (click)="setParam()"-->
-<!--      >-->
-<!--        <i class="bi bi-search"></i> Search-->
-<!--      </button>-->
+      <!--      <input-->
+      <!--        autocomplete="off"-->
+      <!--        type="text"-->
+      <!--        id="search"-->
+      <!--        i18n-placeholder-->
+      <!--        placeholder="Search in catalogs"-->
+      <!--        (focus)="onFocus()"-->
+      <!--        (keydown.enter)="setParam()"-->
+      <!--        [formControl]="fc"-->
+      <!--      />-->
+      <!--      <button-->
+      <!--        id="btn&#45;&#45;search"-->
+      <!--        class="btn btn-primary"-->
+      <!--        type="button"-->
+      <!--        (click)="setParam()"-->
+      <!--      >-->
+      <!--        <i class="bi bi-search"></i> Search-->
+      <!--      </button>-->
 
       <button
         *ngIf="fc.value && fc.value.trim() !== ''"
@@ -109,23 +127,27 @@ export class SuggestionsResultsService extends ResultsService {
         Clear phrase <span>&cross;</span>
       </button>
 
-      <ng-container *ngIf="(groupedResults$ | async) as groupedResults">
+      <ng-container *ngIf="groupedResults$ | async as groupedResults">
         <div
           class="list-group suggestions"
           *ngIf="(groupedResults | notEmpty) && focused && fc.value"
         >
           <ng-container *ngFor="let group of groupedResults">
-            <div
-              class="list-group-item"
-            ><span class="group">{{ group.caption }}</span> &nbsp;<a [routerLink]="['/search', group.link]" queryParamsHandling="merge" [queryParams]="{q: fc.value}">see all</a></div
-            >
+            <div class="list-group-item">
+              <span class="group">{{ group.caption }}</span> &nbsp;<a
+                [routerLink]="['/search', group.link]"
+                queryParamsHandling="merge"
+                [queryParams]="{ q: fc.value }"
+                >see all</a
+              >
+            </div>
             <a
               *ngFor="let result of group.results"
               [href]="result.url"
               (click)="onBlur()"
               target="_blank"
               class="list-group-item list-group-item-action result"
-            >{{ result.title }}</a
+              >{{ result.title }}</a
             >
           </ng-container>
         </div>
@@ -206,23 +228,31 @@ export class SearchInputComponent implements OnInit {
   focused = false;
 
   faMagnifyingGlass = faMagnifyingGlass;
-  fc = new FormControl();
-  groupedResults$: Observable<{results: IResult[], link: string, caption: string}[]> = this._repository.results$.pipe(map(results => {
-    const categories: HashMap<{results: IResult[], link: string, caption: string}> = {};
+  fc = new UntypedFormControl();
+  groupedResults$: Observable<
+    { results: IResult[]; link: string; caption: string }[]
+  > = this._repository.results$.pipe(
+    map((results) => {
+      const categories: HashMap<{
+        results: IResult[];
+        link: string;
+        caption: string;
+      }> = {};
 
-    results.forEach(result => {
-      if (categories[result.type] === undefined)  {
-        categories[result.type] = {
-          caption: result.type,
-          link: result.typeUrlPath,
-          results: []
+      results.forEach((result) => {
+        if (categories[result.type] === undefined) {
+          categories[result.type] = {
+            caption: result.type,
+            link: result.typeUrlPath,
+            results: [],
+          };
         }
-      }
-      categories[result.type].results.push(result);
-    })
+        categories[result.type].results.push(result);
+      });
 
-    return Object.values(categories);
-  }));
+      return Object.values(categories);
+    })
+  );
   @Output() searchedValue = new EventEmitter<string>();
 
   constructor(
@@ -252,7 +282,11 @@ export class SearchInputComponent implements OnInit {
         debounceTime(150),
         tap(() => this.onFocus()),
         switchMap(({ queryParams, q }) =>
-          this._service.search$(this._defaultSet.collections, { ...queryParams, q }, RESULTS_PER_CATEGORY)
+          this._service.search$(
+            this._defaultSet.collections,
+            { ...queryParams, q },
+            RESULTS_PER_CATEGORY
+          )
         ),
         untilDestroyed(this)
       )

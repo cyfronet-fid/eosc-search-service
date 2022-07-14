@@ -1,11 +1,24 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild} from '@angular/core';
-import {addFq, IFilter, INITIAL_FILTER_OPTION_COUNT, removeFq} from '@eosc-search-service/search';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
+import {
+  addFq,
+  IFilter,
+  INITIAL_FILTER_OPTION_COUNT,
+  removeFq,
+} from '@eosc-search-service/search';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import {assertNotNull} from "@eosc-search-service/types";
-import {FlatNode, TreeNode} from "@eosc-search-service/common";
+import { assertNotNull } from '@eosc-search-service/types';
+import { FlatNode, TreeNode } from '@eosc-search-service/common';
 
 @UntilDestroy()
 @Component({
@@ -21,7 +34,11 @@ import {FlatNode, TreeNode} from "@eosc-search-service/common";
         class="query-input form-control form-control-sm"
         [formControl]="queryFc"
       />
-      <div [ngClass]="{filter__viewport: filter.showMore}" (scroll)="onScroll($event)" #content>
+      <div
+        [ngClass]="{ filter__viewport: filter.showMore }"
+        (scroll)="onScroll($event)"
+        #content
+      >
         <ess-checkboxes-tree
           [data]="dataTrimmed"
           (checkboxesChange)="addFilter($event)"
@@ -32,11 +49,14 @@ import {FlatNode, TreeNode} from "@eosc-search-service/common";
         class="show-more"
         href="javascript:undefined"
         (click)="toggleShowMore.emit()"
-        >
-        <ng-container *ngIf="!filter.showMore; else showLessRef" i18n>Show more</ng-container>
-        <ng-template #showLessRef><ng-container i18n>Show less</ng-container></ng-template>
-      </a
       >
+        <ng-container *ngIf="!filter.showMore; else showLessRef" i18n
+          >Show more</ng-container
+        >
+        <ng-template #showLessRef
+          ><ng-container i18n>Show less</ng-container></ng-template
+        >
+      </a>
     </div>
   `,
   styles: [
@@ -68,7 +88,7 @@ import {FlatNode, TreeNode} from "@eosc-search-service/common";
   ],
 })
 export class FilterMultiselectComponent implements OnChanges {
-  @ViewChild('content', {static: false}) content?: any;
+  @ViewChild('content', { static: false }) content?: any;
   @Input() filter: IFilter | null = null;
   @Output() toggleShowMore = new EventEmitter<void>();
   // @Output() addFilter = new EventEmitter
@@ -78,10 +98,12 @@ export class FilterMultiselectComponent implements OnChanges {
     if (this.filter === null) {
       return false;
     }
-    return !this.filter.showMore && this.filter.data.length > INITIAL_FILTER_OPTION_COUNT;
-
+    return (
+      !this.filter.showMore &&
+      this.filter.data.length > INITIAL_FILTER_OPTION_COUNT
+    );
   }
-  queryFc = new FormControl('');
+  queryFc = new UntypedFormControl('');
   dataTrimmed: TreeNode[] = [];
 
   constructor(private _route: ActivatedRoute, private _router: Router) {
@@ -105,28 +127,25 @@ export class FilterMultiselectComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['filter']) {
       const filter = changes['filter'].currentValue;
-        if (filter == null) {
-          this.dataTrimmed = []
-        }
-        else if (filter.showMore === true) {
-          this.dataTrimmed = filter.data;
-        }
-        else {
-          this.dataTrimmed = filter.data.slice(0, INITIAL_FILTER_OPTION_COUNT);
-        }
+      if (filter == null) {
+        this.dataTrimmed = [];
+      } else if (filter.showMore === true) {
+        this.dataTrimmed = filter.data;
+      } else {
+        this.dataTrimmed = filter.data.slice(0, INITIAL_FILTER_OPTION_COUNT);
+      }
     }
   }
-
 
   onScroll($event: Event) {
     if (this.filter?.showMore !== true) {
       return;
     }
     const target: any = $event.target;
-    assertNotNull(target)
+    assertNotNull(target);
     const currentPosition = target.scrollTop + target.offsetHeight;
     if (currentPosition === target.scrollHeight) {
-      this.fetchMore.emit(this.queryFc.value)
+      this.fetchMore.emit(this.queryFc.value);
     }
   }
 }

@@ -16,26 +16,31 @@
       </div>
     </div>
   </div>
-  <div class="dashboard" style="position: relative;">
+  <div class="dashboard" style="position: relative">
     <ess-sub-nav></ess-sub-nav>
     <ess-sub-header
       [activeSet]="activeSet$ | async"
       [resultsCount]="resultsCount$ | async"
       [categoriesTree]="(categoriesTree$ | async) || []"
     ></ess-sub-header>
-    <ess-pagination style="position: absolute; top: 80px; right: 0;" [activePage]="(activePage$ | async) ?? 0" [loading]="true" [pages]="(pages$ | async) ?? []"
-                    [maxPage]="(maxPage$ | async) ?? 0"
-                    (pageSelected)="selectPage($event)"></ess-pagination>
+    <ess-pagination
+      style="position: absolute; top: 80px; right: 0"
+      [activePage]="(activePage$ | async) ?? 0"
+      [loading]="true"
+      [pages]="(pages$ | async) ?? []"
+      [maxPage]="(maxPage$ | async) ?? 0"
+      (pageSelected)="selectPage($event)"
+    ></ess-pagination>
     <div class="loading-block" *ngIf="loading$ | async; else dataLoadedRef">
       <nz-spin nzSimple></nz-spin>
     </div>
     <ng-template #dataLoadedRef>
       <div
         *ngIf="
-              $any(filters$ | async)?.length > 0 &&
-                $any(results$ | async)?.length > 0;
-              else noFilterRef
-            "
+          $any(filters$ | async)?.length > 0 &&
+            $any(results$ | async)?.length > 0;
+          else noFilterRef
+        "
         class="row"
         id="dashboard__main"
       >
@@ -47,9 +52,16 @@
           ></ess-categories>
           <section id="filters">
             <h5>Filters</h5>
-            <ng-container *ngFor="let filter of (filters$ | async); trackBy: trackById">
-              <ng-container *ngIf="filter.data.length > 0">
-                <ess-filter-multiselect (searchFilter)="searchFilter(filter.id, $event)" (fetchMore)="filterFetchMore(filter.id, $event)" (toggleShowMore)="toggleShowMore(filter.id)" [filter]="filter"></ess-filter-multiselect>
+            <ng-container
+              *ngFor="let filter of filters$ | async; trackBy: trackById"
+            >
+              <ng-container *ngIf="$any(filter).data.length > 0">
+                <ess-filter-multiselect
+                  (searchFilter)="searchFilter(filter.id, $event)"
+                  (fetchMore)="filterFetchMore(filter.id, $event)"
+                  (toggleShowMore)="toggleShowMore(filter.id)"
+                  [filter]="$any(filter)"
+                ></ess-filter-multiselect>
               </ng-container>
             </ng-container>
           </section>
@@ -59,16 +71,16 @@
             [collections]="collections$ | async"
           ></ess-active-filters>
           <nz-empty *ngIf="(results$ | async)?.length === 0"></nz-empty>
-            <ess-result
-              class="results"
-              *ngFor="let result of results$ | async"
-              [title]="result.title"
-              [description]="result.description"
-              [type]="result.type"
-              [url]="result.url"
-              [typeUrlPath]="'/search/' + result.typeUrlPath"
-              [tags]="result.tags"
-            ></ess-result>
+          <ess-result
+            class="results"
+            *ngFor="let result of results$ | async"
+            [title]="result.title"
+            [description]="result.description"
+            [type]="result.type"
+            [url]="result.url"
+            [typeUrlPath]="'/search/' + result.typeUrlPath"
+            [tags]="result.tags"
+          ></ess-result>
         </div>
       </div>
       <ng-template #noFilterRef>
@@ -93,9 +105,14 @@
           ></ess-result>
         </cdk-virtual-scroll-viewport>
       </ng-template>
-      <ess-pagination style="position: absolute; bottom: 0; right: 0;" [activePage]="(activePage$ | async) ?? 0" [loading]="true" [pages]="(pages$ | async) ?? []"
-                      [maxPage]="(maxPage$ | async) ?? 0"
-                      (pageSelected)="selectPage($event)"></ess-pagination>
+      <ess-pagination
+        style="position: absolute; bottom: 0; right: 0"
+        [activePage]="(activePage$ | async) ?? 0"
+        [loading]="true"
+        [pages]="(pages$ | async) ?? []"
+        [maxPage]="(maxPage$ | async) ?? 0"
+        (pageSelected)="selectPage($event)"
+      ></ess-pagination>
     </ng-template>
   </div>
 </div>
