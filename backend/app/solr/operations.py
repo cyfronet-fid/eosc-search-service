@@ -1,6 +1,7 @@
 """Operations on Solr"""
 from httpx import AsyncClient, Response
 
+from app.config import SOLR_URL
 from app.schemas.search_request import TermsFacet
 
 
@@ -44,8 +45,6 @@ async def search(
     }
     if facets is not None and len(facets) > 0:
         request_body["facet"] = {k: v.dict() for k, v in facets.items()}
-    # pylint: disable=import-outside-toplevel
-    from app.config import SOLR_URL
 
     return await client.post(
         f"{SOLR_URL}{collection}/select",
@@ -53,6 +52,22 @@ async def search(
     )
 
 
+async def get(
+    client: AsyncClient,
+    collection: str,
+    item_id: int | str,
+) -> Response:
+    """Get item from defined collection"""
+    return await client.get(
+        f"{SOLR_URL}{collection}/get?id={item_id}",
+    )
+
+
 def search_dep():
     """FastAPI search method dependency"""
     return search
+
+
+def get_dep():
+    """get method dependency"""
+    return get
