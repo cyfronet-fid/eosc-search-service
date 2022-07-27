@@ -12,7 +12,7 @@ h1 {
 }
 
 h1 span {
-  color: #FFCD00
+  color: #ffcd00;
 }
 
 h2 {
@@ -24,14 +24,19 @@ h2 {
 }
 
 .btn-primary {
-  background: linear-gradient(88.93deg, #05A6E7 1.83%, #0C2BD5 124.59%);
+  background: linear-gradient(88.93deg, #05a6e7 1.83%, #0c2bd5 124.59%);
   border-radius: 25px;
   padding: 10px 30px;
   border: none;
 }
 
 .heading {
-  background: linear-gradient(117.95deg, rgba(12, 43, 213, 0.6) 12.72%, rgba(248, 206, 46, 0.4052) 99.99%, rgba(251, 206, 44, 0.5) 100%);
+  background: linear-gradient(
+    117.95deg,
+    rgba(12, 43, 213, 0.6) 12.72%,
+    rgba(248, 206, 46, 0.4052) 99.99%,
+    rgba(251, 206, 44, 0.5) 100%
+  );
   padding: 80px 0 110px;
 }
 
@@ -58,7 +63,7 @@ h2 {
 
 .search-box .btn-primary {
   height: 40px;
-  background: linear-gradient(88.93deg, #05A6E7 1.83%, #0C2BD5 124.59%);
+  background: linear-gradient(88.93deg, #05a6e7 1.83%, #0c2bd5 124.59%);
   padding-left: 20px;
   padding-right: 30px;
   border: none;
@@ -71,7 +76,7 @@ h2 {
 
 .heading .lead {
   font-weight: 400;
-  color: RGB(0,0,0,0.8);
+  color: RGB(0, 0, 0, 0.8);
   margin-bottom: 5px;
   font-size: 18px;
 }
@@ -80,12 +85,12 @@ h2 {
   font-size: 15px;
   font-weight: 400;
   margin: 0 5px 2px;
-  display:inline-block;
+  display: inline-block;
   text-decoration: none;
 }
 
 .solutions-box a:hover {
-  color: #3987BE;
+  color: #3987be;
   text-decoration: underline;
 }
 
@@ -108,18 +113,19 @@ h2 {
 }
 
 .intro-box::after {
-  content:'';
+  content: '';
   position: absolute;
   width: 30px;
   height: 3px;
-  background: #FFCD00;
-  left: calc(50% - 30px/2);
+  background: #ffcd00;
+  left: calc(50% - 30px / 2);
   bottom: 0;
 }
 
 .who-are-you .bg-light,
 .provider .bg-light {
-  box-shadow: 0 1rem 2.5rem rgba(12,43,213,.1),0 .5rem 1rem -.75rem rgba(12,43,213,.1)!important;
+  box-shadow: 0 1rem 2.5rem rgba(12, 43, 213, 0.1),
+    0 0.5rem 1rem -0.75rem rgba(12, 43, 213, 0.1) !important;
   text-decoration: none;
   border: none;
   border-radius: 0;
@@ -134,11 +140,12 @@ h2 {
 .who-are-you .bg-light:hover .card-title,
 .provider .card:hover .card-title,
 .help .card:hover .card-title {
-  color: #05A6E7;
+  color: #05a6e7;
 }
 
 .cards-container {
-  box-shadow: 0 1rem 2.5rem rgba(12,43,213,.1),0 .5rem 1rem -.75rem rgba(12,43,213,.1)!important;
+  box-shadow: 0 1rem 2.5rem rgba(12, 43, 213, 0.1),
+    0 0.5rem 1rem -0.75rem rgba(12, 43, 213, 0.1) !important;
 }
 
 .who-are-you .bg-light .icon-box,
@@ -153,7 +160,7 @@ h2 {
 
 .who-are-you .bg-light .card-title,
 .provider .bg-light .card-title {
-  color: #0C2BD5;
+  color: #0c2bd5;
   font-size: 24px;
   line-height: 28px;
   margin-top: 40px;
@@ -181,11 +188,11 @@ h2 {
 
 .help h3::after,
 .looking h3::after {
-  content:'';
+  content: '';
   position: absolute;
   width: 50px;
   height: 3px;
-  background: #FFCD00;
+  background: #ffcd00;
   left: 0;
   bottom: 0;
 }
@@ -194,10 +201,10 @@ h2 {
   border: none;
   text-decoration: none;
   border-radius: 0;
-  background: RGB(255,255,255,0.6);
+  background: RGB(255, 255, 255, 0.6);
   padding: 15px 0;
   text-align: center;
-  transition: box-shadow .25s ease,transform .25s ease;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
 .help .card .icon-box {
@@ -211,7 +218,7 @@ h2 {
 }
 
 .help .card .card-title {
-  color: #0C2BD5;
+  color: #0c2bd5;
   font-size: 20px;
   line-height: 23px;
   text-align: center;
@@ -225,15 +232,19 @@ h2 {
 }
 
 .looking {
-  background: linear-gradient(117.95deg, rgba(12, 43, 213, 0.8) 12.72%, rgba(248, 206, 46, 0.4852) 99.99%, rgba(251, 206, 44, 0.5) 100%);
+  background: linear-gradient(
+    117.95deg,
+    rgba(12, 43, 213, 0.8) 12.72%,
+    rgba(248, 206, 46, 0.4852) 99.99%,
+    rgba(251, 206, 44, 0.5) 100%
+  );
 }
 
 .looking h3 {
   margin-top: 60px;
 }
 
-@media (max-width:992px) {
-
+@media (max-width: 992px) {
   .logo-box {
     margin-bottom: 25px;
   }
@@ -256,7 +267,8 @@ h2 {
     font-size: 13px;
     margin: 0 5px 7px;
   }
-  .who-are-you .bg-light, .provider .bg-light {
+  .who-are-you .bg-light,
+  .provider .bg-light {
     margin-bottom: 20px;
   }
   .help .card {

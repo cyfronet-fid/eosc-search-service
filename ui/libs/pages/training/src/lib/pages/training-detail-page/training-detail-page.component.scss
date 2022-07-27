@@ -3,7 +3,7 @@
   margin-top: 15px;
   padding: 30px 0 0;
   border: 2px solid rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(28,49,58,.1);
+  border: 1px solid rgba(28, 49, 58, 0.1);
   border-radius: 5px;
   overflow: hidden;
 
@@ -22,8 +22,9 @@
   background-color: #0c2bd5;
   border-color: #fff;
   padding: 10px 10px;
-  background-image: linear-gradient(135deg,#05cae7,#0c2bd5);
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  background-image: linear-gradient(135deg, #05cae7, #0c2bd5);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .btn-primary:hover {
@@ -48,11 +49,11 @@
   a {
     border: none;
     background: none;
-    color: rgba(0,0,0,.85);
+    color: rgba(0, 0, 0, 0.85);
 
     &.active {
-      color: #0C2BD5;
-      border-bottom: 2px solid #0C2BD5
+      color: #0c2bd5;
+      border-bottom: 2px solid #0c2bd5;
     }
 
     &:hover {
@@ -62,9 +63,9 @@
 }
 
 .nav-tabs {
-  background-color: rgba(28,49,58,.05);
+  background-color: rgba(28, 49, 58, 0.05);
   border: none;
-  padding:0 30px;
+  padding: 0 30px;
   margin-top: 30px;
 }
 
@@ -75,7 +76,8 @@
 
 .right-panel {
   padding: 15px;
-  box-shadow: 0 0rem 1rem rgba(12, 43, 213, 0.1), 0 0.5rem 1rem 0.5rem rgba(12, 43, 213, 0.1) !important;
+  box-shadow: 0 0rem 1rem rgba(12, 43, 213, 0.1),
+    0 0.5rem 1rem 0.5rem rgba(12, 43, 213, 0.1) !important;
 
   h5 {
     margin: 0;
@@ -85,7 +87,7 @@
   .list-group {
     margin-top: 7px;
     padding: 10px 0 0 10px;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid rgba(0, 0, 0, 0.125);
     list-style-type: disc !important;
 
     li {
@@ -100,12 +102,12 @@
         color: #233d4c;
       }
     }
-
   }
 }
 
 .details-box {
-  box-shadow: 0 0rem 1rem rgba(12, 43, 213, 0.1), 0 0.5rem 1rem 0.5rem rgba(12, 43, 213, 0.1) !important;
+  box-shadow: 0 0rem 1rem rgba(12, 43, 213, 0.1),
+    0 0.5rem 1rem 0.5rem rgba(12, 43, 213, 0.1) !important;
   padding: 0;
   margin: 0 12px 30px;
 
@@ -131,17 +133,14 @@
         color: #ffcd00;
 
         span {
-          color: #0C2BD5;
+          color: #0c2bd5;
         }
       }
-
     }
   }
 }
 
-
 @media (max-width: 576px) {
-
   .details-header {
     h1 {
       font-size: 1em;
@@ -162,7 +161,6 @@
   }
 
   #details {
-
     .row {
       width: 100%;
       margin: 0;
@@ -170,6 +168,6 @@
   }
 
   .details-box {
-    margin:0 0 20px;
+    margin: 0 0 20px;
   }
 }

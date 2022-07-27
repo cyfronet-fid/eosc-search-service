@@ -1,3 +1,4 @@
+# pylint: disable=missing-module-docstring,missing-function-docstring
 """Operations on Recommender Service"""
 from httpx import AsyncClient, Response
 

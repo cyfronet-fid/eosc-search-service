@@ -17,28 +17,28 @@
     </div>
   </div>
 
-  <div class="dashboard" style="position: relative;">
+  <div class="dashboard" style="position: relative">
     <section class="details-header shadow-sm rounded">
-      <div class="container">
+      <div class="container" *ngIf="training !== undefined">
         <div class="row">
           <div class="col-12 col-lg-10 row">
             <div class="col-12 col-sm-9">
-              <h1>A basic programming training object.title</h1>
-              <p class="mb-1">Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque
-                laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae
-                vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut</p>
+              <h1>{{ training.title }}</h1>
+              <p class="mb-1">{{ keywords }}</p>
               <span class="clearfix"></span>
             </div>
           </div>
           <div class="col-12 col-lg-2 text-center">
             <div class="vertical-center-inner access-type">
-              <a class="btn btn-primary d-block mb-3"  href="object.url">Access training</a>
+              <a class="btn btn-primary d-block mb-3" href="{{ originUrl }}"
+                >Access training</a
+              >
               <p class="download font-light">
-                <a href="#">Direct download</a>
+                <a href="{{ originUrl }}">Direct download</a>
               </p>
               <span class="accesstype-label">
-              <i class="accesstype accesstype-{type}"></i>
-              Open Type
+                <i class="accesstype accesstype-{{ accessType }}"></i>
+                {{ accessType }}
               </span>
             </div>
           </div>
@@ -48,115 +48,114 @@
         <div class="col-12">
           <ul class="nav nav-tabs row pl-3" id="my-tab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link text-uppercase active" role="tab" href="#about">About</a>
+              <a
+                class="nav-link text-uppercase {{
+                  currentTab === 'about' ? 'active' : ''
+                }}"
+                (click)="toggleTab('about')"
+                role="tab"
+                href="javascript:undefined"
+                >About</a
+              >
             </li>
             <li class="nav-item">
-              <a class="nav-link text-uppercase" role="tab" href="#details">Details</a>
+              <a
+                class="nav-link text-uppercase {{
+                  currentTab === 'details' ? 'active' : ''
+                }}"
+                (click)="toggleTab('details')"
+                role="tab"
+                href="javascript:undefined"
+                >Details</a
+              >
             </li>
           </ul>
         </div>
       </div>
     </section>
-
-    <div id="about" class="tab-content d-block">
-      <div aria-labelledby="home-tab" class="container pt-2 desc" id="desc" role="tabpanel">
-        <div class="row pt-4 justify-content-between">
-          <div class="col-12 col-lg-9 pr-5 mb-4 left-column">
-            object.description.markdown_to_html
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
-              ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur.
-              Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-          <div class="col-12 col-lg-3 right-column">
-
-            <div class="right-panel">
-            <h5>Language</h5>
-            <ul class="list-group domains mb-4">
-              <li>
-                <span>
-                  English
-                </span>
-              </li>
-            </ul>
-
-            <h5>Keywords</h5>
-            <ul class="list-group">
-              <li>
-                  <span>
-                  UI
-                  </span>
-              </li>
-              <li>
-                  <span>
-                  Programming
-                  </span>
-              </li>
-              <li>
-                  <span>
-                  Frontend
-                  </span>
-              </li>
-            </ul>
+    <section id="description-tab">
+      <div
+        id="about"
+        class="tab-content {{ currentTab === 'about' ? 'd-block' : 'd-none' }}"
+        *ngIf="training !== undefined"
+      >
+        <div
+          aria-labelledby="home-tab"
+          class="container pt-2 desc"
+          id="desc"
+          role="tabpanel"
+        >
+          <div class="row pt-4 justify-content-between">
+            <div class="col-12 col-lg-9 pr-5 mb-4 left-column">
+              <p>{{ training.description }}</p>
+            </div>
+            <div class="col-12 col-lg-3 right-column">
+              <div class="right-panel">
+                <ng-container *ngFor="let tag of sidebarTags">
+                  <h5>{{ tag.label }}</h5>
+                  <ul class="list-group domains mb-4">
+                    <ng-container *ngIf="isArray(tag.value); else oneValue">
+                      <ng-container *ngFor="let singleValue of $any(tag.value)">
+                        <li>
+                          <span>
+                            {{ singleValue }}
+                          </span>
+                        </li>
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #oneValue>
+                      <li>
+                        <span>
+                          {{ tag.value }}
+                        </span>
+                      </li>
+                    </ng-template>
+                  </ul>
+                </ng-container>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div id="details" class="tab-content d-block">
-      <div class="container">
-      <div class="row">
-        <div class="details-box col-12 col-lg-4">
-          <div class="details-box-header">
-            Access right
-          </div>
 
-          <div class="details-content">
-            <ul class="list-group">
-              <li><span>Open access</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="details-box col-12 col-lg-4">
-          <div class="details-box-header">
-            Version date
-          </div>
-
-          <div class="details-content">
-            <ul class="list-group">
-              <li><span>14/20/2021</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="details-box col-12 col-lg-4">
-          <div class="details-box-header">
-            Licence
-          </div>
-
-          <div class="details-content">
-            <ul class="list-group">
-              <li><span>CC BY 4.0</span></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="details-box col-12 col-lg-4">
-          <div class="details-box-header">
-            Target group
-          </div>
-
-          <div class="details-content">
-            <ul class="list-group">
-              <li><span>IT Employees</span></li>
-            </ul>
+      <div
+        id="details"
+        class="tab-content {{
+          currentTab === 'details' ? 'd-block' : 'd-none'
+        }}"
+      >
+        <div class="container">
+          <div class="row">
+            <ng-container *ngFor="let tag of detailsTags">
+              <div class="details-box col-12 col-lg-4">
+                <div class="details-box-header">
+                  {{ tag.label }}
+                </div>
+                <div class="details-content">
+                  <ul class="list-group">
+                    <ng-container *ngIf="isArray(tag.value); else oneValue">
+                      <ng-container *ngFor="let singleValue of $any(tag.value)">
+                        <li>
+                          <span>
+                            {{ singleValue }}
+                          </span>
+                        </li>
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #oneValue>
+                      <li>
+                        <span>
+                          {{ tag.value }}
+                        </span>
+                      </li>
+                    </ng-template>
+                  </ul>
+                </div>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
-      </div>
-    </div>
+    </section>
   </div>
 </div>
