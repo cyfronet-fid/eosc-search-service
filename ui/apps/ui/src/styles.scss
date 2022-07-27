@@ -158,10 +158,6 @@ h6 {
   line-height: 1.3;
   font-style: normal !important;
 
-  b {
-    font-weight: 400;
-  }
-
   i {
     font-style: normal !important;
   }
@@ -174,9 +170,6 @@ h6 {
 
 .tag {
   font-size: 12px;
-}
-.tag-title {
-  color: rgba(0, 0, 0, 0.6);
 }
 
 #description {
@@ -211,5 +204,86 @@ h6 {
 
   .cdk-virtual-scroll-content-wrapper {
     padding-right: 10px;
+  }
+}
+
+.results #container {
+  box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  padding: 20px;
+  overflow: hidden;
+  margin: 0 0 30px;
+
+  .date-box {
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-bottom: 18px;
+  }
+
+  h6 {
+    font-weight: 400;
+    margin-bottom: 10px;
+  }
+
+  .tags-box {
+    margin-bottom: 10px;
+
+    a {
+      padding: 5px 10px;
+      margin-right: 10px;
+      font-size: 11px;
+      line-height: 1.1;
+      font-weight: bold;
+      color: #3987BE;
+      background: rgba(57, 135, 190, 0.3);
+      border-radius: 2px;
+
+      &:nth-child(2) {
+        color: #449E8E;
+        background: rgba(68, 158, 142, 0.2);
+      }
+
+      &:nth-child(3) {
+        color: #D4A702;
+        background: rgba(212, 167, 2, 0.2);
+      }
+    }
+  }
+
+  .tag-row {
+    margin-bottom: 6px;
+    color: #000;
+
+    a {
+      color: #D4A702;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  }
+
+  .description {
+    font-size: 14px;
+    line-height: 25px;
+    margin-bottom:5px;
+    margin-top: 20px;
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .btn-show-more {
+    padding: 5px 10px 6px;
+    margin-right: 10px;
+    font-size: 13px;
+    line-height: 1.1;
+    font-weight: 400;
+    color: #fff;
+    margin: 0;
+    float: right;
+    background: linear-gradient(88.93deg, #05A6E7 1.83%, #0C2BD5 124.59%);
+    border-radius: 2px;
+
+    &:hover {
+      color: #fff;
+      background: #D4A702;
+    }
   }
 }
