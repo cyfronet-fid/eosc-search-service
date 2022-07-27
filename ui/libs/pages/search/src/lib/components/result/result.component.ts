@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { shortText } from './utils';
-import { addFq, ITag } from '@eosc-search-service/search';
+import {addFq, ITag} from '@eosc-search-service/search';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_DESCRIPTION_WORDS_LENGTH = 64;
@@ -10,76 +10,74 @@ const MAX_DESCRIPTION_WORDS_LENGTH = 64;
   selector: 'ess-result',
   template: `
     <div id="container">
+      <div class="date-box">
+        {{ date }}
+      </div>
       <h6>
-        <a
-          *ngIf="validUrl; else onlyTitleRef"
-          [href]="validUrl"
-          target="_blank"
-        >
-          <b>{{ shortTitle }}</b>
+        <a *ngIf="validUrl; else onlyTitleRef" [href]="validUrl" target="_blank">
+          {{ shortTitle }}
         </a>
         <ng-template #onlyTitleRef><b>{{ shortTitle }}</b></ng-template>
       </h6>
+
+      <div class="tags-box">
+        <a [routerLink]="typeUrlPath" queryParamsHandling="merge">{{
+           type
+              }}
+        </a>
+      </div>
+
       <p id="tags">
-        <span class="tag tag-title"><b> Type: </b></span>
-        <span class="tag">
-          <b>
-            <a [routerLink]="typeUrlPath" queryParamsHandling="merge">{{
-              type
-            }}</a> </b
-          >,
-        </span>
 
         <ng-container *ngFor="let tag of tags">
-          <span class="tag tag-title"
-            ><i>{{ tag.label }}: </i></span
-          >
-          <ng-container *ngIf="isArray(tag.value)">
-            <ng-container *ngFor="let singleValue of $any(tag.value)">
-              <span class="tag"
+          <div class="tag-row">
+            <span class="tag tag-title"
+            ><b>{{ tag.label }}: </b></span
+            >
+            <ng-container *ngIf="isArray(tag.value)">
+              <ng-container *ngFor="let singleValue of $any(tag.value)">
+                <span class="tag"
                 ><a
                   href="javascript:void(0)"
                   (click)="addFilter(tag.originalField, singleValue)"
-                  >{{ singleValue }}</a
+                >{{ singleValue }}</a
                 >,&nbsp;</span
+                >
+              </ng-container>
+            </ng-container>
+
+            <ng-container *ngIf="!isArray(tag.value)">
+              <span class="tag"
+              >
+                  <a
+                    href="javascript:void(0)"
+                    (click)="addFilter(tag.originalField, $any(tag.value))"
+                  >{{ tag.value }}</a
+                  > ,&nbsp;</span
               >
             </ng-container>
-          </ng-container>
-          <ng-container *ngIf="!isArray(tag.value)">
-            <span class="tag">
-              <a
-                href="javascript:void(0)"
-                (click)="addFilter(tag.originalField, $any(tag.value))"
-                >{{ tag.value }}</a
-              >
-              ,&nbsp;</span
-            >
-          </ng-container>
+          </div>
         </ng-container>
       </p>
-      <p class="description">
-        <i [class.truncate] = "toTruncate(description) && !showFull">
-          {{ description }}
-        </i>
-        <ng-container *ngIf="toTruncate(description)">
-          <a href="javascript:void(0)" (click)="showFull = !showFull">Show {{ showFull ? "less" : "more" }} </a>
-        </ng-container>
+      <p class="description" [class.truncate] = "toTruncate(description) && !showFull">
+        {{ description }}
       </p>
+      <a *ngIf="toTruncate(description)" href="javascript:void(0)" class="btn-show-more" (click)="showFull = !showFull">Show {{ showFull ? "less" : "more" }} </a>
     </div>
   `,
   styles: [
     `
-      :host {
+    :host {
       display: block;
-        }
+    }
     .description {
-      .truncate {
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 3;
-          line-clamp: 3;
-          -webkit-box-orient: vertical;
+      &.truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
       }
     }
     `
@@ -89,6 +87,8 @@ export class ResultComponent {
   shortTitle = '';
   validUrl: string | null = null;
   showFull = false;
+
+  @Input() date = '16 April 2021';
 
   @Input()
   description!: string;
