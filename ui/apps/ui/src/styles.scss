@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ng-zorro-antd/ng-zorro-antd.min.css';
-@import "scss/landing";
+@import 'scss/landing';
 
 body {
   font-family: Ubuntu, sans-serif;
@@ -10,10 +10,10 @@ body {
 }
 
 a {
-  color: #0C2BD5;
+  color: #0c2bd5;
 }
 a:hover {
-  color: #05A6E7;
+  color: #05a6e7;
 }
 
 .page-heading {
@@ -41,12 +41,12 @@ a:hover {
   padding: 10px 0;
 }
 .active {
-  color: #0C2BD5;
-  border-bottom: 4px solid #0C2BD5;
+  color: #0c2bd5;
+  border-bottom: 4px solid #0c2bd5;
   font-weight: bold;
 }
 .nav-btn:hover {
-  color: #0C2BD5;
+  color: #0c2bd5;
 }
 
 #container {
@@ -102,7 +102,8 @@ h3,
 #dashboard__filters .filters {
   background: RGB(255, 255, 255, 1);
   padding-top: 10px;
-  box-shadow: 0 1rem 1.5rem rgba(12,43,213,.1), 0 0.5rem 1rem -0.75rem rgba(12,43,213,.1) !important;
+  box-shadow: 0 1rem 1.5rem rgba(12, 43, 213, 0.1),
+    0 0.5rem 1rem -0.75rem rgba(12, 43, 213, 0.1) !important;
   transform: translate3d(0, -3px, 0);
 }
 
@@ -120,11 +121,11 @@ h3,
 }
 
 #dashboard__filters .filter-title::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 30px;
   height: 2px;
-  background: #FFCD00;
+  background: #ffcd00;
   left: 0;
   bottom: -3px;
 }
@@ -139,7 +140,7 @@ h3,
 
 .ant-tree .ant-tree-node-content-wrapper:hover {
   background: none;
-  color: #0C2BD5;
+  color: #0c2bd5;
 }
 
 .cdk-virtual-scroll-content-wrapper {
@@ -173,7 +174,6 @@ h6 {
 
 .tag {
   font-size: 12px;
-
 }
 .tag-title {
   color: rgba(0, 0, 0, 0.6);
@@ -181,15 +181,13 @@ h6 {
 
 #description {
   font-size: 12px;
-
 }
 
 .suggestions a.result {
-  color: #0C2BD5 !important;
+  color: #0c2bd5 !important;
 }
 
 @media (max-width: 576px) {
-
   .container--xxl {
     padding: 0 15px;
   }
@@ -214,5 +212,4 @@ h6 {
   .cdk-virtual-scroll-content-wrapper {
     padding-right: 10px;
   }
-
 }
