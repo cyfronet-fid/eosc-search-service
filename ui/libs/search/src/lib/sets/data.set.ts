@@ -15,6 +15,6 @@ export const dataSet: ISet = {
     },
   ],
   urlPath: 'data',
-  collections: [dataCollection],
+  collection: dataCollection,
 };
 

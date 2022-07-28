@@ -91,5 +91,5 @@ export const servicesSet: ISet = {
     },
   ],
   urlPath: 'services',
-  collections: [servicesCollection]
+  collection: servicesCollection
 };

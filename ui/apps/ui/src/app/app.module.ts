@@ -16,7 +16,6 @@ import { LayoutModule } from '@eosc-search-service/layout';
 import { SearchPageModule } from '@eosc-search-service/pages/search';
 import {
   SearchModule,
-  allSet,
   dataSet,
   publicationsSet,
   servicesSet,
@@ -34,14 +33,14 @@ registerLocaleData(en);
     HttpClientModule,
     SearchModule.forRoot({
       setList: [
-        allSet,
+        // allSet,
         publicationsSet,
         dataSet,
         softwareSet,
         servicesSet,
         trainingsSet,
       ],
-      mainSet: allSet,
+      mainSet: publicationsSet,
     }),
     SearchPageModule,
     LayoutModule,

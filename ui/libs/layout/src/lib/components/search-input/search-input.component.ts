@@ -1,29 +1,11 @@
+import {Component, EventEmitter, Inject, Injectable, OnInit, Output,} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {UntypedFormControl} from '@angular/forms';
+import {combineLatest, debounceTime, distinctUntilChanged, map, Observable, switchMap, tap,} from 'rxjs';
+import {faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 import {
-  Component,
-  EventEmitter,
-  Inject,
-  Injectable,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { UntypedFormControl } from '@angular/forms';
-import {
-  combineLatest,
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  Observable,
-  switchMap,
-  tap,
-} from 'rxjs';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import {
-  FiltersRepository,
-  ICollectionSearchMetadata,
   IResult,
-  ISearchResults,
   ISet,
   MAIN_SEARCH_SET,
   ResultsRepository,
@@ -31,9 +13,9 @@ import {
   SEARCH_SET_LIST,
   toSolrQueryParams,
 } from '@eosc-search-service/search';
-import { HttpClient } from '@angular/common/http';
-import { CommonSettings, ESS_SETTINGS } from '@eosc-search-service/common';
-import { HashMap } from '@eosc-search-service/types';
+import {HttpClient} from '@angular/common/http';
+import {CommonSettings, ESS_SETTINGS} from '@eosc-search-service/common';
+import {HashMap} from '@eosc-search-service/types';
 
 export const RESULTS_PER_CATEGORY = 3;
 
@@ -46,16 +28,6 @@ class SuggestionsResultsRepository extends ResultsRepository {
 
 @Injectable()
 export class SuggestionsResultsService extends ResultsService {
-  override reduceResults = (
-    results: ISearchResults<IResult>[],
-    metadataList: ICollectionSearchMetadata[]
-  ): IResult[] => {
-    return results.reduce(
-      (acc, response) => [...acc, ...response.results.slice(0, 3)],
-      [] as IResult[]
-    );
-  };
-
   constructor(
     http: HttpClient,
     _router: Router,
@@ -90,7 +62,8 @@ export class SuggestionsResultsService extends ResultsService {
                 type="button"
                 (click)="setParam()"
               >
-                <i class="bi bi-search"></i> Search
+                <i class="bi bi-search"></i>
+                <ng-container i18n>Search</ng-container>
               </button>
             </div>
           </div>
@@ -283,7 +256,7 @@ export class SearchInputComponent implements OnInit {
         tap(() => this.onFocus()),
         switchMap(({ queryParams, q }) =>
           this._service.search$(
-            this._defaultSet.collections,
+            this._defaultSet.collection,
             { ...queryParams, q },
             RESULTS_PER_CATEGORY
           )
@@ -305,10 +278,10 @@ export class SearchInputComponent implements OnInit {
 
   async setParam() {
     const currentPath = this._router.url.split('?')[0];
-    const newPath = currentPath === '/' ? ['/search/all'] : [];
+    const newPath = currentPath === '/' ? ['/search/publications'] : [];
     const q = this.fc.value || '*';
     await this._router.navigate(newPath, {
-      queryParams: { q },
+      queryParams: { q, page: 0 },
       queryParamsHandling: 'merge',
     });
   }

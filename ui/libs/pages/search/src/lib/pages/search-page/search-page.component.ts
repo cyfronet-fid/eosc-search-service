@@ -34,9 +34,9 @@ export class SearchPageComponent implements OnInit {
   viewport?: CdkVirtualScrollViewport;
   results$ = this._resultsRepository.results$;
   categories: any[] = [];
-  collections$: Observable<ICollectionSearchMetadata[]> = this._route.data.pipe(
+  collection$: Observable<ICollectionSearchMetadata> = this._route.data.pipe(
     map((data) => data['activeSet'] as ISet),
-    map((set) => set.collections)
+    map((set) => set.collection)
   );
   filters$: Observable<Array<IFilter & IHasId>> =
     this._filtersRepository.entries$;
@@ -76,7 +76,7 @@ export class SearchPageComponent implements OnInit {
     this.activeSet$
       .pipe(untilDestroyed(this))
       .subscribe(({ categories }) =>
-        this._categoriesRepository.setCategories(categories)
+        this._categoriesRepository.setCategories(categories ?? [])
       );
   }
 

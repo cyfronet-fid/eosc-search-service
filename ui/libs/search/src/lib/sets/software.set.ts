@@ -15,6 +15,6 @@ export const softwareSet: ISet = {
     },
   ],
   urlPath: 'software',
-  collections: [softwareCollection],
+  collection: softwareCollection,
 };
 

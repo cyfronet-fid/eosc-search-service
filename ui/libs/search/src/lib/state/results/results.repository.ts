@@ -13,10 +13,18 @@ import {Inject, Injectable} from '@angular/core';
 import {SEARCH_SET_LIST} from '../../search.providers';
 import {ICollectionSearchMetadata} from './results.service';
 import {clearSearchState, CollectionsSearchState, IPage, IResult, makeSearchState, SearchState} from './results.model';
-import {deleteAllPages, selectCurrentPageEntities, selectPaginationData, withPagination} from "@ngneat/elf-pagination";
+import {
+  deleteAllPages,
+  selectCurrentPageEntities,
+  selectPaginationData,
+  updatePaginationData,
+  withPagination
+} from "@ngneat/elf-pagination";
 import {Router} from "@angular/router";
 
-export const RESULTS_ROWS = 20;
+export const PRELOAD_PAGE = 3;
+export const ROWS_PER_PAGE = 20;
+export const RESULTS_ROWS = ROWS_PER_PAGE * PRELOAD_PAGE;
 
 export class ResultsRepository {
   readonly collectionsMap: HashMap<ICollectionSearchMetadata>;
@@ -93,11 +101,7 @@ export class ResultsRepository {
   constructor(private _storeName = 'base', private sets: ISet[], private _router: Router) {
     this._initializeStoreCollection(this.sets);
     this.collectionsMap = {};
-    this.sets.forEach((set) => {
-      set.collections.forEach(
-        (collection) => (this.collectionsMap[collection.type] = collection)
-      );
-    });
+    this.sets.forEach((set) => this.collectionsMap[set.collection.type] = set.collection);
   }
 
   isLoading(): boolean {
@@ -125,6 +129,12 @@ export class ResultsRepository {
       setEntities([]),
       setProp('collectionSearchStates', (state) => clearSearchState(state)),
       deleteAllPages(),
+      updatePaginationData({
+        currentPage: 0,
+        lastPage: 0,
+        total: 0,
+        perPage: ROWS_PER_PAGE
+      }),
       updateRequestStatus('results', 'pending')
     );
   }
@@ -133,12 +143,11 @@ export class ResultsRepository {
     this.resultsStore.update((state) => ({
       ...state,
       collectionSearchStates: sets.reduce((acc, set) => {
-        set.collections.forEach((col) => {
-          if (acc[col.type] !== undefined) {
-            return;
-          }
-          acc[col.type] = makeSearchState();
-        });
+        const col = set.collection;
+        if (acc[col.type] !== undefined) {
+          return acc;
+        }
+        acc[col.type] = makeSearchState();
         return acc;
       }, {} as HashMap<SearchState>),
     }));

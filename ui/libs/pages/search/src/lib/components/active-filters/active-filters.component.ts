@@ -44,12 +44,8 @@ export class ActiveFiltersComponent implements OnInit {
   constructor(private _route: ActivatedRoute, private _router: Router) { }
 
   @Input()
-  set collections(collections: ICollectionSearchMetadata[] | null) {
-    this.filtersConfigurations$.next(
-      (collections || [])
-        .map((collection) => collection.filtersConfigurations)
-        .reduce((acc, filterConfigurations) => [ ...acc, ...filterConfigurations ], [])
-    );
+  set collection(collection: ICollectionSearchMetadata | null) {
+    this.filtersConfigurations$.next(collection?.filtersConfigurations ?? []);
   }
 
   ngOnInit(): void {

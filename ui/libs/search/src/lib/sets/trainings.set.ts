@@ -15,5 +15,5 @@ export const trainingsSet: ISet = {
     },
   ],
   urlPath: 'trainings',
-  collections: [trainingsCollection]
+  collection: trainingsCollection
 };

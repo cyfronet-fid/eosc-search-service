@@ -15,5 +15,5 @@ export const publicationsSet: ISet = {
     },
   ],
   urlPath: 'publications',
-  collections: [publicationsCollection],
+  collection: publicationsCollection,
 };

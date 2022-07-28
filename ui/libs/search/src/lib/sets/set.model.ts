@@ -11,5 +11,5 @@ export interface ISet {
   breadcrumbs: IBreadcrumb[];
   categories?: ICategory[];
   urlPath: string;
-  collections: ICollectionSearchMetadata[];
+  collection: ICollectionSearchMetadata;
 }

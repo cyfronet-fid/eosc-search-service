@@ -1,8 +1,20 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CommonSettings, ESS_SETTINGS, IFilterConfiguration} from '@eosc-search-service/common';
-import {BehaviorSubject, catchError, combineLatest, forkJoin, from, map, Observable, of, switchMap, tap,} from 'rxjs';
-import {PrimaryResultsRepository, RESULTS_ROWS, ResultsRepository,} from './results.repository';
+import {
+  BehaviorSubject,
+  catchError,
+  combineLatest,
+  forkJoin,
+  from,
+  map,
+  Observable,
+  of,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
+import {PrimaryResultsRepository, RESULTS_ROWS, ResultsRepository, ROWS_PER_PAGE,} from './results.repository';
 import {IFacetParam} from '../../services/search-service/facet-param.interface';
 import {HashMap, IHasId} from '@eosc-search-service/types';
 import {updateRequestStatus} from '@ngneat/elf-requests';
@@ -16,7 +28,11 @@ import {
 } from '@eosc-search-service/search';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IResult} from './results.model';
-import {setPage, updatePaginationData,} from '@ngneat/elf-pagination';
+import {selectCurrentPageEntities, setCurrentPage, setPage, updatePaginationData,} from '@ngneat/elf-pagination';
+import {addEntities} from "@ngneat/elf-entities";
+import {Reducer} from "@ngneat/elf/lib/store";
+import {StateOf} from "@ngneat/elf";
+import {withPagination} from "@ngneat/elf-pagination/lib/pagination";
 
 export interface ICollectionSearchMetadata<T = unknown> {
   _hash: string;
@@ -41,13 +57,8 @@ export class ResultsService {
     this.url = `/${this.settings.backendApiPath}/${this.settings.search.apiPath}`;
   }
 
-  protected reduceResults = (
-    results: ISearchResults<IResult>[],
-    metadataList: ICollectionSearchMetadata[]
-  ): IResult[] => concatArrays(results.map((result) => result.results));
-
   public search$<T extends IHasId>(
-    metadataList: ICollectionSearchMetadata<T>[],
+    metadata: ICollectionSearchMetadata<T> | null,
     params: ISolrQueryParams,
     rowsPerCollection: number = RESULTS_ROWS,
     page: number | null = null
@@ -58,7 +69,7 @@ export class ResultsService {
       freshSearch = true;
     }
     const pageNumber = page || 0;
-    if (metadataList.length === 0) {
+    if (metadata === null) {
       this._repository.setResults([]);
       this._repository.resultsStore.update(
         updateRequestStatus('results', 'success'),
@@ -71,53 +82,62 @@ export class ResultsService {
 
     if (!isPageCached) {
       this._repository.clearActiveCollections();
+    } else {
+      this._repository.resultsStore.update(setCurrentPage(pageNumber));
     }
 
-    const lastPage = isPageCached
-      ? this._repository.resultsStore.getValue().pagination.lastPage
-      : pageNumber;
+    const lastPage = this._repository.resultsStore.getValue().pagination.lastPage
 
-    return (
-      isPageCached
-        ? of([])
-        : forkJoin<ISearchResults<IResult>[]>(
-            metadataList.map((metadata) =>
-              this._getSingle$(metadata, params, rowsPerCollection, pageNumber)
-            )
-          ).pipe(
-            // return merged data
-            map((allResults) => this.reduceResults(allResults, metadataList)),
-            tap((results) => this._repository.addResults(results)),
-            tap((results) =>
-              this._repository.resultsStore.update(
-                setPage(
-                  pageNumber,
-                  results.map((r) => r.id)
-                )
-              )
-            )
-          )
-    ).pipe(
-      tap((results) =>
+    this._repository.resultsStore.update(updateRequestStatus('results', 'pending'));
+
+    const loadPages$ = (preload: boolean) => this._getSingle$(metadata, params, rowsPerCollection, pageNumber).pipe(
+      // return merged data
+      map((response: ISearchResults<IResult>) => {
+        const results = [...response.results];
+        let page: number|string[] = [];
+        const pagesOps: Reducer<any>[] = [];
+
+        let startPageNumber = preload ? lastPage + 1 : pageNumber;
+
+        do {
+          page = results.splice(0, ROWS_PER_PAGE).map(r => r.id)
+          if (page.length > 0) {
+            pagesOps.push(setPage(startPageNumber + pagesOps.length, [...page]));
+          }
+        } while (results.length > 0)
+
         this._repository.resultsStore.update(
+          addEntities(response.results),
+          ...pagesOps,
           updatePaginationData({
             currentPage: pageNumber,
-            perPage: metadataList.length * RESULTS_ROWS,
-            total: results.length,
-            lastPage: lastPage,
+            perPage: ROWS_PER_PAGE,
+            lastPage: lastPage + pagesOps.length - (preload ? 0 : 1),
+            total: response.numFound
           }),
           state => ({...state, lastQuery: params.q})
         )
-      ),
+        return results;
+      })
+    )
+
+    return (isPageCached
+        ? this._repository.resultsStore.pipe(selectCurrentPageEntities(), take(1), switchMap(() => {
+          if (lastPage <= pageNumber + 3) {
+            return loadPages$(true);
+          }
+          return of([])
+      }))
+        : loadPages$(false)).pipe(
       tap((results) => {
+        this._repository.resultsStore.update(updateRequestStatus('results', 'success'));
         if (this._filtersRepository === null || !freshSearch) {
           return;
         }
         this._filtersRepository.intialize(this._repository.collectionsMap, this._repository.collectionSearchStates, this._router.url);
       }),
-      tap(() => updateRequestStatus('results', 'success')),
       catchError((error) => {
-        updateRequestStatus('results', 'error', error);
+        this._repository.resultsStore.update(updateRequestStatus('results', 'error', error));
         return of([]);
       })
     );
@@ -160,7 +180,7 @@ export class ResultsService {
       ),
       tap((data) => {
         this._repository.resultsStore.update((state) => {
-          const maxPage = Math.ceil(data.numFound / rows)
+          const maxPage = Math.ceil(data.numFound / ROWS_PER_PAGE)
           return {
             ...state,
             collectionSearchStates: {
@@ -225,7 +245,7 @@ export class ResultsService {
         return of(data);
       }),
       switchMap(({ activeSet, queryParams, page }) =>
-        this.search$(activeSet.collections, queryParams, RESULTS_ROWS, page)
+        this.search$(activeSet.collection, queryParams, RESULTS_ROWS, page)
       )
     );
   }

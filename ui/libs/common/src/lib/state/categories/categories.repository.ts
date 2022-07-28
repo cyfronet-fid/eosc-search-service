@@ -55,5 +55,7 @@ export class CategoriesRepository {
 
     return { ...state, activeId: newId };
   }));
-  setCategories = (categories: ICategory[]) => this._store$.update(setEntities(categories));
+  setCategories(categories: ICategory[]) {
+    this._store$.update(setEntities(categories))
+  }
 }
