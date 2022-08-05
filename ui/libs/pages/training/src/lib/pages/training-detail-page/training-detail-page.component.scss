@@ -8,13 +8,19 @@
   overflow: hidden;
 
   .container {
-    padding: 0;
+    max-width: 100%;
   }
 
   h1 {
     font-size: 1.4em;
     font-weight: 600;
     line-height: 1.2em;
+  }
+}
+
+#description-tab {
+  .container {
+    max-width: 100%;
   }
 }
 
@@ -169,5 +175,9 @@
 
   .details-box {
     margin: 0 0 20px;
+  }
+
+  .right-panel {
+    margin-bottom: 25px;
   }
 }

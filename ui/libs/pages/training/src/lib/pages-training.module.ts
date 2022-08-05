@@ -9,7 +9,7 @@ import { LayoutModule } from '@eosc-search-service/layout';
     CommonModule,
     RouterModule.forChild([
       {
-        path: 'training/:trainingId',
+        path: 'trainings/:trainingId',
         component: TrainingDetailPageComponent,
       },
     ]),
