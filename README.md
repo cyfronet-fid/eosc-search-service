@@ -2,25 +2,27 @@
 
 ## Running with docker
 
-Run `docker-compose up`.
+Run `docker-compose up --build`.
 
 ## UI
 **IMPORTANT!!! UI working directory is `ui`, commands will work only in the catalog.**
 
 ### Install dependencies
-`npm i`
+`npm i --force`
 
 ### Run
-`npx nx serve ui`
+`npm start`
 
 ### Build
 Build artifacts can be found in `ui/dist/apps/ui`.
 
-`npx nx build ui`
+`npm build`
 
 ### Code automatic formatting
 
-`npx nx lint --fix && npx nx format:write --base main`
+`npx nx lint --fix`
+
+`npx nx format:write`
 
 ## Solr
 
