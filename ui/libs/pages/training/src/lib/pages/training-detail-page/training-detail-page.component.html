@@ -125,31 +125,33 @@
         }}"
       >
         <div class="container">
-          <div class="row">
+          <div class="row pt-5">
             <ng-container *ngFor="let tag of detailsTags">
-              <div class="details-box col-12 col-lg-4">
-                <div class="details-box-header">
-                  {{ tag.label }}
-                </div>
-                <div class="details-content">
-                  <ul class="list-group">
-                    <ng-container *ngIf="isArray(tag.value); else oneValue">
-                      <ng-container *ngFor="let singleValue of $any(tag.value)">
+              <div class="col-12 col-lg-4">
+                <div class="details-box">
+                  <div class="details-box-header">
+                    {{ tag.label }}
+                  </div>
+                  <div class="details-content">
+                    <ul class="list-group">
+                      <ng-container *ngIf="isArray(tag.value); else oneValue">
+                        <ng-container *ngFor="let singleValue of $any(tag.value)">
+                          <li>
+                            <span>
+                              {{ singleValue }}
+                            </span>
+                          </li>
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #oneValue>
                         <li>
                           <span>
-                            {{ singleValue }}
+                            {{ tag.value }}
                           </span>
                         </li>
-                      </ng-container>
-                    </ng-container>
-                    <ng-template #oneValue>
-                      <li>
-                        <span>
-                          {{ tag.value }}
-                        </span>
-                      </li>
-                    </ng-template>
-                  </ul>
+                      </ng-template>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </ng-container>
