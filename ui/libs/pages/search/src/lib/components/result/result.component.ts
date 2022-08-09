@@ -61,34 +61,42 @@ const MAX_DESCRIPTION_WORDS_LENGTH = 64;
         </ng-container>
       </p>
       <p class="description">
-        <i>
-          {{ shortDescription }}
+        <i [class.truncate] = "toTruncate(description) && !showFull">
+          {{ description }}
         </i>
+        <ng-container *ngIf="toTruncate(description)">
+          <a href="javascript:void(0)" (click)="showFull = !showFull">Show {{ showFull ? "less" : "more" }} </a>
+        </ng-container>
       </p>
     </div>
   `,
   styles: [
     `:host {
       display: block;
+    }
+    .description {
+      .truncate {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
     }`
   ],
 })
 export class ResultComponent {
-  shortDescription = '';
   shortTitle = '';
   validUrl: string | null = null;
+  showFull = false;
+
+  @Input()
+  description!: string;
 
   @Input()
   set title(title: string) {
     this.shortTitle = shortText(title, MAX_TITLE_WORDS_LENGTH);
-  }
-
-  @Input()
-  set description(description: string) {
-    this.shortDescription = shortText(
-      description,
-      MAX_DESCRIPTION_WORDS_LENGTH
-    );
   }
 
   @Input()
@@ -117,4 +125,7 @@ export class ResultComponent {
       queryParamsHandling: 'merge',
     });
   };
+
+  toTruncate = (description: string) => {
+    return description.split(" ").length > MAX_DESCRIPTION_WORDS_LENGTH };
 }
