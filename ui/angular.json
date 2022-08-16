@@ -3,7 +3,6 @@
   "projects": {
     "common": "libs/common",
     "layout": "libs/layout",
-    "pages-search": "libs/pages/search",
     "search": "libs/search",
     "types": "libs/types",
     "ui": "apps/ui",

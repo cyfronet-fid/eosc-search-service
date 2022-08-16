@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ui-error-page',
+  selector: 'ess-error-page',
   template: `
     <main>
       <div id="container">

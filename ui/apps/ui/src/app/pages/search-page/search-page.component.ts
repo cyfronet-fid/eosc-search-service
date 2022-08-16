@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { combineLatest, map, Observable, switchMap, tap } from 'rxjs';
+import { Observable, combineLatest, map, switchMap } from 'rxjs';
 import {
   FiltersRepository,
   FiltersService,
@@ -33,7 +33,7 @@ export class SearchPageComponent implements OnInit {
   @ViewChild(CdkVirtualScrollViewport, { static: false })
   viewport?: CdkVirtualScrollViewport;
   results$ = this._resultsRepository.results$;
-  categories: any[] = [];
+  categories: unknown[] = [];
   collections$: Observable<ICollectionSearchMetadata[]> = this._route.data.pipe(
     map((data) => data['activeSet'] as ISet),
     map((set) => set.collections)

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { shortText } from './utils';
-import {addFq, ITag} from '@eosc-search-service/search';
+import { ITag, addFq } from '@eosc-search-service/search';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_DESCRIPTION_WORDS_LENGTH = 64;
@@ -11,79 +11,82 @@ const MAX_DESCRIPTION_WORDS_LENGTH = 64;
   template: `
     <div id="container">
       <h6>
-        <a *ngIf="validUrl; else onlyTitleRef" [href]="validUrl" target="_blank">
+        <a
+          *ngIf="validUrl; else onlyTitleRef"
+          [href]="validUrl"
+          target="_blank"
+        >
           <b>{{ shortTitle }}</b>
         </a>
-        <ng-template #onlyTitleRef><b>{{ shortTitle }}</b></ng-template>
+        <ng-template #onlyTitleRef
+          ><b>{{ shortTitle }}</b></ng-template
+        >
       </h6>
       <p id="tags">
-        <span class="tag tag-title"
-        ><b
-        >
-          Type:
-            </b
-        ></span
-        >
+        <span class="tag tag-title"><b> Type: </b></span>
         <span class="tag">
           <b>
             <a [routerLink]="typeUrlPath" queryParamsHandling="merge">{{
               type
-              }}</a
-            >
-          </b>,
+            }}</a> </b
+          >,
         </span>
 
         <ng-container *ngFor="let tag of tags">
           <span class="tag tag-title"
-          ><i>{{ tag.label }}: </i></span
+            ><i>{{ tag.label }}: </i></span
           >
           <ng-container *ngIf="isArray(tag.value)">
             <ng-container *ngFor="let singleValue of $any(tag.value)">
               <span class="tag"
-              ><a
-                href="javascript:void(0)"
-                (click)="addFilter(tag.originalField, singleValue)"
-              >{{ singleValue }}</a
-              >,&nbsp;</span
+                ><a
+                  href="javascript:void(0)"
+                  (click)="addFilter(tag.originalField, singleValue)"
+                  >{{ singleValue }}</a
+                >,&nbsp;</span
               >
             </ng-container>
           </ng-container>
           <ng-container *ngIf="!isArray(tag.value)">
-            <span class="tag"
-            >
-                <a
-                  href="javascript:void(0)"
-                  (click)="addFilter(tag.originalField, $any(tag.value))"
+            <span class="tag">
+              <a
+                href="javascript:void(0)"
+                (click)="addFilter(tag.originalField, $any(tag.value))"
                 >{{ tag.value }}</a
-                > ,&nbsp;</span
+              >
+              ,&nbsp;</span
             >
           </ng-container>
         </ng-container>
       </p>
       <p class="description">
-        <i [class.truncate] = "toTruncate(description) && !showFull">
+        <i [class.truncate]="toTruncate(description) && !showFull">
           {{ description }}
         </i>
         <ng-container *ngIf="toTruncate(description)">
-          <a href="javascript:void(0)" (click)="showFull = !showFull">Show {{ showFull ? "less" : "more" }} </a>
+          <a href="javascript:void(0)" (click)="showFull = !showFull"
+            >Show {{ showFull ? 'less' : 'more' }}
+          </a>
         </ng-container>
       </p>
     </div>
   `,
   styles: [
-    `:host {
-      display: block;
-    }
-    .description {
-      .truncate {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
+    `
+      :host {
+        display: block;
       }
-    }`
+      .description {
+        .truncate {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          line-clamp: 3;
+          -webkit-box-orient: vertical;
+        }
+      }
+    `,
   ],
 })
 export class ResultComponent {
@@ -127,5 +130,6 @@ export class ResultComponent {
   };
 
   toTruncate = (description: string) => {
-    return description.split(" ").length > MAX_DESCRIPTION_WORDS_LENGTH };
+    return description.split(' ').length > MAX_DESCRIPTION_WORDS_LENGTH;
+  };
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, tap } from 'rxjs';
-import { environment } from '@environment/environment';
 import { CategoriesRepository } from '@eosc-search-service/common';
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import { environment } from '@environment/environment';
 
 @Component({
   selector: 'ess-root',

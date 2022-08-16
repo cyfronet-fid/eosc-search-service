@@ -1,1 +1,1 @@
-export * from './filter-multiselect.component'
+export * from './filter-multiselect.component';

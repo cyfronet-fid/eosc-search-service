@@ -8,9 +8,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
-  addFq,
   IFilter,
   INITIAL_FILTER_OPTION_COUNT,
+  addFq,
   removeFq,
 } from '@eosc-search-service/search';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -88,7 +88,7 @@ import { FlatNode, TreeNode } from '@eosc-search-service/common';
   ],
 })
 export class FilterMultiselectComponent implements OnChanges {
-  @ViewChild('content', { static: false }) content?: any;
+  @ViewChild('content', { static: false }) content?: unknown;
   @Input() filter: IFilter | null = null;
   @Output() toggleShowMore = new EventEmitter<void>();
   // @Output() addFilter = new EventEmitter
@@ -141,9 +141,13 @@ export class FilterMultiselectComponent implements OnChanges {
     if (this.filter?.showMore !== true) {
       return;
     }
-    const target: any = $event.target;
+    const target: unknown = $event.target;
     assertNotNull(target);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     const currentPosition = target.scrollTop + target.offsetHeight;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     if (currentPosition === target.scrollHeight) {
       this.fetchMore.emit(this.queryFc.value);
     }
