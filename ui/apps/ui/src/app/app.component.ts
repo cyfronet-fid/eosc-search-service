@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, tap } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { environment } from '@environment/environment';
 import { CategoriesRepository } from '@eosc-search-service/common';
 
 @Component({

@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {BehaviorSubject, map} from "rxjs";
 import {getFqsFromUrl, removeFq} from "@eosc-search-service/search";
 import {ActivatedRoute, Router} from "@angular/router";
-import { ICollectionSearchMetadata } from '../../../../../../search/src/lib/state/results/results.service';
+import { ICollectionSearchMetadata } from '../../../../../../../../libs/search/src/lib/state/results/results.service';
 import {IActiveFilter, IFilterConfiguration} from "@eosc-search-service/common";
 
 @Component({

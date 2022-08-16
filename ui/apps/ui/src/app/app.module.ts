@@ -10,10 +10,9 @@ import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 /** config ng-zorro-antd i18n **/
 import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
-import { AppComponent, LandingPageComponent } from './pages';
 import { AuthInterceptor, ESSCommonModule } from '@eosc-search-service/common';
 import { LayoutModule } from '@eosc-search-service/layout';
-import { SearchPageModule } from '@eosc-search-service/pages/search';
+
 import {
   SearchModule,
   allSet,
@@ -23,11 +22,12 @@ import {
   softwareSet,
   trainingsSet,
 } from '@eosc-search-service/search';
+import { AppComponent } from './app.component';
 
 registerLocaleData(en);
 
 @NgModule({
-  declarations: [AppComponent, LandingPageComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -43,7 +43,6 @@ registerLocaleData(en);
       ],
       mainSet: allSet,
     }),
-    SearchPageModule,
     LayoutModule,
     ESSCommonModule.forRoot({
       backendApiPath: 'api/web',
@@ -59,6 +58,5 @@ registerLocaleData(en);
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  exports: [LandingPageComponent],
 })
 export class AppModule {}
