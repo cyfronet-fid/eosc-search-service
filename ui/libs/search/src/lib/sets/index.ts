@@ -1,7 +1,0 @@
-export * from './all.set'
-export * from './services.set'
-export * from './publications.set'
-export * from './set.model'
-export * from './trainings.set'
-export * from './data.set'
-export * from './software.set'
