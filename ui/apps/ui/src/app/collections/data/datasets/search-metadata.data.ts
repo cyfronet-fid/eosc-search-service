@@ -1,7 +1,7 @@
 import { ICollectionSearchMetadata } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 
-export const COLLECTION = 'oag_publications';
+export const COLLECTION = 'oag_datasets';
 export const datasetsSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: {
