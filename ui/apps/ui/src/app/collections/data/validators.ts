@@ -117,7 +117,7 @@ export const _validateFiltersConsistency = (
     ) as IAdapter;
     const adapterFilters = adapter
       .adapter({ id: '' })
-      .tags.map(({ filter: tagFilter }) => tagFilter);
+      .tags.map(({ filter }) => filter);
 
     const missingFilters = differenceWith(
       adapterFilters,
@@ -130,14 +130,17 @@ export const _validateFiltersConsistency = (
       );
     }
 
+    const sideNavFiltersNames = collectionFilters.filters
+      .filter(({ type }) => type !== 'tag')
+      .map(({ filter }) => filter);
     const missingFacets = differenceWith(
-      pull(filtersNames, ...adapterFilters),
+      sideNavFiltersNames,
       facetsNames,
       isEqual
     );
     if (missingFacets.length > 0) {
       throw Error(
-        `[COLLECTIONS VALIDATION]: Missing facets: ${missingFacets}, for: ${metadataId} search metadata`
+        `[COLLECTIONS VALIDATION]: Missing facets: ${missingFacets}, for: "${metadataId}" search-metadata`
       );
     }
   });

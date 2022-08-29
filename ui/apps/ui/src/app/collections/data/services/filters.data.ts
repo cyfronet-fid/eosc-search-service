@@ -32,7 +32,7 @@ export const servicesFilters: IFiltersConfig = {
       id: 'scientific_domains_ss',
       filter: 'scientific_domains_ss',
       label: 'Scientific Domains',
-      type: 'multiselect',
+      type: 'tag',
     },
   ],
 };

@@ -10,7 +10,7 @@ export const servicesNavConfig: ICollectionNavConfig = {
   breadcrumbs: [
     {
       label: ALL_COLLECTIONS_LABEL,
-      url: ALL_COLLECTIONS_URL_PARAM_NAME,
+      url: `/search/${ALL_COLLECTIONS_URL_PARAM_NAME}`,
     },
     {
       label: LABEL,

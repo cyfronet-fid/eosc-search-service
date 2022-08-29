@@ -26,13 +26,13 @@ export const softwareFilters: IFiltersConfig = {
       id: 'author_names',
       filter: 'author_names',
       label: 'Author names',
-      type: 'multiselect',
+      type: 'tag',
     },
     {
       id: 'published',
       filter: 'published',
       label: 'Published',
-      type: 'multiselect',
+      type: 'tag',
     },
   ],
 };

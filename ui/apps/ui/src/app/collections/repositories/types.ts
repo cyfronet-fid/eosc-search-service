@@ -36,16 +36,6 @@ export interface CommonSettings {
   };
 }
 
-export interface IActiveFilter extends IFilterConfiguration {
-  value: string;
-}
-
-export interface IFilterConfiguration {
-  filter: string;
-  label: string;
-  type: 'multiselect' | 'select' | 'date';
-}
-
 export interface ISearchResults<T extends { id: string }> {
   results: T[];
   facets: { [field: string]: IFacetResponse };
@@ -64,17 +54,15 @@ export interface IFacetParam {
   [facet: string]: string | number | undefined;
 }
 
-export interface IBreadcrumb {
-  label: string;
-  url?: string;
-}
-
 export interface ICollectionNavConfig {
   id: string;
   title: string;
   urlParam: string;
 
-  breadcrumbs: IBreadcrumb[];
+  breadcrumbs: {
+    label: string;
+    url?: string;
+  }[];
 }
 export interface IAdapter {
   id: string;
@@ -89,7 +77,12 @@ export interface IFilterConfig {
   id: string;
   filter: string;
   label: string;
-  type: 'multiselect' | 'select' | 'date';
+
+  /*
+   * multiselect, select and dat types are handled by sidebar
+   * tag is handled by result single labels
+   * */
+  type: 'multiselect' | 'select' | 'date' | 'tag';
 }
 
 export interface ICollectionSearchMetadata {
