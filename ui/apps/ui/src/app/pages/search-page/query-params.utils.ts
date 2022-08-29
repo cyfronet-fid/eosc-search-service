@@ -1,4 +1,6 @@
-export function isArray<T>(val: any): val is T[] {
+export function isArray(
+  val: string | number | undefined | null | string[] | number[]
+): boolean {
   return Object.prototype.toString.call(val) === '[object Array]';
 }
 

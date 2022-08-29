@@ -44,7 +44,7 @@ export class PaginationRepository {
   );
   readonly paginationData$ = this._store$.pipe(selectPaginationData());
 
-  initialize = (response: ISearchResults<any>) => {
+  initialize = (response: ISearchResults<IResult>) => {
     this.clear();
     this.setLoading(true);
     this.setNextCursor(response.nextCursorMark);

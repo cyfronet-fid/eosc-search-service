@@ -1,4 +1,4 @@
-import { IFacetResponse } from '../../components/filters/types';
+import { IFacetResponse } from '@components/filters/types';
 
 export interface IResult {
   id: string;
@@ -31,7 +31,9 @@ export interface ISolrQueryParams {
 
 export interface CommonSettings {
   backendApiPath: string;
-  search: any;
+  search: {
+    apiPath: string;
+  };
 }
 
 export interface IActiveFilter extends IFilterConfiguration {

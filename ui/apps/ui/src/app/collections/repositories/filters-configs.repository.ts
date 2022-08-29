@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { createStore } from '@ngneat/elf';
-import {
-  getEntity,
-  selectAllEntities,
-  setEntities,
-  withEntities,
-} from '@ngneat/elf-entities';
+import { getEntity, setEntities, withEntities } from '@ngneat/elf-entities';
 import { IFiltersConfig } from './types';
 import { DEFAULT_COLLECTION_ID, FILTERS } from '../data';
 

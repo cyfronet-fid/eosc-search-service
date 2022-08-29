@@ -5,4 +5,4 @@ export const _EMPTY_RESPONSE = {
   numFound: 0,
   facets: [],
   nextCursorMark: '',
-} as unknown as ISearchResults<any & { id: string }>;
+} as unknown as ISearchResults<never & { id: string }>;

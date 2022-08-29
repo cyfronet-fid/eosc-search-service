@@ -3,6 +3,7 @@ import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {
   IFacetParam,
+  IResult,
   ISearchResults,
   ISolrCollectionParams,
   ISolrQueryParams,
@@ -24,9 +25,13 @@ export class FetchDataService {
     params: ISolrCollectionParams & ISolrQueryParams,
     facets: { [field: string]: IFacetParam },
     adapter: adapterType
-  ): Observable<ISearchResults<any>> {
+  ): Observable<ISearchResults<IResult>> {
     return this._http
-      .post<ISearchResults<T>>(this._url, { facets }, { params: params as any })
+      .post<ISearchResults<T>>(
+        this._url,
+        { facets },
+        { params: params as never }
+      )
       .pipe(
         catchError(() => of(_EMPTY_RESPONSE)),
         map((response: ISearchResults<T>) => ({
@@ -43,7 +48,11 @@ export class FetchDataService {
     facets: { [field: string]: IFacetParam }
   ): Observable<{ [field: string]: IFacetResponse }> {
     return this._http
-      .post<ISearchResults<T>>(this._url, { facets }, { params: params as any })
+      .post<ISearchResults<T>>(
+        this._url,
+        { facets },
+        { params: params as never }
+      )
       .pipe(
         catchError(() => of(_EMPTY_RESPONSE)),
         map((results: ISearchResults<T>) => results.facets)

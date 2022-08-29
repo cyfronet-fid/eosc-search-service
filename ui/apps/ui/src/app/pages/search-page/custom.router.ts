@@ -84,14 +84,14 @@ export class CustomRouter {
     }));
 
   // URL updates
-  removeFilterFromUrl = async (filter) => {
+  removeFilterFromUrl = async (filter: string) => {
     return this.updateQueryParamsInUrl({
       fq: this.fq().filter((fq) => !fq.startsWith(filter)),
     });
   };
-  addFilterValueToUrl = (filter, value) =>
+  addFilterValueToUrl = (filter: string, value: string) =>
     this.updateQueryParamsInUrl({ fq: addFq(this.fqMap(), filter, value) });
-  removeFilterValueFromUrl = (filter, value) =>
+  removeFilterValueFromUrl = (filter: string, value: string) =>
     this.updateQueryParamsInUrl({ fq: removeFq(this.fqMap(), filter, value) });
   setQueryInUrl = (q: string = '*', url: string[] = []) =>
     this.updateQueryParamsInUrl({ q: escapeQuery(q).trim() }, url);

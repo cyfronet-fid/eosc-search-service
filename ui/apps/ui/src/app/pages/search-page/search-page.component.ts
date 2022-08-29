@@ -7,6 +7,7 @@ import { SearchMetadataRepository } from '@collections/repositories/search-metad
 import { AdaptersRepository } from '@collections/repositories/adapters.repository';
 import {
   ICollectionSearchMetadata,
+  IResult,
   ISearchResults,
   adapterType,
 } from '@collections/repositories/types';
@@ -80,7 +81,7 @@ import { combineLatest } from 'rxjs';
   ],
 })
 export class SearchPageComponent implements OnInit {
-  response: ISearchResults<any> | null = null;
+  response: ISearchResults<IResult> | null = null;
 
   constructor(
     private _customRouter: CustomRouter,

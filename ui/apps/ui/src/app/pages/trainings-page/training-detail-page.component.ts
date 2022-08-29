@@ -28,7 +28,7 @@ export class TrainingDetailPageComponent implements OnInit {
   }
 
   getItem(): void {
-    const id = parseInt(this.route.snapshot.paramMap.get('trainingId')!, 10);
+    const id = +(this.route.snapshot.paramMap.get('trainingId') ?? 1);
     this.trainingsService.get$(id).subscribe((item) => {
       this.training = trainingsAdapter.adapter(item);
       this.originUrl = item.URL_s;

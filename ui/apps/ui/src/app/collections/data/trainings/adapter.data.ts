@@ -1,11 +1,12 @@
-import { IAdapter } from '../../repositories/types';
+import { IAdapter, IResult } from '../../repositories/types';
 import { LABEL, URL_PARAM_NAME } from './nav-config.data';
 import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
+import { ITraining } from '@collections/data/trainings/training.model';
 
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
-  adapter: <ITraining>(training) => ({
+  adapter: (training: Partial<ITraining> & { id: string }): IResult => ({
     id: uuidv4(),
     title: training['Resource_title_s'] || '',
     description: training['Description_s'] || '',

@@ -21,7 +21,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "noImplicitAny": false
+    "baseUrl": "."
   }
 }

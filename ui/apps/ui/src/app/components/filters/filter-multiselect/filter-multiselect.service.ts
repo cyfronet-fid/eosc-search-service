@@ -47,7 +47,7 @@ export class FilterMultiselectService {
     );
 
   onScroll = (event: Event) => {
-    const target = event.target as any;
+    const target = event.target as HTMLElement;
     const currentPosition = target.scrollTop;
     const currentIndex = Math.ceil(currentPosition / RECORD_HEIGHT);
     const currentChunk = Math.floor(currentIndex / LOAD_NEXT_CHUNK_INDEX);

@@ -10,7 +10,7 @@ export interface IFacetResponse {
 export interface FilterTreeNode {
   id: string; // filter:value
   name: string;
-  value: any;
+  value: string;
   filter: string;
   count: string;
   disabled?: boolean;

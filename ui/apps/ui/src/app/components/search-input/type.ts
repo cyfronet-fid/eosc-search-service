@@ -1,5 +1,7 @@
+import { IResult } from '@collections/repositories/types';
+
 export interface ISuggestedResults {
   caption: string;
-  results: any[];
+  results: IResult[];
   link: string;
 }

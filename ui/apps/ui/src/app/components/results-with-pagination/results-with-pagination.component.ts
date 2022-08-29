@@ -3,7 +3,7 @@ import { PaginationService } from './pagination.service';
 import { BehaviorSubject, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ISearchResults } from '../../collections/repositories/types';
+import { IResult, ISearchResults } from '../../collections/repositories/types';
 import { CustomRouter } from '../../pages/search-page/custom.router';
 import { paramType } from '../../pages/search-page/custom-router.type';
 
@@ -65,7 +65,7 @@ export class ResultsWithPaginationComponent implements OnInit {
   _prevParamsWithoutCursor: { [name: string]: paramType } = {};
 
   @Input()
-  set response(response: ISearchResults<any> | null) {
+  set response(response: ISearchResults<IResult> | null) {
     if (response === null) {
       return;
     }
