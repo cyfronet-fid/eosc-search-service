@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, delay } from 'rxjs';
+import { Observable, catchError, delay, of } from 'rxjs';
 import { environment } from '@environment/environment';
 
 @Injectable({
@@ -12,6 +12,9 @@ export class UserProfileService {
   get$(): Observable<{ username: string }> {
     return this._http
       .get<{ username: string }>(`${environment.backendApiPath}/auth/userinfo`)
-      .pipe(delay(0));
+      .pipe(
+        delay(0),
+        catchError(() => of({ username: '' }))
+      );
   }
 }

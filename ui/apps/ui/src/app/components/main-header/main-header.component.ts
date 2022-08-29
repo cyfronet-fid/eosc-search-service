@@ -1,7 +1,8 @@
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { UserProfileService } from './user-profile.service';
 import { EoscCommonWindow } from './types';
+import { environment } from '@environment/environment';
 
 declare let window: EoscCommonWindow;
 
@@ -20,8 +21,7 @@ declare let window: EoscCommonWindow;
 })
 export class MainHeaderComponent implements OnInit {
   id = 'eosc-common-main-header';
-
-  @Input() backendUrl = ``;
+  backendUrl = `${environment.backendApiPath}`;
 
   constructor(private _userProfileService: UserProfileService) {}
 
