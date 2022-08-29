@@ -16,9 +16,9 @@ import { HasDefaultQueryParamGuard } from '../../collections/services/has-defaul
 import { ResultsWithPaginationModule } from '../../components/results-with-pagination/results-with-pagination.module';
 import { SearchBarModule } from '../../components/search-bar/search-bar.module';
 import { CollectionsNavigationModule } from '../../components/collections-navigation/collections-navigation.module';
-import {PageHeaderModule} from "../../components/page-header/page-header.module";
-import {FiltersModule} from "../../components/filters/filters.module";
-import {ActiveFiltersModule} from "../../components/active-filters/active-filters.module";
+import { PageHeaderModule } from '../../components/page-header/page-header.module';
+import { FiltersModule } from '../../components/filters/filters.module';
+import { ActiveFiltersModule } from '../../components/active-filters/active-filters.module';
 
 @NgModule({
   declarations: [SearchPageComponent],
@@ -31,7 +31,7 @@ import {ActiveFiltersModule} from "../../components/active-filters/active-filter
     NzSpinModule,
     ReactiveFormsModule,
     RouterModule.forChild([
-      {path: '', pathMatch: 'full', redirectTo: DEFAULT_COLLECTION_ID},
+      { path: '', pathMatch: 'full', redirectTo: DEFAULT_COLLECTION_ID },
       {
         path: ':collection',
         component: SearchPageComponent,

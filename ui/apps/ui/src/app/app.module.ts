@@ -13,7 +13,7 @@ import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
 
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { MainHeaderModule } from './components/main-header/main-header.module';
+import { MainHeaderModule } from '@components/main-header/main-header.module';
 
 registerLocaleData(en);
 

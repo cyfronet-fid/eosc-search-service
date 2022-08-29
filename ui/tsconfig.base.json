@@ -22,10 +22,6 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "noImplicitAny": false,
-    "paths": {
-      "@environment/*": ["apps/ui/src/environments/*"],
-      "@eosc-search-service/search": ["libs/search/src/index.ts"]
-    }
+    "noImplicitAny": false
   }
 }

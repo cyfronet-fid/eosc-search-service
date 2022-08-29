@@ -3,9 +3,9 @@ import { FilterMultiselectService } from './filter-multiselect.service';
 import { FilterTreeNode } from '../types';
 import { FilterMultiselectRepository } from './filter-multiselect.repository';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, map, skip, switchMap, tap } from 'rxjs';
+import { map, skip, switchMap, tap } from 'rxjs';
 import { UntypedFormControl } from '@angular/forms';
-import { CustomRouter } from '../../../pages/search-page/custom.router';
+import { CustomRouter } from '@pages/search-page/custom.router';
 import { combineLatest } from 'rxjs';
 
 @UntilDestroy()

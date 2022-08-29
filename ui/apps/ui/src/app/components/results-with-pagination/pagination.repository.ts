@@ -16,7 +16,7 @@ import {
   updatePaginationData,
   withPagination,
 } from '@ngneat/elf-pagination';
-import { IResult, ISearchResults } from '../../collections/repositories/types';
+import { IResult, ISearchResults } from '@collections/repositories/types';
 
 export const MAX_COLLECTION_RESULTS = 100;
 export const RESULTS_PER_PAGE = 10;

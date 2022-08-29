@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
-import { FiltersConfigsRepository } from '../../collections/repositories/filters-configs.repository';
+import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { ActivatedRoute } from '@angular/router';
 import { filter, map } from 'rxjs';
-import { IFiltersConfig } from '../../collections/repositories/types';
+import { IFiltersConfig } from '@collections/repositories/types';
 
 @UntilDestroy()
 @Component({

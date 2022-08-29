@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AdaptersRepository } from '../../collections/repositories/adapters.repository';
-import { SearchMetadataRepository } from '../../collections/repositories/search-metadata.repository';
-import { FetchDataService } from '../../collections/services/fetch-data.service';
-import { combineLatest, map, of, tap } from 'rxjs';
-import { adapterType } from '../../collections/repositories/types';
+import { AdaptersRepository } from '@collections/repositories/adapters.repository';
+import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
+import { FetchDataService } from '@collections/services/fetch-data.service';
+import { combineLatest, map, of } from 'rxjs';
+import { adapterType } from '@collections/repositories/types';
 import { toSuggestedResults } from './utils';
 
 const MAX_COLLECTION_RESULTS = 3; // TODO: Move to env file

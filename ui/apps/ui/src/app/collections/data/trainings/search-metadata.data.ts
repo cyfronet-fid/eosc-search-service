@@ -12,14 +12,18 @@ export const trainingsSearchMetadata: ICollectionSearchMetadata = {
     License_S: { field: 'License_s', type: 'terms', limit: 0 },
     EOSC_PROVIDER_s: { field: 'EOSC_PROVIDER_s', type: 'terms', limit: 0 },
     Format_ss: { field: 'Format_s', type: 'terms', limit: 0 },
-    Level_of_expertise_s: { field: 'Level_of_expertise_s', type: 'terms', limit: 0 },
+    Level_of_expertise_s: {
+      field: 'Level_of_expertise_s',
+      type: 'terms',
+      limit: 0,
+    },
     Target_group_s: { field: 'Target_group_s', type: 'terms', limit: 0 },
     Qualification_s: { field: 'Qualification_s', type: 'terms', limit: 0 },
     Duration_s: { field: 'Duration_s', type: 'terms', limit: 0 },
     Version_date__created_in__s: {
       field: 'Version_date__created_in__s',
       type: 'terms',
-      limit: 0
+      limit: 0,
     },
   },
   queryMutator: (q: string) => q,

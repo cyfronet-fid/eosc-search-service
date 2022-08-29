@@ -1,7 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "search": "libs/search",
     "ui": "apps/ui",
     "ui-e2e": "apps/ui-e2e"
   }

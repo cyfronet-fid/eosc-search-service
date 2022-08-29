@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
 import { FilterMultiselectRepository } from './filter-multiselect.repository';
-import { FetchDataService } from '../../../collections/services/fetch-data.service';
+import { FetchDataService } from '@collections/services/fetch-data.service';
 import {
   ICollectionSearchMetadata,
   IFacetParam,
-  ISolrCollectionParams,
-} from '../../../collections/repositories/types';
-import { SearchMetadataRepository } from '../../../collections/repositories/search-metadata.repository';
+} from '@collections/repositories/types';
+import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { facetToTreeNodes } from '../utils';
 import { map, tap } from 'rxjs';
-import { paramType } from '../../../pages/search-page/custom-router.type';
-import { CustomRouter } from '../../../pages/search-page/custom.router';
+import { paramType } from '@pages/search-page/custom-router.type';
+import { CustomRouter } from '@pages/search-page/custom.router';
 
 const DEFAULT_RESULTS_SIZE = 10;
 const RECORD_HEIGHT = 29; // PX

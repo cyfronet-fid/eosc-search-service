@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DEFAULT_COLLECTION_ID } from '../../collections/data';
+import { DEFAULT_COLLECTION_ID } from '@collections/data';
 
 @Component({
   selector: 'ess-landing-page',

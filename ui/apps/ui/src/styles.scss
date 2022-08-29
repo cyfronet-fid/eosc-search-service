@@ -234,17 +234,17 @@ h6 {
       font-size: 11px;
       line-height: 1.1;
       font-weight: bold;
-      color: #3987BE;
+      color: #3987be;
       background: rgba(57, 135, 190, 0.3);
       border-radius: 2px;
 
       &:nth-child(2) {
-        color: #449E8E;
+        color: #449e8e;
         background: rgba(68, 158, 142, 0.2);
       }
 
       &:nth-child(3) {
-        color: #D4A702;
+        color: #d4a702;
         background: rgba(212, 167, 2, 0.2);
       }
     }
@@ -255,7 +255,7 @@ h6 {
     color: #000;
 
     a {
-      color: #D4A702;
+      color: #d4a702;
       text-decoration: none;
       font-weight: bold;
     }
@@ -264,7 +264,7 @@ h6 {
   .description {
     font-size: 14px;
     line-height: 25px;
-    margin-bottom:5px;
+    margin-bottom: 5px;
     margin-top: 20px;
     color: rgba(0, 0, 0, 0.8);
   }
@@ -278,12 +278,12 @@ h6 {
     color: #fff;
     margin: 0;
     float: right;
-    background: linear-gradient(88.93deg, #05A6E7 1.83%, #0C2BD5 124.59%);
+    background: linear-gradient(88.93deg, #05a6e7 1.83%, #0c2bd5 124.59%);
     border-radius: 2px;
 
     &:hover {
       color: #fff;
-      background: #D4A702;
+      background: #d4a702;
     }
   }
 }

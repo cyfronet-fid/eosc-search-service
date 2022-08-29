@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { ITag } from '../../collections/repositories/types';
-import { CustomRouter } from '../../pages/search-page/custom.router';
+import { ITag } from '@collections/repositories/types';
+import { CustomRouter } from '@pages/search-page/custom.router';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_DESCRIPTION_WORDS_LENGTH = 64;
@@ -72,7 +72,10 @@ const shortText = (text: string, maxWords: number): string => {
           {{ description }}
         </i>
         <ng-container *ngIf="toTruncate(description)">
-          <a href="javascript:void(0)" class="btn-show-more" (click)="showFull = !showFull"
+          <a
+            href="javascript:void(0)"
+            class="btn-show-more"
+            (click)="showFull = !showFull"
             >Show {{ showFull ? 'less' : 'more' }}
           </a>
         </ng-container>

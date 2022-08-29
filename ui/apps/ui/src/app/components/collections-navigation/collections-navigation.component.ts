@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomRouter } from '../../pages/search-page/custom.router';
+import { CustomRouter } from '@pages/search-page/custom.router';
 import { INavigationLink } from './type';
-import { NavConfigsRepository } from '../../collections/repositories/nav-configs.repository';
+import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 import { toNavigationLink } from './utils';
 
 @Component({

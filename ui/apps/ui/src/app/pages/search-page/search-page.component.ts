@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, map, switchMap, tap } from 'rxjs';
-import { FetchDataService } from '../../collections/services/fetch-data.service';
+import { FetchDataService } from '@collections/services/fetch-data.service';
 import { CustomRouter } from './custom.router';
-import { SearchMetadataRepository } from '../../collections/repositories/search-metadata.repository';
-import { AdaptersRepository } from '../../collections/repositories/adapters.repository';
+import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
+import { AdaptersRepository } from '@collections/repositories/adapters.repository';
 import {
   ICollectionSearchMetadata,
   ISearchResults,
   adapterType,
-} from '../../collections/repositories/types';
-import { MAX_COLLECTION_RESULTS } from '../../components/results-with-pagination/pagination.repository';
+} from '@collections/repositories/types';
+import { MAX_COLLECTION_RESULTS } from '@components/results-with-pagination/pagination.repository';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { IResult, ITag } from '../../collections/repositories/types';
+import { IResult, ITag } from '@collections/repositories/types';
 import { TrainingsService } from './trainings.service';
 import { ActivatedRoute } from '@angular/router';
-import { trainingsAdapter } from '../../collections/data/trainings/adapter.data';
+import { trainingsAdapter } from '@collections/data/trainings/adapter.data';
 
 @Component({
   selector: 'ess-training-detail-page',

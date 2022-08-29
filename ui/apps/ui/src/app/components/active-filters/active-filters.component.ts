@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Observable, filter, map } from 'rxjs';
 
-import { FiltersConfigsRepository } from '../../collections/repositories/filters-configs.repository';
+import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { IActiveFilter } from './type';
-import { CustomRouter } from '../../pages/search-page/custom.router';
+import { CustomRouter } from '@pages/search-page/custom.router';
 import { toActiveFilters } from './utils';
 
 @UntilDestroy()

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PaginationRepository } from './pagination.repository';
-import { ISearchResults } from '../../collections/repositories/types';
-import {paramType} from "../../pages/search-page/custom-router.type";
+import { ISearchResults } from '@collections/repositories/types';
+import { paramType } from '@pages/search-page/custom-router.type';
 
 @Injectable({ providedIn: 'root' })
 export class PaginationService {
@@ -14,7 +14,8 @@ export class PaginationService {
   setLoading = this._paginationRepository.setLoading;
   currentPage = () => this._paginationRepository.paginationData().currentPage;
 
-  initPagination = (response: ISearchResults<any>) => this._paginationRepository.initialize(response);
+  initPagination = (response: ISearchResults<any>) =>
+    this._paginationRepository.initialize(response);
   updatePagination = (
     allUrlParams: { [name: string]: paramType },
     response: ISearchResults<any>

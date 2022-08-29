@@ -5,15 +5,14 @@ import {
   distinctUntilChanged,
   filter,
   map,
-  startWith,
   switchMap,
   tap,
 } from 'rxjs';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { SearchInputService } from './search-input.service';
-import { CustomRouter } from '../../pages/search-page/custom.router';
-import { SEARCH_PAGE_PATH } from '../../pages/search-page/custom-router.type';
+import { CustomRouter } from '@pages/search-page/custom.router';
+import { SEARCH_PAGE_PATH } from '@pages/search-page/custom-router.type';
 import { ISuggestedResults } from './type';
 import { Router } from '@angular/router';
 

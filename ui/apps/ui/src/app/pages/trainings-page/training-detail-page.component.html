@@ -119,7 +119,9 @@
                   <div class="details-content">
                     <ul class="list-group">
                       <ng-container *ngIf="isArray(tag.value); else oneValue">
-                        <ng-container *ngFor="let singleValue of $any(tag.value)">
+                        <ng-container
+                          *ngFor="let singleValue of $any(tag.value)"
+                        >
                           <li>
                             <span>
                               {{ singleValue }}
