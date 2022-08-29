@@ -4,7 +4,7 @@ import {
   ICollectionSearchMetadata,
   IFiltersConfig,
 } from '@collections/repositories/types';
-import { differenceWith, isEqual, pull } from 'lodash-es';
+import { differenceWith, isEqual } from 'lodash-es';
 
 export const validateCollections = (
   adapters: IAdapter[],
