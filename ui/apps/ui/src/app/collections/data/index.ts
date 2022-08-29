@@ -31,6 +31,7 @@ import { publicationsSearchMetadata } from './publications/search-metadata.data'
 import { datasetsSearchMetadata } from './datasets/search-metadata.data';
 import { softwareSearchMetadata } from './software/search-metadata.data';
 import { servicesSearchMetadata } from './services/search-metadata.data';
+import { validateCollections } from '@collections/data/validators';
 
 export const DEFAULT_COLLECTION_ID = ALL_COLLECTIONS_URL_PARAM_NAME;
 export const ADAPTERS: IAdapter[] = [
@@ -65,3 +66,5 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   servicesSearchMetadata,
   trainingsSearchMetadata,
 ];
+
+validateCollections(ADAPTERS, FILTERS, NAV_CONFIGS, SEARCH_METADATA);

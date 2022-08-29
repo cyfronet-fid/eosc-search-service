@@ -8,13 +8,6 @@ export const softwareSearchMetadata: ICollectionSearchMetadata = {
     publisher: { field: 'publisher', type: 'terms', limit: 0 },
     bestaccessright: { field: 'bestaccessright', type: 'terms', limit: 0 },
     language: { field: 'language', type: 'terms', limit: 0 },
-    journal: { field: 'journal', type: 'terms', limit: 0 },
-    organization_names: {
-      field: 'organization_names',
-      type: 'terms',
-      limit: 0,
-    },
-    project_titles: { field: 'project_titles', type: 'terms', limit: 0 },
   },
   queryMutator: (q: string) => q,
   params: {

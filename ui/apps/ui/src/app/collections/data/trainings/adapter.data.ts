@@ -13,32 +13,32 @@ export const trainingsAdapter: IAdapter = {
     type: LABEL,
     typeUrlPath: URL_PARAM_NAME,
     collection: COLLECTION,
-    url: training.URL_s || '',
+    url: '/trainings/' + training.id || '',
     tags: [
       {
         label: 'Authors',
         value: training['Author_ss'] || [],
-        originalField: 'Author',
+        filter: 'Author',
       },
       {
         label: 'Key words',
         value: training['Keywords_ss'] || [],
-        originalField: 'Keywords',
+        filter: 'Keywords',
       },
       {
         label: 'License',
         value: training['License_s'] || '',
-        originalField: 'License',
+        filter: 'License',
       },
       {
         label: 'Access right',
         value: training['Access_Rights_s'] || '',
-        originalField: 'Access_Rights',
+        filter: 'Access_Rights',
       },
       {
         label: 'Created on',
         value: training['Version_date__created_in__s'] || '',
-        originalField: 'Version_date__created_in_',
+        filter: 'Version_date__created_in__s',
       },
     ],
   }),

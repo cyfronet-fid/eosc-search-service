@@ -5,11 +5,9 @@ export const COLLECTION = 'trainings';
 export const trainingsSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: {
-    Resource_title_s: { field: 'Resource_title_s', type: 'terms', limit: 0 },
     Resource_Type_s: { field: 'Resource_Type_s', type: 'terms', limit: 0 },
     Content_Type_s: { field: 'Content_Type_s', type: 'terms', limit: 0 },
     Language_s: { field: 'Language_s', type: 'terms', limit: 0 },
-    License_S: { field: 'License_s', type: 'terms', limit: 0 },
     EOSC_PROVIDER_s: { field: 'EOSC_PROVIDER_s', type: 'terms', limit: 0 },
     Format_ss: { field: 'Format_s', type: 'terms', limit: 0 },
     Level_of_expertise_s: {

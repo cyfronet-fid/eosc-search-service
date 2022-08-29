@@ -1,8 +1,7 @@
 import { IAdapter, IResult } from '../../repositories/types';
-import { URL_PARAM_NAME } from '../publications/nav-config.data';
 import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
-import { LABEL } from './nav-config.data';
+import { LABEL, URL_PARAM_NAME } from './nav-config.data';
 
 export const softwareAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -19,17 +18,17 @@ export const softwareAdapter: IAdapter = {
       {
         label: 'Author names',
         value: openAIREResult.author_names || [],
-        originalField: 'author_names',
+        filter: 'author_names',
       },
       {
         label: 'Published (date)',
         value: openAIREResult?.published?.pop() || '',
-        originalField: 'published',
+        filter: 'published',
       },
       {
         label: 'Access right',
         value: openAIREResult?.bestaccessright?.pop() || '',
-        originalField: 'bestaccessright',
+        filter: 'bestaccessright',
       },
     ],
     type: LABEL,

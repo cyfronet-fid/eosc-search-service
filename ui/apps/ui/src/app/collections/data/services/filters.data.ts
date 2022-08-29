@@ -28,5 +28,11 @@ export const servicesFilters: IFiltersConfig = {
       label: 'Categories',
       type: 'multiselect',
     },
+    {
+      id: 'scientific_domains_ss',
+      filter: 'scientific_domains_ss',
+      label: 'Scientific Domains',
+      type: 'multiselect',
+    },
   ],
 };

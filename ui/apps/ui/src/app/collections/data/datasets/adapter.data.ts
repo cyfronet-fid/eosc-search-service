@@ -18,17 +18,17 @@ export const datasetsAdapter: IAdapter = {
       {
         label: 'Author names',
         value: openAIREResult.author_names || [],
-        originalField: 'author_names',
+        filter: 'author_names',
       },
       {
         label: 'Published (date)',
         value: openAIREResult?.published?.pop() || '',
-        originalField: 'published',
+        filter: 'published',
       },
       {
         label: 'Access right',
         value: openAIREResult?.bestaccessright?.pop() || '',
-        originalField: 'bestaccessright',
+        filter: 'bestaccessright',
       },
     ],
     type: LABEL,

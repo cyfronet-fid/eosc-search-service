@@ -10,5 +10,5 @@ export const allCollectionsNavConfig: ICollectionNavConfig = {
       label: LABEL,
     },
   ],
-  urlPath: URL_PARAM_NAME,
+  urlParam: URL_PARAM_NAME,
 };

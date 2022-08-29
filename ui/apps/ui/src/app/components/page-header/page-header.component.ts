@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
-import { CustomRouter } from '@pages/search-page/custom.router';
+import { CustomRouter } from '@collections/services/custom.router';
 
 @UntilDestroy()
 @Component({

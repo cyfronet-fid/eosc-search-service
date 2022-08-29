@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { PaginationRepository } from './pagination.repository';
 import { IResult, ISearchResults } from '@collections/repositories/types';
-import { paramType } from '@pages/search-page/custom-router.type';
+import { paramType } from '@collections/services/custom-router.type';
 
 @Injectable({ providedIn: 'root' })
 export class PaginationService {

@@ -20,12 +20,12 @@ export const servicesAdapter: IAdapter = {
       {
         label: 'Scientific domain',
         value: service.scientific_domains_ss || [],
-        originalField: 'scientific_domains_ss',
+        filter: 'scientific_domains_ss',
       },
       {
         label: 'Organisation',
         value: service.resource_organisation_s || '',
-        originalField: 'resource_organisation_s',
+        filter: 'resource_organisation_s',
       },
     ],
   }),

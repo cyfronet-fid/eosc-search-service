@@ -7,14 +7,14 @@ export const toActiveFilters = (
 ): IActiveFilter[] => {
   const activeFilters: IActiveFilter[] = [];
   for (const [filter, filterValues] of Object.entries(fqsMap)) {
+    const filterConfig = filtersConfigs.find(
+      ({ filter: configFilter }) => configFilter === filter
+    ) as IFilterConfig;
     for (const value of filterValues) {
       activeFilters.push({
         filter,
         value,
-        label:
-          filtersConfigs.find(
-            ({ filter: configFilter }) => configFilter === filter
-          )?.label || '',
+        label: filterConfig.label,
       });
     }
   }

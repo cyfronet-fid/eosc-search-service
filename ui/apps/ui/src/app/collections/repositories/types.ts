@@ -14,7 +14,7 @@ export interface IResult {
 export interface ITag {
   label: string;
   value: string | string[];
-  originalField: string;
+  filter: string;
 }
 
 export interface ISolrCollectionParams {
@@ -72,7 +72,7 @@ export interface IBreadcrumb {
 export interface ICollectionNavConfig {
   id: string;
   title: string;
-  urlPath: string;
+  urlParam: string;
 
   breadcrumbs: IBreadcrumb[];
 }

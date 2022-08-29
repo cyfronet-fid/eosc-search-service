@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ITag } from '@collections/repositories/types';
-import { CustomRouter } from '@pages/search-page/custom.router';
+import { CustomRouter } from '@collections/services/custom.router';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_DESCRIPTION_WORDS_LENGTH = 64;
@@ -48,7 +48,7 @@ const shortText = (text: string, maxWords: number): string => {
                 <span class="tag"
                   ><a
                     href="javascript:void(0)"
-                    (click)="setActiveFilter(tag.originalField, singleValue)"
+                    (click)="setActiveFilter(tag.filter, singleValue)"
                     >{{ singleValue }}</a
                   >,&nbsp;</span
                 >
@@ -58,7 +58,7 @@ const shortText = (text: string, maxWords: number): string => {
               <span class="tag">
                 <a
                   href="javascript:void(0)"
-                  (click)="setActiveFilter(tag.originalField, $any(tag.value))"
+                  (click)="setActiveFilter(tag.filter, $any(tag.value))"
                   >{{ tag.value }}</a
                 >
                 ,&nbsp;</span

@@ -8,8 +8,8 @@ import {
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { facetToTreeNodes } from '../utils';
 import { map, tap } from 'rxjs';
-import { paramType } from '@pages/search-page/custom-router.type';
-import { CustomRouter } from '@pages/search-page/custom.router';
+import { paramType } from '@collections/services/custom-router.type';
+import { CustomRouter } from '@collections/services/custom.router';
 
 const DEFAULT_RESULTS_SIZE = 10;
 const RECORD_HEIGHT = 29; // PX

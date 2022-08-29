@@ -7,7 +7,7 @@ import {
   parseFqToArray,
   parseQueryParams,
   removeFq,
-} from './query-params.utils';
+} from './custom-router.utils';
 import { Observable, distinctUntilChanged, filter, map } from 'rxjs';
 import { isEqual } from 'lodash-es';
 import { Router } from '@angular/router';

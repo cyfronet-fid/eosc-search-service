@@ -22,5 +22,17 @@ export const publicationsFilters: IFiltersConfig = {
       label: 'Language',
       type: 'multiselect',
     },
+    {
+      id: 'author_names',
+      filter: 'author_names',
+      label: 'Author names',
+      type: 'multiselect',
+    },
+    {
+      id: 'published',
+      filter: 'published',
+      label: 'Published',
+      type: 'multiselect',
+    },
   ],
 };

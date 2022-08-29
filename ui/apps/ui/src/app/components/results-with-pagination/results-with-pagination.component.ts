@@ -4,8 +4,8 @@ import { BehaviorSubject, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { IResult, ISearchResults } from '../../collections/repositories/types';
-import { CustomRouter } from '../../pages/search-page/custom.router';
-import { paramType } from '../../pages/search-page/custom-router.type';
+import { CustomRouter } from '@collections/services/custom.router';
+import { paramType } from '@collections/services/custom-router.type';
 
 @UntilDestroy()
 @Component({

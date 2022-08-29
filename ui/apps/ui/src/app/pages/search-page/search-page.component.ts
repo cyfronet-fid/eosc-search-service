@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, map, switchMap, tap } from 'rxjs';
 import { FetchDataService } from '@collections/services/fetch-data.service';
-import { CustomRouter } from './custom.router';
+import { CustomRouter } from '@collections/services/custom.router';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { AdaptersRepository } from '@collections/repositories/adapters.repository';
 import {

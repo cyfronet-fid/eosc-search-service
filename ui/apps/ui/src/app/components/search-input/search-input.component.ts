@@ -11,8 +11,8 @@ import {
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { SearchInputService } from './search-input.service';
-import { CustomRouter } from '@pages/search-page/custom.router';
-import { SEARCH_PAGE_PATH } from '@pages/search-page/custom-router.type';
+import { CustomRouter } from '@collections/services/custom.router';
+import { SEARCH_PAGE_PATH } from '@collections/services/custom-router.type';
 import { ISuggestedResults } from './type';
 import { Router } from '@angular/router';
 
@@ -65,7 +65,7 @@ import { Router } from '@angular/router';
       >
         <ng-container *ngFor="let group of suggestedResults">
           <div class="list-group-item">
-            <span class="group">{{ group.caption }}</span> &nbsp;<a
+            <span class="group">{{ group.label }}</span> &nbsp;<a
               [routerLink]="['/search', group.link]"
               [queryParams]="{ q: formControl.value }"
               >see all</a

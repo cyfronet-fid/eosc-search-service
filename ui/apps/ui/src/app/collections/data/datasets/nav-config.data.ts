@@ -2,8 +2,8 @@ import { ICollectionNavConfig } from '../../repositories/types';
 import { LABEL as ALL_COLLECTIONS_LABEL } from '../all/nav-config.data';
 import { URL_PARAM_NAME as ALL_COLLECTIONS_PARAM_NAME } from '../all/nav-config.data';
 
-export const URL_PARAM_NAME = 'datasets';
-export const LABEL = 'Datasets';
+export const URL_PARAM_NAME = 'data';
+export const LABEL = 'Data';
 export const datasetsNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,
@@ -16,5 +16,5 @@ export const datasetsNavConfig: ICollectionNavConfig = {
       label: LABEL,
     },
   ],
-  urlPath: URL_PARAM_NAME,
+  urlParam: URL_PARAM_NAME,
 };
