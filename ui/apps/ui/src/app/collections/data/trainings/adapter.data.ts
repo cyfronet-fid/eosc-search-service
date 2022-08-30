@@ -18,22 +18,22 @@ export const trainingsAdapter: IAdapter = {
       {
         label: 'Authors',
         value: training['Author_ss'] || [],
-        filter: 'Author',
+        filter: 'Author_ss',
       },
       {
         label: 'Key words',
         value: training['Keywords_ss'] || [],
-        filter: 'Keywords',
+        filter: 'Keywords_ss',
       },
       {
         label: 'License',
         value: training['License_s'] || '',
-        filter: 'License',
+        filter: 'License_s',
       },
       {
         label: 'Access right',
         value: training['Access_Rights_s'] || '',
-        filter: 'Access_Rights',
+        filter: 'Access_Rights_s',
       },
       {
         label: 'Created on',
