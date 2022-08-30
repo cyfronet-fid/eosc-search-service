@@ -21,17 +21,6 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
-    "baseUrl": ".",
-    "paths": {
-      "@environment/*": ["apps/ui/src/environments/*"],
-      "@eosc-search-service/common": ["libs/common/src/index.ts"],
-      "@eosc-search-service/layout": ["libs/layout/src/index.ts"],
-      "@eosc-search-service/pages/search": ["libs/pages/search/src/index.ts"],
-      "@eosc-search-service/pages/training": [
-        "libs/pages/training/src/index.ts"
-      ],
-      "@eosc-search-service/search": ["libs/search/src/index.ts"],
-      "@eosc-search-service/types": ["libs/types/src/index.ts"]
-    }
+    "baseUrl": "."
   }
 }

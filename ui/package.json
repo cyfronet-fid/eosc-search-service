@@ -63,6 +63,7 @@
     "@nrwl/jest": "14.4.2",
     "@nrwl/linter": "14.4.2",
     "@nrwl/workspace": "14.4.2",
+    "@types/fuse": "^2.6.0",
     "@types/jasmine": "4.0.3",
     "@types/jest": "27.4.1",
     "@types/lodash-es": "^4.17.6",

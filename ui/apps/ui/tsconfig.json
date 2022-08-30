@@ -20,7 +20,14 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "target": "es2020"
+    "target": "es2020",
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@environment/*": ["apps/ui/src/environments/*"],
+      "@collections/*": ["apps/ui/src/app/collections/*"],
+      "@components/*": ["apps/ui/src/app/components/*"],
+      "@pages/*": ["apps/ui/src/app/pages/*"]
+    }
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true,

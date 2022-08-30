@@ -1,0 +1,149 @@
+<div class="container--xxl" xmlns="http://www.w3.org/1999/html">
+  <ess-search-bar></ess-search-bar>
+
+  <div class="dashboard" style="position: relative">
+    <section class="details-header shadow-sm rounded">
+      <div class="container" *ngIf="training !== undefined">
+        <div class="row">
+          <div class="col-12 col-lg-10 row">
+            <div class="col-12 col-sm-9">
+              <h1>{{ training.title }}</h1>
+              <p class="mb-1">{{ keywords }}</p>
+              <span class="clearfix"></span>
+            </div>
+          </div>
+          <div class="col-12 col-lg-2 text-center">
+            <div class="vertical-center-inner access-type">
+              <a class="btn btn-primary d-block mb-3" href="{{ originUrl }}"
+                >Access training</a
+              >
+              <p class="download font-light">
+                <a href="{{ originUrl }}">Direct download</a>
+              </p>
+              <span class="accesstype-label">
+                <i class="accesstype accesstype-{{ accessType }}"></i>
+                {{ accessType }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <ul class="nav nav-tabs row pl-3" id="my-tab" role="tablist">
+            <li class="nav-item">
+              <a
+                class="nav-link text-uppercase {{
+                  currentTab === 'about' ? 'active' : ''
+                }}"
+                (click)="toggleTab('about')"
+                role="tab"
+                href="javascript:undefined"
+                >About</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link text-uppercase {{
+                  currentTab === 'details' ? 'active' : ''
+                }}"
+                (click)="toggleTab('details')"
+                role="tab"
+                href="javascript:undefined"
+                >Details</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <section id="description-tab">
+      <div
+        id="about"
+        class="tab-content {{ currentTab === 'about' ? 'd-block' : 'd-none' }}"
+        *ngIf="training !== undefined"
+      >
+        <div
+          aria-labelledby="home-tab"
+          class="container pt-2 desc"
+          id="desc"
+          role="tabpanel"
+        >
+          <div class="row pt-4 justify-content-between">
+            <div class="col-12 col-lg-9 pr-5 mb-4 left-column">
+              <p>{{ training.description }}</p>
+            </div>
+            <div class="col-12 col-lg-3 right-column">
+              <div class="right-panel">
+                <ng-container *ngFor="let tag of sidebarTags">
+                  <h5>{{ tag.label }}</h5>
+                  <ul class="list-group domains mb-4">
+                    <ng-container *ngIf="isArray(tag.value); else oneValue">
+                      <ng-container *ngFor="let singleValue of $any(tag.value)">
+                        <li>
+                          <span>
+                            {{ singleValue }}
+                          </span>
+                        </li>
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #oneValue>
+                      <li>
+                        <span>
+                          {{ tag.value }}
+                        </span>
+                      </li>
+                    </ng-template>
+                  </ul>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="details"
+        class="tab-content {{
+          currentTab === 'details' ? 'd-block' : 'd-none'
+        }}"
+      >
+        <div class="container">
+          <div class="row pt-5">
+            <ng-container *ngFor="let tag of detailsTags">
+              <div class="col-12 col-lg-4">
+                <div class="details-box">
+                  <div class="details-box-header">
+                    {{ tag.label }}
+                  </div>
+                  <div class="details-content">
+                    <ul class="list-group">
+                      <ng-container *ngIf="isArray(tag.value); else oneValue">
+                        <ng-container
+                          *ngFor="let singleValue of $any(tag.value)"
+                        >
+                          <li>
+                            <span>
+                              {{ singleValue }}
+                            </span>
+                          </li>
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #oneValue>
+                        <li>
+                          <span>
+                            {{ tag.value }}
+                          </span>
+                        </li>
+                      </ng-template>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
