@@ -16,6 +16,7 @@ export const validateCollections = (
   _validateFiltersConsistency(searchMetadata, filters, adapters);
   _validateCollectionsConsistency(searchMetadata, adapters);
   _validateLabelsConsistency(adapters, navConfigs);
+  _validateBreadcrumbs(navConfigs);
 };
 
 // PRIVATE
@@ -49,7 +50,7 @@ export const _validateComponentsIntegrity = (
       isEqual
     );
     throw Error(
-      `[COLLECTIONS VALIDATION]: Collections components ids needs to be application url param, for: ${missingUrlPaths}`
+      `[COLLECTIONS VALIDATOR]: Collections components ids needs to be application url param, for: ${missingUrlPaths}`
     );
   }
 
@@ -60,7 +61,7 @@ export const _validateComponentsIntegrity = (
       isEqual
     );
     throw Error(
-      `[COLLECTIONS VALIDATION]: There are missing adapters, for: ${missingAdapters}`
+      `[COLLECTIONS VALIDATOR]: There are missing adapters, for: ${missingAdapters}`
     );
   }
   if (!isEqual(filtersUniqueIds, allUniqueIds)) {
@@ -70,7 +71,7 @@ export const _validateComponentsIntegrity = (
       isEqual
     );
     throw Error(
-      `[COLLECTIONS VALIDATION]: There are missing filters, for: ${missingFilters}`
+      `[COLLECTIONS VALIDATOR]: There are missing filters, for: ${missingFilters}`
     );
   }
   if (!isEqual(navConfigsUniqueIds, allUniqueIds)) {
@@ -80,7 +81,7 @@ export const _validateComponentsIntegrity = (
       isEqual
     );
     throw Error(
-      `[COLLECTIONS VALIDATION]: There are missing navConfigs, for: ${missingNavConfigs}`
+      `[COLLECTIONS VALIDATOR]: There are missing navConfigs, for: ${missingNavConfigs}`
     );
   }
   if (!isEqual(searchMetadataUniqueIds, allUniqueIds)) {
@@ -90,13 +91,13 @@ export const _validateComponentsIntegrity = (
       isEqual
     );
     throw Error(
-      `[COLLECTIONS VALIDATION]: There are missing adapters, for: ${missingSearchMetadata}`
+      `[COLLECTIONS VALIDATOR]: There are missing adapters, for: ${missingSearchMetadata}`
     );
   }
 
   // eslint-disable-next-line no-restricted-syntax
   console.info(
-    '[COLLECTIONS VALIDATION]: All collections components are full-filled.'
+    '[COLLECTIONS VALIDATOR]: All collections components are full-filled.'
   );
 };
 
@@ -126,7 +127,7 @@ export const _validateFiltersConsistency = (
     );
     if (missingFilters.length > 0) {
       throw Error(
-        `[COLLECTIONS VALIDATION]: Missing filters configurations: ${missingFilters}, for: ${metadataId}`
+        `[COLLECTIONS VALIDATOR]: Missing adapter tags filters configurations: ${missingFilters}, for: ${metadataId}`
       );
     }
 
@@ -140,14 +141,14 @@ export const _validateFiltersConsistency = (
     );
     if (missingFacets.length > 0) {
       throw Error(
-        `[COLLECTIONS VALIDATION]: Missing facets: ${missingFacets}, for: "${metadataId}" search-metadata`
+        `[COLLECTIONS VALIDATOR]: Missing search metadata facets for filters configurations: ${missingFacets}, for: "${metadataId}"`
       );
     }
   });
 
   // eslint-disable-next-line no-restricted-syntax
   console.info(
-    '[COLLECTIONS VALIDATION]: Facets and filters have the same fields.'
+    '[COLLECTIONS VALIDATOR]: Facets and filters have the same fields. Adapter tags filters have its configurations.'
   );
 };
 
@@ -162,14 +163,14 @@ export const _validateCollectionsConsistency = (
     const adapterCollection = adapter.adapter({ id: '' }).collection;
     if (adapterCollection !== collection) {
       throw Error(
-        `[COLLECTIONS VALIDATION]: Adapter and search metadata have different collections: ${adapterCollection} !== ${collection}, for: ${id}`
+        `[COLLECTIONS VALIDATOR]: Adapter and search metadata have different collections: ${adapterCollection} !== ${collection}, for: ${id}`
       );
     }
   });
 
   // eslint-disable-next-line no-restricted-syntax
   console.info(
-    '[COLLECTIONS VALIDATION]: Search metadata and adapters have the same collection.'
+    '[COLLECTIONS VALIDATOR]: Search metadata and adapters have the same collection.'
   );
 };
 
@@ -181,7 +182,7 @@ export const _validateLabelsConsistency = (
     const lastBreadcrumb = breadcrumbs.slice(-1)[0];
     if (title !== lastBreadcrumb.label) {
       throw Error(
-        `[COLLECTIONS VALIDATION]: Nav config (${id}) have different labels for title (${title}) and last breadcrumb (${lastBreadcrumb.label}).`
+        `[COLLECTIONS VALIDATOR]: Nav config (${id}) have different labels for title (${title}) and last breadcrumb (${lastBreadcrumb.label}).`
       );
     }
 
@@ -191,8 +192,36 @@ export const _validateLabelsConsistency = (
     const adapterType = adapter.adapter({ id: '' }).type;
     if (title !== adapterType) {
       throw Error(
-        `[COLLECTIONS VALIDATION]: Nav config (${id}) have different label for title (${title}) and adapter type (${adapterType}).`
+        `[COLLECTIONS VALIDATOR]: Nav config (${id}) have different label for title (${title}) and adapter type (${adapterType}).`
       );
     }
   });
+
+  // eslint-disable-next-line no-restricted-syntax
+  console.info('[COLLECTIONS VALIDATOR]: Collections labels are consistent.');
+};
+
+export const _validateBreadcrumbs = (navConfigs: ICollectionNavConfig[]) => {
+  navConfigs.forEach(({ id, title, breadcrumbs }) => {
+    const lastBreadcrumbLabel = breadcrumbs.slice(-1)[0].label;
+    if (lastBreadcrumbLabel !== title) {
+      throw Error(
+        `[COLLECTIONS VALIDATOR]: Last breadcrumb and collection title needs to be same, for: ${id}`
+      );
+    }
+
+    const otherBreadcrumbs = breadcrumbs.slice(0, -1);
+    otherBreadcrumbs
+      .filter(({ url }) => !!url)
+      .map(({ url }) => url as string)
+      .filter((url) => !url.startsWith('/search/'))
+      .forEach((url) => {
+        throw Error(
+          `[COLLECTIONS VALIDATOR]: Nav Config Breadcrumbs needs to start with /search/, missing in: ${url}, for: ${id}`
+        );
+      });
+  });
+
+  // eslint-disable-next-line no-restricted-syntax
+  console.info('[COLLECTIONS VALIDATOR]: Breadcrumbs are valid.');
 };
