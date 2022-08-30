@@ -18,6 +18,10 @@ import { FilterTreeNode } from '../types';
 import { Injectable } from '@angular/core';
 import { uniqueId } from 'lodash-es';
 import { BehaviorSubject, map, tap } from 'rxjs';
+import { combineLatest } from 'rxjs';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Fuse from 'fuse.js';
 
 const CHUNK_SIZE = 100;
 
@@ -28,12 +32,14 @@ export class FilterMultiselectRepository {
       name: `${uniqueId('current-filter')}`,
     },
     withEntities<FilterTreeNode>(),
-    withProps<{ isLoading: boolean }>({
+    withProps<{ isLoading: boolean; query: string }>({
+      query: '',
       isLoading: false,
     }),
     withActiveIds([])
   );
 
+  // ASYNC
   readonly activeEntities$ = this._store$.pipe(
     selectActiveEntities(),
     map((entities) => entities.sort((a, b) => +b.count - +a.count))
@@ -43,15 +49,74 @@ export class FilterMultiselectRepository {
   );
   readonly nonActiveEntities$ = this._store$.pipe(
     selectAllEntitiesApply({ filterEntity: ({ isSelected }) => !isSelected }),
-    map((entities) => entities.sort((a, b) => +b.count - +a.count)),
-    tap((sortedEntities) =>
-      this.chunkedNonActiveEntities$.next(sortedEntities.slice(0, CHUNK_SIZE))
-    )
+    map((entities) => entities.sort((a, b) => +b.count - +a.count))
   );
   readonly isLoading$ = this._store$.pipe(select(({ isLoading }) => isLoading));
+  readonly query$ = this._store$.pipe(select(({ query }) => query));
+  readonly initNonActiveEntitiesChunk$ = combineLatest(
+    this.query$,
+    this.nonActiveEntities$
+  ).pipe(
+    map(([query, nonActiveEntities]) =>
+      query !== ''
+        ? new Fuse(nonActiveEntities, { keys: ['name'], shouldSort: false })
+            .search(query)
+            .map(({ item }) => item)
+        : nonActiveEntities
+    ),
+    map((queryResults) => queryResults.slice(0, CHUNK_SIZE)),
+    tap((queryResults) => this.chunkedNonActiveEntities$.next(queryResults))
+  );
+
+  // SYNC
+  nonActiveEntities = () =>
+    this._store$.query(
+      getAllEntitiesApply({ filterEntity: ({ isSelected }) => !isSelected })
+    );
+  entities = () => this._store$.query(getAllEntities());
+  activeEntitiesIds = () => this._store$.query(getActiveIds);
+  getEntity = (filter: Partial<FilterTreeNode> & { id: string }) =>
+    this._store$.query(getEntity(filter.id));
+  query = () => this._store$.query(({ query }) => query);
+
+  // MUTATIONS
+  upsertEntities = (filters: Array<Partial<FilterTreeNode> & { id: string }>) =>
+    this._store$.update(upsertEntities(filters));
+  resetAllEntitiesCounts = () =>
+    this._store$.update(updateAllEntities({ count: '0' }));
+  resetAllActiveEntities = () =>
+    this._store$.update(
+      updateAllEntities({ isSelected: false }),
+      resetActiveIds()
+    );
+
+  setQuery = (query: string) =>
+    this._store$.update((state) => ({
+      ...state,
+      query,
+    }));
+  setActiveIds = (activeIds: string[]) =>
+    this._store$.update(
+      setActiveIds(activeIds),
+      updateEntities(activeIds, { isSelected: true })
+    );
+  setLoading = (isLoading: boolean) =>
+    this._store$.update((state) => ({
+      ...state,
+      isLoading,
+    }));
 
   loadNextNonActiveChunk = () => {
-    const allNonActiveEntities = this.nonActiveEntities();
+    const query = this.query();
+    const allNonActiveEntities =
+      query !== ''
+        ? new Fuse(this.nonActiveEntities(), {
+            keys: ['name'],
+            shouldSort: false,
+          })
+            .search(query)
+            .map(({ item }) => item)
+        : this.nonActiveEntities();
     const chunk = this.chunkedNonActiveEntities$.value;
     const offset = chunk.length;
     const nextChunkAvailable = offset !== allNonActiveEntities.length;
@@ -64,43 +129,4 @@ export class FilterMultiselectRepository {
       ...allNonActiveEntities.slice(offset, offset + CHUNK_SIZE),
     ]);
   };
-  nonActiveEntities = () =>
-    this._store$.query(
-      getAllEntitiesApply({ filterEntity: ({ isSelected }) => !isSelected })
-    );
-  entities = () => this._store$.query(getAllEntities());
-  activeEntitiesIds = () => this._store$.query(getActiveIds);
-  getEntity = (filter: Partial<FilterTreeNode> & { id: string }) =>
-    this._store$.query(getEntity(filter.id));
-
-  upsertEntities = (filters: Array<Partial<FilterTreeNode> & { id: string }>) =>
-    this._store$.update(upsertEntities(filters));
-  resetAllEntitiesCounts = () =>
-    this._store$.update(updateAllEntities({ count: '0' }));
-  resetAllActiveEntities = () =>
-    this._store$.update(
-      updateAllEntities({ isSelected: false }),
-      resetActiveIds()
-    );
-
-  setActiveIds = (
-    ...filters: Array<Partial<FilterTreeNode> & { id: string }>
-  ) =>
-    this._store$.update(
-      setActiveIds(filters.map(({ id }) => id)),
-      updateEntities(
-        filters.map(({ id }) => id),
-        { isSelected: true }
-      )
-    );
-  setLoading = (isLoading: boolean) =>
-    this._store$.update((state) => ({
-      ...state,
-      isLoading,
-    }));
-  isLoading = (isLoading: boolean) =>
-    this._store$.update((state) => ({
-      ...state,
-      isLoading,
-    }));
 }

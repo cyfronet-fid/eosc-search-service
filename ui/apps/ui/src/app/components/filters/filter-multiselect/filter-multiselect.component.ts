@@ -3,7 +3,7 @@ import { FilterMultiselectService } from './filter-multiselect.service';
 import { FilterTreeNode } from '../types';
 import { FilterMultiselectRepository } from './filter-multiselect.repository';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { map, skip, switchMap, tap } from 'rxjs';
+import { debounceTime, map, skip, switchMap, tap } from 'rxjs';
 import { UntypedFormControl } from '@angular/forms';
 import { CustomRouter } from '@collections/services/custom.router';
 import { combineLatest } from 'rxjs';
@@ -33,11 +33,11 @@ import { combineLatest } from 'rxjs';
         ></ess-checkboxes-tree>
 
         <ng-container *ngIf="showMore">
-          <!--          <input-->
-          <!--            [attr.placeholder]="'Search...'"-->
-          <!--            class="query-input form-control form-control-sm"-->
-          <!--            [formControl]="queryFc"-->
-          <!--          />-->
+          <input
+            [attr.placeholder]="'Search...'"
+            class="query-input form-control form-control-sm"
+            [formControl]="queryFc"
+          />
           <div class="filter__viewport" (scroll)="onScroll($event)" #content>
             <ess-checkboxes-tree
               [data]="$any(chunkedEntities$ | async)"
@@ -89,6 +89,9 @@ import { combineLatest } from 'rxjs';
         padding-bottom: 6px;
         display: inline-block;
       }
+      .query-input {
+        margin-bottom: 12px;
+      }
     `,
   ],
   providers: [FilterMultiselectService, FilterMultiselectRepository],
@@ -139,12 +142,14 @@ export class FilterMultiselectComponent implements OnInit {
           )
         ),
         switchMap(() =>
-          this._filterMultiselectService._updateCounts$({
-            ...this._customRouter.params(),
-            fq: this._customRouter.fqWithExcludedFilter(
-              this._filterMultiselectService.filter
-            ),
-          })
+          this._filterMultiselectService
+            ._updateCounts$({
+              ...this._customRouter.params(),
+              fq: this._customRouter.fqWithExcludedFilter(
+                this._filterMultiselectService.filter
+              ),
+            })
+            .pipe(untilDestroyed(this))
         )
       )
       .subscribe();
@@ -162,8 +167,10 @@ export class FilterMultiselectComponent implements OnInit {
 
     // load on changes other than collection
     combineLatest(
-      this._customRouter.fqWithExcludedFilter$(this._filter),
-      this._customRouter.q$
+      this._customRouter
+        .fqWithExcludedFilter$(this._filter)
+        .pipe(untilDestroyed(this)),
+      this._customRouter.q$.pipe(untilDestroyed(this))
     )
       .pipe(
         skip(1),
@@ -178,10 +185,13 @@ export class FilterMultiselectComponent implements OnInit {
       )
       .subscribe();
 
-    // update searched query
-    // this.queryFc.valueChanges
-    //   .pipe(debounceTime(300), untilDestroyed(this))
-    //   .subscribe((query) => this._filterMultiselectService.searchFor(query));
+    this._filterMultiselectService.initNonActiveEntitiesChunk$
+      .pipe(untilDestroyed(this))
+      .subscribe();
+
+    this.queryFc.valueChanges
+      .pipe(untilDestroyed(this), debounceTime(300))
+      .subscribe((query) => this._filterMultiselectService.setQuery(query));
   }
 
   resetAllActiveEntities = () =>
