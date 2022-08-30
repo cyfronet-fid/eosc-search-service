@@ -57,7 +57,8 @@ export class FilterMultiselectService {
 
   setActiveIds = (activeIds: string[]) =>
     this._filterMultiselectRepository.setActiveIds(activeIds);
-  setQuery = (query: string) => this._filterMultiselectRepository.setQuery(query);
+  setQuery = (query: string) =>
+    this._filterMultiselectRepository.setQuery(query);
 
   onScroll = (event: Event) => {
     const target = event.target as HTMLElement;
