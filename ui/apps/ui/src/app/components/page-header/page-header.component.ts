@@ -10,7 +10,7 @@ import { CustomRouter } from '@collections/services/custom.router';
     <div id="container" class="page-heading">
       <h3>{{ (activeNavConfig$ | async)?.title }}</h3>
       <span id="results-count" class="text-secondary" i18n
-        >(around {{ resultsCount }} results)</span
+        >({{ resultsCount }} results)</span
       >
       <div id="breadcrumbs">
         <nz-breadcrumb nzSeparator=">">
