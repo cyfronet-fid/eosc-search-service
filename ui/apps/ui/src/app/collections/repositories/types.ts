@@ -29,13 +29,6 @@ export interface ISolrQueryParams {
   cursor: string;
 }
 
-export interface CommonSettings {
-  backendApiPath: string;
-  search: {
-    apiPath: string;
-  };
-}
-
 export interface ISearchResults<T extends { id: string }> {
   results: T[];
   facets: { [field: string]: IFacetResponse };

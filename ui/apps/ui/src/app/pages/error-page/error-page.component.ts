@@ -77,5 +77,7 @@ import { Router } from '@angular/router';
 export class ErrorPageComponent {
   constructor(private _router: Router) {}
 
-  goToMainPage = () => this._router.navigateByUrl('');
+  async goToMainPage() {
+    await this._router.navigateByUrl('');
+  }
 }

@@ -11,11 +11,11 @@ import {
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { SearchInputService } from './search-input.service';
-import { CustomRouter } from '@collections/services/custom.router';
-import { SEARCH_PAGE_PATH } from '@collections/services/custom-router.type';
+import { CustomRoute } from '@collections/services/custom-route.service';
+import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { ISuggestedResults } from './type';
 import { Router } from '@angular/router';
-import { environment } from '@environment/environment';
+import { escapeQuery } from '@collections/services/custom-route.utils';
 
 @UntilDestroy()
 @Component({
@@ -74,8 +74,8 @@ import { environment } from '@environment/environment';
           </div>
           <a
             *ngFor="let result of group.results"
-            [attr.href]="internalUrl(result.url)"
-            target="_blank"
+            href="javascript:void(0)"
+            (click)="openInNewTab(result.url)"
             class="list-group-item list-group-item-action result"
             >{{ result.title }}</a
           >
@@ -161,17 +161,13 @@ export class SearchInputComponent implements OnInit {
   suggestedResults: ISuggestedResults[] = [];
 
   constructor(
-    private _customRouter: CustomRouter,
+    private _customRoute: CustomRoute,
     private _router: Router,
     private _searchInputService: SearchInputService
   ) {}
 
   ngOnInit() {
-    // IMPORTANT!! NEEDED FOR MULTI-PAGES COMPONENTS
-    this._customRouter._router = this._router;
-    // // // // //
-
-    this._customRouter.q$
+    this._customRoute.q$
       .pipe(
         untilDestroyed(this),
         filter((q: string) => q !== '*'),
@@ -201,19 +197,18 @@ export class SearchInputComponent implements OnInit {
     const url = this._router.url.includes(SEARCH_PAGE_PATH)
       ? []
       : [`/${SEARCH_PAGE_PATH}`];
-    await this._customRouter.setQueryInUrl(q, url);
+    await this._router.navigate(url, {
+      queryParams: {
+        q: escapeQuery(q).trim(),
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
-  internalUrl = (externalUrl: string) => {
-    const sourceUrl = this._router.url.includes('?')
-      ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
-      : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
-    const sourceQueryParams = sourceUrl.split('?')[1];
-
-    const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
-    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRouter.collection()}`;
-    return `${destinationUrl}?${destinationQueryParams}`;
-  };
+  openInNewTab(url: string) {
+    window.open(url, '_blank');
+    this.focused = false;
+  }
 
   async clearQuery() {
     this.formControl.setValue('');

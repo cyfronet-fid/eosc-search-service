@@ -13,7 +13,6 @@ export class NavConfigResolver implements Resolve<void> {
     route: ActivatedRouteSnapshot
   ): Observable<void> | Promise<void> | void {
     const collectionId = route.paramMap.get('collection');
-
     if (!collectionId) {
       return EMPTY;
     }

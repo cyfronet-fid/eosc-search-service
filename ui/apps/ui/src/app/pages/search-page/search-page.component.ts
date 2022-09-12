@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { filter, map, switchMap, tap } from 'rxjs';
 import { FetchDataService } from '@collections/services/fetch-data.service';
-import { CustomRouter } from '@collections/services/custom.router';
+import { CustomRoute } from '@collections/services/custom-route.service';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { AdaptersRepository } from '@collections/repositories/adapters.repository';
 import {
@@ -84,7 +84,7 @@ export class SearchPageComponent implements OnInit {
   response: ISearchResults<IResult> | null = null;
 
   constructor(
-    private _customRouter: CustomRouter,
+    private _customRoute: CustomRoute,
     private _router: Router,
     private _route: ActivatedRoute,
     private _fetchDataService: FetchDataService,
@@ -93,12 +93,11 @@ export class SearchPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._customRouter.params$
+    this._customRoute.params$
       .pipe(
         filter(({ collection }) => !!collection),
         switchMap((routerParams) => {
           const { collection } = routerParams;
-
           const metadata = this._searchMetadataRepository.get(
             collection
           ) as ICollectionSearchMetadata;
@@ -130,7 +129,7 @@ export class SearchPageComponent implements OnInit {
       .pipe(
         map((params) => params[0]),
         tap((collection) =>
-          this._customRouter._updateParamsBy(
+          this._customRoute._updateParamsBy(
             collection as string,
             this._router.url
           )

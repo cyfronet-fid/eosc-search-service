@@ -10,8 +10,8 @@ import {
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { facetToTreeNodes } from '../utils';
 import { map, tap } from 'rxjs';
-import { paramType } from '@collections/services/custom-router.type';
-import { CustomRouter } from '@collections/services/custom.router';
+import { paramType } from '@collections/services/custom-route.type';
+import { CustomRoute } from '@collections/services/custom-route.service';
 import {
   toFilterFacet,
   toSearchMetadata,
@@ -24,7 +24,7 @@ const LOAD_NEXT_CHUNK_INDEX = 90;
 @Injectable()
 export class FilterMultiselectService {
   constructor(
-    private _customRouter: CustomRouter,
+    private _customRoute: CustomRoute,
     private _filterMultiselectRepository: FilterMultiselectRepository,
     private _fetchDataService: FetchDataService,
     private _searchMetadataRepository: SearchMetadataRepository

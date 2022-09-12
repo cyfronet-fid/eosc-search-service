@@ -1,4 +1,4 @@
-import { IFilterConfig } from '../../collections/repositories/types';
+import { IFilterConfig } from '@collections/repositories/types';
 import { IActiveFilter } from './type';
 
 export const toActiveFilters = (

@@ -4,8 +4,10 @@ import { Observable, filter, map } from 'rxjs';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { IActiveFilter } from './type';
-import { CustomRouter } from '@collections/services/custom.router';
+import { CustomRoute } from '@collections/services/custom-route.service';
 import { toActiveFilters } from './utils';
+import { Router } from '@angular/router';
+import { removeFq } from '@collections/services/custom-route.utils';
 
 @UntilDestroy()
 @Component({
@@ -47,24 +49,45 @@ import { toActiveFilters } from './utils';
   `,
 })
 export class ActiveFiltersComponent {
-  activeFilters$: Observable<IActiveFilter[]> = this._customRouter.fqMap$.pipe(
-    filter(() => !!this._customRouter.collection()),
+  activeFilters$: Observable<IActiveFilter[]> = this._customRoute.fqMap$.pipe(
+    filter(() => !!this._customRoute.collection()),
     map((fqsMap) => {
-      const collection = this._customRouter.collection();
+      const collection = this._customRoute.collection();
       const filtersConfigs =
         this._filtersConfigsRepository.get(collection).filters;
       return toActiveFilters(fqsMap, filtersConfigs);
     })
   );
-  q$ = this._customRouter.q$;
+  q$ = this._customRoute.q$;
 
   constructor(
-    private _customRouter: CustomRouter,
+    private _customRoute: CustomRoute,
+    private _router: Router,
     private _filtersConfigsRepository: FiltersConfigsRepository
   ) {}
 
-  removeFilter = (filter: string, value: string) =>
-    this._customRouter.removeFilterValueFromUrl(filter, value);
-  clearAll = () => this._customRouter.updateQueryParamsInUrl({ fq: [] });
-  clearQuery = () => this._customRouter.setQueryInUrl();
+  async removeFilter(filter: string, value: string) {
+    await this._router.navigate([], {
+      queryParams: {
+        fq: removeFq(this._customRoute.fqMap(), filter, value),
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+  async clearAll() {
+    await this._router.navigate([], {
+      queryParams: {
+        fq: [],
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+  async clearQuery() {
+    await this._router.navigate([], {
+      queryParams: {
+        q: '*',
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
 }

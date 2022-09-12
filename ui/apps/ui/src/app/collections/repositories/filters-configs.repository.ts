@@ -17,8 +17,9 @@ export class FiltersConfigsRepository {
     this._store$.update(setEntities(FILTERS));
   }
 
-  get = (urlPath: string | null | undefined | ''): IFiltersConfig =>
-    this._store$.query(
+  get(urlPath: string | null | undefined | ''): IFiltersConfig {
+    return this._store$.query(
       getEntity(urlPath ?? DEFAULT_COLLECTION_ID)
     ) as IFiltersConfig;
+  }
 }

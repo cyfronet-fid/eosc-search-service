@@ -28,10 +28,15 @@ export class NavConfigsRepository {
 
   readonly activeEntity$ = this._store$.pipe(selectActiveEntity());
 
-  get = (urlPath: string | null | undefined | '') =>
-    this._store$.query(getEntity(urlPath ?? DEFAULT_COLLECTION_ID));
-  getAll = () => this._store$.query(getAllEntities());
+  get(urlPath: string | null | undefined | '') {
+    return this._store$.query(getEntity(urlPath ?? DEFAULT_COLLECTION_ID));
+  }
 
-  setActive = (navConf: Partial<ICollectionNavConfig> & { id: string }) =>
+  getAll() {
+    return this._store$.query(getAllEntities());
+  }
+
+  setActive(navConf: Partial<ICollectionNavConfig> & { id: string }) {
     this._store$.update(setActiveId(navConf.id));
+  }
 }

@@ -5,7 +5,7 @@ export type paramType =
   | null
   | number
   | number[];
-export interface ICustomRouterProps {
+export interface ICustomRouteProps {
   collection: string | null;
   q: string;
   fq: string[];
