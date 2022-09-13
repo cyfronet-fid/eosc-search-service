@@ -1,14 +1,12 @@
 import { createStore, select, withProps } from '@ngneat/elf';
 import { Injectable } from '@angular/core';
-import {
-  escapeQuery,
-  fqsToMap,
-  parseFqToArray,
-  parseQueryParams,
-} from './custom-route.utils';
 import { Observable, distinctUntilChanged, filter, map } from 'rxjs';
 import { isEqual } from 'lodash-es';
 import { ICustomRouteProps } from './custom-route.type';
+import { queryParamsMapFrom } from '@collections/services/custom-route.utils';
+import { toArray } from '@collections/filters-serializers/utils';
+import { serializeAll } from '@collections/filters-serializers/filters-serializers.utils';
+import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 
 const DEFAULT_PARAMS = {
   collection: null,
@@ -37,7 +35,14 @@ export class CustomRoute {
     map((collection) => collection as string)
   );
   readonly q$ = this._store$.pipe(select(({ q }) => q));
-  readonly fqMap$ = this._store$.pipe(select(({ fq }) => fqsToMap(fq)));
+  readonly fqMap$ = this._store$.pipe(
+    select(({ fq }) =>
+      serializeAll(
+        fq,
+        this._filtersConfigsRepository.get(this.collection()).filters
+      )
+    )
+  );
   readonly params$: Observable<ICustomRouteProps> = this._store$.pipe(
     select((state) => state)
   );
@@ -47,9 +52,16 @@ export class CustomRoute {
       distinctUntilChanged(isEqual)
     );
 
+  constructor(private _filtersConfigsRepository: FiltersConfigsRepository) {}
+
   // SYNC
   fqMap() {
-    return this._store$.query(({ fq }) => fqsToMap(fq));
+    return this._store$.query(({ fq }) =>
+      serializeAll(
+        fq,
+        this._filtersConfigsRepository.get(this.collection()).filters
+      )
+    );
   }
   collection() {
     return this._store$.query(({ collection }) => collection);
@@ -71,15 +83,13 @@ export class CustomRoute {
 
   // Internal state updates
   _updateParamsBy(collection: string, currentUrl: string) {
-    const parsedQueryParams = parseQueryParams(currentUrl);
+    const parsedQueryParams = queryParamsMapFrom(currentUrl);
     this._store$.update(() => ({
       ...DEFAULT_PARAMS,
       ...parsedQueryParams,
       collection: collection,
-      fq: parseFqToArray(parsedQueryParams['fq']),
-      q: escapeQuery(
-        (parsedQueryParams['q'] as string | undefined) ?? '*'
-      ).trim(),
+      fq: toArray(parsedQueryParams['fq']),
+      q: (parsedQueryParams['q'] as string | undefined) ?? '*',
     }));
   }
   setCollection(collection: string | null) {

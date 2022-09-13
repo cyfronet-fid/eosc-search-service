@@ -3,7 +3,10 @@ import { ITag } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { isArray } from 'lodash-es';
 import { Router } from '@angular/router';
-import { addFq } from '@collections/services/custom-route.utils';
+import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
+import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
+import { toArray } from '@collections/filters-serializers/utils';
+import { environment } from '@environment/environment';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_DESCRIPTION_WORDS_LENGTH = 64;
@@ -24,7 +27,7 @@ const shortText = (text: string, maxWords: number): string => {
       <h6>
         <a
           *ngIf="validUrl; else onlyTitleRef"
-          [href]="validUrl"
+          [attr.href]="internalUrl(validUrl)"
           target="_blank"
         >
           <b>{{ shortTitle }}</b>
@@ -139,13 +142,17 @@ export class ResultComponent {
   @Input()
   tags: ITag[] = [];
 
-  constructor(private _customRoute: CustomRoute, private _router: Router) {}
+  constructor(
+    private _customRoute: CustomRoute,
+    private _router: Router,
+    private _filtersConfigsRepository: FiltersConfigsRepository
+  ) {}
 
   isArray = isArray;
   async setActiveFilter(filter: string, value: string) {
     await this._router.navigate([], {
       queryParams: {
-        fq: addFq(this._customRoute.fqMap(), filter, value),
+        fq: this._addFilter(filter, value),
       },
       queryParamsHandling: 'merge',
     });
@@ -153,5 +160,34 @@ export class ResultComponent {
 
   toTruncate(description: string) {
     return description.split(' ').length > MAX_DESCRIPTION_WORDS_LENGTH;
+  }
+
+  internalUrl(externalUrl: string) {
+    const sourceUrl = this._router.url.includes('?')
+      ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
+      : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
+    const sourceQueryParams = sourceUrl.split('?')[1];
+
+    const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
+    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
+    return `${destinationUrl}?${destinationQueryParams}`;
+  }
+
+  _addFilter(filter: string, value: string): string[] {
+    const filtersConfigs = this._filtersConfigsRepository.get(
+      this._customRoute.collection()
+    ).filters;
+    const fqMap = this._customRoute.fqMap();
+    if (toArray(fqMap[value]).includes(value)) {
+      return deserializeAll(fqMap, filtersConfigs);
+    }
+
+    return deserializeAll(
+      {
+        ...this._customRoute.fqMap(),
+        [filter]: [...toArray(this._customRoute.fqMap()[filter]), value],
+      },
+      filtersConfigs
+    );
   }
 }

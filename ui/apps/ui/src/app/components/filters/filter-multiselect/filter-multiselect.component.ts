@@ -8,7 +8,12 @@ import { UntypedFormControl } from '@angular/forms';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { combineLatest } from 'rxjs';
 import { Router } from '@angular/router';
-import { addFq, removeFq } from '@collections/services/custom-route.utils';
+import { toArray } from '@collections/filters-serializers/utils';
+import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
+import {
+  deserializeAll,
+  removeFilterValue,
+} from '@collections/filters-serializers/filters-serializers.utils';
 
 @UntilDestroy()
 @Component({
@@ -128,6 +133,7 @@ export class FilterMultiselectComponent implements OnInit {
   constructor(
     private _customRoute: CustomRoute,
     private _router: Router,
+    private _filtersConfigsRepository: FiltersConfigsRepository,
     private _filterMultiselectService: FilterMultiselectService
   ) {}
 
@@ -140,8 +146,9 @@ export class FilterMultiselectComponent implements OnInit {
         untilDestroyed(this),
         tap(() =>
           this._filterMultiselectService.setActiveIds(
-            this._customRoute.fqMap()[this._filterMultiselectService.filter] ??
-              []
+            toArray(
+              this._customRoute.fqMap()[this._filterMultiselectService.filter]
+            )
           )
         ),
         switchMap(() =>
@@ -163,7 +170,7 @@ export class FilterMultiselectComponent implements OnInit {
         skip(1),
         map((fqMap) => fqMap[this._filter] ?? []),
         tap((activeIds) =>
-          this._filterMultiselectService.setActiveIds(activeIds)
+          this._filterMultiselectService.setActiveIds(toArray(activeIds))
         )
       )
       .subscribe();
@@ -219,7 +226,7 @@ export class FilterMultiselectComponent implements OnInit {
     if (currentIsSelected) {
       await this._router.navigate([], {
         queryParams: {
-          fq: addFq(this._customRoute.fqMap(), filter, value),
+          fq: this._addFilterValue(filter, value),
         },
         queryParamsHandling: 'merge',
       });
@@ -227,9 +234,30 @@ export class FilterMultiselectComponent implements OnInit {
     }
     await this._router.navigate([], {
       queryParams: {
-        fq: removeFq(this._customRoute.fqMap(), filter, value),
+        fq: removeFilterValue(
+          this._customRoute.fqMap(),
+          filter,
+          value,
+          this._filtersConfigsRepository.get(this._customRoute.collection())
+            .filters
+        ),
       },
       queryParamsHandling: 'merge',
     });
+  }
+
+  _addFilterValue(filterName: string, value: string): string[] {
+    const fqMap = this._customRoute.fqMap();
+    const filtersConfigs = this._filtersConfigsRepository.get(
+      this._customRoute.collection()
+    ).filters;
+    if (!!fqMap[filterName] && fqMap[filterName].includes(value)) {
+      return deserializeAll(fqMap, filtersConfigs);
+    }
+
+    fqMap[filterName] = fqMap[filterName]
+      ? [...fqMap[filterName], value]
+      : [value];
+    return deserializeAll(fqMap, filtersConfigs);
   }
 }

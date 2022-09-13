@@ -15,7 +15,8 @@ import { CustomRoute } from '@collections/services/custom-route.service';
 import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { ISuggestedResults } from './type';
 import { Router } from '@angular/router';
-import { escapeQuery } from '@collections/services/custom-route.utils';
+import { sanitizeQuery } from '@components/search-input/query.sanitizer';
+import { environment } from '@environment/environment';
 
 @UntilDestroy()
 @Component({
@@ -74,8 +75,8 @@ import { escapeQuery } from '@collections/services/custom-route.utils';
           </div>
           <a
             *ngFor="let result of group.results"
-            href="javascript:void(0)"
-            (click)="openInNewTab(result.url)"
+            [attr.href]="internalUrl(result.url)"
+            target="_blank"
             class="list-group-item list-group-item-action result"
             >{{ result.title }}</a
           >
@@ -177,7 +178,7 @@ export class SearchInputComponent implements OnInit {
 
     this.formControl.valueChanges
       .pipe(
-        map((q: string) => q.trim()),
+        map((q: string) => sanitizeQuery(q) ?? '*'),
         distinctUntilChanged(),
         debounceTime(150),
         tap((q) => (q ? (this.focused = true) : null)),
@@ -199,15 +200,21 @@ export class SearchInputComponent implements OnInit {
       : [`/${SEARCH_PAGE_PATH}`];
     await this._router.navigate(url, {
       queryParams: {
-        q: escapeQuery(q).trim(),
+        q: sanitizeQuery(q) ?? '*',
       },
       queryParamsHandling: 'merge',
     });
   }
 
-  openInNewTab(url: string) {
-    window.open(url, '_blank');
-    this.focused = false;
+  internalUrl(externalUrl: string) {
+    const sourceUrl = this._router.url.includes('?')
+      ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
+      : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
+    const sourceQueryParams = sourceUrl.split('?')[1];
+
+    const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
+    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
+    return `${destinationUrl}?${destinationQueryParams}`;
   }
 
   async clearQuery() {

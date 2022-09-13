@@ -7,7 +7,7 @@ import { IActiveFilter } from './type';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { toActiveFilters } from './utils';
 import { Router } from '@angular/router';
-import { removeFq } from '@collections/services/custom-route.utils';
+import { removeFilterValue } from '@collections/filters-serializers/filters-serializers.utils';
 
 @UntilDestroy()
 @Component({
@@ -37,7 +37,7 @@ import { removeFq } from '@collections/services/custom-route.utils';
       <div class="badge" *ngFor="let activeFilter of activeFilters$ | async">
         <span>{{ activeFilter.label }}: </span>
         <span
-          ><i>{{ activeFilter.value }} </i></span
+          ><i>{{ activeFilter.uiValue }} </i></span
         >
         <span
           class="close-btn btn-primary"
@@ -69,7 +69,13 @@ export class ActiveFiltersComponent {
   async removeFilter(filter: string, value: string) {
     await this._router.navigate([], {
       queryParams: {
-        fq: removeFq(this._customRoute.fqMap(), filter, value),
+        fq: removeFilterValue(
+          this._customRoute.fqMap(),
+          filter,
+          value,
+          this._filtersConfigsRepository.get(this._customRoute.collection())
+            .filters
+        ),
       },
       queryParamsHandling: 'merge',
     });
@@ -78,6 +84,7 @@ export class ActiveFiltersComponent {
     await this._router.navigate([], {
       queryParams: {
         fq: [],
+        q: '*',
       },
       queryParamsHandling: 'merge',
     });

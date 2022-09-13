@@ -71,10 +71,6 @@ export interface IFilterConfig {
   filter: string;
   label: string;
 
-  /*
-   * multiselect, select and dat types are handled by sidebar
-   * tag is handled by result single labels
-   * */
   type: 'multiselect' | 'select' | 'date' | 'tag';
 }
 
