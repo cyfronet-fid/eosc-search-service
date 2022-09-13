@@ -35,6 +35,18 @@ const shortText = (text: string, maxWords: number): string => {
         <a [routerLink]="typeUrlPath" queryParamsHandling="merge"
           >{{ type }}
         </a>
+        
+        <a class="access-tag">
+          Access Type
+        </a>
+        
+        <a class="licence-tag">
+          Licence
+        </a>
+        
+        <a class="language-tag">
+          Language
+        </a>
       </div>
 
       <div id="tags">

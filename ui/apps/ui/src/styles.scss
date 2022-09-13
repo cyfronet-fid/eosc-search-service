@@ -16,6 +16,44 @@ a:hover {
   color: #05a6e7;
 }
 
+.clear-button {
+  font-size: 13px;
+  border-radius: 3px;
+  line-height: 1.36;
+  float: right;
+  background: #eee;
+  margin-top: 10px;
+  color: #555;
+  padding: 4px 10px;
+  transition: all 0.2s ease;
+}
+
+.clear-button:hover {
+  background: linear-gradient(88.93deg, #05a6e7 1.83%, #0c2bd5 124.59%);
+  color: #fff;
+  margin-top: 8px;
+}
+
+.show-more {
+  font-size: 14px;
+  border-radius: 3px;
+  line-height: 1.36;
+  background: linear-gradient(88.93deg, #05a6e7 1.83%, #0c2bd5 124.59%);
+  color: #fff;
+  margin-top: 10px;
+  display: inline-block;
+  padding: 4px 10px;
+  transition: all 0.2s ease;
+}
+
+.show-more:hover {
+  background: linear-gradient(88.93deg, #0c2bd5 1.83%, #05a6e7 124.59%);
+  color: #fff;
+}
+
+.filter__viewport {
+  margin-bottom: 10px;
+}
 .page-heading {
   margin-bottom: 15px;
   position: relative;
@@ -276,7 +314,7 @@ h6 {
     line-height: 1.1;
     font-weight: 400;
     color: #fff;
-    margin: 0;
+    margin: 15px 0 0;
     float: right;
     background: linear-gradient(88.93deg, #05a6e7 1.83%, #0c2bd5 124.59%);
     border-radius: 2px;
