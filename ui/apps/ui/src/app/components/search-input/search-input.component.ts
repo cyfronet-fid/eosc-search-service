@@ -206,8 +206,8 @@ export class SearchInputComponent implements OnInit {
 
   internalUrl = (externalUrl: string) => {
     const sourceUrl = this._router.url.includes('?')
-      ? `${this._router.url}&url=${externalUrl}`
-      : `${this._router.url}?url=${externalUrl}`;
+      ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
+      : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
     const sourceQueryParams = sourceUrl.split('?')[1];
 
     const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
