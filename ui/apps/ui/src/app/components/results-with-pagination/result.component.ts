@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ITag } from '@collections/repositories/types';
 import { CustomRouter } from '@collections/services/custom.router';
+import { Router } from '@angular/router';
+import { environment } from '@environment/environment';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_DESCRIPTION_WORDS_LENGTH = 64;
@@ -21,7 +23,7 @@ const shortText = (text: string, maxWords: number): string => {
       <h6>
         <a
           *ngIf="validUrl; else onlyTitleRef"
-          [href]="validUrl"
+          [attr.href]="internalUrl(validUrl)"
           target="_blank"
         >
           <b>{{ shortTitle }}</b>
@@ -130,12 +132,22 @@ export class ResultComponent {
   @Input()
   tags: ITag[] = [];
 
-  constructor(private _customRouter: CustomRouter) {}
+  constructor(private _customRouter: CustomRouter, private _router: Router) {}
 
   isArray = (tagValue: string | string[]) => Array.isArray(tagValue);
   setActiveFilter = (filter: string, value: string) =>
     this._customRouter.addFilterValueToUrl(filter, value);
   toTruncate = (description: string) => {
     return description.split(' ').length > MAX_DESCRIPTION_WORDS_LENGTH;
+  };
+  internalUrl = (externalUrl: string) => {
+    const sourceUrl = this._router.url.includes('?')
+      ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
+      : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
+    const sourceQueryParams = sourceUrl.split('?')[1];
+
+    const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
+    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRouter.collection()}`;
+    return `${destinationUrl}?${destinationQueryParams}`;
   };
 }

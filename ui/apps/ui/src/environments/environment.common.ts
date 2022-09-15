@@ -11,6 +11,8 @@ export const commonEnvironment = {
   // @ts-ignore
   ...sharedEnvironment,
   backendApiPath: 'api/web',
+  navigationApiPath: 'navigate',
+  userApiPath: 'auth/userinfo',
   search: {
     apiPath: 'search-results',
   },

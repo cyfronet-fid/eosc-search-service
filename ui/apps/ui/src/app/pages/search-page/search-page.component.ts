@@ -98,6 +98,7 @@ export class SearchPageComponent implements OnInit {
         filter(({ collection }) => !!collection),
         switchMap((routerParams) => {
           const { collection } = routerParams;
+
           const metadata = this._searchMetadataRepository.get(
             collection
           ) as ICollectionSearchMetadata;
