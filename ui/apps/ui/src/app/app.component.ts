@@ -9,5 +9,4 @@ import { UntilDestroy } from '@ngneat/until-destroy';
     <router-outlet></router-outlet>
   `,
 })
-export class AppComponent {
-}
+export class AppComponent {}

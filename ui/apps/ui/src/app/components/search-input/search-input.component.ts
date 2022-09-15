@@ -75,7 +75,6 @@ import { environment } from '@environment/environment';
           <a
             *ngFor="let result of group.results"
             [attr.href]="internalUrl(result.url)"
-            (click)="focused = false"
             target="_blank"
             class="list-group-item list-group-item-action result"
             >{{ result.title }}</a
