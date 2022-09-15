@@ -15,6 +15,7 @@ import { CustomRouter } from '@collections/services/custom.router';
 import { SEARCH_PAGE_PATH } from '@collections/services/custom-router.type';
 import { ISuggestedResults } from './type';
 import { Router } from '@angular/router';
+import { environment } from '@environment/environment';
 
 @UntilDestroy()
 @Component({
@@ -73,8 +74,9 @@ import { Router } from '@angular/router';
           </div>
           <a
             *ngFor="let result of group.results"
-            href="javascript:void(0)"
-            (click)="openInNewTab(result.url)"
+            [attr.href]="internalUrl(result.url)"
+            (click)="focused = false"
+            target="_blank"
             class="list-group-item list-group-item-action result"
             >{{ result.title }}</a
           >
@@ -203,9 +205,15 @@ export class SearchInputComponent implements OnInit {
     await this._customRouter.setQueryInUrl(q, url);
   }
 
-  openInNewTab = (url: string) => {
-    window.open(url, '_blank');
-    this.focused = false;
+  internalUrl = (externalUrl: string) => {
+    const sourceUrl = this._router.url.includes('?')
+      ? `${this._router.url}&url=${externalUrl}`
+      : `${this._router.url}?url=${externalUrl}`;
+    const sourceQueryParams = sourceUrl.split('?')[1];
+
+    const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
+    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRouter.collection()}`;
+    return `${destinationUrl}?${destinationQueryParams}`;
   };
 
   async clearQuery() {

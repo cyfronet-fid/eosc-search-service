@@ -11,7 +11,9 @@ export class UserProfileService {
 
   get$(): Observable<{ username: string }> {
     return this._http
-      .get<{ username: string }>(`${environment.backendApiPath}/auth/userinfo`)
+      .get<{ username: string }>(
+        `${environment.backendApiPath}/${environment.userApiPath}`
+      )
       .pipe(
         delay(0),
         catchError(() => of({ username: '' }))
