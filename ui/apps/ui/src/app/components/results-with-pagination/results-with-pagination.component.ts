@@ -46,6 +46,7 @@ import { Router } from '@angular/router';
       <ess-result
         class="results"
         *ngFor="let result of results$ | async"
+        [id]="result.id"
         [title]="result.title"
         [description]="result.description"
         [type]="result.type"
