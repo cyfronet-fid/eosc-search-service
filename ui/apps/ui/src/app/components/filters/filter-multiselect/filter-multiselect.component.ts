@@ -18,7 +18,7 @@ import { combineLatest } from 'rxjs';
       >
       <span (click)="resetAllActiveEntities()">
         &nbsp; &nbsp;
-        <a href="javascript:void(0)">clear all</a>
+        <a href="javascript:void(0)" class="clear-button">clear all</a>
       </span>
 
       <ng-container *ngIf="(isLoading$ | async) === false">
@@ -48,7 +48,7 @@ import { combineLatest } from 'rxjs';
           </div>
         </ng-container>
         <span *ngIf="hasShowMore$ | async" (click)="showMore = !showMore">
-          <a href="javascript:void(0)">{{
+          <a href="javascript:void(0)" class="show-more">{{
             showMore ? 'show less' : 'show more'
           }}</a>
         </span>
