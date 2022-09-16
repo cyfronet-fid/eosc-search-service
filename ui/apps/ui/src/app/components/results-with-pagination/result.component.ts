@@ -42,11 +42,18 @@ const shortText = (text: string, maxWords: number): string => {
           >{{ type }}
         </a>
 
-        <a class="access-tag"> Access Type </a>
-
-        <a class="licence-tag"> Licence </a>
-
-        <a class="language-tag"> Language </a>
+        <a class="tag-khaki"> Access Type </a>
+        <a class="tag-turquoise"> Licence </a>
+        <a class="tag-chiffon"> Language </a>
+        <a class="tag-peach"> Sample </a>
+        <a class="tag-light-coral"> Sample </a>
+        <a class="tag-pink"> Sample </a>
+        <a class="tag-turquoise"> Sample </a>
+        <a class="tag-almond"> Sample </a>
+        <a class="tag-thistle"> Sample </a>
+        <a class="tag-chiffon"> Sample </a>
+        <a class="tag-almond"> Sample </a>
+        <a class="tag-light-green"> Sample </a>
       </div>
 
       <div id="tags">
