@@ -95,6 +95,11 @@ See docker-compose.yml for components.
   > The service ID stored in AAI for auth purposes
 - `OIDC_CLIENT_SECRET`
   > Private key of the service need in AAI auth process
+- `USER_ACTIONS_QUEUE`
+  > Connection URI to databus for user actions 
+  > Format `rabbitmq://guest:guest@127.0.0.1:61613/topic/user_actions`
+- `USER_ACTIONS_QUEUE_CLIENT_ID`
+  > Client id used to identify databus (jms) client 
 
 `db` envs:
 - `DB_POSTGRES_DB`

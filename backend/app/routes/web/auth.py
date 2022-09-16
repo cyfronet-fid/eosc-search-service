@@ -1,4 +1,5 @@
 # pylint: disable=missing-module-docstring,broad-except,missing-function-docstring,cyclic-import
+import uuid
 from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, Response
@@ -37,7 +38,9 @@ async def auth_checkin(code: str, state: str):
         session_id = uuid4()
         username = aai_response["userinfo"]["name"]
 
-        session_data = SessionData(username=username, aai_state=state)
+        session_data = SessionData(
+            username=username, aai_state=state, session_uuid=str(uuid.uuid4())
+        )
         await backend.create(session_id, session_data)
         auth_response = RedirectResponse(status_code=303, url=UI_BASE_URL)
         cookie.attach_to_response(auth_response, session_id)

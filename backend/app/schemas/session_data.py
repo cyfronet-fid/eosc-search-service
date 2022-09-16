@@ -8,3 +8,4 @@ class SessionData(BaseModel):
     username: Optional[str]
     aai_state: Optional[str]
     rp_handler: Any
+    session_uuid: str
