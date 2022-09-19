@@ -185,16 +185,6 @@ export const _validateLabelsConsistency = (
         `[COLLECTIONS VALIDATOR]: Nav config (${id}) have different labels for title (${title}) and last breadcrumb (${lastBreadcrumb.label}).`
       );
     }
-
-    const adapter = adapters.find(
-      ({ id: adapterId }) => adapterId === id
-    ) as IAdapter;
-    const adapterType = adapter.adapter({ id: '' }).type;
-    if (title !== adapterType) {
-      throw Error(
-        `[COLLECTIONS VALIDATOR]: Nav config (${id}) have different label for title (${title}) and adapter type (${adapterType}).`
-      );
-    }
   });
 
   // eslint-disable-next-line no-restricted-syntax
