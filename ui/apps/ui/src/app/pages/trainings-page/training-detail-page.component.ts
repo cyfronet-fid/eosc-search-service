@@ -38,7 +38,6 @@ export class TrainingDetailPageComponent implements OnInit {
       this.accessType = item.Access_Rights_s;
       this.detailsTags = this.training.tags;
       this.sidebarTags = this.training.tags;
-      console.log(this.training.tags.find((option) => option.filter === 'URL'));
     });
   }
 

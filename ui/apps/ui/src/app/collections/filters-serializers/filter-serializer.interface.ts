@@ -3,8 +3,16 @@ export abstract class FilterSerializer<T extends string[] | string> {
   readonly value: T;
 
   protected constructor(fq: string) {
-    const [filter, values] = fq.trim().split(':');
-    this.filter = filter;
+    const filter = ((fq.match(/^[a-zA-Z_]*:/g) as RegExpMatchArray) || [])[0];
+    if (!filter) {
+      throw Error(
+        "Unexpected filters parsing error. Fitler name couldn't be found."
+      );
+    }
+
+    const values = fq.replace(filter, '');
+
+    this.filter = filter.replace(':', '');
     this.value = this._parseValues(values);
   }
 
