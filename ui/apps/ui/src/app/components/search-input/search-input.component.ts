@@ -51,7 +51,10 @@ import { environment } from '@environment/environment';
         </form>
       </div>
       <button
-        *ngIf="formControl.value && formControl.value.trim() !== ''"
+        *ngIf="
+          (formControl.value && formControl.value.trim() !== '') ||
+          (hasSetQuery$ | async)
+        "
         id="btn--clear-query"
         style="margin-right: 5px;"
         type="button"
@@ -160,6 +163,8 @@ export class SearchInputComponent implements OnInit {
   formControl = new UntypedFormControl();
 
   suggestedResults: ISuggestedResults[] = [];
+
+  hasSetQuery$ = this._customRoute.q$.pipe(map((q: string) => q && q !== '*'));
 
   constructor(
     private _customRoute: CustomRoute,

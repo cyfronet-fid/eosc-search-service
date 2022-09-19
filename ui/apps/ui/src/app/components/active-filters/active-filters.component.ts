@@ -13,12 +13,9 @@ import { removeFilterValue } from '@collections/filters-serializers/filters-seri
 @Component({
   selector: 'ess-active-filters',
   template: `
-    <section
-      *ngIf="$any(activeFilters$ | async).length > 0 || (q$ | async) !== '*'"
-      class="filters"
-    >
+    <section *ngIf="$any(activeFilters$ | async).length > 0" class="filters">
       <span
-        *ngIf="$any(activeFilters$ | async).length > 0 || (q$ | async) !== '*'"
+        *ngIf="$any(activeFilters$ | async).length > 0"
         id="clear-all-badge"
         class="btn btn-primary"
         style="cursor: pointer"
@@ -27,13 +24,6 @@ import { removeFilterValue } from '@collections/filters-serializers/filters-seri
         Clear all filters
       </span>
 
-      <div class="badge" *ngIf="(q$ | async) !== '*'">
-        <span>Searched phrase: </span>
-        <span
-          ><i>"{{ q$ | async }}" </i></span
-        >
-        <span class="close-btn btn-primary" (click)="clearQuery()">x</span>
-      </div>
       <div class="badge" *ngFor="let activeFilter of activeFilters$ | async">
         <span>{{ activeFilter.label }}: </span>
         <span
@@ -58,7 +48,6 @@ export class ActiveFiltersComponent {
       return toActiveFilters(fqsMap, filtersConfigs);
     })
   );
-  q$ = this._customRoute.q$;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -84,15 +73,6 @@ export class ActiveFiltersComponent {
     await this._router.navigate([], {
       queryParams: {
         fq: [],
-        q: '*',
-      },
-      queryParamsHandling: 'merge',
-    });
-  }
-  async clearQuery() {
-    await this._router.navigate([], {
-      queryParams: {
-        q: '*',
       },
       queryParamsHandling: 'merge',
     });
