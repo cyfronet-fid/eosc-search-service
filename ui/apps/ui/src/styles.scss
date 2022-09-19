@@ -276,14 +276,54 @@ h6 {
       background: rgba(57, 135, 190, 0.3);
       border-radius: 2px;
 
-      &:nth-child(2) {
+      &.tag-khaki {
+        color: #918c4c;
+        background: rgba(240, 230, 140, 0.8);
+      }
+
+      &.tag-light-green {
         color: #449e8e;
         background: rgba(68, 158, 142, 0.2);
       }
 
-      &:nth-child(3) {
+      &.tag-light-orange {
         color: #d4a702;
         background: rgba(212, 167, 2, 0.2);
+      }
+
+      &.tag-peach {
+        color: #9e7959;
+        background: rgba(255, 218, 185, 0.8);
+      }
+
+      &.tag-light-coral {
+        color: #913f3f;
+        background: rgba(240, 128, 128, 0.7);
+      }
+
+      &.tag-pink {
+        color: #945a64;
+        background: rgba(255, 192, 203, 0.7);
+      }
+
+      &.tag-turquoise {
+        color: #4f7d7d;
+        background: rgba(175, 238, 238, 0.7);
+      }
+
+      &.tag-almond {
+        color: #a3947c;
+        background: rgba(255, 235, 205, 0.7);
+      }
+
+      &.tag-thistle {
+        color: #7d687d;
+        background: rgba(216, 191, 216, 0.7);
+      }
+
+      &.tag-chiffon {
+        color: #a19d7d;
+        background: rgba(242, 237, 194, 0.7);
       }
     }
   }
