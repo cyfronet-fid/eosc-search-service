@@ -1,8 +1,10 @@
 name: Release
 on:
+#  - workflow_dispatch
   push:
-    tags:
-      - "v*"
+    branches:
+      - auto-release
+
 jobs:
   release-notes:
     runs-on: ubuntu-latest
@@ -17,20 +19,18 @@ jobs:
         run: |
           echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\/v/}
           echo ::set-output name=TAG::${GITHUB_REF/refs\/tags\//}
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v3
         with:
-          tag_name: ${{ steps.tags.outputs.tag }}
-          release_name: ${{ steps.tags.outputs.tag }}
-          draft: false
-          prerelease: false
-      - name: Sleep for 3 seconds (otherwise release notary will not get the latest release)
-        run: sleep 3s
-        shell: bash
-      - name: Release Notary Action
-        uses: docker://aevea/release-notary:0.9.4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          version-file: './ui/package.json'
+          release-count: 0
+          output-file: 'false'
+          skip-git-pull: 'false'
+          git-branch: 'master'
+#          fallback-version: '0.1.0'
+
+          skip-commit: 'true'
+          skip-version-file: 'true'
+          create-summary: 'true'
+
+          github-token: ${{ secrets.github_token }}
