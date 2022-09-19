@@ -10,11 +10,13 @@ export class LandingPageComponent {
   allUrlPath = '/search/' + DEFAULT_COLLECTION_ID;
   researchProductsPath = '/search/'; // TODO: set publications url
   trainingsPath = '/search/'; // TODO: set trainings url
-  fqBy = (filterName: string, value: string) => ({
-    q: '*',
-    fq: [`${filterName}:"${value}"`],
-  });
-  scroll = (el: HTMLElement) => {
+  fqBy(filterName: string, value: string) {
+    return {
+      q: '*',
+      fq: [`${filterName}:"${value}"`],
+    };
+  }
+  scroll(el: HTMLElement) {
     el.scrollIntoView();
-  };
+  }
 }

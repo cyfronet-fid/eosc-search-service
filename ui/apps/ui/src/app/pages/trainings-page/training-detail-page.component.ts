@@ -3,6 +3,7 @@ import { IResult, ITag } from '@collections/repositories/types';
 import { TrainingsService } from './trainings.service';
 import { ActivatedRoute } from '@angular/router';
 import { trainingsAdapter } from '@collections/data/trainings/adapter.data';
+import isArray from 'lodash-es/isArray';
 
 @Component({
   selector: 'ess-training-detail-page',
@@ -17,6 +18,7 @@ export class TrainingDetailPageComponent implements OnInit {
   detailsTags: ITag[] = [];
   sidebarTags: ITag[] = [];
   currentTab = 'about';
+  isArray = isArray;
 
   constructor(
     private trainingsService: TrainingsService,
@@ -36,10 +38,8 @@ export class TrainingDetailPageComponent implements OnInit {
       this.accessType = item.Access_Rights_s;
       this.detailsTags = this.training.tags;
       this.sidebarTags = this.training.tags;
-      console.log(this.training.tags.find((option) => option.filter === 'URL'));
     });
   }
-  isArray = (tagValue: string | string[]) => Array.isArray(tagValue);
 
   toggleTab(id: string) {
     this.currentTab = id;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomRouter } from '@collections/services/custom.router';
+import { CustomRoute } from '@collections/services/custom-route.service';
 import { INavigationLink } from './type';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 import { toNavigationLink } from './utils';
@@ -21,10 +21,10 @@ import { toNavigationLink } from './utils';
 })
 export class CollectionsNavigationComponent implements OnInit {
   public navigationLinks: INavigationLink[] = [];
-  public q$ = this._customRouter.q$;
+  public q$ = this._customRoute.q$;
 
   constructor(
-    private _customRouter: CustomRouter,
+    private _customRoute: CustomRoute,
     private _navConfigsRepository: NavConfigsRepository
   ) {}
 

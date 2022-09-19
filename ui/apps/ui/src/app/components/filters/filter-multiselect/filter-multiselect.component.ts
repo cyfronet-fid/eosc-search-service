@@ -5,8 +5,15 @@ import { FilterMultiselectRepository } from './filter-multiselect.repository';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { debounceTime, map, skip, switchMap, tap } from 'rxjs';
 import { UntypedFormControl } from '@angular/forms';
-import { CustomRouter } from '@collections/services/custom.router';
+import { CustomRoute } from '@collections/services/custom-route.service';
 import { combineLatest } from 'rxjs';
+import { Router } from '@angular/router';
+import { toArray } from '@collections/filters-serializers/utils';
+import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
+import {
+  deserializeAll,
+  removeFilterValue,
+} from '@collections/filters-serializers/filters-serializers.utils';
 
 @UntilDestroy()
 @Component({
@@ -124,28 +131,31 @@ export class FilterMultiselectComponent implements OnInit {
   onScroll = this._filterMultiselectService.onScroll;
 
   constructor(
-    private _customRouter: CustomRouter,
+    private _customRoute: CustomRoute,
+    private _router: Router,
+    private _filtersConfigsRepository: FiltersConfigsRepository,
     private _filterMultiselectService: FilterMultiselectService
   ) {}
 
   ngOnInit() {
     this._filterMultiselectService
       ._loadAllAvailableValues$(
-        this._customRouter.params()['collection'] as string
+        this._customRoute.params()['collection'] as string
       )
       .pipe(
         untilDestroyed(this),
         tap(() =>
           this._filterMultiselectService.setActiveIds(
-            this._customRouter.fqMap()[this._filterMultiselectService.filter] ??
-              []
+            toArray(
+              this._customRoute.fqMap()[this._filterMultiselectService.filter]
+            )
           )
         ),
         switchMap(() =>
           this._filterMultiselectService
             ._updateCounts$({
-              ...this._customRouter.params(),
-              fq: this._customRouter.fqWithExcludedFilter(
+              ...this._customRoute.params(),
+              fq: this._customRoute.fqWithExcludedFilter(
                 this._filterMultiselectService.filter
               ),
             })
@@ -154,23 +164,23 @@ export class FilterMultiselectComponent implements OnInit {
       )
       .subscribe();
 
-    this._customRouter.fqMap$
+    this._customRoute.fqMap$
       .pipe(
         untilDestroyed(this),
         skip(1),
         map((fqMap) => fqMap[this._filter] ?? []),
         tap((activeIds) =>
-          this._filterMultiselectService.setActiveIds(activeIds)
+          this._filterMultiselectService.setActiveIds(toArray(activeIds))
         )
       )
       .subscribe();
 
     // load on changes other than collection
     combineLatest(
-      this._customRouter
+      this._customRoute
         .fqWithExcludedFilter$(this._filter)
         .pipe(untilDestroyed(this)),
-      this._customRouter.q$.pipe(untilDestroyed(this))
+      this._customRoute.q$.pipe(untilDestroyed(this))
     )
       .pipe(
         skip(1),
@@ -178,7 +188,7 @@ export class FilterMultiselectComponent implements OnInit {
         map(([fq, _]) => fq),
         switchMap((fq) =>
           this._filterMultiselectService._updateCounts$({
-            ...this._customRouter.params(),
+            ...this._customRoute.params(),
             fq,
           })
         )
@@ -194,12 +204,19 @@ export class FilterMultiselectComponent implements OnInit {
       .subscribe((query) => this._filterMultiselectService.setQuery(query));
   }
 
-  resetAllActiveEntities = () =>
-    this._customRouter.removeFilterFromUrl(
-      this._filterMultiselectService.filter
-    );
+  async resetAllActiveEntities() {
+    await this._router.navigate([], {
+      queryParams: {
+        fq: this._customRoute
+          .fq()
+          .filter(
+            (fq) => !fq.startsWith(this._filterMultiselectService.filter)
+          ),
+      },
+    });
+  }
 
-  toggleActive = async (event: [FilterTreeNode, boolean]) => {
+  async toggleActive(event: [FilterTreeNode, boolean]) {
     const [node, currentIsSelected] = event;
     const { filter, value, isSelected } = node;
     if (isSelected === currentIsSelected) {
@@ -207,9 +224,40 @@ export class FilterMultiselectComponent implements OnInit {
     }
 
     if (currentIsSelected) {
-      await this._customRouter.addFilterValueToUrl(filter, value);
+      await this._router.navigate([], {
+        queryParams: {
+          fq: this._addFilterValue(filter, value),
+        },
+        queryParamsHandling: 'merge',
+      });
       return;
     }
-    await this._customRouter.removeFilterValueFromUrl(filter, value);
-  };
+    await this._router.navigate([], {
+      queryParams: {
+        fq: removeFilterValue(
+          this._customRoute.fqMap(),
+          filter,
+          value,
+          this._filtersConfigsRepository.get(this._customRoute.collection())
+            .filters
+        ),
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  _addFilterValue(filterName: string, value: string): string[] {
+    const fqMap = this._customRoute.fqMap();
+    const filtersConfigs = this._filtersConfigsRepository.get(
+      this._customRoute.collection()
+    ).filters;
+    if (!!fqMap[filterName] && fqMap[filterName].includes(value)) {
+      return deserializeAll(fqMap, filtersConfigs);
+    }
+
+    fqMap[filterName] = fqMap[filterName]
+      ? [...fqMap[filterName], value]
+      : [value];
+    return deserializeAll(fqMap, filtersConfigs);
+  }
 }

@@ -4,8 +4,9 @@ import { BehaviorSubject, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { IResult, ISearchResults } from '../../collections/repositories/types';
-import { CustomRouter } from '@collections/services/custom.router';
-import { paramType } from '@collections/services/custom-router.type';
+import { CustomRoute } from '@collections/services/custom-route.service';
+import { paramType } from '@collections/services/custom-route.type';
+import { Router } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -71,11 +72,18 @@ export class ResultsWithPaginationComponent implements OnInit {
     }
 
     if (this._shouldResetCursor()) {
-      this._customRouter.setCursorInUrl().then();
+      this._router
+        .navigate([], {
+          queryParams: {
+            cursor: '*',
+          },
+          queryParamsHandling: 'merge',
+        })
+        .then();
       return;
     }
 
-    const params = this._customRouter.params();
+    const params = this._customRoute.params();
     if (this._shouldInitPagination(params)) {
       this._paginationService.initPagination(response);
       return;
@@ -93,7 +101,8 @@ export class ResultsWithPaginationComponent implements OnInit {
 
   constructor(
     private _paginationService: PaginationService,
-    private _customRouter: CustomRouter
+    private _customRoute: CustomRoute,
+    private _router: Router
   ) {}
 
   ngOnInit() {
@@ -115,11 +124,16 @@ export class ResultsWithPaginationComponent implements OnInit {
     }
 
     const cursor = this._paginationService.nextCursor();
-    await this._customRouter.setCursorInUrl(cursor);
+    await this._router.navigate([], {
+      queryParams: {
+        cursor,
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   _shouldResetCursor() {
-    const cursor = this._customRouter.cursor();
+    const cursor = this._customRoute.cursor();
     if (!cursor || cursor === '*') {
       return false;
     }

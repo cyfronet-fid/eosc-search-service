@@ -29,13 +29,6 @@ export interface ISolrQueryParams {
   cursor: string;
 }
 
-export interface CommonSettings {
-  backendApiPath: string;
-  search: {
-    apiPath: string;
-  };
-}
-
 export interface ISearchResults<T extends { id: string }> {
   results: T[];
   facets: { [field: string]: IFacetResponse };
@@ -78,10 +71,6 @@ export interface IFilterConfig {
   filter: string;
   label: string;
 
-  /*
-   * multiselect, select and dat types are handled by sidebar
-   * tag is handled by result single labels
-   * */
   type: 'multiselect' | 'select' | 'date' | 'tag';
 }
 

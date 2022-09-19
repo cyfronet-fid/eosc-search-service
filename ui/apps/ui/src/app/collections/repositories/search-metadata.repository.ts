@@ -24,9 +24,13 @@ export class SearchMetadataRepository {
     this._store$.update(setEntities(SEARCH_METADATA));
   }
 
-  readonly get = (urlPath: string | null | undefined | '') =>
-    this._store$.query(
+  get(urlPath: string | null | undefined | '') {
+    return this._store$.query(
       getEntity(urlPath ?? DEFAULT_COLLECTION_ID)
     ) as ICollectionSearchMetadata;
-  readonly getAll = () => this._store$.query(getAllEntities());
+  }
+
+  getAll() {
+    return this._store$.query(getAllEntities());
+  }
 }

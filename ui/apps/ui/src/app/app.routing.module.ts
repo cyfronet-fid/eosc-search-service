@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { LandingPageModule } from '@pages/landing-page/landing-page.module';
 import { ErrorPageModule } from '@pages/error-page/error-page.module';
 import { SearchPageModule } from '@pages/search-page/search-page.module';
-import { SEARCH_PAGE_PATH } from '@collections/services/custom-router.type';
+import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { TrainingsPageModule } from '@pages/trainings-page/trainings-page.module';
 
 @NgModule({

@@ -11,10 +11,11 @@ import {
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { SearchInputService } from './search-input.service';
-import { CustomRouter } from '@collections/services/custom.router';
-import { SEARCH_PAGE_PATH } from '@collections/services/custom-router.type';
+import { CustomRoute } from '@collections/services/custom-route.service';
+import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { ISuggestedResults } from './type';
 import { Router } from '@angular/router';
+import { sanitizeQuery } from '@components/search-input/query.sanitizer';
 import { environment } from '@environment/environment';
 
 @UntilDestroy()
@@ -50,7 +51,10 @@ import { environment } from '@environment/environment';
         </form>
       </div>
       <button
-        *ngIf="formControl.value && formControl.value.trim() !== ''"
+        *ngIf="
+          (formControl.value && formControl.value.trim() !== '') ||
+          (hasSetQuery$ | async)
+        "
         id="btn--clear-query"
         style="margin-right: 5px;"
         type="button"
@@ -160,18 +164,16 @@ export class SearchInputComponent implements OnInit {
 
   suggestedResults: ISuggestedResults[] = [];
 
+  hasSetQuery$ = this._customRoute.q$.pipe(map((q: string) => q && q !== '*'));
+
   constructor(
-    private _customRouter: CustomRouter,
+    private _customRoute: CustomRoute,
     private _router: Router,
     private _searchInputService: SearchInputService
   ) {}
 
   ngOnInit() {
-    // IMPORTANT!! NEEDED FOR MULTI-PAGES COMPONENTS
-    this._customRouter._router = this._router;
-    // // // // //
-
-    this._customRouter.q$
+    this._customRoute.q$
       .pipe(
         untilDestroyed(this),
         filter((q: string) => q !== '*'),
@@ -181,7 +183,7 @@ export class SearchInputComponent implements OnInit {
 
     this.formControl.valueChanges
       .pipe(
-        map((q: string) => q.trim()),
+        map((q: string) => sanitizeQuery(q) ?? '*'),
         distinctUntilChanged(),
         debounceTime(150),
         tap((q) => (q ? (this.focused = true) : null)),
@@ -201,19 +203,24 @@ export class SearchInputComponent implements OnInit {
     const url = this._router.url.includes(SEARCH_PAGE_PATH)
       ? []
       : [`/${SEARCH_PAGE_PATH}`];
-    await this._customRouter.setQueryInUrl(q, url);
+    await this._router.navigate(url, {
+      queryParams: {
+        q: sanitizeQuery(q) ?? '*',
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
-  internalUrl = (externalUrl: string) => {
+  internalUrl(externalUrl: string) {
     const sourceUrl = this._router.url.includes('?')
       ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
       : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
     const sourceQueryParams = sourceUrl.split('?')[1];
 
     const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
-    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRouter.collection()}`;
+    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
     return `${destinationUrl}?${destinationQueryParams}`;
-  };
+  }
 
   async clearQuery() {
     this.formControl.setValue('');

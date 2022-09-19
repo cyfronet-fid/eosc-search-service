@@ -1,7 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ITag } from '@collections/repositories/types';
-import { CustomRouter } from '@collections/services/custom.router';
+import { CustomRoute } from '@collections/services/custom-route.service';
+import { isArray } from 'lodash-es';
 import { Router } from '@angular/router';
+import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
+import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
+import { toArray } from '@collections/filters-serializers/utils';
 import { environment } from '@environment/environment';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
@@ -138,22 +142,52 @@ export class ResultComponent {
   @Input()
   tags: ITag[] = [];
 
-  constructor(private _customRouter: CustomRouter, private _router: Router) {}
+  constructor(
+    private _customRoute: CustomRoute,
+    private _router: Router,
+    private _filtersConfigsRepository: FiltersConfigsRepository
+  ) {}
 
-  isArray = (tagValue: string | string[]) => Array.isArray(tagValue);
-  setActiveFilter = (filter: string, value: string) =>
-    this._customRouter.addFilterValueToUrl(filter, value);
-  toTruncate = (description: string) => {
+  isArray = isArray;
+  async setActiveFilter(filter: string, value: string) {
+    await this._router.navigate([], {
+      queryParams: {
+        fq: this._addFilter(filter, value),
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  toTruncate(description: string) {
     return description.split(' ').length > MAX_DESCRIPTION_WORDS_LENGTH;
-  };
-  internalUrl = (externalUrl: string) => {
+  }
+
+  internalUrl(externalUrl: string) {
     const sourceUrl = this._router.url.includes('?')
       ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
       : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
     const sourceQueryParams = sourceUrl.split('?')[1];
 
     const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
-    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRouter.collection()}`;
+    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
     return `${destinationUrl}?${destinationQueryParams}`;
-  };
+  }
+
+  _addFilter(filter: string, value: string): string[] {
+    const filtersConfigs = this._filtersConfigsRepository.get(
+      this._customRoute.collection()
+    ).filters;
+    const fqMap = this._customRoute.fqMap();
+    if (toArray(fqMap[value]).includes(value)) {
+      return deserializeAll(fqMap, filtersConfigs);
+    }
+
+    return deserializeAll(
+      {
+        ...this._customRoute.fqMap(),
+        [filter]: [...toArray(this._customRoute.fqMap()[filter]), value],
+      },
+      filtersConfigs
+    );
+  }
 }

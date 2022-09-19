@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
-import { CustomRouter } from '@collections/services/custom.router';
+import { CustomRoute } from '@collections/services/custom-route.service';
+import { Router } from '@angular/router';
 
 @UntilDestroy()
 @Component({
@@ -41,9 +42,17 @@ export class PageHeaderComponent {
   activeNavConfig$ = this._navConfigsRepository.activeEntity$;
 
   constructor(
-    private _customRouter: CustomRouter,
+    private _router: Router,
     private _navConfigsRepository: NavConfigsRepository
   ) {}
 
-  goToUrl = (url: string | undefined) => this._customRouter.navigateByUrl(url);
+  async goToUrl(url: string | undefined) {
+    await this._router.navigate([url], {
+      queryParams: {
+        fq: [],
+        cursor: '*',
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
 }

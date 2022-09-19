@@ -17,6 +17,7 @@ export class AdaptersRepository {
     this._store$.update(setEntities(ADAPTERS));
   }
 
-  readonly get = (urlPath: string | null | undefined | '') =>
-    this._store$.query(getEntity(urlPath ?? DEFAULT_COLLECTION_ID));
+  get(urlPath: string | null | undefined | '') {
+    return this._store$.query(getEntity(urlPath ?? DEFAULT_COLLECTION_ID));
+  }
 }

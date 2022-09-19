@@ -11,7 +11,7 @@ import {
 } from '../repositories/types';
 import { environment } from '@environment/environment';
 import { _EMPTY_RESPONSE } from '../repositories/initial-states';
-import { IFacetResponse } from '../../components/filters/types';
+import { IFacetResponse } from '@components/filters/types';
 
 @Injectable({
   providedIn: 'root',
