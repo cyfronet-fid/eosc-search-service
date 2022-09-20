@@ -17,7 +17,7 @@ import {
 
 @UntilDestroy()
 @Component({
-  selector: 'ess-filter',
+  selector: 'ess-filter-multiselect',
   template: `
     <div class="filter">
       <span class="filter-title"
@@ -251,12 +251,15 @@ export class FilterMultiselectComponent implements OnInit {
     const filtersConfigs = this._filtersConfigsRepository.get(
       this._customRoute.collection()
     ).filters;
-    if (!!fqMap[filterName] && fqMap[filterName].includes(value)) {
+    if (
+      !!fqMap[filterName] &&
+      (fqMap[filterName] as string[]).includes(value)
+    ) {
       return deserializeAll(fqMap, filtersConfigs);
     }
 
     fqMap[filterName] = fqMap[filterName]
-      ? [...fqMap[filterName], value]
+      ? ([...fqMap[filterName], value] as string[])
       : [value];
     return deserializeAll(fqMap, filtersConfigs);
   }

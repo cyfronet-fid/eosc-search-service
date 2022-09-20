@@ -13,5 +13,9 @@ export interface ICustomRouteProps {
   sort: string[];
   [param: string]: paramType;
 }
+export type filterValueType = string | unknown[];
+export interface IFqMap {
+  [filter: string]: filterValueType;
+}
 
 export const SEARCH_PAGE_PATH = 'search';

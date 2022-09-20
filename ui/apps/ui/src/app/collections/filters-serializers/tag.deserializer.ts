@@ -1,7 +1,10 @@
 import { FilterDeserializer } from '@collections/filters-serializers/filter-serializer.interface';
 import { sanitizeValue, toArray } from '@collections/filters-serializers/utils';
 
-export class TagDeserializer extends FilterDeserializer<string | string[]> {
+export class TagDeserializer extends FilterDeserializer<
+  string[],
+  string | string[]
+> {
   override deserialize(): string[] | undefined {
     if (!this._filter) {
       throw Error(`Tag deserializer: filters or values aren't set.`);

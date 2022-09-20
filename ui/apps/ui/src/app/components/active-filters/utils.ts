@@ -2,9 +2,10 @@ import { IFilterConfig } from '@collections/repositories/types';
 import { IActiveFilter } from './type';
 import { toArray } from '@collections/filters-serializers/utils';
 import { truncate } from 'lodash-es';
+import { IFqMap } from '@collections/services/custom-route.type';
 
 export const toActiveFilters = (
-  fqsMap: { [filter: string]: string | string[] },
+  fqsMap: IFqMap,
   filtersConfigs: IFilterConfig[]
 ): IActiveFilter[] => {
   const activeFilters: IActiveFilter[] = [];

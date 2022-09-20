@@ -5,7 +5,7 @@ export const sanitizeValue = (value: string): string =>
 export const sanitizationReverse = (value: string): string =>
   value.replace(/\\[+\-&|!()"~*?:\\/]/g, (match) => match.replace('\\', ''));
 
-export const toArray = (value: string | string[]): string[] => {
+export const toArray = (value: unknown): string[] => {
   if (!value) {
     return [];
   }

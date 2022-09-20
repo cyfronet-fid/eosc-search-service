@@ -32,7 +32,7 @@ export const publicationsFilters: IFiltersConfig = {
       id: 'published',
       filter: 'published',
       label: 'Published',
-      type: 'tag',
+      type: 'date',
     },
   ],
 };

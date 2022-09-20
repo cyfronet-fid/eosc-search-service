@@ -6,11 +6,20 @@ import { MultiselectDeserializer } from '@collections/filters-serializers/multis
 import { TagSerializer } from '@collections/filters-serializers/tag.serializer';
 import { toArray } from '@collections/filters-serializers/utils';
 import { TagDeserializer } from '@collections/filters-serializers/tag.deserializer';
+import {
+  IFqMap,
+  filterValueType,
+} from '@collections/services/custom-route.type';
+import {
+  DateDeserializer,
+  dateRangeType,
+} from '@collections/filters-serializers/date.deserializer';
+import {DateSerializer} from "@collections/filters-serializers/date.serializer";
 
 export const serializeAll = (
   fqs: string[],
   filtersConfigs: IFilterConfig[]
-): { [filter: string]: string | string[] } => {
+): IFqMap => {
   if (fqs.length === 0) {
     return {};
   }
@@ -18,6 +27,10 @@ export const serializeAll = (
   const fqMap: { [filter: string]: string | string[] } = {};
   for (const fq of fqs) {
     const serializedFq = serialize(fq, filtersConfigs);
+    if (!serializedFq.value) {
+      continue;
+    }
+
     if (!fqMap[serializedFq.filter]) {
       fqMap[serializedFq.filter] = serializedFq.value;
       continue;
@@ -41,7 +54,7 @@ export const serializeAll = (
 };
 
 export const deserializeAll = (
-  fqsMap: { [filter: string]: string | string[] },
+  fqsMap: IFqMap,
   filtersConfigs: IFilterConfig[]
 ): string[] => {
   if (Object.keys(fqsMap).length === 0) {
@@ -51,7 +64,10 @@ export const deserializeAll = (
   const fqs: string[] = [];
   for (const [filter, values] of Object.entries(fqsMap)) {
     const deserializedFilter = deserialize(filter, values, filtersConfigs);
-    if (deserializedFilter) {
+    if (
+      (!isArray(deserializedFilter) && deserializedFilter) ||
+      (isArray(deserializedFilter) && deserializedFilter.length > 0)
+    ) {
       fqs.push(...toArray(deserializedFilter));
     }
   }
@@ -61,7 +77,7 @@ export const deserializeAll = (
 
 export const deserialize = (
   filter: string,
-  values: string | string[],
+  values: filterValueType,
   config: IFilterConfig[] | IFilterConfig
 ): string | string[] | undefined => {
   let filterConfig: IFilterConfig[] | IFilterConfig = config as IFilterConfig;
@@ -71,9 +87,16 @@ export const deserialize = (
 
   switch (filterConfig.type) {
     case 'tag':
-      return new TagDeserializer().filter(filter).values(values).deserialize();
+      return new TagDeserializer()
+        .filter(filter)
+        .values(values as string | string[])
+        .deserialize();
     case 'select':
     case 'date':
+      return new DateDeserializer()
+        .filter(filter)
+        .values(values as dateRangeType)
+        .deserialize();
     case 'multiselect':
       return new MultiselectDeserializer()
         .filter(filter)
@@ -101,6 +124,7 @@ export const serialize = (
       return new TagSerializer(fq);
     case 'select':
     case 'date':
+      return new DateSerializer(fq);
     case 'multiselect':
       return new MultiselectSerializer(fq);
     default:
@@ -109,7 +133,7 @@ export const serialize = (
 };
 
 export const removeFilterValue = (
-  fqMap: { [filter: string]: string | string[] },
+  fqMap: IFqMap,
   filter: string,
   value: string,
   filtersConfigs: IFilterConfig[]
