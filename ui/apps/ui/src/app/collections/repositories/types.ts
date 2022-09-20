@@ -9,12 +9,19 @@ export interface IResult {
   collection: string;
   url: string;
   tags: ITag[];
+
+  date?: string;
+  coloredTag?: IColoredTag[];
 }
 
 export interface ITag {
   label: string;
   value: string | string[];
   filter: string;
+}
+
+export interface IColoredTag extends ITag {
+  colorClassName: string;
 }
 
 export interface ISolrCollectionParams {

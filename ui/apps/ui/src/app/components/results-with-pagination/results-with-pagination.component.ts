@@ -52,6 +52,8 @@ import { Router } from '@angular/router';
         [url]="result.url"
         [typeUrlPath]="'/search/' + result.typeUrlPath"
         [tags]="result.tags"
+        [coloredTags]="result.coloredTag || []"
+        [date]="result.date"
       ></ess-result>
       <ess-pagination
         [paginationData]="$any(paginationData$ | async)"

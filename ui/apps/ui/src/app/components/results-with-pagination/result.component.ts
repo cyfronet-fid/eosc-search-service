@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { ITag } from '@collections/repositories/types';
+import { IColoredTag, ITag } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
-import { isArray } from 'lodash-es';
+import { isArray, truncate } from 'lodash-es';
 import { Router } from '@angular/router';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
@@ -9,7 +9,7 @@ import { toArray } from '@collections/filters-serializers/utils';
 import { environment } from '@environment/environment';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
-const MAX_DESCRIPTION_WORDS_LENGTH = 64;
+const MAX_CHARS_LENGTH = 256;
 const shortText = (text: string, maxWords: number): string => {
   const words = text?.split(' ');
   const isTooLong = words?.length > maxWords;
@@ -20,7 +20,7 @@ const shortText = (text: string, maxWords: number): string => {
   selector: 'ess-result',
   template: `
     <div id="container">
-      <div class="date-box">
+      <div *ngIf="date" class="date-box">
         {{ date }}
       </div>
 
@@ -42,18 +42,15 @@ const shortText = (text: string, maxWords: number): string => {
           >{{ type }}
         </a>
 
-        <a class="tag-khaki"> Access Type </a>
-        <a class="tag-turquoise"> Licence </a>
-        <a class="tag-chiffon"> Language </a>
-        <a class="tag-peach"> Sample </a>
-        <a class="tag-light-coral"> Sample </a>
-        <a class="tag-pink"> Sample </a>
-        <a class="tag-turquoise"> Sample </a>
-        <a class="tag-almond"> Sample </a>
-        <a class="tag-thistle"> Sample </a>
-        <a class="tag-chiffon"> Sample </a>
-        <a class="tag-almond"> Sample </a>
-        <a class="tag-light-green"> Sample </a>
+        <ng-container *ngFor="let tag of coloredTags">
+          <a
+            [attr.class]="tag.colorClassName"
+            href="javascript:void(0)"
+            (click)="setActiveFilter(tag.filter, $any(tag.value))"
+          >
+            {{ tag.label }}
+          </a>
+        </ng-container>
       </div>
 
       <div id="tags">
@@ -87,10 +84,10 @@ const shortText = (text: string, maxWords: number): string => {
         </ng-container>
       </div>
       <p class="description">
-        <i [class.truncate]="toTruncate(description) && !showFull">
+        <i [class.truncate]="truncate(description) && !showFull">
           {{ description }}
         </i>
-        <ng-container *ngIf="toTruncate(description)">
+        <ng-container *ngIf="truncate(description)">
           <a
             href="javascript:void(0)"
             class="btn-show-more"
@@ -122,7 +119,7 @@ export class ResultComponent {
   validUrl: string | null = null;
   showFull = false;
 
-  @Input() date = '16 April 2021';
+  @Input() date?: string;
 
   @Input()
   description!: string;
@@ -149,6 +146,9 @@ export class ResultComponent {
   @Input()
   tags: ITag[] = [];
 
+  @Input()
+  coloredTags: IColoredTag[] = [];
+
   constructor(
     private _customRoute: CustomRoute,
     private _router: Router,
@@ -156,6 +156,7 @@ export class ResultComponent {
   ) {}
 
   isArray = isArray;
+
   async setActiveFilter(filter: string, value: string) {
     await this._router.navigate([], {
       queryParams: {
@@ -165,8 +166,8 @@ export class ResultComponent {
     });
   }
 
-  toTruncate(description: string) {
-    return description.split(' ').length > MAX_DESCRIPTION_WORDS_LENGTH;
+  truncate(description: string) {
+    return truncate(description, { length: MAX_CHARS_LENGTH });
   }
 
   internalUrl(externalUrl: string) {
