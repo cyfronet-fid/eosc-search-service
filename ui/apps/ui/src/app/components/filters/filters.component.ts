@@ -19,7 +19,12 @@ import { IFiltersConfig } from '@collections/repositories/types';
             [label]="filterConfig.label"
             [filter]="filterConfig.filter"
           ></ess-filter-multiselect>
-          <ess-filter-date *ngSwitchCase="'date'" [label]="filterConfig.label" [filter]="filterConfig.filter"> </ess-filter-date>
+          <ess-filter-date
+            *ngSwitchCase="'date'"
+            [label]="filterConfig.label"
+            [filter]="filterConfig.filter"
+          >
+          </ess-filter-date>
         </ng-container>
       </ng-container>
     </section>

@@ -14,7 +14,7 @@ import {
   DateDeserializer,
   dateRangeType,
 } from '@collections/filters-serializers/date.deserializer';
-import {DateSerializer} from "@collections/filters-serializers/date.serializer";
+import { DateSerializer } from '@collections/filters-serializers/date.serializer';
 
 export const serializeAll = (
   fqs: string[],

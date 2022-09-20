@@ -13,9 +13,9 @@ export const DESERIALIZE_DATES_RANGE = (
   }
 
   if (!startDate && endDate) {
-    return `${EMPTY_DATE_SIGN} ${DATE_RANGE_SPLIT_SIGN} ${moment(endDate).format(
-      DATE_FORMAT
-    )}`;
+    return `${EMPTY_DATE_SIGN} ${DATE_RANGE_SPLIT_SIGN} ${moment(
+      endDate
+    ).format(DATE_FORMAT)}`;
   }
 
   if (startDate && !endDate) {
@@ -24,9 +24,9 @@ export const DESERIALIZE_DATES_RANGE = (
     )} ${DATE_RANGE_SPLIT_SIGN} ${EMPTY_DATE_SIGN}`;
   }
 
-  return `${moment(startDate).format(DATE_FORMAT)} ${DATE_RANGE_SPLIT_SIGN} ${moment(
-    endDate
-  ).format(DATE_FORMAT)}`;
+  return `${moment(startDate).format(
+    DATE_FORMAT
+  )} ${DATE_RANGE_SPLIT_SIGN} ${moment(endDate).format(DATE_FORMAT)}`;
 };
 export type dateRangeType =
   | [Date, Date]
