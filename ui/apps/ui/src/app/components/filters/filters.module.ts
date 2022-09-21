@@ -5,6 +5,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FiltersComponent } from './filters.component';
 import { FilterMultiselectModule } from './filter-multiselect/filter-multiselect.module';
 import { FilterDateModule } from '@components/filters/filter-date/filter-date.module';
+import { FilterRangeModule } from '@components/filters/filter-range/filter-range.module';
 
 @NgModule({
   declarations: [FiltersComponent],
@@ -14,6 +15,7 @@ import { FilterDateModule } from '@components/filters/filter-date/filter-date.mo
     NzIconModule,
     FilterMultiselectModule,
     FilterDateModule,
+    FilterRangeModule,
   ],
   exports: [FiltersComponent],
 })

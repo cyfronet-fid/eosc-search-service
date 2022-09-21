@@ -10,11 +10,13 @@ import {
   IFqMap,
   filterValueType,
 } from '@collections/services/custom-route.type';
+import { DateSerializer } from '@collections/filters-serializers/date.serializer';
+import { RangeSerializer } from '@collections/filters-serializers/range.serializer';
 import {
   DateDeserializer,
   dateRangeType,
 } from '@collections/filters-serializers/date.deserializer';
-import { DateSerializer } from '@collections/filters-serializers/date.serializer';
+import { RangeDeserializer } from '@collections/filters-serializers/range.deserializer';
 
 export const serializeAll = (
   fqs: string[],
@@ -92,6 +94,11 @@ export const deserialize = (
         .values(values as string | string[])
         .deserialize();
     case 'select':
+    case 'range':
+      return new RangeDeserializer()
+        .filter(filter)
+        .values(values as [number, number])
+        .deserialize();
     case 'date':
       return new DateDeserializer()
         .filter(filter)
@@ -123,6 +130,8 @@ export const serialize = (
     case 'tag':
       return new TagSerializer(fq);
     case 'select':
+    case 'range':
+      return new RangeSerializer(fq);
     case 'date':
       return new DateSerializer(fq);
     case 'multiselect':

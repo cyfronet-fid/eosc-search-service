@@ -26,6 +26,13 @@ import { IFiltersConfig } from '@collections/repositories/types';
           >
           </ess-filter-date>
         </ng-container>
+        <ng-container [ngSwitch]="filterConfig.type">
+          <ess-filter-range
+            *ngSwitchCase="'range'"
+            [label]="filterConfig.label"
+            [filter]="filterConfig.filter"
+          ></ess-filter-range>
+        </ng-container>
       </ng-container>
     </section>
   `,

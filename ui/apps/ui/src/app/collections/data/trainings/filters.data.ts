@@ -62,7 +62,7 @@ export const trainingsFilters: IFiltersConfig = {
       id: 'duration',
       filter: 'duration',
       label: 'Duration',
-      type: 'multiselect',
+      type: 'range',
     },
     {
       id: 'publication_date',
