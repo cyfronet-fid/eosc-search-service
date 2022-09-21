@@ -132,7 +132,7 @@ export const _validateFiltersConsistency = (
     }
 
     const sideNavFiltersNames = collectionFilters.filters
-      .filter(({ type }) => type !== 'tag')
+      .filter(({ type }) => type !== 'tag' && type !== 'date')
       .map(({ filter }) => filter);
     const missingFacets = differenceWith(
       sideNavFiltersNames,

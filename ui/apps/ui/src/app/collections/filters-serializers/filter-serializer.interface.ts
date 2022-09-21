@@ -1,6 +1,8 @@
-export abstract class FilterSerializer<T extends string[] | string> {
+import { filterValueType } from '@collections/services/custom-route.type';
+
+export abstract class FilterSerializer<T extends filterValueType> {
   readonly filter: string;
-  readonly value: T;
+  readonly value: T | undefined;
 
   protected constructor(fq: string) {
     const filter = ((fq.match(/^[a-zA-Z_]*:/g) as RegExpMatchArray) || [])[0];
@@ -16,20 +18,20 @@ export abstract class FilterSerializer<T extends string[] | string> {
     this.value = this._parseValues(values);
   }
 
-  abstract _parseValues(values: string): T;
+  abstract _parseValues(values: string): T | undefined;
 }
 
-export abstract class FilterDeserializer<T extends string[] | string> {
+export abstract class FilterDeserializer<T extends filterValueType, P> {
   _filter: string | null = null;
-  _value: T | null = null;
+  _value: P | null = null;
 
-  filter(filter: string): FilterDeserializer<T> {
+  filter(filter: string): FilterDeserializer<T, P> {
     this._filter = filter;
     return this;
   }
-  values(values: T): FilterDeserializer<T> {
+  values(values: P): FilterDeserializer<T, P> {
     this._value = values;
     return this;
   }
-  abstract deserialize(): string | string[] | undefined;
+  abstract deserialize(): T | undefined;
 }

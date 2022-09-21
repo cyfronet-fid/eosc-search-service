@@ -4,6 +4,7 @@ import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { FiltersComponent } from './filters.component';
 import { FilterMultiselectModule } from './filter-multiselect/filter-multiselect.module';
+import { FilterDateModule } from '@components/filters/filter-date/filter-date.module';
 
 @NgModule({
   declarations: [FiltersComponent],
@@ -12,6 +13,7 @@ import { FilterMultiselectModule } from './filter-multiselect/filter-multiselect
     NzTreeViewModule,
     NzIconModule,
     FilterMultiselectModule,
+    FilterDateModule,
   ],
   exports: [FiltersComponent],
 })

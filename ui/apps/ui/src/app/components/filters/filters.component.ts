@@ -14,11 +14,17 @@ import { IFiltersConfig } from '@collections/repositories/types';
 
       <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
         <ng-container [ngSwitch]="filterConfig.type">
-          <ess-filter
+          <ess-filter-multiselect
             *ngSwitchCase="'multiselect'"
             [label]="filterConfig.label"
             [filter]="filterConfig.filter"
-          ></ess-filter>
+          ></ess-filter-multiselect>
+          <ess-filter-date
+            *ngSwitchCase="'date'"
+            [label]="filterConfig.label"
+            [filter]="filterConfig.filter"
+          >
+          </ess-filter-date>
         </ng-container>
       </ng-container>
     </section>
