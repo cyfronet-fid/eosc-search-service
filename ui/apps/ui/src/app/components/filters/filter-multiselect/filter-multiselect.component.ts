@@ -215,6 +215,7 @@ export class FilterMultiselectComponent implements OnInit {
             (fq) => !fq.startsWith(this._filterMultiselectService.filter)
           ),
       },
+      queryParamsHandling: 'merge',
     });
   }
 
