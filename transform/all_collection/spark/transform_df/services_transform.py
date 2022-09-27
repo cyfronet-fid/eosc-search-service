@@ -1,115 +1,107 @@
 # pylint: disable=invalid-name, line-too-long, unbalanced-tuple-unpacking
 """Transform services"""
 
-from typing import List, Tuple
+from typing import Dict
 from pyspark.sql.functions import (
     lit,
     split,
     col,
-    monotonically_increasing_id,
-    row_number,
 )
 from pyspark.sql.dataframe import DataFrame
-from pyspark.sql import SparkSession, Window
+from pyspark.sql import SparkSession
 from pyspark.sql.types import StringType
-from transform.all_collection.spark.transform_df.select_coulmns import select_columns
-from transform.all_collection.spark.utils.add_columns_to_df import add_columns
+from transform.all_collection.spark.utils.join_dfs import join_different_dfs, create_df
+from transform.all_collection.spark.utils.common_df_transformations import (
+    create_open_access,
+)
+from transform.all_collection.spark.utils.utils import (
+    drop_columns,
+    add_columns,
+)
+from transform.all_collection.spark.schemas.input_col_name import (
+    GEO_AV,
+    RESOURCE_GEO_LOC,
+)
+
+COLS_TO_ADD = (
+    "author_names",
+    "author_pids",
+    "code_repository_url",
+    "content_type",
+    "country",
+    "document_type",
+    "documentation_url",
+    "duration",
+    "eosc_provider",
+    "format",
+    "fos",
+    "funder",
+    "keywords",
+    "level_of_expertise",
+    "license",
+    "programming_language",
+    "publisher",
+    "qualification",
+    "research_community",
+    "resource_type",
+    "sdg",
+    "size",
+    "source",
+    "subtitle",
+    "target_group",
+    "url",
+)
+COLS_TO_DROP = (GEO_AV, RESOURCE_GEO_LOC, "public_contacts")
 
 
 def transform_services(services: DataFrame, spark: SparkSession) -> DataFrame:
     """
     Required transformations:
-
-    1) Additional changes:
-        - internal_type => training
-        - description from str -> arr
-    2) Add OAG + trainings specific columns
-    3) Simplify geographical_availabilities and resource_geographic_locations
+    1) type = service
+    2) rename and cast columns
+    3) Create open_access
+    4) Simplify geographical_availabilities and resource_geographic_locations
+    4) Add OAG + trainings specific columns
     """
-    services = services.withColumn("internal_type", lit("service"))
-    services = cast_services_columns(services)
-    services = add_oag_trainings_properties(services)
-    services = simplify_geo_properties(services, spark)
+    harvested_properties = {}
 
-    return select_columns(services)
+    services = services.withColumn("type", lit("service"))
+    services = rename_and_cast_columns(services)
+    create_open_access(services, harvested_properties, "best_access_right")
+    simplify_geo_properties(services, harvested_properties)
+    services = simplify_urls(services)
+
+    services = drop_columns(services, COLS_TO_DROP)
+    harvested_df = create_df(harvested_properties, spark)
+    services = join_different_dfs((services, harvested_df))
+    services = add_columns(services, COLS_TO_ADD)
+    services = services.select(sorted(services.columns))
+
+    return services
 
 
-def cast_services_columns(services: DataFrame) -> DataFrame:
-    """Cast trainings columns"""
+def rename_and_cast_columns(services: DataFrame) -> DataFrame:
+    """Cast services columns"""
     services = (
         services.withColumn("description", split(col("description"), ","))
         .withColumn("id", services.id.cast(StringType()))
-        .withColumn("popularity_ratio", services.popularity_ratio.cast(StringType()))
-        .withColumn(
-            "project_items_count", services.project_items_count.cast(StringType())
-        )
-        .withColumn(
-            "resource_organisation_id",
-            services.resource_organisation_id.cast(StringType()),
-        )
-        .withColumn(
-            "service_opinion_count", services.service_opinion_count.cast(StringType())
-        )
-        .withColumn("upstream_id", services.upstream_id.cast(StringType()))
+        .withColumnRenamed("created_at", "publication_date")
+        .withColumnRenamed("order_type", "best_access_right")
+        .withColumnRenamed("language_availability", "language")
+        .withColumnRenamed("name", "title")
+        .withColumn("publication_date", col("publication_date").cast("date"))
+        .withColumn("last_update", col("last_update").cast("date"))
+        .withColumn("synchronized_at", col("synchronized_at").cast("date"))
+        .withColumn("updated_at", col("updated_at").cast("date"))
     )
-    return services
-
-
-def add_oag_trainings_properties(services: DataFrame) -> DataFrame:
-    """Add OAG & trainings properties to the services"""
-
-    arr_to_add = (
-        "title",
-        "subject",
-        "subjects",
-        "bestaccessright",
-        "published",
-        "publisher",
-        "author_names",
-    )
-    str_to_add = (
-        "language",
-        "document_type",
-        "content_type",
-        "duration",
-        "eosc_provider",
-        "format",
-        "trainings_keywords",
-        "level_of_expertise",
-        "license",
-        "qualification",
-        "target_group",
-        "url",
-    )
-
-    services = add_columns(arr_to_add, str_to_add, services)
 
     return services
 
 
-def simplify_geo_properties(services: DataFrame, spark: SparkSession) -> DataFrame:
-    """
-    Simplify geographical_availabilities and resource_geographic_locations
-    Take only "country_data_or_code" from its very complex schema
-    """
-    geo_av_list, res_geo_loc_list = extract_most_sign_data_from_geo_cols(services)
-
-    # At this point we do not need those columns; it will be replaced with new schema
-    services = services.drop(
-        "geographical_availabilities", "resource_geographic_locations"
-    )
-
-    services = transform_geo_cols(services, geo_av_list, res_geo_loc_list, spark)
-    return services
-
-
-def extract_most_sign_data_from_geo_cols(services: DataFrame) -> [List, List]:
-    """
-    Extract most significant data from geographical_availabilities and resource_geographic_locations cols
-    to enable simplifying the structure of that data
-    """
-    geo_av = services.select("geographical_availabilities").collect()
-    res_geo_loc = services.select("resource_geographic_locations").collect()
+def simplify_geo_properties(services: DataFrame, harvested_properties: Dict) -> None:
+    """Extract most significant data from geographical_availabilities and resource_geographic_locations cols"""
+    geo_av = services.select(GEO_AV).collect()
+    res_geo_loc = services.select(RESOURCE_GEO_LOC).collect()
 
     geo_av_list = []
     for geo in geo_av:
@@ -124,50 +116,12 @@ def extract_most_sign_data_from_geo_cols(services: DataFrame) -> [List, List]:
         except TypeError:
             res_geo_loc_list.append(None)
 
-    return geo_av_list, res_geo_loc_list
+    harvested_properties[GEO_AV] = geo_av_list
+    harvested_properties[RESOURCE_GEO_LOC] = res_geo_loc_list
 
 
-def transform_geo_cols(
-    services: DataFrame, geo_av_list: List, res_geo_loc_list: List, spark: SparkSession
-) -> DataFrame:
-    """Transform geographical_availabilities and resource_geographic_locations columns"""
-    geo_av_df = spark.createDataFrame(
-        [(geo_av,) for geo_av in geo_av_list], ["geographical_availabilities"]
-    )
-    res_geo_loc_df = spark.createDataFrame(
-        [(res_geo_loc,) for res_geo_loc in res_geo_loc_list],
-        ["resource_geographic_locations"],
-    )
-
-    services = join_services_dfs(services, geo_av_df, res_geo_loc_df)
-    return services
-
-
-def add_row_idxes(df_seq: Tuple) -> List:
-    """Add row_idxes to dataframes"""
-    final_df_list = []
-    for df in df_seq:
-        df = df.withColumn(
-            "row_idx", row_number().over(Window.orderBy(monotonically_increasing_id()))
-        )
-        final_df_list.append(df)
-
-    return final_df_list
-
-
-def join_services_dfs(
-    services: DataFrame, geo_av_df: DataFrame, res_geo_loc_df: DataFrame
-) -> DataFrame:
-    """Join services dataframes based on row_idx"""
-    # Add 'sequential' index and join dataframes
-    services, geo_av_df = add_row_idxes((services, geo_av_df))
-    services = services.join(geo_av_df, services.row_idx == geo_av_df.row_idx).drop(
-        "row_idx"
-    )
-
-    services, res_geo_loc_df = add_row_idxes((services, res_geo_loc_df))
-    services = services.join(
-        res_geo_loc_df, services.row_idx == res_geo_loc_df.row_idx
-    ).drop("row_idx")
-
-    return services
+def simplify_urls(df: DataFrame) -> DataFrame:
+    """Simplify url columns - get only urls"""
+    for urls in ("multimedia_urls", "use_cases_urls"):
+        df = df.withColumn(urls, col(urls)["url"])
+    return df

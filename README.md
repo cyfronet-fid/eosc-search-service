@@ -48,56 +48,15 @@ https://docs.cyfronet.pl/display/FID/OpenAire+indexable+data.
 Below assumes that Solr instance is available under localhost:8983, i.e. the port 8983
 is forwarded to host network.
 
-### mock-dump-1
-
-Then, to load an example dataset, stored in CSV:
+### Solr schema
+1) New schema have to be created for example using "Schema Designer" on the web GUI.
+2) The schema should be placed in [solr/config/configsets](https://github.com/cyfronet-fid/eosc-search-service/tree/development/solr/config/configsets)
+3) Now schema is available for everyone. Use: `docker compose build`
+### Solr collection seeding
+Add data to already existing collection
 ```
-docker run --rm -v "$PWD/data.csv:/mydata/data.csv" \
-           --network=host \
-           solr:8.11 \
-           post -c ess /mydata/data.csv
+curl --location --request POST '<address>:<port>/solr/<collection_name>/update/json/docs' --header 'Content-Type: application/json' -T '<data_file>'
 ```
-
-### mock-dump-2
-
-Either use directly the jsonl file or transform the original using (assuming the file is placed in `transform/tmp/000017_0`):
-```
-cd transform
-pipenv run python transform/tsv-to-jsonl-1.py tmp/000017_0 > tmp/000017_0.jsonl
-```
-
-Then, load such a sanitized dataset (shell again in the root dir):
-```
-docker run --rm -v "$PWD/tmp/000017_0.jsonl:/mydata/data.jsonl" \
-           --network=host \
-           solr:8.11 \
-           post -c ess /mydata/data.jsonl
-```
-
-### queries v2
-
-How to load output of version 2 of the Hive queries, as available in: https://docs.cyfronet.pl/display/FID/Queries+v2.
-
-Either use directly the jsonl file or transform the original using (assuming the file is placed in `transform/tmp/qv2-pub/000550_0`):
-```
-cd transform
-pipenv run python transform/v2/tsv_to_jsonl.py tmp/qv2-pub/000550_0 > tmp/qv2-pub/000550_0.jsonl
-```
-
-To process datafiles without journal (you can check for it in the confluence page) set envvar `OMIT_JOURNAL=1` for
-processing.
-
-Then, load such a sanitized dataset:
-```
-docker run --rm -v "$PWD/transform/tmp/000017_0.jsonl:/mydata/data.jsonl" \
-           --network=host \
-           solr:8.11 \
-           post -c ess /mydata/data.jsonl
-```
-
-After transitioning from hand-run Hive queries to a workflow, the output TSV files changed to include a `\x01` as
-a column separator instead of a tab. Use transform `v3` if you deal with such input files.
-
 
 ## Running RS locally
 

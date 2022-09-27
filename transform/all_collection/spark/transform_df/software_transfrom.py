@@ -1,37 +1,93 @@
+# pylint: disable=wildcard-import, unused-wildcard-import
 """Transform software"""
 
-from pyspark.sql.functions import lit
-from pyspark.sql.dataframe import DataFrame
-from transform.all_collection.spark.transform_df.select_coulmns import (
-    select_oag_columns,
-    select_columns,
+from pyspark.sql import SparkSession
+from transform.all_collection.spark.utils.common_df_transformations import *
+from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
+from transform.all_collection.spark.utils.utils import drop_columns, add_columns
+from transform.all_collection.spark.schemas.input_col_name import (
+    TITLE,
+    UNIQUE_SERVICE_COLUMNS,
 )
-from transform.all_collection.spark.transform_df.oag_transform import (
-    add_trainings_services_properties,
+
+
+COLS_TO_ADD = (
+    *UNIQUE_SERVICE_COLUMNS,
+    "fos",
+    "sdg",
+    "size",
+    "subtitle",
+    "version",
+    "content_type",
+    "duration",
+    "eosc_provider",
+    "format",
+    "pid",
+    "level_of_expertise",
+    "license",
+    "qualification",
+    "resource_type",
+    "target_group",
+)
+COLS_TO_DROP = (
+    "author",
+    "context",
+    "contributor",
+    "country",
+    "coverage",
+    "dateofcollection",
+    "embargoenddate",
+    "eoscIF",
+    "format",
+    "instance",
+    "lastupdatetimestamp",
+    "originalId",
+    "projects",
+    "pid",
+    "subject",
 )
 
 
-def transform_software(software: DataFrame) -> DataFrame:
+def transform_software(software: DataFrame, spark: SparkSession) -> DataFrame:
     """
-    Required transformations:
-
-    1) Renaming columns
-        - bestaccessright column is publisher column (most likely)
-        - language column is bestaccessright column
-        - journal column is language column
-
-    2) Additional changes:
-        - internal_type => software
-        - resourceType => rename to document_type
-
-    3) Add trainings and services properties
+    Required actions/transformations:
+    1) Check if all records have type == dataset
+    2) Rename maintitle -> title
+    3) Simplify bestaccessright
+    4) Simplify language
+    5) Harvest author_names and author_pids
+    6) Create open_access
+    7) Harvest funder
+    8) Harvest urls and document_type
+    9) Harvest country
+    10) Harvest research_community
+    11) Delete unnecessary columns
+    12) Add missing OAG properties
+    13) Rename certain columns
+    14) Cast certain columns
+    15) Add missing services and trainings properties
     """
-    software = software.withColumnRenamed("bestaccessright", "publisher")
-    software = software.withColumnRenamed("language", "bestaccessright")
-    software = software.withColumnRenamed("journal", "language")
+    harvested_properties = {}
 
-    software = software.withColumn("internal_type", lit("software"))
-    software = software.withColumnRenamed("resourceType", "document_type")
-    software = select_oag_columns(software)
+    check_type(software, desired_type="software")
+    software = software.withColumnRenamed("maintitle", TITLE)
+    software = simplify_bestaccessright(software)
+    software = simplify_language(software)
 
-    return select_columns(add_trainings_services_properties(software))
+    harvest_author_names_and_pids(software, harvested_properties)
+    create_open_access(software, harvested_properties, "bestaccessright")
+    harvest_funder(software, harvested_properties)
+    harvest_url_and_document_type(software, harvested_properties)
+    harvest_country(software, harvested_properties)
+    harvest_research_community(software, harvested_properties)
+
+    software = drop_columns(software, COLS_TO_DROP)
+    harvested_df = create_df(harvested_properties, spark)
+
+    software = join_different_dfs((software, harvested_df))
+    software = add_columns(software, COLS_TO_ADD)
+    software = rename_oag_columns(software)
+    software = cast_oag_columns(software)
+    software = software.select(sorted(software.columns))
+
+    return software
