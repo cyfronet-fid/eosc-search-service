@@ -20,8 +20,10 @@ export interface ITag {
   filter: string;
 }
 
-export interface IColoredTag extends ITag {
+export interface IColoredTag {
   colorClassName: string;
+  value: string | string[];
+  filter: string;
 }
 
 export interface ISolrCollectionParams {
