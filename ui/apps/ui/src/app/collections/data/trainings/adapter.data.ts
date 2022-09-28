@@ -1,44 +1,65 @@
 import { IAdapter, IResult } from '../../repositories/types';
-import { LABEL, URL_PARAM_NAME } from './nav-config.data';
+import { URL_PARAM_NAME } from './nav-config.data';
 import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { ITraining } from '@collections/data/trainings/training.model';
+import { last } from 'lodash-es';
+import moment from 'moment';
 
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (training: Partial<ITraining> & { id: string }): IResult => ({
     id: uuidv4(),
-    title: training['Resource_title_s'] || '',
-    description: training['Description_s'] || '',
-    type: LABEL,
+    title: training['title']?.join(' ') || '',
+    description: training['description']?.join(' ') || '',
+    date: training['publication_date']
+      ? moment(training['publication_date']).format('DD MMMM YYYY')
+      : '',
+    type: training['type'] || '',
     typeUrlPath: URL_PARAM_NAME,
     collection: COLLECTION,
     url: '/trainings/' + training.id || '',
+    coloredTag: [
+      {
+        colorClassName: 'tag-almond',
+        value: training['license'] || [],
+        filter: 'license',
+      },
+      {
+        value: last(training?.best_access_right) || [],
+        filter: 'best_access_right',
+        colorClassName: (last(training?.best_access_right) || '').match(
+          /open(.access)?/gi
+        )
+          ? 'tag-light-green'
+          : 'tag-light-coral',
+      },
+      {
+        colorClassName: 'tag-peach',
+        filter: 'language',
+        value: training?.language || [],
+      },
+    ],
     tags: [
       {
         label: 'Authors',
-        value: training['Author_ss'] || [],
-        filter: 'Author_ss',
+        value: training['author_names'] || [],
+        filter: 'author_names',
       },
       {
         label: 'Key words',
-        value: training['Keywords_ss'] || [],
-        filter: 'Keywords_ss',
+        value: training['keywords'] || [],
+        filter: 'keywords',
       },
       {
-        label: 'License',
-        value: training['License_s'] || '',
-        filter: 'License_s',
+        label: 'Resource type',
+        value: training['resource_type'] || [],
+        filter: 'resource_type',
       },
       {
-        label: 'Access right',
-        value: training['Access_Rights_s'] || '',
-        filter: 'Access_Rights_s',
-      },
-      {
-        label: 'Created on',
-        value: training['Version_date__created_in__s'] || '',
-        filter: 'Version_date__created_in__s',
+        label: 'Content type',
+        value: training['content_type'] || [],
+        filter: 'content_type',
       },
     ],
   }),

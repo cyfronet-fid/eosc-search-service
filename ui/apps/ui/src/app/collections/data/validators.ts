@@ -116,9 +116,12 @@ export const _validateFiltersConsistency = (
     const adapter = adapters.find(
       ({ id: adapterId }) => metadataId === adapterId
     ) as IAdapter;
-    const adapterFilters = adapter
-      .adapter({ id: '' })
-      .tags.map(({ filter }) => filter);
+    const adapterFilters = [
+      ...adapter.adapter({ id: '' }).tags.map(({ filter }) => filter),
+      ...(adapter.adapter({ id: '' }).coloredTag || []).map(
+        ({ filter }) => filter
+      ),
+    ];
 
     const missingFilters = differenceWith(
       adapterFilters,

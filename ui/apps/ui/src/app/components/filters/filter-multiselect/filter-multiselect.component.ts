@@ -19,7 +19,7 @@ import {
 @Component({
   selector: 'ess-filter-multiselect',
   template: `
-    <div class="filter">
+    <div class="filter" *ngIf="hasEntities$ | async">
       <span class="filter-title"
         ><b>{{ label }}</b></span
       >
@@ -125,6 +125,8 @@ export class FilterMultiselectComponent implements OnInit {
   chunkedEntities$ = this._filterMultiselectService.chunkedNonActiveEntities$;
   limitedNonActiveEntities$ =
     this._filterMultiselectService.limitedNonActiveEntities$;
+
+  hasEntities$ = this._filterMultiselectService.hasEntities$;
 
   queryFc = new UntypedFormControl('');
 
