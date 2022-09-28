@@ -54,6 +54,9 @@ export class FilterMultiselectService {
         return entities.slice(0, maxSize);
       })
     );
+  hasEntities$ = this._filterMultiselectRepository.entitiesCount$.pipe(
+    map((count) => count > 0)
+  );
 
   setActiveIds = (activeIds: string[]) =>
     this._filterMultiselectRepository.setActiveIds(activeIds);

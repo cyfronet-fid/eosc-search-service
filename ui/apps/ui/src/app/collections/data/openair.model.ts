@@ -1,12 +1,19 @@
 export interface IOpenAIREResult {
   id: string;
   title: string[];
+  url: string[];
   author_names: string[];
   description: string[];
-  published: string[];
-  bestaccessright: string[];
-  journal: string;
-  publisher: string[];
-  subject: string[];
-  rating?: number;
+  publication_date: string[];
+  best_access_right: string[];
+  language: string[];
+  type: string;
+  fos: string[];
+  keywords: string[];
+  open_access: boolean;
+  publisher: string;
+  author_pids: string[];
+  license: string;
+  document_type: string[];
+  country: string;
 }

@@ -6,7 +6,7 @@ import {
   getEntity,
   resetActiveIds,
   selectActiveEntities,
-  selectAllEntitiesApply,
+  selectAllEntitiesApply, selectEntitiesCount,
   setActiveIds,
   updateAllEntities,
   updateEntities,
@@ -40,6 +40,7 @@ export class FilterMultiselectRepository {
   );
 
   // ASYNC
+  readonly entitiesCount$ = this._store$.pipe(selectEntitiesCount());
   readonly activeEntities$ = this._store$.pipe(
     selectActiveEntities(),
     map((entities) => entities.sort((a, b) => +b.count - +a.count))

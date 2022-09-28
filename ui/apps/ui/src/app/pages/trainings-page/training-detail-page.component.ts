@@ -34,8 +34,8 @@ export class TrainingDetailPageComponent implements OnInit {
     this.trainingsService.get$(id).subscribe((item) => {
       this.training = trainingsAdapter.adapter(item);
       this.originUrl = item.URL_s;
-      this.keywords = item.Keywords_ss;
-      this.accessType = item.Access_Rights_s;
+      this.keywords = item.keywords;
+      this.accessType = item.best_access_right;
       this.detailsTags = this.training.tags;
       this.sidebarTags = this.training.tags;
     });

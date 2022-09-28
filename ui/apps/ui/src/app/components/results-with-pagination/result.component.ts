@@ -43,19 +43,37 @@ const shortText = (text: string, maxWords: number): string => {
         </a>
 
         <ng-container *ngFor="let tag of coloredTags">
-          <a
-            [attr.class]="tag.colorClassName"
-            href="javascript:void(0)"
-            (click)="setActiveFilter(tag.filter, $any(tag.value))"
-          >
-            {{ tag.label }}
-          </a>
+          <ng-container *ngIf="isArray(tag.value)">
+            <a
+              *ngFor="let value of tag.value"
+              [attr.class]="tag.colorClassName"
+              href="javascript:void(0)"
+              (click)="setActiveFilter(tag.filter, $any(value))"
+            >
+              {{ value }}
+            </a>
+          </ng-container>
+          <ng-container *ngIf="!isArray(tag.value)">
+            <a
+              [attr.class]="tag.colorClassName"
+              href="javascript:void(0)"
+              (click)="setActiveFilter(tag.filter, $any(tag.value))"
+            >
+              {{ tag.value }}
+            </a>
+          </ng-container>
         </ng-container>
       </div>
 
       <div id="tags">
         <ng-container *ngFor="let tag of tags">
-          <div class="tag-row">
+          <div
+            class="tag-row"
+            *ngIf="
+              (isArray(tag.value) && tag.value.length > 0) ||
+              (!isArray(tag.value) && tag.value && tag.value.trim() !== '')
+            "
+          >
             <span class="tag tag-title"
               ><b>{{ tag.label }}: </b></span
             >
