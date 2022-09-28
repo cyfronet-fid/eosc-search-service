@@ -1,31 +1,48 @@
 import { IAdapter, IResult } from '../../repositories/types';
-import { LABEL, URL_PARAM_NAME } from './nav-config.data';
+import { URL_PARAM_NAME } from './nav-config.data';
 import { IService } from './service.model';
 import { COLLECTION } from './search-metadata.data';
+import { last } from 'lodash-es';
 
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (service: Partial<IService> & { id: string }): IResult => ({
     id: service.id,
     // basic information
-    title: service.name_t || '',
-    description: service.description_t || '',
-    type: LABEL,
-    url: service.pid_s
-      ? `https://marketplace.eosc-portal.eu/services/${service.pid_s}`
+    title: service.title?.join(' ') || '',
+    description: service.description?.join(' ') || '',
+    type: service.type || '',
+    url: service.pid
+      ? `https://marketplace.eosc-portal.eu/services/${service.pid}`
       : '',
     typeUrlPath: URL_PARAM_NAME,
     collection: COLLECTION,
+    coloredTag: [
+      {
+        value: last(service?.best_access_right) || '',
+        filter: 'best_access_right',
+        colorClassName: (last(service?.best_access_right) || '').match(
+          /open(.access)?/gi
+        )
+          ? 'tag-light-green'
+          : 'tag-light-coral',
+      },
+      {
+        colorClassName: 'tag-peach',
+        filter: 'language',
+        value: service?.language || [],
+      },
+    ],
     tags: [
       {
         label: 'Scientific domain',
-        value: service.scientific_domains_ss || [],
-        filter: 'scientific_domains_ss',
+        value: service.scientific_domains || [],
+        filter: 'scientific_domains',
       },
       {
         label: 'Organisation',
-        value: service.resource_organisation_s || '',
-        filter: 'resource_organisation_s',
+        value: service.resource_organisation || '',
+        filter: 'resource_organisation',
       },
     ],
   }),
