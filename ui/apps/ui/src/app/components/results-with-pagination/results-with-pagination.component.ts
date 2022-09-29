@@ -50,7 +50,6 @@ import { Router } from '@angular/router';
         [description]="result.description"
         [type]="result.type"
         [url]="result.url"
-        [typeUrlPath]="'/search/' + result.typeUrlPath"
         [tags]="result.tags"
         [coloredTags]="result.coloredTag || []"
         [date]="result.date"

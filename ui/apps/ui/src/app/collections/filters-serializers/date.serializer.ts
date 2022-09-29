@@ -11,7 +11,7 @@ export class DateSerializer extends FilterSerializer<string> {
     }
 
     const dates = values.match(
-      /(\d{4}-(0[1-9]|1[0-2])-([0-2]\d|3[0-1])|\*) TO (\d{4}-(0[1-9]|1[0-2])-([0-2]\d|3[0-1])|\*)/g
+      /(\d{4}-(0[1-9]|1[0-2])-([0-2]\d|3[0-1])T\d{2}:\d{2}:\d{2}Z|\*) TO (\d{4}-(0[1-9]|1[0-2])-([0-2]\d|3[0-1])T\d{2}:\d{2}:\d{2}Z|\*)/g
     );
     if (!dates) {
       return undefined;

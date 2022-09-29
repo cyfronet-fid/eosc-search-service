@@ -21,9 +21,9 @@ export const publicationsAdapter: IAdapter = {
       ?.pop()}`,
     coloredTag: [
       {
-        value: last(openAIREResult?.best_access_right) || '',
+        value: openAIREResult?.best_access_right || '',
         filter: 'best_access_right',
-        colorClassName: (last(openAIREResult?.best_access_right) || '').match(
+        colorClassName: (openAIREResult?.best_access_right || '').match(
           /open(.access)?/gi
         )
           ? 'tag-light-green'
@@ -58,12 +58,16 @@ export const publicationsAdapter: IAdapter = {
       },
       {
         label: 'Document type',
-        value: openAIREResult?.document_type || '',
+        value: [...new Set(openAIREResult?.document_type || [])],
         filter: 'document_type',
+      },
+      {
+        label: 'DOI',
+        value: openAIREResult?.url || [],
+        filter: 'url',
       },
     ],
     type: openAIREResult?.type || '',
-    typeUrlPath: URL_PARAM_NAME,
     collection: COLLECTION,
   }),
 };
