@@ -38,8 +38,8 @@ const shortText = (text: string, maxWords: number): string => {
       </h6>
 
       <div class="tags-box">
-        <a [routerLink]="typeUrlPath" queryParamsHandling="merge"
-          >{{ type }}
+        <a [routerLink]="'/search/' + type" queryParamsHandling="merge">
+          {{ type }}
         </a>
 
         <ng-container *ngFor="let tag of coloredTags">
@@ -157,9 +157,6 @@ export class ResultComponent {
 
   @Input()
   type!: string;
-
-  @Input()
-  typeUrlPath!: string;
 
   @Input()
   tags: ITag[] = [];

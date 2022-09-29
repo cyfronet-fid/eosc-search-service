@@ -5,7 +5,7 @@ export const COLLECTION = 'all_collection';
 export const allCollectionsSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: {
-    document_type: { field: 'document_type', type: 'terms', limit: 0 },
+    type: { field: 'type', type: 'terms', limit: 0 },
     best_access_right: { field: 'best_access_right', type: 'terms', limit: 0 },
     language: { field: 'language', type: 'terms', limit: 0 },
     fos: { field: 'fos', type: 'terms', limit: 0 },

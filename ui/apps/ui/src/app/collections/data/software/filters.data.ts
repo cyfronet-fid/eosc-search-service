@@ -82,5 +82,11 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Publisher',
       type: 'tag',
     },
+    {
+      id: 'url',
+      filter: 'url',
+      label: 'DOI',
+      type: 'tag',
+    },
   ],
 };
