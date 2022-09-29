@@ -5,7 +5,6 @@ export interface IResult {
   title: string;
   description: string;
   type: string;
-  typeUrlPath: string;
   collection: string;
   url: string;
   tags: ITag[];

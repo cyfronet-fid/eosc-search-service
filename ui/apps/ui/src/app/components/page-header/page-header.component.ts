@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
-import { CustomRoute } from '@collections/services/custom-route.service';
 import { Router } from '@angular/router';
 
 @UntilDestroy()

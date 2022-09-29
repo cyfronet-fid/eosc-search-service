@@ -1,9 +1,9 @@
 import { IAdapter, IResult } from '../../repositories/types';
 import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
-import { LABEL, URL_PARAM_NAME } from './nav-config.data';
-import moment from "moment";
-import {last} from "lodash-es";
+import { URL_PARAM_NAME } from './nav-config.data';
+import moment from 'moment';
+import { last } from 'lodash-es';
 
 export const softwareAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -21,9 +21,9 @@ export const softwareAdapter: IAdapter = {
       ?.pop()}`,
     coloredTag: [
       {
-        value: last(openAIREResult?.best_access_right) || '',
+        value: openAIREResult?.best_access_right || '',
         filter: 'best_access_right',
-        colorClassName: (last(openAIREResult?.best_access_right) || '').match(
+        colorClassName: (openAIREResult?.best_access_right || '').match(
           /open(.access)?/gi
         )
           ? 'tag-light-green'
@@ -58,12 +58,16 @@ export const softwareAdapter: IAdapter = {
       },
       {
         label: 'Document type',
-        value: openAIREResult?.document_type || '',
+        value: [...new Set(openAIREResult?.document_type || [])],
         filter: 'document_type',
+      },
+      {
+        label: 'DOI',
+        value: openAIREResult?.url || [],
+        filter: 'url',
       },
     ],
     type: openAIREResult?.type || '',
-    typeUrlPath: URL_PARAM_NAME,
     collection: COLLECTION,
   }),
 };

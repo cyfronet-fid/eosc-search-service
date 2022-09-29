@@ -21,9 +21,9 @@ export const datasetsAdapter: IAdapter = {
       ?.pop()}`,
     coloredTag: [
       {
-        value: last(openAIREResult?.best_access_right) || '',
+        value: openAIREResult?.best_access_right || '',
         filter: 'best_access_right',
-        colorClassName: (last(openAIREResult?.best_access_right) || '').match(
+        colorClassName: (openAIREResult?.best_access_right || '').match(
           /open(.access)?/gi
         )
           ? 'tag-light-green'
@@ -51,9 +51,13 @@ export const datasetsAdapter: IAdapter = {
         value: openAIREResult?.fos || [],
         filter: 'fos',
       },
+      {
+        label: 'DOI',
+        value: openAIREResult?.url || [],
+        filter: 'url',
+      },
     ],
     type: openAIREResult?.type || '',
-    typeUrlPath: URL_PARAM_NAME,
     collection: COLLECTION,
   }),
 };

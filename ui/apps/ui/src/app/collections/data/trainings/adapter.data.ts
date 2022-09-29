@@ -16,7 +16,6 @@ export const trainingsAdapter: IAdapter = {
       ? moment(training['publication_date']).format('DD MMMM YYYY')
       : '',
     type: training['type'] || '',
-    typeUrlPath: URL_PARAM_NAME,
     collection: COLLECTION,
     url: '/trainings/' + training.id || '',
     coloredTag: [
@@ -26,9 +25,9 @@ export const trainingsAdapter: IAdapter = {
         filter: 'license',
       },
       {
-        value: last(training?.best_access_right) || [],
+        value: training?.best_access_right || [],
         filter: 'best_access_right',
-        colorClassName: (last(training?.best_access_right) || '').match(
+        colorClassName: (training?.best_access_right || '').match(
           /open(.access)?/gi
         )
           ? 'tag-light-green'
