@@ -3,7 +3,10 @@ import { AdaptersRepository } from '@collections/repositories/adapters.repositor
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { FetchDataService } from '@collections/services/fetch-data.service';
 import { combineLatest, map, of } from 'rxjs';
-import { adapterType } from '@collections/repositories/types';
+import {
+  ICollectionSearchMetadata,
+  adapterType,
+} from '@collections/repositories/types';
 import { toSuggestedResults } from './utils';
 
 const MAX_COLLECTION_RESULTS = 3; // TODO: Move to env file
@@ -18,19 +21,24 @@ export class SearchInputService {
     private _fetchDataService: FetchDataService
   ) {}
 
-  currentSuggestions(q: string) {
+  currentSuggestions(q: string, collectionName: string) {
     if (q === '*' || q === '') {
       return of([]);
     }
 
-    return combineLatest(this._suggestedResultsBy$(q)).pipe(
+    const collections: ICollectionSearchMetadata[] =
+      collectionName === 'all'
+        ? this._searchMetadataRepository.getAll()
+        : [this._searchMetadataRepository.get(collectionName)];
+
+    return combineLatest(this._suggestedResultsBy$(q, collections)).pipe(
       map((responses) => responses.filter(({ results }) => results.length > 0)),
       map((responses) => responses.map(toSuggestedResults))
     );
   }
 
-  _suggestedResultsBy$(q: string) {
-    return this._searchMetadataRepository.getAll().map((metadata) => {
+  _suggestedResultsBy$(q: string, collections: ICollectionSearchMetadata[]) {
+    return collections.map((metadata) => {
       const searchMetadata = {
         q,
         fq: [],

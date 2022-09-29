@@ -1,10 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
 import {
+  Component,
+  ElementRef,
+  Inject,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import { FormControl, UntypedFormControl } from '@angular/forms';
+import {
+  combineLatest,
   debounceTime,
   distinctUntilChanged,
   filter,
   map,
+  merge,
+  of,
   switchMap,
   tap,
 } from 'rxjs';
@@ -17,6 +27,9 @@ import { ISuggestedResults } from './type';
 import { Router } from '@angular/router';
 import { sanitizeQuery } from '@components/search-input/query.sanitizer';
 import { environment } from '@environment/environment';
+import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
+import { ICollectionNavConfig } from '@collections/repositories/types';
+import { DOCUMENT } from '@angular/common';
 
 @UntilDestroy()
 @Component({
@@ -27,6 +40,7 @@ import { environment } from '@environment/environment';
         <form>
           <div class="input-group">
             <input
+              #inputQuery
               type="text"
               class="form-control"
               autocomplete="off"
@@ -38,6 +52,19 @@ import { environment } from '@environment/environment';
               "
               [formControl]="formControl"
             />
+            <select
+              class="form-select"
+              style="flex-grow: 0; flex-basis: 150px;"
+              (click)="focused = false"
+              [formControl]="collectionFc"
+            >
+              <option
+                *ngFor="let navConfig of searchCollections"
+                [ngValue]="navConfig"
+              >
+                {{ navConfig.title }}
+              </option>
+            </select>
             <div class="input-group-btn">
               <button
                 class="btn btn-primary"
@@ -56,7 +83,7 @@ import { environment } from '@environment/environment';
           (hasSetQuery$ | async)
         "
         id="btn--clear-query"
-        style="margin-right: 5px;"
+        style="margin-right: 155px;"
         type="button"
         class="btn btn-secondary"
         (click)="clearQuery()"
@@ -163,13 +190,23 @@ export class SearchInputComponent implements OnInit {
   formControl = new UntypedFormControl();
 
   suggestedResults: ISuggestedResults[] = [];
-
   hasSetQuery$ = this._customRoute.q$.pipe(map((q: string) => q && q !== '*'));
+  searchCollections = this._navConfigsRepository.getAll();
+  collectionFc = new FormControl<ICollectionNavConfig>(
+    this.searchCollections[0],
+    { nonNullable: true }
+  );
+
+  @Input() navigateOnCollectionChange = true;
+
+  @ViewChild('inputQuery', { static: true }) inputQuery!: ElementRef;
 
   constructor(
     private _customRoute: CustomRoute,
     private _router: Router,
-    private _searchInputService: SearchInputService
+    private _searchInputService: SearchInputService,
+    private _navConfigsRepository: NavConfigsRepository,
+    @Inject(DOCUMENT) private _document: Document
   ) {}
 
   ngOnInit() {
@@ -181,17 +218,42 @@ export class SearchInputComponent implements OnInit {
       )
       .subscribe((q) => this.formControl.setValue(q));
 
-    this.formControl.valueChanges
-      .pipe(
-        map((q: string) => sanitizeQuery(q) ?? '*'),
+    this._customRoute.collection$
+      .pipe(untilDestroyed(this))
+      .subscribe((collection) =>
+        this.collectionFc.setValue(
+          this._navConfigsRepository.get(collection) ??
+            this.searchCollections[0],
+          { emitEvent: false }
+        )
+      );
+
+    combineLatest({
+      q: this.formControl.valueChanges.pipe(
+        map((q) => sanitizeQuery(q) ?? '*'),
         distinctUntilChanged(),
         debounceTime(150),
-        tap((q) => (q ? (this.focused = true) : null)),
-        switchMap((q) => this._searchInputService.currentSuggestions(q))
+        tap((q) => (q ? (this.focused = true) : null))
+      ),
+      collection: this._customRoute.collection$.pipe(
+        map(
+          (collection) =>
+            this._navConfigsRepository.get(collection) as ICollectionNavConfig
+        )
+      ),
+    })
+      .pipe(
+        switchMap(({ q, collection }) =>
+          this._searchInputService.currentSuggestions(q, collection.id)
+        ),
+        untilDestroyed(this)
       )
       .subscribe(
         (suggestedResults) => (this.suggestedResults = suggestedResults)
       );
+    this.collectionFc.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((navConfig) => this.setCollection(navConfig));
   }
 
   async updateQueryParams(q: string, $event: Event | null = null) {
@@ -202,7 +264,9 @@ export class SearchInputComponent implements OnInit {
 
     const url = this._router.url.includes(SEARCH_PAGE_PATH)
       ? []
-      : [`/${SEARCH_PAGE_PATH}`];
+      : [`/${SEARCH_PAGE_PATH}/${this.collectionFc.value.urlParam}`];
+    this.focused = false;
+    this.inputQuery.nativeElement.blur();
     await this._router.navigate(url, {
       queryParams: {
         q: sanitizeQuery(q) ?? '*',
@@ -225,5 +289,14 @@ export class SearchInputComponent implements OnInit {
   async clearQuery() {
     this.formControl.setValue('');
     await this.updateQueryParams('*');
+  }
+
+  async setCollection($event: ICollectionNavConfig) {
+    if (!this.navigateOnCollectionChange) {
+      return;
+    }
+    await this._router.navigate(['/search', $event.urlParam], {
+      queryParamsHandling: 'preserve',
+    });
   }
 }
