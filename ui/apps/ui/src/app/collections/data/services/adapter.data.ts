@@ -2,7 +2,6 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { IService } from './service.model';
 import { COLLECTION } from './search-metadata.data';
-import { last } from 'lodash-es';
 
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -15,13 +14,12 @@ export const servicesAdapter: IAdapter = {
     url: service.pid
       ? `https://marketplace.eosc-portal.eu/services/${service.pid}`
       : '',
-    typeUrlPath: URL_PARAM_NAME,
     collection: COLLECTION,
     coloredTag: [
       {
-        value: last(service?.best_access_right) || '',
+        value: service?.best_access_right || '',
         filter: 'best_access_right',
-        colorClassName: (last(service?.best_access_right) || '').match(
+        colorClassName: (service?.best_access_right || '').match(
           /open(.access)?/gi
         )
           ? 'tag-light-green'

@@ -5,8 +5,8 @@ export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
-      id: 'document_type',
-      filter: 'document_type',
+      id: 'type',
+      filter: 'type',
       label: 'Type of product',
       type: 'multiselect',
     },
@@ -32,6 +32,12 @@ export const allCollectionsFilters: IFiltersConfig = {
       id: 'author_names',
       filter: 'author_names',
       label: 'Author names',
+      type: 'tag',
+    },
+    {
+      id: 'url',
+      filter: 'url',
+      label: 'DOI',
       type: 'tag',
     },
   ],

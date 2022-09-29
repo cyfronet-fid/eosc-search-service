@@ -5,7 +5,7 @@ export interface IOpenAIREResult {
   author_names: string[];
   description: string[];
   publication_date: string[];
-  best_access_right: string[];
+  best_access_right: string;
   language: string[];
   type: string;
   fos: string[];

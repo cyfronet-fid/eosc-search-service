@@ -1,7 +1,7 @@
 {
   "npmScope": "ui",
   "affected": {
-    "defaultBase": "main"
+    "defaultBase": "master"
   },
   "cli": {
     "packageManager": "npm"
