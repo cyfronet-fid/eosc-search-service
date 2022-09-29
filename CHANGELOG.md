@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.0.0...v1.1.0) (2022-09-29)
+
+
+### Features
+
+* update collections configurations ([5f3bc1a](https://github.com/cyfronet-fid/eosc-search-service/commit/5f3bc1ad3f08921e896394a85110e494d6909db2))
+
+
+### Bug Fixes
+
+* date erialization, collection type tag redirect ([d832015](https://github.com/cyfronet-fid/eosc-search-service/commit/d832015a6091442c152ee1e667897340b857dae9))
+
 ## [1.0.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v0.0.0...v1.0.0) (2022-09-23)
 
 
