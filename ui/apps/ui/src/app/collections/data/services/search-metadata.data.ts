@@ -1,29 +1,59 @@
 import { ICollectionSearchMetadata } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 
-export const COLLECTION = 'marketplace';
+export const COLLECTION = 'service';
 export const servicesSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: {
-    resource_organisation_s: {
-      field: 'resource_organisation_s',
+    scientific_domains: {
+      field: 'scientific_domains',
       type: 'terms',
+      limit: 0,
     },
-    categories_ss: { field: 'categories_ss', type: 'terms', limit: 0 },
-    providers_ss: { field: 'providers_ss', type: 'terms', limit: 0 },
-    geographical_availabilities_ss: {
-      field: 'geographical_availabilities_ss',
+    providers: {
+      field: 'providers',
       type: 'terms',
+      limit: 0,
+    },
+    dedicated_for: {
+      field: 'dedicated_for',
+      type: 'terms',
+      limit: 0,
+    },
+    related_platforms: {
+      field: 'related_platforms',
+      type: 'terms',
+      limit: 0,
+    },
+    rating: {
+      field: 'rating',
+      type: 'terms',
+      limit: 0,
+    },
+    geographical_availabilities: {
+      field: 'geographical_availabilities',
+      type: 'terms',
+      limit: 0,
+    },
+    categories: {
+      field: 'categories',
+      type: 'terms',
+      limit: 0,
+    },
+    resource_organisation: {
+      field: 'resource_organisation',
+      type: 'terms',
+      limit: 0,
+    },
+    best_access_right: {
+      field: 'best_access_right',
+      type: 'terms',
+      limit: 0,
     },
   },
   queryMutator: (q: string) => q + '*',
   params: {
-    qf: [
-      'name_t',
-      'resource_organisation_s',
-      'tagline_t',
-      'scientific_domains_ss',
-    ],
+    qf: ['title^50', 'author_names^30', 'description^10'],
     collection: COLLECTION,
   },
 };

@@ -3,7 +3,7 @@ import { PaginationService } from './pagination.service';
 import { BehaviorSubject, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { IResult, ISearchResults } from '../../collections/repositories/types';
+import { IResult, ISearchResults } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { paramType } from '@collections/services/custom-route.type';
 import { Router } from '@angular/router';
@@ -50,7 +50,6 @@ import { Router } from '@angular/router';
         [description]="result.description"
         [type]="result.type"
         [url]="result.url"
-        [typeUrlPath]="'/search/' + result.typeUrlPath"
         [tags]="result.tags"
         [coloredTags]="result.coloredTag || []"
         [date]="result.date"

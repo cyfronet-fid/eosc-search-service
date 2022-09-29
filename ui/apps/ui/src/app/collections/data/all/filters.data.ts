@@ -5,15 +5,21 @@ export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
-      id: 'publisher',
-      filter: 'publisher',
-      label: 'Publisher',
+      id: 'type',
+      filter: 'type',
+      label: 'Type of product',
       type: 'multiselect',
     },
     {
-      id: 'bestaccessright',
-      filter: 'bestaccessright',
+      id: 'best_access_right',
+      filter: 'best_access_right',
       label: 'Access right',
+      type: 'multiselect',
+    },
+    {
+      id: 'fos',
+      filter: 'fos',
+      label: 'Scientific discipline',
       type: 'multiselect',
     },
     {
@@ -29,9 +35,9 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'tag',
     },
     {
-      id: 'published',
-      filter: 'published',
-      label: 'Published',
+      id: 'url',
+      filter: 'url',
+      label: 'DOI',
       type: 'tag',
     },
   ],

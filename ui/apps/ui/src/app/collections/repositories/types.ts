@@ -5,7 +5,6 @@ export interface IResult {
   title: string;
   description: string;
   type: string;
-  typeUrlPath: string;
   collection: string;
   url: string;
   tags: ITag[];
@@ -20,8 +19,10 @@ export interface ITag {
   filter: string;
 }
 
-export interface IColoredTag extends ITag {
+export interface IColoredTag {
   colorClassName: string;
+  value: string | string[];
+  filter: string;
 }
 
 export interface ISolrCollectionParams {

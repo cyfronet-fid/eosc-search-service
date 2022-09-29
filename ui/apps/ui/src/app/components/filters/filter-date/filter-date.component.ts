@@ -5,7 +5,7 @@ import { deserializeAll } from '@collections/filters-serializers/filters-seriali
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import moment from 'moment';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { map, skip, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import {
   DATE_RANGE_SPLIT_SIGN,
   EMPTY_DATE_SIGN,

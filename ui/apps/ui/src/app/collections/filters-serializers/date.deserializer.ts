@@ -3,7 +3,7 @@ import moment from 'moment';
 
 export const EMPTY_DATE_SIGN = '*';
 export const DATE_RANGE_SPLIT_SIGN = 'TO';
-const DATE_FORMAT = 'YYYY-MM-DD';
+const DATE_FORMAT = 'YYYY-MM-DDTHH:mm:ss[Z]';
 export const DESERIALIZE_DATES_RANGE = (
   startDate: Date | null,
   endDate: Date | null
@@ -13,20 +13,22 @@ export const DESERIALIZE_DATES_RANGE = (
   }
 
   if (!startDate && endDate) {
-    return `${EMPTY_DATE_SIGN} ${DATE_RANGE_SPLIT_SIGN} ${moment(
-      endDate
-    ).format(DATE_FORMAT)}`;
+    return `${EMPTY_DATE_SIGN} ${DATE_RANGE_SPLIT_SIGN} ${moment(endDate)
+      .startOf('day')
+      .format(DATE_FORMAT)}`;
   }
 
   if (startDate && !endDate) {
-    return `${moment(startDate).format(
-      DATE_FORMAT
-    )} ${DATE_RANGE_SPLIT_SIGN} ${EMPTY_DATE_SIGN}`;
+    return `${moment(startDate)
+      .startOf('day')
+      .format(DATE_FORMAT)} ${DATE_RANGE_SPLIT_SIGN} ${EMPTY_DATE_SIGN}`;
   }
 
-  return `${moment(startDate).format(
-    DATE_FORMAT
-  )} ${DATE_RANGE_SPLIT_SIGN} ${moment(endDate).format(DATE_FORMAT)}`;
+  return `${moment(startDate)
+    .startOf('day')
+    .format(DATE_FORMAT)} ${DATE_RANGE_SPLIT_SIGN} ${moment(endDate)
+    .startOf('day')
+    .format(DATE_FORMAT)}`;
 };
 export type dateRangeType =
   | [Date, Date]
