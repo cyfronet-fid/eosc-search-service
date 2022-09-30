@@ -36,7 +36,4 @@ async def read_item(
             detail = None
         raise HTTPException(status_code=response.status_code, detail=detail)
     res_json = response.json()
-    return {
-        **res_json["doc"],
-        "facets": res_json["facets"] if "facets" in res_json else {},
-    }
+    return {**res_json["doc"]}

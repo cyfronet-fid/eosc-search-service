@@ -3,14 +3,14 @@ export interface ITraining {
   title: string[];
   description: string[];
   author_names: string;
-  language: string;
+  language: string[];
   keywords: string;
   license: string;
   best_access_right: string;
   publication_date: string;
   resource_type: string;
   content_type: string;
-  URL_s: string;
+  url: string[];
   eosc_provider: string;
   format: string;
   level_of_expertise: string;

@@ -33,7 +33,7 @@ export class TrainingDetailPageComponent implements OnInit {
     const id = +(this.route.snapshot.paramMap.get('trainingId') ?? 1);
     this.trainingsService.get$(id).subscribe((item) => {
       this.training = trainingsAdapter.adapter(item);
-      this.originUrl = item.URL_s;
+      this.originUrl = item.url?.pop();
       this.keywords = item.keywords;
       this.accessType = item.best_access_right;
       this.detailsTags = this.training.tags;
