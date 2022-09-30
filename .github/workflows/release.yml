@@ -16,3 +16,17 @@ jobs:
           release-type: simple
           package-name: release-please-action
           default-branch: master
+      - uses: actions/checkout@v3
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Set Git bot config
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+        if: ${{ steps.release.outputs.release_created }}
+      - name: Master to development auto merge
+        run: |
+          git checkout development
+          git pull
+          git merge --no-ff master -m "chore: auto-merge master to development"
+          git push
+        if: ${{ steps.release.outputs.release_created }}
