@@ -3,7 +3,6 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { ITraining } from '@collections/data/trainings/training.model';
-import { last } from 'lodash-es';
 import moment from 'moment';
 
 export const trainingsAdapter: IAdapter = {

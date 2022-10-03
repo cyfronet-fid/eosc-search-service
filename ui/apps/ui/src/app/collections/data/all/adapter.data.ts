@@ -2,7 +2,6 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { COLLECTION } from './search-metadata.data';
 import { IOpenAIREResult } from '@collections/data/openair.model';
-import { last } from 'lodash-es';
 import moment from 'moment';
 import { IService } from '@collections/data/services/service.model';
 import { ITraining } from '@collections/data/trainings/training.model';
