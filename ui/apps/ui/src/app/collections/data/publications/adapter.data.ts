@@ -2,7 +2,6 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
-import { last } from 'lodash-es';
 import moment from 'moment';
 
 export const publicationsAdapter: IAdapter = {

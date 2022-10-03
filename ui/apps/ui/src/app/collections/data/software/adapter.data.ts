@@ -3,7 +3,6 @@ import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
 import { URL_PARAM_NAME } from './nav-config.data';
 import moment from 'moment';
-import { last } from 'lodash-es';
 
 export const softwareAdapter: IAdapter = {
   id: URL_PARAM_NAME,

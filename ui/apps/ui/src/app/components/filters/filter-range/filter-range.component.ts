@@ -8,7 +8,8 @@ import {
   debounceTime,
   distinctUntilChanged,
   map,
-  skip, switchMap,
+  skip,
+  switchMap,
   tap,
 } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
