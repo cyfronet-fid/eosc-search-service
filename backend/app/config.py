@@ -5,7 +5,7 @@
     Configuration of the app based on
     https://www.starlette.io/config/
 """
-
+import logging
 import os
 from urllib.parse import urlparse
 
@@ -13,6 +13,7 @@ from starlette.config import Config
 
 config = Config(environ=os.environ)
 IS_TESTING = config("TESTING", cast=bool, default=False)
+LOG_LEVEL = config("LOG_LEVEL", cast=str, default=logging.getLevelName(logging.INFO))
 
 DATABASE_URI = config(
     "DATABASE_URI",

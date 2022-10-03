@@ -17,6 +17,7 @@ services:
       SECRET_KEY: "${SECRET_KEY}"
       BACKEND_BASE_URL: "${BACKEND_BASE_URL}"
       UI_BASE_URL: "${UI_BASE_URL}"
+      LOG_LEVEL: "${LOG_LEVEL}" # allowed values: DEBUG, INFO, ERROR
     depends_on:
       - db
       - solr1
