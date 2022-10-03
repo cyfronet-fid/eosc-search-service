@@ -6,9 +6,11 @@
  */
 
 import { sharedEnvironment } from './environment.generated';
+import { versionEnvironment } from '@environment/environment.version';
 
 export const commonEnvironment = {
   // @ts-ignore
+  ...versionEnvironment,
   ...sharedEnvironment,
   backendApiPath: 'api/web',
   navigationApiPath: 'navigate',

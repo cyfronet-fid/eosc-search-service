@@ -7,10 +7,10 @@
     "postinstall": "node ./decorate-angular-cli.js && ngcc --properties es2020 browser module main",
     "generate:vars": "node node_modules/ng-node-environment/index.js --out='./apps/ui/src/environments/environment.generated.ts' && eslint --fix ./apps/ui/src/environments/environment.generated.ts",
     "make:requirements": "npm run generate:vars",
-    "prestart": "npm run make:requirements",
+    "prestart": "node set-package-json-version.js && npm run make:requirements",
     "start": "nx serve",
     "start:external": "nx serve --proxy-config apps/ui/proxy.external.conf.json",
-    "prebuild": "npm run make:requirements",
+    "prebuild": "node set-package-json-version.js && npm run make:requirements",
     "build": "nx build",
     "test": "nx test"
   },

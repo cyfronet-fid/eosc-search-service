@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from '@environment/environment';
 
 @Component({
   selector: 'ess-root',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
     <router-outlet></router-outlet>
   `,
 })
-export class AppComponent {}
+export class AppComponent {
+  constructor() {
+    console.log(`CURRENT BUILD VERSION: ${environment.version}`);
+    console.log(`CURRENT HASH: ${environment.latestRevision}`);
+  }
+}
