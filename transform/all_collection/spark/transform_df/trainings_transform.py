@@ -4,6 +4,7 @@ import re
 from typing import Dict, Sequence
 from pyspark.sql import SparkSession
 from pyspark.sql.dataframe import DataFrame
+from pyspark.sql.types import StringType, IntegerType
 from pyspark.sql.functions import lit, split, col, regexp_replace, translate
 from transform.all_collection.spark.utils.common_df_transformations import (
     transform_date,
@@ -20,7 +21,7 @@ from transform.all_collection.spark.schemas.input_col_name import (
     UNIQUE_SERVICE_COLUMNS,
     AUTHOR_NAMES,
     KEYWORDS,
-    FORMAT
+    FORMAT,
 )
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
 
@@ -72,16 +73,18 @@ def transform_trainings(trainings: DataFrame, spark: SparkSession) -> DataFrame:
     different formats of the same property. Be careful.
 
     Required transformations:
-    1) Transform duration to seconds as int
-    2) Transform Version_date__created_in__s to date format
-    3) Renaming all columns
-    4) type => training
-    5) Casting certain columns to different types
-    6) Add OAG + services specific properties
+    1) Renaming all columns
+    2) Switch from int ids to uuid
+    3) Transform duration to seconds as int
+    4) Transform Version_date__created_in__s to date format
+    5) type => training
+    6) Casting certain columns to different types
+    7) Add OAG + services specific properties
     """
     harvested_properties = {}
 
     trainings = rename_trainings_columns(trainings, COLS_TO_RENAME)
+    trainings = convert_ids(trainings, increment=1_000_000)
     trainings = trainings.withColumn("type", lit("training"))
     transform_duration(trainings, "duration", harvested_properties)
     trainings = transform_date(trainings, "publication_date", "dd-MM-yyyy")
@@ -100,8 +103,8 @@ def transform_trainings(trainings: DataFrame, spark: SparkSession) -> DataFrame:
 
 def rename_trainings_columns(trainings: DataFrame, cols_to_rename: Dict) -> DataFrame:
     """Rename trainings columns"""
-    for col_org, col_new in cols_to_rename.values():
-        trainings = trainings.withColumn(col_org, col_new)
+    for col_org, col_new in cols_to_rename.items():
+        trainings = trainings.withColumnRenamed(col_org, col_new)
 
     return trainings
 
@@ -127,6 +130,20 @@ def cast_invalid_columns(df: DataFrame, columns: Sequence) -> DataFrame:
         df = df.withColumn(column, split(col(column), ","))
 
     return df
+
+
+def convert_ids(df: DataFrame, increment) -> DataFrame:
+    """Convert range of trainings ID.
+    Range of trainings ID collide with range of services ID.
+    To avoid conflicts, trainings ID are incremented by safe constant."""
+    int_ids = df.select("id").collect()
+    assert all(
+        [_id["id"].isdigit() for _id in int_ids]
+    ), "At least 1 training ID is not a digit"
+
+    return df.withColumn(
+        "id", (col("id") + increment).cast(IntegerType()).cast(StringType())
+    )
 
 
 def transform_duration(

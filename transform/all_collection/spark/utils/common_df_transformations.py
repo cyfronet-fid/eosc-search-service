@@ -147,7 +147,9 @@ def harvest_funder(df: DataFrame, harvested_properties: Dict) -> None:
             funder_list = []
             for project in projects["projects"]:
                 try:
-                    funder = [f"[{project['funder']['fundingStream']}] {project['funder']['name']}"]
+                    funder = [
+                        f"[{project['funder']['fundingStream']}] {project['funder']['name']}"
+                    ]
                     funder_list.extend(funder)
                 except TypeError:
                     funder_list.append(None)
@@ -214,8 +216,8 @@ def harvest_country(df: DataFrame, harvested_properties: Dict) -> None:
     country_column = []
 
     for countries in countries_list:
-        if countries['country']:
-            country_column.append([country['code'] for country in countries['country']])
+        if countries["country"]:
+            country_column.append([country["code"] for country in countries["country"]])
             continue
         country_column.append(None)
 
