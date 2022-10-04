@@ -26,13 +26,7 @@ import { toRangeTimeFormat } from '@collections/filters-serializers/range.serial
 @Component({
   selector: 'ess-filter-range',
   template: ` <div class="filter">
-    <span class="filter-title"
-      ><b>{{ label }}</b></span
-    >
-    <span (click)="resetAllActiveEntities()">
-      &nbsp; &nbsp;
-      <a href="javascript:void(0)" class="clear-button">clear all</a>
-    </span>
+    <ess-filter-label [label]="label" [filter]="filter"></ess-filter-label>
     <nz-slider
       nzRange
       [nzMarks]="marks"
@@ -48,10 +42,6 @@ import { toRangeTimeFormat } from '@collections/filters-serializers/range.serial
     `
       .filter {
         margin-bottom: 10px;
-      }
-      .filter-title {
-        padding-bottom: 6px;
-        display: inline-block;
       }
     `,
   ],
@@ -138,14 +128,5 @@ export class FilterRangeComponent implements OnInit {
 
   formatTooltip(seconds: number): string {
     return toRangeTimeFormat(seconds);
-  }
-
-  async resetAllActiveEntities() {
-    await this._router.navigate([], {
-      queryParams: {
-        fq: this._customRoute.fq().filter((fq) => !fq.startsWith(this.filter)),
-      },
-      queryParamsHandling: 'merge',
-    });
   }
 }

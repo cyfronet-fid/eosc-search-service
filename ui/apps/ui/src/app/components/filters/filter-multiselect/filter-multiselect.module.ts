@@ -7,6 +7,7 @@ import { NzTreeViewModule } from 'ng-zorro-antd/tree-view';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FilterLabelModule } from '@components/filters/filter-label.module';
 
 @NgModule({
   declarations: [FilterMultiselectComponent, CheckboxesTreeComponent],
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ScrollingModule,
     NzIconModule,
     ReactiveFormsModule,
+    FilterLabelModule,
   ],
   exports: [FilterMultiselectComponent],
 })
