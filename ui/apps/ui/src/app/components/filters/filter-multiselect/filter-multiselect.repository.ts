@@ -1,9 +1,5 @@
 import { createStore, select, withProps } from '@ngneat/elf';
 import {
-  getActiveIds,
-  getAllEntities,
-  getAllEntitiesApply,
-  getEntity,
   resetActiveIds,
   selectActiveEntities,
   selectAllEntitiesApply,
@@ -18,13 +14,24 @@ import {
 import { FilterTreeNode } from '../types';
 import { Injectable } from '@angular/core';
 import { uniqueId } from 'lodash-es';
-import { BehaviorSubject, map, tap } from 'rxjs';
-import { combineLatest } from 'rxjs';
+import { map } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Fuse from 'fuse.js';
+import { combineLatest } from 'rxjs';
 
-const CHUNK_SIZE = 100;
+const search = (query: string, entities: FilterTreeNode[]) => {
+  if (!query || query.trim() === '') {
+    return entities;
+  }
+
+  return new Fuse(entities, {
+    keys: ['name'],
+    shouldSort: false,
+  })
+    .search(query)
+    .map(({ item }) => item);
+};
 
 @Injectable()
 export class FilterMultiselectRepository {
@@ -42,44 +49,24 @@ export class FilterMultiselectRepository {
 
   // ASYNC
   readonly entitiesCount$ = this._store$.pipe(selectEntitiesCount());
-  readonly activeEntities$ = this._store$.pipe(
-    selectActiveEntities(),
-    map((entities) => entities.sort((a, b) => +b.count - +a.count))
-  );
-  readonly chunkedNonActiveEntities$ = new BehaviorSubject<FilterTreeNode[]>(
-    []
-  );
-  readonly nonActiveEntities$ = this._store$.pipe(
-    selectAllEntitiesApply({ filterEntity: ({ isSelected }) => !isSelected }),
-    map((entities) => entities.sort((a, b) => +b.count - +a.count))
-  );
   readonly isLoading$ = this._store$.pipe(select(({ isLoading }) => isLoading));
   readonly query$ = this._store$.pipe(select(({ query }) => query));
-  readonly initNonActiveEntitiesChunk$ = combineLatest(
-    this.query$,
-    this.nonActiveEntities$
+  readonly activeEntities$ = combineLatest(
+    this._store$.pipe(selectActiveEntities()),
+    this.query$
   ).pipe(
-    map(([query, nonActiveEntities]) =>
-      query !== ''
-        ? new Fuse(nonActiveEntities, { keys: ['name'], shouldSort: false })
-            .search(query)
-            .map(({ item }) => item)
-        : nonActiveEntities
-    ),
-    map((queryResults) => queryResults.slice(0, CHUNK_SIZE)),
-    tap((queryResults) => this.chunkedNonActiveEntities$.next(queryResults))
+    map(([entities, query]) => search(query, entities)),
+    map((entities) => entities.sort((a, b) => +b.count - +a.count))
   );
-
-  // SYNC
-  nonActiveEntities = () =>
-    this._store$.query(
-      getAllEntitiesApply({ filterEntity: ({ isSelected }) => !isSelected })
-    );
-  entities = () => this._store$.query(getAllEntities());
-  activeEntitiesIds = () => this._store$.query(getActiveIds);
-  getEntity = (filter: Partial<FilterTreeNode> & { id: string }) =>
-    this._store$.query(getEntity(filter.id));
-  query = () => this._store$.query(({ query }) => query);
+  readonly nonActiveEntities$ = combineLatest(
+    this._store$.pipe(
+      selectAllEntitiesApply({ filterEntity: ({ isSelected }) => !isSelected })
+    ),
+    this.query$
+  ).pipe(
+    map(([entities, query]) => search(query, entities)),
+    map((entities) => entities.sort((a, b) => +b.count - +a.count))
+  );
 
   // MUTATIONS
   upsertEntities = (filters: Array<Partial<FilterTreeNode> & { id: string }>) =>

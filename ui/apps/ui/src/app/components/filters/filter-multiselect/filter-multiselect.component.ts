@@ -162,12 +162,8 @@ export class FilterMultiselectComponent implements OnInit {
       )
       .subscribe();
 
-    this._filterMultiselectService.initNonActiveEntitiesChunk$
-      .pipe(untilDestroyed(this))
-      .subscribe();
-
     this.queryFc.valueChanges
-      .pipe(untilDestroyed(this), debounceTime(300))
+      .pipe(untilDestroyed(this), debounceTime(500))
       .subscribe((query) => this._filterMultiselectService.setQuery(query));
   }
 
