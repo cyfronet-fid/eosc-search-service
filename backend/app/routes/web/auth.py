@@ -37,9 +37,13 @@ async def auth_checkin(code: str, state: str):
 
         session_id = uuid4()
         username = aai_response["userinfo"]["name"]
+        aai_id = aai_response["userinfo"]["sub"]
 
         session_data = SessionData(
-            username=username, aai_state=state, session_uuid=str(uuid.uuid4())
+            username=username,
+            aai_state=state,
+            aai_id=aai_id,
+            session_uuid=str(uuid.uuid4()),
         )
         await backend.create(session_id, session_data)
         auth_response = RedirectResponse(status_code=303, url=UI_BASE_URL)

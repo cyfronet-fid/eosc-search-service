@@ -7,6 +7,7 @@ import { deserializeAll } from '@collections/filters-serializers/filters-seriali
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { toArray } from '@collections/filters-serializers/utils';
 import { environment } from '@environment/environment';
+import { RedirectService } from '@collections/services/redirect.service';
 
 const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_CHARS_LENGTH = 256;
@@ -27,7 +28,7 @@ const shortText = (text: string, maxWords: number): string => {
       <h6>
         <a
           *ngIf="validUrl; else onlyTitleRef"
-          [attr.href]="internalUrl(validUrl)"
+          [attr.href]="redirectService.internalUrl(validUrl, id, type)"
           target="_blank"
         >
           <b>{{ shortTitle }}</b>
@@ -135,6 +136,7 @@ export class ResultComponent {
   validUrl: string | null = null;
   showFull = false;
 
+  @Input() id!: string;
   @Input() date?: string;
 
   @Input()
@@ -165,7 +167,8 @@ export class ResultComponent {
   constructor(
     private _customRoute: CustomRoute,
     private _router: Router,
-    private _filtersConfigsRepository: FiltersConfigsRepository
+    private _filtersConfigsRepository: FiltersConfigsRepository,
+    public redirectService: RedirectService
   ) {}
 
   isArray = isArray;
@@ -181,17 +184,6 @@ export class ResultComponent {
 
   truncate(description: string) {
     return truncate(description, { length: MAX_CHARS_LENGTH });
-  }
-
-  internalUrl(externalUrl: string) {
-    const sourceUrl = this._router.url.includes('?')
-      ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
-      : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
-    const sourceQueryParams = sourceUrl.split('?')[1];
-
-    const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
-    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
-    return `${destinationUrl}?${destinationQueryParams}`;
   }
 
   _addFilter(filter: string, value: string): string[] {

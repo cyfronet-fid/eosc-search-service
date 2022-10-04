@@ -99,7 +99,9 @@ See docker-compose.yml for components.
   > Connection URI to databus for user actions 
   > Format `rabbitmq://guest:guest@127.0.0.1:61613/topic/user_actions`
 - `USER_ACTIONS_QUEUE_CLIENT_ID`
-  > Client id used to identify databus (jms) client 
+  > Client id used to identify databus (jms) client
+- `RECOMMENDER_ENDPOINT`
+  > Recommender endpoint (default http://localhost:8081/recommendations)
 
 `db` envs:
 - `DB_POSTGRES_DB`

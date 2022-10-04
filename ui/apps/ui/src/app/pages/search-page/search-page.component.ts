@@ -34,6 +34,7 @@ import { combineLatest } from 'rxjs';
           </div>
           <div class="col-sm-9 col-12 right-column">
             <ess-active-filters></ess-active-filters>
+            <ess-recommendations></ess-recommendations>
             <ess-results-with-pagination
               [response]="response"
             ></ess-results-with-pagination>
