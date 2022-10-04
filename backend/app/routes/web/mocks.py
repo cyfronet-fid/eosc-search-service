@@ -28,33 +28,6 @@ async def categories():
     ]
 
 
-@router.get("/recommendations")
-async def recommendations():
-    return [
-        ResourceResponse(
-            imgSrc="https://picsum.photos/150/150",
-            label="Test",
-            rating=3,
-            description="Lorem ipsum",
-            organisation="New organisation",
-        ),
-        ResourceResponse(
-            imgSrc="https://picsum.photos/150/150",
-            label="Test",
-            rating=3,
-            description="Lorem ipsum",
-            organisation="New organisation",
-        ),
-        ResourceResponse(
-            imgSrc="https://picsum.photos/150/150",
-            label="Test",
-            rating=3,
-            description="Lorem ipsum",
-            organisation="New organisation",
-        ),
-    ]
-
-
 @router.get("/recommended-resources")
 async def recommended_resources():
     return [

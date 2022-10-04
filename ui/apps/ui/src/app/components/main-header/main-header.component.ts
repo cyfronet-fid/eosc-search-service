@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { UserProfileService } from './user-profile.service';
+import { UserProfileService } from '../../auth/user-profile.service';
 import { EoscCommonWindow } from './types';
 import { environment } from '@environment/environment';
+import { delay, tap } from 'rxjs';
 
 declare let window: EoscCommonWindow;
 
@@ -26,9 +27,12 @@ export class MainHeaderComponent implements OnInit {
   constructor(private _userProfileService: UserProfileService) {}
 
   ngOnInit() {
-    this._userProfileService
-      .get$()
-      .pipe(untilDestroyed(this))
+    this._userProfileService.user$
+      .pipe(
+        untilDestroyed(this),
+        // delay is required to have rerender out of angular's detection cycle
+        delay(0)
+      )
       .subscribe((profile) =>
         window.eosccommon.renderMainHeader(`#${this.id}`, profile ?? undefined)
       );

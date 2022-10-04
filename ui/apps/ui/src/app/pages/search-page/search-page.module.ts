@@ -19,6 +19,7 @@ import { CollectionsNavigationModule } from '@components/collections-navigation/
 import { PageHeaderModule } from '@components/page-header/page-header.module';
 import { FiltersModule } from '@components/filters/filters.module';
 import { ActiveFiltersModule } from '@components/active-filters/active-filters.module';
+import { RecommendationsModule } from '@components/recommendations/recommendations.module';
 
 @NgModule({
   declarations: [SearchPageComponent],
@@ -47,6 +48,7 @@ import { ActiveFiltersModule } from '@components/active-filters/active-filters.m
     PageHeaderModule,
     FiltersModule,
     ActiveFiltersModule,
+    RecommendationsModule,
   ],
 })
 export class SearchPageModule {}
