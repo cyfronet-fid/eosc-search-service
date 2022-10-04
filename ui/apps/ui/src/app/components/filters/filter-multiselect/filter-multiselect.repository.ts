@@ -107,28 +107,4 @@ export class FilterMultiselectRepository {
       ...state,
       isLoading,
     }));
-
-  loadNextNonActiveChunk = () => {
-    const query = this.query();
-    const allNonActiveEntities =
-      query !== ''
-        ? new Fuse(this.nonActiveEntities(), {
-            keys: ['name'],
-            shouldSort: false,
-          })
-            .search(query)
-            .map(({ item }) => item)
-        : this.nonActiveEntities();
-    const chunk = this.chunkedNonActiveEntities$.value;
-    const offset = chunk.length;
-    const nextChunkAvailable = offset !== allNonActiveEntities.length;
-    if (!nextChunkAvailable) {
-      return;
-    }
-
-    this.chunkedNonActiveEntities$.next([
-      ...chunk,
-      ...allNonActiveEntities.slice(offset, offset + CHUNK_SIZE),
-    ]);
-  };
 }
