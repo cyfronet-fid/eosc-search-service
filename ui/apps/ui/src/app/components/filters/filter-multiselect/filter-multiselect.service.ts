@@ -28,20 +28,15 @@ export class FilterMultiselectService {
     private _searchMetadataRepository: SearchMetadataRepository
   ) {}
 
-  entitiesCount$ = this._filterMultiselectRepository.entitiesCount$;
-
-  initNonActiveEntitiesChunk$ =
-    this._filterMultiselectRepository.initNonActiveEntitiesChunk$;
   isLoading$ = this._filterMultiselectRepository.isLoading$;
   activeEntities$ = this._filterMultiselectRepository.activeEntities$;
-  chunkedNonActiveEntities$ =
-    this._filterMultiselectRepository.chunkedNonActiveEntities$;
-  hasShowMore$ = this._filterMultiselectRepository.nonActiveEntities$.pipe(
-    map(({ length }) => length > DEFAULT_RESULTS_SIZE)
-  );
   nonActiveEntities$ = this._filterMultiselectRepository.nonActiveEntities$;
+  entitiesCount$ = this._filterMultiselectRepository.entitiesCount$;
   hasEntities$ = this._filterMultiselectRepository.entitiesCount$.pipe(
     map((count) => count > 0)
+  );
+  hasShowMore$ = this._filterMultiselectRepository.nonActiveEntities$.pipe(
+    map(({ length }) => length > DEFAULT_RESULTS_SIZE)
   );
 
   setActiveIds = (activeIds: string[]) =>
