@@ -16,13 +16,7 @@ import {
   selector: 'ess-filter-date',
   template: `
     <div class="filter">
-      <span class="filter-title"
-        ><b>{{ label }}</b></span
-      >
-      <span (click)="resetAllActiveEntities()">
-        &nbsp; &nbsp;
-        <a href="javascript:void(0)" class="clear-button">clear</a>
-      </span>
+      <ess-filter-label [label]="label" [filter]="filter"></ess-filter-label>
 
       <br />
       <label>Start date</label>
@@ -50,10 +44,6 @@ import {
       }
       .filter {
         margin-bottom: 10px;
-      }
-      .filter-title {
-        padding-bottom: 6px;
-        display: inline-block;
       }
     `,
   ],
@@ -105,14 +95,6 @@ export class FilterDateComponent implements OnInit {
         })
       )
       .subscribe();
-  }
-
-  async resetAllActiveEntities() {
-    await this._router.navigate([], {
-      queryParams: {
-        fq: this._customRoute.fq().filter((fq) => !fq.startsWith(this.filter)),
-      },
-    });
   }
 
   disableStartDate(): (currentDate: Date) => boolean {

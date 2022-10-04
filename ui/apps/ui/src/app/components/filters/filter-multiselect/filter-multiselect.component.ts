@@ -20,13 +20,7 @@ import {
   selector: 'ess-filter-multiselect',
   template: `
     <div class="filter" *ngIf="hasEntities$ | async">
-      <span class="filter-title"
-        ><b>{{ label }}</b></span
-      >
-      <span (click)="resetAllActiveEntities()">
-        &nbsp; &nbsp;
-        <a href="javascript:void(0)" class="clear-button">clear all</a>
-      </span>
+      <ess-filter-label [label]="label" [filter]="_filter"></ess-filter-label>
 
       <ng-container *ngIf="(isLoading$ | async) === false">
         <ess-checkboxes-tree
@@ -91,10 +85,6 @@ import {
       }
       .filter {
         margin-bottom: 10px;
-      }
-      .filter-title {
-        padding-bottom: 6px;
-        display: inline-block;
       }
       .query-input {
         margin-bottom: 12px;
@@ -204,19 +194,6 @@ export class FilterMultiselectComponent implements OnInit {
     this.queryFc.valueChanges
       .pipe(untilDestroyed(this), debounceTime(300))
       .subscribe((query) => this._filterMultiselectService.setQuery(query));
-  }
-
-  async resetAllActiveEntities() {
-    await this._router.navigate([], {
-      queryParams: {
-        fq: this._customRoute
-          .fq()
-          .filter(
-            (fq) => !fq.startsWith(this._filterMultiselectService.filter)
-          ),
-      },
-      queryParamsHandling: 'merge',
-    });
   }
 
   async toggleActive(event: [FilterTreeNode, boolean]) {
