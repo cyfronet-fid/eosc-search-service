@@ -74,9 +74,7 @@ const shortText = (text: string, maxWords: number): string => {
               (!isArray(tag.value) && tag.value && tag.value.trim() !== '')
             "
           >
-            <span class="tag tag-title"
-              ><b>{{ tag.label }}: </b></span
-            >
+            <span class="tag tag-title">{{ tag.label }}: </span>
             <ng-container *ngIf="isArray(tag.value)">
               <ng-container *ngFor="let singleValue of $any(tag.value)">
                 <span class="tag"
@@ -84,7 +82,7 @@ const shortText = (text: string, maxWords: number): string => {
                     href="javascript:void(0)"
                     (click)="setActiveFilter(tag.filter, singleValue)"
                     >{{ singleValue }}</a
-                  >,&nbsp;</span
+                  >&nbsp;&nbsp;</span
                 >
               </ng-container>
             </ng-container>
@@ -95,16 +93,16 @@ const shortText = (text: string, maxWords: number): string => {
                   (click)="setActiveFilter(tag.filter, $any(tag.value))"
                   >{{ tag.value }}</a
                 >
-                ,&nbsp;</span
+                &nbsp;&nbsp;</span
               >
             </ng-container>
           </div>
         </ng-container>
       </div>
       <p class="description">
-        <i [class.truncate]="truncate(description) && !showFull">
+        <span [class.truncate]="truncate(description) && !showFull">
           {{ description }}
-        </i>
+        </span>
         <ng-container *ngIf="truncate(description)">
           <a
             href="javascript:void(0)"
