@@ -8,9 +8,17 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FilterLabelModule } from '@components/filters/filter-label.module';
+import { FirstNValuesComponent } from './first-n-values.component';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { ShowAllComponent } from './show-all.component';
 
 @NgModule({
-  declarations: [FilterMultiselectComponent, CheckboxesTreeComponent],
+  declarations: [
+    FilterMultiselectComponent,
+    CheckboxesTreeComponent,
+    FirstNValuesComponent,
+    ShowAllComponent,
+  ],
   imports: [
     CommonModule,
     NzSkeletonModule,
@@ -19,6 +27,7 @@ import { FilterLabelModule } from '@components/filters/filter-label.module';
     NzIconModule,
     ReactiveFormsModule,
     FilterLabelModule,
+    NzSpinModule,
   ],
   exports: [FilterMultiselectComponent],
 })

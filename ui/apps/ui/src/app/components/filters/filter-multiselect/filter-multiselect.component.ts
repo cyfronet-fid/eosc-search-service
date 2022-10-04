@@ -20,74 +20,61 @@ import {
   selector: 'ess-filter-multiselect',
   template: `
     <div class="filter" *ngIf="hasEntities$ | async">
-      <ess-filter-label [label]="label" [filter]="_filter"></ess-filter-label>
+      <ess-filter-label
+        [label]="label + ' (' + (entitiesCount$ | async) + ')'"
+        [filter]="filter"
+      ></ess-filter-label>
 
-      <ng-container *ngIf="(isLoading$ | async) === false">
-        <ess-checkboxes-tree
-          [data]="$any(activeEntities$ | async)"
-          (checkboxesChange)="$event[1] === false ? toggleActive($event) : null"
-        ></ess-checkboxes-tree>
-        <ess-checkboxes-tree
-          *ngIf="!showMore"
-          [data]="$any(limitedNonActiveEntities$ | async)"
-          (checkboxesChange)="$event[1] === true ? toggleActive($event) : null"
-        ></ess-checkboxes-tree>
-
-        <ng-container *ngIf="showMore">
-          <input
-            [attr.placeholder]="'Search...'"
-            class="query-input form-control form-control-sm"
-            [formControl]="queryFc"
-          />
-          <div class="filter__viewport" (scroll)="onScroll($event)" #content>
-            <ess-checkboxes-tree
-              [data]="$any(chunkedEntities$ | async)"
-              (checkboxesChange)="
-                $event[1] === true ? toggleActive($event) : null
-              "
-            ></ess-checkboxes-tree>
-          </div>
-        </ng-container>
-        <span *ngIf="hasShowMore$ | async" (click)="showMore = !showMore">
-          <a href="javascript:void(0)" class="show-more">{{
-            showMore ? 'show less' : 'show more'
-          }}</a>
-        </span>
-      </ng-container>
+      <input
+        [attr.placeholder]="'Search in ' + label.toLowerCase() + '...'"
+        class="query-input form-control form-control-sm"
+        [formControl]="queryFc"
+      />
+      <ess-first-n-values
+        *ngIf="!showMore"
+        [activeEntities]="(activeEntities$ | async) ?? []"
+        [nonActiveEntities]="(nonActiveEntities$ | async) ?? []"
+        (toggleActive)="toggleActive($event)"
+      ></ess-first-n-values>
+      <ess-show-all
+        *ngIf="showMore"
+        [activeEntities]="(activeEntities$ | async) ?? []"
+        [nonActiveEntities]="(nonActiveEntities$ | async) ?? []"
+        (toggleActive)="toggleActive($event)"
+      ></ess-show-all>
+      <span *ngIf="hasShowMore$ | async" (click)="showMore = !showMore">
+        <a href="javascript:void(0)" class="show-more">{{
+          showMore ? 'show less' : 'show more'
+        }}</a>
+      </span>
 
       <ng-container *ngIf="isLoading$ | async">
-        <nz-skeleton-element
-          nzType="input"
-          [nzActive]="true"
-          nzSize="small"
-          style="width: 100%; padding-bottom: 5px"
-        ></nz-skeleton-element>
-        <nz-skeleton-element
-          nzType="input"
-          [nzActive]="true"
-          nzSize="small"
-          style="width: 100%; padding-bottom: 5px"
-        ></nz-skeleton-element>
-        <nz-skeleton-element
-          nzType="input"
-          [nzActive]="true"
-          nzSize="small"
-          style="width: 100%; padding-bottom: 5px"
-        ></nz-skeleton-element>
+        <div class="mask">
+          <nz-spin nzSimple></nz-spin>
+        </div>
       </ng-container>
     </div>
   `,
   styles: [
     `
-      .filter__viewport {
-        max-height: 290px;
-        overflow: auto;
-      }
       .filter {
         margin-bottom: 10px;
+        position: relative;
       }
       .query-input {
         margin-bottom: 12px;
+      }
+      .mask {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.7);
+        text-align: center;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        justify-items: center;
       }
     `,
   ],
@@ -100,27 +87,18 @@ export class FilterMultiselectComponent implements OnInit {
   label!: string;
 
   @Input()
-  set filter(filter: string) {
-    this._filter = filter;
-    this._filterMultiselectService.filter = filter;
-  }
-
-  _filter = '';
-  showMore = false;
-  hasShowMore$ = this._filterMultiselectService.hasShowMore$;
+  filter!: string;
 
   isLoading$ = this._filterMultiselectService.isLoading$;
   activeEntities$ = this._filterMultiselectService.activeEntities$;
-
-  chunkedEntities$ = this._filterMultiselectService.chunkedNonActiveEntities$;
-  limitedNonActiveEntities$ =
-    this._filterMultiselectService.limitedNonActiveEntities$;
-
+  nonActiveEntities$ = this._filterMultiselectService.nonActiveEntities$;
+  entitiesCount$ = this._filterMultiselectService.entitiesCount$;
   hasEntities$ = this._filterMultiselectService.hasEntities$;
 
-  queryFc = new UntypedFormControl('');
+  showMore = false;
+  hasShowMore$ = this._filterMultiselectService.hasShowMore$;
 
-  onScroll = this._filterMultiselectService.onScroll;
+  queryFc = new UntypedFormControl('');
 
   constructor(
     private _customRoute: CustomRoute,
@@ -132,24 +110,21 @@ export class FilterMultiselectComponent implements OnInit {
   ngOnInit() {
     this._filterMultiselectService
       ._loadAllAvailableValues$(
+        this.filter,
         this._customRoute.params()['collection'] as string
       )
       .pipe(
         untilDestroyed(this),
         tap(() =>
           this._filterMultiselectService.setActiveIds(
-            toArray(
-              this._customRoute.fqMap()[this._filterMultiselectService.filter]
-            )
+            toArray(this._customRoute.fqMap()[this.filter])
           )
         ),
         switchMap(() =>
           this._filterMultiselectService
-            ._updateCounts$({
+            ._updateCounts$(this.filter, {
               ...this._customRoute.params(),
-              fq: this._customRoute.fqWithExcludedFilter(
-                this._filterMultiselectService.filter
-              ),
+              fq: this._customRoute.fqWithExcludedFilter(this.filter),
             })
             .pipe(untilDestroyed(this))
         )
@@ -160,7 +135,7 @@ export class FilterMultiselectComponent implements OnInit {
       .pipe(
         untilDestroyed(this),
         skip(1),
-        map((fqMap) => fqMap[this._filter] ?? []),
+        map((fqMap) => fqMap[this.filter] ?? []),
         tap((activeIds) =>
           this._filterMultiselectService.setActiveIds(toArray(activeIds))
         )
@@ -170,7 +145,7 @@ export class FilterMultiselectComponent implements OnInit {
     // load on changes other than collection
     combineLatest(
       this._customRoute
-        .fqWithExcludedFilter$(this._filter)
+        .fqWithExcludedFilter$(this.filter)
         .pipe(untilDestroyed(this)),
       this._customRoute.q$.pipe(untilDestroyed(this))
     )
@@ -179,7 +154,7 @@ export class FilterMultiselectComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         map(([fq, _]) => fq),
         switchMap((fq) =>
-          this._filterMultiselectService._updateCounts$({
+          this._filterMultiselectService._updateCounts$(this.filter, {
             ...this._customRoute.params(),
             fq,
           })
