@@ -16,5 +16,4 @@ testpaths = ["tests"]
 filterwarnings = ["ignore::DeprecationWarning"]
 addopts = "--strict-markers"
 markers = ["integration: mark the test as an integration test for easier exclusion"]
-# new versions of pytest / pytest asyncio have different default which crashes most tests
-asyncio_mode = "auto"
+

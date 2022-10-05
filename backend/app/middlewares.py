@@ -49,7 +49,7 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
             response_body = [section async for section in response.body_iterator]
             response.body_iterator = iterate_in_threadpool(iter(response_body))
 
-            body = response_body[0].decode() if len(response_body) > 0 else "''"
+            body = response_body[0].decode()
             logger.debug(
                 "\n\nRESPONSE:\n\n id=%s\n status_code=%s\n body=%s\n headers=%s\n\n",
                 uuid,

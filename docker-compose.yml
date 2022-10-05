@@ -61,12 +61,6 @@ services:
     environment:
       ZOO_4LW_COMMANDS_WHITELIST: mntr, conf, ruok
 
-  rabbitmq:
-    image: itzg/rabbitmq-stomp:latest
-    ports:
-      - "127.0.0.1:61613:61613"
-      - "127.0.0.1:15672:15672"  # admin interface for rabbitmqadmin
-
 volumes:
   db-data:
   solr-data:

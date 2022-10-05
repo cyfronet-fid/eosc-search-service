@@ -17,7 +17,6 @@ fastapi-sessions = "*"
 cryptojwt = "*"
 oidcrp = "*"
 uvicorn = "*"
-"stomp.py" = "*"
 
 [dev-packages]
 black = "*"
@@ -25,7 +24,6 @@ pylint = "*"
 pytest = "*"
 isort = "*"
 schemathesis = "*"
-pytest-mock = "*"
 
 [requires]
 python_version = "3.10"

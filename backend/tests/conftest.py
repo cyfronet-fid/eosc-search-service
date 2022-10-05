@@ -1,10 +1,9 @@
-# pylint: disable=redefined-outer-name,unused-argument,wrong-import-order
+# pylint: disable=redefined-outer-name,unused-argument
 
 """Test config"""
 import pytest
 from asgi_lifespan import LifespanManager
 from fastapi import FastAPI
-from httpx import AsyncClient
 from sqlalchemy.orm import Session
 
 import alembic
@@ -23,20 +22,9 @@ def apply_migrations() -> None:
 
 
 @pytest.fixture
-def app() -> FastAPI:
+async def app() -> FastAPI:
     """FastAPI application"""
     return get_app()
-
-
-@pytest.fixture
-async def client(app: FastAPI) -> AsyncClient:
-    """Get lifecycle-managed AsyncClient"""
-    async with AsyncClient(
-        app=app,
-        base_url="http://testserver",
-        headers={"Content-Type": "application/json"},
-    ) as client:
-        yield client
 
 
 @pytest.fixture
