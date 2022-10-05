@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { IRecommendation } from '@components/recommendations/recommendations.types';
 import { RedirectService } from '@collections/services/redirect.service';
 import { RecommendationsService } from '@components/recommendations/recommendations.service';
 import { switchMap } from 'rxjs';
