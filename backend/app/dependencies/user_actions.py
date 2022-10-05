@@ -6,6 +6,7 @@ from functools import lru_cache
 from typing import Optional, Union
 
 import stomp
+from stomp.exception import ConnectFailedException
 
 from app.config import (
     USER_ACTIONS_QUEUE_HOST,
@@ -114,7 +115,7 @@ class UserActionClient:
 
 
 @lru_cache()
-def user_actions_client():
+def user_actions_client() -> UserActionClient | None:
     """User actions databus client dependency"""
 
     client = UserActionClient(
@@ -124,8 +125,11 @@ def user_actions_client():
         USER_ACTIONS_QUEUE_PASSWORD,
         USER_ACTIONS_QUEUE_TOPIC,
     )
-    client.connect()
-    return client
+    try:
+        client.connect()
+        return client
+    except ConnectFailedException:
+        return None
 
 
 # pylint: disable=too-many-arguments

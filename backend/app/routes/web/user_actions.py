@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring
+# pylint: disable=missing-module-docstring
 import uuid
 from typing import Literal
 
@@ -26,10 +26,12 @@ async def register_navigation_user_action(
     resource_type: Literal["service", "publication", "dataset", "training", "software"],
     page_id: str,
     recommendation: bool = False,
-    client: UserActionClient = Depends(user_actions_client),
+    client: UserActionClient | None = Depends(user_actions_client),
 ):
     """Registers entering a URL and redirects to the URL"""
     response = RedirectResponse(status_code=303, url=url)
+    if not client:
+        return response
 
     try:
         session = (await verifier(request),)

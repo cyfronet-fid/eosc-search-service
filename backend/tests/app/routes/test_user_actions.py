@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring,redefined-outer-name,missing-class-docstring
+# pylint: disable=missing-module-docstring,missing-function-docstring,missing-class-docstring
 import json
 from time import sleep
 
