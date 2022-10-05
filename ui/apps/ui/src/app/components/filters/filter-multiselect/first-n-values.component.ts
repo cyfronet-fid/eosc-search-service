@@ -11,11 +11,14 @@ import { FilterTreeNode } from '@components/filters/types';
         "
       ></ess-checkboxes-tree>
     </div>
-
-    <ess-checkboxes-tree
-      [data]="getNonActiveEntities()"
-      (checkboxesChange)="$event[1] === true ? toggleActive.emit($event) : null"
-    ></ess-checkboxes-tree>`,
+    <div class="filter__viewport">
+      <ess-checkboxes-tree
+        [data]="_nonActiveEntities"
+        (checkboxesChange)="
+          $event[1] === true ? toggleActive.emit($event) : null
+        "
+      ></ess-checkboxes-tree>
+    </div>`,
   styles: [
     `
       .filter__viewport {
@@ -26,20 +29,20 @@ import { FilterTreeNode } from '@components/filters/types';
   ],
 })
 export class FirstNValuesComponent {
+  _nonActiveEntities: FilterTreeNode[] = [];
+
   @Input()
   activeEntities: FilterTreeNode[] = [];
 
   @Input()
-  nonActiveEntities: FilterTreeNode[] = [];
+  set nonActiveEntities(nonActiveEntities: FilterTreeNode[]) {
+    const max = this.displayMax - this.activeEntities.length;
+    this._nonActiveEntities = nonActiveEntities.slice(0, max < 0 ? 0 : max);
+  }
 
   @Input()
   displayMax = 10;
 
   @Output()
   toggleActive = new EventEmitter<[FilterTreeNode, boolean]>();
-
-  getNonActiveEntities() {
-    const max = this.displayMax - this.activeEntities.length;
-    return this.nonActiveEntities.slice(0, max < 0 ? 0 : max);
-  }
 }

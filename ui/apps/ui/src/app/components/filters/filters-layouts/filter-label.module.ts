@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FilterLabelComponent } from '@components/filters/filter-label.component';
+import { FilterLabelComponent } from '@components/filters/filters-layouts/filter-label.component';
 
 @NgModule({
   declarations: [FilterLabelComponent],

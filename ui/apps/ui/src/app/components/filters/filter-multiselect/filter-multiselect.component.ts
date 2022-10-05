@@ -14,16 +14,15 @@ import {
   deserializeAll,
   removeFilterValue,
 } from '@collections/filters-serializers/filters-serializers.utils';
+import { keyBy } from 'lodash-es';
+import _ from 'lodash';
 
 @UntilDestroy()
 @Component({
   selector: 'ess-filter-multiselect',
   template: `
     <div class="filter" *ngIf="hasEntities$ | async">
-      <ess-filter-label
-        [label]="label + ' (' + (entitiesCount$ | async) + ')'"
-        [filter]="filter"
-      ></ess-filter-label>
+      <ess-filter-label [label]="label" [filter]="filter"></ess-filter-label>
 
       <input
         [attr.placeholder]="'Search in ' + label.toLowerCase() + '...'"
@@ -90,10 +89,11 @@ export class FilterMultiselectComponent implements OnInit {
   filter!: string;
 
   isLoading$ = this._filterMultiselectService.isLoading$;
-  activeEntities$ = this._filterMultiselectService.activeEntities$;
-  nonActiveEntities$ = this._filterMultiselectService.nonActiveEntities$;
   entitiesCount$ = this._filterMultiselectService.entitiesCount$;
   hasEntities$ = this._filterMultiselectService.hasEntities$;
+
+  activeEntities$ = this._filterMultiselectService.activeEntities$;
+  nonActiveEntities$ = this._filterMultiselectService.nonActiveEntities$;
 
   showMore = false;
   hasShowMore$ = this._filterMultiselectService.hasShowMore$;
@@ -108,90 +108,120 @@ export class FilterMultiselectComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._filterMultiselectService
-      ._loadAllAvailableValues$(
-        this.filter,
-        this._customRoute.params()['collection'] as string
-      )
-      .pipe(
-        untilDestroyed(this),
-        tap(() =>
-          this._filterMultiselectService.setActiveIds(
-            toArray(this._customRoute.fqMap()[this.filter])
-          )
-        ),
-        switchMap(() =>
-          this._filterMultiselectService
-            ._updateCounts$(this.filter, {
-              ...this._customRoute.params(),
-              fq: this._customRoute.fqWithExcludedFilter(this.filter),
-            })
-            .pipe(untilDestroyed(this))
-        )
-      )
-      .subscribe();
-
-    this._customRoute.fqMap$
-      .pipe(
-        untilDestroyed(this),
-        skip(1),
-        map((fqMap) => fqMap[this.filter] ?? []),
-        tap((activeIds) =>
-          this._filterMultiselectService.setActiveIds(toArray(activeIds))
-        )
-      )
-      .subscribe();
-
-    // load on changes other than collection
-    combineLatest(
-      this._customRoute
-        .fqWithExcludedFilter$(this.filter)
-        .pipe(untilDestroyed(this)),
-      this._customRoute.q$.pipe(untilDestroyed(this))
-    )
-      .pipe(
-        skip(1),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        map(([fq, _]) => fq),
-        switchMap((fq) =>
-          this._filterMultiselectService._updateCounts$(this.filter, {
-            ...this._customRoute.params(),
-            fq,
-          })
-        )
-      )
-      .subscribe();
-
-    this.queryFc.valueChanges
-      .pipe(untilDestroyed(this), debounceTime(500))
-      .subscribe((query) => this._filterMultiselectService.setQuery(query));
+    this._initFilterValues();
+    this._recalculateOnChanges();
+    this._setActiveIds();
+    this._updateSearchQuery();
   }
 
   async toggleActive(event: [FilterTreeNode, boolean]) {
     const [node, currentIsSelected] = event;
-    const { filter, value, isSelected } = node;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { filter: _, value, isSelected } = node;
     if (isSelected === currentIsSelected) {
       return;
     }
 
     if (currentIsSelected) {
-      await this._router.navigate([], {
-        queryParams: {
-          fq: this._addFilterValue(filter, value),
-        },
-        queryParamsHandling: 'merge',
-      });
+      await this._setAsActive(value);
       return;
     }
+    await this._setAsNonActive(value);
+  }
+
+  _setActiveIds() {
+    this._customRoute.fqMap$
+      .pipe(untilDestroyed(this), skip(1))
+      .subscribe((fqMap) => {
+        this._filterMultiselectService.setActiveIds(
+          toArray(fqMap[this.filter])
+        );
+      });
+  }
+
+  _recalculateOnChanges() {
+    combineLatest(
+      this._customRoute.fqWithExcludedFilter$(this.filter),
+      this._customRoute.q$
+    )
+      .pipe(
+        untilDestroyed(this),
+        skip(1),
+        tap(() => {
+          this._filterMultiselectService.setLoading(true);
+          this._filterMultiselectService.resetAllEntitiesCounts();
+        }),
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        map(([fq, _]) => fq),
+        switchMap((fq) =>
+          this._filterMultiselectService._fetchCounts$(this.filter, {
+            ...this._customRoute.params(),
+            fq,
+          })
+        )
+      )
+      .subscribe((entities) => {
+        this._filterMultiselectService.upsertEntities(
+          entities as FilterTreeNode[]
+        );
+        this._filterMultiselectService.setLoading(false);
+      });
+  }
+  _initFilterValues() {
+    this._filterMultiselectService.setLoading(true);
+    combineLatest(
+      this._filterMultiselectService._fetchAllValues$(
+        this.filter,
+        this._customRoute.params()['collection'] as string
+      ),
+      this._filterMultiselectService._fetchCounts$(this.filter, {
+        ...this._customRoute.params(),
+        fq: this._customRoute.fqWithExcludedFilter(this.filter),
+      })
+    )
+      .pipe(
+        map(
+          ([allValues, counts]) =>
+            _(allValues)
+              .keyBy('id')
+              .merge(keyBy(counts, 'id'))
+              .values()
+              .value() as FilterTreeNode[]
+        )
+      )
+      .subscribe((entities) => {
+        const activeIds = toArray(this._customRoute.fqMap()[this.filter]);
+        this._filterMultiselectService.upsertEntities(entities);
+        this._filterMultiselectService.setActiveIds(activeIds);
+        this._filterMultiselectService.setLoading(false);
+      });
+  }
+
+  _updateSearchQuery() {
+    this.queryFc.valueChanges
+      .pipe(untilDestroyed(this), debounceTime(500))
+      .subscribe((query) => this._filterMultiselectService.setQuery(query));
+  }
+
+  async _setAsNonActive(value: string) {
     await this._router.navigate([], {
       queryParams: {
         fq: removeFilterValue(
           this._customRoute.fqMap(),
-          filter,
+          this.filter,
           value,
           this._filtersConfigsRepository.get(this._customRoute.collection())
             .filters
         ),
+      },
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  async _setAsActive(value: string) {
+    await this._router.navigate([], {
+      queryParams: {
+        fq: this._addFilterValue(this.filter, value),
       },
       queryParamsHandling: 'merge',
     });
