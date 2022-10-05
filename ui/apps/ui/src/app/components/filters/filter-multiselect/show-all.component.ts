@@ -8,9 +8,9 @@ import {
 import { FilterTreeNode } from '@components/filters/types';
 import { BehaviorSubject } from 'rxjs';
 
-const CHUNK_SIZE = 10;
+const CHUNK_SIZE = 100;
 const RECORD_HEIGHT = 29; // PX
-const LOAD_NEXT_CHUNK_INDEX = CHUNK_SIZE * 0.5;
+const LOAD_NEXT_CHUNK_INDEX = CHUNK_SIZE * 0.9;
 
 @Component({
   selector: 'ess-show-all',

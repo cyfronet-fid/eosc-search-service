@@ -68,6 +68,9 @@ export class FilterMultiselectRepository {
     map((entities) => entities.sort((a, b) => +b.count - +a.count))
   );
 
+  // SYNC
+  isLoading = () => this._store$.query(({ isLoading }) => isLoading);
+
   // MUTATIONS
   upsertEntities = (filters: Array<Partial<FilterTreeNode> & { id: string }>) =>
     this._store$.update(upsertEntities(filters));
@@ -84,11 +87,13 @@ export class FilterMultiselectRepository {
       ...state,
       query,
     }));
-  setActiveIds = (activeIds: string[]) =>
+  setActiveIds = (activeIds: string[]) => {
     this._store$.update(
       setActiveIds(activeIds),
+      updateAllEntities({ isSelected: false }),
       updateEntities(activeIds, { isSelected: true })
     );
+  };
   setLoading = (isLoading: boolean) =>
     this._store$.update((state) => ({
       ...state,
