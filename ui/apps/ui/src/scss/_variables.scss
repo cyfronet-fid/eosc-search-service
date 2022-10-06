@@ -69,7 +69,9 @@ $body-color: #233d4c;
 $nav-color: #555;
 $text-muted: #a2aab1;
 
-$theme-colors: ("error": $error);
+$theme-colors: (
+  'error': $error,
+);
 
 $btn-primary-gradient-start: $palette-gradient-start;
 $btn-primary-gradient-end: $palette-gradient-end;
@@ -94,7 +96,7 @@ $btn-padding-x: 2rem;
 $btn-padding-y-sm: 0.22rem;
 $btn-padding-x-sm: 1.8rem;
 
-$navbar-light-active-color:  #233c4c;
+$navbar-light-active-color: #233c4c;
 $navbar-light-color: #233d4c;
 
 $radius-common: 2px;

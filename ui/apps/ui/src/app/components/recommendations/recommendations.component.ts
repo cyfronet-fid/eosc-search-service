@@ -5,6 +5,7 @@ import { switchMap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { IResult } from '@collections/repositories/types';
+import { truncate } from 'lodash-es';
 
 @UntilDestroy()
 @Component({
@@ -29,6 +30,13 @@ export class RecommendationsComponent implements OnInit {
         ),
         untilDestroyed(this)
       )
-      .subscribe((recommendations) => (this.recommendations = recommendations));
+      .subscribe(
+        (recommendations) =>
+          (this.recommendations = recommendations.map((recommended) => ({
+            ...recommended,
+            title: truncate(recommended.title, { length: 40 }),
+            description: truncate(recommended.description, { length: 250 }),
+          })))
+      );
   }
 }

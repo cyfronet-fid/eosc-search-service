@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, delay, filter, map, of, tap } from 'rxjs';
+import { Observable, catchError, filter, of, tap } from 'rxjs';
 import { environment } from '@environment/environment';
 import { UserProfile } from './user-profile.types';
 import { createStore, select, withProps } from '@ngneat/elf';

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environment/environment';
 import { Router } from '@angular/router';
 import { CustomRoute } from '@collections/services/custom-route.service';
-import { IResult } from '@collections/repositories/types';
 
 @Injectable({
   providedIn: 'root',
