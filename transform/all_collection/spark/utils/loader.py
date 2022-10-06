@@ -2,11 +2,6 @@
 from typing import Dict
 from pyspark.sql import SparkSession
 from pyspark.sql.utils import AnalysisException
-
-from transform.all_collection.spark.schemas.starting_schemas import (
-    ds_software_schema,
-    publication_schema,
-)
 from transform.all_collection.spark.utils.load_env_vars import (
     DATASET_PATH,
     PUBLICATION_PATH,
@@ -23,21 +18,9 @@ from transform.all_collection.spark.utils.load_env_vars import (
 
 def load_data(spark: SparkSession, data_paths: Dict, _format: str = "json"):
     """Load data based on the spark session and provided data paths"""
-    datasets = (
-        spark.read.format(_format)
-        .schema(ds_software_schema)
-        .load(data_paths[DATASET_PATH])
-    )
-    publications = (
-        spark.read.format(_format)
-        .schema(publication_schema)
-        .load(data_paths[PUBLICATION_PATH])
-    )
-    software = (
-        spark.read.format(_format)
-        .schema(ds_software_schema)
-        .load(data_paths[SOFTWARE_PATH])
-    )
+    datasets = spark.read.format(_format).load(data_paths[DATASET_PATH])
+    publications = spark.read.format(_format).load(data_paths[PUBLICATION_PATH])
+    software = spark.read.format(_format).load(data_paths[SOFTWARE_PATH])
     trainings = (
         spark.read.format(_format)
         .option("multiline", True)

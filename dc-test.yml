@@ -4,7 +4,7 @@ services:
   db_test:
     image: postgres:14
     ports:
-      - "5452:5432"
+      - "127.0.0.1:5452:5432"
     volumes:
       - db-data-test:/var/lib/postgresql/data
     networks:
@@ -16,7 +16,7 @@ services:
   solr1_test:
     image: solr:8.11
     ports:
-      - "8993:8983"
+      - "127.0.0.1:8993:8983"
     volumes:
       - solr-data-test:/var/solr
       - ./solr/config/configsets:/configsets
@@ -38,6 +38,12 @@ services:
       - ess-local-test
     environment:
       ZOO_4LW_COMMANDS_WHITELIST: mntr, conf, ruok
+  rabbitmq:
+    image: itzg/rabbitmq-stomp:latest
+    ports:
+      - "127.0.0.1:61613:61613"
+    networks:
+      - ess-local-test
 
 volumes:
   db-data-test:

@@ -17,6 +17,7 @@ services:
       SECRET_KEY: "${SECRET_KEY}"
       BACKEND_BASE_URL: "${BACKEND_BASE_URL}"
       UI_BASE_URL: "${UI_BASE_URL}"
+      LOG_LEVEL: "${LOG_LEVEL}" # allowed values: DEBUG, INFO, ERROR
     depends_on:
       - db
       - solr1
@@ -59,6 +60,12 @@ services:
       - ess-local
     environment:
       ZOO_4LW_COMMANDS_WHITELIST: mntr, conf, ruok
+
+  rabbitmq:
+    image: itzg/rabbitmq-stomp:latest
+    ports:
+      - "127.0.0.1:61613:61613"
+      - "127.0.0.1:15672:15672"  # admin interface for rabbitmqadmin
 
 volumes:
   db-data:

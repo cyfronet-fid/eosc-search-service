@@ -79,7 +79,7 @@ export interface IFilterConfig {
   filter: string;
   label: string;
 
-  type: 'multiselect' | 'select' | 'date' | 'tag';
+  type: 'multiselect' | 'select' | 'date' | 'tag' | 'range';
 }
 
 export interface ICollectionSearchMetadata {

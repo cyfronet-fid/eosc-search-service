@@ -5,7 +5,7 @@
     Configuration of the app based on
     https://www.starlette.io/config/
 """
-
+import logging
 import os
 from urllib.parse import urlparse
 
@@ -13,6 +13,7 @@ from starlette.config import Config
 
 config = Config(environ=os.environ)
 IS_TESTING = config("TESTING", cast=bool, default=False)
+LOG_LEVEL = config("LOG_LEVEL", cast=str, default=logging.getLevelName(logging.INFO))
 
 DATABASE_URI = config(
     "DATABASE_URI",
@@ -36,6 +37,21 @@ OIDC_HOST = config("OIDC_HOST", cast=str, default="https://aai-demo.eosc-portal.
 OIDC_ISSUER = config("OIDC_ISSUER", cast=str, default=f"{OIDC_HOST}/oidc/")
 OIDC_CLIENT_ID = config("OIDC_CLIENT_ID", cast=str, default="NO_CLIENT_ID")
 OIDC_CLIENT_SECRET = config("OIDC_CLIENT_SECRET", cast=str, default="NO_CLIENT_SECRET")
+
+USER_ACTIONS_QUEUE = config(
+    "USER_ACTIONS_QUEUE",
+    cast=str,
+    default="rabbitmq://guest:guest@127.0.0.1:61613/topic/user_actions",
+)
+user_actions_url = urlparse(USER_ACTIONS_QUEUE)
+USER_ACTIONS_QUEUE_HOST = user_actions_url.hostname
+USER_ACTIONS_QUEUE_PORT = user_actions_url.port
+USER_ACTIONS_QUEUE_USERNAME = user_actions_url.username
+USER_ACTIONS_QUEUE_PASSWORD = user_actions_url.password
+USER_ACTIONS_QUEUE_TOPIC = user_actions_url.path
+USER_ACTIONS_QUEUE_CLIENT_ID = config(
+    "USER_ACTIONS_CLIENT_ID", cast=str, default="dev-client"
+)
 
 OIDC_CLIENT_OPTIONS = client_options = dict(
     issuer=OIDC_ISSUER,
