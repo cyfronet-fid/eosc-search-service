@@ -1,4 +1,4 @@
-# pylint: disable=missing-function-docstring,no-else-return
+# pylint: disable=missing-function-docstring
 
 """ Presentable items UI endpoint """
 import datetime
@@ -12,39 +12,40 @@ from httpx import AsyncClient
 
 from app.config import RECOMMENDER_ENDPOINT
 from app.generic.models.bad_request import BadRequest
-from app.schemas.search_request import TermsFacet
 from app.schemas.session_data import SessionData
-from app.solr.operations import get, search
+from app.solr.operations import get
 from app.utils.cookie_validators import cookie, verifier
 
 router = APIRouter()
 
 
-def _get_panel(panel_id: str) -> list[str]:
+def _get_panel(panel_id: str) -> list[str] | None:
     # IMPORTANT!!! recommender does not support services
-    if panel_id == "publication":
-        return ["publications"]
-    elif panel_id == "datasets":
-        return ["datasets"]
-    elif panel_id == "software":
-        return ["software"]
-    elif panel_id == "training":
-        return ["trainings"]
-
-    return []
+    panel_id_options = ["publication", "dataset", "software", "training"]
+    match panel_id:
+        case "all":
+            return [random.choice(panel_id_options)]
+        case "publication":
+            return ["publications"]
+        case "dataset":
+            return ["datasets"]
+        case "software":
+            return ["software"]
+        case "training":
+            return ["trainings"]
+        case _:
+            return None
 
 
 async def _get_recommended_uuids(
     client: AsyncClient, session: SessionData, panel_id: str
 ):
     try:
-        panel_id_options = ["publication", "datasets", "software", "training"]
         page_id = "/search/" + panel_id
-        panels = (
-            [random.choice(panel_id_options)]
-            if panel_id == "all"
-            else _get_panel(panel_id)
-        )
+        panels = _get_panel(panel_id)
+        if not panels:
+            return None
+
         request_body = {
             "user_id": session.aai_id,
             "unique_id": session.session_uuid,
@@ -62,37 +63,14 @@ async def _get_recommended_uuids(
         )
 
         if response.status_code != 200:
-            return await _get_random_ids(client)
+            return None
 
         recommendation_data = response.json()
         if len(recommendation_data) != 1:
-            return await _get_random_ids(client)
-
+            return None
         return recommendation_data[0]["recommendations"]
     except httpx.ConnectError:
-        return await _get_random_ids(client)
-
-
-async def _get_random_ids(client: AsyncClient):
-    try:
-        facets = {
-            "id": TermsFacet(field="id", type="terms", limit=100),
-        }
-        response = await search(
-            client=client,
-            collection="all_collection",
-            q="*",
-            qf=["title"],
-            fq=[],
-            sort=["id asc"],
-            rows=0,
-            facets=facets,
-        )
-
-        buckets = response.json()["facets"]["id"]["buckets"]
-        return random.sample([bucket["val"] for bucket in buckets], 3)
-    except httpx.ConnectError:
-        return []
+        return None
 
 
 async def _get_recommended_items(client: AsyncClient, uuids: list[str]):
@@ -115,7 +93,7 @@ async def _get_recommended_items(client: AsyncClient, uuids: list[str]):
 )
 async def get_recommendations(
     panel_id: Literal[
-        "all", "publication", "datasets", "software", "training", "service"
+        "all", "publication", "dataset", "software", "training", "service"
     ],
     session: SessionData = Depends(verifier),
 ):

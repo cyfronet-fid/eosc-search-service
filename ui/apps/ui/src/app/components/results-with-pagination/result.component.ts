@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { toArray } from '@collections/filters-serializers/utils';
-import { environment } from '@environment/environment';
 import { RedirectService } from '@collections/services/redirect.service';
 
 const MAX_TITLE_WORDS_LENGTH = 12;

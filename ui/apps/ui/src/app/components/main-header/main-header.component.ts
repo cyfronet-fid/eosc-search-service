@@ -3,7 +3,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { UserProfileService } from '../../auth/user-profile.service';
 import { EoscCommonWindow } from './types';
 import { environment } from '@environment/environment';
-import { delay, tap } from 'rxjs';
+import { delay } from 'rxjs';
 
 declare let window: EoscCommonWindow;
 

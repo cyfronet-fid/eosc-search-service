@@ -39,23 +39,29 @@
               data-probe="recommendation-panel"
               data-service-id="508"
               target="_blank"
-              [attr.href]="redirectService.internalUrl(recommendation.url, recommendation.id, recommendation.type)"
+              [attr.href]="
+                redirectService.internalUrl(
+                  recommendation.url,
+                  recommendation.id,
+                  recommendation.type
+                )
+              "
               >{{ recommendation.title }}</a
             >
           </header>
           <article>
             <p>{{ recommendation.description }}</p>
           </article>
-<!--          <footer>-->
-<!--            <div class="column-left">-->
-<!--              <p>-->
-<!--                <small> Organisation: </small>-->
-<!--                <br />-->
-<!--                <span>{{ recommendation.organisation }}</span>-->
-<!--                <br />-->
-<!--              </p>-->
-<!--            </div>-->
-<!--          </footer>-->
+          <!--          <footer>-->
+          <!--            <div class="column-left">-->
+          <!--              <p>-->
+          <!--                <small> Organisation: </small>-->
+          <!--                <br />-->
+          <!--                <span>{{ recommendation.organisation }}</span>-->
+          <!--                <br />-->
+          <!--              </p>-->
+          <!--            </div>-->
+          <!--          </footer>-->
         </div>
       </div>
     </div>
