@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.1.0...v1.2.0) (2022-10-06)
+
+
+### Features
+
+* [[#191](https://github.com/cyfronet-fid/eosc-search-service/issues/191)] Add user actions ([8734209](https://github.com/cyfronet-fid/eosc-search-service/commit/87342099fc4ed5f093123e53a4f71f7b3d1b7069))
+* convert trainings id ([00892d5](https://github.com/cyfronet-fid/eosc-search-service/commit/00892d556fb1da1ce75e7c60c43c004312b8e811)), closes [#230](https://github.com/cyfronet-fid/eosc-search-service/issues/230)
+* create all collection based on openaire dump ([3f4e49a](https://github.com/cyfronet-fid/eosc-search-service/commit/3f4e49a0630b4cc86a9edf416c053d92afea0baa)), closes [#165](https://github.com/cyfronet-fid/eosc-search-service/issues/165)
+* stable range filter ([bd4d839](https://github.com/cyfronet-fid/eosc-search-service/commit/bd4d839fbeba98d1245fdc6d7eb92a8023b6da12))
+* turn on request debug with flag ([88529c6](https://github.com/cyfronet-fid/eosc-search-service/commit/88529c6300495264c4ce2e6b2e6759128b86835e))
+
+
+### Bug Fixes
+
+* [[#175](https://github.com/cyfronet-fid/eosc-search-service/issues/175)] Improve behaviour of the search bar ([23b5c3e](https://github.com/cyfronet-fid/eosc-search-service/commit/23b5c3e716c4f46ce9e1788645a70faa0b3ff43c))
+
 ## [1.1.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.0.0...v1.1.0) (2022-09-29)
 
 
