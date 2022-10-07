@@ -53,8 +53,8 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
-      id: 'source',
-      filter: 'source',
+      id: 'publisher',
+      filter: 'publisher',
       label: 'Publisher',
       type: 'multiselect',
     },
@@ -74,12 +74,6 @@ export const softwareFilters: IFiltersConfig = {
       id: 'license',
       filter: 'license',
       label: 'License',
-      type: 'tag',
-    },
-    {
-      id: 'publisher',
-      filter: 'publisher',
-      label: 'Publisher',
       type: 'tag',
     },
     {
