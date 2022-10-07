@@ -102,6 +102,20 @@ See docker-compose.yml for components.
   > Client id used to identify databus (jms) client
 - `RECOMMENDER_ENDPOINT`
   > Recommender endpoint (default http://localhost:8081/recommendations)
+- `LOG_LEVEL`
+  > Level of logging, allowed values: DEBUG, INFO, ERROR 
+- `STOMP_HOST`
+  > Example: 127.0.0.1
+- `STOMP_PORT`
+  > Example: 61613 
+- `STOMP_LOGIN`
+  > Example: guest 
+- `STOMP_PASS`
+  > Example: guest 
+- `STOMP_USER_ACTIONS_TOPIC`
+  > Example: /topic/user_actions 
+- `STOMP_CLIENT_NAME`
+  > Example: dev-client
 
 `db` envs:
 - `DB_POSTGRES_DB`
