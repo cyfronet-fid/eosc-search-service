@@ -10,12 +10,12 @@ from starlette.status import HTTP_303_SEE_OTHER
 from stomp.utils import Frame
 
 from app.config import (
-    USER_ACTIONS_QUEUE_CLIENT_ID,
-    USER_ACTIONS_QUEUE_HOST,
-    USER_ACTIONS_QUEUE_PASSWORD,
-    USER_ACTIONS_QUEUE_PORT,
-    USER_ACTIONS_QUEUE_TOPIC,
-    USER_ACTIONS_QUEUE_USERNAME,
+    STOMP_CLIENT_NAME,
+    STOMP_HOST,
+    STOMP_LOGIN,
+    STOMP_PASS,
+    STOMP_PORT,
+    STOMP_USER_ACTIONS_TOPIC,
 )
 
 Seconds = float
@@ -73,13 +73,11 @@ async def test_redirects_to_the_target_url(app: FastAPI, client: AsyncClient):
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_sends_user_action_after_response(app: FastAPI, client: AsyncClient):
-    conn = stomp.Connection(
-        host_and_ports=[(USER_ACTIONS_QUEUE_HOST, USER_ACTIONS_QUEUE_PORT)]
-    )
+    conn = stomp.Connection(host_and_ports=[(STOMP_HOST, STOMP_PORT)])
     listener = TestListener()
     conn.set_listener("test_listener", listener)
-    conn.connect(USER_ACTIONS_QUEUE_USERNAME, USER_ACTIONS_QUEUE_PASSWORD, wait=True)
-    conn.subscribe(USER_ACTIONS_QUEUE_TOPIC, USER_ACTIONS_QUEUE_CLIENT_ID, ack="auto")
+    conn.connect(STOMP_LOGIN, STOMP_PASS, wait=True)
+    conn.subscribe(STOMP_USER_ACTIONS_TOPIC, STOMP_CLIENT_NAME, ack="auto")
 
     await client.get(
         app.url_path_for("web:register-navigation-user-action"),

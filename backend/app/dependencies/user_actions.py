@@ -9,11 +9,11 @@ import stomp
 from stomp.exception import ConnectFailedException
 
 from app.config import (
-    USER_ACTIONS_QUEUE_HOST,
-    USER_ACTIONS_QUEUE_PASSWORD,
-    USER_ACTIONS_QUEUE_PORT,
-    USER_ACTIONS_QUEUE_TOPIC,
-    USER_ACTIONS_QUEUE_USERNAME,
+    STOMP_HOST,
+    STOMP_LOGIN,
+    STOMP_PASS,
+    STOMP_PORT,
+    STOMP_USER_ACTIONS_TOPIC,
 )
 from app.schemas.session_data import SessionData
 
@@ -28,16 +28,12 @@ class UserActionClient:
         self.username = username
         self.password = password
         self.topic = topic
-        self.client = stomp.Connection(
-            host_and_ports=[(USER_ACTIONS_QUEUE_HOST, USER_ACTIONS_QUEUE_PORT)]
-        )
+        self.client = stomp.Connection(host_and_ports=[(STOMP_HOST, STOMP_PORT)])
 
     def connect(self) -> None:
         """Connect stomp internal client, this function must be called before using `send`
         """
-        self.client.connect(
-            USER_ACTIONS_QUEUE_USERNAME, USER_ACTIONS_QUEUE_PASSWORD, wait=True
-        )
+        self.client.connect(STOMP_LOGIN, STOMP_PASS, wait=True)
 
     # pylint: disable=too-many-arguments
     def send(
@@ -119,11 +115,11 @@ def user_actions_client() -> UserActionClient | None:
     """User actions databus client dependency"""
 
     client = UserActionClient(
-        USER_ACTIONS_QUEUE_HOST,
-        USER_ACTIONS_QUEUE_PORT,
-        USER_ACTIONS_QUEUE_USERNAME,
-        USER_ACTIONS_QUEUE_PASSWORD,
-        USER_ACTIONS_QUEUE_TOPIC,
+        STOMP_HOST,
+        STOMP_PORT,
+        STOMP_LOGIN,
+        STOMP_PASS,
+        STOMP_USER_ACTIONS_TOPIC,
     )
     try:
         client.connect()
