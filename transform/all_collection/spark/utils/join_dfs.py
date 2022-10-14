@@ -2,10 +2,10 @@
 """Join dataframes"""
 from functools import reduce
 from typing import Tuple, List, Dict
-
 from pyspark.sql import Window, DataFrame
 from pyspark.sql.functions import row_number, lit
 from pyspark.sql import SparkSession
+from pyspark.sql.types import StructType
 
 
 def add_row_idxes(df_seq: Tuple) -> List:
@@ -40,7 +40,9 @@ def join_identical_dfs(dfs: List[DataFrame]) -> DataFrame:
     return reduce(lambda df1, df2: df1.union(df2.select(df1.columns)), dfs)
 
 
-def create_df(harvested_properties: Dict, spark: SparkSession) -> DataFrame:
+def create_df(
+    harvested_properties: Dict, schema: StructType, spark: SparkSession
+) -> DataFrame:
     """Create dataframe from dict of <name_of_column>: <column_values>"""
     it = iter(harvested_properties.values())
     _len = len(next(it))
@@ -49,6 +51,6 @@ def create_df(harvested_properties: Dict, spark: SparkSession) -> DataFrame:
     ), "Not all lists have the same length, creating df is not possible"
 
     rows = list(zip(*harvested_properties.values()))
-    df = spark.createDataFrame(rows, schema=list(harvested_properties.keys()))
+    df = spark.createDataFrame(rows, schema=schema)
 
     return df

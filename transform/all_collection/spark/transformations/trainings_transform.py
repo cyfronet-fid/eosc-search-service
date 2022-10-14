@@ -1,19 +1,19 @@
-# pylint: disable=invalid-name
+# pylint: disable=invalid-name, line-too-long
 """Transform trainings"""
 import re
 from typing import Dict, Sequence
 from pyspark.sql import SparkSession
 from pyspark.sql.dataframe import DataFrame
-from pyspark.sql.types import StringType, IntegerType
+from pyspark.sql.types import StringType, IntegerType, StructType
 from pyspark.sql.functions import lit, split, col, regexp_replace, translate
-from transform.all_collection.spark.utils.common_df_transformations import (
+from transform.all_collection.spark.transformations.commons import (
     transform_date,
 )
 from transform.all_collection.spark.utils.utils import (
     drop_columns,
     add_columns,
 )
-from transform.all_collection.spark.utils.common_df_transformations import (
+from transform.all_collection.spark.transformations.commons import (
     create_open_access,
 )
 from transform.all_collection.spark.schemas.input_col_name import (
@@ -24,6 +24,9 @@ from transform.all_collection.spark.schemas.input_col_name import (
     FORMAT,
 )
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
+from transform.all_collection.spark.utils.utils import replace_empty_str
+
+__all__ = ["transform_trainings"]
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
@@ -66,7 +69,9 @@ COLS_TO_RENAME = {
 }
 
 
-def transform_trainings(trainings: DataFrame, spark: SparkSession) -> DataFrame:
+def transform_trainings(
+    trainings: DataFrame, harvested_schema: StructType, spark: SparkSession
+) -> DataFrame:
     """
     Terrible quality of data.
     Missing values, nulls everywhere, empty strings,
@@ -93,9 +98,10 @@ def transform_trainings(trainings: DataFrame, spark: SparkSession) -> DataFrame:
     create_open_access(trainings, harvested_properties, "best_access_right")
 
     trainings = drop_columns(trainings, COLS_TO_DROP)
-    harvested_df = create_df(harvested_properties, spark)
+    harvested_df = create_df(harvested_properties, harvested_schema, spark)
     trainings = join_different_dfs((trainings, harvested_df))
     trainings = add_columns(trainings, COLS_TO_ADD)
+    trainings = replace_empty_str(trainings)
     trainings = trainings.select(sorted(trainings.columns))
 
     return trainings
@@ -138,7 +144,7 @@ def convert_ids(df: DataFrame, increment) -> DataFrame:
     To avoid conflicts, trainings ID are incremented by safe constant."""
     int_ids = df.select("id").collect()
     assert all(
-        [_id["id"].isdigit() for _id in int_ids]
+        (_id["id"].isdigit() for _id in int_ids)
     ), "At least 1 training ID is not a digit"
 
     return df.withColumn(

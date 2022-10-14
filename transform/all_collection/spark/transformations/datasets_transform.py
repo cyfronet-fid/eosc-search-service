@@ -2,13 +2,19 @@
 """Transform datasets"""
 
 from pyspark.sql import SparkSession
-from transform.all_collection.spark.utils.common_df_transformations import *
+from pyspark.sql.types import StructType
+from transform.all_collection.spark.transformations.commons import *
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
 from transform.all_collection.spark.utils.utils import drop_columns, add_columns
 from transform.all_collection.spark.schemas.input_col_name import (
+    SDG,
     TITLE,
     UNIQUE_SERVICE_COLUMNS,
 )
+from transform.all_collection.spark.utils.utils import replace_empty_str
+
+
+__all__ = ["transform_datasets"]
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
@@ -48,7 +54,9 @@ COLS_TO_DROP = (
 )
 
 
-def transform_datasets(datasets: DataFrame, spark: SparkSession) -> DataFrame:
+def transform_datasets(
+    datasets: DataFrame, harvested_schema: StructType, spark: SparkSession
+) -> DataFrame:
     """
     Required actions/transformations:
     1) Check if all records have type == dataset
@@ -76,7 +84,7 @@ def transform_datasets(datasets: DataFrame, spark: SparkSession) -> DataFrame:
     datasets = simplify_language(datasets)
 
     harvest_author_names_and_pids(datasets, harvested_properties)
-    harvest_sdg(datasets, harvested_properties)
+    harvest_sdg_and_fos(datasets, harvested_properties, prop_to_harvest=(SDG,))
     create_open_access(datasets, harvested_properties, "bestaccessright")
     harvest_funder(datasets, harvested_properties)
     harvest_url_and_document_type(datasets, harvested_properties)
@@ -84,13 +92,13 @@ def transform_datasets(datasets: DataFrame, spark: SparkSession) -> DataFrame:
     harvest_research_community(datasets, harvested_properties)
 
     datasets = drop_columns(datasets, COLS_TO_DROP)
-    harvested_df = create_df(harvested_properties, spark)
+    harvested_df = create_df(harvested_properties, harvested_schema, spark)
 
     datasets = join_different_dfs((datasets, harvested_df))
     datasets = add_columns(datasets, COLS_TO_ADD)
     datasets = rename_oag_columns(datasets)
     datasets = cast_oag_columns(datasets)
-
+    datasets = replace_empty_str(datasets)
     datasets = datasets.select(sorted(datasets.columns))
 
     return datasets
