@@ -1,6 +1,6 @@
-# pylint: disable=line-too-long, invalid-name, too-many-nested-blocks, unnecessary-dunder-call
+# pylint: disable=line-too-long, invalid-name, too-many-nested-blocks, unnecessary-dunder-call, too-many-branches
 """Common dataframes transformations"""
-from typing import Dict
+from typing import Dict, Sequence
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, to_date, split
 from transform.all_collection.spark.schemas.input_col_name import (
@@ -8,11 +8,9 @@ from transform.all_collection.spark.schemas.input_col_name import (
     AUTHOR_PIDS,
     COUNTRY,
     DOCUMENT_TYPE,
-    FOS,
     FUNDER,
     OPEN_ACCESS,
     RESEARCH_COMMUNITY,
-    SDG,
     TYPE,
     URL,
 )
@@ -42,7 +40,7 @@ def harvest_author_names_and_pids(df: DataFrame, harvested_properties: Dict) -> 
                             author["pid"]["id"]["value"],
                         ]
                     else:
-                        author_pid = [[author["fullname"]], None]
+                        author_pid = [[author["fullname"]], []]
                     author_pids_row.append(author_pid)
 
             authors_names_column.append(author_names_row)
@@ -60,50 +58,28 @@ def check_type(df: DataFrame, desired_type: str) -> None:
     ), f"Not all records have {TYPE}: {desired_type}"
 
 
-def harvest_sdg(df: DataFrame, harvested_properties: Dict) -> None:
-    """Harvest sdg from subjects"""
+def harvest_sdg_and_fos(
+    df: DataFrame, harvested_properties: Dict, prop_to_harvest: Sequence
+) -> None:
+    """Harvest sdg and fos from subjects"""
     subjects = df.select("subject").collect()
-    sdg_column = []
 
-    for subject in subjects:
-        try:
-            sdg = subject["subject"]["sdg"]
-            sdg_list = []
-            if sdg:
-                for value in sdg:
-                    sdg_list.append(value["value"])
-                sdg_column.append(sdg_list)
-            else:
-                sdg_column.append(None)
-        except TypeError:
-            sdg_column.append(None)
-        except ValueError:
-            sdg_column.append(None)
+    for prop in prop_to_harvest:
+        harvested_prop_column = []
+        for subject in subjects:
+            try:
+                input_prop = subject["subject"][prop]
+                prop_list = []
+                if input_prop:
+                    for value in input_prop:
+                        prop_list.append(value["value"])
+                    harvested_prop_column.append(prop_list)
+                else:
+                    harvested_prop_column.append([])
+            except (TypeError, ValueError):
+                harvested_prop_column.append([])
 
-    harvested_properties[SDG] = sdg_column
-
-
-def harvest_fos(df: DataFrame, harvested_properties: Dict) -> None:
-    """Harvest fos from subjects"""
-    subjects = df.select("subject").collect()
-    fos_column = []
-
-    for subject in subjects:
-        try:
-            fos = subject["subject"]["fos"]
-            fos_list = []
-            if fos:
-                for value in fos:
-                    fos_list.append(value["value"])
-                fos_column.append(fos_list)
-            else:
-                fos_column.append(None)
-        except TypeError:
-            fos_column.append(None)
-        except ValueError:
-            fos_column.append(None)
-
-    harvested_properties[FOS] = fos_column
+        harvested_properties[prop] = harvested_prop_column
 
 
 def simplify_bestaccessright(df: DataFrame) -> DataFrame:
@@ -152,10 +128,10 @@ def harvest_funder(df: DataFrame, harvested_properties: Dict) -> None:
                     ]
                     funder_list.extend(funder)
                 except TypeError:
-                    funder_list.append(None)
+                    funder_list.append([])
             funder_column.append(funder_list)
         else:
-            funder_column.append(None)
+            funder_column.append([])
 
     harvested_properties[FUNDER] = funder_column
 
@@ -186,28 +162,10 @@ def harvest_url_and_document_type(df: DataFrame, harvested_properties: Dict) -> 
             url_column.append(url_list)
             document_type_column.append(document_type_list)
         else:
-            url_column.append(None)
+            url_column.append([])
 
     harvested_properties[URL] = url_column
     harvested_properties[DOCUMENT_TYPE] = document_type_column
-
-    for instances in instances_list:
-        if not instances["instance"]:
-            url_column.append(None)
-            continue
-
-        url_list = []
-        document_type_list = []
-        for instance in instances["instance"]:
-            if not instance["url"]:
-                url_list.append(None)
-                continue
-
-            for url in instance["url"]:
-                if not url or url in url_list:
-                    continue
-
-                url_list.append(url)
 
 
 def harvest_country(df: DataFrame, harvested_properties: Dict) -> None:
@@ -219,7 +177,7 @@ def harvest_country(df: DataFrame, harvested_properties: Dict) -> None:
         if countries["country"]:
             country_column.append([country["code"] for country in countries["country"]])
             continue
-        country_column.append(None)
+        country_column.append([])
 
     harvested_properties[COUNTRY] = country_column
 
@@ -233,7 +191,7 @@ def harvest_research_community(df: DataFrame, harvested_properties: Dict) -> Non
         if contexts["context"]:
             rc_column.append([context["label"] for context in contexts["context"]])
             continue
-        rc_column.append(None)
+        rc_column.append([])
 
     harvested_properties[RESEARCH_COMMUNITY] = rc_column
 

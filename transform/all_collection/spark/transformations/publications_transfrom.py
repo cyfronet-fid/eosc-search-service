@@ -2,14 +2,19 @@
 """Transform publications"""
 
 from pyspark.sql import SparkSession
-from transform.all_collection.spark.utils.common_df_transformations import *
+from pyspark.sql.types import StructType
+from transform.all_collection.spark.transformations.commons import *
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
 from transform.all_collection.spark.schemas.input_col_name import (
+    FOS,
+    SDG,
     TITLE,
     UNIQUE_SERVICE_COLUMNS,
 )
 from transform.all_collection.spark.utils.utils import drop_columns, add_columns
+from transform.all_collection.spark.utils.utils import replace_empty_str
 
+__all__ = ["transform_publications"]
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
@@ -49,7 +54,9 @@ COLS_TO_DROP = (
 )
 
 
-def transform_publications(publications: DataFrame, spark: SparkSession) -> DataFrame:
+def transform_publications(
+    publications: DataFrame, harvested_schema: StructType, spark: SparkSession
+) -> DataFrame:
     """
     Required actions/transformations:
     1) Check if all records have type == dataset
@@ -78,8 +85,7 @@ def transform_publications(publications: DataFrame, spark: SparkSession) -> Data
     publications = simplify_language(publications)
 
     harvest_author_names_and_pids(publications, harvested_properties)
-    harvest_fos(publications, harvested_properties)
-    harvest_sdg(publications, harvested_properties)
+    harvest_sdg_and_fos(publications, harvested_properties, prop_to_harvest=(SDG, FOS))
     create_open_access(publications, harvested_properties, "bestaccessright")
     harvest_funder(publications, harvested_properties)
     harvest_url_and_document_type(publications, harvested_properties)
@@ -87,12 +93,13 @@ def transform_publications(publications: DataFrame, spark: SparkSession) -> Data
     harvest_research_community(publications, harvested_properties)
 
     publications = drop_columns(publications, COLS_TO_DROP)
-    harvested_df = create_df(harvested_properties, spark)
+    harvested_df = create_df(harvested_properties, harvested_schema, spark)
 
     publications = join_different_dfs((publications, harvested_df))
     publications = add_columns(publications, COLS_TO_ADD)
     publications = rename_oag_columns(publications)
     publications = cast_oag_columns(publications)
+    publications = replace_empty_str(publications)
     publications = publications.select(sorted(publications.columns))
 
     return publications

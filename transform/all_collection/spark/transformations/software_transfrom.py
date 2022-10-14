@@ -2,14 +2,17 @@
 """Transform software"""
 
 from pyspark.sql import SparkSession
-from transform.all_collection.spark.utils.common_df_transformations import *
+from pyspark.sql.types import StructType
+from transform.all_collection.spark.transformations.commons import *
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
 from transform.all_collection.spark.utils.utils import drop_columns, add_columns
 from transform.all_collection.spark.schemas.input_col_name import (
     TITLE,
     UNIQUE_SERVICE_COLUMNS,
 )
+from transform.all_collection.spark.utils.utils import replace_empty_str
 
+__all__ = ["transform_software"]
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
@@ -48,7 +51,9 @@ COLS_TO_DROP = (
 )
 
 
-def transform_software(software: DataFrame, spark: SparkSession) -> DataFrame:
+def transform_software(
+    software: DataFrame, harvested_schema: StructType, spark: SparkSession
+) -> DataFrame:
     """
     Required actions/transformations:
     1) Check if all records have type == dataset
@@ -82,12 +87,13 @@ def transform_software(software: DataFrame, spark: SparkSession) -> DataFrame:
     harvest_research_community(software, harvested_properties)
 
     software = drop_columns(software, COLS_TO_DROP)
-    harvested_df = create_df(harvested_properties, spark)
+    harvested_df = create_df(harvested_properties, harvested_schema, spark)
 
     software = join_different_dfs((software, harvested_df))
     software = add_columns(software, COLS_TO_ADD)
     software = rename_oag_columns(software)
     software = cast_oag_columns(software)
+    software = replace_empty_str(software)
     software = software.select(sorted(software.columns))
 
     return software

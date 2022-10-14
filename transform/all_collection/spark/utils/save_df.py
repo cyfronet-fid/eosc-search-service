@@ -11,7 +11,7 @@ def save_df(
     logger: Log4J,
     _format="json",
     mode="overwrite",
-    verbose=True,
+    verbose=False,
 ):
     """Save dataframe"""
     df.write.format(_format).mode(mode).option("path", path).save()

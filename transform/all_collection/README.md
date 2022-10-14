@@ -2,11 +2,18 @@
 Note that binary data (`.tsv`) can be transformed to JSONL format via `tsv_to_jsonl.py` [script](https://github.com/cyfronet-fid/eosc-search-service/blob/a4662788bc5f62d5f2a804727c8df517ccfbc971/transform/transform/v3/tsv_to_jsonl.py).
 ## ENV variables
 We are using .env to store user-specific constants. This file is not tracked by git and it needs to be present in the project directory. Details:
-- `DATASET_PATH` - path to datasets data file.
-- `PUBLICATION_PATH` - path to publications data file.
-- `SOFTWARE_PATH` - path to software data file.
-- `TRAININGS_PATH` - path to trainings data file.
-- `SERVICES_PATH` - path to services data file (optional).
-- `OUTPUT_PATH` - where the output should be saved? Default: `output`
+- `DATASET_PATH` - path to datasets **directory**. Default: `input_data/dataset/`
+- `PUBLICATION_PATH` - path to publications **directory**. Default: `input_data/publication/`
+- `SOFTWARE_PATH` - path to software **directory**. Default: `input_data/software/`
+- `TRAINING_PATH` - path to trainings **directory**. Default: `input_data/training/`
+- `SERVICE_PATH` - path to services **directory**. Default: `input_data/service/`
+- `OUTPUT_PATH` - where the output should be saved? Default: `output`.
 - `INPUT_FORMAT` - Format of the input data files. Default: `JSON`.
 - `OUTPUT_FORMAT` - Format of the output data files. Default: `JSON`.
+- `SOLR_ADDRESS` - Solr address. Default: `http://127.0.0.1`.
+- `SOLR_PORT` - Solr port. Default: `8983`.
+- `SOLR_DATASET_COLS` - The name of the collection/collections to which datasets will be sent. To specify multiple collections, pass them in `""` and separate them by a space. Example: `"all dataset"`.
+- `SOLR_PUBLICATION_COLS` - The name of the collection/collections to which publications will be sent. Example: `"all publication"`.
+- `SOLR_SOFTWARE_COLS` - The name of the collection/collections to which software will be sent. Example: `"all software"`.
+- `SOLR_TRAINING_COLS` - The name of the collection/collections to which trainings will be sent. Example: `"all training"`.
+- `SOLR_SERVICE_COLS` - The name of the collection/collections to which services will be sent. Example: `"all service"`.

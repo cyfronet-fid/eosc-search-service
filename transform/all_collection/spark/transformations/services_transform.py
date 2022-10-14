@@ -9,9 +9,9 @@ from pyspark.sql.functions import (
 )
 from pyspark.sql.dataframe import DataFrame
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StringType
+from pyspark.sql.types import StringType, StructType
 from transform.all_collection.spark.utils.join_dfs import join_different_dfs, create_df
-from transform.all_collection.spark.utils.common_df_transformations import (
+from transform.all_collection.spark.transformations.commons import (
     create_open_access,
 )
 from transform.all_collection.spark.utils.utils import (
@@ -22,6 +22,10 @@ from transform.all_collection.spark.schemas.input_col_name import (
     GEO_AV,
     RESOURCE_GEO_LOC,
 )
+from transform.all_collection.spark.utils.utils import replace_empty_str
+
+
+__all__ = ["transform_services"]
 
 COLS_TO_ADD = (
     "author_names",
@@ -54,7 +58,9 @@ COLS_TO_ADD = (
 COLS_TO_DROP = (GEO_AV, RESOURCE_GEO_LOC, "public_contacts")
 
 
-def transform_services(services: DataFrame, spark: SparkSession) -> DataFrame:
+def transform_services(
+    services: DataFrame, harvested_schema: StructType, spark: SparkSession
+) -> DataFrame:
     """
     Required transformations:
     1) type = service
@@ -72,9 +78,10 @@ def transform_services(services: DataFrame, spark: SparkSession) -> DataFrame:
     services = simplify_urls(services)
 
     services = drop_columns(services, COLS_TO_DROP)
-    harvested_df = create_df(harvested_properties, spark)
+    harvested_df = create_df(harvested_properties, harvested_schema, spark)
     services = join_different_dfs((services, harvested_df))
     services = add_columns(services, COLS_TO_ADD)
+    services = replace_empty_str(services)
     services = services.select(sorted(services.columns))
 
     return services
