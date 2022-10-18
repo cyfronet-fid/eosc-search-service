@@ -153,15 +153,19 @@ The records are in `publication/000550_0`. They need to be transformed and pushe
 the Solr section above for how to do it for v2).
 
 ## Releasing
+Releases are automatically created based on [release-please-action](https://github.com/google-github-actions/release-please-action).
 
-To create a release commit use the [standard-version](https://github.com/conventional-changelog/standard-version).
-
-To create a release:
-```
-npx standard-version
-```
-It will update the changelog and create a tag (according to the Conventional Commits spec).
-
-Then you have to push the tag and the commit to the remote.
-
-On pushing to remote a release with an extended changelog should be created.
+Procedure:
+1. Create Pull Request `master` <- `development` branch or go to [Create merge Pull Request](https://github.com/cyfronet-fid/eosc-search-service/compare/master...development)
+2. Write title: `Merge  development to master`
+3. Choose merge option `Create a merge commit`
+4. Wait for `release-please` action in
+  [Actions](https://github.com/cyfronet-fid/eosc-search-service/actions)
+  , when action is finished, a new `Pull Request` should occur in
+  [Pull requests](https://github.com/cyfronet-fid/eosc-search-service/pulls)
+5. Go to `Pull Request` with name format: `chore(master): release x.y.z`, at this level you can customize release data:
+  - release version is build based on `x.y.z` version in commit format `chore(master): release x.y.z`,
+  - on `x.y.z` version change in commit, update also properly `CHANGELOG.md` section and `version.txt`
+  - list of changes that will occur in release is written in `CHANGELOG.md`
+  - the changes should land in one commit (squashed or amended) in format `chore(master): release x.y.z`
+6. Choose merge option `Rebase and merge`
