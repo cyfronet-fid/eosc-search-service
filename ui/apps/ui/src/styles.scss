@@ -201,8 +201,7 @@ h6 {
   }
 
   a {
-    color: rgba(0, 0, 0, 0.6);
-    text-decoration: underline;
+    color: #233d4c;
   }
 }
 
@@ -271,89 +270,7 @@ h6 {
     margin-bottom: 15px;
   }
 
-  .tags-box {
-    margin-bottom: 12px;
-    overflow: hidden;
 
-    a {
-      padding: 8px 13px;
-      margin-right: 10px;
-      font-size: 11px;
-      margin-bottom: 7px;
-      line-height: 1.1;
-      float: left;
-      text-transform: capitalize;
-      font-weight: bold;
-      color: #3987be;
-      background: rgba(57, 135, 190, 0.3);
-      border-radius: 10px;
-
-      &.tag-khaki {
-        color: #918c4c;
-        background: rgba(240, 230, 140, 0.8);
-      }
-
-      &.tag-light-green {
-        color: #449e8e;
-        background: rgba(68, 158, 142, 0.2);
-      }
-
-      &.tag-light-orange {
-        color: #d4a702;
-        background: rgba(212, 167, 2, 0.2);
-      }
-
-      &.tag-peach {
-        color: #9e7959;
-        background: rgba(255, 218, 185, 0.8);
-      }
-
-      &.tag-light-coral {
-        color: #913f3f;
-        background: rgba(240, 128, 128, 0.7);
-      }
-
-      &.tag-pink {
-        color: #945a64;
-        background: rgba(255, 192, 203, 0.7);
-      }
-
-      &.tag-turquoise {
-        color: #4f7d7d;
-        background: rgba(175, 238, 238, 0.7);
-      }
-
-      &.tag-almond {
-        color: #a3947c;
-        background: rgba(255, 235, 205, 0.7);
-      }
-
-      &.tag-thistle {
-        color: #7d687d;
-        background: rgba(216, 191, 216, 0.7);
-      }
-
-      &.tag-chiffon {
-        color: #a19d7d;
-        background: rgba(242, 237, 194, 0.7);
-      }
-    }
-  }
-
-  .tag-row {
-    margin-bottom: 2px;
-    color: #233d4c;
-
-    a {
-      color: #233d4c;
-      text-decoration: none;
-      font-weight: bold;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-  }
 
   .description {
     font-size: 13px;
@@ -381,3 +298,118 @@ h6 {
     }
   }
 }
+
+.tags-box {
+  margin-bottom: 12px;
+  overflow: hidden;
+
+  a {
+    padding: 8px 13px;
+    margin-right: 10px;
+    font-size: 11px;
+    margin-bottom: 7px;
+    line-height: 1.1;
+    float: left;
+    text-transform: capitalize;
+    font-weight: bold;
+    color: #3987be;
+    background: rgba(57, 135, 190, 0.3);
+    border-radius: 10px;
+
+    &.tag-khaki {
+      color: #918c4c;
+      background: rgba(240, 230, 140, 0.8);
+    }
+
+    &.tag-light-green {
+      color: #449e8e;
+      background: rgba(68, 158, 142, 0.2);
+    }
+
+    &.tag-light-orange {
+      color: #d4a702;
+      background: rgba(212, 167, 2, 0.2);
+    }
+
+    &.tag-peach {
+      color: #9e7959;
+      background: rgba(255, 218, 185, 0.8);
+    }
+
+    &.tag-light-coral {
+      color: #913f3f;
+      background: rgba(240, 128, 128, 0.7);
+    }
+
+    &.tag-pink {
+      color: #945a64;
+      background: rgba(255, 192, 203, 0.7);
+    }
+
+    &.tag-turquoise {
+      color: #4f7d7d;
+      background: rgba(175, 238, 238, 0.7);
+    }
+
+    &.tag-almond {
+      color: #a3947c;
+      background: rgba(255, 235, 205, 0.7);
+    }
+
+    &.tag-thistle {
+      color: #7d687d;
+      background: rgba(216, 191, 216, 0.7);
+    }
+
+    &.tag-chiffon {
+      color: #a19d7d;
+      background: rgba(242, 237, 194, 0.7);
+    }
+  }
+}
+
+.tag-row {
+  margin-bottom: 2px;
+  color: #233d4c;
+
+  a {
+    color: #233d4c;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.recommendation {
+  .tags-box {
+    margin: 0;
+
+    a {
+      padding: 8px 9px;
+      margin-right: 7px;
+      font-size: 10px;
+    }
+  }
+
+  .tag {
+    font-size: 11px;
+  }
+
+  #tags {
+    line-height: 1.1;
+    margin: 7px 0 0;
+
+    .tag-row {
+      margin-bottom: 7px;
+
+      a {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+
