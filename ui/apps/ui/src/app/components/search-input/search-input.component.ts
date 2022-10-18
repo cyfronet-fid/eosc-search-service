@@ -28,6 +28,7 @@ import { environment } from '@environment/environment';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 import { ICollectionNavConfig } from '@collections/repositories/types';
 import { DOCUMENT } from '@angular/common';
+import { RedirectService } from '@collections/services/redirect.service';
 
 @UntilDestroy()
 @Component({
@@ -103,7 +104,9 @@ import { DOCUMENT } from '@angular/common';
           </div>
           <a
             *ngFor="let result of group.results"
-            [attr.href]="internalUrl(result.url)"
+            [attr.href]="
+              redirectService.internalUrl(result.url, result.id, result.type)
+            "
             target="_blank"
             class="list-group-item list-group-item-action result"
             >{{ result.title }}</a
@@ -200,6 +203,7 @@ export class SearchInputComponent implements OnInit {
   @ViewChild('inputQuery', { static: true }) inputQuery!: ElementRef;
 
   constructor(
+    public redirectService: RedirectService,
     private _customRoute: CustomRoute,
     private _router: Router,
     private _searchInputService: SearchInputService,
@@ -271,17 +275,6 @@ export class SearchInputComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
-  }
-
-  internalUrl(externalUrl: string) {
-    const sourceUrl = this._router.url.includes('?')
-      ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
-      : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
-    const sourceQueryParams = sourceUrl.split('?')[1];
-
-    const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
-    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
-    return `${destinationUrl}?${destinationQueryParams}`;
   }
 
   async clearQuery() {
