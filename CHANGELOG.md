@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.3.0...v1.4.0) (2022-10-18)
+
+
+### Bug Fixes
+
+* [[#259](https://github.com/cyfronet-fid/eosc-search-service/issues/259)] Autocomplete resource link ([493f1f6](https://github.com/cyfronet-fid/eosc-search-service/commit/493f1f62a98d30522e6264f8555fc18ed6f0c72c))
+
 ## [1.3.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.2.0...v1.3.0) (2022-10-18)
 
 
