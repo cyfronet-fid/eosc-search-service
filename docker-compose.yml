@@ -17,7 +17,15 @@ services:
       SECRET_KEY: "${SECRET_KEY}"
       BACKEND_BASE_URL: "${BACKEND_BASE_URL}"
       UI_BASE_URL: "${UI_BASE_URL}"
-      LOG_LEVEL: "${LOG_LEVEL}" # allowed values: DEBUG, INFO, ERROR
+      LOG_LEVEL: "${LOG_LEVEL}"
+
+      # STOMP CONFIG
+      STOMP_HOST: "${STOMP_HOST}"
+      STOMP_PORT: "${STOMP_PORT}"
+      STOMP_LOGIN: "${STOMP_LOGIN}"
+      STOMP_PASS: "${STOMP_PASS}"
+      STOMP_USER_ACTIONS_TOPIC: "${STOMP_USER_ACTIONS_TOPIC}"
+      STOMP_CLIENT_NAME: "${STOMP_CLIENT_NAME}"
     depends_on:
       - db
       - solr1

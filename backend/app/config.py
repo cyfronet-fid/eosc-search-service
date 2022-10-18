@@ -38,20 +38,15 @@ OIDC_ISSUER = config("OIDC_ISSUER", cast=str, default=f"{OIDC_HOST}/oidc/")
 OIDC_CLIENT_ID = config("OIDC_CLIENT_ID", cast=str, default="NO_CLIENT_ID")
 OIDC_CLIENT_SECRET = config("OIDC_CLIENT_SECRET", cast=str, default="NO_CLIENT_SECRET")
 
-USER_ACTIONS_QUEUE = config(
-    "USER_ACTIONS_QUEUE",
-    cast=str,
-    default="rabbitmq://guest:guest@127.0.0.1:61613/topic/user_actions",
+SHOW_RECOMMENDATIONS = config("SHOW_RECOMMENDATIONS", cast=bool, default=True)
+STOMP_HOST = config("STOMP_HOST", cast=str, default="127.0.0.1")
+STOMP_PORT = config("STOMP_PORT", cast=str, default="61613")
+STOMP_LOGIN = config("STOMP_LOGIN", cast=str, default="guest")
+STOMP_PASS = config("STOMP_PASS", cast=str, default="guest")
+STOMP_USER_ACTIONS_TOPIC = config(
+    "ESS_STOMP_USER_ACTION", cast=str, default="/topic/user_actions"
 )
-user_actions_url = urlparse(USER_ACTIONS_QUEUE)
-USER_ACTIONS_QUEUE_HOST = user_actions_url.hostname
-USER_ACTIONS_QUEUE_PORT = user_actions_url.port
-USER_ACTIONS_QUEUE_USERNAME = user_actions_url.username
-USER_ACTIONS_QUEUE_PASSWORD = user_actions_url.password
-USER_ACTIONS_QUEUE_TOPIC = user_actions_url.path
-USER_ACTIONS_QUEUE_CLIENT_ID = config(
-    "USER_ACTIONS_CLIENT_ID", cast=str, default="dev-client"
-)
+STOMP_CLIENT_NAME = config("ESS_QUEUE_CLIENT_NAME", cast=str, default="dev-client")
 
 OIDC_CLIENT_OPTIONS = client_options = dict(
     issuer=OIDC_ISSUER,
@@ -116,4 +111,8 @@ AUTH_COOKIES_CONFIG = dict(
     auto_error=True,
     secure=True,
     secret_key="DONOTUSE",
+)
+
+RECOMMENDER_ENDPOINT = config(
+    "RECOMMENDER_ENDPOINT", cast=str, default="http://localhost:8081/recommendations"
 )
