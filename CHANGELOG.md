@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.4.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.3.0...v1.4.0) (2022-10-18)
+
+
+### Bug Fixes
+
+* [[#259](https://github.com/cyfronet-fid/eosc-search-service/issues/259)] Autocomplete resource link ([493f1f6](https://github.com/cyfronet-fid/eosc-search-service/commit/493f1f62a98d30522e6264f8555fc18ed6f0c72c))
+
+## [1.3.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.2.0...v1.3.0) (2022-10-18)
+
+
+### Features
+
+* [[#183](https://github.com/cyfronet-fid/eosc-search-service/issues/183)] Attach recommendation endpoints ([dcdb728](https://github.com/cyfronet-fid/eosc-search-service/commit/dcdb728faba6a7a4cf919de56a8414857e300209))
+* [[#228](https://github.com/cyfronet-fid/eosc-search-service/issues/228)] Add privacy policy and terms of use ([deafe46](https://github.com/cyfronet-fid/eosc-search-service/commit/deafe46a1bdc8576405a0d7b4a3a2e1e0d52df39))
+* improve css styles in the app ([97c3351](https://github.com/cyfronet-fid/eosc-search-service/commit/97c3351a9cc993a872f698e7e0548b5f03d0092a))
+* re-style recommendations ([90fd445](https://github.com/cyfronet-fid/eosc-search-service/commit/90fd445b1d5a1e31c1144aa1177fc32d2c29a4b0))
+
+
+### Bug Fixes
+
+* [[#183](https://github.com/cyfronet-fid/eosc-search-service/issues/183)] Attach recommendation endpoints ([05da500](https://github.com/cyfronet-fid/eosc-search-service/commit/05da5007acd334d69d93b6e792f5da1fe729bc71))
+* auto-merge on release ([8636cf3](https://github.com/cyfronet-fid/eosc-search-service/commit/8636cf384ea0b74eae9d97901e84bec17f071a53))
+* not working url redirection on missing queue ([861f35b](https://github.com/cyfronet-fid/eosc-search-service/commit/861f35b58906bafa5d6e6f4d761a7b74f7ef15c5))
+* weird data in publisher filter ([663766e](https://github.com/cyfronet-fid/eosc-search-service/commit/663766e04503d06acff98e6e794340fec8b77202))
+
 ## [1.2.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.1.0...v1.2.0) (2022-10-06)
 
 
