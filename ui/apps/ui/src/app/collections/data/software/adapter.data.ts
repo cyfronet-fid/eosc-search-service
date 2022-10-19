@@ -19,7 +19,7 @@ export const softwareAdapter: IAdapter = {
     url: `https://explore.eosc-portal.eu/search/result?id=${openAIREResult?.id
       ?.split('|')
       ?.pop()}`,
-    coloredTag: [
+    coloredTags: [
       {
         value: toArray(openAIREResult?.best_access_right),
         filter: 'best_access_right',

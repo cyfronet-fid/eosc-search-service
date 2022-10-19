@@ -12,55 +12,55 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'ess-results-with-pagination',
   template: `
-    <ng-container *ngIf="isLoading$ | async">
-      <nz-skeleton-element
-        nzType="input"
-        [nzActive]="true"
-        style="width:200px"
-      ></nz-skeleton-element>
-      <nz-skeleton
-        *ngFor="let i of range(0, 5)"
-        [nzActive]="true"
-      ></nz-skeleton>
-      <nz-skeleton-element
-        nzType="input"
-        [nzActive]="true"
-        style="width:200px"
-      ></nz-skeleton-element>
-    </ng-container>
-    <nz-empty
-      *ngIf="
+      <ng-container *ngIf="isLoading$ | async">
+          <nz-skeleton-element
+                  nzType="input"
+                  [nzActive]="true"
+                  style="width:200px"
+          ></nz-skeleton-element>
+          <nz-skeleton
+                  *ngFor="let i of range(0, 5)"
+                  [nzActive]="true"
+          ></nz-skeleton>
+          <nz-skeleton-element
+                  nzType="input"
+                  [nzActive]="true"
+                  style="width:200px"
+          ></nz-skeleton-element>
+      </ng-container>
+      <nz-empty
+              *ngIf="
         $any(results$ | async)?.length === 0 && (isLoading$ | async) === false
       "
-    ></nz-empty>
-    <ng-container
-      *ngIf="
+      ></nz-empty>
+      <ng-container
+              *ngIf="
         $any(results$ | async)?.length > 0 && (isLoading$ | async) === false
       "
-    >
-      <ess-pagination
-        [paginationData]="$any(paginationData$ | async)"
-        [loading]="(isLoading$ | async) ?? false"
-        (activePageChange)="pageNr$.next($event)"
-      ></ess-pagination>
-      <ess-result
-        class="results"
-        *ngFor="let result of results$ | async"
-        [id]="result.id"
-        [title]="result.title"
-        [description]="result.description"
-        [type]="result.type"
-        [url]="result.url"
-        [tags]="result.tags"
-        [coloredTags]="result.coloredTag || []"
-        [date]="result.date"
-      ></ess-result>
-      <ess-pagination
-        [paginationData]="$any(paginationData$ | async)"
-        [loading]="(isLoading$ | async) ?? false"
-        (activePageChange)="pageNr$.next($event)"
-      ></ess-pagination>
-    </ng-container>
+      >
+          <ess-pagination
+                  [paginationData]="$any(paginationData$ | async)"
+                  [loading]="(isLoading$ | async) ?? false"
+                  (activePageChange)="pageNr$.next($event)"
+          ></ess-pagination>
+          <ess-result
+                  class="results"
+                  *ngFor="let result of results$ | async"
+                  [id]="result.id"
+                  [title]="result.title"
+                  [description]="result.description"
+                  [type]="result.type"
+                  [url]="result.url"
+                  [tags]="result.tags"
+                  [coloredTags]="result.coloredTags || []"
+                  [date]="result.date"
+          ></ess-result>
+          <ess-pagination
+                  [paginationData]="$any(paginationData$ | async)"
+                  [loading]="(isLoading$ | async) ?? false"
+                  (activePageChange)="pageNr$.next($event)"
+          ></ess-pagination>
+      </ng-container>
   `,
   styles: [],
 })

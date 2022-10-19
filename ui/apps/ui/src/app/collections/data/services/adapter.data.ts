@@ -16,7 +16,7 @@ export const servicesAdapter: IAdapter = {
       ? `https://marketplace.eosc-portal.eu/services/${service.pid}`
       : '',
     collection: COLLECTION,
-    coloredTag: [
+    coloredTags: [
       {
         value: toArray(service?.best_access_right),
         filter: 'best_access_right',

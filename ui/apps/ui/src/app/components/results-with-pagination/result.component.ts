@@ -1,20 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { IColoredTag, ITag } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
-import { truncate } from 'lodash-es';
+import { isArray, truncate } from 'lodash-es';
 import { Router } from '@angular/router';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { toArray } from '@collections/filters-serializers/utils';
 import { RedirectService } from '@collections/services/redirect.service';
 
-const MAX_TITLE_WORDS_LENGTH = 12;
 const MAX_CHARS_LENGTH = 256;
-const shortText = (text: string, maxWords: number): string => {
-  const words = text?.split(' ');
-  const isTooLong = words?.length > maxWords;
-  return isTooLong ? words.slice(0, maxWords).join(' ') + ' [...]' : text;
-};
 
 @Component({
   selector: 'ess-result',
@@ -24,52 +18,23 @@ const shortText = (text: string, maxWords: number): string => {
         {{ date }}
       </div>
 
-      <h6>
-        <a
-          *ngIf="validUrl; else onlyTitleRef"
-          [attr.href]="redirectService.internalUrl(validUrl, id, type)"
-          target="_blank"
-        >
-          <b>{{ shortTitle }}</b>
-        </a>
-        <ng-template #onlyTitleRef
-          ><b>{{ shortTitle }}</b></ng-template
-        >
-      </h6>
+      <ess-url-title
+        [title]="title"
+        [url]="redirectService.internalUrl(validUrl, id, type)"
+      >
+      </ess-url-title>
 
-      <div class="tags-box">
-        <a [routerLink]="'/search/' + type" queryParamsHandling="merge">
-          {{ type }}
-        </a>
+      <ess-colored-tags
+        [type]="type"
+        [tags]="coloredTags"
+        (activeFilter)="setActiveFilter($event.filter, $event.value)"
+      ></ess-colored-tags>
+      <ess-tags
+        [tags]="tags"
+        (activeFilter)="setActiveFilter($event.filter, $event.value)"
+      >
+      </ess-tags>
 
-        <ng-container *ngFor="let tag of coloredTags">
-          <a
-            *ngFor="let value of tag.value"
-            [attr.class]="tag.colorClassName"
-            href="javascript:void(0)"
-            (click)="setActiveFilter(tag.filter, $any(value))"
-          >
-            {{ value }}
-          </a>
-        </ng-container>
-      </div>
-
-      <div id="tags">
-        <ng-container *ngFor="let tag of tags">
-          <div class="tag-row" *ngIf="tag.value.length > 0">
-            <span class="tag tag-title">{{ tag.label }}: </span>
-            <ng-container *ngFor="let singleValue of $any(tag.value)">
-              <span class="tag"
-                ><a
-                  href="javascript:void(0)"
-                  (click)="setActiveFilter(tag.filter, singleValue)"
-                  >{{ singleValue }}</a
-                >&nbsp;&nbsp;</span
-              >
-            </ng-container>
-          </div>
-        </ng-container>
-      </div>
       <p class="description">
         <span>
           {{ showFull ? description : truncate(description) }}
@@ -104,9 +69,7 @@ export class ResultComponent {
   description!: string;
 
   @Input()
-  set title(title: string) {
-    this.shortTitle = shortText(title, MAX_TITLE_WORDS_LENGTH);
-  }
+  title!: string;
 
   @Input()
   set url(url: string) {
@@ -131,6 +94,8 @@ export class ResultComponent {
     private _filtersConfigsRepository: FiltersConfigsRepository,
     public redirectService: RedirectService
   ) {}
+
+  isArray = isArray;
 
   async setActiveFilter(filter: string, value: string) {
     await this._router.navigate([], {
