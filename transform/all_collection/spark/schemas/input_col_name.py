@@ -3,7 +3,7 @@
 # OAG
 AUTHOR_NAMES = "author_names"
 AUTHOR_PIDS = "author_pids"
-BESTACCESSRIGHT = "bestaccessright"
+BEST_ACCESS_RIGHT = "best_access_right"
 COUNTRY = "country"
 DESCRIPTION = "description"
 DURATION = "duration"

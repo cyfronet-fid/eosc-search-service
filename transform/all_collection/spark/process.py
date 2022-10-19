@@ -44,7 +44,7 @@ if __name__ == "__main__":
                 df_trans = trans.trans_map[col_name](
                     df, harvested_schemas[col_name], spark
                 )
-            except ValueError:
+            except (ValueError, AssertionError):
                 print_errors("transform_fail", failed_files, col_name, file, logger)
                 continue
 

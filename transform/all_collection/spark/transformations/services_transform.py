@@ -13,6 +13,7 @@ from pyspark.sql.types import StringType, StructType
 from transform.all_collection.spark.utils.join_dfs import join_different_dfs, create_df
 from transform.all_collection.spark.transformations.commons import (
     create_open_access,
+    harvest_best_access_right,
 )
 from transform.all_collection.spark.utils.utils import (
     drop_columns,
@@ -21,6 +22,7 @@ from transform.all_collection.spark.utils.utils import (
 from transform.all_collection.spark.schemas.input_col_name import (
     GEO_AV,
     RESOURCE_GEO_LOC,
+    BEST_ACCESS_RIGHT,
 )
 from transform.all_collection.spark.utils.utils import replace_empty_str
 
@@ -61,19 +63,14 @@ COLS_TO_DROP = (GEO_AV, RESOURCE_GEO_LOC, "public_contacts")
 def transform_services(
     services: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
-    """
-    Required transformations:
-    1) type = service
-    2) rename and cast columns
-    3) Create open_access
-    4) Simplify geographical_availabilities and resource_geographic_locations
-    4) Add OAG + trainings specific columns
-    """
+    """Transform services"""
+    col_name = "service"
     harvested_properties = {}
 
-    services = services.withColumn("type", lit("service"))
+    services = services.withColumn("type", lit(col_name))
     services = rename_and_cast_columns(services)
-    create_open_access(services, harvested_properties, "best_access_right")
+    services = harvest_best_access_right(services, harvested_properties, col_name)
+    create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     simplify_geo_properties(services, harvested_properties)
     services = simplify_urls(services)
 
