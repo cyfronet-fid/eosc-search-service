@@ -6,9 +6,9 @@ import { ResultComponent } from './result.component';
 import { RouterModule } from '@angular/router';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
-import {ColoredTagsModule} from "../../layouts/colored-tags/colored-tags.module";
-import {TagsModule} from "../../layouts/tags/tags.module";
-import {UrlTitleModule} from "../../layouts/url-title/url-title.module";
+import { ColoredTagsModule } from '../../layouts/colored-tags/colored-tags.module';
+import { TagsModule } from '../../layouts/tags/tags.module';
+import { UrlTitleModule } from '../../layouts/url-title/url-title.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +16,15 @@ import {UrlTitleModule} from "../../layouts/url-title/url-title.module";
     PaginationComponent,
     ResultComponent,
   ],
-  imports: [CommonModule, RouterModule, NzEmptyModule, NzSkeletonModule, ColoredTagsModule, TagsModule, UrlTitleModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    NzEmptyModule,
+    NzSkeletonModule,
+    ColoredTagsModule,
+    TagsModule,
+    UrlTitleModule,
+  ],
   exports: [ResultsWithPaginationComponent],
 })
 export class ResultsWithPaginationModule {}
