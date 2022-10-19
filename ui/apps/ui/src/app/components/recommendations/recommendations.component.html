@@ -40,7 +40,10 @@
             (activeFilter)="setActiveFilter($event.filter, $event.value)"
           ></ess-colored-tags>
 
-          <ess-tags [tags]="recommendation.tags"></ess-tags>
+          <ess-tags
+            [tags]="recommendation.tags"
+            (activeFilter)="setActiveFilter($event.filter, $event.value)"
+          ></ess-tags>
         </div>
       </div>
     </div>
