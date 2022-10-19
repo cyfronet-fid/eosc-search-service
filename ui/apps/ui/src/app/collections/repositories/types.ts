@@ -10,7 +10,7 @@ export interface IResult {
   tags: ITag[];
 
   date?: string;
-  coloredTag?: IColoredTag[];
+  coloredTags?: IColoredTag[];
 }
 
 export interface ITag {

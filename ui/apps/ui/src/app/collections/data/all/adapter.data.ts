@@ -41,7 +41,7 @@ export const allCollectionsAdapter: IAdapter = {
       ? moment(data['publication_date']).format('DD MMMM YYYY')
       : '',
     url: urlAdapter(data.type || '', data),
-    coloredTag: [
+    coloredTags: [
       {
         value: toArray(data?.best_access_right),
         filter: 'best_access_right',

@@ -18,7 +18,7 @@ export const trainingsAdapter: IAdapter = {
     type: training['type'] || '',
     collection: COLLECTION,
     url: '/trainings/' + training.id || '',
-    coloredTag: [
+    coloredTags: [
       {
         colorClassName: 'tag-almond',
         value: toArray(training['license']),

@@ -118,7 +118,7 @@ export const _validateFiltersConsistency = (
     ) as IAdapter;
     const adapterFilters = [
       ...adapter.adapter({ id: '' }).tags.map(({ filter }) => filter),
-      ...(adapter.adapter({ id: '' }).coloredTag || []).map(
+      ...(adapter.adapter({ id: '' }).coloredTags || []).map(
         ({ filter }) => filter
       ),
     ];
