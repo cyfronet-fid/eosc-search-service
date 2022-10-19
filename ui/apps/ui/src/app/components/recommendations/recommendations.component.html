@@ -4,7 +4,11 @@
       <div class="mb-4">
         <span class="based-on-your-search">
           <div class="recommend-box">
-            <img class="svg-inline--fa fa-cloud fa-w-20" src="assets/fa-cloud.svg" alt="">
+            <img
+              class="svg-inline--fa fa-cloud fa-w-20"
+              src="assets/fa-cloud.svg"
+              alt=""
+            />
             SUGGESTED
           </div>
         </span>
@@ -19,20 +23,24 @@
           class="service-info-box recommendation ver-1"
         >
           <ess-url-title
-        [title]="recommendation.title"
-        [url]="redirectService.internalUrl(recommendation.url, recommendation.id, recommendation.type)"
-      >
-      </ess-url-title>
+            [title]="recommendation.title"
+            [url]="
+              redirectService.internalUrl(
+                recommendation.url,
+                recommendation.id,
+                recommendation.type
+              )
+            "
+          >
+          </ess-url-title>
 
           <ess-colored-tags
-        [type]="recommendation.type"
-        [tags]="recommendation.coloredTags ?? []"
-        (activeFilter)="setActiveFilter($event.filter, $event.value)"
-      ></ess-colored-tags>
+            [type]="recommendation.type"
+            [tags]="recommendation.coloredTags ?? []"
+            (activeFilter)="setActiveFilter($event.filter, $event.value)"
+          ></ess-colored-tags>
 
-            <ess-tags
-              [tags]="recommendation.tags ?? []"
-            ></ess-tags>
+          <ess-tags [tags]="recommendation.tags"></ess-tags>
         </div>
       </div>
     </div>
