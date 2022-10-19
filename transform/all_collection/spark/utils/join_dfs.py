@@ -44,6 +44,7 @@ def create_df(
     harvested_properties: Dict, schema: StructType, spark: SparkSession
 ) -> DataFrame:
     """Create dataframe from dict of <name_of_column>: <column_values>"""
+    harvested_properties = dict(sorted(harvested_properties.items()))
     it = iter(harvested_properties.values())
     _len = len(next(it))
     assert all(

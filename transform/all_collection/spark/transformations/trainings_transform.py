@@ -8,6 +8,7 @@ from pyspark.sql.types import StringType, IntegerType, StructType
 from pyspark.sql.functions import lit, split, col, regexp_replace, translate
 from transform.all_collection.spark.transformations.commons import (
     transform_date,
+    harvest_best_access_right,
 )
 from transform.all_collection.spark.utils.utils import (
     drop_columns,
@@ -22,6 +23,7 @@ from transform.all_collection.spark.schemas.input_col_name import (
     AUTHOR_NAMES,
     KEYWORDS,
     FORMAT,
+    BEST_ACCESS_RIGHT,
 )
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
 from transform.all_collection.spark.utils.utils import replace_empty_str
@@ -72,30 +74,24 @@ COLS_TO_RENAME = {
 def transform_trainings(
     trainings: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
-    """
+    """Transform trainings
+    Note:
     Terrible quality of data.
     Missing values, nulls everywhere, empty strings,
     different formats of the same property. Be careful.
-
-    Required transformations:
-    1) Renaming all columns
-    2) Switch from int ids to uuid
-    3) Transform duration to seconds as int
-    4) Transform Version_date__created_in__s to date format
-    5) type => training
-    6) Casting certain columns to different types
-    7) Add OAG + services specific properties
     """
+    col_name = "training"
     harvested_properties = {}
 
     trainings = rename_trainings_columns(trainings, COLS_TO_RENAME)
     trainings = convert_ids(trainings, increment=1_000_000)
-    trainings = trainings.withColumn("type", lit("training"))
+    trainings = trainings.withColumn("type", lit(col_name))
+    trainings = harvest_best_access_right(trainings, harvested_properties, col_name)
+    create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     transform_duration(trainings, "duration", harvested_properties)
     trainings = transform_date(trainings, "publication_date", "dd-MM-yyyy")
     trainings = cast_trainings_columns(trainings)
     trainings = cast_invalid_columns(trainings, (AUTHOR_NAMES, FORMAT, KEYWORDS))
-    create_open_access(trainings, harvested_properties, "best_access_right")
 
     trainings = drop_columns(trainings, COLS_TO_DROP)
     harvested_df = create_df(harvested_properties, harvested_schema, spark)

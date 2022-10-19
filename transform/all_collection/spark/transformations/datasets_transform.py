@@ -8,7 +8,6 @@ from transform.all_collection.spark.utils.join_dfs import create_df, join_differ
 from transform.all_collection.spark.utils.utils import drop_columns, add_columns
 from transform.all_collection.spark.schemas.input_col_name import (
     SDG,
-    TITLE,
     UNIQUE_SERVICE_COLUMNS,
 )
 from transform.all_collection.spark.utils.utils import replace_empty_str
@@ -18,10 +17,10 @@ __all__ = ["transform_datasets"]
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
-    "codeRepositoryUrl",
-    "documentationUrl",
+    "code_repository_url",
+    "documentation_url",
     "fos",
-    "programmingLanguage",
+    "programming_language",
     "subtitle",
     "content_type",
     "duration",
@@ -57,35 +56,18 @@ COLS_TO_DROP = (
 def transform_datasets(
     datasets: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
-    """
-    Required actions/transformations:
-    1) Check if all records have type == dataset
-    2) Rename maintitle -> title
-    3) Simplify bestaccessright
-    4) Simplify language
-    5) Harvest author_names and author_pids
-    6) Add SDG (only publications and datasets have SDG)
-    7) Create open_access
-    8) Harvest funder
-    9) Harvest urls and document_type
-    10) Harvest country
-    11) Harvest research_community
-    12) Delete unnecessary columns
-    13) Add missing OAG properties
-    14) Rename certain columns
-    15) Cast certain columns
-    16) Add missing services and trainings properties
-    """
+    """Transform datasets"""
+    col_name = "dataset"
     harvested_properties = {}
 
-    check_type(datasets, desired_type="dataset")
-    datasets = datasets.withColumnRenamed("maintitle", TITLE)
-    datasets = simplify_bestaccessright(datasets)
+    check_type(datasets, desired_type=col_name)
+    datasets = rename_oag_columns(datasets)
+    datasets = harvest_best_access_right(datasets, harvested_properties, col_name)
+    create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     datasets = simplify_language(datasets)
 
     harvest_author_names_and_pids(datasets, harvested_properties)
     harvest_sdg_and_fos(datasets, harvested_properties, prop_to_harvest=(SDG,))
-    create_open_access(datasets, harvested_properties, "bestaccessright")
     harvest_funder(datasets, harvested_properties)
     harvest_url_and_document_type(datasets, harvested_properties)
     harvest_country(datasets, harvested_properties)
@@ -93,10 +75,8 @@ def transform_datasets(
 
     datasets = drop_columns(datasets, COLS_TO_DROP)
     harvested_df = create_df(harvested_properties, harvested_schema, spark)
-
     datasets = join_different_dfs((datasets, harvested_df))
     datasets = add_columns(datasets, COLS_TO_ADD)
-    datasets = rename_oag_columns(datasets)
     datasets = cast_oag_columns(datasets)
     datasets = replace_empty_str(datasets)
     datasets = datasets.select(sorted(datasets.columns))

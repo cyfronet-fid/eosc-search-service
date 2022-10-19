@@ -8,7 +8,6 @@ from transform.all_collection.spark.utils.join_dfs import create_df, join_differ
 from transform.all_collection.spark.schemas.input_col_name import (
     FOS,
     SDG,
-    TITLE,
     UNIQUE_SERVICE_COLUMNS,
 )
 from transform.all_collection.spark.utils.utils import drop_columns, add_columns
@@ -18,9 +17,9 @@ __all__ = ["transform_publications"]
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
-    "codeRepositoryUrl",
-    "documentationUrl",
-    "programmingLanguage",
+    "code_repository_url",
+    "documentation_url",
+    "programming_language",
     "size",
     "version",
     "content_type",
@@ -57,36 +56,20 @@ COLS_TO_DROP = (
 def transform_publications(
     publications: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
-    """
-    Required actions/transformations:
-    1) Check if all records have type == dataset
-    2) Rename maintitle -> title
-    3) Simplify bestaccessright
-    4) Simplify language
-    5) Harvest author_names and author_pids
-    6) Add FOS (only publications have FOS)
-    7) Add SDG (only publications and datasets have SDG)
-    8) Create open_access
-    9) Harvest funder
-    10) Harvest urls and document_type
-    11) Harvest country
-    12) Harvest research_community
-    13) Delete unnecessary columns
-    14) Add missing OAG properties
-    15) Rename certain columns
-    16) Cast certain columns
-    17) Add missing services and trainings properties
-    """
+    """Transform publications"""
+    col_name = "publication"
     harvested_properties = {}
 
-    check_type(publications, desired_type="publication")
-    publications = publications.withColumnRenamed("maintitle", TITLE)
-    publications = simplify_bestaccessright(publications)
+    check_type(publications, desired_type=col_name)
+    publications = rename_oag_columns(publications)
+    publications = harvest_best_access_right(
+        publications, harvested_properties, col_name
+    )
+    create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     publications = simplify_language(publications)
 
     harvest_author_names_and_pids(publications, harvested_properties)
     harvest_sdg_and_fos(publications, harvested_properties, prop_to_harvest=(SDG, FOS))
-    create_open_access(publications, harvested_properties, "bestaccessright")
     harvest_funder(publications, harvested_properties)
     harvest_url_and_document_type(publications, harvested_properties)
     harvest_country(publications, harvested_properties)
@@ -94,10 +77,8 @@ def transform_publications(
 
     publications = drop_columns(publications, COLS_TO_DROP)
     harvested_df = create_df(harvested_properties, harvested_schema, spark)
-
     publications = join_different_dfs((publications, harvested_df))
     publications = add_columns(publications, COLS_TO_ADD)
-    publications = rename_oag_columns(publications)
     publications = cast_oag_columns(publications)
     publications = replace_empty_str(publications)
     publications = publications.select(sorted(publications.columns))

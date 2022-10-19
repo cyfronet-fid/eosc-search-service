@@ -1,11 +1,12 @@
 # pylint: disable=line-too-long, invalid-name, too-many-nested-blocks, unnecessary-dunder-call, too-many-branches
 """Common dataframes transformations"""
-from typing import Dict, Sequence
+from typing import Dict, Sequence, List
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, to_date, split
 from transform.all_collection.spark.schemas.input_col_name import (
     AUTHOR_NAMES,
     AUTHOR_PIDS,
+    BEST_ACCESS_RIGHT,
     COUNTRY,
     DOCUMENT_TYPE,
     FUNDER,
@@ -14,6 +15,18 @@ from transform.all_collection.spark.schemas.input_col_name import (
     TYPE,
     URL,
 )
+
+# Access rights mapping
+_OPEN_ACCESS = "Open access"
+RESTRICTED = "Restricted"
+ORDER_REQUIRED = "Ordered required"
+LOGIN_REQUIRED = "Login required"
+LOGIN_REQUIRED_ON = (
+    "Login required on EOSC Pillar, open access on the original resource page"
+)
+CLOSED = "Closed"
+EMBARGO = "Embargo"
+OTHER = "Other"
 
 
 def harvest_author_names_and_pids(df: DataFrame, harvested_properties: Dict) -> None:
@@ -53,6 +66,7 @@ def harvest_author_names_and_pids(df: DataFrame, harvested_properties: Dict) -> 
 def check_type(df: DataFrame, desired_type: str) -> None:
     """Check if all records have the right type"""
     df_type = df.select(TYPE).collect()
+
     assert all(
         (row[TYPE] == desired_type for row in df_type)
     ), f"Not all records have {TYPE}: {desired_type}"
@@ -82,9 +96,53 @@ def harvest_sdg_and_fos(
         harvested_properties[prop] = harvested_prop_column
 
 
-def simplify_bestaccessright(df: DataFrame) -> DataFrame:
-    """Simplify best_access_right - get only label and convert structure to a string"""
-    return df.withColumn("bestaccessright", col("bestaccessright")["label"])
+def harvest_best_access_right(
+    df: DataFrame, harvested_properties: Dict, col_name: str
+) -> DataFrame:
+    """Harvest best_access_right and map standardize its value"""
+    if col_name.lower() in {"dataset", "publication", "software"}:
+        df = df.withColumn(BEST_ACCESS_RIGHT, col(BEST_ACCESS_RIGHT)["label"])
+
+    # Values are mapped to the keys
+    mapping = {
+        _OPEN_ACCESS: (
+            "OPEN",
+            "open_access",
+            "fully_open_access",
+            "open access",
+            "free access",
+            "free access ",
+        ),
+        RESTRICTED: ("RESTRICTED",),
+        ORDER_REQUIRED: ("order_required",),
+        LOGIN_REQUIRED: ("login required",),
+        LOGIN_REQUIRED_ON: (
+            "login required on EOSC Pillar, open access on the original resource page",
+        ),
+        CLOSED: ("CLOSED",),
+        EMBARGO: ("EMBARGO",),
+        OTHER: ("other",),
+    }
+    best_access_right = df.select(BEST_ACCESS_RIGHT).collect()
+    best_access_right_column = []
+
+    for access in best_access_right:
+        if not access[BEST_ACCESS_RIGHT]:
+            best_access_right_column.append(None)
+            continue
+
+        for desired_access_t, access_t in mapping.items():
+            if access[BEST_ACCESS_RIGHT] in access_t:
+                best_access_right_column.append(desired_access_t)
+                break
+        else:
+            print(
+                f"Warning unknown access right: best_access_right={access[BEST_ACCESS_RIGHT]}, collection={col_name}"
+            )
+            best_access_right_column.append(access[BEST_ACCESS_RIGHT])
+
+    harvested_properties[BEST_ACCESS_RIGHT] = best_access_right_column
+    return df.drop(BEST_ACCESS_RIGHT)
 
 
 def simplify_language(df: DataFrame) -> DataFrame:
@@ -92,23 +150,11 @@ def simplify_language(df: DataFrame) -> DataFrame:
     return df.withColumn("language", col("language")["label"])
 
 
-def create_open_access(
-    df: DataFrame, harvested_properties: Dict, col_name: str
-) -> None:
+def create_open_access(best_access_right: List, harvested_properties: Dict) -> None:
     """Create boolean value whether record is open access or not, based on col_name"""
-    best_access_right = df.select(col_name).collect()
-    open_access_column = []
-
-    for access in best_access_right:
-        if access[col_name] in {
-            "OPEN",
-            "open access",
-            "fully_open_access",
-            "open_access",
-        }:
-            open_access_column.append(True)
-        else:
-            open_access_column.append(False)
+    open_access_column = [
+        bool(access == _OPEN_ACCESS) for access in best_access_right
+    ]
 
     harvested_properties[OPEN_ACCESS] = open_access_column
 
@@ -214,6 +260,7 @@ def rename_oag_columns(df: DataFrame) -> DataFrame:
         .withColumnRenamed("documentationUrl", "documentation_url")
         .withColumnRenamed("programmingLanguage", "programming_language")
         .withColumnRenamed("publicationdate", "publication_date")
+        .withColumnRenamed("maintitle", "title")
     )
 
     return df
