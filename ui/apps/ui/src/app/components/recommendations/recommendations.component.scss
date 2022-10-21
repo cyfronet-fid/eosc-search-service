@@ -50,17 +50,6 @@ $palette-gray-80: rgba($palette-gray-100, 0.8);
   overflow: hidden;
   border-radius: 10px;
 
-  .recommend-box {
-    position: absolute;
-    top: 0;
-    right: 0;
-    font-size: 11px;
-    color: $color-white;
-    padding: 4px 7px;
-    text-transform: uppercase;
-    background: $recommendation-box;
-  }
-
   header {
     font-weight: bold;
     z-index: unset;
@@ -115,10 +104,11 @@ $palette-gray-80: rgba($palette-gray-100, 0.8);
     padding: 4px 12px 4px 40px;
     border-radius: 5px;
 
-    svg {
-      font-size: 19px;
+    img {
       color: $user-directed-message-border-color;
       position: absolute;
+      width: 23px;
+      height: auto;
       top: 5px;
       left: 10px;
     }

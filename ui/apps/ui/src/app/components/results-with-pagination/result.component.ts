@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IColoredTag, ITag } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
-import { isArray, truncate } from 'lodash-es';
+import { truncate } from 'lodash-es';
 import { Router } from '@angular/router';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
@@ -94,8 +94,6 @@ export class ResultComponent {
     private _filtersConfigsRepository: FiltersConfigsRepository,
     public redirectService: RedirectService
   ) {}
-
-  isArray = isArray;
 
   async setActiveFilter(filter: string, value: string) {
     await this._router.navigate([], {
