@@ -72,6 +72,7 @@ def transform_publications(
     harvest_sdg_and_fos(publications, harvested_properties, prop_to_harvest=(SDG, FOS))
     harvest_funder(publications, harvested_properties)
     harvest_url_and_document_type(publications, harvested_properties)
+    harvest_doi(publications, harvested_properties)
     harvest_country(publications, harvested_properties)
     harvest_research_community(publications, harvested_properties)
 

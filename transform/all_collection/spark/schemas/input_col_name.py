@@ -23,6 +23,7 @@ SUBJECTS = "subjects"
 TITLE = "title"
 TYPE = "type"
 URL = "url"
+DOI = "doi"
 
 # Training
 FORMAT = "format"

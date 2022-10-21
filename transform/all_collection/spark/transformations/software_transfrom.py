@@ -66,6 +66,7 @@ def transform_software(
     harvest_author_names_and_pids(software, harvested_properties)
     harvest_funder(software, harvested_properties)
     harvest_url_and_document_type(software, harvested_properties)
+    harvest_doi(software, harvested_properties)
     harvest_country(software, harvested_properties)
     harvest_research_community(software, harvested_properties)
 
