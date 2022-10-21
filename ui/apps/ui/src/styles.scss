@@ -382,13 +382,21 @@ h6 {
 }
 
 .recommendation {
+  h6 {
+    font-size: 0.85rem;
+  }
+
   .tags-box {
-    margin: 0;
+    margin: 12px 0 0 0;
 
     a {
       padding: 8px 9px;
       margin-right: 7px;
       font-size: 10px;
+
+      &:hover {
+        opacity: 0.85;
+      }
     }
   }
 
@@ -398,10 +406,10 @@ h6 {
 
   #tags {
     line-height: 1.1;
-    margin: 7px 0 0;
 
     .tag-row {
       margin-bottom: 7px;
+      line-height: 14px;
 
       a {
         font-weight: bold;
