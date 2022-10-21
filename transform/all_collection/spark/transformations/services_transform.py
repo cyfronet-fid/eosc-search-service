@@ -13,7 +13,7 @@ from pyspark.sql.types import StringType, StructType
 from transform.all_collection.spark.utils.join_dfs import join_different_dfs, create_df
 from transform.all_collection.spark.transformations.commons import (
     create_open_access,
-    harvest_best_access_right,
+    map_best_access_right,
 )
 from transform.all_collection.spark.utils.utils import (
     drop_columns,
@@ -70,7 +70,7 @@ def transform_services(
 
     services = services.withColumn("type", lit(col_name))
     services = rename_and_cast_columns(services)
-    services = harvest_best_access_right(services, harvested_properties, col_name)
+    services = map_best_access_right(services, harvested_properties, col_name)
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     simplify_geo_properties(services, harvested_properties)
     services = simplify_urls(services)

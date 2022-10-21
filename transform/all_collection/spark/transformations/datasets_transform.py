@@ -62,9 +62,10 @@ def transform_datasets(
 
     check_type(datasets, desired_type=col_name)
     datasets = rename_oag_columns(datasets)
-    datasets = harvest_best_access_right(datasets, harvested_properties, col_name)
+    datasets = map_best_access_right(datasets, harvested_properties, col_name)
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     datasets = simplify_language(datasets)
+    datasets = map_publisher(datasets)
 
     harvest_author_names_and_pids(datasets, harvested_properties)
     harvest_sdg_and_fos(datasets, harvested_properties, prop_to_harvest=(SDG,))

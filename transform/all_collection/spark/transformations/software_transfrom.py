@@ -59,9 +59,10 @@ def transform_software(
 
     check_type(software, desired_type=col_name)
     software = rename_oag_columns(software)
-    software = harvest_best_access_right(software, harvested_properties, col_name)
+    software = map_best_access_right(software, harvested_properties, col_name)
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     software = simplify_language(software)
+    software = map_publisher(software)
 
     harvest_author_names_and_pids(software, harvested_properties)
     harvest_funder(software, harvested_properties)

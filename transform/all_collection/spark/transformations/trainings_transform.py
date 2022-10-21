@@ -8,7 +8,7 @@ from pyspark.sql.types import StringType, IntegerType, StructType
 from pyspark.sql.functions import lit, split, col, regexp_replace, translate
 from transform.all_collection.spark.transformations.commons import (
     transform_date,
-    harvest_best_access_right,
+    map_best_access_right,
 )
 from transform.all_collection.spark.utils.utils import (
     drop_columns,
@@ -87,7 +87,7 @@ def transform_trainings(
     trainings = rename_trainings_columns(trainings, COLS_TO_RENAME)
     trainings = convert_ids(trainings, increment=1_000_000)
     trainings = trainings.withColumn("type", lit(col_name))
-    trainings = harvest_best_access_right(trainings, harvested_properties, col_name)
+    trainings = map_best_access_right(trainings, harvested_properties, col_name)
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     transform_duration(trainings, "duration", harvested_properties)
     trainings = transform_date(trainings, "publication_date", "dd-MM-yyyy")
