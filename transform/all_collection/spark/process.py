@@ -35,7 +35,7 @@ if __name__ == "__main__":
         files = sorted(os.listdir(col_input_dir))
         solr_col_names = col_prop[NAMES].split(" ")
 
-        for file in tqdm(files, desc=f"{col_name}"):
+        for file in tqdm(files, desc=col_name):
             file_path = col_input_dir + file
             df = load_data(spark, file_path, col_name)
 
@@ -44,7 +44,7 @@ if __name__ == "__main__":
                 df_trans = trans.trans_map[col_name](
                     df, harvested_schemas[col_name], spark
                 )
-            except (ValueError, AssertionError):
+            except (ValueError, AssertionError, KeyError):
                 print_errors("transform_fail", failed_files, col_name, file, logger)
                 continue
 

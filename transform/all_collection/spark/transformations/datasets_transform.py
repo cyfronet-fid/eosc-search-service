@@ -70,6 +70,7 @@ def transform_datasets(
     harvest_sdg_and_fos(datasets, harvested_properties, prop_to_harvest=(SDG,))
     harvest_funder(datasets, harvested_properties)
     harvest_url_and_document_type(datasets, harvested_properties)
+    harvest_doi(datasets, harvested_properties)
     harvest_country(datasets, harvested_properties)
     harvest_research_community(datasets, harvested_properties)
 

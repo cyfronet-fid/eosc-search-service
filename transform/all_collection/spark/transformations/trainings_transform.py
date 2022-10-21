@@ -37,6 +37,7 @@ COLS_TO_ADD = (
     "country",
     "document_type",
     "documentation_url",
+    "doi",
     "fos",
     "funder",
     "pid",

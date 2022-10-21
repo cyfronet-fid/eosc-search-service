@@ -14,6 +14,7 @@ from transform.all_collection.spark.schemas.input_col_name import (
     RESEARCH_COMMUNITY,
     TYPE,
     URL,
+    DOI,
 )
 
 # Access rights mapping
@@ -152,9 +153,7 @@ def simplify_language(df: DataFrame) -> DataFrame:
 
 def create_open_access(best_access_right: List, harvested_properties: Dict) -> None:
     """Create boolean value whether record is open access or not, based on col_name"""
-    open_access_column = [
-        bool(access == _OPEN_ACCESS) for access in best_access_right
-    ]
+    open_access_column = [bool(access == _OPEN_ACCESS) for access in best_access_right]
 
     harvested_properties[OPEN_ACCESS] = open_access_column
 
@@ -220,10 +219,9 @@ def harvest_country(df: DataFrame, harvested_properties: Dict) -> None:
     country_column = []
 
     for countries in countries_list:
-        if countries["country"]:
-            country_column.append([country["code"] for country in countries["country"]])
-            continue
-        country_column.append([])
+        countries_raw_val = countries["country"] or []
+        country_val = [country["code"] for country in countries_raw_val]
+        country_column.append(country_val)
 
     harvested_properties[COUNTRY] = country_column
 
@@ -234,12 +232,24 @@ def harvest_research_community(df: DataFrame, harvested_properties: Dict) -> Non
     rc_column = []
 
     for contexts in contexts_list:
-        if contexts["context"]:
-            rc_column.append([context["label"] for context in contexts["context"]])
-            continue
-        rc_column.append([])
+        contexts_raw_val = contexts["context"] or []
+        contexts_val = [context["label"] for context in contexts_raw_val]
+        rc_column.append(contexts_val)
 
     harvested_properties[RESEARCH_COMMUNITY] = rc_column
+
+
+def harvest_doi(df: DataFrame, harvested_properties: Dict) -> None:
+    """Harvest DOI from OAG resources"""
+    pids_list = df.select("pid").collect()
+    doi_column = []
+
+    for pids in pids_list:
+        pids_raw_val = pids["pid"] or []
+        doi_urls = [pid["value"] for pid in pids_raw_val if pid["scheme"] == DOI]
+        doi_column.append(doi_urls)
+
+    harvested_properties[DOI] = doi_column
 
 
 def transform_date(df: DataFrame, col_name: str, date_format: str) -> DataFrame:
