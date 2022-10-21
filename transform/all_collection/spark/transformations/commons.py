@@ -2,7 +2,7 @@
 """Common dataframes transformations"""
 from typing import Dict, Sequence, List
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import col, to_date, split
+from pyspark.sql.functions import col, to_date, split, when
 from transform.all_collection.spark.schemas.input_col_name import (
     AUTHOR_NAMES,
     AUTHOR_PIDS,
@@ -15,6 +15,7 @@ from transform.all_collection.spark.schemas.input_col_name import (
     TYPE,
     URL,
     DOI,
+    PUBLISHER,
 )
 
 # Access rights mapping
@@ -28,6 +29,10 @@ LOGIN_REQUIRED_ON = (
 CLOSED = "Closed"
 EMBARGO = "Embargo"
 OTHER = "Other"
+
+# Publisher mapping
+ZENODO = "Zenodo"
+FIGSHARE = "Figshare"
 
 
 def harvest_author_names_and_pids(df: DataFrame, harvested_properties: Dict) -> None:
@@ -97,7 +102,7 @@ def harvest_sdg_and_fos(
         harvested_properties[prop] = harvested_prop_column
 
 
-def harvest_best_access_right(
+def map_best_access_right(
     df: DataFrame, harvested_properties: Dict, col_name: str
 ) -> DataFrame:
     """Harvest best_access_right and map standardize its value"""
@@ -146,16 +151,32 @@ def harvest_best_access_right(
     return df.drop(BEST_ACCESS_RIGHT)
 
 
-def simplify_language(df: DataFrame) -> DataFrame:
-    """Simplify language - get only label and convert structure to a string"""
-    return df.withColumn("language", col("language")["label"])
-
-
 def create_open_access(best_access_right: List, harvested_properties: Dict) -> None:
     """Create boolean value whether record is open access or not, based on col_name"""
     open_access_column = [bool(access == _OPEN_ACCESS) for access in best_access_right]
 
     harvested_properties[OPEN_ACCESS] = open_access_column
+
+
+def map_publisher(df: DataFrame) -> DataFrame:
+    """Map publishers' value for OAG resources"""
+    # Values are mapped to the keys
+    mapping = {
+        ZENODO: "ZENODO",
+        FIGSHARE: "figshare",
+    }
+
+    return df.withColumn(
+        PUBLISHER,
+        when(col(PUBLISHER) == mapping[ZENODO], ZENODO)
+        .when(col(PUBLISHER) == mapping[FIGSHARE], FIGSHARE)
+        .otherwise(col(PUBLISHER)),
+    )
+
+
+def simplify_language(df: DataFrame) -> DataFrame:
+    """Simplify language - get only label and convert structure to a string"""
+    return df.withColumn("language", col("language")["label"])
 
 
 def harvest_funder(df: DataFrame, harvested_properties: Dict) -> None:

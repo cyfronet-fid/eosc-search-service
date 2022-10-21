@@ -62,11 +62,10 @@ def transform_publications(
 
     check_type(publications, desired_type=col_name)
     publications = rename_oag_columns(publications)
-    publications = harvest_best_access_right(
-        publications, harvested_properties, col_name
-    )
+    publications = map_best_access_right(publications, harvested_properties, col_name)
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     publications = simplify_language(publications)
+    publications = map_publisher(publications)
 
     harvest_author_names_and_pids(publications, harvested_properties)
     harvest_sdg_and_fos(publications, harvested_properties, prop_to_harvest=(SDG, FOS))
