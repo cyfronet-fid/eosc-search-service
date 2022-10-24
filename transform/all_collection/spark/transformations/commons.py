@@ -29,10 +29,35 @@ LOGIN_REQUIRED_ON = (
 CLOSED = "Closed"
 EMBARGO = "Embargo"
 OTHER = "Other"
+# Values are mapped to the keys
+access_rights_mapping = {
+    _OPEN_ACCESS: (
+        "OPEN",
+        "open_access",
+        "fully_open_access",
+        "open access",
+        "free access",
+        "free access ",
+    ),
+    RESTRICTED: ("RESTRICTED",),
+    ORDER_REQUIRED: ("order_required",),
+    LOGIN_REQUIRED: ("login required",),
+    LOGIN_REQUIRED_ON: (
+        "login required on EOSC Pillar, open access on the original resource page",
+    ),
+    CLOSED: ("CLOSED",),
+    EMBARGO: ("EMBARGO",),
+    OTHER: ("other",),
+}
 
 # Publisher mapping
 ZENODO = "Zenodo"
 FIGSHARE = "Figshare"
+# Values are mapped to the keys
+publisher_mapping = {
+    ZENODO: "ZENODO",
+    FIGSHARE: "figshare",
+}
 
 
 def harvest_author_names_and_pids(df: DataFrame, harvested_properties: Dict) -> None:
@@ -109,26 +134,6 @@ def map_best_access_right(
     if col_name.lower() in {"dataset", "publication", "software"}:
         df = df.withColumn(BEST_ACCESS_RIGHT, col(BEST_ACCESS_RIGHT)["label"])
 
-    # Values are mapped to the keys
-    mapping = {
-        _OPEN_ACCESS: (
-            "OPEN",
-            "open_access",
-            "fully_open_access",
-            "open access",
-            "free access",
-            "free access ",
-        ),
-        RESTRICTED: ("RESTRICTED",),
-        ORDER_REQUIRED: ("order_required",),
-        LOGIN_REQUIRED: ("login required",),
-        LOGIN_REQUIRED_ON: (
-            "login required on EOSC Pillar, open access on the original resource page",
-        ),
-        CLOSED: ("CLOSED",),
-        EMBARGO: ("EMBARGO",),
-        OTHER: ("other",),
-    }
     best_access_right = df.select(BEST_ACCESS_RIGHT).collect()
     best_access_right_column = []
 
@@ -137,7 +142,7 @@ def map_best_access_right(
             best_access_right_column.append(None)
             continue
 
-        for desired_access_t, access_t in mapping.items():
+        for desired_access_t, access_t in access_rights_mapping.items():
             if access[BEST_ACCESS_RIGHT] in access_t:
                 best_access_right_column.append(desired_access_t)
                 break
@@ -160,16 +165,10 @@ def create_open_access(best_access_right: List, harvested_properties: Dict) -> N
 
 def map_publisher(df: DataFrame) -> DataFrame:
     """Map publishers' value for OAG resources"""
-    # Values are mapped to the keys
-    mapping = {
-        ZENODO: "ZENODO",
-        FIGSHARE: "figshare",
-    }
-
     return df.withColumn(
         PUBLISHER,
-        when(col(PUBLISHER) == mapping[ZENODO], ZENODO)
-        .when(col(PUBLISHER) == mapping[FIGSHARE], FIGSHARE)
+        when(col(PUBLISHER) == publisher_mapping[ZENODO], ZENODO)
+        .when(col(PUBLISHER) == publisher_mapping[FIGSHARE], FIGSHARE)
         .otherwise(col(PUBLISHER)),
     )
 
