@@ -82,21 +82,6 @@ def load_data(
 def load_env_vars() -> Dict:
     """Retrieve .env variables"""
     collections = {
-        DATASET: {
-            NAMES: os.environ.get(SOLR_DATASET_COLS),
-            PATH: os.environ.get(DATASET_PATH, "input_data/dataset/"),
-            FIRST_FILE_PATH: None,
-        },
-        PUBLICATION: {
-            NAMES: os.environ.get(SOLR_PUBLICATION_COLS),
-            PATH: os.environ.get(PUBLICATION_PATH, "input_data/publication/"),
-            FIRST_FILE_PATH: None,
-        },
-        SOFTWARE: {
-            NAMES: os.environ.get(SOLR_SOFTWARE_COLS),
-            PATH: os.environ.get(SOFTWARE_PATH, "input_data/software/"),
-            FIRST_FILE_PATH: None,
-        },
         TRAINING: {
             NAMES: os.environ.get(SOLR_TRAINING_COLS),
             PATH: os.environ.get(TRAINING_PATH, "input_data/training/"),
@@ -105,6 +90,21 @@ def load_env_vars() -> Dict:
         SERVICE: {
             NAMES: os.environ.get(SOLR_SERVICE_COLS),
             PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
+            FIRST_FILE_PATH: None,
+        },
+        SOFTWARE: {
+            NAMES: os.environ.get(SOLR_SOFTWARE_COLS),
+            PATH: os.environ.get(SOFTWARE_PATH, "input_data/software/"),
+            FIRST_FILE_PATH: None,
+        },
+        PUBLICATION: {
+            NAMES: os.environ.get(SOLR_PUBLICATION_COLS),
+            PATH: os.environ.get(PUBLICATION_PATH, "input_data/publication/"),
+            FIRST_FILE_PATH: None,
+        },
+        DATASET: {
+            NAMES: os.environ.get(SOLR_DATASET_COLS),
+            PATH: os.environ.get(DATASET_PATH, "input_data/dataset/"),
             FIRST_FILE_PATH: None,
         },
     }
