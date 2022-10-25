@@ -64,8 +64,18 @@ export const allCollectionsAdapter: IAdapter = {
       },
       {
         label: 'DOI',
-        value: data?.url || [],
-        filter: 'url',
+        value: data?.doi || [],
+        filter: 'doi',
+      },
+      {
+        label: 'Scientific domain',
+        value: data?.scientific_domains || [],
+        filter: 'scientific_domains',
+      },
+      {
+        label: 'Organisation',
+        value: data?.resource_organisation || '',
+        filter: 'resource_organisation',
       },
     ],
     type: data?.type || '',

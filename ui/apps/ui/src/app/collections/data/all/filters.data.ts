@@ -35,9 +35,21 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'tag',
     },
     {
-      id: 'url',
-      filter: 'url',
+      id: 'doi',
+      filter: 'doi',
       label: 'DOI',
+      type: 'tag',
+    },
+    {
+      id: 'scientific_domains',
+      filter: 'scientific_domains',
+      label: 'Scientific Domains',
+      type: 'tag',
+    },
+    {
+      id: 'resource_organisation',
+      filter: 'resource_organisation',
+      label: 'Resource organisation',
       type: 'tag',
     },
   ],

@@ -16,4 +16,5 @@ export interface IOpenAIREResult {
   license: string;
   document_type: string[];
   country: string;
+  doi: string[];
 }

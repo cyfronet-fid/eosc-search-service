@@ -52,8 +52,8 @@ export const datasetsAdapter: IAdapter = {
       },
       {
         label: 'DOI',
-        value: openAIREResult?.url || [],
-        filter: 'url',
+        value: openAIREResult?.doi || [],
+        filter: 'doi',
       },
     ],
     type: openAIREResult?.type || '',
