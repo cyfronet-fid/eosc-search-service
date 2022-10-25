@@ -22,7 +22,7 @@ export class RecommendationsService {
 
   getRecommendations$(panelId: string): Observable<IResult[]> {
     return this._userProfileService.user$.pipe(
-      switchMap((user) => {
+      switchMap(() => {
         const url = `${environment.backendApiPath}/${environment.recommendationsApiPath}?panel_id=${panelId}`;
         return this._http.get<IRecommendation[]>(url).pipe(
           catchError(() => of([])),
