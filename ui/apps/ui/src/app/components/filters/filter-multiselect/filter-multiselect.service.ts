@@ -43,14 +43,14 @@ export class FilterMultiselectService {
   isLoading = () => this._filterMultiselectRepository.isLoading();
   setLoading = (isLoading: boolean) =>
     this._filterMultiselectRepository.setLoading(isLoading);
-  resetAllEntitiesCounts = () =>
-    this._filterMultiselectRepository.resetAllEntitiesCounts();
   setActiveIds = (activeIds: string[]) =>
     this._filterMultiselectRepository.setActiveIds(activeIds);
   setQuery = (query: string) =>
     this._filterMultiselectRepository.setQuery(query);
-  upsertEntities = (entities: FilterTreeNode[]) =>
-    this._filterMultiselectRepository.upsertEntities(entities);
+  updateEntitiesCounts = (entities: FilterTreeNode[]) =>
+    this._filterMultiselectRepository.updateEntitiesCounts(entities);
+  setEntities = (entities: FilterTreeNode[]) =>
+    this._filterMultiselectRepository.setEntities(entities);
 
   _fetchAllValues$(
     filter: string,

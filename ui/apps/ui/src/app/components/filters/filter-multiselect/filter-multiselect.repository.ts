@@ -5,6 +5,7 @@ import {
   selectAllEntitiesApply,
   selectEntitiesCount,
   setActiveIds,
+  setEntities,
   updateAllEntities,
   updateEntities,
   upsertEntities,
@@ -72,10 +73,17 @@ export class FilterMultiselectRepository {
   isLoading = () => this._store$.query(({ isLoading }) => isLoading);
 
   // MUTATIONS
-  upsertEntities = (filters: Array<Partial<FilterTreeNode> & { id: string }>) =>
-    this._store$.update(upsertEntities(filters));
-  resetAllEntitiesCounts = () =>
-    this._store$.update(updateAllEntities({ count: '0' }));
+  updateEntitiesCounts = (
+    filters: Array<Partial<FilterTreeNode> & { id: string; count: string }>
+  ) => {
+    this._store$.update(
+      updateAllEntities({ count: '0' }),
+      upsertEntities(filters)
+    );
+  };
+  setEntities = (filters: FilterTreeNode[]) => {
+    this._store$.update(setEntities(filters));
+  };
   resetAllActiveEntities = () =>
     this._store$.update(
       updateAllEntities({ isSelected: false }),
