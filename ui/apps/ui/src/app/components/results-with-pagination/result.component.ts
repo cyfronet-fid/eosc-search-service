@@ -100,17 +100,16 @@ const shortText = (text: string, maxWords: number): string => {
         </ng-container>
       </div>
       <p class="description">
-        <span [class.truncate]="truncate(description) && !showFull">
-          {{ description }}
+        <span>
+          {{ showFull ? description : truncate(description) }}
         </span>
-        <ng-container *ngIf="truncate(description)">
-          <a
-            href="javascript:void(0)"
-            class="btn-show-more"
-            (click)="showFull = !showFull"
-            >Show {{ showFull ? 'less' : 'more' }}
-          </a>
-        </ng-container>
+        <a
+          *ngIf="displayShowMoreBtn()"
+          href="javascript:void(0)"
+          class="btn-show-more"
+          (click)="showFull = !showFull"
+          >Show {{ showFull ? 'less' : 'more' }}
+        </a>
       </p>
     </div>
   `,
@@ -118,14 +117,6 @@ const shortText = (text: string, maxWords: number): string => {
     `
       :host {
         display: block;
-      }
-      .description .truncate {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
-        -webkit-box-orient: vertical;
       }
     `,
   ],
@@ -179,6 +170,10 @@ export class ResultComponent {
       },
       queryParamsHandling: 'merge',
     });
+  }
+
+  displayShowMoreBtn() {
+    return this.description.length >= MAX_CHARS_LENGTH;
   }
 
   truncate(description: string) {

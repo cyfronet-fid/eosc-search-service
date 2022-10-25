@@ -24,7 +24,6 @@ import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { ISuggestedResults } from './type';
 import { Router } from '@angular/router';
 import { sanitizeQuery } from '@components/search-input/query.sanitizer';
-import { environment } from '@environment/environment';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 import { ICollectionNavConfig } from '@collections/repositories/types';
 import { DOCUMENT } from '@angular/common';
