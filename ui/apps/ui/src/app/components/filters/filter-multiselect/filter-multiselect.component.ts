@@ -3,7 +3,14 @@ import { FilterMultiselectService } from './filter-multiselect.service';
 import { FilterTreeNode } from '../types';
 import { FilterMultiselectRepository } from './filter-multiselect.repository';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { debounceTime, map, skip, switchMap, tap } from 'rxjs';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  skip,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { UntypedFormControl } from '@angular/forms';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { combineLatest } from 'rxjs';
@@ -14,7 +21,7 @@ import {
   deserializeAll,
   removeFilterValue,
 } from '@collections/filters-serializers/filters-serializers.utils';
-import { keyBy } from 'lodash-es';
+import { isEqual, keyBy } from 'lodash-es';
 import _ from 'lodash';
 
 @UntilDestroy()
@@ -131,11 +138,14 @@ export class FilterMultiselectComponent implements OnInit {
 
   _setActiveIds() {
     this._customRoute.fqMap$
-      .pipe(untilDestroyed(this), skip(1))
-      .subscribe((fqMap) => {
-        this._filterMultiselectService.setActiveIds(
-          toArray(fqMap[this.filter])
-        );
+      .pipe(
+        untilDestroyed(this),
+        skip(1),
+        map((fqMap) => toArray(fqMap[this.filter])),
+        distinctUntilChanged(isEqual)
+      )
+      .subscribe((activeIds) => {
+        this._filterMultiselectService.setActiveIds(toArray(activeIds));
       });
   }
 
@@ -149,7 +159,6 @@ export class FilterMultiselectComponent implements OnInit {
         skip(1),
         tap(() => {
           this._filterMultiselectService.setLoading(true);
-          this._filterMultiselectService.resetAllEntitiesCounts();
         }),
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         map(([fq, _]) => fq),
@@ -161,7 +170,7 @@ export class FilterMultiselectComponent implements OnInit {
         )
       )
       .subscribe((entities) => {
-        this._filterMultiselectService.upsertEntities(
+        this._filterMultiselectService.updateEntitiesCounts(
           entities as FilterTreeNode[]
         );
         this._filterMultiselectService.setLoading(false);
@@ -191,7 +200,7 @@ export class FilterMultiselectComponent implements OnInit {
       )
       .subscribe((entities) => {
         const activeIds = toArray(this._customRoute.fqMap()[this.filter]);
-        this._filterMultiselectService.upsertEntities(entities);
+        this._filterMultiselectService.setEntities(entities);
         this._filterMultiselectService.setActiveIds(activeIds);
         this._filterMultiselectService.setLoading(false);
       });
