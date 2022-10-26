@@ -32,22 +32,27 @@ import _ from 'lodash';
       <ess-filter-label [label]="label" [filter]="filter"></ess-filter-label>
 
       <input
+        *ngIf="hasShowMore$ | async"
         [attr.placeholder]="'Search in ' + label.toLowerCase() + '...'"
         class="query-input form-control form-control-sm"
         [formControl]="queryFc"
       />
       <ess-first-n-values
-        *ngIf="!showMore"
+        *ngIf="!showMore; else showAll"
         [activeEntities]="(activeEntities$ | async) ?? []"
         [nonActiveEntities]="(nonActiveEntities$ | async) ?? []"
+        [query]="query"
         (toggleActive)="toggleActive($event)"
       ></ess-first-n-values>
-      <ess-show-all
-        *ngIf="showMore"
-        [activeEntities]="(activeEntities$ | async) ?? []"
-        [nonActiveEntities]="(nonActiveEntities$ | async) ?? []"
-        (toggleActive)="toggleActive($event)"
-      ></ess-show-all>
+      <ng-template #showAll>
+        <ess-show-all
+          *ngIf="showMore"
+          [activeEntities]="(activeEntities$ | async) ?? []"
+          [nonActiveEntities]="(nonActiveEntities$ | async) ?? []"
+          [query]="query"
+          (toggleActive)="toggleActive($event)"
+        ></ess-show-all>
+      </ng-template>
       <span *ngIf="hasShowMore$ | async" (click)="showMore = !showMore">
         <a href="javascript:void(0)" class="show-more">{{
           showMore ? 'show less' : 'show more'
@@ -106,6 +111,7 @@ export class FilterMultiselectComponent implements OnInit {
   hasShowMore$ = this._filterMultiselectService.hasShowMore$;
 
   queryFc = new UntypedFormControl('');
+  query: string | null = null;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -209,7 +215,7 @@ export class FilterMultiselectComponent implements OnInit {
   _updateSearchQuery() {
     this.queryFc.valueChanges
       .pipe(untilDestroyed(this), debounceTime(500))
-      .subscribe((query) => this._filterMultiselectService.setQuery(query));
+      .subscribe((query) => (this.query = query));
   }
 
   async _setAsNonActive(value: string) {

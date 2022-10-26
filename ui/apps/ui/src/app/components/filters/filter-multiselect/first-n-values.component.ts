@@ -1,5 +1,13 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FilterTreeNode } from '@components/filters/types';
+import { search } from '@components/filters/filter-multiselect/utils';
 
 @Component({
   selector: 'ess-first-n-values',
@@ -28,21 +36,31 @@ import { FilterTreeNode } from '@components/filters/types';
     `,
   ],
 })
-export class FirstNValuesComponent {
+export class FirstNValuesComponent implements OnChanges {
   _nonActiveEntities: FilterTreeNode[] = [];
+
+  @Input()
+  query: string | null = null;
 
   @Input()
   activeEntities: FilterTreeNode[] = [];
 
   @Input()
-  set nonActiveEntities(nonActiveEntities: FilterTreeNode[]) {
-    const max = this.displayMax - this.activeEntities.length;
-    this._nonActiveEntities = nonActiveEntities.slice(0, max < 0 ? 0 : max);
-  }
+  nonActiveEntities: FilterTreeNode[] = [];
 
   @Input()
   displayMax = 10;
 
   @Output()
   toggleActive = new EventEmitter<[FilterTreeNode, boolean]>();
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['query'] || changes['nonActiveEntities']) {
+      const max = this.displayMax - this.activeEntities.length;
+      this._nonActiveEntities = search(
+        this.query,
+        this.nonActiveEntities
+      ).slice(0, max < 0 ? 0 : max);
+    }
+  }
 }
