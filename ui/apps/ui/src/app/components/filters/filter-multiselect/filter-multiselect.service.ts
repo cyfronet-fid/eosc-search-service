@@ -45,8 +45,6 @@ export class FilterMultiselectService {
     this._filterMultiselectRepository.setLoading(isLoading);
   setActiveIds = (activeIds: string[]) =>
     this._filterMultiselectRepository.setActiveIds(activeIds);
-  setQuery = (query: string) =>
-    this._filterMultiselectRepository.setQuery(query);
   updateEntitiesCounts = (entities: FilterTreeNode[]) =>
     this._filterMultiselectRepository.updateEntitiesCounts(entities);
   setEntities = (entities: FilterTreeNode[]) =>

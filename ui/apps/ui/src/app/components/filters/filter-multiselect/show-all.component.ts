@@ -2,11 +2,14 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { FilterTreeNode } from '@components/filters/types';
 import { BehaviorSubject } from 'rxjs';
+import { search } from '@components/filters/filter-multiselect/utils';
 
 const CHUNK_SIZE = 100;
 const RECORD_HEIGHT = 29; // PX
@@ -26,7 +29,7 @@ const LOAD_NEXT_CHUNK_INDEX = CHUNK_SIZE * 0.9;
 
     <div class="filter__viewport" (scroll)="onScroll($event)" #content>
       <ess-checkboxes-tree
-        [data]="(chunkedNonActiveEntities$ | async) ?? []"
+        [data]="search(query, (chunkedNonActiveEntities$ | async) ?? [])"
         (checkboxesChange)="
           $event[1] === true ? toggleActive.emit($event) : null
         "
@@ -42,27 +45,39 @@ const LOAD_NEXT_CHUNK_INDEX = CHUNK_SIZE * 0.9;
     `,
   ],
 })
-export class ShowAllComponent {
+export class ShowAllComponent implements OnChanges {
   private _latestChunk = 0;
-  private _nonActiveEntities: FilterTreeNode[] = [];
+  private _availableNonActiveEntities: FilterTreeNode[] = [];
   chunkedNonActiveEntities$ = new BehaviorSubject<FilterTreeNode[]>([]);
 
   @ViewChild('content', { static: false }) content?: unknown;
 
   @Input()
+  query: string | null = null;
+
+  @Input()
   activeEntities: FilterTreeNode[] = [];
 
   @Input()
-  set nonActiveEntities(nonActiveEntities: FilterTreeNode[]) {
-    this._nonActiveEntities = nonActiveEntities;
-    this.chunkedNonActiveEntities$.next(
-      this._nonActiveEntities.slice(0, CHUNK_SIZE)
-    );
-    this._latestChunk = 0;
-  }
+  nonActiveEntities: FilterTreeNode[] = [];
 
   @Output()
   toggleActive = new EventEmitter<[FilterTreeNode, boolean]>();
+
+  search = search;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['query'] || changes['nonActiveEntities']) {
+      this._availableNonActiveEntities = search(
+        this.query,
+        this.nonActiveEntities
+      );
+      this.chunkedNonActiveEntities$.next(
+        this._availableNonActiveEntities.slice(0, CHUNK_SIZE)
+      );
+      this._latestChunk = 0;
+    }
+  }
 
   onScroll = (event: Event) => {
     const target = event.target as HTMLElement;
@@ -78,14 +93,15 @@ export class ShowAllComponent {
   loadNextNonActiveChunk = () => {
     const chunk = this.chunkedNonActiveEntities$.value;
     const offset = chunk.length;
-    const nextChunkAvailable = offset !== this._nonActiveEntities.length;
+    const nextChunkAvailable =
+      offset !== this._availableNonActiveEntities.length;
     if (!nextChunkAvailable) {
       return;
     }
 
     this.chunkedNonActiveEntities$.next([
       ...chunk,
-      ...this._nonActiveEntities.slice(offset, offset + CHUNK_SIZE),
+      ...this._availableNonActiveEntities.slice(offset, offset + CHUNK_SIZE),
     ]);
   };
 }
