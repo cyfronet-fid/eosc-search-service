@@ -20,11 +20,6 @@ export const trainingsAdapter: IAdapter = {
     url: '/trainings/' + training.id || '',
     coloredTags: [
       {
-        colorClassName: 'tag-almond',
-        value: toArray(training['license']),
-        filter: 'license',
-      },
-      {
         value: toArray(training?.best_access_right),
         filter: 'best_access_right',
         colorClassName: (training?.best_access_right || '').match(
@@ -32,6 +27,11 @@ export const trainingsAdapter: IAdapter = {
         )
           ? 'tag-light-green'
           : 'tag-light-coral',
+      },
+      {
+        colorClassName: 'tag-almond',
+        value: toArray(training['license']),
+        filter: 'license',
       },
       {
         colorClassName: 'tag-peach',
