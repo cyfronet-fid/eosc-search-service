@@ -2,6 +2,7 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { IService } from './service.model';
 import { COLLECTION } from './search-metadata.data';
+import { toArray } from '@collections/filters-serializers/utils';
 
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -17,7 +18,7 @@ export const servicesAdapter: IAdapter = {
     collection: COLLECTION,
     coloredTag: [
       {
-        value: service?.best_access_right || '',
+        value: toArray(service?.best_access_right),
         filter: 'best_access_right',
         colorClassName: (service?.best_access_right || '').match(
           /open(.access)?/gi
@@ -28,18 +29,18 @@ export const servicesAdapter: IAdapter = {
       {
         colorClassName: 'tag-peach',
         filter: 'language',
-        value: service?.language || [],
+        value: toArray(service?.language),
       },
     ],
     tags: [
       {
         label: 'Scientific domain',
-        value: service.scientific_domains || [],
+        value: toArray(service.scientific_domains),
         filter: 'scientific_domains',
       },
       {
         label: 'Organisation',
-        value: service.resource_organisation || '',
+        value: toArray(service.resource_organisation),
         filter: 'resource_organisation',
       },
     ],

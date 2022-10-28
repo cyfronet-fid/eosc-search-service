@@ -15,13 +15,13 @@ export interface IResult {
 
 export interface ITag {
   label: string;
-  value: string | string[];
+  value: string[];
   filter: string;
 }
 
 export interface IColoredTag {
   colorClassName: string;
-  value: string | string[];
+  value: string[];
   filter: string;
 }
 

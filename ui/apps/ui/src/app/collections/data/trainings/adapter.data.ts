@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { ITraining } from '@collections/data/trainings/training.model';
 import moment from 'moment';
+import { toArray } from '@collections/filters-serializers/utils';
 
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -20,11 +21,11 @@ export const trainingsAdapter: IAdapter = {
     coloredTag: [
       {
         colorClassName: 'tag-almond',
-        value: training['license'] || [],
+        value: toArray(training['license']),
         filter: 'license',
       },
       {
-        value: training?.best_access_right || [],
+        value: toArray(training?.best_access_right),
         filter: 'best_access_right',
         colorClassName: (training?.best_access_right || '').match(
           /open(.access)?/gi
@@ -35,28 +36,28 @@ export const trainingsAdapter: IAdapter = {
       {
         colorClassName: 'tag-peach',
         filter: 'language',
-        value: training?.language || [],
+        value: toArray(training?.language),
       },
     ],
     tags: [
       {
         label: 'Authors',
-        value: training['author_names'] || [],
+        value: toArray(training['author_names']),
         filter: 'author_names',
       },
       {
         label: 'Key words',
-        value: training['keywords'] || [],
+        value: toArray(training['keywords']),
         filter: 'keywords',
       },
       {
         label: 'Resource type',
-        value: training['resource_type'] || [],
+        value: toArray(training['resource_type']),
         filter: 'resource_type',
       },
       {
         label: 'Content type',
-        value: training['content_type'] || [],
+        value: toArray(training['content_type']),
         filter: 'content_type',
       },
     ],
