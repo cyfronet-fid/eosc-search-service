@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IColoredTag, ITag } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
-import { isArray, truncate } from 'lodash-es';
+import { truncate } from 'lodash-es';
 import { Router } from '@angular/router';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
@@ -43,57 +43,28 @@ const shortText = (text: string, maxWords: number): string => {
         </a>
 
         <ng-container *ngFor="let tag of coloredTags">
-          <ng-container *ngIf="isArray(tag.value)">
-            <a
-              *ngFor="let value of tag.value"
-              [attr.class]="tag.colorClassName"
-              href="javascript:void(0)"
-              (click)="setActiveFilter(tag.filter, $any(value))"
-            >
-              {{ value }}
-            </a>
-          </ng-container>
-          <ng-container *ngIf="!isArray(tag.value)">
-            <a
-              [attr.class]="tag.colorClassName"
-              href="javascript:void(0)"
-              (click)="setActiveFilter(tag.filter, $any(tag.value))"
-            >
-              {{ tag.value }}
-            </a>
-          </ng-container>
+          <a
+            *ngFor="let value of tag.value"
+            [attr.class]="tag.colorClassName"
+            href="javascript:void(0)"
+            (click)="setActiveFilter(tag.filter, $any(value))"
+          >
+            {{ value }}
+          </a>
         </ng-container>
       </div>
 
       <div id="tags">
         <ng-container *ngFor="let tag of tags">
-          <div
-            class="tag-row"
-            *ngIf="
-              (isArray(tag.value) && tag.value.length > 0) ||
-              (!isArray(tag.value) && tag.value && tag.value.trim() !== '')
-            "
-          >
+          <div class="tag-row" *ngIf="tag.value.length > 0">
             <span class="tag tag-title">{{ tag.label }}: </span>
-            <ng-container *ngIf="isArray(tag.value)">
-              <ng-container *ngFor="let singleValue of $any(tag.value)">
-                <span class="tag"
-                  ><a
-                    href="javascript:void(0)"
-                    (click)="setActiveFilter(tag.filter, singleValue)"
-                    >{{ singleValue }}</a
-                  >&nbsp;&nbsp;</span
-                >
-              </ng-container>
-            </ng-container>
-            <ng-container *ngIf="!isArray(tag.value)">
-              <span class="tag">
-                <a
+            <ng-container *ngFor="let singleValue of $any(tag.value)">
+              <span class="tag"
+                ><a
                   href="javascript:void(0)"
-                  (click)="setActiveFilter(tag.filter, $any(tag.value))"
-                  >{{ tag.value }}</a
-                >
-                &nbsp;&nbsp;</span
+                  (click)="setActiveFilter(tag.filter, singleValue)"
+                  >{{ singleValue }}</a
+                >&nbsp;&nbsp;</span
               >
             </ng-container>
           </div>
@@ -160,8 +131,6 @@ export class ResultComponent {
     private _filtersConfigsRepository: FiltersConfigsRepository,
     public redirectService: RedirectService
   ) {}
-
-  isArray = isArray;
 
   async setActiveFilter(filter: string, value: string) {
     await this._router.navigate([], {
