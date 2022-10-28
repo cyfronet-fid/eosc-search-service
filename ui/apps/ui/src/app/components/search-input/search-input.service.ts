@@ -8,6 +8,7 @@ import {
   adapterType,
 } from '@collections/repositories/types';
 import { toSuggestedResults } from './utils';
+import { URL_PARAM_NAME } from '@collections/data/all/nav-config.data';
 
 const MAX_COLLECTION_RESULTS = 3; // TODO: Move to env file
 
@@ -28,7 +29,9 @@ export class SearchInputService {
 
     const collections: ICollectionSearchMetadata[] =
       collectionName === 'all'
-        ? this._searchMetadataRepository.getAll()
+        ? this._searchMetadataRepository
+            .getAll()
+            .filter(({ id }) => id !== URL_PARAM_NAME)
         : [this._searchMetadataRepository.get(collectionName)];
 
     return combineLatest(this._suggestedResultsBy$(q, collections)).pipe(
