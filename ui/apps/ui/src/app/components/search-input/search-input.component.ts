@@ -28,6 +28,7 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
 import { ICollectionNavConfig } from '@collections/repositories/types';
 import { DOCUMENT } from '@angular/common';
 import { RedirectService } from '@collections/services/redirect.service';
+import { LABEL } from '@collections/data/all/nav-config.data';
 
 @UntilDestroy()
 @Component({
