@@ -2,7 +2,6 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
-import moment from 'moment';
 import { toArray } from '@collections/filters-serializers/utils';
 
 export const datasetsAdapter: IAdapter = {
@@ -13,9 +12,6 @@ export const datasetsAdapter: IAdapter = {
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
-    date: openAIREResult['publication_date']
-      ? moment(openAIREResult['publication_date']).format('DD MMMM YYYY')
-      : '',
     url: `https://explore.eosc-portal.eu/search/result?id=${openAIREResult?.id
       ?.split('|')
       ?.pop()}`,
@@ -47,14 +43,14 @@ export const datasetsAdapter: IAdapter = {
         filter: 'author_names',
       },
       {
-        label: 'Field of science',
-        value: toArray(openAIREResult?.fos),
-        filter: 'fos',
-      },
-      {
         label: 'DOI',
         value: toArray(openAIREResult?.doi),
         filter: 'doi',
+      },
+      {
+        label: 'Field of Science',
+        value: toArray(openAIREResult?.fos),
+        filter: 'fos',
       },
     ],
     type: openAIREResult?.type || '',

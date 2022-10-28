@@ -52,11 +52,6 @@ export const publicationsAdapter: IAdapter = {
         filter: 'publisher',
       },
       {
-        label: 'Field of science',
-        value: toArray(openAIREResult?.fos),
-        filter: 'fos',
-      },
-      {
         label: 'Document type',
         value: [...new Set(toArray(openAIREResult?.document_type))],
         filter: 'document_type',
@@ -65,6 +60,11 @@ export const publicationsAdapter: IAdapter = {
         label: 'DOI',
         value: toArray(openAIREResult?.doi),
         filter: 'doi',
+      },
+      {
+        label: 'Field of Science',
+        value: toArray(openAIREResult?.fos),
+        filter: 'fos',
       },
     ],
     type: openAIREResult?.type || '',
