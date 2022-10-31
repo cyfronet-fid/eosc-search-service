@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <div class="search-bar">
       <div class="row">
-        <div class="col-sm-3 col-12">
+        <div class="col-md-3 col-12 logo-wrapper">
           <a href="/">
             <img
               id="logo"
@@ -15,7 +15,7 @@ import { Component } from '@angular/core';
             />
           </a>
         </div>
-        <div class="col-sm-9 col-12 search-row">
+        <div class="col-md-9 col-12 search-row">
           <ess-search-input></ess-search-input>
         </div>
       </div>
