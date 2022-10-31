@@ -217,10 +217,206 @@ h6 {
   color: #0c2bd5 !important;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 1320px) {
+
   .container--xxl {
     padding: 0 15px;
   }
+
+}
+
+@media (max-width: 992px) {
+
+  #container {
+    margin-top: 40px;
+  }
+
+  .logo-wrapper {
+    text-align: center;
+  }
+
+  .help-row {
+    .col-lg-3 {
+      margin-bottom: 30px !important;
+    }
+  }
+
+  .clear-button {
+    float: none;
+  }
+
+  #dashboard__filters {
+    .filter-title {
+      width: 90%;
+    }
+  }
+
+  .provider {
+    .bg-light {
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+
+  #container {
+    margin-top: 20px;
+  }
+
+  #dashboard__filters {
+    .filter-title {
+      width: 85%;
+    }
+  }
+
+  .query-input {
+    margin-top: 10px;
+  }
+
+  #sub-nav {
+    margin-top: 0;
+  }
+
+  .eosc-common.footer {
+    ul {
+      margin-bottom: 25px;
+    }
+  }
+
+}
+
+@media (max-width: 576px) {
+
+  body {
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .container--xxl {
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 20px;
+    line-height: 32px;
+  }
+
+  .search-row {
+    #container {
+      margin-top: 10px;
+    }
+  }
+
+  .heading {
+    padding: 20px 0 20px !important;
+
+    .container {
+      padding: 0 10px;
+    }
+
+    .lead {
+      margin: 30px 0 10px;
+    }
+  }
+
+  .search-box {
+    input {
+      font-size: 16px;
+      padding-left: 15px;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .input-group-btn {
+      width: 100%;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .btn-primary {
+      padding-left: 25px;
+      padding-right: 25px;
+      border-radius: 25px;
+    }
+
+    select {
+      max-width: 120px;
+      font-size: 13px;
+      border-radius: 0 10px 10px 0 !important;
+      padding: .375rem 1.25rem .375rem .25rem
+    }
+  }
+
+  .cards-container {
+    margin-bottom: 50px
+  }
+
+  .help {
+    padding: 90px 0 10px;
+  }
+
+  .help h3,
+  .looking h3 {
+    font-size: 20px;
+    padding-bottom: 15px;
+    margin-bottom: 21px;
+  }
+
+  .query-input {
+    margin: 15px 0 5px;
+  }
+
+  #btn--clear-query {
+    margin: 0 !important;
+    font-size: 11px;
+  }
+
+  .clear-button {
+    float: right;
+    margin-bottom: 15px;
+    margin-top: -35px;
+  }
+
+  .results {
+    #container {
+      padding: 35px 15px 20px;
+      margin: 0 0 25px;
+    }
+  }
+
+  .clear-button:hover {
+    margin-top: -35px;
+  }
+
+  #clear-all-badge {
+    margin-bottom: 20px;
+  }
+
+  .who-are-you .bg-light .card-title,
+  .provider .bg-light .card-title {
+    color: #0c2bd5;
+    font-size: 20px;
+    line-height: 25px;
+    margin-top: 25px;
+    text-decoration: none;
+  }
+
+  .container--xxl {
+    padding: 0 15px;
+  }
+
+  .help-row {
+    .col-lg-3 {
+      margin-bottom: 30px !important;
+    }
+  }
+
+  .provider {
+    .bg-light {
+      margin: 0;
+    }
+  }
+
   .search-box {
     margin: 20px 0 0 0;
   }
@@ -242,7 +438,13 @@ h6 {
   .cdk-virtual-scroll-content-wrapper {
     padding-right: 10px;
   }
+
+  #sub-nav a {
+    margin-right: 9px;
+  }
 }
+
+
 
 .results #container {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
