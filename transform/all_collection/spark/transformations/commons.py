@@ -68,7 +68,7 @@ TRAIN_UNI_CAT = "Access training materials"
 
 unified_categories_mapping = {
     OAG_UNI_CAT: ("data", "publication", "software"),
-    TRAIN_UNI_CAT: ("training", ),
+    TRAIN_UNI_CAT: ("training",),
 }
 
 
