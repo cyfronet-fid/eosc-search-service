@@ -14,6 +14,7 @@ from transform.all_collection.spark.utils.utils import drop_columns, add_columns
 from transform.all_collection.spark.utils.utils import replace_empty_str
 
 __all__ = ["transform_publications"]
+PUBLICATION_TYPE_VALUE = "publication"
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
@@ -57,12 +58,13 @@ def transform_publications(
     publications: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
     """Transform publications"""
-    col_name = "publication"
     harvested_properties = {}
 
-    check_type(publications, desired_type=col_name)
+    check_type(publications, desired_type=PUBLICATION_TYPE_VALUE)
     publications = rename_oag_columns(publications)
-    publications = map_best_access_right(publications, harvested_properties, col_name)
+    publications = map_best_access_right(
+        publications, harvested_properties, PUBLICATION_TYPE_VALUE
+    )
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     publications = simplify_language(publications)
     publications = map_publisher(publications)
@@ -74,6 +76,7 @@ def transform_publications(
     harvest_doi(publications, harvested_properties)
     harvest_country(publications, harvested_properties)
     harvest_research_community(publications, harvested_properties)
+    create_unified_categories(publications, harvested_properties)
 
     publications = drop_columns(publications, COLS_TO_DROP)
     harvested_df = create_df(harvested_properties, harvested_schema, spark)

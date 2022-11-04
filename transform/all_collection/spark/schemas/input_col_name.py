@@ -24,6 +24,7 @@ TITLE = "title"
 TYPE = "type"
 URL = "url"
 DOI = "doi"
+UNIFIED_CATEGORIES = "unified_categories"
 
 # Training
 FORMAT = "format"

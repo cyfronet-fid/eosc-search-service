@@ -17,9 +17,11 @@ from transform.all_collection.spark.schemas.input_col_name import (
     DOI,
     PUBLISHER,
     FOS,
-    SDG
+    SDG,
+    UNIFIED_CATEGORIES,
 )
 
+# Mappings - values are mapped to the keys
 # Access rights mapping
 _OPEN_ACCESS = "Open access"
 RESTRICTED = "Restricted"
@@ -31,7 +33,7 @@ LOGIN_REQUIRED_ON = (
 CLOSED = "Closed"
 EMBARGO = "Embargo"
 OTHER = "Other"
-# Values are mapped to the keys
+
 access_rights_mapping = {
     _OPEN_ACCESS: (
         "OPEN",
@@ -55,10 +57,18 @@ access_rights_mapping = {
 # Publisher mapping
 ZENODO = "Zenodo"
 FIGSHARE = "Figshare"
-# Values are mapped to the keys
 publisher_mapping = {
     ZENODO: "ZENODO",
     FIGSHARE: "figshare",
+}
+
+# Unified categories mapping
+OAG_UNI_CAT = "Discover research outputs"
+TRAIN_UNI_CAT = "Access training materials"
+
+unified_categories_mapping = {
+    OAG_UNI_CAT: ("data", "publication", "software"),
+    TRAIN_UNI_CAT: ("training", ),
 }
 
 
@@ -302,3 +312,19 @@ def cast_oag_columns(df: DataFrame) -> DataFrame:
     df = transform_date(df, "publication_date", "yyyy-MM-dd")
 
     return df
+
+
+def create_unified_categories(df: DataFrame, harvested_properties: Dict) -> None:
+    """Create unified categories"""
+    type_column = df.select(TYPE).collect()
+    uni_cat_column = []
+
+    for _type in type_column:
+        for uni_cat, col_name in unified_categories_mapping.items():
+            if _type[TYPE] in col_name:
+                uni_cat_column.append([uni_cat])
+                break
+        else:
+            uni_cat_column.append([])
+
+    harvested_properties[UNIFIED_CATEGORIES] = uni_cat_column

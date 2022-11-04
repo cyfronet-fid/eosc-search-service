@@ -16,6 +16,7 @@ from transform.all_collection.spark.utils.utils import (
 )
 from transform.all_collection.spark.transformations.commons import (
     create_open_access,
+    create_unified_categories
 )
 from transform.all_collection.spark.schemas.input_col_name import (
     DURATION,
@@ -29,6 +30,7 @@ from transform.all_collection.spark.utils.join_dfs import create_df, join_differ
 from transform.all_collection.spark.utils.utils import replace_empty_str
 
 __all__ = ["transform_trainings"]
+TRAINING_TYPE_VALUE = "training"
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
@@ -80,18 +82,20 @@ def transform_trainings(
     Missing values, nulls everywhere, empty strings,
     different formats of the same property. Be careful.
     """
-    col_name = "training"
     harvested_properties = {}
 
     trainings = rename_trainings_columns(trainings, COLS_TO_RENAME)
     trainings = convert_ids(trainings, increment=1_000_000)
-    trainings = trainings.withColumn("type", lit(col_name))
-    trainings = map_best_access_right(trainings, harvested_properties, col_name)
+    trainings = trainings.withColumn("type", lit(TRAINING_TYPE_VALUE))
+    trainings = map_best_access_right(
+        trainings, harvested_properties, TRAINING_TYPE_VALUE
+    )
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     transform_duration(trainings, "duration", harvested_properties)
     trainings = transform_date(trainings, "publication_date", "dd-MM-yyyy")
     trainings = cast_trainings_columns(trainings)
     trainings = cast_invalid_columns(trainings, (AUTHOR_NAMES, FORMAT, KEYWORDS))
+    create_unified_categories(trainings, harvested_properties)
 
     trainings = drop_columns(trainings, COLS_TO_DROP)
     harvested_df = create_df(harvested_properties, harvested_schema, spark)

@@ -34,6 +34,7 @@ oag_harvested_schema = StructType(
         StructField("open_access", BooleanType(), True),
         StructField("research_community", ArrayType(StringType()), True),
         StructField("sdg", ArrayType(StringType()), True),
+        StructField("unified_categories", ArrayType(StringType()), True),
         StructField("url", ArrayType(StringType()), True),
     ]
 )
@@ -43,6 +44,7 @@ train_harvested_schema = StructType(
         StructField("best_access_right", StringType(), True),
         StructField("duration", LongType(), True),
         StructField("open_access", BooleanType(), True),
+        StructField("unified_categories", ArrayType(StringType()), True),
     ]
 )
 
