@@ -17,7 +17,6 @@ __all__ = ["transform_publications"]
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
-    "code_repository_url",
     "documentation_url",
     "programming_language",
     "size",
@@ -34,6 +33,7 @@ COLS_TO_ADD = (
     "target_group",
 )
 COLS_TO_DROP = (
+    "affiliation",
     "author",
     "context",
     "contributor",
@@ -68,7 +68,7 @@ def transform_publications(
     publications = map_publisher(publications)
 
     harvest_author_names_and_pids(publications, harvested_properties)
-    harvest_sdg_and_fos(publications, harvested_properties, prop_to_harvest=(SDG, FOS))
+    harvest_sdg_and_fos(publications, harvested_properties)
     harvest_funder(publications, harvested_properties)
     harvest_url_and_document_type(publications, harvested_properties)
     harvest_doi(publications, harvested_properties)

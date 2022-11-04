@@ -39,7 +39,7 @@ def send_to_solr(
         for num, status in enumerate(req_statuses):
             if status != 200:
                 logger.error(
-                    f"{col_name} - {file} failed to be sent to collection: {s_col_names[num]}"
+                    f"{col_name} - {file} failed to be sent to the Solr collection: {s_col_names[num]}, status={status}"
                 )
 
 

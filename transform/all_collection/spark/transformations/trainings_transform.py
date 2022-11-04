@@ -33,7 +33,6 @@ __all__ = ["transform_trainings"]
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
     "author_pids",
-    "code_repository_url",
     "country",
     "document_type",
     "documentation_url",

@@ -21,23 +21,7 @@ __all__ = [
 ]
 
 # IMPORTANT keep those schema alphabetical - or write sorting for those
-df_harvested_schema = StructType(
-    [
-        StructField("author_names", ArrayType(StringType()), True),
-        StructField("author_pids", ArrayType(ArrayType(StringType())), True),
-        StructField("best_access_right", StringType(), True),
-        StructField("country", ArrayType(StringType()), True),
-        StructField("document_type", ArrayType(StringType()), True),
-        StructField("doi", ArrayType(StringType()), True),
-        StructField("funder", ArrayType(StringType()), True),
-        StructField("open_access", BooleanType(), True),
-        StructField("research_community", ArrayType(StringType()), True),
-        StructField("sdg", ArrayType(StringType()), True),
-        StructField("url", ArrayType(StringType()), True),
-    ]
-)
-
-pub_harvested_schema = StructType(
+oag_harvested_schema = StructType(
     [
         StructField("author_names", ArrayType(StringType()), True),
         StructField("author_pids", ArrayType(ArrayType(StringType())), True),
@@ -50,21 +34,6 @@ pub_harvested_schema = StructType(
         StructField("open_access", BooleanType(), True),
         StructField("research_community", ArrayType(StringType()), True),
         StructField("sdg", ArrayType(StringType()), True),
-        StructField("url", ArrayType(StringType()), True),
-    ]
-)
-
-soft_harvested_schema = StructType(
-    [
-        StructField("author_names", ArrayType(StringType()), True),
-        StructField("author_pids", ArrayType(ArrayType(StringType())), True),
-        StructField("best_access_right", StringType(), True),
-        StructField("country", ArrayType(StringType()), True),
-        StructField("document_type", ArrayType(StringType()), True),
-        StructField("doi", ArrayType(StringType()), True),
-        StructField("funder", ArrayType(StringType()), True),
-        StructField("open_access", BooleanType(), True),
-        StructField("research_community", ArrayType(StringType()), True),
         StructField("url", ArrayType(StringType()), True),
     ]
 )
@@ -87,9 +56,9 @@ ser_harvested_schema = StructType(
 )
 
 harvested_schemas = {
-    DATASET: df_harvested_schema,
-    PUBLICATION: pub_harvested_schema,
-    SOFTWARE: soft_harvested_schema,
+    DATASET: oag_harvested_schema,
+    PUBLICATION: oag_harvested_schema,
+    SOFTWARE: oag_harvested_schema,
     TRAINING: train_harvested_schema,
     SERVICE: ser_harvested_schema,
 }
