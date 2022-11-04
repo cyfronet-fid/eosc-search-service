@@ -16,7 +16,7 @@ from transform.all_collection.spark.utils.utils import (
 )
 from transform.all_collection.spark.transformations.commons import (
     create_open_access,
-    create_unified_categories
+    create_unified_categories,
 )
 from transform.all_collection.spark.schemas.input_col_name import (
     DURATION,
