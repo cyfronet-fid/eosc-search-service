@@ -28,6 +28,7 @@ from transform.all_collection.spark.utils.utils import replace_empty_str
 
 
 __all__ = ["transform_services"]
+SERVICE_TYPE_VALUE = "service"
 
 COLS_TO_ADD = (
     "author_names",
@@ -55,6 +56,7 @@ COLS_TO_ADD = (
     "source",
     "subtitle",
     "target_group",
+    "unified_categories",
     "url",
 )
 COLS_TO_DROP = (GEO_AV, RESOURCE_GEO_LOC, "public_contacts")
@@ -64,12 +66,11 @@ def transform_services(
     services: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
     """Transform services"""
-    col_name = "service"
     harvested_properties = {}
 
-    services = services.withColumn("type", lit(col_name))
+    services = services.withColumn("type", lit(SERVICE_TYPE_VALUE))
     services = rename_and_cast_columns(services)
-    services = map_best_access_right(services, harvested_properties, col_name)
+    services = map_best_access_right(services, harvested_properties, SERVICE_TYPE_VALUE)
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     simplify_geo_properties(services, harvested_properties)
     services = simplify_urls(services)

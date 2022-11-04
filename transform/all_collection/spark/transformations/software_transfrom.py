@@ -12,6 +12,7 @@ from transform.all_collection.spark.schemas.input_col_name import (
 from transform.all_collection.spark.utils.utils import replace_empty_str
 
 __all__ = ["transform_software"]
+SOFTWARE_TYPE_VALUE = "software"
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
@@ -55,12 +56,13 @@ def transform_software(
     software: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
     """Transform software"""
-    col_name = "software"
     harvested_properties = {}
 
-    check_type(software, desired_type=col_name)
+    check_type(software, desired_type=SOFTWARE_TYPE_VALUE)
     software = rename_oag_columns(software)
-    software = map_best_access_right(software, harvested_properties, col_name)
+    software = map_best_access_right(
+        software, harvested_properties, SOFTWARE_TYPE_VALUE
+    )
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     software = simplify_language(software)
     software = map_publisher(software)
@@ -72,6 +74,7 @@ def transform_software(
     harvest_doi(software, harvested_properties)
     harvest_country(software, harvested_properties)
     harvest_research_community(software, harvested_properties)
+    create_unified_categories(software, harvested_properties)
 
     software = drop_columns(software, COLS_TO_DROP)
     harvested_df = create_df(harvested_properties, harvested_schema, spark)

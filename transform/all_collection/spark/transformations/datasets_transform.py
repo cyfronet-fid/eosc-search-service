@@ -14,6 +14,7 @@ from transform.all_collection.spark.utils.utils import replace_empty_str
 
 
 __all__ = ["transform_datasets"]
+DATASET_TYPE_VALUE = "data"
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
@@ -57,13 +58,13 @@ def transform_datasets(
     datasets: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
     """Transform datasets"""
-    col_name = "data"
     harvested_properties = {}
 
-    datasets = datasets.withColumn(TYPE, lit(col_name))  # Change type to col_name
-    check_type(datasets, desired_type=col_name)
+    # Type: dataset -> data
+    datasets = datasets.withColumn(TYPE, lit(DATASET_TYPE_VALUE))
+    check_type(datasets, desired_type=DATASET_TYPE_VALUE)
     datasets = rename_oag_columns(datasets)
-    datasets = map_best_access_right(datasets, harvested_properties, col_name)
+    datasets = map_best_access_right(datasets, harvested_properties, DATASET_TYPE_VALUE)
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     datasets = simplify_language(datasets)
     datasets = map_publisher(datasets)
@@ -75,6 +76,7 @@ def transform_datasets(
     harvest_doi(datasets, harvested_properties)
     harvest_country(datasets, harvested_properties)
     harvest_research_community(datasets, harvested_properties)
+    create_unified_categories(datasets, harvested_properties)
 
     datasets = drop_columns(datasets, COLS_TO_DROP)
     harvested_df = create_df(harvested_properties, harvested_schema, spark)
