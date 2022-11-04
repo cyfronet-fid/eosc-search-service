@@ -7,7 +7,6 @@ from transform.all_collection.spark.transformations.commons import *
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
 from transform.all_collection.spark.utils.utils import drop_columns, add_columns
 from transform.all_collection.spark.schemas.input_col_name import (
-    SDG,
     UNIQUE_SERVICE_COLUMNS,
 )
 from transform.all_collection.spark.utils.utils import replace_empty_str
@@ -17,7 +16,6 @@ __all__ = ["transform_datasets"]
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
-    "code_repository_url",
     "documentation_url",
     "fos",
     "programming_language",
@@ -34,6 +32,7 @@ COLS_TO_ADD = (
     "target_group",
 )
 COLS_TO_DROP = (
+    "affiliation",
     "author",
     "context",
     "contributor",
@@ -68,7 +67,7 @@ def transform_datasets(
     datasets = map_publisher(datasets)
 
     harvest_author_names_and_pids(datasets, harvested_properties)
-    harvest_sdg_and_fos(datasets, harvested_properties, prop_to_harvest=(SDG,))
+    harvest_sdg_and_fos(datasets, harvested_properties)
     harvest_funder(datasets, harvested_properties)
     harvest_url_and_document_type(datasets, harvested_properties)
     harvest_doi(datasets, harvested_properties)

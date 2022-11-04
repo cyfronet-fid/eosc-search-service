@@ -32,7 +32,6 @@ __all__ = ["transform_services"]
 COLS_TO_ADD = (
     "author_names",
     "author_pids",
-    "code_repository_url",
     "content_type",
     "country",
     "document_type",

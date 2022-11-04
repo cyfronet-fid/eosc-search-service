@@ -32,6 +32,7 @@ COLS_TO_ADD = (
     "target_group",
 )
 COLS_TO_DROP = (
+    "affiliation",
     "author",
     "context",
     "contributor",
@@ -65,6 +66,7 @@ def transform_software(
     software = map_publisher(software)
 
     harvest_author_names_and_pids(software, harvested_properties)
+    harvest_sdg_and_fos(software, harvested_properties)
     harvest_funder(software, harvested_properties)
     harvest_url_and_document_type(software, harvested_properties)
     harvest_doi(software, harvested_properties)

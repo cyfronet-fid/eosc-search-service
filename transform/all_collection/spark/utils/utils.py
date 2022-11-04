@@ -104,12 +104,15 @@ def check_trans_consistency(
 
 def print_results(failed_files: Dict, logger: Log4J) -> None:
     """Print results"""
+    err_printed = False
     logger.info("Data transformation and sending data to Solr were successful!")
     for col_name, f_file in failed_files.items():
         if f_file:
-            logger.error(
-                "But certain files failed either to be transformed or to be sent to Solr"
-            )
+            if not err_printed:
+                err_printed = True
+                logger.error(
+                    "Certain files failed either to be transformed or to be sent to Solr"
+                )
             logger.error(f"{col_name}: {f_file}")
 
 

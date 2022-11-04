@@ -1,6 +1,6 @@
 # pylint: disable=line-too-long, invalid-name, too-many-nested-blocks, unnecessary-dunder-call, too-many-branches
 """Common dataframes transformations"""
-from typing import Dict, Sequence, List
+from typing import Dict, Tuple, List
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, to_date, split, when
 from transform.all_collection.spark.schemas.input_col_name import (
@@ -16,6 +16,8 @@ from transform.all_collection.spark.schemas.input_col_name import (
     URL,
     DOI,
     PUBLISHER,
+    FOS,
+    SDG
 )
 
 # Access rights mapping
@@ -104,7 +106,7 @@ def check_type(df: DataFrame, desired_type: str) -> None:
 
 
 def harvest_sdg_and_fos(
-    df: DataFrame, harvested_properties: Dict, prop_to_harvest: Sequence
+    df: DataFrame, harvested_properties: Dict, prop_to_harvest: Tuple = (FOS, SDG)
 ) -> None:
     """Harvest sdg and fos from subjects"""
     subjects = df.select("subject").collect()
@@ -286,7 +288,6 @@ def rename_oag_columns(df: DataFrame) -> DataFrame:
     """Rename certain OAG columns"""
     df = (
         df.withColumnRenamed("bestaccessright", "best_access_right")
-        .withColumnRenamed("codeRepositoryUrl", "code_repository_url")
         .withColumnRenamed("documentationUrl", "documentation_url")
         .withColumnRenamed("programmingLanguage", "programming_language")
         .withColumnRenamed("publicationdate", "publication_date")
