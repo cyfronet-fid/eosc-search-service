@@ -461,13 +461,14 @@
   <field name="categories" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="certifications" type="strings" required="false"/>
   <field name="changelog" type="strings" required="false"/>
-  <field name="code_repository_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="code_repository_url" type="text_general" tokenized="false" indexed="false" stored="false" uninvertible="false" multiValued="false" required="false"/>
   <field name="content_type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="country" type="strings" required="false"/>
   <field name="dedicated_for" type="strings" required="false"/>
   <field name="description" type="text_general" docValues="false" indexed="true" stored="true"/>
   <field name="document_type" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="documentation_url" type="strings" required="false"/>
+  <field name="doi" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="duration" type="plong" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="eosc_provider" type="string" required="false" useDocValuesAsStored="true"/>
   <field name="format" type="strings" required="false"/>
@@ -533,6 +534,7 @@
   <field name="training_information_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="trl" type="text_general" docValues="false" indexed="true" stored="true"/>
   <field name="type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="unified_categories" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="updated_at" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="upstream_id" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="url" type="text_general" docValues="false" indexed="true" stored="true"/>
