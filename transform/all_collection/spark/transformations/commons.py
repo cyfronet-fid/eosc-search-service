@@ -1,4 +1,4 @@
-# pylint: disable=line-too-long, invalid-name, too-many-nested-blocks, unnecessary-dunder-call, too-many-branches
+# pylint: disable=line-too-long, invalid-name, too-many-nested-blocks, unnecessary-dunder-call, too-many-branches, unsubscriptable-object
 """Common dataframes transformations"""
 from typing import Dict, Tuple, List
 from pyspark.sql import DataFrame

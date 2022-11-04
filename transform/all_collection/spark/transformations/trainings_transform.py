@@ -25,6 +25,7 @@ from transform.all_collection.spark.schemas.input_col_name import (
     KEYWORDS,
     FORMAT,
     BEST_ACCESS_RIGHT,
+    UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
 )
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
 from transform.all_collection.spark.utils.utils import replace_empty_str
@@ -34,6 +35,7 @@ TRAINING_TYPE_VALUE = "training"
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
+    *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
     "author_pids",
     "country",
     "document_type",

@@ -23,6 +23,7 @@ failed_files = {
     SOFTWARE: [],
     TRAINING: [],
     SERVICE: [],
+    DATASOURCE: [],
 }
 
 if __name__ == "__main__":
@@ -38,7 +39,6 @@ if __name__ == "__main__":
         for file in tqdm(files, desc=col_name):
             file_path = col_input_dir + file
             df = load_data(spark, file_path, col_name)
-
             # Transform
             try:
                 df_trans = trans.trans_map[col_name](

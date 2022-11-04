@@ -9,6 +9,7 @@ from transform.all_collection.spark.utils.join_dfs import create_df, join_differ
 from transform.all_collection.spark.utils.utils import drop_columns, add_columns
 from transform.all_collection.spark.schemas.input_col_name import (
     UNIQUE_SERVICE_COLUMNS,
+    UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
 )
 from transform.all_collection.spark.utils.utils import replace_empty_str
 
@@ -18,6 +19,7 @@ DATASET_TYPE_VALUE = "dataset"
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
+    *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
     "documentation_url",
     "fos",
     "programming_language",

@@ -6,12 +6,13 @@ from transform.all_collection.spark.utils.loader import (
     SOFTWARE,
     TRAINING,
     SERVICE,
+    DATASOURCE,
 )
 from .datasets_transform import transform_datasets
 from .publications_transfrom import transform_publications
 from .software_transfrom import transform_software
 from .trainings_transform import transform_trainings
-from .services_transform import transform_services
+from .services_transform import transform_services, transform_data_sources
 
 __all__ = [
     ["trans_map"]
@@ -28,4 +29,5 @@ trans_map = {
     SOFTWARE: transform_software,
     TRAINING: transform_trainings,
     SERVICE: transform_services,
+    DATASOURCE: transform_data_sources,
 }
