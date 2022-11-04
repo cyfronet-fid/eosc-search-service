@@ -3,6 +3,7 @@
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import StructType
+from pyspark.sql.functions import lit
 from transform.all_collection.spark.transformations.commons import *
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
 from transform.all_collection.spark.utils.utils import drop_columns, add_columns
@@ -56,9 +57,10 @@ def transform_datasets(
     datasets: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
     """Transform datasets"""
-    col_name = "dataset"
+    col_name = "data"
     harvested_properties = {}
 
+    datasets = datasets.withColumn(TYPE, lit(col_name))  # Change type to col_name
     check_type(datasets, desired_type=col_name)
     datasets = rename_oag_columns(datasets)
     datasets = map_best_access_right(datasets, harvested_properties, col_name)

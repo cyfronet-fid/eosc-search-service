@@ -99,9 +99,8 @@ def harvest_author_names_and_pids(df: DataFrame, harvested_properties: Dict) -> 
 def check_type(df: DataFrame, desired_type: str) -> None:
     """Check if all records have the right type"""
     df_type = df.select(TYPE).collect()
-
     assert all(
-        (row[TYPE] == desired_type for row in df_type)
+        (row[TYPE].lower() == desired_type.lower() for row in df_type)
     ), f"Not all records have {TYPE}: {desired_type}"
 
 
@@ -133,7 +132,7 @@ def map_best_access_right(
     df: DataFrame, harvested_properties: Dict, col_name: str
 ) -> DataFrame:
     """Harvest best_access_right and map standardize its value"""
-    if col_name.lower() in {"dataset", "publication", "software"}:
+    if col_name.lower() in {"data", "publication", "software"}:
         df = df.withColumn(BEST_ACCESS_RIGHT, col(BEST_ACCESS_RIGHT)["label"])
 
     best_access_right = df.select(BEST_ACCESS_RIGHT).collect()
