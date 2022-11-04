@@ -14,6 +14,7 @@ from transform.all_collection.spark.utils.loader import (
     SOFTWARE,
     TRAINING,
     SERVICE,
+    DATASOURCE,
 )
 
 __all__ = [
@@ -48,12 +49,10 @@ train_harvested_schema = StructType(
     ]
 )
 
-ser_harvested_schema = StructType(
+service_and_data_source_harvested_schema = StructType(
     [
         StructField("best_access_right", StringType(), True),
-        StructField("geographical_availabilities", StringType(), True),
         StructField("open_access", BooleanType(), True),
-        StructField("resource_geographic_locations", StringType(), True),
     ]
 )
 
@@ -62,5 +61,6 @@ harvested_schemas = {
     PUBLICATION: oag_harvested_schema,
     SOFTWARE: oag_harvested_schema,
     TRAINING: train_harvested_schema,
-    SERVICE: ser_harvested_schema,
+    SERVICE: service_and_data_source_harvested_schema,
+    DATASOURCE: service_and_data_source_harvested_schema,
 }

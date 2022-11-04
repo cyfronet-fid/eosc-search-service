@@ -12,6 +12,7 @@ __all__ = [
     "SOFTWARE_PATH",
     "TRAINING_PATH",
     "SERVICE_PATH",
+    "DATASOURCE_PATH",
     "OUTPUT_PATH",
     "INPUT_FORMAT",
     "OUTPUT_FORMAT",
@@ -22,11 +23,13 @@ __all__ = [
     "SOLR_SOFTWARE_COLS",
     "SOLR_TRAINING_COLS",
     "SOLR_SERVICE_COLS",
+    "SOLR_DATASOURCE_COLS",
     "DATASET",
     "PUBLICATION",
     "SOFTWARE",
     "TRAINING",
     "SERVICE",
+    "DATASOURCE",
     "COLLECTIONS",
     "NAMES",
     "PATH",
@@ -41,6 +44,7 @@ PUBLICATION_PATH = "PUBLICATION_PATH"
 SOFTWARE_PATH = "SOFTWARE_PATH"
 TRAINING_PATH = "TRAINING_PATH"
 SERVICE_PATH = "SERVICE_PATH"
+DATASOURCE_PATH = "DATASOURCE_PATH"
 OUTPUT_PATH = "OUTPUT_PATH"
 
 INPUT_FORMAT = "INPUT_FORMAT"
@@ -53,12 +57,14 @@ SOLR_PUBLICATION_COLS = "SOLR_PUBLICATION_COLS"
 SOLR_SOFTWARE_COLS = "SOLR_SOFTWARE_COLS"
 SOLR_TRAINING_COLS = "SOLR_TRAINING_COLS"
 SOLR_SERVICE_COLS = "SOLR_SERVICE_COLS"
+SOLR_DATASOURCE_COLS = "SOLR_DATASOURCE_COLS"
 
 DATASET = "DATASET"
 PUBLICATION = "PUBLICATION"
 SOFTWARE = "SOFTWARE"
 TRAINING = "TRAINING"
 SERVICE = "SERVICE"
+DATASOURCE = "DATASOURCE"
 
 COLLECTIONS = "COLLECTIONS"
 NAMES = "NAMES"
@@ -74,7 +80,7 @@ def load_data(
     spark: SparkSession, data_path: str, col_name: str, _format: str = "json"
 ):
     """Load data based on the provided data path"""
-    if col_name in {TRAINING, SERVICE}:
+    if col_name in {TRAINING, SERVICE, DATASOURCE}:
         return spark.read.format(_format).option("multiline", True).load(data_path)
     return spark.read.format(_format).load(data_path)
 
@@ -82,14 +88,19 @@ def load_data(
 def load_env_vars() -> Dict:
     """Retrieve .env variables"""
     collections = {
-        TRAINING: {
-            NAMES: os.environ.get(SOLR_TRAINING_COLS),
-            PATH: os.environ.get(TRAINING_PATH, "input_data/training/"),
+        DATASOURCE: {
+            NAMES: os.environ.get(SOLR_DATASOURCE_COLS),
+            PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
             FIRST_FILE_PATH: None,
         },
         SERVICE: {
             NAMES: os.environ.get(SOLR_SERVICE_COLS),
             PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
+            FIRST_FILE_PATH: None,
+        },
+        TRAINING: {
+            NAMES: os.environ.get(SOLR_TRAINING_COLS),
+            PATH: os.environ.get(TRAINING_PATH, "input_data/training/"),
             FIRST_FILE_PATH: None,
         },
         SOFTWARE: {

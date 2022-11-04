@@ -7,6 +7,7 @@ We are using .env to store user-specific constants. This file is not tracked by 
 - `SOFTWARE_PATH` - path to software **directory**. Default: `input_data/software/`
 - `TRAINING_PATH` - path to trainings **directory**. Default: `input_data/training/`
 - `SERVICE_PATH` - path to services **directory**. Default: `input_data/service/`
+- `DATASOURCE_PATH` - path to datasources **directory**. Default: `input_data/datasource/`
 - `OUTPUT_PATH` - where the output should be saved? Default: `output`.
 - `INPUT_FORMAT` - Format of the input data files. Default: `JSON`.
 - `OUTPUT_FORMAT` - Format of the output data files. Default: `JSON`.
@@ -17,3 +18,4 @@ We are using .env to store user-specific constants. This file is not tracked by 
 - `SOLR_SOFTWARE_COLS` - The name of the collection/collections to which software will be sent. Example: `"all software"`.
 - `SOLR_TRAINING_COLS` - The name of the collection/collections to which trainings will be sent. Example: `"all training"`.
 - `SOLR_SERVICE_COLS` - The name of the collection/collections to which services will be sent. Example: `"all service"`.
+- `SOLR_DATASOURCE_COLS` - The name of the collection/collections to which datasources will be sent. Example: `"all datasource"`.
