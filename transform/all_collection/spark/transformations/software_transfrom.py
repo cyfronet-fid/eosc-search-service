@@ -25,6 +25,7 @@ COLS_TO_ADD = (
     "duration",
     "eosc_provider",
     "format",
+    "horizontal",
     "pid",
     "level_of_expertise",
     "license",
