@@ -14,7 +14,7 @@ from transform.all_collection.spark.utils.utils import replace_empty_str
 
 
 __all__ = ["transform_datasets"]
-DATASET_TYPE_VALUE = "data"
+DATASET_TYPE_VALUE = "dataset"
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
@@ -26,6 +26,7 @@ COLS_TO_ADD = (
     "duration",
     "eosc_provider",
     "format",
+    "horizontal",
     "pid",
     "level_of_expertise",
     "license",

@@ -41,6 +41,7 @@ COLS_TO_ADD = (
     "doi",
     "fos",
     "funder",
+    "horizontal",
     "pid",
     "programming_language",
     "publisher",

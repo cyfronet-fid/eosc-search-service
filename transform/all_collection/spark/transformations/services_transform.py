@@ -56,7 +56,6 @@ COLS_TO_ADD = (
     "source",
     "subtitle",
     "target_group",
-    "unified_categories",
     "url",
 )
 COLS_TO_DROP = (GEO_AV, RESOURCE_GEO_LOC, "public_contacts")
@@ -94,6 +93,7 @@ def rename_and_cast_columns(services: DataFrame) -> DataFrame:
         .withColumnRenamed("order_type", "best_access_right")
         .withColumnRenamed("language_availability", "language")
         .withColumnRenamed("name", "title")
+        .withColumnRenamed("research_categories", "unified_categories")
         .withColumn("publication_date", col("publication_date").cast("date"))
         .withColumn("last_update", col("last_update").cast("date"))
         .withColumn("synchronized_at", col("synchronized_at").cast("date"))

@@ -142,7 +142,7 @@ def map_best_access_right(
     df: DataFrame, harvested_properties: Dict, col_name: str
 ) -> DataFrame:
     """Harvest best_access_right and map standardize its value"""
-    if col_name.lower() in {"data", "publication", "software"}:
+    if col_name.lower() in {"dataset", "publication", "software"}:
         df = df.withColumn(BEST_ACCESS_RIGHT, col(BEST_ACCESS_RIGHT)["label"])
 
     best_access_right = df.select(BEST_ACCESS_RIGHT).collect()
