@@ -25,6 +25,8 @@ TYPE = "type"
 URL = "url"
 DOI = "doi"
 UNIFIED_CATEGORIES = "unified_categories"
+DOWNLOADS = "usage_counts_downloads"
+VIEWS = "usage_counts_views"
 
 # Training
 FORMAT = "format"

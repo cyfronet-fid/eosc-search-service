@@ -50,6 +50,8 @@ COLS_TO_ADD = (
     "size",
     "source",
     "subtitle",
+    "usage_counts_downloads",
+    "usage_counts_views",
     "version",
 )
 COLS_TO_DROP = ("duration",)
