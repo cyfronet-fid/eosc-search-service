@@ -46,6 +46,7 @@ COLS_TO_DROP = (
     "embargoenddate",
     "eoscIF",
     "format",
+    "indicator",
     "instance",
     "lastupdatetimestamp",
     "originalId",
@@ -68,6 +69,7 @@ def transform_publications(
     )
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     publications = simplify_language(publications)
+    publications = simplify_indicators(publications)
     publications = map_publisher(publications)
 
     harvest_author_names_and_pids(publications, harvested_properties)

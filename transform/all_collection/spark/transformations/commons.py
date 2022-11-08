@@ -19,6 +19,8 @@ from transform.all_collection.spark.schemas.input_col_name import (
     FOS,
     SDG,
     UNIFIED_CATEGORIES,
+    DOWNLOADS,
+    VIEWS,
 )
 
 # Mappings - values are mapped to the keys
@@ -328,3 +330,11 @@ def create_unified_categories(df: DataFrame, harvested_properties: Dict) -> None
             uni_cat_column.append([])
 
     harvested_properties[UNIFIED_CATEGORIES] = uni_cat_column
+
+
+def simplify_indicators(df: DataFrame) -> DataFrame:
+    """Simplify indicators - retrieve downloads, views"""
+    df = df.withColumn(
+        DOWNLOADS, col("indicator")["usageCounts"]["downloads"]
+    ).withColumn(VIEWS, col("indicator")["usageCounts"]["views"])
+    return df

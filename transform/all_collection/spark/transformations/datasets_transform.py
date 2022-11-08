@@ -46,6 +46,7 @@ COLS_TO_DROP = (
     "eoscIF",
     "geolocation",
     "format",
+    "indicator",
     "instance",
     "lastupdatetimestamp",
     "originalId",
@@ -61,13 +62,13 @@ def transform_datasets(
     """Transform datasets"""
     harvested_properties = {}
 
-    # Type: dataset -> data
     datasets = datasets.withColumn(TYPE, lit(DATASET_TYPE_VALUE))
     check_type(datasets, desired_type=DATASET_TYPE_VALUE)
     datasets = rename_oag_columns(datasets)
     datasets = map_best_access_right(datasets, harvested_properties, DATASET_TYPE_VALUE)
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     datasets = simplify_language(datasets)
+    datasets = simplify_indicators(datasets)
     datasets = map_publisher(datasets)
 
     harvest_author_names_and_pids(datasets, harvested_properties)

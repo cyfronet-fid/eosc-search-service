@@ -57,6 +57,8 @@ COLS_TO_ADD = (
     "subtitle",
     "target_group",
     "url",
+    "usage_counts_downloads",
+    "usage_counts_views",
 )
 COLS_TO_DROP = (GEO_AV, RESOURCE_GEO_LOC, "public_contacts")
 

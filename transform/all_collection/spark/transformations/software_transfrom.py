@@ -44,6 +44,7 @@ COLS_TO_DROP = (
     "embargoenddate",
     "eoscIF",
     "format",
+    "indicator",
     "instance",
     "lastupdatetimestamp",
     "originalId",
@@ -66,6 +67,7 @@ def transform_software(
     )
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     software = simplify_language(software)
+    software = simplify_indicators(software)
     software = map_publisher(software)
 
     harvest_author_names_and_pids(software, harvested_properties)
