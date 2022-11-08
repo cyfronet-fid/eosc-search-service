@@ -7,7 +7,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'unified_categories',
       filter: 'unified_categories',
-      label: 'Research categories',
+      label: 'Research step',
       type: 'multiselect',
     },
     {
