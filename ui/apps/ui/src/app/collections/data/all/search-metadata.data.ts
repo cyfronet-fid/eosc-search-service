@@ -9,6 +9,11 @@ export const allCollectionsSearchMetadata: ICollectionSearchMetadata = {
     best_access_right: { field: 'best_access_right', type: 'terms', limit: 0 },
     language: { field: 'language', type: 'terms', limit: 0 },
     fos: { field: 'fos', type: 'terms', limit: 0 },
+    unified_categories: {
+      field: 'unified_categories',
+      type: 'terms',
+      limit: 0,
+    },
   },
   queryMutator: (q: string) => q,
   params: {
