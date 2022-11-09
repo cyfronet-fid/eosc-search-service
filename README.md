@@ -11,13 +11,13 @@ Run `docker-compose up --build`.
 `npm i --force`
 
 ### Run
-**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with proper env variable.**
+**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with `NG_COLLECTIONS_PREFIX` env variable.**
 
 `npm start`
 
 ### Build
 Build artifacts can be found in `ui/dist/apps/ui`.
-**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with proper env variable.**
+**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with `NG_COLLECTIONS_PREFIX` env variable.**
 
 `npm build`
 
