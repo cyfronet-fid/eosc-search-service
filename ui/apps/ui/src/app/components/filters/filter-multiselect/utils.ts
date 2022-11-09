@@ -22,11 +22,11 @@ export const toSearchMetadata = (
 });
 
 export const toFilterFacet = (
-  filter: string,
-  facets: { [facet: string]: IFacetParam }
-) => ({
+  filter: string
+): { [field: string]: IFacetParam } => ({
   [filter]: {
-    ...facets[filter],
+    field: filter,
+    type: 'terms',
     limit: -1,
   },
 });
