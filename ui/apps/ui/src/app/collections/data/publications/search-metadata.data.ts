@@ -1,7 +1,8 @@
 import { ICollectionSearchMetadata } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
+import { environment } from '@environment/environment';
 
-export const COLLECTION = 'publication';
+export const COLLECTION = environment.collectionsPrefix + 'publication';
 export const publicationsSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: {

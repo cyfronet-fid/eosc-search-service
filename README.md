@@ -11,10 +11,13 @@ Run `docker-compose up --build`.
 `npm i --force`
 
 ### Run
+**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with proper env variable.**
+
 `npm start`
 
 ### Build
 Build artifacts can be found in `ui/dist/apps/ui`.
+**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with proper env variable.**
 
 `npm build`
 
@@ -116,6 +119,9 @@ See docker-compose.yml for components.
   > Example: /topic/user_actions 
 - `STOMP_CLIENT_NAME`
   > Example: dev-client
+- `NG_COLLECTIONS_PREFIX`, by default `''`
+  > Example: NG_COLLECTIONS_PREFIX=prod_
+  > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.
 
 `db` envs:
 - `DB_POSTGRES_DB`
