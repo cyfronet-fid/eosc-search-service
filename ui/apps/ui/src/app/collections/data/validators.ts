@@ -106,12 +106,11 @@ export const _validateFiltersConsistency = (
   filters: IFiltersConfig[],
   adapters: IAdapter[]
 ): void => {
-  searchMetadata.forEach(({ id: metadataId, facets }) => {
+  searchMetadata.forEach(({ id: metadataId }) => {
     const collectionFilters = filters.find(
       ({ id: filterId }) => filterId === metadataId
     ) as IFiltersConfig;
     const filtersNames = collectionFilters.filters.map(({ filter }) => filter);
-    const facetsNames = Object.keys(facets);
 
     const adapter = adapters.find(
       ({ id: adapterId }) => metadataId === adapterId
@@ -131,20 +130,6 @@ export const _validateFiltersConsistency = (
     if (missingFilters.length > 0) {
       throw Error(
         `[COLLECTIONS VALIDATOR]: Missing adapter tags filters configurations: ${missingFilters}, for: ${metadataId}`
-      );
-    }
-
-    const sideNavFiltersNames = collectionFilters.filters
-      .filter(({ type }) => type === 'multiselect')
-      .map(({ filter }) => filter);
-    const missingFacets = differenceWith(
-      sideNavFiltersNames,
-      facetsNames,
-      isEqual
-    );
-    if (missingFacets.length > 0) {
-      throw Error(
-        `[COLLECTIONS VALIDATOR]: Missing search metadata facets for filters configurations: ${missingFacets}, for: "${metadataId}"`
       );
     }
   });

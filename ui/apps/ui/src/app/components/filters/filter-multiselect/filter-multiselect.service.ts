@@ -60,7 +60,7 @@ export class FilterMultiselectService {
     return this._fetchTreeNodes$(
       filter,
       toSearchMetadata('*', [], metadata),
-      toFilterFacet(filter, metadata.facets)
+      toFilterFacet(filter)
     ).pipe(
       map(
         (entities) =>
@@ -85,7 +85,7 @@ export class FilterMultiselectService {
     return this._fetchTreeNodes$(
       filter,
       toSearchMetadata(q, fq, metadata),
-      toFilterFacet(filter, metadata.facets)
+      toFilterFacet(filter)
     ).pipe(map((entities) => entities.map(({ id, count }) => ({ id, count }))));
   }
   private _fetchTreeNodes$(
