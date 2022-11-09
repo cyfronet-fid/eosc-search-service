@@ -51,7 +51,6 @@ export const servicesSearchMetadata: ICollectionSearchMetadata = {
       limit: 0,
     },
   },
-  queryMutator: (q: string) => q + '*',
   params: {
     qf: ['title^50', 'author_names^30', 'description^10'],
     collection: COLLECTION,

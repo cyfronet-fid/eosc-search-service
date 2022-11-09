@@ -108,7 +108,7 @@ export class SearchPageComponent implements OnInit {
             rows: MAX_COLLECTION_RESULTS,
             ...routerParams,
             ...metadata.params,
-            q: metadata.queryMutator(routerParams.q),
+            q: routerParams.q + '~',
           };
           return this._fetchDataService.fetchResults$(
             searchMetadata,

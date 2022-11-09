@@ -25,7 +25,6 @@ export const trainingsSearchMetadata: ICollectionSearchMetadata = {
     },
     best_access_right: { field: 'best_access_right', type: 'terms', limit: 0 },
   },
-  queryMutator: (q: string) => q,
   params: {
     qf: ['title', 'description', 'keywords'],
     collection: COLLECTION,

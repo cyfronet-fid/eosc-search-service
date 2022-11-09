@@ -10,7 +10,6 @@ export const allCollectionsSearchMetadata: ICollectionSearchMetadata = {
     language: { field: 'language', type: 'terms', limit: 0 },
     fos: { field: 'fos', type: 'terms', limit: 0 },
   },
-  queryMutator: (q: string) => q,
   params: {
     qf: ['title^50', 'author_names^30', 'description^10'],
     collection: COLLECTION,
