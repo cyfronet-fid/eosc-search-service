@@ -31,6 +31,7 @@ const MAX_CHARS_LENGTH = 256;
       <ess-colored-tags
         [type]="type"
         [tags]="coloredTags"
+        [q]="q$ | async"
         (activeFilter)="setActiveFilter($event.filter, $event.value)"
       ></ess-colored-tags>
       <ess-tags
@@ -78,6 +79,8 @@ const MAX_CHARS_LENGTH = 256;
   ],
 })
 export class ResultComponent {
+  q$ = this._customRoute.q$;
+
   shortTitle = '';
   validUrl: string | null = null;
   showFull = false;
