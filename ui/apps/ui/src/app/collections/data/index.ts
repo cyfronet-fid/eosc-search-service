@@ -37,6 +37,10 @@ import { servicesSearchMetadata } from '@collections/data/services/search-metada
 
 import { validateCollections } from '@collections/data/validators';
 import { servicesNavConfig } from '@collections/data/services/nav-config.data';
+import { otherResourcesProductsFilters } from '@collections/data/other-resources-products/filters.data';
+import { othersResourcesProductsNavConfig } from '@collections/data/other-resources-products/nav-config.data';
+import { otherResourcesProductsSearchMetadata } from '@collections/data/other-resources-products/search-metadata.data';
+import { otherResourcesProductsAdapter } from '@collections/data/other-resources-products/adapter.data';
 
 export const DEFAULT_COLLECTION_ID = ALL_COLLECTIONS_URL_PARAM_NAME;
 export const ADAPTERS: IAdapter[] = [
@@ -47,6 +51,7 @@ export const ADAPTERS: IAdapter[] = [
   servicesAdapter,
   dataSourcesAdapter,
   trainingsAdapter,
+  otherResourcesProductsAdapter,
 ];
 export const FILTERS: IFiltersConfig[] = [
   allCollectionsFilters,
@@ -56,6 +61,7 @@ export const FILTERS: IFiltersConfig[] = [
   servicesFilters,
   dataSourcesFilters,
   trainingsFilters,
+  otherResourcesProductsFilters,
 ];
 export const NAV_CONFIGS: ICollectionNavConfig[] = [
   allCollectionsNavConfig,
@@ -65,6 +71,7 @@ export const NAV_CONFIGS: ICollectionNavConfig[] = [
   servicesNavConfig,
   dataSourcesNavConfig,
   trainingsNavConfig,
+  othersResourcesProductsNavConfig,
 ];
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   allCollectionsSearchMetadata,
@@ -74,6 +81,7 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   servicesSearchMetadata,
   dataSourcesSearchMetadata,
   trainingsSearchMetadata,
+  otherResourcesProductsSearchMetadata,
 ];
 
 validateCollections(ADAPTERS, FILTERS, NAV_CONFIGS, SEARCH_METADATA);

@@ -4,7 +4,10 @@ import { IColoredTag, IValue } from '@collections/repositories/types';
 @Component({
   selector: 'ess-colored-tags',
   template: `<div class="tags-box">
-    <a [routerLink]="'/search/' + type.value" queryParamsHandling="merge">
+    <a
+      [routerLink]="'/search/' + type.value.replace(' ', '-')"
+      [queryParams]="{ q: q }"
+    >
       {{ type.label }}
     </a>
 
@@ -24,6 +27,9 @@ import { IColoredTag, IValue } from '@collections/repositories/types';
 export class ColoredTagsComponent {
   @Input()
   type!: IValue;
+
+  @Input()
+  q!: string | null;
 
   @Input()
   tags: IColoredTag[] = [];

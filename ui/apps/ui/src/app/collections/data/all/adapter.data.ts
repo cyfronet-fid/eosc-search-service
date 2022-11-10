@@ -17,6 +17,7 @@ const urlAdapter = (
     case 'dataset':
     case 'publication':
     case 'software':
+    case 'other':
       return `https://explore.eosc-portal.eu/search/result?id=${data?.id
         ?.split('|')
         ?.pop()}`;

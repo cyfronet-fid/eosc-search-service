@@ -24,7 +24,13 @@ async def register_navigation_user_action(
     url: str,
     resource_id: str,
     resource_type: Literal[
-        "service", "publication", "dataset", "training", "software", "data source"
+        "service",
+        "publication",
+        "dataset",
+        "training",
+        "software",
+        "data source",
+        "other",
     ],
     page_id: str,
     recommendation: bool = False,
