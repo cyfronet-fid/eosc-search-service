@@ -20,7 +20,8 @@ const urlAdapter = (
       return `https://explore.eosc-portal.eu/search/result?id=${data?.id
         ?.split('|')
         ?.pop()}`;
-    case 'services':
+    case 'data source':
+    case 'service':
       return `https://marketplace.eosc-portal.eu/services/${data?.pid}`;
     case 'training':
       return '/trainings/' + data.id;
@@ -81,7 +82,10 @@ export const allCollectionsAdapter: IAdapter = {
         filter: 'resource_organisation',
       },
     ],
-    type: data?.type || '',
+    type: {
+      label: data.type || '',
+      value: (data.type || '')?.replace(/ +/gm, '-'),
+    },
     collection: COLLECTION,
     ...parseStatistics(data),
   }),

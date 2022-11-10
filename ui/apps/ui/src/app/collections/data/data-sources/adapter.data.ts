@@ -12,7 +12,10 @@ export const dataSourcesAdapter: IAdapter = {
     // basic information
     title: dataSource.title?.join(' ') || '',
     description: dataSource.description?.join(' ') || '',
-    type: dataSource.type || '',
+    type: {
+      label: dataSource.type || '',
+      value: (dataSource.type || '')?.replace(/ +/gm, '-'),
+    },
     url: dataSource.pid
       ? `https://marketplace.eosc-portal.eu/services/${dataSource.pid}`
       : '',

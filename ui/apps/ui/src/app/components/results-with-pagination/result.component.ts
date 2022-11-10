@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IColoredTag, ITag } from '@collections/repositories/types';
+import { IColoredTag, ITag, IValue } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { truncate } from 'lodash-es';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ const MAX_CHARS_LENGTH = 256;
 
       <ess-url-title
         [title]="title"
-        [url]="redirectService.internalUrl(validUrl, id, type)"
+        [url]="redirectService.internalUrl(validUrl, id, type.label)"
       >
       </ess-url-title>
 
@@ -96,7 +96,7 @@ export class ResultComponent {
   }
 
   @Input()
-  type!: string;
+  type!: IValue;
 
   @Input()
   tags: ITag[] = [];
