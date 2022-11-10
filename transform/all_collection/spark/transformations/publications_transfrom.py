@@ -18,6 +18,8 @@ PUBLICATION_TYPE_VALUE = "publication"
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
     *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+    "contactgroup",
+    "contactperson",
     "documentation_url",
     "programming_language",
     "size",
@@ -33,6 +35,7 @@ COLS_TO_ADD = (
     "qualification",
     "resource_type",
     "target_group",
+    "tool",
 )
 COLS_TO_DROP = (
     "affiliation",

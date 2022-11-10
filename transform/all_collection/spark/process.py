@@ -21,6 +21,7 @@ failed_files = {
     DATASET: [],
     PUBLICATION: [],
     SOFTWARE: [],
+    OTHER_RP: [],
     TRAINING: [],
     SERVICE: [],
     DATASOURCE: [],
