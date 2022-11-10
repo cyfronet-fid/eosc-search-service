@@ -4,8 +4,15 @@ import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { ITraining } from '@collections/data/trainings/training.model';
 import moment from 'moment';
-import { toArray } from '@collections/filters-serializers/utils';
 import { parseStatistics } from '@collections/data/utils';
+import {
+  toArray,
+  toValueWithLabel,
+} from '@collections/filters-serializers/utils';
+import {
+  toAccessRightColoredTag,
+  toLanguageColoredTag,
+} from '@collections/data/shared-tags';
 
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -23,45 +30,33 @@ export const trainingsAdapter: IAdapter = {
     collection: COLLECTION,
     url: '/trainings/' + training.id || '',
     coloredTags: [
-      {
-        value: toArray(training?.best_access_right),
-        filter: 'best_access_right',
-        colorClassName: (training?.best_access_right || '').match(
-          /open(.access)?/gi
-        )
-          ? 'tag-light-green'
-          : 'tag-light-coral',
-      },
+      toAccessRightColoredTag(training?.best_access_right),
       {
         colorClassName: 'tag-almond',
-        value: toArray(training['license']),
+        values: toValueWithLabel(toArray(training['license'])),
         filter: 'license',
       },
-      {
-        colorClassName: 'tag-peach',
-        filter: 'language',
-        value: toArray(training?.language),
-      },
+      toLanguageColoredTag(training?.language),
     ],
     tags: [
       {
         label: 'Authors',
-        value: toArray(training['author_names']),
+        values: toValueWithLabel(toArray(training['author_names'])),
         filter: 'author_names',
       },
       {
         label: 'Key words',
-        value: toArray(training['keywords']),
+        values: toValueWithLabel(toArray(training['keywords'])),
         filter: 'keywords',
       },
       {
         label: 'Resource type',
-        value: toArray(training['resource_type']),
+        values: toValueWithLabel(toArray(training['resource_type'])),
         filter: 'resource_type',
       },
       {
         label: 'Content type',
-        value: toArray(training['content_type']),
+        values: toValueWithLabel(toArray(training['content_type'])),
         filter: 'content_type',
       },
     ],

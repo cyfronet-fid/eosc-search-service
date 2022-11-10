@@ -1,6 +1,6 @@
 import { IFacetResponse } from '@components/filters/types';
 
-export interface IValue {
+export interface IValueWithLabel {
   label: string;
   value: string;
 }
@@ -9,7 +9,7 @@ export interface IResult {
   id: string;
   title: string;
   description: string;
-  type: IValue;
+  type: IValueWithLabel;
   collection: string;
   url: string;
   tags: ITag[];
@@ -20,15 +20,20 @@ export interface IResult {
   usageCountsDownloads: number | null;
 }
 
+export interface IValue {
+  label: string;
+  value: string;
+}
+
 export interface ITag {
   label: string;
-  value: string[];
+  values: IValueWithLabel[];
   filter: string;
 }
 
 export interface IColoredTag {
   colorClassName: string;
-  value: string[];
+  values: IValueWithLabel[];
   filter: string;
 }
 

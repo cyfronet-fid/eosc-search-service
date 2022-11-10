@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IColoredTag, IValue } from '@collections/repositories/types';
+import { IColoredTag, IValueWithLabel } from '@collections/repositories/types';
 
 @Component({
   selector: 'ess-colored-tags',
@@ -10,12 +10,12 @@ import { IColoredTag, IValue } from '@collections/repositories/types';
 
     <ng-container *ngFor="let tag of tags">
       <a
-        *ngFor="let value of tag.value"
+        *ngFor="let value of tag.values"
         [attr.class]="tag.colorClassName"
         href="javascript:void(0)"
-        (click)="setActiveFilter(tag.filter, $any(value))"
+        (click)="setActiveFilter(tag.filter, value.value)"
       >
-        {{ value }}
+        {{ value.label }}
       </a>
     </ng-container>
   </div>`,
@@ -23,7 +23,7 @@ import { IColoredTag, IValue } from '@collections/repositories/types';
 })
 export class ColoredTagsComponent {
   @Input()
-  type!: IValue;
+  type!: IValueWithLabel;
 
   @Input()
   tags: IColoredTag[] = [];

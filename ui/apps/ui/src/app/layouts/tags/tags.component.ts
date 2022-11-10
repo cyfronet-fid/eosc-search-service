@@ -3,16 +3,16 @@ import { ITag } from '@collections/repositories/types';
 
 @Component({
   selector: 'ess-tags',
-  template: `<div id="tags">
+  template: ` <div id="tags">
     <ng-container *ngFor="let tag of tags">
-      <div class="tag-row" *ngIf="tag.value.length > 0">
+      <div class="tag-row" *ngIf="tag.values.length > 0">
         <span class="tag tag-title">{{ tag.label }}: </span>
-        <ng-container *ngFor="let singleValue of $any(tag.value)">
+        <ng-container *ngFor="let singleValue of tag.values">
           <span class="tag"
             ><a
               href="javascript:void(0)"
-              (click)="setActiveFilter(tag.filter, singleValue)"
-              >{{ singleValue }}</a
+              (click)="setActiveFilter(tag.filter, singleValue.value)"
+              >{{ singleValue.label }}</a
             >&nbsp;&nbsp;</span
           >
         </ng-container>
