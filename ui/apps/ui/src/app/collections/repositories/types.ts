@@ -1,10 +1,15 @@
 import { IFacetResponse } from '@components/filters/types';
 
+export interface IValue {
+  label: string;
+  value: string;
+}
+
 export interface IResult {
   id: string;
   title: string;
   description: string;
-  type: string;
+  type: IValue;
   collection: string;
   url: string;
   tags: ITag[];

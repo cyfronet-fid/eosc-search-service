@@ -104,7 +104,11 @@ import { RedirectService } from '@collections/services/redirect.service';
           <a
             *ngFor="let result of group.results"
             [attr.href]="
-              redirectService.internalUrl(result.url, result.id, result.type)
+              redirectService.internalUrl(
+                result.url,
+                result.id,
+                result.type.label
+              )
             "
             target="_blank"
             class="list-group-item list-group-item-action result"

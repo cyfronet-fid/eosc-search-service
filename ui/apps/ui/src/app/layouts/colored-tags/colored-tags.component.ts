@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { IColoredTag } from '@collections/repositories/types';
+import { IColoredTag, IValue } from '@collections/repositories/types';
 
 @Component({
   selector: 'ess-colored-tags',
   template: `<div class="tags-box">
-    <a [routerLink]="'/search/' + type" queryParamsHandling="merge">
-      {{ type }}
+    <a [routerLink]="'/search/' + type.value" queryParamsHandling="merge">
+      {{ type.label }}
     </a>
 
     <ng-container *ngFor="let tag of tags">
@@ -23,7 +23,7 @@ import { IColoredTag } from '@collections/repositories/types';
 })
 export class ColoredTagsComponent {
   @Input()
-  type!: string;
+  type!: IValue;
 
   @Input()
   tags: IColoredTag[] = [];

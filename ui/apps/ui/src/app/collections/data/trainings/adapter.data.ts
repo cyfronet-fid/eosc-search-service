@@ -16,7 +16,10 @@ export const trainingsAdapter: IAdapter = {
     date: training['publication_date']
       ? moment(training['publication_date']).format('DD MMMM YYYY')
       : '',
-    type: training['type'] || '',
+    type: {
+      label: training['type'] || '',
+      value: training['type'] || '',
+    },
     collection: COLLECTION,
     url: '/trainings/' + training.id || '',
     coloredTags: [

@@ -12,7 +12,10 @@ export const servicesAdapter: IAdapter = {
     // basic information
     title: service.title?.join(' ') || '',
     description: service.description?.join(' ') || '',
-    type: service.type || '',
+    type: {
+      label: service.type || '',
+      value: service.type || '',
+    },
     url: service.pid
       ? `https://marketplace.eosc-portal.eu/services/${service.pid}`
       : '',

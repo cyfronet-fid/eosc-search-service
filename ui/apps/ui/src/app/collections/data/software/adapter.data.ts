@@ -54,7 +54,10 @@ export const softwareAdapter: IAdapter = {
         filter: 'fos',
       },
     ],
-    type: openAIREResult?.type || '',
+    type: {
+      label: openAIREResult?.type || '',
+      value: openAIREResult?.type || '',
+    },
     collection: COLLECTION,
     ...parseStatistics(openAIREResult),
   }),
