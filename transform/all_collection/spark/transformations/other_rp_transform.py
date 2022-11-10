@@ -14,17 +14,16 @@ from transform.all_collection.spark.schemas.input_col_name import (
 from transform.all_collection.spark.utils.utils import replace_empty_str
 
 
-__all__ = ["transform_datasets"]
-DATASET_TYPE_VALUE = "dataset"
+__all__ = ["transform_other_rp"]
+OTHER_RP_TYPE_VALUE = "other"
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
     *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
-    "contactgroup",
-    "contactperson",
     "documentation_url",
     "programming_language",
     "subtitle",
+    "size",
     "content_type",
     "duration",
     "eosc_provider",
@@ -36,7 +35,7 @@ COLS_TO_ADD = (
     "qualification",
     "resource_type",
     "target_group",
-    "tool",
+    "version",
 )
 COLS_TO_DROP = (
     "affiliation",
@@ -48,7 +47,6 @@ COLS_TO_DROP = (
     "dateofcollection",
     "embargoenddate",
     "eoscIF",
-    "geolocation",
     "format",
     "indicator",
     "instance",
@@ -60,36 +58,36 @@ COLS_TO_DROP = (
 )
 
 
-def transform_datasets(
-    datasets: DataFrame, harvested_schema: StructType, spark: SparkSession
+def transform_other_rp(
+    other_rp: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
-    """Transform datasets"""
+    """Transform other research products"""
     harvested_properties = {}
 
-    datasets = datasets.withColumn(TYPE, lit(DATASET_TYPE_VALUE))
-    check_type(datasets, desired_type=DATASET_TYPE_VALUE)
-    datasets = rename_oag_columns(datasets)
-    datasets = map_best_access_right(datasets, harvested_properties, DATASET_TYPE_VALUE)
+    other_rp = other_rp.withColumn(TYPE, lit(OTHER_RP_TYPE_VALUE))
+    check_type(other_rp, desired_type=OTHER_RP_TYPE_VALUE)
+    other_rp = rename_oag_columns(other_rp)
+    other_rp = map_best_access_right(other_rp, harvested_properties, OTHER_RP_TYPE_VALUE)
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
-    datasets = simplify_language(datasets)
-    datasets = simplify_indicators(datasets)
-    datasets = map_publisher(datasets)
+    other_rp = simplify_language(other_rp)
+    other_rp = simplify_indicators(other_rp)
+    other_rp = map_publisher(other_rp)
 
-    harvest_author_names_and_pids(datasets, harvested_properties)
-    harvest_sdg_and_fos(datasets, harvested_properties)
-    harvest_funder(datasets, harvested_properties)
-    harvest_url_and_document_type(datasets, harvested_properties)
-    harvest_doi(datasets, harvested_properties)
-    harvest_country(datasets, harvested_properties)
-    harvest_research_community(datasets, harvested_properties)
-    create_unified_categories(datasets, harvested_properties)
+    harvest_author_names_and_pids(other_rp, harvested_properties)
+    harvest_sdg_and_fos(other_rp, harvested_properties)
+    harvest_funder(other_rp, harvested_properties)
+    harvest_url_and_document_type(other_rp, harvested_properties)
+    harvest_doi(other_rp, harvested_properties)
+    harvest_country(other_rp, harvested_properties)
+    harvest_research_community(other_rp, harvested_properties)
+    create_unified_categories(other_rp, harvested_properties)
 
-    datasets = drop_columns(datasets, COLS_TO_DROP)
+    other_rp = drop_columns(other_rp, COLS_TO_DROP)
     harvested_df = create_df(harvested_properties, harvested_schema, spark)
-    datasets = join_different_dfs((datasets, harvested_df))
-    datasets = add_columns(datasets, COLS_TO_ADD)
-    datasets = cast_oag_columns(datasets)
-    datasets = replace_empty_str(datasets)
-    datasets = datasets.select(sorted(datasets.columns))
+    other_rp = join_different_dfs((other_rp, harvested_df))
+    other_rp = add_columns(other_rp, COLS_TO_ADD)
+    other_rp = cast_oag_columns(other_rp)
+    other_rp = replace_empty_str(other_rp)
+    other_rp = other_rp.select(sorted(other_rp.columns))
 
-    return datasets
+    return other_rp

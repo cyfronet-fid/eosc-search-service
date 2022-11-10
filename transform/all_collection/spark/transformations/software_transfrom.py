@@ -18,8 +18,8 @@ SOFTWARE_TYPE_VALUE = "software"
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
     *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
-    "fos",
-    "sdg",
+    "contactgroup",
+    "contactperson",
     "size",
     "subtitle",
     "version",
@@ -34,6 +34,7 @@ COLS_TO_ADD = (
     "qualification",
     "resource_type",
     "target_group",
+    "tool",
 )
 COLS_TO_DROP = (
     "affiliation",

@@ -96,6 +96,8 @@ UNIQUE_SERVICE_COLUMNS = (
 UNIQUE_OAG_AND_TRAINING_COLS = (
     "author_names",
     "author_pids",
+    "contactgroup",
+    "contactperson",
     "content_type",
     "country",
     "document_type",
@@ -119,6 +121,7 @@ UNIQUE_OAG_AND_TRAINING_COLS = (
     "source",
     "subtitle",
     "target_group",
+    "tool",
     "url",
     "usage_counts_downloads",
     "usage_counts_views",
