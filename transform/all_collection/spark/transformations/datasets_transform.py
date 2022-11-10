@@ -2,33 +2,44 @@
 """Transform datasets"""
 
 from pyspark.sql import SparkSession
-from transform.all_collection.spark.utils.common_df_transformations import *
+from pyspark.sql.types import StructType
+from pyspark.sql.functions import lit
+from transform.all_collection.spark.transformations.commons import *
 from transform.all_collection.spark.utils.join_dfs import create_df, join_different_dfs
 from transform.all_collection.spark.utils.utils import drop_columns, add_columns
 from transform.all_collection.spark.schemas.input_col_name import (
-    TITLE,
     UNIQUE_SERVICE_COLUMNS,
+    UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
 )
+from transform.all_collection.spark.utils.utils import replace_empty_str
+
+
+__all__ = ["transform_datasets"]
+DATASET_TYPE_VALUE = "dataset"
 
 COLS_TO_ADD = (
     *UNIQUE_SERVICE_COLUMNS,
-    "codeRepositoryUrl",
-    "documentationUrl",
-    "fos",
-    "programmingLanguage",
+    *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+    "contactgroup",
+    "contactperson",
+    "documentation_url",
+    "programming_language",
     "subtitle",
     "content_type",
     "duration",
     "eosc_provider",
     "format",
+    "horizontal",
     "pid",
     "level_of_expertise",
     "license",
     "qualification",
     "resource_type",
     "target_group",
+    "tool",
 )
 COLS_TO_DROP = (
+    "affiliation",
     "author",
     "context",
     "contributor",
@@ -39,6 +50,7 @@ COLS_TO_DROP = (
     "eoscIF",
     "geolocation",
     "format",
+    "indicator",
     "instance",
     "lastupdatetimestamp",
     "originalId",
@@ -48,49 +60,36 @@ COLS_TO_DROP = (
 )
 
 
-def transform_datasets(datasets: DataFrame, spark: SparkSession) -> DataFrame:
-    """
-    Required actions/transformations:
-    1) Check if all records have type == dataset
-    2) Rename maintitle -> title
-    3) Simplify bestaccessright
-    4) Simplify language
-    5) Harvest author_names and author_pids
-    6) Add SDG (only publications and datasets have SDG)
-    7) Create open_access
-    8) Harvest funder
-    9) Harvest urls and document_type
-    10) Harvest country
-    11) Harvest research_community
-    12) Delete unnecessary columns
-    13) Add missing OAG properties
-    14) Rename certain columns
-    15) Cast certain columns
-    16) Add missing services and trainings properties
-    """
+def transform_datasets(
+    datasets: DataFrame, harvested_schema: StructType, spark: SparkSession
+) -> DataFrame:
+    """Transform datasets"""
     harvested_properties = {}
 
-    check_type(datasets, desired_type="dataset")
-    datasets = datasets.withColumnRenamed("maintitle", TITLE)
-    datasets = simplify_bestaccessright(datasets)
+    datasets = datasets.withColumn(TYPE, lit(DATASET_TYPE_VALUE))
+    check_type(datasets, desired_type=DATASET_TYPE_VALUE)
+    datasets = rename_oag_columns(datasets)
+    datasets = map_best_access_right(datasets, harvested_properties, DATASET_TYPE_VALUE)
+    create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     datasets = simplify_language(datasets)
+    datasets = simplify_indicators(datasets)
+    datasets = map_publisher(datasets)
 
     harvest_author_names_and_pids(datasets, harvested_properties)
-    harvest_sdg(datasets, harvested_properties)
-    create_open_access(datasets, harvested_properties, "bestaccessright")
+    harvest_sdg_and_fos(datasets, harvested_properties)
     harvest_funder(datasets, harvested_properties)
     harvest_url_and_document_type(datasets, harvested_properties)
+    harvest_doi(datasets, harvested_properties)
     harvest_country(datasets, harvested_properties)
     harvest_research_community(datasets, harvested_properties)
+    create_unified_categories(datasets, harvested_properties)
 
     datasets = drop_columns(datasets, COLS_TO_DROP)
-    harvested_df = create_df(harvested_properties, spark)
-
+    harvested_df = create_df(harvested_properties, harvested_schema, spark)
     datasets = join_different_dfs((datasets, harvested_df))
     datasets = add_columns(datasets, COLS_TO_ADD)
-    datasets = rename_oag_columns(datasets)
     datasets = cast_oag_columns(datasets)
-
+    datasets = replace_empty_str(datasets)
     datasets = datasets.select(sorted(datasets.columns))
 
     return datasets

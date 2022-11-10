@@ -105,7 +105,7 @@ export class CheckboxesTreeComponent {
   readonly trackByName: TrackByFunction<FilterTreeNode> = (
     index: number,
     item: FilterTreeNode
-  ) => item.name;
+  ) => `${item.filter}-${item.id}-${item.count}`;
 
   private transformer = (
     node: FilterTreeNode,

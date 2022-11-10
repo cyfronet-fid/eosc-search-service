@@ -3,7 +3,7 @@
 # OAG
 AUTHOR_NAMES = "author_names"
 AUTHOR_PIDS = "author_pids"
-BESTACCESSRIGHT = "bestaccessright"
+BEST_ACCESS_RIGHT = "best_access_right"
 COUNTRY = "country"
 DESCRIPTION = "description"
 DURATION = "duration"
@@ -23,6 +23,10 @@ SUBJECTS = "subjects"
 TITLE = "title"
 TYPE = "type"
 URL = "url"
+DOI = "doi"
+UNIFIED_CATEGORIES = "unified_categories"
+DOWNLOADS = "usage_counts_downloads"
+VIEWS = "usage_counts_views"
 
 # Training
 FORMAT = "format"
@@ -87,4 +91,67 @@ UNIQUE_SERVICE_COLUMNS = (
     "upstream_id",
     "use_cases_urls",
     "webpage_url",
+)
+
+UNIQUE_OAG_AND_TRAINING_COLS = (
+    "author_names",
+    "author_pids",
+    "contactgroup",
+    "contactperson",
+    "content_type",
+    "country",
+    "document_type",
+    "documentation_url",
+    "doi",
+    "duration",
+    "eosc_provider",
+    "format",
+    "fos",
+    "funder",
+    "keywords",
+    "level_of_expertise",
+    "license",
+    "programming_language",
+    "publisher",
+    "qualification",
+    "research_community",
+    "resource_type",
+    "sdg",
+    "size",
+    "source",
+    "subtitle",
+    "target_group",
+    "tool",
+    "url",
+    "usage_counts_downloads",
+    "usage_counts_views",
+)
+
+UNIQUE_SERVICE_COLS_FOR_DATA_SOURCE = (
+    "access_policies_url",
+    "activate_message",
+    "offers_count",
+    "phase",
+    "project_items_count",
+    "rating",
+    "related_platforms",
+    "restrictions",
+    "service_opinion_count",
+    "sla_url",
+    "slug",
+)
+UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE = (
+    "datasource_classification",
+    "jurisdiction",
+    "link_research_product_metadata_license_urls",
+    "persistent_identity_systems",
+    "preservation_policy_url",
+    "research_entity_types",
+    "research_product_access_policies",
+    "research_product_licensing_urls",
+    "research_product_metadata_access_policies",
+    "resource_level_url",
+    "submission_policy_url",
+    "thematic",
+    "version_control",
 )

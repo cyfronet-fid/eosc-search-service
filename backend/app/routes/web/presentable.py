@@ -8,7 +8,6 @@ from fastapi import APIRouter, Depends, HTTPException
 from httpx import AsyncClient, TransportError
 
 from app.generic.models.bad_request import BadRequest
-from app.generic.models.presentable import Presentable
 from app.solr.operations import get_dep
 
 router = APIRouter()
@@ -16,7 +15,6 @@ router = APIRouter()
 
 @router.get(
     "/{collection}/{item_id}",
-    response_model=Presentable,
     responses={500: {"model": BadRequest}},
 )
 async def read_item(

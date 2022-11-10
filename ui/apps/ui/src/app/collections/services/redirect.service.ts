@@ -9,7 +9,15 @@ import { CustomRoute } from '@collections/services/custom-route.service';
 export class RedirectService {
   constructor(private _router: Router, private _customRoute: CustomRoute) {}
 
-  internalUrl(externalUrl: string, id: string, type: string) {
+  internalUrl(
+    externalUrl: string | null,
+    id: string,
+    type: string
+  ): string | null {
+    if (externalUrl === null) {
+      return null;
+    }
+
     const sourceUrl = this._router.url.includes('?')
       ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
       : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;

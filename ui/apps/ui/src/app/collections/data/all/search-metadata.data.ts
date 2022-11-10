@@ -1,7 +1,8 @@
 import { ICollectionSearchMetadata } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
+import { environment } from '@environment/environment';
 
-export const COLLECTION = 'all_collection';
+export const COLLECTION = environment.collectionsPrefix + 'all_collection';
 export const allCollectionsSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: {
@@ -9,6 +10,11 @@ export const allCollectionsSearchMetadata: ICollectionSearchMetadata = {
     best_access_right: { field: 'best_access_right', type: 'terms', limit: 0 },
     language: { field: 'language', type: 'terms', limit: 0 },
     fos: { field: 'fos', type: 'terms', limit: 0 },
+    unified_categories: {
+      field: 'unified_categories',
+      type: 'terms',
+      limit: 0,
+    },
   },
   queryMutator: (q: string) => q,
   params: {

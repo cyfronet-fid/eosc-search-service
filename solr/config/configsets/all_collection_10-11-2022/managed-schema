@@ -449,74 +449,117 @@
   </fieldType>
   <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
   <field name="_version_" type="plong" indexed="false" stored="false"/>
-  <field name="abbreviation" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="access_policies_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="activate_message" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="author_names" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="bestaccessright" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="certifications" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="changelog" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="content_type" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="created_at" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="dedicated_for" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="abbreviation" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="access_modes" type="strings" required="false"/>
+  <field name="access_policies_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="access_types" type="strings" required="false"/>
+  <field name="activate_message" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="author_names" type="strings" required="false" useDocValuesAsStored="true"/>
+  <field name="author_pids" type="strings" required="false" useDocValuesAsStored="true"/>
+  <field name="best_access_right" type="string" required="false"/>
+  <field name="catalogue" type="string" required="false"/>
+  <field name="categories" type="strings" required="false" useDocValuesAsStored="true"/>
+  <field name="certifications" type="strings" required="false"/>
+  <field name="changelog" type="strings" required="false"/>
+  <field name="code_repository_url" type="text_general" tokenized="false" indexed="false" stored="false" uninvertible="false" multiValued="false" required="false"/>
+  <field name="contactgroup" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="contactperson" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="content_type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="country" type="strings" required="false"/>
+  <field name="datasource_classification" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="dedicated_for" type="strings" required="false"/>
   <field name="description" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="document_type" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="duration" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="eosc_provider" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="format" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="geographical_availabilities" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="grant_project_names" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="document_type" type="strings" required="false" useDocValuesAsStored="true"/>
+  <field name="documentation_url" type="strings" required="false"/>
+  <field name="doi" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="duration" type="plong" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="eosc_provider" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="format" type="strings" required="false"/>
+  <field name="fos" type="strings" required="false"/>
+  <field name="funder" type="strings" required="false" useDocValuesAsStored="true"/>
+  <field name="funding_bodies" type="strings" required="false"/>
+  <field name="funding_programs" type="strings" required="false"/>
+  <field name="geographical_availabilities" type="strings" required="false"/>
+  <field name="grant_project_names" type="strings" required="false"/>
   <field name="helpdesk_email" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="helpdesk_url" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="helpdesk_url" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="horizontal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
-  <field name="internal_type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="language" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="language_availability" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="last_update" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="level_of_expertise" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="license" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="maintenance_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="manual_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="name" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="jurisdiction" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="keywords" type="strings" required="false"/>
+  <field name="language" type="strings" required="false" useDocValuesAsStored="true"/>
+  <field name="last_update" type="pdate" sortMissingLast="true" required="false"/>
+  <field name="level_of_expertise" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="license" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="life_cycle_status" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="link_research_product_metadata_license_urls" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="maintenance_url" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="manual_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="multimedia_urls" type="text_general" sortMissingLast="true" required="false"/>
   <field name="offers_count" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="open_source_technologies" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="order_type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="order_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="payment_model_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="phase" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="pid" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="popularity_ratio" type="pdouble" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="pricing_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="privacy_policy_url" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="open_access" type="boolean" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="open_source_technologies" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="order_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="payment_model_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="persistent_identity_systems" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="phase" type="string" required="false"/>
+  <field name="pid" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="platforms" type="strings" required="false"/>
+  <field name="preservation_policy_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="pricing_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="privacy_policy_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="programming_language" type="string" required="false"/>
   <field name="project_items_count" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="provider_id" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="published" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="publisher" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="qualification" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="providers" type="strings" required="false"/>
+  <field name="publication_date" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="publisher" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="qualification" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="rating" type="pdouble" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="related_platforms" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="resource_geographic_locations" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="restrictions" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="related_platforms" type="strings" required="false"/>
+  <field name="research_community" type="strings" required="false" useDocValuesAsStored="true"/>
+  <field name="research_entity_types" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="research_product_access_policies" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="research_product_licensing_urls" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="research_product_metadata_access_policies" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="resource_geographic_locations" type="strings" required="false"/>
+  <field name="resource_level_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="resource_organisation" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="resource_type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="restrictions" type="string" required="false"/>
+  <field name="scientific_domains" type="strings" required="false"/>
+  <field name="sdg" type="strings" required="false"/>
   <field name="security_contact_email" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="sla_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="slug" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="standards" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="service_opinion_count" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="size" type="string" required="false"/>
+  <field name="sla_url" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="slug" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="source" type="strings" required="false"/>
+  <field name="standards" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="status" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="status_monitoring_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="subject" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="subjects" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="synchronized_at" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="tag_list" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="tagline" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="target_group" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="terms_of_use_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="title" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="training_information_url" type="text_general" docValues="false" indexed="true" stored="true"/>
-  <field name="trainings_keywords" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="status_monitoring_url" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="submission_policy_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="subtitle" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="synchronized_at" type="pdate" sortMissingLast="true" required="false"/>
+  <field name="tag_list" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="tagline" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="target_group" type="string" required="false"/>
+  <field name="terms_of_use_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="thematic" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="title" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="tool" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="training_information_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="trl" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="unified_categories" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="updated_at" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="url" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="version" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="webpage_url" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="upstream_id" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="url" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="usage_counts_downloads" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="usage_counts_views" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="use_cases_urls" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="version" type="string" required="false"/>
+  <field name="version_control" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="webpage_url" type="text_general" sortMissingLast="true" required="false"/>
   <dynamicField name="*_txt_en_split_tight" type="text_en_splitting_tight" indexed="true" stored="true"/>
   <dynamicField name="*_descendent_path" type="descendent_path" indexed="true" stored="true"/>
   <dynamicField name="*_ancestor_path" type="ancestor_path" indexed="true" stored="true"/>

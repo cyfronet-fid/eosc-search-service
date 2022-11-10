@@ -9,17 +9,16 @@ import {
 } from '@collections/repositories/types';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { facetToTreeNodes } from '../utils';
-import { map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { paramType } from '@collections/services/custom-route.type';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import {
   toFilterFacet,
   toSearchMetadata,
 } from '@components/filters/filter-multiselect/utils';
+import { FilterTreeNode } from '@components/filters/types';
 
 const DEFAULT_RESULTS_SIZE = 10;
-const RECORD_HEIGHT = 29; // PX
-const LOAD_NEXT_CHUNK_INDEX = 90;
 
 @Injectable()
 export class FilterMultiselectService {
@@ -30,86 +29,81 @@ export class FilterMultiselectService {
     private _searchMetadataRepository: SearchMetadataRepository
   ) {}
 
-  latestChunk = 0;
-  filter = '';
-
-  initNonActiveEntitiesChunk$ =
-    this._filterMultiselectRepository.initNonActiveEntitiesChunk$;
   isLoading$ = this._filterMultiselectRepository.isLoading$;
   activeEntities$ = this._filterMultiselectRepository.activeEntities$;
-  chunkedNonActiveEntities$ =
-    this._filterMultiselectRepository.chunkedNonActiveEntities$;
-  hasShowMore$ = this._filterMultiselectRepository.nonActiveEntities$.pipe(
-    map(({ length }) => length > DEFAULT_RESULTS_SIZE)
-  );
-  limitedNonActiveEntities$ =
-    this._filterMultiselectRepository.nonActiveEntities$.pipe(
-      map((entities) => {
-        const maxSize =
-          DEFAULT_RESULTS_SIZE -
-          this._filterMultiselectRepository.activeEntitiesIds().length;
-        if (maxSize <= 0) {
-          return [];
-        }
-        return entities.slice(0, maxSize);
-      })
-    );
+  nonActiveEntities$ = this._filterMultiselectRepository.nonActiveEntities$;
+  entitiesCount$ = this._filterMultiselectRepository.entitiesCount$;
   hasEntities$ = this._filterMultiselectRepository.entitiesCount$.pipe(
     map((count) => count > 0)
   );
+  hasShowMore$ = this._filterMultiselectRepository.nonActiveEntities$.pipe(
+    map(({ length }) => length > DEFAULT_RESULTS_SIZE)
+  );
 
+  isLoading = () => this._filterMultiselectRepository.isLoading();
+  setLoading = (isLoading: boolean) =>
+    this._filterMultiselectRepository.setLoading(isLoading);
   setActiveIds = (activeIds: string[]) =>
     this._filterMultiselectRepository.setActiveIds(activeIds);
-  setQuery = (query: string) =>
-    this._filterMultiselectRepository.setQuery(query);
+  updateEntitiesCounts = (entities: FilterTreeNode[]) =>
+    this._filterMultiselectRepository.updateEntitiesCounts(entities);
+  setEntities = (entities: FilterTreeNode[]) =>
+    this._filterMultiselectRepository.setEntities(entities);
 
-  onScroll = (event: Event) => {
-    const target = event.target as HTMLElement;
-    const currentPosition = target.scrollTop;
-    const currentIndex = Math.ceil(currentPosition / RECORD_HEIGHT);
-    const currentChunk = Math.floor(currentIndex / LOAD_NEXT_CHUNK_INDEX);
-    if (currentChunk > this.latestChunk) {
-      this.latestChunk = currentChunk;
-      this._filterMultiselectRepository.loadNextNonActiveChunk();
-    }
-  };
-  _loadAllAvailableValues$(collection: string) {
+  _fetchAllValues$(
+    filter: string,
+    collection: string
+  ): Observable<FilterTreeNode[]> {
     const metadata = this._searchMetadataRepository.get(
       collection
     ) as ICollectionSearchMetadata;
     return this._fetchTreeNodes$(
+      filter,
       toSearchMetadata('*', [], metadata),
-      toFilterFacet(this.filter, metadata.facets)
+      toFilterFacet(filter, metadata.facets)
+    ).pipe(
+      map(
+        (entities) =>
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          entities.map(({ isSelected: _, ...other }) => ({
+            ...other,
+            count: '0',
+          })) as unknown as FilterTreeNode[]
+      )
     );
   }
-  _updateCounts$(routerParams: { [param: string]: paramType }) {
+  _fetchCounts$(
+    filter: string,
+    routerParams: { [param: string]: paramType }
+  ): Observable<{ id: string; count: string }[]> {
     const metadata = this._searchMetadataRepository.get(
       routerParams['collection'] as string
     );
     const q = routerParams['q'] as string;
     const fq = routerParams['fq'] as string[];
 
-    this._filterMultiselectRepository.resetAllEntitiesCounts();
-    this.latestChunk = 0;
-
     return this._fetchTreeNodes$(
+      filter,
       toSearchMetadata(q, fq, metadata),
-      toFilterFacet(this.filter, metadata.facets)
-    );
+      toFilterFacet(filter, metadata.facets)
+    ).pipe(map((entities) => entities.map(({ id, count }) => ({ id, count }))));
   }
-  _fetchTreeNodes$(
+  private _fetchTreeNodes$(
+    filter: string,
     params: ISolrCollectionParams & ISolrQueryParams,
     facets: { [facet: string]: IFacetParam }
-  ) {
-    this._filterMultiselectRepository.setLoading(true);
+  ): Observable<FilterTreeNode[]> {
     return this._fetchDataService
       .fetchFacets$<unknown & { id: string }>(params, facets)
       .pipe(
-        map((facets) => facetToTreeNodes(facets[this.filter], this.filter)),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        map((nodes) => nodes.map(({ isSelected, ...other }) => other)),
-        tap((nodes) => this._filterMultiselectRepository.upsertEntities(nodes)),
-        tap(() => this._filterMultiselectRepository.setLoading(false))
+        map((facets) => facetToTreeNodes(facets[filter], filter)),
+        map(
+          (nodes) =>
+            nodes.map(
+              // eslint-disable-next-line @typescript-eslint/no-unused-vars
+              ({ isSelected: _, ...other }) => other
+            ) as FilterTreeNode[]
+        )
       );
   }
 }

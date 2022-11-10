@@ -3,6 +3,8 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
 import moment from 'moment';
+import { toArray } from '@collections/filters-serializers/utils';
+import { parseStatistics } from '@collections/data/utils';
 
 export const publicationsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -18,9 +20,9 @@ export const publicationsAdapter: IAdapter = {
     url: `https://explore.eosc-portal.eu/search/result?id=${openAIREResult?.id
       ?.split('|')
       ?.pop()}`,
-    coloredTag: [
+    coloredTags: [
       {
-        value: openAIREResult?.best_access_right || '',
+        value: toArray(openAIREResult?.best_access_right),
         filter: 'best_access_right',
         colorClassName: (openAIREResult?.best_access_right || '').match(
           /open(.access)?/gi
@@ -30,43 +32,47 @@ export const publicationsAdapter: IAdapter = {
       },
       {
         colorClassName: 'tag-almond',
-        value: openAIREResult['license'] || [],
+        value: toArray(openAIREResult['license']),
         filter: 'license',
       },
       {
         colorClassName: 'tag-peach',
         filter: 'language',
-        value: openAIREResult?.language || [],
+        value: toArray(openAIREResult?.language),
       },
     ],
     tags: [
       {
         label: 'Author names',
-        value: openAIREResult?.author_names || [],
+        value: toArray(openAIREResult?.author_names),
         filter: 'author_names',
       },
       {
         label: 'Publisher',
-        value: openAIREResult?.publisher || '',
+        value: toArray(openAIREResult?.publisher),
         filter: 'publisher',
       },
       {
-        label: 'Field of science',
-        value: openAIREResult?.fos || [],
-        filter: 'fos',
-      },
-      {
         label: 'Document type',
-        value: [...new Set(openAIREResult?.document_type || [])],
+        value: [...new Set(toArray(openAIREResult?.document_type))],
         filter: 'document_type',
       },
       {
         label: 'DOI',
-        value: openAIREResult?.url || [],
-        filter: 'url',
+        value: toArray(openAIREResult?.doi),
+        filter: 'doi',
+      },
+      {
+        label: 'Field of Science',
+        value: toArray(openAIREResult?.fos),
+        filter: 'fos',
       },
     ],
-    type: openAIREResult?.type || '',
+    type: {
+      label: openAIREResult?.type || '',
+      value: openAIREResult?.type || '',
+    },
     collection: COLLECTION,
+    ...parseStatistics(openAIREResult),
   }),
 };

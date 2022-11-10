@@ -2,6 +2,11 @@ import {
   ICollectionSearchMetadata,
   IFacetParam,
 } from '@collections/repositories/types';
+import { FilterTreeNode } from '@components/filters/types';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import Fuse from 'fuse.js';
 
 export const toSearchMetadata = (
   q: string,
@@ -25,3 +30,16 @@ export const toFilterFacet = (
     limit: -1,
   },
 });
+
+export const search = (query: string | null, entities: FilterTreeNode[]) => {
+  if (!query || query.trim() === '') {
+    return entities;
+  }
+
+  return new Fuse(entities, {
+    keys: ['name'],
+    shouldSort: false,
+  })
+    .search(query)
+    .map(({ item }) => item);
+};

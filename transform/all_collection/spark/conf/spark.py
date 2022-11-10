@@ -1,6 +1,18 @@
 """Parse Spark configuration"""
 import configparser
 from pyspark import SparkConf
+from pyspark.sql import SparkSession
+from transform.all_collection.spark.conf.logger import Log4J
+
+
+def apply_spark_conf() -> [SparkSession, Log4J]:
+    """Apply Spark configuration"""
+    conf = get_spark_app_config()
+    spark = SparkSession.builder.config(conf=conf).getOrCreate()
+    spark.sparkContext.setLogLevel("error")
+    logger = Log4J(spark)
+
+    return spark, logger
 
 
 def get_spark_app_config():

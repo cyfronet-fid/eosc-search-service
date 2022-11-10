@@ -24,7 +24,6 @@ import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { ISuggestedResults } from './type';
 import { Router } from '@angular/router';
 import { sanitizeQuery } from '@components/search-input/query.sanitizer';
-import { environment } from '@environment/environment';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 import { ICollectionNavConfig } from '@collections/repositories/types';
 import { DOCUMENT } from '@angular/common';
@@ -105,7 +104,11 @@ import { RedirectService } from '@collections/services/redirect.service';
           <a
             *ngFor="let result of group.results"
             [attr.href]="
-              redirectService.internalUrl(result.url, result.id, result.type)
+              redirectService.internalUrl(
+                result.url,
+                result.id,
+                result.type.label
+              )
             "
             target="_blank"
             class="list-group-item list-group-item-action result"

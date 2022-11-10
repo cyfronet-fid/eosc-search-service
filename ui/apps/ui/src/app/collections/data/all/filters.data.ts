@@ -5,6 +5,12 @@ export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
+      id: 'unified_categories',
+      filter: 'unified_categories',
+      label: 'Research step',
+      type: 'multiselect',
+    },
+    {
       id: 'type',
       filter: 'type',
       label: 'Type of product',
@@ -35,9 +41,21 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'tag',
     },
     {
-      id: 'url',
-      filter: 'url',
+      id: 'doi',
+      filter: 'doi',
       label: 'DOI',
+      type: 'tag',
+    },
+    {
+      id: 'scientific_domains',
+      filter: 'scientific_domains',
+      label: 'Scientific Domains',
+      type: 'tag',
+    },
+    {
+      id: 'resource_organisation',
+      filter: 'resource_organisation',
+      label: 'Resource organisation',
       type: 'tag',
     },
   ],

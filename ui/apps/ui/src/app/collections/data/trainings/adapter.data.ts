@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { ITraining } from '@collections/data/trainings/training.model';
 import moment from 'moment';
+import { toArray } from '@collections/filters-serializers/utils';
+import { parseStatistics } from '@collections/data/utils';
 
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -14,17 +16,15 @@ export const trainingsAdapter: IAdapter = {
     date: training['publication_date']
       ? moment(training['publication_date']).format('DD MMMM YYYY')
       : '',
-    type: training['type'] || '',
+    type: {
+      label: training['type'] || '',
+      value: training['type'] || '',
+    },
     collection: COLLECTION,
     url: '/trainings/' + training.id || '',
-    coloredTag: [
+    coloredTags: [
       {
-        colorClassName: 'tag-almond',
-        value: training['license'] || [],
-        filter: 'license',
-      },
-      {
-        value: training?.best_access_right || [],
+        value: toArray(training?.best_access_right),
         filter: 'best_access_right',
         colorClassName: (training?.best_access_right || '').match(
           /open(.access)?/gi
@@ -33,32 +33,38 @@ export const trainingsAdapter: IAdapter = {
           : 'tag-light-coral',
       },
       {
+        colorClassName: 'tag-almond',
+        value: toArray(training['license']),
+        filter: 'license',
+      },
+      {
         colorClassName: 'tag-peach',
         filter: 'language',
-        value: training?.language || [],
+        value: toArray(training?.language),
       },
     ],
     tags: [
       {
         label: 'Authors',
-        value: training['author_names'] || [],
+        value: toArray(training['author_names']),
         filter: 'author_names',
       },
       {
         label: 'Key words',
-        value: training['keywords'] || [],
+        value: toArray(training['keywords']),
         filter: 'keywords',
       },
       {
         label: 'Resource type',
-        value: training['resource_type'] || [],
+        value: toArray(training['resource_type']),
         filter: 'resource_type',
       },
       {
         label: 'Content type',
-        value: training['content_type'] || [],
+        value: toArray(training['content_type']),
         filter: 'content_type',
       },
     ],
+    ...parseStatistics(training),
   }),
 };

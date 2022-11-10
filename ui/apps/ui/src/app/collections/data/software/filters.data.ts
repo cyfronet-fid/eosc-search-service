@@ -77,8 +77,8 @@ export const softwareFilters: IFiltersConfig = {
       type: 'tag',
     },
     {
-      id: 'url',
-      filter: 'url',
+      id: 'doi',
+      filter: 'doi',
       label: 'DOI',
       type: 'tag',
     },

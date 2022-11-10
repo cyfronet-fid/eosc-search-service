@@ -1,27 +1,34 @@
 import { IFacetResponse } from '@components/filters/types';
 
+export interface IValue {
+  label: string;
+  value: string;
+}
+
 export interface IResult {
   id: string;
   title: string;
   description: string;
-  type: string;
+  type: IValue;
   collection: string;
   url: string;
   tags: ITag[];
 
   date?: string;
-  coloredTag?: IColoredTag[];
+  coloredTags?: IColoredTag[];
+  usageCountsViews: number | null;
+  usageCountsDownloads: number | null;
 }
 
 export interface ITag {
   label: string;
-  value: string | string[];
+  value: string[];
   filter: string;
 }
 
 export interface IColoredTag {
   colorClassName: string;
-  value: string | string[];
+  value: string[];
   filter: string;
 }
 
