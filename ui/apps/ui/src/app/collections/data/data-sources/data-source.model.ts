@@ -9,4 +9,6 @@ export interface IDataSource {
   pid: string;
   best_access_right: string;
   type: string;
+  usage_counts_views: string;
+  usage_counts_downloads: string;
 }

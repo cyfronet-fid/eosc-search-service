@@ -4,6 +4,7 @@ import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
 import moment from 'moment';
 import { toArray } from '@collections/filters-serializers/utils';
+import { parseStatistics } from '@collections/data/utils';
 
 export const publicationsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -69,5 +70,6 @@ export const publicationsAdapter: IAdapter = {
     ],
     type: openAIREResult?.type || '',
     collection: COLLECTION,
+    ...parseStatistics(openAIREResult),
   }),
 };

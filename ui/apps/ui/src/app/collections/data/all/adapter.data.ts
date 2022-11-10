@@ -7,6 +7,7 @@ import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { toArray } from '@collections/filters-serializers/utils';
 import { IService } from '@collections/data/services/service.model';
+import { parseStatistics } from '@collections/data/utils';
 
 const urlAdapter = (
   type: string,
@@ -82,5 +83,6 @@ export const allCollectionsAdapter: IAdapter = {
     ],
     type: data?.type || '',
     collection: COLLECTION,
+    ...parseStatistics(data),
   }),
 };

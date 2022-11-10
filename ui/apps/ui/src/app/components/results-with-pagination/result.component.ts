@@ -35,6 +35,17 @@ const MAX_CHARS_LENGTH = 256;
       >
       </ess-tags>
 
+      <div class="usage">
+        <span *ngIf="downloads !== null" class="statistic text-muted"
+          ><img src="/assets/usage-downloads.svg" />
+          <ng-container i18n>{{ downloads }} Downloads</ng-container></span
+        >
+        <span *ngIf="views !== null" class="statistic text-muted"
+          ><img src="/assets/usage-views.svg" />
+          <ng-container i18n>{{ views }} Views</ng-container></span
+        >
+      </div>
+
       <p class="description">
         <span>
           {{ showFull ? description : truncate(description) }}
@@ -53,6 +64,11 @@ const MAX_CHARS_LENGTH = 256;
     `
       :host {
         display: block;
+      }
+
+      .usage > .statistic {
+        font-size: 11px;
+        margin-right: 30px;
       }
     `,
   ],
@@ -87,6 +103,12 @@ export class ResultComponent {
 
   @Input()
   coloredTags: IColoredTag[] = [];
+
+  @Input()
+  downloads: number | null = null;
+
+  @Input()
+  views: number | null = null;
 
   constructor(
     private _customRoute: CustomRoute,

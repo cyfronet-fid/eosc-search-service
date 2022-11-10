@@ -51,6 +51,8 @@ import { Router } from '@angular/router';
         [description]="result.description"
         [type]="result.type"
         [url]="result.url"
+        [downloads]="result.usageCountsDownloads"
+        [views]="result.usageCountsDownloads"
         [tags]="result.tags"
         [coloredTags]="result.coloredTags || []"
         [date]="result.date"

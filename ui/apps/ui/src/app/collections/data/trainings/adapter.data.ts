@@ -5,6 +5,7 @@ import { COLLECTION } from './search-metadata.data';
 import { ITraining } from '@collections/data/trainings/training.model';
 import moment from 'moment';
 import { toArray } from '@collections/filters-serializers/utils';
+import { parseStatistics } from '@collections/data/utils';
 
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -61,5 +62,6 @@ export const trainingsAdapter: IAdapter = {
         filter: 'content_type',
       },
     ],
+    ...parseStatistics(training),
   }),
 };
