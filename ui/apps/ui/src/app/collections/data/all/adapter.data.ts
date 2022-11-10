@@ -19,7 +19,7 @@ const urlAdapter = (
       return `https://explore.eosc-portal.eu/search/result?id=${data?.id
         ?.split('|')
         ?.pop()}`;
-    case 'services':
+    case 'service':
       return `https://marketplace.eosc-portal.eu/services/${data?.pid}`;
     case 'training':
       return '/trainings/' + data.id;
