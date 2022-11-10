@@ -78,8 +78,10 @@
                 <ng-container *ngFor="let tag of sidebarTags">
                   <h5>{{ tag.label }}</h5>
                   <ul class="list-group domains mb-4">
-                    <ng-container *ngIf="isArray(tag.value); else oneValue">
-                      <ng-container *ngFor="let singleValue of $any(tag.value)">
+                    <ng-container *ngIf="isArray(tag.values); else oneValue">
+                      <ng-container
+                        *ngFor="let singleValue of $any(tag.values)"
+                      >
                         <li>
                           <span>
                             {{ singleValue }}
@@ -90,7 +92,7 @@
                     <ng-template #oneValue>
                       <li>
                         <span>
-                          {{ tag.value }}
+                          {{ tag.values }}
                         </span>
                       </li>
                     </ng-template>
@@ -118,9 +120,9 @@
                   </div>
                   <div class="details-content">
                     <ul class="list-group">
-                      <ng-container *ngIf="isArray(tag.value); else oneValue">
+                      <ng-container *ngIf="isArray(tag.values); else oneValue">
                         <ng-container
-                          *ngFor="let singleValue of $any(tag.value)"
+                          *ngFor="let singleValue of $any(tag.values)"
                         >
                           <li>
                             <span>
@@ -132,7 +134,7 @@
                       <ng-template #oneValue>
                         <li>
                           <span>
-                            {{ tag.value }}
+                            {{ tag.values }}
                           </span>
                         </li>
                       </ng-template>

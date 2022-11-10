@@ -2,8 +2,12 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { IService } from './service.model';
 import { COLLECTION } from './search-metadata.data';
-import { toArray } from '@collections/filters-serializers/utils';
 import { parseStatistics } from '@collections/data/utils';
+import { toArray, toValueWithLabel } from '@collections/filters-serializers/utils';
+import {
+  toAccessRightColoredTag,
+  toLanguageColoredTag,
+} from '@collections/data/shared-tags';
 
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -21,30 +25,18 @@ export const servicesAdapter: IAdapter = {
       : '',
     collection: COLLECTION,
     coloredTags: [
-      {
-        value: toArray(service?.best_access_right),
-        filter: 'best_access_right',
-        colorClassName: (service?.best_access_right || '').match(
-          /open(.access)?/gi
-        )
-          ? 'tag-light-green'
-          : 'tag-light-coral',
-      },
-      {
-        colorClassName: 'tag-peach',
-        filter: 'language',
-        value: toArray(service?.language),
-      },
+      toAccessRightColoredTag(service?.best_access_right),
+      toLanguageColoredTag(service?.language),
     ],
     tags: [
       {
         label: 'Scientific domain',
-        value: toArray(service.scientific_domains),
+        values: toValueWithLabel(toArray(service.scientific_domains)),
         filter: 'scientific_domains',
       },
       {
         label: 'Organisation',
-        value: toArray(service.resource_organisation),
+        values: toValueWithLabel(toArray(service.resource_organisation)),
         filter: 'resource_organisation',
       },
     ],
