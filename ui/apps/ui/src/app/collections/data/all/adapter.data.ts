@@ -5,9 +5,13 @@ import { IOpenAIREResult } from '@collections/data/openair.model';
 import moment from 'moment';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
-import { toArray } from '@collections/filters-serializers/utils';
 import { IService } from '@collections/data/services/service.model';
 import { parseStatistics } from '@collections/data/utils';
+import { toArray, toValueWithLabel } from '@collections/filters-serializers/utils';
+import {
+  toAccessRightColoredTag,
+  toLanguageColoredTag,
+} from '@collections/data/shared-tags';
 
 const urlAdapter = (
   type: string,
@@ -46,40 +50,28 @@ export const allCollectionsAdapter: IAdapter = {
       : '',
     url: urlAdapter(data.type || '', data),
     coloredTags: [
-      {
-        value: toArray(data?.best_access_right),
-        filter: 'best_access_right',
-        colorClassName: (data?.best_access_right || '').match(
-          /open(.access)?/gi
-        )
-          ? 'tag-light-green'
-          : 'tag-light-coral',
-      },
-      {
-        colorClassName: 'tag-peach',
-        filter: 'language',
-        value: toArray(data?.language),
-      },
+      toAccessRightColoredTag(data?.best_access_right),
+      toLanguageColoredTag(data?.language),
     ],
     tags: [
       {
         label: 'Author names',
-        value: toArray(data?.author_names),
+        values: toValueWithLabel(toArray(data?.author_names)),
         filter: 'author_names',
       },
       {
         label: 'DOI',
-        value: toArray(data?.doi),
+        values: toValueWithLabel(toArray(data?.doi)),
         filter: 'doi',
       },
       {
         label: 'Scientific domain',
-        value: toArray(data?.scientific_domains),
+        values: toValueWithLabel(toArray(data?.scientific_domains)),
         filter: 'scientific_domains',
       },
       {
         label: 'Organisation',
-        value: toArray(data?.resource_organisation),
+        values: toValueWithLabel(toArray(data?.resource_organisation)),
         filter: 'resource_organisation',
       },
     ],

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IColoredTag, ITag, IValue } from '@collections/repositories/types';
+import { IColoredTag, ITag, IValueWithLabel } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { truncate } from 'lodash-es';
 import { Router } from '@angular/router';
@@ -96,7 +96,7 @@ export class ResultComponent {
   }
 
   @Input()
-  type!: IValue;
+  type!: IValueWithLabel;
 
   @Input()
   tags: ITag[] = [];
