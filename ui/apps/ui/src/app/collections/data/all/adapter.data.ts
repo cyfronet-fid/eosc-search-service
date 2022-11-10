@@ -3,13 +3,14 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import { COLLECTION } from './search-metadata.data';
 import { IOpenAIREResult } from '@collections/data/openair.model';
 import moment from 'moment';
-import { IService } from '@collections/data/services/service.model';
+import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { toArray } from '@collections/filters-serializers/utils';
+import { IService } from '@collections/data/services/service.model';
 
 const urlAdapter = (
   type: string,
-  data: Partial<IOpenAIREResult & IService & ITraining>
+  data: Partial<IOpenAIREResult & IDataSource & IService & ITraining>
 ) => {
   switch (type) {
     case 'dataset':
@@ -18,7 +19,7 @@ const urlAdapter = (
       return `https://explore.eosc-portal.eu/search/result?id=${data?.id
         ?.split('|')
         ?.pop()}`;
-    case 'service':
+    case 'services':
       return `https://marketplace.eosc-portal.eu/services/${data?.pid}`;
     case 'training':
       return '/trainings/' + data.id;
@@ -30,7 +31,7 @@ const urlAdapter = (
 export const allCollectionsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (
-    data: Partial<IOpenAIREResult & ITraining & IService> & {
+    data: Partial<IOpenAIREResult & ITraining & IDataSource & IService> & {
       id: string;
     }
   ): IResult => ({

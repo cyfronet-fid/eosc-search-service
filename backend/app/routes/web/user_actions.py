@@ -23,7 +23,9 @@ async def register_navigation_user_action(
     background_tasks: BackgroundTasks,
     url: str,
     resource_id: str,
-    resource_type: Literal["service", "publication", "dataset", "training", "software"],
+    resource_type: Literal[
+        "service", "publication", "dataset", "training", "software", "data source"
+    ],
     page_id: str,
     recommendation: bool = False,
     client: UserActionClient | None = Depends(user_actions_client),
