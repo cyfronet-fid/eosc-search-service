@@ -3,6 +3,7 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import { IDataSource } from './data-source.model';
 import { COLLECTION } from './search-metadata.data';
 import { toArray } from '@collections/filters-serializers/utils';
+import { parseStatistics } from '@collections/data/utils';
 
 export const dataSourcesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -44,5 +45,6 @@ export const dataSourcesAdapter: IAdapter = {
         filter: 'resource_organisation',
       },
     ],
+    ...parseStatistics(dataSource),
   }),
 };

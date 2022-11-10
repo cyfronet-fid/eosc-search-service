@@ -11,6 +11,8 @@ export interface IResult {
 
   date?: string;
   coloredTags?: IColoredTag[];
+  usageCountsViews: number | null;
+  usageCountsDownloads: number | null;
 }
 
 export interface ITag {

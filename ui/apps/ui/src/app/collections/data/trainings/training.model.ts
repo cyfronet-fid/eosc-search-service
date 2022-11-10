@@ -18,4 +18,6 @@ export interface ITraining {
   qualification: string;
   duration: string;
   type: string;
+  usage_counts_views: string;
+  usage_counts_downloads: string;
 }
