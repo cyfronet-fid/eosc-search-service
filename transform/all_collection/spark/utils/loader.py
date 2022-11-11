@@ -86,7 +86,7 @@ def load_data(
     spark: SparkSession, data_path: str, col_name: str, _format: str = "json"
 ):
     """Load data based on the provided data path"""
-    if col_name in {TRAINING, SERVICE, DATASOURCE}:
+    if col_name in {SERVICE, DATASOURCE}:
         return spark.read.format(_format).option("multiline", True).load(data_path)
     return spark.read.format(_format).load(data_path)
 
