@@ -75,7 +75,9 @@ def check_dfs_cols(dfs: Sequence) -> None:
         column_schemas = set((str(_col.typeName()) for _col in column))
         # Columns should be the same type as corresponding column in other df or be void type
         if len(column_schemas) == 2:
-            assert "void" in column_schemas, "Schemas between files differ"
+            assert (
+                "void" in column_schemas
+            ), f"Schemas between files differ - {column_schemas}"
         else:
             assert len(column_schemas) == 1, "Schemas between files differ"
 

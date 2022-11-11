@@ -67,7 +67,9 @@ def transform_other_rp(
     other_rp = other_rp.withColumn(TYPE, lit(OTHER_RP_TYPE_VALUE))
     check_type(other_rp, desired_type=OTHER_RP_TYPE_VALUE)
     other_rp = rename_oag_columns(other_rp)
-    other_rp = map_best_access_right(other_rp, harvested_properties, OTHER_RP_TYPE_VALUE)
+    other_rp = map_best_access_right(
+        other_rp, harvested_properties, OTHER_RP_TYPE_VALUE
+    )
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
     other_rp = simplify_language(other_rp)
     other_rp = simplify_indicators(other_rp)

@@ -40,6 +40,7 @@ access_rights_mapping = {
     _OPEN_ACCESS: (
         "OPEN",
         "open_access",
+        "Open Access",
         "fully_open_access",
         "open access",
         "free access",

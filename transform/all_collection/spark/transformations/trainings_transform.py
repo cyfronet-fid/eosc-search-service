@@ -1,11 +1,10 @@
 # pylint: disable=invalid-name, line-too-long
 """Transform trainings"""
-import re
-from typing import Dict, Sequence
+from typing import Dict
 from pyspark.sql import SparkSession
 from pyspark.sql.dataframe import DataFrame
 from pyspark.sql.types import StringType, IntegerType, StructType
-from pyspark.sql.functions import lit, split, col, regexp_replace, translate
+from pyspark.sql.functions import lit, split, col
 from transform.all_collection.spark.transformations.commons import (
     transform_date,
     map_best_access_right,
@@ -19,11 +18,7 @@ from transform.all_collection.spark.transformations.commons import (
     create_unified_categories,
 )
 from transform.all_collection.spark.schemas.input_col_name import (
-    DURATION,
     UNIQUE_SERVICE_COLUMNS,
-    AUTHOR_NAMES,
-    KEYWORDS,
-    FORMAT,
     BEST_ACCESS_RIGHT,
     UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
 )
@@ -44,6 +39,7 @@ COLS_TO_ADD = (
     "documentation_url",
     "doi",
     "fos",
+    "format",
     "funder",
     "horizontal",
     "pid",
@@ -59,37 +55,31 @@ COLS_TO_ADD = (
     "usage_counts_views",
     "version",
 )
-COLS_TO_DROP = ("duration",)
+COLS_TO_DROP = ()
 COLS_TO_RENAME = {
     "Access_Rights_s": "best_access_right",
     "Author_ss": "author_names",
-    "Content_Type_s": "content_type",
+    "Content_Type_ss": "content_type",
     "Description_s": "description",
     "Duration_s": "duration",
-    "EOSC_PROVIDER_s": "eosc_provider",
-    "Format_ss": "format",
+    "EOSC_Provider_ss": "eosc_provider",
     "Keywords_ss": "keywords",
-    "Language_s": "language",
+    "Language_ss": "language",
     "Level_of_expertise_s": "level_of_expertise",
     "License_s": "license",
-    "Qualification_s": "qualification",
-    "Resource_Type_s": "resource_type",
-    "Resource_title_s": "title",
-    "Target_group_s": "target_group",
+    "Qualification_ss": "qualification",
+    "Resource_Title_s": "title",
+    "Resource_Type_ss": "resource_type",
+    "Target_Group_ss": "target_group",
     "URL_s": "url",
-    "Version_date__created_in__s": "publication_date",
+    "Version_Date_Created_In_s": "publication_date",
 }
 
 
 def transform_trainings(
     trainings: DataFrame, harvested_schema: StructType, spark: SparkSession
 ) -> DataFrame:
-    """Transform trainings
-    Note:
-    Terrible quality of data.
-    Missing values, nulls everywhere, empty strings,
-    different formats of the same property. Be careful.
-    """
+    """Transform trainings"""
     harvested_properties = {}
 
     trainings = rename_trainings_columns(trainings, COLS_TO_RENAME)
@@ -99,10 +89,8 @@ def transform_trainings(
         trainings, harvested_properties, TRAINING_TYPE_VALUE
     )
     create_open_access(harvested_properties[BEST_ACCESS_RIGHT], harvested_properties)
-    transform_duration(trainings, "duration", harvested_properties)
-    trainings = transform_date(trainings, "publication_date", "dd-MM-yyyy")
+    trainings = transform_date(trainings, "publication_date", "yyyy-MM-dd")
     trainings = cast_trainings_columns(trainings)
-    trainings = cast_invalid_columns(trainings, (AUTHOR_NAMES, FORMAT, KEYWORDS))
     create_unified_categories(trainings, harvested_properties)
 
     trainings = drop_columns(trainings, COLS_TO_DROP)
@@ -125,25 +113,10 @@ def rename_trainings_columns(trainings: DataFrame, cols_to_rename: Dict) -> Data
 
 def cast_trainings_columns(trainings: DataFrame) -> DataFrame:
     """Cast trainings columns"""
-    trainings = (
-        trainings.withColumn("description", split(col("description"), ","))
-        .withColumn("language", split(col("language"), ","))
-        .withColumn("url", split(col("url"), ","))
-    )
+    trainings = trainings.withColumn(
+        "description", split(col("description"), ",")
+    ).withColumn("url", split(col("url"), ","))
     return trainings
-
-
-def cast_invalid_columns(df: DataFrame, columns: Sequence) -> DataFrame:
-    """Cast author_names from str to array(str)
-    Quality of trainings data is terrible.
-    Firstly, certain characters are deleted from the data"""
-    for column in columns:
-        # For some reason translate creates " " and regexp_replace does not work with chars
-        df = df.withColumn(column, translate(col(column), '"[]', ""))
-        df = df.withColumn(column, regexp_replace(col(column), " ", ""))
-        df = df.withColumn(column, split(col(column), ","))
-
-    return df
 
 
 def convert_ids(df: DataFrame, increment) -> DataFrame:
@@ -158,42 +131,3 @@ def convert_ids(df: DataFrame, increment) -> DataFrame:
     return df.withColumn(
         "id", (col("id") + increment).cast(IntegerType()).cast(StringType())
     )
-
-
-def transform_duration(
-    df: DataFrame, col_name: str, harvested_properties: Dict
-) -> None:
-    """Transform duration. Expected format HH:MM:SS
-    Transform it to number of seconds as int
-    """
-    durations = df.select(col_name).collect()
-    durations_column = []
-
-    for duration in durations:
-        duration = duration[col_name]
-        if isinstance(duration, str):
-            if validate_time_str(duration):
-                durations_column.append(get_sec(duration))
-            else:
-                durations_column.append(None)
-        else:
-            durations_column.append(None)
-
-    harvested_properties[DURATION] = durations_column
-
-
-def validate_time_str(time_str: str):
-    """Validate HH:MM:SS time string
-    Assumption: HH:MM:SS is a valid format only. Number of hours can
-    Fo example 01:23 is not a valid format.
-    """
-    pattern = r"^([1-9][0-9]*|[0-9]{2}):[0-5][0-9]:[0-5][0-9]$"
-    pat = re.compile(pattern)
-
-    return bool(re.fullmatch(pat, time_str))
-
-
-def get_sec(time_str: str) -> int:
-    """Convert HH:MM:SS string into number of seconds"""
-    h, m, s = time_str.split(":")
-    return int(h) * 3600 + int(m) * 60 + int(s)

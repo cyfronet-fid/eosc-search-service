@@ -6,7 +6,6 @@ from pyspark.sql.types import (
     StringType,
     ArrayType,
     BooleanType,
-    LongType,
 )
 from transform.all_collection.spark.utils.loader import (
     DATASET,
@@ -44,7 +43,6 @@ oag_harvested_schema = StructType(
 train_harvested_schema = StructType(
     [
         StructField("best_access_right", StringType(), True),
-        StructField("duration", LongType(), True),
         StructField("open_access", BooleanType(), True),
         StructField("unified_categories", ArrayType(StringType()), True),
     ]
