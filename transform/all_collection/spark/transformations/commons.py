@@ -65,11 +65,11 @@ publisher_mapping = {
 }
 
 # Unified categories mapping
-OAG_UNI_CAT = "Discover research outputs"
-TRAIN_UNI_CAT = "Access training materials"
+OAG_UNI_CAT = "Discover Research Outputs"
+TRAIN_UNI_CAT = "Access Training Material"
 
 unified_categories_mapping = {
-    OAG_UNI_CAT: ("dataset", "publication", "software"),
+    OAG_UNI_CAT: ("dataset", "publication", "software", "other"),
     TRAIN_UNI_CAT: ("training",),
 }
 
