@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.4.0...v1.4.1) (2022-11-11)
+
+
+### Bug Fixes
+
+* datasource redirection ([705bafd](https://github.com/cyfronet-fid/eosc-search-service/commit/705bafd12a6f09276b7eed594a02e9d9f70d53bd))
+
 ## [1.4.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.3.1...v1.4.0) (2022-11-10)
 
 
