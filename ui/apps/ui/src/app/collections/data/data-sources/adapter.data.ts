@@ -17,7 +17,7 @@ export const dataSourcesAdapter: IAdapter = {
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
     url: dataSource.pid
-      ? `https://marketplace.eosc-portal.eu/services/${dataSource.pid}`
+      ? `https://marketplace.eosc-portal.eu/datasources/${dataSource.pid}`
       : '',
     collection: COLLECTION,
     coloredTags: [

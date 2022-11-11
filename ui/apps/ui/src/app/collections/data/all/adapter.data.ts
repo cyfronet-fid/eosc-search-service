@@ -21,6 +21,7 @@ const urlAdapter = (
         ?.split('|')
         ?.pop()}`;
     case 'data source':
+      return `https://marketplace.eosc-portal.eu/datasources/${data?.pid}`;
     case 'service':
       return `https://marketplace.eosc-portal.eu/services/${data?.pid}`;
     case 'training':
