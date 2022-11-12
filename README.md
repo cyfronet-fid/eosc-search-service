@@ -1,6 +1,24 @@
 # EOSC Search Service
 
-## Running with docker
+## Table of contents
+- [Running the Backend with a docker](#running-the-backend-with-a-docker)
+- [UI](#ui)
+  - [Install dependencies](#install-dependencies)
+  - [Run](#run)
+  - [Build](#build)
+  - [Code auto-formatting](#code-automatic-formatting)
+- [Solr](#solr)
+  - [Solr schema](#solr-schema)
+  - [Solr collection seeding](#solr-collection-seeding)
+- [Running Recommender System locally](#running-recommender-system-locally)
+- [Deployment](#deployment)
+  - [DB migration](#db-migration)
+  - [DB seed](#db-seed)
+  - [Solr seed](#solr-seed)
+- [Release](#release)
+- [Deployment](#deployment)
+
+## Running the Backend with a docker
 
 Run `docker-compose up --build`.
 
@@ -61,7 +79,7 @@ Add data to already existing collection
 curl --location --request POST '<address>:<port>/solr/<collection_name>/update/json/docs' --header 'Content-Type: application/json' -T '<data_file>'
 ```
 
-## Running RS locally
+## Running Recommender System locally
 
 Check-out the code from
 https://git.man.poznan.pl/stash/scm/eosc-rs/online-ml-ai-engine.git
@@ -162,7 +180,7 @@ docker run --rm \
 ```
 
 
-### Solr
+### Solr seed
 
 Run `solr1` with the explicit volumes as in `docker-compose.yml`, so that it creates missing configsets in Zookeeper
 on startup.
@@ -174,20 +192,18 @@ Populate it using v2 publication data (see v2 comment to https://docs.cyfronet.p
 The records are in `publication/000550_0`. They need to be transformed and pushed to the collection (see also
 the Solr section above for how to do it for v2).
 
-## Releasing
+## Release
 Releases are automatically created based on [release-please-action](https://github.com/google-github-actions/release-please-action).
 
 Procedure:
-1. Create Pull Request `master` <- `development` branch or go to [Create merge Pull Request](https://github.com/cyfronet-fid/eosc-search-service/compare/master...development)
-2. Write title: `Merge  development to master`
-3. Choose merge option `Create a merge commit`
-4. Wait for `release-please` action in
+1. Run [Trigger release](https://github.com/cyfronet-fid/eosc-search-service/actions/workflows/trigger-release.yml)
+2. Wait for `automatic-release` action in
   [Actions](https://github.com/cyfronet-fid/eosc-search-service/actions)
   , when action is finished, a new `Pull Request` should occur in
   [Pull requests](https://github.com/cyfronet-fid/eosc-search-service/pulls)
-5. Go to `Pull Request` with name format: `chore(master): release x.y.z`, at this level you can customize release data:
-  - release version is build based on `x.y.z` version in commit format `chore(master): release x.y.z`,
-  - on `x.y.z` version change in commit, update also properly `CHANGELOG.md` section and `version.txt`
-  - list of changes that will occur in release is written in `CHANGELOG.md`
-  - the changes should land in one commit (squashed or amended) in format `chore(master): release x.y.z`
-6. Choose merge option `Rebase and merge`
+3. Go to `Pull Request` with name format: `chore(master): release x.y.z`, at this level you can customize release data:
+    - release version is build based on `x.y.z` version in commit format `chore(master): release x.y.z`,
+    - on `x.y.z` version change in commit, update also properly `CHANGELOG.md` section and `version.txt`
+    - list of changes that will occur in release is written in `CHANGELOG.md`
+    - the changes should land in one commit (squashed or amended) in format `chore(master): release x.y.z`
+4. Choose merge option `Rebase and merge`
