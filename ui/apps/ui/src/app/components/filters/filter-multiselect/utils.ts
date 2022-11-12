@@ -13,7 +13,7 @@ export const toSearchMetadata = (
   fq: string[],
   metadata: ICollectionSearchMetadata
 ) => ({
-  q: metadata.queryMutator(q),
+  q: q,
   fq,
   cursor: '*',
   rows: 0,
