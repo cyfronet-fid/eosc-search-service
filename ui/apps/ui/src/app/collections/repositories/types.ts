@@ -92,7 +92,6 @@ export interface IFilterConfig {
 export interface ICollectionSearchMetadata {
   id: string;
   facets: { [field: string]: IFacetParam };
-  queryMutator: (q: string) => string;
   params: ISolrCollectionParams;
 }
 
