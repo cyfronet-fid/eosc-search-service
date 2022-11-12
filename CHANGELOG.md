@@ -1,5 +1,53 @@
 # Changelog
 
+## [1.4.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.4.0...v1.4.1) (2022-11-11)
+
+
+### Bug Fixes
+
+* datasource redirection ([705bafd](https://github.com/cyfronet-fid/eosc-search-service/commit/705bafd12a6f09276b7eed594a02e9d9f70d53bd))
+
+## [1.4.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.3.1...v1.4.0) (2022-11-10)
+
+
+### Features
+
+* [[#321](https://github.com/cyfronet-fid/eosc-search-service/issues/321)] Add statistics usage ([1bda3ba](https://github.com/cyfronet-fid/eosc-search-service/commit/1bda3baed288adb32d2bffa2e558d96e4276d159))
+* add data sources ([84e9026](https://github.com/cyfronet-fid/eosc-search-service/commit/84e9026af1a00c2308ac1115b0802b20846f87a4)), closes [#290](https://github.com/cyfronet-fid/eosc-search-service/issues/290)
+* add data sources ([94501d4](https://github.com/cyfronet-fid/eosc-search-service/commit/94501d4f92e6037ad7623cc1fa411b8d3cd5590e)), closes [#290](https://github.com/cyfronet-fid/eosc-search-service/issues/290)
+* add doi ([00fb13c](https://github.com/cyfronet-fid/eosc-search-service/commit/00fb13c4bcb159fe1185751e809eb75b64f467f9)), closes [#250](https://github.com/cyfronet-fid/eosc-search-service/issues/250)
+* add eosc favicon ([20c876d](https://github.com/cyfronet-fid/eosc-search-service/commit/20c876d1cfdb8f1d3570bf5666e6fcd63f270dbd))
+* Add initial RWD styles ([4487cab](https://github.com/cyfronet-fid/eosc-search-service/commit/4487cab685f6f616eae0ec2bb4b0b5ee60a1cf27))
+* add other research products ([364a3fb](https://github.com/cyfronet-fid/eosc-search-service/commit/364a3fb26828e9cb56c2978cdd58edd25fd40c8f))
+* add research categorization ([a616e8f](https://github.com/cyfronet-fid/eosc-search-service/commit/a616e8f91499f4ff7a7fef39711a1edde2fa9682))
+* connect data with html template ([40535f6](https://github.com/cyfronet-fid/eosc-search-service/commit/40535f617618ce54716af5c64b75736731516702))
+* introduce new OAG dump ([370fa34](https://github.com/cyfronet-fid/eosc-search-service/commit/370fa3419718317151ae49d00299c7da63f49f0e)), closes [#295](https://github.com/cyfronet-fid/eosc-search-service/issues/295)
+* introduce new services ([bcf571a](https://github.com/cyfronet-fid/eosc-search-service/commit/bcf571ab08ed956a955cde89ff1421f4247d7f9a))
+* introduce oag dump from nov ([ee2467c](https://github.com/cyfronet-fid/eosc-search-service/commit/ee2467c377ae8b47af5e77ab1c842bdc3a958530)), closes [#303](https://github.com/cyfronet-fid/eosc-search-service/issues/303)
+* introduce unified categories ([498c696](https://github.com/cyfronet-fid/eosc-search-service/commit/498c696b303fc7e97437291467181a55d2e542ab)), closes [#296](https://github.com/cyfronet-fid/eosc-search-service/issues/296)
+* map publisher ([bec6f44](https://github.com/cyfronet-fid/eosc-search-service/commit/bec6f4453141d4ef3110ad3e2cc2984454c88ac2)), closes [#270](https://github.com/cyfronet-fid/eosc-search-service/issues/270)
+* mapping of access rights ([1400cad](https://github.com/cyfronet-fid/eosc-search-service/commit/1400cad52be211bf8cc4e2b4d10fcab29be96d14)), closes [#225](https://github.com/cyfronet-fid/eosc-search-service/issues/225)
+* rename type dataset to data ([65d72f5](https://github.com/cyfronet-fid/eosc-search-service/commit/65d72f54a02f445ca1a79ff66c5295d792d9f613))
+* robust script to transform and send data to solr ([bb46c83](https://github.com/cyfronet-fid/eosc-search-service/commit/bb46c83bf0e495d88739d432a5d0b8d70b05b48e)), closes [#223](https://github.com/cyfronet-fid/eosc-search-service/issues/223)
+* update recommendations styles ([c507c6e](https://github.com/cyfronet-fid/eosc-search-service/commit/c507c6e7d91a12996d516a6feeeaa0aac8692f49))
+
+
+### Bug Fixes
+
+* add missing tags ([e12f655](https://github.com/cyfronet-fid/eosc-search-service/commit/e12f655cdf11ebf37f01787437d6b2c129129eba)), closes [#235](https://github.com/cyfronet-fid/eosc-search-service/issues/235)
+* dataset in uc ([ad64322](https://github.com/cyfronet-fid/eosc-search-service/commit/ad643229401b8fb41111dab506d46d06cdd99c45))
+* filter by recommendation tag value ([55c1ec7](https://github.com/cyfronet-fid/eosc-search-service/commit/55c1ec746214fda72248cf3e97911fe68bb5f11a))
+* filter values search ([f0ffe43](https://github.com/cyfronet-fid/eosc-search-service/commit/f0ffe4362350b4b32b29d691081abb0681643543))
+* hidding multiselect filter values ([0091d8d](https://github.com/cyfronet-fid/eosc-search-service/commit/0091d8d666228ada86b8ed5aea775fa362e5adda))
+* hide show more btn on short txt ([6d37774](https://github.com/cyfronet-fid/eosc-search-service/commit/6d37774f7b425bb3c4ada5d5a1eb95f364c92f33)), closes [#231](https://github.com/cyfronet-fid/eosc-search-service/issues/231)
+* minor bug fixes ([055c93b](https://github.com/cyfronet-fid/eosc-search-service/commit/055c93bf5fd12449827e500187e6757f40915e26))
+* recommendations styles ([7e9d4f9](https://github.com/cyfronet-fid/eosc-search-service/commit/7e9d4f9617d7416372aa26f2c641489e5bdc75ce))
+* remove empty tag properties ([faab737](https://github.com/cyfronet-fid/eosc-search-service/commit/faab7370f093b7f7a901c980c5b8b857809a56ea)), closes [#237](https://github.com/cyfronet-fid/eosc-search-service/issues/237)
+* remove search suggestions duplicated groups ([be5fb5a](https://github.com/cyfronet-fid/eosc-search-service/commit/be5fb5aff575628ac97b82f0a12cca18371aef09)), closes [#242](https://github.com/cyfronet-fid/eosc-search-service/issues/242)
+* restore trainings page ([7e11f0c](https://github.com/cyfronet-fid/eosc-search-service/commit/7e11f0c7736eccd7e3450b2215fa2e413a31d143)), closes [#291](https://github.com/cyfronet-fid/eosc-search-service/issues/291)
+* unchecking filters with count 0 ([a06af2f](https://github.com/cyfronet-fid/eosc-search-service/commit/a06af2ffb18cb72683361f02d9e90c4bba6a82f5))
+* update tags fields ([a1b49be](https://github.com/cyfronet-fid/eosc-search-service/commit/a1b49be3b571de52b3a30c0d65fd5e8d93095a39))
+
 ## [1.3.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.3.0...v1.3.1) (2022-10-18)
 
 
