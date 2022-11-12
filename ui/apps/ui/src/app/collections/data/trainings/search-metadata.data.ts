@@ -7,7 +7,6 @@ export const COLLECTION = environment.collectionsPrefix + 'training';
 export const trainingsSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: DEFAULT_FACET,
-  queryMutator: (q: string) => q,
   params: {
     qf: ['title', 'description', 'keywords'],
     collection: COLLECTION,

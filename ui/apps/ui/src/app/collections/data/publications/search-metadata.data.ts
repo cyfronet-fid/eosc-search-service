@@ -7,7 +7,6 @@ export const COLLECTION = environment.collectionsPrefix + 'publication';
 export const publicationsSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: DEFAULT_FACET,
-  queryMutator: (q: string) => q,
   params: {
     qf: ['title^50', 'author_names^30', 'description^10'],
     collection: COLLECTION,
