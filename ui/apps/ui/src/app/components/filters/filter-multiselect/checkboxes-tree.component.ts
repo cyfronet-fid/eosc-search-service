@@ -1,15 +1,9 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  Output,
-  TrackByFunction,
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 
 import { NzTreeFlatDataSource, NzTreeFlattener } from 'ng-zorro-antd/tree-view';
-import { FilterTreeNode } from '../types';
+import { IUIFilterTreeNode } from '@collections/repositories/types';
 
 @Component({
   selector: 'ess-checkboxes-tree',
@@ -17,7 +11,6 @@ import { FilterTreeNode } from '../types';
     <nz-tree-view
       [nzTreeControl]="$any(treeControl)"
       [nzDataSource]="dataSource"
-      [trackBy]="trackByName"
     >
       <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding="">
         <nz-tree-node-toggle nzTreeNodeNoopToggle></nz-tree-node-toggle>
@@ -70,13 +63,6 @@ import { FilterTreeNode } from '../types';
       .ant-tree .ant-tree-node-content-wrapper {
         line-height: 18px !important;
       }
-      .ant-tree-checkbox {
-        margin: 1px 2px 0 0 !important;
-      }
-
-      .ant-tree .ant-tree-treenode {
-        padding: 0 !important;
-      }
       ::ng-deep .ant-tree-node-content-wrapper .ant-tree-title {
         word-wrap: break-word;
         display: block;
@@ -87,30 +73,26 @@ import { FilterTreeNode } from '../types';
 })
 export class CheckboxesTreeComponent {
   @Input()
-  set data(data: FilterTreeNode[]) {
+  set data(data: IUIFilterTreeNode[]) {
     this.dataSource.setData(data);
   }
 
   @Output()
-  checkboxesChange = new EventEmitter<[FilterTreeNode, boolean]>();
+  checkboxesChange = new EventEmitter<[IUIFilterTreeNode, boolean][]>();
 
-  flatNodeMap = new Map<FilterTreeNode, FilterTreeNode>();
-  nestedNodeMap = new Map<FilterTreeNode, FilterTreeNode>();
-  checklistSelection = new SelectionModel<FilterTreeNode>(true);
+  flatNodeMap = new Map<IUIFilterTreeNode, IUIFilterTreeNode>();
+  nestedNodeMap = new Map<IUIFilterTreeNode, IUIFilterTreeNode>();
+  checklistSelection = new SelectionModel<IUIFilterTreeNode>(true);
 
-  treeControl = new FlatTreeControl<FilterTreeNode>(
+  treeControl = new FlatTreeControl<IUIFilterTreeNode>(
     (node) => node.level,
-    (node) => node.expandable
+    (node) => !!node.expandable
   );
-  readonly trackByName: TrackByFunction<FilterTreeNode> = (
-    index: number,
-    item: FilterTreeNode
-  ) => `${item.filter}-${item.id}-${item.count}`;
 
   private transformer = (
-    node: FilterTreeNode,
+    node: IUIFilterTreeNode,
     level: number
-  ): FilterTreeNode => {
+  ): IUIFilterTreeNode => {
     const existingNode = this.nestedNodeMap.get(node);
     const flatNode =
       existingNode && existingNode.name === node.name
@@ -125,6 +107,8 @@ export class CheckboxesTreeComponent {
             count: node.count,
             disabled: !!node.disabled,
             isSelected: node.isSelected,
+            parent: node.parent,
+            children: node.children,
           };
     this.flatNodeMap.set(flatNode, node);
     this.nestedNodeMap.set(node, flatNode);
@@ -138,16 +122,16 @@ export class CheckboxesTreeComponent {
   treeFlattener = new NzTreeFlattener(
     this.transformer,
     (node) => node.level,
-    (node) => node.expandable,
+    (node) => !!node.expandable,
     (node) => node.children
   );
 
   // eslint-disable-next-line @typescript-eslint/member-ordering
   dataSource = new NzTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-  hasChild = (_: number, node: FilterTreeNode): boolean => node.expandable;
+  hasChild = (_: number, node: IUIFilterTreeNode): boolean => !!node.expandable;
 
-  descendantsAllSelected(node: FilterTreeNode): boolean {
+  descendantsAllSelected(node: IUIFilterTreeNode): boolean {
     const descendants = this.treeControl.getDescendants(node);
     return (
       descendants.length > 0 &&
@@ -155,7 +139,7 @@ export class CheckboxesTreeComponent {
     );
   }
 
-  descendantsPartiallySelected(node: FilterTreeNode): boolean {
+  descendantsPartiallySelected(node: IUIFilterTreeNode): boolean {
     const descendants = this.treeControl.getDescendants(node);
     const result = descendants.some((child) =>
       this.checklistSelection.isSelected(child)
@@ -163,35 +147,40 @@ export class CheckboxesTreeComponent {
     return result && !this.descendantsAllSelected(node);
   }
 
-  leafItemSelectionToggle(node: FilterTreeNode): void {
+  leafItemSelectionToggle(node: IUIFilterTreeNode): void {
     this.checklistSelection.toggle(node);
     this.checkboxesChange.emit([
-      node,
-      this.checklistSelection.isSelected(node),
+      [node, this.checklistSelection.isSelected(node)],
     ]);
     this.checkAllParentsSelection(node);
   }
 
-  itemSelectionToggle(node: FilterTreeNode): void {
+  itemSelectionToggle(node: IUIFilterTreeNode): void {
     this.checklistSelection.toggle(node);
     const descendants = this.treeControl.getDescendants(node);
     this.checklistSelection.isSelected(node)
       ? this.checklistSelection.select(...descendants)
       : this.checklistSelection.deselect(...descendants);
 
-    descendants.forEach((child) => this.checklistSelection.isSelected(child));
+    const toEmit: [IUIFilterTreeNode, boolean][] = [
+      [node, this.checklistSelection.isSelected(node)],
+    ];
+    descendants.forEach((child) => {
+      toEmit.push([child, this.checklistSelection.isSelected(child)]);
+    });
+    this.checkboxesChange.emit(toEmit);
     this.checkAllParentsSelection(node);
   }
 
-  checkAllParentsSelection(node: FilterTreeNode): void {
-    let parent: FilterTreeNode | null = this.getParentNode(node);
+  checkAllParentsSelection(node: IUIFilterTreeNode): void {
+    let parent: IUIFilterTreeNode | null = this.getParentNode(node);
     while (parent) {
       this.checkRootNodeSelection(parent);
       parent = this.getParentNode(parent);
     }
   }
 
-  checkRootNodeSelection(node: FilterTreeNode): void {
+  checkRootNodeSelection(node: IUIFilterTreeNode): void {
     const nodeSelected = this.checklistSelection.isSelected(node);
     const descendants = this.treeControl.getDescendants(node);
     const descAllSelected =
@@ -204,7 +193,7 @@ export class CheckboxesTreeComponent {
     }
   }
 
-  getParentNode(node: FilterTreeNode): FilterTreeNode | null {
+  getParentNode(node: IUIFilterTreeNode): IUIFilterTreeNode | null {
     const currentLevel = node.level;
 
     if (currentLevel < 1) {

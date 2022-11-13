@@ -3,6 +3,7 @@ interface IStatistics {
   usageCountsDownloads: number | null;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const parseStatistics = (data: any): IStatistics => {
   const usageCountsViews = parseInt(data['usage_counts_views'] ?? '');
   const usageCountsDownloads = parseInt(data['usage_counts_downloads'] ?? '');

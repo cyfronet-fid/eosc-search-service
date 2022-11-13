@@ -18,6 +18,7 @@ import { IFiltersConfig } from '@collections/repositories/types';
             *ngSwitchCase="'multiselect'"
             [label]="filterConfig.label"
             [filter]="filterConfig.filter"
+            [onValuesFetch]="filterConfig.onFacetsFetch"
           ></ess-filter-multiselect>
           <ess-filter-date
             *ngSwitchCase="'date'"

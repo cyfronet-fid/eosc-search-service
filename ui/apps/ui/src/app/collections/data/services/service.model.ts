@@ -11,4 +11,5 @@ export interface IService {
   type: string;
   usage_counts_views: string;
   usage_counts_downloads: string;
+  tag_list: string[];
 }

@@ -3,6 +3,7 @@ import { IActiveFilter } from './type';
 import { toArray } from '@collections/filters-serializers/utils';
 import { truncate } from 'lodash-es';
 import { IFqMap } from '@collections/services/custom-route.type';
+import { TREE_SPLIT_CHAR } from '@components/filters/utils';
 
 export const toActiveFilters = (
   fqsMap: IFqMap,
@@ -17,7 +18,9 @@ export const toActiveFilters = (
       activeFilters.push({
         filter,
         value,
-        uiValue: truncate(value, { length: 50 }),
+        uiValue: truncate((value + '').split(TREE_SPLIT_CHAR).pop() ?? '', {
+          length: 50,
+        }),
         label: filterConfig.label,
       });
     }

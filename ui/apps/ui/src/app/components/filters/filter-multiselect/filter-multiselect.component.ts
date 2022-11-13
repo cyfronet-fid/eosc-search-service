@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FilterMultiselectService } from './filter-multiselect.service';
-import { FilterTreeNode } from '../types';
 import { FilterMultiselectRepository } from './filter-multiselect.repository';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import {
@@ -20,9 +19,17 @@ import { FiltersConfigsRepository } from '@collections/repositories/filters-conf
 import {
   deserializeAll,
   removeFilterValue,
+  serializeAll,
 } from '@collections/filters-serializers/filters-serializers.utils';
 import { isEqual, keyBy } from 'lodash-es';
 import _ from 'lodash';
+import {
+  IFacetBucket,
+  IFilterConfig,
+  IFilterNode,
+  IUIFilterTreeNode,
+} from '@collections/repositories/types';
+import { IFqMap } from '@collections/services/custom-route.type';
 
 @UntilDestroy()
 @Component({
@@ -39,16 +46,14 @@ import _ from 'lodash';
       />
       <ess-first-n-values
         *ngIf="!showMore; else showAll"
-        [activeEntities]="(activeEntities$ | async) ?? []"
-        [nonActiveEntities]="(nonActiveEntities$ | async) ?? []"
+        [allEntities]="(allEntities$ | async) ?? []"
         [query]="query"
         (toggleActive)="toggleActive($event)"
       ></ess-first-n-values>
       <ng-template #showAll>
         <ess-show-all
           *ngIf="showMore"
-          [activeEntities]="(activeEntities$ | async) ?? []"
-          [nonActiveEntities]="(nonActiveEntities$ | async) ?? []"
+          [allEntities]="(allEntities$ | async) ?? []"
           [query]="query"
           (toggleActive)="toggleActive($event)"
         ></ess-show-all>
@@ -100,12 +105,14 @@ export class FilterMultiselectComponent implements OnInit {
   @Input()
   filter!: string;
 
+  @Input()
+  onValuesFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[];
+
   isLoading$ = this._filterMultiselectService.isLoading$;
   entitiesCount$ = this._filterMultiselectService.entitiesCount$;
   hasEntities$ = this._filterMultiselectService.hasEntities$;
 
-  activeEntities$ = this._filterMultiselectService.activeEntities$;
-  nonActiveEntities$ = this._filterMultiselectService.nonActiveEntities$;
+  allEntities$ = this._filterMultiselectService.allEntities$;
 
   showMore = false;
   hasShowMore$ = this._filterMultiselectService.hasShowMore$;
@@ -127,19 +134,37 @@ export class FilterMultiselectComponent implements OnInit {
     this._updateSearchQuery();
   }
 
-  async toggleActive(event: [FilterTreeNode, boolean]) {
-    const [node, currentIsSelected] = event;
+  async toggleActive(changes: [IUIFilterTreeNode, boolean][]) {
+    const allFilters = this._filtersConfigsRepository.get(
+      this._customRoute.collection()
+    ).filters;
+    let fqMap = serializeAll(this._customRoute.fq(), allFilters);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { filter: _, value, isSelected } = node;
-    if (isSelected === currentIsSelected) {
-      return;
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const filtersToRemove = changes.filter(([_, isSelected]) => !isSelected);
+    for (const toRemove of filtersToRemove) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [{ filter, value }, _] = toRemove;
+      const fq = removeFilterValue(fqMap, filter, value, allFilters);
+      fqMap = serializeAll(fq, allFilters);
     }
 
-    if (currentIsSelected) {
-      await this._setAsActive(value);
-      return;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const filtersToAdd = changes.filter(([_, isSelected]) => isSelected);
+    for (const toAdd of filtersToAdd) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const [{ filter, value }, _] = toAdd;
+      const fq = this._addFilterValue(fqMap, allFilters, filter, value);
+      fqMap = serializeAll(fq, allFilters);
     }
-    await this._setAsNonActive(value);
+
+    await this._router.navigate([], {
+      queryParams: {
+        fq: deserializeAll(fqMap, allFilters),
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   _setActiveIds() {
@@ -169,15 +194,19 @@ export class FilterMultiselectComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         map(([fq, _]) => fq),
         switchMap((fq) =>
-          this._filterMultiselectService._fetchCounts$(this.filter, {
-            ...this._customRoute.params(),
-            fq,
-          })
+          this._filterMultiselectService._fetchCounts$(
+            this.filter,
+            {
+              ...this._customRoute.params(),
+              fq,
+            },
+            this.onValuesFetch
+          )
         )
       )
       .subscribe((entities) => {
         this._filterMultiselectService.updateEntitiesCounts(
-          entities as FilterTreeNode[]
+          entities as IFilterNode[]
         );
         this._filterMultiselectService.setLoading(false);
       });
@@ -187,12 +216,17 @@ export class FilterMultiselectComponent implements OnInit {
     combineLatest(
       this._filterMultiselectService._fetchAllValues$(
         this.filter,
-        this._customRoute.params()['collection'] as string
+        this._customRoute.params()['collection'] as string,
+        this.onValuesFetch
       ),
-      this._filterMultiselectService._fetchCounts$(this.filter, {
-        ...this._customRoute.params(),
-        fq: this._customRoute.fqWithExcludedFilter(this.filter),
-      })
+      this._filterMultiselectService._fetchCounts$(
+        this.filter,
+        {
+          ...this._customRoute.params(),
+          fq: this._customRoute.fqWithExcludedFilter(this.filter),
+        },
+        this.onValuesFetch
+      )
     )
       .pipe(
         map(
@@ -201,7 +235,7 @@ export class FilterMultiselectComponent implements OnInit {
               .keyBy('id')
               .merge(keyBy(counts, 'id'))
               .values()
-              .value() as FilterTreeNode[]
+              .value() as IFilterNode[]
         )
       )
       .subscribe((entities) => {
@@ -218,45 +252,22 @@ export class FilterMultiselectComponent implements OnInit {
       .subscribe((query) => (this.query = query));
   }
 
-  async _setAsNonActive(value: string) {
-    await this._router.navigate([], {
-      queryParams: {
-        fq: removeFilterValue(
-          this._customRoute.fqMap(),
-          this.filter,
-          value,
-          this._filtersConfigsRepository.get(this._customRoute.collection())
-            .filters
-        ),
-      },
-      queryParamsHandling: 'merge',
-    });
-  }
-
-  async _setAsActive(value: string) {
-    await this._router.navigate([], {
-      queryParams: {
-        fq: this._addFilterValue(this.filter, value),
-      },
-      queryParamsHandling: 'merge',
-    });
-  }
-
-  _addFilterValue(filterName: string, value: string): string[] {
-    const fqMap = this._customRoute.fqMap();
-    const filtersConfigs = this._filtersConfigsRepository.get(
-      this._customRoute.collection()
-    ).filters;
+  _addFilterValue(
+    fqMap: IFqMap,
+    allFilters: IFilterConfig[],
+    filterName: string,
+    value: string
+  ): string[] {
     if (
       !!fqMap[filterName] &&
       (fqMap[filterName] as string[]).includes(value)
     ) {
-      return deserializeAll(fqMap, filtersConfigs);
+      return deserializeAll(fqMap, allFilters);
     }
 
     fqMap[filterName] = fqMap[filterName]
       ? ([...fqMap[filterName], value] as string[])
       : [value];
-    return deserializeAll(fqMap, filtersConfigs);
+    return deserializeAll(fqMap, allFilters);
   }
 }

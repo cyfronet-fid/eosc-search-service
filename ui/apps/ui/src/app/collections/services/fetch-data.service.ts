@@ -3,6 +3,7 @@ import { Observable, catchError, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {
   IFacetParam,
+  IFacetResponse,
   IResult,
   ISearchResults,
   ISolrCollectionParams,
@@ -11,7 +12,6 @@ import {
 } from '../repositories/types';
 import { environment } from '@environment/environment';
 import { _EMPTY_RESPONSE } from '../repositories/initial-states';
-import { IFacetResponse } from '@components/filters/types';
 
 @Injectable({
   providedIn: 'root',

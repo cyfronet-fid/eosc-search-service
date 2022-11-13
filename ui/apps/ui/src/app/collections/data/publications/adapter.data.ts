@@ -4,7 +4,10 @@ import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
 import moment from 'moment';
 import { parseStatistics } from '@collections/data/utils';
-import { toArray, toValueWithLabel } from '@collections/filters-serializers/utils';
+import {
+  toArray,
+  toValueWithLabel,
+} from '@collections/filters-serializers/utils';
 import {
   toAccessRightColoredTag,
   toLanguageColoredTag,
@@ -46,7 +49,9 @@ export const publicationsAdapter: IAdapter = {
       },
       {
         label: 'Document type',
-        values: toValueWithLabel([...new Set(toArray(openAIREResult?.document_type))]),
+        values: toValueWithLabel([
+          ...new Set(toArray(openAIREResult?.document_type)),
+        ]),
         filter: 'document_type',
       },
       {
