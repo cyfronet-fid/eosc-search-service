@@ -1,5 +1,3 @@
-import { IFacetResponse } from '@components/filters/types';
-
 export interface IValueWithLabel {
   label: string;
   value: string;
@@ -18,11 +16,6 @@ export interface IResult {
   coloredTags?: IColoredTag[];
   usageCountsViews: number | null;
   usageCountsDownloads: number | null;
-}
-
-export interface IValue {
-  label: string;
-  value: string;
 }
 
 export interface ITag {
@@ -90,8 +83,9 @@ export interface IFilterConfig {
   id: string;
   filter: string;
   label: string;
-
   type: 'multiselect' | 'select' | 'date' | 'tag' | 'range';
+
+  onFacetsFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[]; // !!! only for multiselect !!!
 }
 
 export interface ICollectionSearchMetadata {
@@ -106,4 +100,30 @@ export interface ISolrQueryParams {
   sort: string[];
   rows: number;
   cursor: string;
+}
+
+export interface IFacetBucket {
+  val: string | number;
+  count: number;
+}
+
+export interface IFacetResponse {
+  buckets: IFacetBucket[];
+}
+
+export interface IUIFilterTreeNode extends IFilterNode {
+  children?: IUIFilterTreeNode[];
+}
+
+export interface IFilterNode {
+  id: string; // value
+  name: string;
+  value: string;
+  filter: string;
+  count: string;
+  isSelected: boolean;
+  level: number;
+  expandable?: boolean; // calculated based on children
+  parent?: string;
+  disabled?: boolean;
 }

@@ -3,7 +3,10 @@ import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { parseStatistics } from '@collections/data/utils';
-import { toArray, toValueWithLabel } from '@collections/filters-serializers/utils';
+import {
+  toArray,
+  toValueWithLabel,
+} from '@collections/filters-serializers/utils';
 import {
   toAccessRightColoredTag,
   toLanguageColoredTag,

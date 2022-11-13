@@ -1,5 +1,8 @@
 import { getName } from '@cospired/i18n-iso-languages';
-import { toArray, toValueWithLabel } from '@collections/filters-serializers/utils';
+import {
+  toArray,
+  toValueWithLabel,
+} from '@collections/filters-serializers/utils';
 import { IColoredTag } from '@collections/repositories/types';
 
 export const toLanguageColoredTag = (

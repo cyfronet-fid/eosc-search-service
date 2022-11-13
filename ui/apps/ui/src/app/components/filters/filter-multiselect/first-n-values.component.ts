@@ -6,27 +6,21 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FilterTreeNode } from '@components/filters/types';
 import { search } from '@components/filters/filter-multiselect/utils';
+import {
+  IFilterNode,
+  IUIFilterTreeNode,
+} from '@collections/repositories/types';
+import { flatNodesToTree } from '@components/filters/utils';
 
 @Component({
   selector: 'ess-first-n-values',
   template: ` <div class="filter__viewport">
-      <ess-checkboxes-tree
-        [data]="activeEntities"
-        (checkboxesChange)="
-          $event[1] === false ? toggleActive.emit($event) : null
-        "
-      ></ess-checkboxes-tree>
-    </div>
-    <div class="filter__viewport">
-      <ess-checkboxes-tree
-        [data]="_nonActiveEntities"
-        (checkboxesChange)="
-          $event[1] === true ? toggleActive.emit($event) : null
-        "
-      ></ess-checkboxes-tree>
-    </div>`,
+    <ess-checkboxes-tree
+      [data]="_allEntities"
+      (checkboxesChange)="toggleActive.emit($event)"
+    ></ess-checkboxes-tree>
+  </div>`,
   styles: [
     `
       .filter__viewport {
@@ -37,30 +31,25 @@ import { search } from '@components/filters/filter-multiselect/utils';
   ],
 })
 export class FirstNValuesComponent implements OnChanges {
-  _nonActiveEntities: FilterTreeNode[] = [];
+  _allEntities: IUIFilterTreeNode[] = [];
 
   @Input()
   query: string | null = null;
 
   @Input()
-  activeEntities: FilterTreeNode[] = [];
-
-  @Input()
-  nonActiveEntities: FilterTreeNode[] = [];
+  allEntities: IFilterNode[] = [];
 
   @Input()
   displayMax = 10;
 
   @Output()
-  toggleActive = new EventEmitter<[FilterTreeNode, boolean]>();
+  toggleActive = new EventEmitter<[IUIFilterTreeNode, boolean][]>();
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['query'] || changes['nonActiveEntities']) {
-      const max = this.displayMax - this.activeEntities.length;
-      this._nonActiveEntities = search(
-        this.query,
-        this.nonActiveEntities
-      ).slice(0, max < 0 ? 0 : max);
+    if (changes['query'] || changes['allEntities'] || changes['displayMax']) {
+      this._allEntities = flatNodesToTree(
+        search(this.query, this.allEntities)
+      ).slice(0, this.displayMax);
     }
   }
 }

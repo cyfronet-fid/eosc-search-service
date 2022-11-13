@@ -1,8 +1,8 @@
 import {
   ICollectionSearchMetadata,
   IFacetParam,
+  IFilterNode,
 } from '@collections/repositories/types';
-import { FilterTreeNode } from '@components/filters/types';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
@@ -31,7 +31,7 @@ export const toFilterFacet = (
   },
 });
 
-export const search = (query: string | null, entities: FilterTreeNode[]) => {
+export const search = (query: string | null, entities: IFilterNode[]) => {
   if (!query || query.trim() === '') {
     return entities;
   }

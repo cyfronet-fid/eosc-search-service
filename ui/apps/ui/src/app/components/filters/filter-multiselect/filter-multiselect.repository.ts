@@ -1,7 +1,7 @@
 import { createStore, select, withProps } from '@ngneat/elf';
 import {
   resetActiveIds,
-  selectActiveEntities,
+  selectAllEntities,
   selectAllEntitiesApply,
   selectEntitiesCount,
   setActiveIds,
@@ -12,10 +12,12 @@ import {
   withActiveIds,
   withEntities,
 } from '@ngneat/elf-entities';
-import { FilterTreeNode } from '../types';
 import { Injectable } from '@angular/core';
 import { uniqueId } from 'lodash-es';
 import { map } from 'rxjs';
+import { IFilterNode } from '@collections/repositories/types';
+
+const DEFAULT_RESULTS_SIZE = 10;
 
 @Injectable()
 export class FilterMultiselectRepository {
@@ -23,7 +25,7 @@ export class FilterMultiselectRepository {
     {
       name: `${uniqueId('current-filter')}`,
     },
-    withEntities<FilterTreeNode>(),
+    withEntities<IFilterNode>(),
     withProps<{ isLoading: boolean }>({
       isLoading: false,
     }),
@@ -33,28 +35,25 @@ export class FilterMultiselectRepository {
   // ASYNC
   readonly entitiesCount$ = this._store$.pipe(selectEntitiesCount());
   readonly isLoading$ = this._store$.pipe(select(({ isLoading }) => isLoading));
-  readonly activeEntities$ = this._store$
-    .pipe(selectActiveEntities())
-    .pipe(map((entities) => entities.sort((a, b) => +b.count - +a.count)));
-  readonly nonActiveEntities$ = this._store$
-    .pipe(
-      selectAllEntitiesApply({ filterEntity: ({ isSelected }) => !isSelected })
-    )
-    .pipe(map((entities) => entities.sort((a, b) => +b.count - +a.count)));
+  readonly hasShowMore$ = this._store$.pipe(
+    selectAllEntitiesApply({ filterEntity: ({ level }) => level === 0 }),
+    map(({ length }) => length > DEFAULT_RESULTS_SIZE)
+  );
+  readonly allEntities$ = this._store$.pipe(selectAllEntities());
 
   // SYNC
   isLoading = () => this._store$.query(({ isLoading }) => isLoading);
 
   // MUTATIONS
   updateEntitiesCounts = (
-    filters: Array<Partial<FilterTreeNode> & { id: string; count: string }>
+    filters: Array<Partial<IFilterNode> & { id: string; count: string }>
   ) => {
     this._store$.update(
       updateAllEntities({ count: '0' }),
       upsertEntities(filters)
     );
   };
-  setEntities = (filters: FilterTreeNode[]) => {
+  setEntities = (filters: IFilterNode[]) => {
     this._store$.update(setEntities(filters));
   };
   resetAllActiveEntities = () =>

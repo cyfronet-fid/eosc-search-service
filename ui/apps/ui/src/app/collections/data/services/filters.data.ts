@@ -64,5 +64,11 @@ export const servicesFilters: IFiltersConfig = {
       label: 'Language',
       type: 'tag',
     },
+    {
+      id: 'tag_list',
+      filter: 'tag_list',
+      label: 'Tags',
+      type: 'tag',
+    },
   ],
 };

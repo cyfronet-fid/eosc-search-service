@@ -3,12 +3,14 @@ import { FilterMultiselectRepository } from './filter-multiselect.repository';
 import { FetchDataService } from '@collections/services/fetch-data.service';
 import {
   ICollectionSearchMetadata,
+  IFacetBucket,
   IFacetParam,
+  IFilterNode,
   ISolrCollectionParams,
   ISolrQueryParams,
 } from '@collections/repositories/types';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
-import { facetToTreeNodes } from '../utils';
+import { facetToFlatNodes } from '../utils';
 import { Observable, map } from 'rxjs';
 import { paramType } from '@collections/services/custom-route.type';
 import { CustomRoute } from '@collections/services/custom-route.service';
@@ -16,9 +18,6 @@ import {
   toFilterFacet,
   toSearchMetadata,
 } from '@components/filters/filter-multiselect/utils';
-import { FilterTreeNode } from '@components/filters/types';
-
-const DEFAULT_RESULTS_SIZE = 10;
 
 @Injectable()
 export class FilterMultiselectService {
@@ -30,37 +29,36 @@ export class FilterMultiselectService {
   ) {}
 
   isLoading$ = this._filterMultiselectRepository.isLoading$;
-  activeEntities$ = this._filterMultiselectRepository.activeEntities$;
-  nonActiveEntities$ = this._filterMultiselectRepository.nonActiveEntities$;
+  allEntities$ = this._filterMultiselectRepository.allEntities$;
   entitiesCount$ = this._filterMultiselectRepository.entitiesCount$;
   hasEntities$ = this._filterMultiselectRepository.entitiesCount$.pipe(
     map((count) => count > 0)
   );
-  hasShowMore$ = this._filterMultiselectRepository.nonActiveEntities$.pipe(
-    map(({ length }) => length > DEFAULT_RESULTS_SIZE)
-  );
+  hasShowMore$ = this._filterMultiselectRepository.hasShowMore$;
 
   isLoading = () => this._filterMultiselectRepository.isLoading();
   setLoading = (isLoading: boolean) =>
     this._filterMultiselectRepository.setLoading(isLoading);
   setActiveIds = (activeIds: string[]) =>
     this._filterMultiselectRepository.setActiveIds(activeIds);
-  updateEntitiesCounts = (entities: FilterTreeNode[]) =>
+  updateEntitiesCounts = (entities: IFilterNode[]) =>
     this._filterMultiselectRepository.updateEntitiesCounts(entities);
-  setEntities = (entities: FilterTreeNode[]) =>
+  setEntities = (entities: IFilterNode[]) =>
     this._filterMultiselectRepository.setEntities(entities);
 
   _fetchAllValues$(
     filter: string,
-    collection: string
-  ): Observable<FilterTreeNode[]> {
+    collection: string,
+    mutator?: (bucketValues: IFacetBucket[]) => IFilterNode[]
+  ): Observable<IFilterNode[]> {
     const metadata = this._searchMetadataRepository.get(
       collection
     ) as ICollectionSearchMetadata;
     return this._fetchTreeNodes$(
       filter,
       toSearchMetadata('*', [], metadata),
-      toFilterFacet(filter)
+      toFilterFacet(filter),
+      mutator
     ).pipe(
       map(
         (entities) =>
@@ -68,13 +66,14 @@ export class FilterMultiselectService {
           entities.map(({ isSelected: _, ...other }) => ({
             ...other,
             count: '0',
-          })) as unknown as FilterTreeNode[]
+          })) as unknown as IFilterNode[]
       )
     );
   }
   _fetchCounts$(
     filter: string,
-    routerParams: { [param: string]: paramType }
+    routerParams: { [param: string]: paramType },
+    mutator?: (bucketValues: IFacetBucket[]) => IFilterNode[]
   ): Observable<{ id: string; count: string }[]> {
     const metadata = this._searchMetadataRepository.get(
       routerParams['collection'] as string
@@ -85,24 +84,30 @@ export class FilterMultiselectService {
     return this._fetchTreeNodes$(
       filter,
       toSearchMetadata(q, fq, metadata),
-      toFilterFacet(filter)
+      toFilterFacet(filter),
+      mutator
     ).pipe(map((entities) => entities.map(({ id, count }) => ({ id, count }))));
   }
   private _fetchTreeNodes$(
     filter: string,
     params: ISolrCollectionParams & ISolrQueryParams,
-    facets: { [facet: string]: IFacetParam }
-  ): Observable<FilterTreeNode[]> {
+    facets: { [facet: string]: IFacetParam },
+    mutator?: (bucketValues: IFacetBucket[]) => IFilterNode[]
+  ): Observable<IFilterNode[]> {
     return this._fetchDataService
       .fetchFacets$<unknown & { id: string }>(params, facets)
       .pipe(
-        map((facets) => facetToTreeNodes(facets[filter], filter)),
+        map((facets) =>
+          mutator
+            ? mutator(facets[filter]?.buckets || [])
+            : facetToFlatNodes(facets[filter]?.buckets, filter)
+        ),
         map(
           (nodes) =>
             nodes.map(
               // eslint-disable-next-line @typescript-eslint/no-unused-vars
               ({ isSelected: _, ...other }) => other
-            ) as FilterTreeNode[]
+            ) as IFilterNode[]
         )
       );
   }
