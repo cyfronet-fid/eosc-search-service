@@ -64,5 +64,11 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Language',
       type: 'tag',
     },
+    {
+      id: 'tag_list',
+      filter: 'tag_list',
+      label: 'Keywords',
+      type: 'tag',
+    },
   ],
 };

@@ -88,5 +88,11 @@ export const publicationsFilters: IFiltersConfig = {
       label: 'DOI',
       type: 'tag',
     },
+    {
+      id: 'keywords',
+      filter: 'keywords',
+      label: 'Keywords',
+      type: 'tag',
+    },
   ],
 };

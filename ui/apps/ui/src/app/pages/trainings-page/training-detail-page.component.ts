@@ -13,7 +13,7 @@ import isArray from 'lodash-es/isArray';
 export class TrainingDetailPageComponent implements OnInit {
   training?: IResult;
   originUrl?: string;
-  keywords?: string;
+  keywords?: string[];
   accessType?: string;
   detailsTags: ITag[] = [];
   sidebarTags: ITag[] = [];

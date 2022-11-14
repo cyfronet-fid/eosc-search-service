@@ -67,7 +67,7 @@ export const servicesFilters: IFiltersConfig = {
     {
       id: 'tag_list',
       filter: 'tag_list',
-      label: 'Tags',
+      label: 'Keywords',
       type: 'tag',
     },
   ],

@@ -4,7 +4,7 @@ export interface ITraining {
   description: string[];
   author_names: string;
   language: string;
-  keywords: string;
+  keywords: string[];
   license: string;
   best_access_right: string;
   publication_date: string;

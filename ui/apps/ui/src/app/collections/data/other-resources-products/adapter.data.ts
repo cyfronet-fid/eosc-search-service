@@ -6,7 +6,11 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import { parseStatistics } from '@collections/data/utils';
+import {
+  toDownloadsStatisticsSecondaryTag,
+  toKeywordsSecondaryTag,
+  toViewsStatisticsSecondaryTag,
+} from '@collections/data/utils';
 
 export const otherResourcesProductsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -62,6 +66,10 @@ export const otherResourcesProductsAdapter: IAdapter = {
       value: openAIREResult?.type || '',
     },
     collection: COLLECTION,
-    ...parseStatistics(openAIREResult),
+    secondaryTags: [
+      toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
+      toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
+      toKeywordsSecondaryTag(openAIREResult.keywords ?? [], 'keywords'),
+    ],
   }),
 };
