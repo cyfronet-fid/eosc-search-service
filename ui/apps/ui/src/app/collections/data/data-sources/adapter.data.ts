@@ -5,6 +5,19 @@ import { COLLECTION } from './search-metadata.data';
 import { toArray } from '@collections/filters-serializers/utils';
 import { parseStatistics } from '@collections/data/utils';
 
+const SERVICES_AS_DATASOURCES = ['b2share', 'b2find', 'b2safe'];
+
+export const hackDataSourceUrl = (pid?: string) => {
+  if (!pid) {
+    pid = '';
+  }
+
+  if (SERVICES_AS_DATASOURCES.includes(pid)) {
+    return `https://marketplace.eosc-portal.eu/services/${pid}`;
+  }
+  return `https://marketplace.eosc-portal.eu/datasources/${pid}`;
+};
+
 export const dataSourcesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (dataSource: Partial<IDataSource> & { id: string }): IResult => ({
@@ -16,9 +29,7 @@ export const dataSourcesAdapter: IAdapter = {
       label: dataSource.type || '',
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
-    url: dataSource.pid
-      ? `https://marketplace.eosc-portal.eu/datasources/${dataSource.pid}`
-      : '',
+    url: hackDataSourceUrl(dataSource.pid),
     collection: COLLECTION,
     coloredTags: [
       {

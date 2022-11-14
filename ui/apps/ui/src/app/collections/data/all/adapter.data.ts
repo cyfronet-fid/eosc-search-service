@@ -8,6 +8,7 @@ import { ITraining } from '@collections/data/trainings/training.model';
 import { toArray } from '@collections/filters-serializers/utils';
 import { IService } from '@collections/data/services/service.model';
 import { parseStatistics } from '@collections/data/utils';
+import { hackDataSourceUrl } from '@collections/data/data-sources/adapter.data';
 
 const urlAdapter = (
   type: string,
@@ -21,7 +22,7 @@ const urlAdapter = (
         ?.split('|')
         ?.pop()}`;
     case 'data source':
-      return `https://marketplace.eosc-portal.eu/datasources/${data?.pid}`;
+      return hackDataSourceUrl(data?.pid);
     case 'service':
       return `https://marketplace.eosc-portal.eu/services/${data?.pid}`;
     case 'training':
