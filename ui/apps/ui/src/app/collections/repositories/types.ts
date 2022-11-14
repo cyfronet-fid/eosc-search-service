@@ -14,8 +14,14 @@ export interface IResult {
 
   date?: string;
   coloredTags?: IColoredTag[];
-  usageCountsViews: number | null;
-  usageCountsDownloads: number | null;
+  secondaryTags?: ISecondaryTag[];
+}
+
+export interface ISecondaryTag {
+  iconPath: string;
+  values: string[];
+  filter?: string;
+  type: 'url' | 'info';
 }
 
 export interface ITag {

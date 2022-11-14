@@ -58,5 +58,17 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Resource organisation',
       type: 'tag',
     },
+    {
+      id: 'keywords',
+      filter: 'keywords',
+      label: 'Keywords',
+      type: 'tag',
+    },
+    {
+      id: 'tag_list',
+      filter: 'tag_list',
+      label: 'Keywords',
+      type: 'tag',
+    },
   ],
 };

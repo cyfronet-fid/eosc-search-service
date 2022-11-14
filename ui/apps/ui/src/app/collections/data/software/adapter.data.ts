@@ -2,7 +2,6 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { parseStatistics } from '@collections/data/utils';
 import {
   toArray,
   toValueWithLabel,
@@ -11,6 +10,11 @@ import {
   toAccessRightColoredTag,
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
+import {
+  toDownloadsStatisticsSecondaryTag,
+  toKeywordsSecondaryTag,
+  toViewsStatisticsSecondaryTag,
+} from '@collections/data/utils';
 
 export const softwareAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -54,6 +58,10 @@ export const softwareAdapter: IAdapter = {
       value: openAIREResult?.type || '',
     },
     collection: COLLECTION,
-    ...parseStatistics(openAIREResult),
+    secondaryTags: [
+      toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
+      toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
+      toKeywordsSecondaryTag(openAIREResult.keywords ?? [], 'keywords'),
+    ],
   }),
 };

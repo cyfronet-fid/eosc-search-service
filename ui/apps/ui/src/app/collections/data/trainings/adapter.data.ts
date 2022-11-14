@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { ITraining } from '@collections/data/trainings/training.model';
 import moment from 'moment';
-import { parseStatistics } from '@collections/data/utils';
 import {
   toArray,
   toValueWithLabel,
@@ -13,6 +12,11 @@ import {
   toAccessRightColoredTag,
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
+import {
+  toDownloadsStatisticsSecondaryTag,
+  toKeywordsSecondaryTag,
+  toViewsStatisticsSecondaryTag,
+} from '@collections/data/utils';
 
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -45,11 +49,6 @@ export const trainingsAdapter: IAdapter = {
         filter: 'author_names',
       },
       {
-        label: 'Key words',
-        values: toValueWithLabel(toArray(training['keywords'])),
-        filter: 'keywords',
-      },
-      {
         label: 'Resource type',
         values: toValueWithLabel(toArray(training['resource_type'])),
         filter: 'resource_type',
@@ -60,6 +59,10 @@ export const trainingsAdapter: IAdapter = {
         filter: 'content_type',
       },
     ],
-    ...parseStatistics(training),
+    secondaryTags: [
+      toDownloadsStatisticsSecondaryTag(training.usage_counts_downloads),
+      toViewsStatisticsSecondaryTag(training.usage_counts_views),
+      toKeywordsSecondaryTag(training.keywords ?? [], 'keywords'),
+    ],
   }),
 };

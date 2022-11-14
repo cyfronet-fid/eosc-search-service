@@ -6,7 +6,6 @@ import moment from 'moment';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IService } from '@collections/data/services/service.model';
-import { parseStatistics } from '@collections/data/utils';
 import { hackDataSourceUrl } from '@collections/data/data-sources/adapter.data';
 import {
   toArray,
@@ -16,6 +15,11 @@ import {
   toAccessRightColoredTag,
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
+import {
+  toDownloadsStatisticsSecondaryTag,
+  toKeywordsSecondaryTag,
+  toViewsStatisticsSecondaryTag,
+} from '@collections/data/utils';
 
 const urlAdapter = (
   type: string,
@@ -85,6 +89,11 @@ export const allCollectionsAdapter: IAdapter = {
       value: (data.type || '')?.replace(/ +/gm, '-'),
     },
     collection: COLLECTION,
-    ...parseStatistics(data),
+    secondaryTags: [
+      toDownloadsStatisticsSecondaryTag(data.usage_counts_downloads),
+      toViewsStatisticsSecondaryTag(data.usage_counts_views),
+      toKeywordsSecondaryTag(data.keywords ?? [], 'keywords'),
+      toKeywordsSecondaryTag(data.tag_list ?? [], 'tag_list'),
+    ],
   }),
 };

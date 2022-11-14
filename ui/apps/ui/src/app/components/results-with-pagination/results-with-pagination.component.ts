@@ -51,10 +51,9 @@ import { Router } from '@angular/router';
         [description]="result.description"
         [type]="result.type"
         [url]="result.url"
-        [downloads]="result.usageCountsDownloads"
-        [views]="result.usageCountsDownloads"
         [tags]="result.tags"
-        [coloredTags]="result.coloredTags || []"
+        [coloredTags]="result.coloredTags ?? []"
+        [secondaryTags]="result.secondaryTags ?? []"
         [date]="result.date"
       ></ess-result>
       <ess-pagination

@@ -9,6 +9,7 @@ import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { ColoredTagsModule } from '../../layouts/colored-tags/colored-tags.module';
 import { TagsModule } from '../../layouts/tags/tags.module';
 import { UrlTitleModule } from '../../layouts/url-title/url-title.module';
+import { SecondaryTagsModule } from '../../layouts/secondary-tags/secondary-tags.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { UrlTitleModule } from '../../layouts/url-title/url-title.module';
     ColoredTagsModule,
     TagsModule,
     UrlTitleModule,
+    SecondaryTagsModule,
   ],
   exports: [ResultsWithPaginationComponent],
 })

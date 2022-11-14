@@ -6,11 +6,15 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import { parseStatistics } from '@collections/data/utils';
 import {
   toAccessRightColoredTag,
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
+import {
+  toDownloadsStatisticsSecondaryTag,
+  toKeywordsSecondaryTag,
+  toViewsStatisticsSecondaryTag,
+} from '@collections/data/utils';
 
 const SERVICES_AS_DATASOURCES = ['b2share', 'b2find', 'b2safe'];
 
@@ -54,6 +58,10 @@ export const dataSourcesAdapter: IAdapter = {
         filter: 'resource_organisation',
       },
     ],
-    ...parseStatistics(dataSource),
+    secondaryTags: [
+      toDownloadsStatisticsSecondaryTag(dataSource.usage_counts_downloads),
+      toViewsStatisticsSecondaryTag(dataSource.usage_counts_views),
+      toKeywordsSecondaryTag(dataSource.tag_list ?? [], 'tag_list'),
+    ],
   }),
 };

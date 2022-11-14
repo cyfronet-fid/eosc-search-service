@@ -2,7 +2,6 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { IService } from './service.model';
 import { COLLECTION } from './search-metadata.data';
-import { parseStatistics } from '@collections/data/utils';
 import {
   toArray,
   toValueWithLabel,
@@ -11,6 +10,11 @@ import {
   toAccessRightColoredTag,
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
+import {
+  toDownloadsStatisticsSecondaryTag,
+  toKeywordsSecondaryTag,
+  toViewsStatisticsSecondaryTag,
+} from '@collections/data/utils';
 
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -43,6 +47,10 @@ export const servicesAdapter: IAdapter = {
         filter: 'resource_organisation',
       },
     ],
-    ...parseStatistics(service),
+    secondaryTags: [
+      toDownloadsStatisticsSecondaryTag(service.usage_counts_downloads),
+      toViewsStatisticsSecondaryTag(service.usage_counts_views),
+      toKeywordsSecondaryTag(service.tag_list ?? [], 'tag_list'),
+    ],
   }),
 };

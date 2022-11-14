@@ -1,17 +1,26 @@
-interface IStatistics {
-  usageCountsViews: number | null;
-  usageCountsDownloads: number | null;
-}
+import { ISecondaryTag } from '@collections/repositories/types';
+import { toArray } from '@collections/filters-serializers/utils';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const parseStatistics = (data: any): IStatistics => {
-  const usageCountsViews = parseInt(data['usage_counts_views'] ?? '');
-  const usageCountsDownloads = parseInt(data['usage_counts_downloads'] ?? '');
-
-  return {
-    usageCountsViews: isNaN(usageCountsViews) ? null : usageCountsViews,
-    usageCountsDownloads: isNaN(usageCountsDownloads)
-      ? null
-      : usageCountsDownloads,
-  };
-};
+export const toDownloadsStatisticsSecondaryTag = (
+  data: string | number | null | undefined
+): ISecondaryTag => ({
+  iconPath: '/assets/usage-downloads.svg',
+  values: toArray(data ? `${data} Downloads` : null),
+  type: 'info',
+});
+export const toViewsStatisticsSecondaryTag = (
+  data: string | number | null | undefined
+): ISecondaryTag => ({
+  iconPath: '/assets/usage-views.svg',
+  values: toArray(data ? `${data} Views` : null),
+  type: 'info',
+});
+export const toKeywordsSecondaryTag = (
+  data: string[] | undefined | null,
+  filter: string
+): ISecondaryTag => ({
+  iconPath: '/assets/tag.svg',
+  values: toArray(data),
+  filter,
+  type: 'url',
+});

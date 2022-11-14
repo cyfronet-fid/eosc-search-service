@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import {
   IColoredTag,
+  ISecondaryTag,
   ITag,
   IValueWithLabel,
 } from '@collections/repositories/types';
@@ -39,17 +40,11 @@ const MAX_CHARS_LENGTH = 256;
         (activeFilter)="setActiveFilter($event.filter, $event.value)"
       >
       </ess-tags>
-
-      <div class="usage">
-        <span *ngIf="downloads !== null" class="statistic text-muted"
-          ><img src="/assets/usage-downloads.svg" />
-          <ng-container i18n>{{ downloads }} Downloads</ng-container></span
-        >
-        <span *ngIf="views !== null" class="statistic text-muted"
-          ><img src="/assets/usage-views.svg" />
-          <ng-container i18n>{{ views }} Views</ng-container></span
-        >
-      </div>
+      <ess-secondary-tags
+        [tags]="secondaryTags"
+        (activeFilter)="setActiveFilter($event.filter, $event.value)"
+      >
+      </ess-secondary-tags>
 
       <p class="description">
         <span>
@@ -69,11 +64,6 @@ const MAX_CHARS_LENGTH = 256;
     `
       :host {
         display: block;
-      }
-
-      .usage > .statistic {
-        font-size: 11px;
-        margin-right: 30px;
       }
     `,
   ],
@@ -112,10 +102,7 @@ export class ResultComponent {
   coloredTags: IColoredTag[] = [];
 
   @Input()
-  downloads: number | null = null;
-
-  @Input()
-  views: number | null = null;
+  secondaryTags: ISecondaryTag[] = [];
 
   constructor(
     private _customRoute: CustomRoute,

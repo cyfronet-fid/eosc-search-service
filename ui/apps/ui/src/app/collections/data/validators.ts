@@ -120,6 +120,9 @@ export const _validateFiltersConsistency = (
       ...(adapter.adapter({ id: '' }).coloredTags || []).map(
         ({ filter }) => filter
       ),
+      ...(adapter.adapter({ id: '' }).secondaryTags || [])
+        .map(({ filter }) => filter)
+        .filter((filter) => !!filter),
     ];
 
     const missingFilters = differenceWith(
