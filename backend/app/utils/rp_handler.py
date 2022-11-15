@@ -10,20 +10,26 @@
 import json
 import tempfile
 import urllib.request
+from urllib.error import HTTPError
 from urllib.parse import urlparse
 
+from cachetools import TTLCache, cached
 from cryptojwt.key_jar import KeyJar, init_key_jar
 from oidcrp.rp_handler import RPHandler
 
 from app.config import OIDC_CONFIG, OIDC_JWT_ENCRYPT_CONFIG
 
+cache = TTLCache(maxsize=1, ttl=64800)  # 24h
 
-def _write_jwks_to(url_to_open, jwks_tempfile):
-    with urllib.request.urlopen(url_to_open) as url:
-        public_key_jwks = json.loads(url.read().decode())
-        jwks = json.dumps(public_key_jwks, indent=2).encode("utf-8")
-        jwks_tempfile.write(jwks)
-        jwks_tempfile.seek(0)
+
+@cached(cache)
+def _fetch_jwks(url_to_open):
+    try:
+        with urllib.request.urlopen(url_to_open) as url:
+            public_key_jwks = json.loads(url.read().decode())
+            return json.dumps(public_key_jwks, indent=2).encode("utf-8")
+    except HTTPError:
+        return None
 
 
 def _get_key_jar(config):
@@ -36,9 +42,13 @@ def _get_key_jar(config):
         key_jar = init_key_jar(**config)
         return key_jar
 
-    key_jar = KeyJar()
     with tempfile.NamedTemporaryFile(suffix=".json") as temp:
-        _write_jwks_to(config["public_path"], temp)
+        jwks = _fetch_jwks(config["public_path"])
+        if not jwks:
+            return KeyJar()
+
+        temp.write(jwks)
+        temp.seek(0)
         new_config = dict(
             public_path=temp.name,
             key_defs=config["key_defs"],

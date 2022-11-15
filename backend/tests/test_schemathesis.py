@@ -10,6 +10,8 @@ from sqlalchemy.orm import Session
 
 from app.models import Dump, DumpElement
 
+pytest.skip("Enable when we will work with db", allow_module_level=True)
+
 schema = schemathesis.from_path(
     os.path.dirname(__file__) + "/../eosc-search-service-v1.yaml"
 )

@@ -18,6 +18,7 @@ cryptojwt = "*"
 oidcrp = "*"
 uvicorn = "*"
 "stomp.py" = "*"
+cachetools = "*"
 
 [dev-packages]
 black = "*"
