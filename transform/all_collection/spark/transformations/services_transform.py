@@ -72,6 +72,7 @@ def transform_data_sources(
     harvested_properties = {}
 
     data_src = data_src.withColumn("type", lit(DATA_SOURCE_TYPE_VALUE))
+    data_src = data_src.withColumn("id", (col("id") + 10_000_000))
     data_src = rename_and_cast_columns(data_src)
     data_src = map_best_access_right(
         data_src, harvested_properties, DATA_SOURCE_TYPE_VALUE
@@ -89,11 +90,11 @@ def transform_data_sources(
     return data_src
 
 
-def rename_and_cast_columns(services: DataFrame) -> DataFrame:
+def rename_and_cast_columns(df: DataFrame) -> DataFrame:
     """Cast services and data source columns"""
-    services = (
-        services.withColumn("description", split(col("description"), ","))
-        .withColumn("id", services.id.cast(StringType()))
+    df = (
+        df.withColumn("description", split(col("description"), ","))
+        .withColumn("id", col("id").cast(StringType()))
         .withColumnRenamed("created_at", "publication_date")
         .withColumnRenamed("order_type", "best_access_right")
         .withColumnRenamed("language_availability", "language")
@@ -104,7 +105,7 @@ def rename_and_cast_columns(services: DataFrame) -> DataFrame:
         .withColumn("updated_at", col("updated_at").cast("date"))
     )
 
-    return services
+    return df
 
 
 def simplify_urls(df: DataFrame, col_name: str) -> DataFrame:
