@@ -10,13 +10,12 @@ from sqlalchemy.orm import Session
 
 from app.models import Dump, DumpElement
 
-pytest.skip("Enable when we will work with db", allow_module_level=True)
-
 schema = schemathesis.from_path(
     os.path.dirname(__file__) + "/../eosc-search-service-v1.yaml"
 )
 
 
+@pytest.mark.skip("Enable when we will work with db")
 @schema.parametrize()
 @settings(suppress_health_check=[HealthCheck.function_scoped_fixture])
 async def test_empty_db(case, managed_app) -> None:
@@ -24,6 +23,7 @@ async def test_empty_db(case, managed_app) -> None:
     case.validate_response(response)
 
 
+@pytest.mark.skip("Enable when we will work with db")
 @schema.parametrize()
 @settings(suppress_health_check=[HealthCheck.function_scoped_fixture])
 # pylint: disable=redefined-outer-name,unused-argument
