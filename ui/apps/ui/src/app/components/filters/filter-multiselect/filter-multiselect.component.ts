@@ -74,7 +74,7 @@ import { IFqMap } from '@collections/services/custom-route.type';
   styles: [
     `
       .filter {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
         position: relative;
       }
       .query-input {

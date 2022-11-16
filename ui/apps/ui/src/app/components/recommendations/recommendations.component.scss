@@ -37,18 +37,15 @@ $palette-gray-70: rgba($palette-gray-100, 0.7);
 $palette-gray-80: rgba($palette-gray-100, 0.8);
 
 .service-info-box {
-  display: flex;
+  display: inline-block;
   position: relative;
-  height: 240px;
-  flex: 1 0;
-  flex-direction: column;
-  margin-bottom: 15px;
-  margin-right: 20px;
-  box-shadow: 0 0 20px rgb(0 0 0 / 10%);
+  float: left;
+  margin-bottom: 20px;
+  border: 1px solid #D9DEE2;
   background: #f9fcfe;
-  padding: 20px;
+  padding: 10px 10px 5px;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 8px;
 
   header {
     font-weight: bold;

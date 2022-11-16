@@ -8,10 +8,9 @@ import { Router } from '@angular/router';
   selector: 'ess-page-header',
   template: `
     <div id="container" class="page-heading">
-      <h3>{{ (activeNavConfig$ | async)?.title }}</h3>
-      <span id="results-count" class="text-secondary" i18n
-        >({{ resultsCount }} results)</span
-      >
+      <span id="results-count" i18n
+        >{{ resultsCount }} search results</span> in {{ (activeNavConfig$ | async)?.title }}
+      <!---
       <div id="breadcrumbs">
         <nz-breadcrumb nzSeparator=">">
           <ng-container
@@ -31,7 +30,7 @@ import { Router } from '@angular/router';
           </ng-container>
         </nz-breadcrumb>
       </div>
-    </div>
+    </div> --->
   `,
 })
 export class PageHeaderComponent {

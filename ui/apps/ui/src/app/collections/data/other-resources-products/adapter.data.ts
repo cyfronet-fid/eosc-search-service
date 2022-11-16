@@ -7,6 +7,7 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
+  parseStatistics,
   toDownloadsStatisticsSecondaryTag,
   toKeywordsSecondaryTag,
   toViewsStatisticsSecondaryTag,
@@ -67,9 +68,10 @@ export const otherResourcesProductsAdapter: IAdapter = {
     },
     collection: COLLECTION,
     secondaryTags: [
-      toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
-      toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
+      // toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
+      // toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
       toKeywordsSecondaryTag(openAIREResult.keywords ?? [], 'keywords'),
     ],
+    ...parseStatistics(openAIREResult),
   }),
 };

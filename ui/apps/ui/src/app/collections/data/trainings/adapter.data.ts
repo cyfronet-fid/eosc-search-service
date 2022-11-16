@@ -13,6 +13,7 @@ import {
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
 import {
+  parseStatistics,
   toDownloadsStatisticsSecondaryTag,
   toKeywordsSecondaryTag,
   toViewsStatisticsSecondaryTag,
@@ -60,9 +61,10 @@ export const trainingsAdapter: IAdapter = {
       },
     ],
     secondaryTags: [
-      toDownloadsStatisticsSecondaryTag(training.usage_counts_downloads),
-      toViewsStatisticsSecondaryTag(training.usage_counts_views),
+      // toDownloadsStatisticsSecondaryTag(training.usage_counts_downloads),
+      // toViewsStatisticsSecondaryTag(training.usage_counts_views),
       toKeywordsSecondaryTag(training.keywords ?? [], 'keywords'),
     ],
+    ...parseStatistics(training),
   }),
 };

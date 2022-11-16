@@ -7,15 +7,17 @@ import { toNavigationLink } from './utils';
 @Component({
   selector: 'ess-collections-navigation',
   template: `
-    <div id="sub-nav">
-      <a
-        class="nav-btn"
-        *ngFor="let link of navigationLinks"
-        [routerLink]="link.routerLink"
-        routerLinkActive="active"
-        [queryParams]="{ q: (q$ | async) }"
-        >{{ link.label }}</a
-      >
+    <div class="container--xxl navigation">
+      <div id="sub-nav">
+        <a
+          class="nav-btn {{ link.label }}"
+          *ngFor="let link of navigationLinks"
+          [routerLink]="link.routerLink"
+          routerLinkActive="active"
+          [queryParams]="{ q: (q$ | async) }"
+          >{{ link.label }}</a
+        >
+      </div>
     </div>
   `,
 })

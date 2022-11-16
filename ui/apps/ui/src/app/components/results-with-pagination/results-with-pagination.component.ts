@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, TrackByFunction } from '@angular/core';
 import { PaginationService } from './pagination.service';
 import { BehaviorSubject, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
@@ -38,14 +38,9 @@ import { Router } from '@angular/router';
         $any(results$ | async)?.length > 0 && (isLoading$ | async) === false
       "
     >
-      <ess-pagination
-        [paginationData]="$any(paginationData$ | async)"
-        [loading]="(isLoading$ | async) ?? false"
-        (activePageChange)="pageNr$.next($event)"
-      ></ess-pagination>
       <ess-result
         class="results"
-        *ngFor="let result of results$ | async"
+        *ngFor="let result of results$ | async; trackBy: trackByResultId"
         [id]="result.id"
         [title]="result.title"
         [description]="result.description"
@@ -54,6 +49,9 @@ import { Router } from '@angular/router';
         [tags]="result.tags"
         [coloredTags]="result.coloredTags ?? []"
         [secondaryTags]="result.secondaryTags ?? []"
+        [views]="result.views"
+        [downloads]="result.downloads"
+        [accessRight]="result.accessRight"
         [date]="result.date"
       ></ess-result>
       <ess-pagination
@@ -101,6 +99,10 @@ export class ResultsWithPaginationComponent implements OnInit {
   isLoading$ = this._paginationService.isLoading$;
   paginationData$ = this._paginationService.paginationData$;
   range = range;
+  trackByResultId: TrackByFunction<IResult> = (
+    index: number,
+    entity: IResult
+  ) => entity.id;
 
   constructor(
     private _paginationService: PaginationService,

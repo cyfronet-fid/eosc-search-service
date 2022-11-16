@@ -66,7 +66,7 @@ import { IUIFilterTreeNode } from '@collections/repositories/types';
       ::ng-deep .ant-tree-node-content-wrapper .ant-tree-title {
         word-wrap: break-word;
         display: block;
-        max-width: 180px;
+        max-width: 215px;
       }
     `,
   ],

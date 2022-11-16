@@ -40,7 +40,7 @@ export class RecommendationsComponent implements OnInit {
         (recommendations) =>
           (this.recommendations = recommendations.map((recommended) => ({
             ...recommended,
-            title: truncate(recommended.title, { length: 40 }),
+            title: truncate(recommended.title, { length: 50 }),
             description: truncate(recommended.description, { length: 250 }),
           })))
       );

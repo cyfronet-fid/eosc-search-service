@@ -11,6 +11,7 @@ import {
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
 import {
+  parseStatistics,
   toDownloadsStatisticsSecondaryTag,
   toKeywordsSecondaryTag,
   toViewsStatisticsSecondaryTag,
@@ -48,9 +49,10 @@ export const servicesAdapter: IAdapter = {
       },
     ],
     secondaryTags: [
-      toDownloadsStatisticsSecondaryTag(service.usage_counts_downloads),
-      toViewsStatisticsSecondaryTag(service.usage_counts_views),
+      // toDownloadsStatisticsSecondaryTag(service.usage_counts_downloads),
+      // toViewsStatisticsSecondaryTag(service.usage_counts_views),
       toKeywordsSecondaryTag(service.tag_list ?? [], 'tag_list'),
     ],
+    ...parseStatistics(service),
   }),
 };
