@@ -15,6 +15,9 @@ export interface IResult {
   date?: string;
   coloredTags?: IColoredTag[];
   secondaryTags?: ISecondaryTag[];
+  accessRight?: string;
+  views?: number;
+  downloads?: number;
 }
 
 export interface ISecondaryTag {

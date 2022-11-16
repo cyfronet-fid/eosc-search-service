@@ -19,9 +19,12 @@ const MAX_CHARS_LENGTH = 256;
   selector: 'ess-result',
   template: `
     <div id="container">
-      <div *ngIf="date" class="date-box">
-        {{ date }}
-      </div>
+      <ess-colored-tags
+        [type]="type"
+        [tags]="coloredTags"
+        [q]="q$ | async"
+        (activeFilter)="setActiveFilter($event.filter, $event.value)"
+      ></ess-colored-tags>
 
       <ess-url-title
         [title]="title"
@@ -29,17 +32,35 @@ const MAX_CHARS_LENGTH = 256;
       >
       </ess-url-title>
 
-      <ess-colored-tags
-        [type]="type"
-        [tags]="coloredTags"
-        [q]="q$ | async"
-        (activeFilter)="setActiveFilter($event.filter, $event.value)"
-      ></ess-colored-tags>
+      <div class="usage">
+        <span class="statistic open-access"
+          ><img src="/assets/usage-access.svg" />
+          <ng-container i18n>{{ accessRight }}</ng-container></span
+        >
+        <span *ngIf="date !== null" class="statistic text-muted"
+          ><img src="/assets/usage-date.svg" />
+          <ng-container i18n>{{ date }}</ng-container></span
+        >
+        <span *ngIf="type !== null" class="statistic text-muted"
+          ><img src="/assets/usage-type.svg" />
+          <ng-container i18n>Type: {{ type.label }}</ng-container></span
+        >
+        <span *ngIf="downloads !== undefined" class="statistic text-muted"
+          ><img src="/assets/usage-downloads.svg" />
+          <ng-container i18n>{{ downloads }} Downloads</ng-container></span
+        >
+        <span *ngIf="views !== undefined" class="statistic text-muted"
+          ><img src="/assets/usage-views.svg" />
+          <ng-container i18n>{{ views }} Views</ng-container></span
+        >
+      </div>
+
       <ess-tags
         [tags]="tags"
         (activeFilter)="setActiveFilter($event.filter, $event.value)"
       >
       </ess-tags>
+
       <ess-secondary-tags
         [tags]="secondaryTags"
         (activeFilter)="setActiveFilter($event.filter, $event.value)"
@@ -64,6 +85,22 @@ const MAX_CHARS_LENGTH = 256;
     `
       :host {
         display: block;
+      }
+
+      .usage > .statistic {
+        font-size: 11px;
+        margin-right: 15px;
+        display: inline-block;
+        line-height: 17px;
+        height: 17px;
+        vertical-align: middle;
+      }
+
+      .usage > .statistic img {
+        margin-right: 5px;
+        max-height: 17px;
+        width: auto;
+        vertical-align: middle;
       }
     `,
   ],
@@ -100,6 +137,15 @@ export class ResultComponent {
 
   @Input()
   coloredTags: IColoredTag[] = [];
+
+  @Input()
+  downloads?: number;
+
+  @Input()
+  views?: number;
+
+  @Input()
+  accessRight?: string;
 
   @Input()
   secondaryTags: ISecondaryTag[] = [];

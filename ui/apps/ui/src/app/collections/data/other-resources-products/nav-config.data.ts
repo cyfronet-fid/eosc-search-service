@@ -3,7 +3,7 @@ import { LABEL as ALL_COLLECTIONS_LABEL } from '../all/nav-config.data';
 import { URL_PARAM_NAME as ALL_COLLECTIONS_PARAM_NAME } from '../all/nav-config.data';
 
 export const URL_PARAM_NAME = 'other';
-export const LABEL = 'Other research products';
+export const LABEL = 'Other';
 export const othersResourcesProductsNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,

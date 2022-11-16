@@ -12,6 +12,7 @@ import {
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
 import {
+  parseStatistics,
   toDownloadsStatisticsSecondaryTag,
   toKeywordsSecondaryTag,
   toViewsStatisticsSecondaryTag,
@@ -75,9 +76,10 @@ export const publicationsAdapter: IAdapter = {
     },
     collection: COLLECTION,
     secondaryTags: [
-      toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
-      toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
+      // toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
+      // toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
       toKeywordsSecondaryTag(openAIREResult.keywords ?? [], 'keywords'),
     ],
+    ...parseStatistics(openAIREResult),
   }),
 };

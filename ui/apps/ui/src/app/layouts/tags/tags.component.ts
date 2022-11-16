@@ -1,12 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TrackByFunction,
+} from '@angular/core';
 import { ITag } from '@collections/repositories/types';
 
 @Component({
   selector: 'ess-tags',
   template: ` <div id="tags">
-    <ng-container *ngFor="let tag of tags">
+    <ng-container *ngFor="let tag of tags; trackBy: trackByLabel">
       <div class="tag-row" *ngIf="tag.values.length > 0">
-        <span class="tag tag-title">{{ tag.label }}: </span>
+        <span class="tag tag-title"
+          ><strong>{{ tag.label }}: </strong></span
+        >
         <ng-container *ngFor="let singleValue of tag.values">
           <span class="tag"
             ><a
@@ -27,6 +35,8 @@ export class TagsComponent {
 
   @Output()
   activeFilter = new EventEmitter<{ filter: string; value: string }>();
+  trackByLabel: TrackByFunction<ITag> = (index: number, entity: ITag) =>
+    entity.label;
 
   setActiveFilter(filter: string, value: string): void {
     this.activeFilter.emit({ filter, value });

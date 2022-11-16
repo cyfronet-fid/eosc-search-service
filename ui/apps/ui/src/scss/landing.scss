@@ -19,25 +19,33 @@ h2 {
 }
 
 .btn-primary {
-  background: linear-gradient(88.93deg, #05a6e7 1.83%, #0c2bd5 124.59%);
+  background: linear-gradient(88.93deg, #5a69d1 1.83%, #3D4DB6 124.59%);
   border-radius: 25px;
   padding: 10px 30px;
   border: none;
 }
 
+.btn-primary:hover {
+  background: #3D4DB6;
+}
+
 .heading {
-  background: linear-gradient(
-    117.95deg,
-    rgba(12, 43, 213, 0.6) 12.72%,
-    rgba(248, 206, 46, 0.4052) 99.99%,
-    rgba(251, 206, 44, 0.5) 100%
-  );
-  padding: 80px 0 110px;
+  background: #3D4DB6;
+  padding: 35px 0 45px;
+  color: #fff;
 }
 
 .heading .text-muted {
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.3);
   font-size: 14px;
+}
+
+.heading h1 {
+  color: #fff;
+}
+
+.heading .input-group {
+  margin: auto;
 }
 
 .logo-box {
@@ -45,31 +53,56 @@ h2 {
 }
 
 .search-box {
-  margin: 50px 0 25px 0;
+  margin: 46px 0 25px 0;
+}
+
+.phase-box {
+  position: relative;
 }
 
 .search-box input {
   height: 40px;
+  width: 375px;
+  border: none;
   border-radius: 25px;
-  padding-left: 35px;
+  padding-left: 25px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.search-box select {
+  border: none;
+}
+
+.search-box select:focus {
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 .search-box .btn-primary {
   height: 40px;
-  background: linear-gradient(88.93deg, #05a6e7 1.83%, #0c2bd5 124.59%);
-  padding-left: 20px;
-  padding-right: 30px;
+  background: #fff;
+  padding: 0 20px 0 10px;
   border: none;
   border-radius: 0 25px 25px 0;
 }
 
+.search-box .input-group {
+
+}
+
 .search-box .btn-primary i {
-  margin-right: 10px;
+  color: #3D4DB6;
+  font-size: 22px;
+
 }
 
 .heading .lead {
   font-weight: 400;
-  color: RGB(0, 0, 0, 0.8);
+  color: RGB(255, 255, 255, 0.8);
   margin-bottom: 5px;
   font-size: 18px;
 }
@@ -77,13 +110,14 @@ h2 {
 .solutions-box a {
   font-size: 15px;
   font-weight: 400;
+  color: #fff;
   margin: 0 5px 2px;
   display: inline-block;
   text-decoration: none;
 }
 
 .solutions-box a:hover {
-  color: #3987be;
+  color: #fff;
   text-decoration: underline;
 }
 
@@ -250,7 +284,7 @@ h2 {
     padding-bottom: 2rem !important;
   }
   .search-box {
-    margin: 30px 0 30px 0;
+    margin: 46px 0 30px 0;
   }
   .search-box .btn-primary {
     padding-left: 10px;

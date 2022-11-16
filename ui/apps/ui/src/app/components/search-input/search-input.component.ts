@@ -37,6 +37,7 @@ import { RedirectService } from '@collections/services/redirect.service';
       <div class="search-box">
         <form>
           <div class="input-group">
+            <div class="phase-box">
             <input
               #inputQuery
               type="text"
@@ -50,6 +51,19 @@ import { RedirectService } from '@collections/services/redirect.service';
               "
               [formControl]="formControl"
             />
+            <button
+              *ngIf="
+                (formControl.value && formControl.value.trim() !== '') ||
+                (hasSetQuery$ | async)
+              "
+              id="btn--clear-query"
+              type="button"
+              class="btn btn-secondary"
+              (click)="clearQuery()"
+            >
+              Clear <span>&cross;</span>
+          </button>
+            </div>
             <select
               class="form-select"
               style="flex-grow: 0; flex-basis: 150px;"
@@ -69,25 +83,14 @@ import { RedirectService } from '@collections/services/redirect.service';
                 type="button"
                 (click)="updateQueryParams(formControl.value || '*')"
               >
-                <i class="bi bi-search"></i> Search
+                <i class="bi bi-search"></i>
               </button>
             </div>
           </div>
         </form>
+        
       </div>
-      <button
-        *ngIf="
-          (formControl.value && formControl.value.trim() !== '') ||
-          (hasSetQuery$ | async)
-        "
-        id="btn--clear-query"
-        style="margin-right: 155px;"
-        type="button"
-        class="btn btn-secondary"
-        (click)="clearQuery()"
-      >
-        Clear phrase <span>&cross;</span>
-      </button>
+      
 
       <div
         class="list-group suggestions"
@@ -135,11 +138,12 @@ import { RedirectService } from '@collections/services/redirect.service';
         text-align: left;
         position: absolute;
         top: 40px;
-        width: calc(100% - 150px);
+        max-width:460px;
         left: 20px;
         border-radius: 0 0 10px 10px;
         z-index: 10;
       }
+     
       .suggestions .group {
         text-transform: uppercase;
         color: #6c757d;
@@ -172,7 +176,7 @@ import { RedirectService } from '@collections/services/redirect.service';
       #btn--clear-query {
         position: absolute;
         top: 7px;
-        right: 130px;
+        right: 0;
         font-size: 12px;
         border-radius: 50px;
         padding: 4px 14px;

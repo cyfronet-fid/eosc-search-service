@@ -19,25 +19,29 @@ import { combineLatest } from 'rxjs';
 @Component({
   selector: 'ess-search-service-page',
   template: `
+    <ess-search-bar></ess-search-bar>
+    <ess-collections-navigation></ess-collections-navigation>
     <div class="container--xxl">
-      <ess-search-bar></ess-search-bar>
       <div class="dashboard" style="position: relative">
-        <ess-collections-navigation></ess-collections-navigation>
-        <ess-page-header
-          [resultsCount]="response?.numFound ?? 0"
-        ></ess-page-header>
         <div class="row" id="dashboard__main">
           <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
             <ess-filters
               *ngIf="(response?.results ?? []).length > 0"
             ></ess-filters>
           </div>
-          <div class="col-sm-9 col-12 right-column">
+          <div class="col-sm-7 col-12 center-column">
+            <ess-page-header
+              [resultsCount]="response?.numFound ?? 0"
+            ></ess-page-header>
             <ess-active-filters></ess-active-filters>
-            <ess-recommendations></ess-recommendations>
+            
             <ess-results-with-pagination
               [response]="response"
             ></ess-results-with-pagination>
+          </div>
+          <div class="col-sm-2 col-12 right-column">
+            <h5>Suggested</h5>
+            <ess-recommendations></ess-recommendations>
           </div>
         </div>
       </div>

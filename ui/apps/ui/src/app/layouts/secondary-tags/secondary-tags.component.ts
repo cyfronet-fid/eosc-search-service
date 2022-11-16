@@ -1,11 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TrackByFunction,
+} from '@angular/core';
 import { ISecondaryTag } from '@collections/repositories/types';
 
 @Component({
   selector: 'ess-secondary-tags',
   template: `
     <div class="usage">
-      <ng-container *ngFor="let tag of tags">
+      <ng-container *ngFor="let tag of tags; trackBy: identityTagTrack">
         <ng-container [ngSwitch]="tag.type">
           <ng-container *ngSwitchCase="'url'">
             <span *ngIf="tag.values.length > 0" class="statistic text-muted"
@@ -50,6 +56,11 @@ export class SecondaryTagsComponent {
 
   @Output()
   activeFilter = new EventEmitter<{ filter: string; value: string }>();
+
+  identityTagTrack: TrackByFunction<ISecondaryTag> = (
+    index: number,
+    tag: ISecondaryTag
+  ) => tag;
 
   setActiveFilter(filter: string, value: string): void {
     this.activeFilter.emit({ filter, value });
