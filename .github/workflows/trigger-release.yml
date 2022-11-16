@@ -17,3 +17,12 @@ jobs:
           git checkout master
           git merge origin/development 
           git push
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          bump-minor-pre-major: true
+          bump-patch-for-minor-pre-major: true
+          version-file: 'version.txt'
+          release-type: simple
+          package-name: release-please-action
+          default-branch: master
