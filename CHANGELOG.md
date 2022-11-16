@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.5.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.4.1...v1.5.0) (2022-11-16)
+
+
+### Features
+
+* add mapping to fetched values for multiselect ([f4a1cea](https://github.com/cyfronet-fid/eosc-search-service/commit/f4a1ceaea17cbef0a4324759b3cc6dadee3905cc))
+* add other resources products ([4bd5811](https://github.com/cyfronet-fid/eosc-search-service/commit/4bd58114dd156001d1cb7ec9c6b9c67f95e17a18))
+* add values labels to tags ([8dcfcd1](https://github.com/cyfronet-fid/eosc-search-service/commit/8dcfcd1570c128848c3ac35a6ae5c7d16752df0d))
+* adjust research steps ([c0d9789](https://github.com/cyfronet-fid/eosc-search-service/commit/c0d9789fb7d82a3fd0e46276f5c399b42ad5084d))
+
+
+### Bug Fixes
+
+* b2share, b2safe and b2find links ([001baea](https://github.com/cyfronet-fid/eosc-search-service/commit/001baea4e8e7ca7f3780ef8dd6de0cfb57438d70))
+* handle jwks fetching error ([49c63fa](https://github.com/cyfronet-fid/eosc-search-service/commit/49c63fa2d67de474a3341e05815bf15e2ced7263))
+* other resources with changes from [#340](https://github.com/cyfronet-fid/eosc-search-service/issues/340) ([11f1175](https://github.com/cyfronet-fid/eosc-search-service/commit/11f1175b8c397005df3dc505bbdcc238b2aebd46))
+* triggering release ([0396c28](https://github.com/cyfronet-fid/eosc-search-service/commit/0396c28ad0568b563683918b67ee27f1a99df87b))
+
 ## [1.4.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.4.0...v1.4.1) (2022-11-11)
 
 
