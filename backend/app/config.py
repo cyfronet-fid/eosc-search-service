@@ -34,7 +34,12 @@ BACKEND_BASE_URL = config("BACKEND_BASE_URL", cast=str, default="http://localhos
 UI_BASE_URL = config("UI_BASE_URL", cast=str, default="http://localhost:4200")
 
 OIDC_HOST = config("OIDC_HOST", cast=str, default="https://aai-demo.eosc-portal.eu")
-OIDC_ISSUER = config("OIDC_ISSUER", cast=str, default=f"{OIDC_HOST}/oidc/")
+OIDC_AAI_NEW_API = config("OIDC_AAI_NEW_API", cast=bool, default=False)
+OIDC_ISSUER = config(
+    "OIDC_ISSUER",
+    cast=str,
+    default=f"{OIDC_HOST}{'/auth/realms/core' if OIDC_AAI_NEW_API else '/oidc/'}",
+)
 OIDC_CLIENT_ID = config("OIDC_CLIENT_ID", cast=str, default="NO_CLIENT_ID")
 OIDC_CLIENT_SECRET = config("OIDC_CLIENT_SECRET", cast=str, default="NO_CLIENT_SECRET")
 
@@ -48,6 +53,25 @@ STOMP_USER_ACTIONS_TOPIC = config(
 )
 STOMP_CLIENT_NAME = config("ESS_QUEUE_CLIENT_NAME", cast=str, default="dev-client")
 
+OIDC_NEW_AUTH_ENDPOINT = "/auth/realms/core/protocol/openid-connect/auth"
+OIDC_OLD_AUTH_ENDPOINT = "/oidc/authorize"
+OIDC_AUTH_ENDPOINT = OIDC_OLD_AUTH_ENDPOINT
+if OIDC_AAI_NEW_API:
+    OIDC_AUTH_ENDPOINT = OIDC_NEW_AUTH_ENDPOINT
+
+OIDC_NEW_TOKEN_ENDPOINT = "/auth/realms/core/protocol/openid-connect/token"
+OIDC_OLD_TOKEN_ENDPOINT = "/oidc/token"
+OIDC_TOKEN_ENDPOINT = OIDC_OLD_TOKEN_ENDPOINT
+if OIDC_AAI_NEW_API:
+    OIDC_TOKEN_ENDPOINT = OIDC_NEW_TOKEN_ENDPOINT
+
+OIDC_NEW_USERINFO_ENDPOINT = "/auth/realms/core/protocol/openid-connect/userinfo"
+OIDC_OLD_USERINFO_ENDPOINT = "/oidc/userinfo"
+OIDC_USERINFO_ENDPOINT = OIDC_OLD_USERINFO_ENDPOINT
+if OIDC_AAI_NEW_API:
+    OIDC_USERINFO_ENDPOINT = OIDC_NEW_USERINFO_ENDPOINT
+
+
 OIDC_CLIENT_OPTIONS = client_options = dict(
     issuer=OIDC_ISSUER,
     client_id=OIDC_CLIENT_ID,
@@ -60,9 +84,9 @@ OIDC_CLIENT_OPTIONS = client_options = dict(
         token_endpoint_auth_method=["client_secret_basic", "client_secret_post"],
     ),
     provider_info=dict(
-        authorization_endpoint=f"{OIDC_HOST}/oidc/authorize",
-        token_endpoint=f"{OIDC_HOST}/oidc/token",
-        userinfo_endpoint=f"{OIDC_HOST}/oidc/userinfo",
+        authorization_endpoint=f"{OIDC_HOST}{OIDC_AUTH_ENDPOINT}",
+        token_endpoint=f"{OIDC_HOST}{OIDC_TOKEN_ENDPOINT}",
+        userinfo_endpoint=f"{OIDC_HOST}{OIDC_USERINFO_ENDPOINT}",
     ),
     redirect_uris=[f"{BACKEND_BASE_URL}/api/web/auth/checkin"],
     post_logout_redirect_uri=f"{BACKEND_BASE_URL}/auth/logout",
@@ -91,8 +115,15 @@ OIDC_CONFIG = dict(
         end_session={"class": "oidcrp.oidc.end_session.EndSession", "kwargs": {}},
     ),
 )
+
+OIDC_NEW_JWKS_ENDPOINT = "/auth/realms/core/protocol/openid-connect/certs"
+OIDC_OLD_JWKS_ENDPOINT = "/oidc/jwk"
+OIDC_JWKS_ENDPOINT = OIDC_OLD_JWKS_ENDPOINT
+if OIDC_AAI_NEW_API:
+    OIDC_JWKS_ENDPOINT = OIDC_NEW_JWKS_ENDPOINT
+
 OIDC_JWT_ENCRYPT_CONFIG = dict(
-    public_path=f"{OIDC_HOST}/oidc/jwk",
+    public_path=f"{OIDC_HOST}{OIDC_JWKS_ENDPOINT}",
     key_defs=[
         {"type": "RSA", "use": ["sig"]},
     ],
