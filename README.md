@@ -116,8 +116,6 @@ See docker-compose.yml for components.
   > The service ID stored in AAI for auth purposes
 - `OIDC_CLIENT_SECRET`
   > Private key of the service need in AAI auth process
-- `OIDC_AAI_NEW_API`
-  > A param switching between new kind of endpoints and old one (AAI changed endpoints between instances)
 - `USER_ACTIONS_QUEUE`
   > Connection URI to databus for user actions 
   > Format `rabbitmq://guest:guest@127.0.0.1:61613/topic/user_actions`
