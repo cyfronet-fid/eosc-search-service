@@ -41,11 +41,11 @@ export class SearchInputService {
   }
 
   _suggestedResultsBy$(q: string, collections: ICollectionSearchMetadata[]) {
-    let nq = q.split(" ");
-    var new_query = "";
+    const nq = q.split(' ');
+    let new_query = '';
     nq.forEach(function(value) {
-      value = value + "~";
-      new_query = new_query + value + " ";
+      value = value + '~';
+      new_query = new_query + value + ' ';
     });
     q = new_query;
     return collections.map((metadata) => {
