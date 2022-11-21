@@ -13,7 +13,7 @@ export const toSearchMetadata = (
   fq: string[],
   metadata: ICollectionSearchMetadata
 ) => ({
-  q: q + '~',
+  q: query_changer(q),
   fq,
   cursor: '*',
   rows: 0,
@@ -43,3 +43,13 @@ export const search = (query: string | null, entities: FilterTreeNode[]) => {
     .search(query)
     .map(({ item }) => item);
 };
+
+export const query_changer = (q: string) => {
+  const nq = q.split(' ');
+    let new_query = '';
+    nq.forEach(function(value) {
+      value = value + '~1';
+      new_query = new_query + value + ' ';
+    });
+    return new_query;
+}

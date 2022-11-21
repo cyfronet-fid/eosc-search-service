@@ -108,7 +108,7 @@ export class SearchPageComponent implements OnInit {
             rows: MAX_COLLECTION_RESULTS,
             ...routerParams,
             ...metadata.params,
-            q: routerParams.q + '~',
+            q: this.query_changer(routerParams.q),
           };
           return this._fetchDataService.fetchResults$(
             searchMetadata,
@@ -138,4 +138,15 @@ export class SearchPageComponent implements OnInit {
       )
       .subscribe();
   }
+
+  query_changer = (q: string) => {
+    const nq = q.split(' ');
+      let new_query = '';
+      nq.forEach(function(value) {
+        value = value + '~1';
+        new_query = new_query + value + ' ';
+      });
+      return new_query;
+  }
+  
 }
