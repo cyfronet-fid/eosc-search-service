@@ -44,7 +44,7 @@ export class SearchInputService {
     const nq = q.split(' ');
     let new_query = '';
     nq.forEach(function(value) {
-      value = value + '~';
+      value = value + '~1';
       new_query = new_query + value + ' ';
     });
     q = new_query;
