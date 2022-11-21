@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.5.0...v1.6.0) (2022-11-21)
+
+
+### Features
+
+* add keywords to results ([9b873dc](https://github.com/cyfronet-fid/eosc-search-service/commit/9b873dc53a96081ecf12553e6a0faa92f717900e))
+* add possibility to change between aai endpoints ([4ea1434](https://github.com/cyfronet-fid/eosc-search-service/commit/4ea1434dc8ac89dd4e9a722ba268aee61e7485f1))
+* add possibility to change between aai endpoints ([12dc992](https://github.com/cyfronet-fid/eosc-search-service/commit/12dc992b5f7cbb57bfd73be7306f1cb04b2794a7))
+
 ## [1.5.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.4.1...v1.5.0) (2022-11-16)
 
 
