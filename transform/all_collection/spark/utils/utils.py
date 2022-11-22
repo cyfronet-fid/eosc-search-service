@@ -16,6 +16,7 @@ from transform.all_collection.spark.utils.loader import (
     FIRST_FILE_PATH,
     FIRST_FILE_DF,
 )
+from transform.all_collection.spark.utils.send_data import SOLR, S3, LOCAL_DUMP
 
 
 def replace_empty_str(df: DataFrame) -> DataFrame:
@@ -106,16 +107,24 @@ def check_trans_consistency(
 
 def print_results(failed_files: Dict, logger: Log4J) -> None:
     """Print results"""
-    err_printed = False
-    logger.info("Data transformation and sending data to Solr were successful!")
-    for col_name, f_file in failed_files.items():
-        if f_file:
+
+    def _print(_col_name: str, _f_file: str, _dest: str) -> None:
+        """Helpful print"""
+        nonlocal err_printed
+        if _f_file:
             if not err_printed:
                 err_printed = True
                 logger.error(
-                    "Certain files failed either to be transformed or to be sent to Solr"
+                    "Certain files failed either to be transformed or to be sent to Solr/S3/Local_dump"
                 )
-            logger.error(f"{col_name}: {f_file}")
+            logger.error(f"{_col_name}: {_f_file}, destination: {_dest}")
+
+    err_printed = False
+    logger.info("Data transformation and sending data to Solr were successful!")
+
+    for col_name, dests in failed_files.items():
+        for dest, f_file in dests.items():
+            _print(col_name, f_file, dest)
 
 
 def print_errors(
@@ -126,6 +135,7 @@ def print_errors(
     if error_type not in handled_errors:
         raise ValueError(f"error_type not in {handled_errors}")
 
-    failed_files[col_name].append(file)
+    for dest in (SOLR, S3, LOCAL_DUMP):
+        failed_files[col_name][dest].append(file)
     logger.error(f"{col_name} - {file} - {error_type}")
     traceback.print_exc()

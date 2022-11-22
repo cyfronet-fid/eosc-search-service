@@ -13,6 +13,7 @@ from transform.all_collection.spark.utils.join_dfs import join_different_dfs, cr
 from transform.all_collection.spark.transformations.commons import (
     create_open_access,
     map_best_access_right,
+    add_tg_fields,
 )
 from transform.all_collection.spark.utils.utils import (
     drop_columns,
@@ -59,6 +60,7 @@ def transform_services(
     harvested_df = create_df(harvested_properties, harvested_schema, spark)
     services = join_different_dfs((services, harvested_df))
     services = add_columns(services, COLS_TO_ADD_TO_SERVICE)
+    services = add_tg_fields(services)
     services = replace_empty_str(services)
     services = services.select(sorted(services.columns))
 
@@ -84,6 +86,7 @@ def transform_data_sources(
     harvested_df = create_df(harvested_properties, harvested_schema, spark)
     data_src = join_different_dfs((data_src, harvested_df))
     data_src = add_columns(data_src, COLS_TO_ADD_DATA_SOURCE)
+    data_src = add_tg_fields(data_src)
     data_src = replace_empty_str(data_src)
     data_src = data_src.select(sorted(data_src.columns))
 

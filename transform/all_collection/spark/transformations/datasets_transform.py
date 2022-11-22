@@ -74,6 +74,7 @@ def transform_datasets(
     datasets = simplify_language(datasets)
     datasets = simplify_indicators(datasets)
     datasets = map_publisher(datasets)
+    datasets = map_language(datasets, harvested_properties)
 
     harvest_author_names_and_pids(datasets, harvested_properties)
     harvest_sdg_and_fos(datasets, harvested_properties)
@@ -89,6 +90,7 @@ def transform_datasets(
     datasets = join_different_dfs((datasets, harvested_df))
     datasets = add_columns(datasets, COLS_TO_ADD)
     datasets = cast_oag_columns(datasets)
+    datasets = add_tg_fields(datasets)
     datasets = replace_empty_str(datasets)
     datasets = datasets.select(sorted(datasets.columns))
 

@@ -74,6 +74,7 @@ def transform_publications(
     publications = simplify_language(publications)
     publications = simplify_indicators(publications)
     publications = map_publisher(publications)
+    publications = map_language(publications, harvested_properties)
 
     harvest_author_names_and_pids(publications, harvested_properties)
     harvest_sdg_and_fos(publications, harvested_properties)
@@ -89,6 +90,7 @@ def transform_publications(
     publications = join_different_dfs((publications, harvested_df))
     publications = add_columns(publications, COLS_TO_ADD)
     publications = cast_oag_columns(publications)
+    publications = add_tg_fields(publications)
     publications = replace_empty_str(publications)
     publications = publications.select(sorted(publications.columns))
 

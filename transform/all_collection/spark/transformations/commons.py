@@ -1,8 +1,9 @@
 # pylint: disable=line-too-long, invalid-name, too-many-nested-blocks, unnecessary-dunder-call, too-many-branches, unsubscriptable-object
 """Common dataframes transformations"""
-from typing import Dict, Tuple, List
+from typing import Dict, Tuple, List, Union
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import col, to_date, split, when
+from pyspark.sql.functions import col, to_date, when, lit
+from pyspark.sql.utils import AnalysisException
 from transform.all_collection.spark.schemas.input_col_name import (
     AUTHOR_NAMES,
     AUTHOR_PIDS,
@@ -21,6 +22,12 @@ from transform.all_collection.spark.schemas.input_col_name import (
     UNIFIED_CATEGORIES,
     DOWNLOADS,
     VIEWS,
+    LANGUAGE,
+    TAG_LIST_TG,
+    TAG_LIST,
+    KEYWORDS_TG,
+    KEYWORDS,
+    AUTHOR_NAMES_TG,
 )
 
 # Mappings - values are mapped to the keys
@@ -74,6 +81,21 @@ unified_categories_mapping = {
     TRAIN_UNI_CAT: ("training",),
 }
 
+# Language mapping
+NOT_SPECIFIED = "Not specified"
+ENGLISH = "English"
+SPANISH = "Spanish"
+
+language_mapping = {
+    NOT_SPECIFIED: (
+        "undetermined",
+        "unknown",
+        "null",
+    ),
+    ENGLISH: "en",
+    SPANISH: "es",
+}
+
 
 def harvest_author_names_and_pids(df: DataFrame, harvested_properties: Dict) -> None:
     """
@@ -121,7 +143,12 @@ def harvest_sdg_and_fos(
     df: DataFrame, harvested_properties: Dict, prop_to_harvest: Tuple = (FOS, SDG)
 ) -> None:
     """Harvest sdg and fos from subjects"""
-    subjects = df.select("subject").collect()
+    try:
+        subjects = df.select("subject").collect()
+    except AnalysisException:
+        harvested_properties[FOS] = [None] * df.count()
+        harvested_properties[SDG] = [None] * df.count()
+        return
 
     for prop in prop_to_harvest:
         harvested_prop_column = []
@@ -189,7 +216,59 @@ def map_publisher(df: DataFrame) -> DataFrame:
 
 def simplify_language(df: DataFrame) -> DataFrame:
     """Simplify language - get only label and convert structure to a string"""
-    return df.withColumn("language", col("language")["label"])
+    return df.withColumn(LANGUAGE, col(LANGUAGE)["label"])
+
+
+def map_language(df: DataFrame, harvested_properties: Dict) -> DataFrame:
+    """Harvest language and standardize its value"""
+
+    def transform_langs(langs: List) -> List:
+        """Transform languages"""
+        language_column = []
+        for language in langs:
+            language = language[LANGUAGE]
+            if not language:
+                language_column.append(None)
+                continue
+
+            lang_iterator(language, language_column)
+
+        return language_column
+
+    def lang_iterator(lang: Union[str, list], _col: List) -> None:
+        """Iterate over languages based on the type"""
+        if isinstance(lang, list):
+            list_lang_map(lang, _col)
+        elif isinstance(lang, str):
+            str_lang_map(lang, _col)
+        else:
+            raise TypeError(f"{lang} is not a type of a list or str")
+
+    def list_lang_map(lang: List[str], _col: List) -> None:
+        """Iterator for list languages"""
+        language_row = []
+        for l in lang:
+            for desired_lan, old_lang in language_mapping.items():
+                if l in old_lang:
+                    language_row.append(desired_lan)
+                    break
+            else:
+                language_row.append(lang)
+        _col.append(language_row)
+
+    def str_lang_map(lang: str, _col: List) -> None:
+        """Iterator for str languages"""
+        for desired_lang, old_lang in language_mapping.items():
+            if lang.lower() in old_lang:
+                _col.append([desired_lang])
+                break
+        else:
+            _col.append([lang])
+
+    languages = df.select(LANGUAGE).collect()
+    harvested_properties[LANGUAGE] = transform_langs(languages)
+
+    return df.drop(LANGUAGE)
 
 
 def harvest_funder(df: DataFrame, harvested_properties: Dict) -> None:
@@ -311,7 +390,6 @@ def rename_oag_columns(df: DataFrame) -> DataFrame:
 
 def cast_oag_columns(df: DataFrame) -> DataFrame:
     """Cast certain OAG columns"""
-    df = df.withColumn("language", split(col("language"), ","))
     df = transform_date(df, "publication_date", "yyyy-MM-dd")
 
     return df
@@ -335,7 +413,32 @@ def create_unified_categories(df: DataFrame, harvested_properties: Dict) -> None
 
 def simplify_indicators(df: DataFrame) -> DataFrame:
     """Simplify indicators - retrieve downloads, views"""
-    df = df.withColumn(
-        DOWNLOADS, col("indicator")["usageCounts"]["downloads"]
-    ).withColumn(VIEWS, col("indicator")["usageCounts"]["views"])
+    try:
+        df = df.withColumn(
+            DOWNLOADS,
+            when(df.indicator.isNull(), None).otherwise(
+                df.indicator["usageCounts"]["downloads"]
+            ),
+        ).withColumn(
+            VIEWS,
+            when(df.indicator.isNull(), None).otherwise(
+                df.indicator["usageCounts"]["views"]
+            ),
+        )
+    except (AnalysisException, AttributeError):
+        df = df.withColumn(DOWNLOADS, lit(None)).withColumn(VIEWS, lit(None))
+
+    return df
+
+
+def add_tg_fields(df: DataFrame) -> DataFrame:
+    """Add copy of certain fields for solr text_general
+    strings - type used for filtering
+    text_general - type used for searching"""
+    df = (
+        df.withColumn(AUTHOR_NAMES_TG, col(AUTHOR_NAMES))
+        .withColumn(KEYWORDS_TG, col(KEYWORDS))
+        .withColumn(TAG_LIST_TG, col(TAG_LIST))
+    )
+
     return df

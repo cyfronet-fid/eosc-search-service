@@ -27,6 +27,7 @@ DOI = "doi"
 UNIFIED_CATEGORIES = "unified_categories"
 DOWNLOADS = "usage_counts_downloads"
 VIEWS = "usage_counts_views"
+TAG_LIST = "tag_list"
 
 # Training
 FORMAT = "format"
@@ -35,6 +36,10 @@ FORMAT = "format"
 GEO_AV = "geographical_availabilities"
 RESOURCE_GEO_LOC = "resource_geographic_locations"
 
+# Text general
+AUTHOR_NAMES_TG = "author_names_tg"
+KEYWORDS_TG = "keywords_tg"
+TAG_LIST_TG = "tag_list_tg"
 
 UNIQUE_SERVICE_COLUMNS = (
     "abbreviation",
