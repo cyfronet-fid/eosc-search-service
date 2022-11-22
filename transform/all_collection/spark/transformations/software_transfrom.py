@@ -72,6 +72,7 @@ def transform_software(
     software = simplify_language(software)
     software = simplify_indicators(software)
     software = map_publisher(software)
+    software = map_language(software, harvested_properties)
 
     harvest_author_names_and_pids(software, harvested_properties)
     harvest_sdg_and_fos(software, harvested_properties)
@@ -87,6 +88,7 @@ def transform_software(
     software = join_different_dfs((software, harvested_df))
     software = add_columns(software, COLS_TO_ADD)
     software = cast_oag_columns(software)
+    software = add_tg_fields(software)
     software = replace_empty_str(software)
     software = software.select(sorted(software.columns))
 

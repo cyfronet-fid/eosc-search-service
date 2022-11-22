@@ -1,6 +1,5 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
 """Load, transform and send data"""
-import os
 from tqdm import tqdm
 import transform.all_collection.spark.transformations as trans
 from transform.all_collection.spark.conf.spark import apply_spark_conf
@@ -11,33 +10,30 @@ from transform.all_collection.spark.utils.utils import (
     print_results,
     print_errors,
 )
-from transform.all_collection.spark.utils.save_df import save_df
+from transform.all_collection.spark.utils.save import (
+    save_df,
+    create_dump_struct,
+    make_archive,
+)
 from transform.all_collection.spark.schemas.harvested_props_schemas import (
     harvested_schemas,
 )
-from transform.all_collection.spark.utils.send_data import send_to_solr
-
-failed_files = {
-    DATASET: [],
-    PUBLICATION: [],
-    SOFTWARE: [],
-    OTHER_RP: [],
-    TRAINING: [],
-    SERVICE: [],
-    DATASOURCE: [],
-}
+from transform.all_collection.spark.utils.send_data import (
+    send_data,
+    failed_files,
+)
 
 if __name__ == "__main__":
     spark, logger = apply_spark_conf()
     env_vars = load_env_vars()
     check_trans_consistency(env_vars[COLLECTIONS], spark, logger)
+    create_dump_struct(env_vars)
 
     for col_name, col_prop in env_vars[COLLECTIONS].items():
         col_input_dir = col_prop[PATH]
         files = sorted(os.listdir(col_input_dir))
-        solr_col_names = col_prop[NAMES].split(" ")
 
-        for file in tqdm(files, desc=col_name):
+        for file_num, file in enumerate(tqdm(files, desc=col_name)):
             file_path = col_input_dir + file
             df = load_data(spark, file_path, col_name)
             # Transform
@@ -56,7 +52,6 @@ if __name__ == "__main__":
                 print_errors("consistency_fail", failed_files, col_name, file, logger)
                 continue
 
-            # Save df
             save_df(
                 df_trans,
                 env_vars[OUTPUT_PATH],
@@ -64,7 +59,9 @@ if __name__ == "__main__":
                 _format=env_vars[OUTPUT_FORMAT],
             )
 
-            # Send data to Solr
-            send_to_solr(solr_col_names, env_vars, failed_files, col_name, file, logger)
+            send_data(env_vars, col_name, file, file_num, logger)
+
+    if env_vars[CREATE_LOCAL_DUMP]:
+        make_archive(env_vars)
 
     print_results(failed_files, logger)

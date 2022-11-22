@@ -16,6 +16,8 @@ from transform.all_collection.spark.utils.utils import (
 from transform.all_collection.spark.transformations.commons import (
     create_open_access,
     create_unified_categories,
+    map_language,
+    add_tg_fields,
 )
 from transform.all_collection.spark.schemas.input_col_name import (
     UNIQUE_SERVICE_COLUMNS,
@@ -92,11 +94,13 @@ def transform_trainings(
     trainings = transform_date(trainings, "publication_date", "yyyy-MM-dd")
     trainings = cast_trainings_columns(trainings)
     create_unified_categories(trainings, harvested_properties)
+    trainings = map_language(trainings, harvested_properties)
 
     trainings = drop_columns(trainings, COLS_TO_DROP)
     harvested_df = create_df(harvested_properties, harvested_schema, spark)
     trainings = join_different_dfs((trainings, harvested_df))
     trainings = add_columns(trainings, COLS_TO_ADD)
+    trainings = add_tg_fields(trainings)
     trainings = replace_empty_str(trainings)
     trainings = trainings.select(sorted(trainings.columns))
 
@@ -113,9 +117,7 @@ def rename_trainings_columns(trainings: DataFrame, cols_to_rename: Dict) -> Data
 
 def cast_trainings_columns(trainings: DataFrame) -> DataFrame:
     """Cast trainings columns"""
-    trainings = trainings.withColumn(
-        "description", split(col("description"), ",")
-    ).withColumn("url", split(col("url"), ","))
+    trainings = trainings.withColumn("description", split(col("description"), ","))
     return trainings
 
 

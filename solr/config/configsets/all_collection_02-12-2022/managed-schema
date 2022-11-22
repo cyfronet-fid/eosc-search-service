@@ -455,6 +455,7 @@
   <field name="access_types" type="strings" required="false"/>
   <field name="activate_message" type="string" required="false" useDocValuesAsStored="true"/>
   <field name="author_names" type="strings" required="false" useDocValuesAsStored="true"/>
+  <field name="author_names_tg" type="text_general" uninvertible="true" docValues="false" multiValued="true" indexed="true" stored="true"/>
   <field name="author_pids" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="best_access_right" type="string" required="false"/>
   <field name="catalogue" type="string" required="false"/>
@@ -464,7 +465,7 @@
   <field name="code_repository_url" type="text_general" tokenized="false" indexed="false" stored="false" uninvertible="false" multiValued="false" required="false"/>
   <field name="contactgroup" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="contactperson" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
-  <field name="content_type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="content_type" type="strings" required="false"/>
   <field name="country" type="strings" required="false"/>
   <field name="datasource_classification" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="dedicated_for" type="strings" required="false"/>
@@ -473,7 +474,7 @@
   <field name="documentation_url" type="strings" required="false"/>
   <field name="doi" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="duration" type="plong" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="eosc_provider" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="eosc_provider" type="strings" required="false"/>
   <field name="format" type="strings" required="false"/>
   <field name="fos" type="strings" required="false"/>
   <field name="funder" type="strings" required="false" useDocValuesAsStored="true"/>
@@ -487,6 +488,8 @@
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
   <field name="jurisdiction" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="keywords" type="strings" required="false"/>
+  <field name="keywords_tg" type="text_general" uninvertible="true" docValues="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="langauge" type="text_general"/>
   <field name="language" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="last_update" type="pdate" sortMissingLast="true" required="false"/>
   <field name="level_of_expertise" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
@@ -502,6 +505,8 @@
   <field name="order_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="payment_model_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="persistent_identity_systems" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="persistent_identity_systems.entity_type" type="text_general"/>
+  <field name="persistent_identity_systems.entity_type_schemes" type="text_general"/>
   <field name="phase" type="string" required="false"/>
   <field name="pid" type="string" required="false" useDocValuesAsStored="true"/>
   <field name="platforms" type="strings" required="false"/>
@@ -513,7 +518,7 @@
   <field name="providers" type="strings" required="false"/>
   <field name="publication_date" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="publisher" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="qualification" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="qualification" type="strings" required="false"/>
   <field name="rating" type="pdouble" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="related_platforms" type="strings" required="false"/>
   <field name="research_community" type="strings" required="false" useDocValuesAsStored="true"/>
@@ -524,7 +529,7 @@
   <field name="resource_geographic_locations" type="strings" required="false"/>
   <field name="resource_level_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="resource_organisation" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="resource_type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="resource_type" type="strings" required="false"/>
   <field name="restrictions" type="string" required="false"/>
   <field name="scientific_domains" type="strings" required="false"/>
   <field name="sdg" type="strings" required="false"/>
@@ -541,8 +546,9 @@
   <field name="subtitle" type="text_general" sortMissingLast="true" required="false"/>
   <field name="synchronized_at" type="pdate" sortMissingLast="true" required="false"/>
   <field name="tag_list" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="tag_list_tg" type="text_general" uninvertible="true" docValues="false" multiValued="true" indexed="true" stored="true"/>
   <field name="tagline" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="target_group" type="string" required="false"/>
+  <field name="target_group" type="strings" required="false"/>
   <field name="terms_of_use_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="thematic" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="title" type="text_general" docValues="false" indexed="true" stored="true"/>
@@ -629,4 +635,7 @@
   <dynamicField name="*_f" type="pfloat" indexed="true" stored="true"/>
   <dynamicField name="*_d" type="pdouble" indexed="true" stored="true"/>
   <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
+  <copyField source="persistent_identity_systems.entity_type" dest="persistent_identity_systems.entity_type_str" maxChars="256"/>
+  <copyField source="persistent_identity_systems.entity_type_schemes" dest="persistent_identity_systems.entity_type_schemes_str" maxChars="256"/>
+  <copyField source="langauge" dest="langauge_str" maxChars="256"/>
 </schema>

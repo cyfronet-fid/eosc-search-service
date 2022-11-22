@@ -74,6 +74,7 @@ def transform_other_rp(
     other_rp = simplify_language(other_rp)
     other_rp = simplify_indicators(other_rp)
     other_rp = map_publisher(other_rp)
+    other_rp = map_language(other_rp, harvested_properties)
 
     harvest_author_names_and_pids(other_rp, harvested_properties)
     harvest_sdg_and_fos(other_rp, harvested_properties)
@@ -89,6 +90,7 @@ def transform_other_rp(
     other_rp = join_different_dfs((other_rp, harvested_df))
     other_rp = add_columns(other_rp, COLS_TO_ADD)
     other_rp = cast_oag_columns(other_rp)
+    other_rp = add_tg_fields(other_rp)
     other_rp = replace_empty_str(other_rp)
     other_rp = other_rp.select(sorted(other_rp.columns))
 
