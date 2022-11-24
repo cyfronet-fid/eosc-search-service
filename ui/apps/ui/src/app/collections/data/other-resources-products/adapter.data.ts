@@ -8,9 +8,7 @@ import {
 } from '@collections/filters-serializers/utils';
 import {
   parseStatistics,
-  toDownloadsStatisticsSecondaryTag,
   toKeywordsSecondaryTag,
-  toViewsStatisticsSecondaryTag,
 } from '@collections/data/utils';
 
 export const otherResourcesProductsAdapter: IAdapter = {

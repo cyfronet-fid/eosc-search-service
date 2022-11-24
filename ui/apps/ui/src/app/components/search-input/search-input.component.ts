@@ -38,31 +38,31 @@ import { RedirectService } from '@collections/services/redirect.service';
         <form>
           <div class="input-group">
             <div class="phase-box">
-            <input
-              #inputQuery
-              type="text"
-              class="form-control"
-              autocomplete="off"
-              i18n-placeholder
-              placeholder="Search in catalogs"
-              (focus)="formControl.value ? (focused = true) : null"
-              (keydown.enter)="
-                updateQueryParams(formControl.value || '*', $event)
-              "
-              [formControl]="formControl"
-            />
-            <button
-              *ngIf="
-                (formControl.value && formControl.value.trim() !== '') ||
-                (hasSetQuery$ | async)
-              "
-              id="btn--clear-query"
-              type="button"
-              class="btn btn-secondary"
-              (click)="clearQuery()"
-            >
-              Clear <span>&cross;</span>
-          </button>
+              <input
+                #inputQuery
+                type="text"
+                class="form-control"
+                autocomplete="off"
+                i18n-placeholder
+                placeholder="Search in catalogs"
+                (focus)="formControl.value ? (focused = true) : null"
+                (keydown.enter)="
+                  updateQueryParams(formControl.value || '*', $event)
+                "
+                [formControl]="formControl"
+              />
+              <button
+                *ngIf="
+                  (formControl.value && formControl.value.trim() !== '') ||
+                  (hasSetQuery$ | async)
+                "
+                id="btn--clear-query"
+                type="button"
+                class="btn btn-secondary"
+                (click)="clearQuery()"
+              >
+                Clear <span>&cross;</span>
+              </button>
             </div>
             <select
               class="form-select"
@@ -88,9 +88,7 @@ import { RedirectService } from '@collections/services/redirect.service';
             </div>
           </div>
         </form>
-        
       </div>
-      
 
       <div
         class="list-group suggestions"
@@ -138,12 +136,12 @@ import { RedirectService } from '@collections/services/redirect.service';
         text-align: left;
         position: absolute;
         top: 40px;
-        max-width:460px;
+        max-width: 460px;
         left: 20px;
         border-radius: 0 0 10px 10px;
         z-index: 10;
       }
-     
+
       .suggestions .group {
         text-transform: uppercase;
         color: #6c757d;
