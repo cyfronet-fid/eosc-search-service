@@ -5,6 +5,18 @@ export const servicesFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
+      id: 'unified_categories',
+      filter: 'unified_categories',
+      label: 'Research step',
+      type: 'multiselect',
+    },
+    {
+      id: 'horizontal',
+      filter: 'horizontal',
+      label: 'Horizontal service',
+      type: 'multiselect',
+    },
+    {
       id: 'best_access_right',
       filter: 'best_access_right',
       label: 'Order type',

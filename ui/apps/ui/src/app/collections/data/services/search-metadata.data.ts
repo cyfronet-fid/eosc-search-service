@@ -8,7 +8,13 @@ export const servicesSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: DEFAULT_FACET,
   params: {
-    qf: ['title^50', 'author_names^30', 'description^10'],
+    qf: [
+      'title^50',
+      'author_names^30',
+      'description^10',
+      'keywords',
+      'tag_list',
+    ],
     collection: COLLECTION,
   },
 };
