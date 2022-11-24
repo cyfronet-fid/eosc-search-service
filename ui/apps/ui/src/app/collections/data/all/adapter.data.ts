@@ -13,6 +13,7 @@ import {
 } from '@collections/filters-serializers/utils';
 import {
   toAccessRightColoredTag,
+  toHorizontalServiceTag,
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
 import {
@@ -58,6 +59,7 @@ export const allCollectionsAdapter: IAdapter = {
       : '',
     url: urlAdapter(data.type || '', data),
     coloredTags: [
+      toHorizontalServiceTag(data?.horizontal),
       toAccessRightColoredTag(data?.best_access_right),
       toLanguageColoredTag(data?.language),
     ],

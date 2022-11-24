@@ -682,6 +682,22 @@ h6 {
     color: #2255a4;
     background: #edf4ff;
     border-radius: 35px;
+
+    &.tag-horizontal {
+      background: #FAFCFE;
+      position: relative;
+      color: #A959EA;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        background: url(assets/ico-horizontal.svg) no-repeat;
+        width: 14px;
+        height: 12px;
+        margin-top: -1px;
+        vertical-align: middle;
+      }
+    }
   }
 }
 
