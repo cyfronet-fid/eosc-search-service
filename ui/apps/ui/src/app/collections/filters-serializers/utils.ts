@@ -15,3 +15,9 @@ export const toArray = (value: unknown): string[] => {
 export const toValueWithLabel = (values: string[]): IValueWithLabel[] => {
   return values.map((value) => ({ label: value, value }));
 };
+
+export const queryChanger = (q: string): string =>
+  q
+    .split(' ')
+    .map((word) => `${word}~1`)
+    .join(' ');

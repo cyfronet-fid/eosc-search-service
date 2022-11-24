@@ -9,6 +9,7 @@ import {
 } from '@collections/repositories/types';
 import { toSuggestedResults } from './utils';
 import { URL_PARAM_NAME } from '@collections/data/all/nav-config.data';
+import { queryChanger } from '@collections/filters-serializers/utils';
 
 const MAX_COLLECTION_RESULTS = 3; // TODO: Move to env file
 
@@ -41,6 +42,7 @@ export class SearchInputService {
   }
 
   _suggestedResultsBy$(q: string, collections: ICollectionSearchMetadata[]) {
+    q = queryChanger(q);
     return collections.map((metadata) => {
       const searchMetadata = {
         q,
