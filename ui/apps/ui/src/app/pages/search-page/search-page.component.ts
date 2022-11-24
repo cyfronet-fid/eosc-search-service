@@ -14,6 +14,7 @@ import {
 import { MAX_COLLECTION_RESULTS } from '@components/results-with-pagination/pagination.repository';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
+import { queryChanger } from '@collections/filters-serializers/utils';
 
 @UntilDestroy()
 @Component({
@@ -113,7 +114,7 @@ export class SearchPageComponent implements OnInit {
             rows: MAX_COLLECTION_RESULTS,
             ...routerParams,
             ...metadata.params,
-            q: routerParams.q,
+            q: queryChanger(routerParams.q),
           };
           return this._fetchDataService
             .fetchResults$(searchMetadata, metadata.facets, adapter)

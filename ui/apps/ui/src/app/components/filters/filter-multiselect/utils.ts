@@ -1,3 +1,4 @@
+import { queryChanger } from '@collections/filters-serializers/utils';
 import {
   ICollectionSearchMetadata,
   IFacetParam,
@@ -13,7 +14,7 @@ export const toSearchMetadata = (
   fq: string[],
   metadata: ICollectionSearchMetadata
 ) => ({
-  q: q,
+  q: queryChanger(q),
   fq,
   cursor: '*',
   rows: 0,
