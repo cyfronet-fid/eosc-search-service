@@ -8,6 +8,7 @@ import {
 } from '@collections/filters-serializers/utils';
 import {
   toAccessRightColoredTag,
+  toHorizontalServiceTag,
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
 import {
@@ -42,6 +43,7 @@ export const dataSourcesAdapter: IAdapter = {
     url: hackDataSourceUrl(dataSource.pid),
     collection: COLLECTION,
     coloredTags: [
+      toHorizontalServiceTag(dataSource?.horizontal),
       toAccessRightColoredTag(dataSource?.best_access_right),
       toLanguageColoredTag(dataSource?.language),
     ],

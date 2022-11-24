@@ -5,6 +5,20 @@ import {
 } from '@collections/filters-serializers/utils';
 import { IColoredTag } from '@collections/repositories/types';
 
+export const toHorizontalServiceTag = (
+  isHorizontal: undefined | boolean
+): IColoredTag => ({
+  colorClassName: 'tag-horizontal',
+  filter: 'horizontal',
+  values: isHorizontal
+    ? [
+        {
+          label: 'Horizontal Service',
+          value: '' + isHorizontal,
+        },
+      ]
+    : [],
+});
 export const toLanguageColoredTag = (
   values: string | string[] | undefined
 ): IColoredTag => ({

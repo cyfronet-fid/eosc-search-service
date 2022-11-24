@@ -1,5 +1,10 @@
-import { IFiltersConfig } from '../../repositories/types';
+import {
+  IFacetBucket,
+  IFilterNode,
+  IFiltersConfig,
+} from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
+import { facetToFlatNodes } from '@components/filters/utils';
 
 export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -15,6 +20,11 @@ export const allCollectionsFilters: IFiltersConfig = {
       filter: 'horizontal',
       label: 'Horizontal service',
       type: 'multiselect',
+      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
+        facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
+          ...node,
+          name: node.name === 'true' ? 'yes' : 'no',
+        })),
     },
     {
       id: 'type',
