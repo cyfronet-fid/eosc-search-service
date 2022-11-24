@@ -17,9 +17,7 @@ import {
 } from '@collections/data/shared-tags';
 import {
   parseStatistics,
-  toDownloadsStatisticsSecondaryTag,
   toKeywordsSecondaryTag,
-  toViewsStatisticsSecondaryTag,
 } from '@collections/data/utils';
 
 const urlAdapter = (

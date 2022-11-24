@@ -60,7 +60,9 @@
       <section id="description-tab">
         <div
           id="about"
-          class="tab-content {{ currentTab === 'about' ? 'd-block' : 'd-none' }}"
+          class="tab-content {{
+            currentTab === 'about' ? 'd-block' : 'd-none'
+          }}"
           *ngIf="training !== undefined"
         >
           <div
@@ -120,7 +122,9 @@
                     </div>
                     <div class="details-content">
                       <ul class="list-group">
-                        <ng-container *ngIf="isArray(tag.values); else oneValue">
+                        <ng-container
+                          *ngIf="isArray(tag.values); else oneValue"
+                        >
                           <ng-container
                             *ngFor="let singleValue of $any(tag.values)"
                           >
@@ -148,5 +152,5 @@
         </div>
       </section>
     </div>
-</div>
+  </div>
 </div>

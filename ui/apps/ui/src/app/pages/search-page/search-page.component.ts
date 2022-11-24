@@ -34,7 +34,7 @@ import { combineLatest } from 'rxjs';
               [resultsCount]="response?.numFound ?? 0"
             ></ess-page-header>
             <ess-active-filters></ess-active-filters>
-            
+
             <ess-results-with-pagination
               [response]="response"
             ></ess-results-with-pagination>

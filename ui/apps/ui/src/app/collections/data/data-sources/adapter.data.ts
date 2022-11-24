@@ -12,9 +12,7 @@ import {
 } from '@collections/data/shared-tags';
 import {
   parseStatistics,
-  toDownloadsStatisticsSecondaryTag,
   toKeywordsSecondaryTag,
-  toViewsStatisticsSecondaryTag,
 } from '@collections/data/utils';
 
 const SERVICES_AS_DATASOURCES = ['b2share', 'b2find', 'b2safe'];
