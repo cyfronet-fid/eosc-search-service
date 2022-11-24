@@ -5,6 +5,18 @@ export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
+      id: 'unified_categories',
+      filter: 'unified_categories',
+      label: 'Research step',
+      type: 'multiselect',
+    },
+    {
+      id: 'horizontal',
+      filter: 'horizontal',
+      label: 'Horizontal service',
+      type: 'multiselect',
+    },
+    {
       id: 'type',
       filter: 'type',
       label: 'Type of product',

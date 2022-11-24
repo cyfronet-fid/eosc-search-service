@@ -5,6 +5,12 @@ export const trainingsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
+      id: 'unified_categories',
+      filter: 'unified_categories',
+      label: 'Research step',
+      type: 'multiselect',
+    },
+    {
       id: 'best_access_right',
       filter: 'best_access_right',
       label: 'Access right',

@@ -8,7 +8,7 @@ export const trainingsSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: DEFAULT_FACET,
   params: {
-    qf: ['title', 'description', 'keywords'],
+    qf: ['title^50', 'description^30', 'keywords', 'tag_list'],
     collection: COLLECTION,
   },
 };
