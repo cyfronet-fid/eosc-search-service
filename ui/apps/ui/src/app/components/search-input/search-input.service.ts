@@ -43,7 +43,7 @@ export class SearchInputService {
   _suggestedResultsBy$(q: string, collections: ICollectionSearchMetadata[]) {
     const nq = q.split(' ');
     let new_query = '';
-    nq.forEach(function(value) {
+    nq.forEach(function (value) {
       value = value + '~1';
       new_query = new_query + value + ' ';
     });
