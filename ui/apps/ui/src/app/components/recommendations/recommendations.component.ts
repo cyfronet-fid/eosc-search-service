@@ -31,10 +31,12 @@ export class RecommendationsComponent implements OnInit {
   ngOnInit(): void {
     this._customRoute.collection$
       .pipe(
+        untilDestroyed(this),
         switchMap((panelId) =>
-          this._recommendationsService.getRecommendations$(panelId)
-        ),
-        untilDestroyed(this)
+          this._recommendationsService
+            .getRecommendations$(panelId)
+            .pipe(untilDestroyed(this))
+        )
       )
       .subscribe(
         (recommendations) =>

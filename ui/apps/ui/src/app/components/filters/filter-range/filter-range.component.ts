@@ -92,7 +92,8 @@ export class FilterRangeComponent implements OnInit {
             },
             queryParamsHandling: 'merge',
           });
-        })
+        }),
+        untilDestroyed(this)
       )
       .subscribe();
 

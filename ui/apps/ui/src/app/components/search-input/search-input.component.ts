@@ -237,12 +237,14 @@ export class SearchInputComponent implements OnInit {
 
     combineLatest({
       q: this.formControl.valueChanges.pipe(
+        untilDestroyed(this),
         map((q) => sanitizeQuery(q) ?? '*'),
         distinctUntilChanged(),
         debounceTime(150),
         tap((q) => (q ? (this.focused = true) : null))
       ),
       collection: this._customRoute.collection$.pipe(
+        untilDestroyed(this),
         map(
           (collection) =>
             this._navConfigsRepository.get(collection) as ICollectionNavConfig
@@ -251,9 +253,10 @@ export class SearchInputComponent implements OnInit {
     })
       .pipe(
         switchMap(({ q, collection }) =>
-          this._searchInputService.currentSuggestions(q, collection.id)
-        ),
-        untilDestroyed(this)
+          this._searchInputService
+            .currentSuggestions(q, collection.id)
+            .pipe(untilDestroyed(this))
+        )
       )
       .subscribe(
         (suggestedResults) => (this.suggestedResults = suggestedResults)

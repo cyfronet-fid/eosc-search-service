@@ -100,6 +100,7 @@ export class SearchPageComponent implements OnInit {
   ngOnInit() {
     this._customRoute.params$
       .pipe(
+        untilDestroyed(this),
         filter(({ collection }) => !!collection),
         switchMap((routerParams) => {
           const { collection } = routerParams;
@@ -114,11 +115,9 @@ export class SearchPageComponent implements OnInit {
             ...metadata.params,
             q: routerParams.q,
           };
-          return this._fetchDataService.fetchResults$(
-            searchMetadata,
-            metadata.facets,
-            adapter
-          );
+          return this._fetchDataService
+            .fetchResults$(searchMetadata, metadata.facets, adapter)
+            .pipe(untilDestroyed(this));
         })
       )
       .subscribe((response) => (this.response = response));

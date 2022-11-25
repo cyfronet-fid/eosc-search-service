@@ -36,6 +36,7 @@ export const flatNodesToTree = (nodes: IFilterNode[]): IUIFilterTreeNode[] => {
     [
       ...new Set(
         nodes
+          .filter((node) => !!node.value)
           .map((node) => [...toAllLevels(node.value)])
           .reduce((acc, lvls) => [...acc, ...lvls], [])
       ),
