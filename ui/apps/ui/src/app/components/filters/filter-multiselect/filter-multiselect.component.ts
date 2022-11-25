@@ -139,7 +139,6 @@ export class FilterMultiselectComponent implements OnInit {
       this._customRoute.collection()
     ).filters;
     let fqMap = serializeAll(this._customRoute.fq(), allFilters);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const filtersToRemove = changes.filter(([_, isSelected]) => !isSelected);
@@ -182,8 +181,10 @@ export class FilterMultiselectComponent implements OnInit {
 
   _recalculateOnChanges() {
     combineLatest(
-      this._customRoute.fqWithExcludedFilter$(this.filter),
-      this._customRoute.q$
+      this._customRoute
+        .fqWithExcludedFilter$(this.filter)
+        .pipe(untilDestroyed(this)),
+      this._customRoute.q$.pipe(untilDestroyed(this))
     )
       .pipe(
         untilDestroyed(this),
@@ -194,14 +195,16 @@ export class FilterMultiselectComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         map(([fq, _]) => fq),
         switchMap((fq) =>
-          this._filterMultiselectService._fetchCounts$(
-            this.filter,
-            {
-              ...this._customRoute.params(),
-              fq,
-            },
-            this.onValuesFetch
-          )
+          this._filterMultiselectService
+            ._fetchCounts$(
+              this.filter,
+              {
+                ...this._customRoute.params(),
+                fq,
+              },
+              this.onValuesFetch
+            )
+            .pipe(untilDestroyed(this))
         )
       )
       .subscribe((entities) => {
@@ -214,21 +217,26 @@ export class FilterMultiselectComponent implements OnInit {
   _initFilterValues() {
     this._filterMultiselectService.setLoading(true);
     combineLatest(
-      this._filterMultiselectService._fetchAllValues$(
-        this.filter,
-        this._customRoute.params()['collection'] as string,
-        this.onValuesFetch
-      ),
-      this._filterMultiselectService._fetchCounts$(
-        this.filter,
-        {
-          ...this._customRoute.params(),
-          fq: this._customRoute.fqWithExcludedFilter(this.filter),
-        },
-        this.onValuesFetch
-      )
+      this._filterMultiselectService
+        ._fetchAllValues$(
+          this.filter,
+          this._customRoute.params()['collection'] as string,
+          this.onValuesFetch
+        )
+        .pipe(untilDestroyed(this)),
+      this._filterMultiselectService
+        ._fetchCounts$(
+          this.filter,
+          {
+            ...this._customRoute.params(),
+            fq: this._customRoute.fqWithExcludedFilter(this.filter),
+          },
+          this.onValuesFetch
+        )
+        .pipe(untilDestroyed(this))
     )
       .pipe(
+        untilDestroyed(this),
         map(
           ([allValues, counts]) =>
             _(allValues)

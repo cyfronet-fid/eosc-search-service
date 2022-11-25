@@ -53,12 +53,6 @@ export const publicationsFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
-      id: 'source',
-      filter: 'source',
-      label: 'Publisher',
-      type: 'multiselect',
-    },
-    {
       id: 'research_community',
       filter: 'research_community',
       label: 'Research community',
