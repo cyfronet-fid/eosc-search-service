@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.7.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.6.0...v1.7.0) (2022-11-25)
+
+
+### Features
+
+* add fuzzy search to searchbar ([6fb97e9](https://github.com/cyfronet-fid/eosc-search-service/commit/6fb97e98aad09938dacbf3b7b66b5b37cecaab36))
+* add horizontal service colored tag ([313d526](https://github.com/cyfronet-fid/eosc-search-service/commit/313d5261d1a8230f3b89d05c0973850e28f8f942))
+* add new trainings ([6dd6a60](https://github.com/cyfronet-fid/eosc-search-service/commit/6dd6a607b91b4651e13274c6052d5875fc2fcff3))
+* minor updates ([89f7f8d](https://github.com/cyfronet-fid/eosc-search-service/commit/89f7f8db67b714956f77d41d1c882033c8478702)), closes [#368](https://github.com/cyfronet-fid/eosc-search-service/issues/368)
+* update all pages layout styles ([de90d87](https://github.com/cyfronet-fid/eosc-search-service/commit/de90d878a9d1a0ed73e5ef66f2fa013805268ae6))
+
+
+### Bug Fixes
+
+* data sources IDs ([acfc5c2](https://github.com/cyfronet-fid/eosc-search-service/commit/acfc5c29258177e692bdbb0cbd288a716cc57c0b))
+* remove memory overflow ([cd75740](https://github.com/cyfronet-fid/eosc-search-service/commit/cd75740eccf51e6fc89949a7804b4e2a1a63c2c6))
+
 ## [1.6.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.5.0...v1.6.0) (2022-11-21)
 
 
