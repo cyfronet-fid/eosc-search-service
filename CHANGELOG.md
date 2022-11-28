@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.7.0...v1.7.1) (2022-11-28)
+
+
+### Bug Fixes
+
+* restore tree caret in multiselect ([3f463cd](https://github.com/cyfronet-fid/eosc-search-service/commit/3f463cd709cb2af4411864bcbfdb00e3193e2d35))
+
 ## [1.7.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.6.0...v1.7.0) (2022-11-25)
 
 
