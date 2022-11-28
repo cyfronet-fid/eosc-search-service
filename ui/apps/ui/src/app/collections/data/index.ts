@@ -1,17 +1,10 @@
 import { trainingsNavConfig } from './trainings/nav-config.data';
-import { trainingsAdapter } from './trainings/adapter.data';
 import { trainingsSearchMetadata } from './trainings/search-metadata.data';
 import {
-  IAdapter,
   ICollectionNavConfig,
   ICollectionSearchMetadata,
   IFiltersConfig,
 } from '../repositories/types';
-import { allCollectionsAdapter } from './all/adapter.data';
-import { publicationsAdapter } from './publications/adapter.data';
-import { datasetsAdapter } from './datasets/adapter.data';
-import { softwareAdapter } from './software/adapter.data';
-import { dataSourcesAdapter } from './data-sources/adapter.data';
 import { allCollectionsFilters } from './all/filters.data';
 import { publicationsFilters } from './publications/filters.data';
 import { datasetsFilters } from './datasets/filters.data';
@@ -31,7 +24,6 @@ import { publicationsSearchMetadata } from './publications/search-metadata.data'
 import { datasetsSearchMetadata } from './datasets/search-metadata.data';
 import { softwareSearchMetadata } from './software/search-metadata.data';
 import { dataSourcesSearchMetadata } from './data-sources/search-metadata.data';
-import { servicesAdapter } from '@collections/data/services/adapter.data';
 import { servicesFilters } from '@collections/data/services/filters.data';
 import { servicesSearchMetadata } from '@collections/data/services/search-metadata.data';
 
@@ -40,19 +32,9 @@ import { servicesNavConfig } from '@collections/data/services/nav-config.data';
 import { otherResourcesProductsFilters } from '@collections/data/other-resources-products/filters.data';
 import { othersResourcesProductsNavConfig } from '@collections/data/other-resources-products/nav-config.data';
 import { otherResourcesProductsSearchMetadata } from '@collections/data/other-resources-products/search-metadata.data';
-import { otherResourcesProductsAdapter } from '@collections/data/other-resources-products/adapter.data';
 
 export const DEFAULT_COLLECTION_ID = ALL_COLLECTIONS_URL_PARAM_NAME;
-export const ADAPTERS: IAdapter[] = [
-  allCollectionsAdapter,
-  publicationsAdapter,
-  datasetsAdapter,
-  softwareAdapter,
-  servicesAdapter,
-  dataSourcesAdapter,
-  trainingsAdapter,
-  otherResourcesProductsAdapter,
-];
+
 export const FILTERS: IFiltersConfig[] = [
   allCollectionsFilters,
   publicationsFilters,
@@ -84,4 +66,4 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   otherResourcesProductsSearchMetadata,
 ];
 
-validateCollections(ADAPTERS, FILTERS, NAV_CONFIGS, SEARCH_METADATA);
+validateCollections(FILTERS, NAV_CONFIGS, SEARCH_METADATA);

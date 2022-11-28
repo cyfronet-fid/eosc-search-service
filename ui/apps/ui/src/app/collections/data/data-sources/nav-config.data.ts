@@ -7,6 +7,7 @@ export const LABEL = 'Data sources';
 export const dataSourcesNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,
+  resourceType: 'data source',
   breadcrumbs: [
     {
       label: ALL_COLLECTIONS_LABEL,

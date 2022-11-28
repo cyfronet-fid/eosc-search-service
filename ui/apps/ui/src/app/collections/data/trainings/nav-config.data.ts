@@ -7,6 +7,7 @@ export const LABEL = 'Trainings';
 export const trainingsNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,
+  resourceType: 'training',
   breadcrumbs: [
     {
       label: ALL_COLLECTIONS_LABEL,

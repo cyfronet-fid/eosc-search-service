@@ -4,6 +4,7 @@ export interface IRecommendation {
   url: string;
   description: string;
   organisation: string;
+  type: string;
 }
 
 export interface RecommendationStateProps {

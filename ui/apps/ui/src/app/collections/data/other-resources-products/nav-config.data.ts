@@ -7,6 +7,7 @@ export const LABEL = 'Other';
 export const othersResourcesProductsNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,
+  resourceType: 'other',
   breadcrumbs: [
     {
       label: ALL_COLLECTIONS_LABEL,

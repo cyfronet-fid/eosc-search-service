@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createStore } from '@ngneat/elf';
 import {
+  getActiveEntity,
   getAllEntities,
   getEntity,
   selectActiveEntity,
@@ -38,5 +39,9 @@ export class NavConfigsRepository {
 
   setActive(navConf: Partial<ICollectionNavConfig> & { id: string }) {
     this._store$.update(setActiveId(navConf.id));
+  }
+
+  getActive(): ICollectionNavConfig | undefined {
+    return this._store$.query(getActiveEntity());
   }
 }

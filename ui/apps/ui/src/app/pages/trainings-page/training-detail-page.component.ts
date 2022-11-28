@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IResult, ITag } from '@collections/repositories/types';
-import { TrainingsService } from './trainings.service';
+import { TrainingsService } from './repository/trainings.service';
 import { ActivatedRoute } from '@angular/router';
-import { trainingsAdapter } from '@collections/data/trainings/adapter.data';
 import isArray from 'lodash-es/isArray';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { distinctUntilChanged, map, switchMap } from 'rxjs';
+import { ITraining } from '@pages/trainings-page/repository/training.model';
 
 @UntilDestroy()
 @Component({
@@ -13,12 +13,8 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
   styleUrls: ['./training-detail-page.component.scss'],
 })
 export class TrainingDetailPageComponent implements OnInit {
-  training?: IResult;
+  training?: ITraining;
   originUrl?: string;
-  keywords?: string[];
-  accessType?: string;
-  detailsTags: ITag[] = [];
-  sidebarTags: ITag[] = [];
   currentTab = 'about';
   isArray = isArray;
 
@@ -28,22 +24,14 @@ export class TrainingDetailPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getItem();
-  }
-
-  getItem(): void {
-    const id = +(this.route.snapshot.paramMap.get('trainingId') ?? 1);
-    this.trainingsService
-      .get$(id)
-      .pipe(untilDestroyed(this))
-      .subscribe((item) => {
-        this.training = trainingsAdapter.adapter(item);
-        this.originUrl = item.URL_s;
-        this.keywords = item.keywords;
-        this.accessType = item.best_access_right;
-        this.detailsTags = this.training.tags;
-        this.sidebarTags = this.training.tags;
-      });
+    this.route.paramMap
+      .pipe(
+        untilDestroyed(this),
+        map((params) => +(params.get('trainingId') ?? 1)),
+        distinctUntilChanged(),
+        switchMap((id) => this.trainingsService.get$(id))
+      )
+      .subscribe((training) => (this.training = training));
   }
 
   toggleTab(id: string) {

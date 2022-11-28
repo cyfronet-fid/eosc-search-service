@@ -1,9 +1,8 @@
 import { ICollectionSearchMetadata } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { environment } from '@environment/environment';
 import { DEFAULT_FACET } from '@collections/data/config';
+import { COLLECTION } from '@collections/data/all/search-metadata.data';
 
-export const COLLECTION = environment.collectionsPrefix + 'service';
 export const servicesSearchMetadata: ICollectionSearchMetadata = {
   id: URL_PARAM_NAME,
   facets: DEFAULT_FACET,
