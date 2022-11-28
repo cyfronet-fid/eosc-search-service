@@ -41,11 +41,17 @@ import { ISecondaryTag } from '@collections/repositories/types';
     `
       .usage > .statistic {
         font-size: 11px;
+        display: block;
+        overflow: hidden;
         margin-right: 15px;
+        line-height: 1.7;
       }
 
       .statistic > img {
-        margin-right: 2px;
+        display: inline;
+        float: left;
+        margin-right: 10px;
+        margin-top: 5px;
       }
     `,
   ],
