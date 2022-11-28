@@ -1,4 +1,6 @@
-export interface ITraining {
+import { IResult } from '@collections/repositories/types';
+
+export interface ITrainingResponse {
   id: string;
   title: string[];
   description: string[];
@@ -20,4 +22,9 @@ export interface ITraining {
   type: string;
   usage_counts_views: string;
   usage_counts_downloads: string;
+}
+
+export interface ITraining extends IResult {
+  keywords: string[];
+  originUrl: string;
 }

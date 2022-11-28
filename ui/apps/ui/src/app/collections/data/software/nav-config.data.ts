@@ -7,6 +7,7 @@ export const LABEL = 'Software';
 export const softwareNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,
+  resourceType: 'software',
   breadcrumbs: [
     {
       label: ALL_COLLECTIONS_LABEL,

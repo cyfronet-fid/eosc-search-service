@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { filter, map, switchMap, tap } from 'rxjs';
+import { combineLatest, filter, map, switchMap, tap } from 'rxjs';
 import { FetchDataService } from '@collections/services/fetch-data.service';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
-import { AdaptersRepository } from '@collections/repositories/adapters.repository';
-import {
-  ICollectionSearchMetadata,
-  IResult,
-  ISearchResults,
-  adapterType,
-} from '@collections/repositories/types';
+import { IResult, ISearchResults } from '@collections/repositories/types';
 import { MAX_COLLECTION_RESULTS } from '@components/results-with-pagination/pagination.repository';
 import { ActivatedRoute, Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
 import { queryChanger } from '@collections/filters-serializers/utils';
+import { allCollectionsSearchMetadata } from '@collections/data/all/search-metadata.data';
+import { allCollectionsAdapter } from '@collections/data/all/adapter.data';
+import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 
 @UntilDestroy()
 @Component({
@@ -95,7 +91,7 @@ export class SearchPageComponent implements OnInit {
     private _route: ActivatedRoute,
     private _fetchDataService: FetchDataService,
     private _searchMetadataRepository: SearchMetadataRepository,
-    private _adaptersRepository: AdaptersRepository
+    private _navConfigsRepository: NavConfigsRepository
   ) {}
 
   ngOnInit() {
@@ -104,21 +100,27 @@ export class SearchPageComponent implements OnInit {
         untilDestroyed(this),
         filter(({ collection }) => !!collection),
         switchMap((routerParams) => {
-          const { collection } = routerParams;
-          const metadata = this._searchMetadataRepository.get(
-            collection
-          ) as ICollectionSearchMetadata;
-          const adapter = this._adaptersRepository.get(collection)
-            ?.adapter as adapterType;
+          const metadata = allCollectionsSearchMetadata;
+          const adapter = allCollectionsAdapter.adapter;
+
+          const type = this._navConfigsRepository.getActive()?.resourceType;
+          if (type != null) {
+            routerParams = {
+              ...routerParams,
+              fq: [...routerParams.fq, `type:("${type}")`],
+            };
+          }
           const searchMetadata = {
             rows: MAX_COLLECTION_RESULTS,
             ...routerParams,
             ...metadata.params,
             q: queryChanger(routerParams.q),
           };
-          return this._fetchDataService
-            .fetchResults$(searchMetadata, metadata.facets, adapter)
-            .pipe(untilDestroyed(this));
+          return this._fetchDataService.fetchResults$(
+            searchMetadata,
+            metadata.facets,
+            adapter
+          );
         })
       )
       .subscribe((response) => (this.response = response));

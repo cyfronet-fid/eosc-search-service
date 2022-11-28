@@ -73,7 +73,7 @@ export interface ICollectionNavConfig {
   id: string;
   title: string;
   urlParam: string;
-
+  resourceType: null | string;
   breadcrumbs: {
     label: string;
     url?: string;
@@ -83,7 +83,9 @@ export interface IAdapter {
   id: string;
   adapter: adapterType;
 }
-export type adapterType = <T>(item: Partial<T> & { id: string }) => IResult;
+export type adapterType = <T>(
+  item: Partial<T> & { id: string; type: string }
+) => IResult;
 export interface IFiltersConfig {
   id: string;
   filters: IFilterConfig[];

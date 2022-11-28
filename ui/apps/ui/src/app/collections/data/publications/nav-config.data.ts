@@ -7,6 +7,7 @@ export const LABEL = 'Publications';
 export const publicationsNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,
+  resourceType: 'publication',
   breadcrumbs: [
     {
       label: ALL_COLLECTIONS_LABEL,

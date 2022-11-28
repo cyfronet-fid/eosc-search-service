@@ -7,6 +7,7 @@ export const LABEL = 'Services';
 export const servicesNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,
+  resourceType: 'service',
   breadcrumbs: [
     {
       label: ALL_COLLECTIONS_LABEL,
