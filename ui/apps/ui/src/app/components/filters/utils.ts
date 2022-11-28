@@ -68,5 +68,7 @@ export const flatNodesToTree = (nodes: IFilterNode[]): IUIFilterTreeNode[] => {
     ];
   }
 
-  return Object.values(fullMap).filter(({ level }) => level === 0);
+  return Object.values(fullMap)
+    .filter(({ level }) => level === 0)
+    .sort((a, b) => +b.count - +a.count);
 };

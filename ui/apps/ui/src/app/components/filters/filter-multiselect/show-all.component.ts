@@ -24,7 +24,7 @@ const LOAD_NEXT_CHUNK_INDEX = CHUNK_SIZE * 0.9;
   template: `
     <div class="filter__viewport" (scroll)="onScroll($event)" #content>
       <ess-checkboxes-tree
-        [data]="(chunkedNonActiveEntities$ | async) ?? []"
+        [data]="(entities$ | async) ?? []"
         (checkboxesChange)="toggleActive.emit($event)"
       ></ess-checkboxes-tree>
     </div>
@@ -41,7 +41,7 @@ const LOAD_NEXT_CHUNK_INDEX = CHUNK_SIZE * 0.9;
 export class ShowAllComponent implements OnChanges {
   private _latestChunk = 0;
   private _allEntities: IFilterNode[] = [];
-  chunkedNonActiveEntities$ = new BehaviorSubject<IUIFilterTreeNode[]>([]);
+  entities$ = new BehaviorSubject<IUIFilterTreeNode[]>([]);
 
   @ViewChild('content', { static: false }) content?: unknown;
 
@@ -58,7 +58,7 @@ export class ShowAllComponent implements OnChanges {
     if (changes['query'] || changes['nonActiveEntities']) {
       this._allEntities = search(this.query, this.allEntities);
 
-      this.chunkedNonActiveEntities$.next(
+      this.entities$.next(
         flatNodesToTree(this._allEntities).slice(0, CHUNK_SIZE)
       );
       this._latestChunk = 0;
@@ -77,18 +77,16 @@ export class ShowAllComponent implements OnChanges {
   };
 
   loadNextNonActiveChunk = () => {
-    const chunk = this.chunkedNonActiveEntities$.value;
+    const chunk = this.entities$.value;
     const offset = chunk.length;
     const nextChunkAvailable = offset !== this._allEntities.length;
     if (!nextChunkAvailable) {
       return;
     }
 
-    this.chunkedNonActiveEntities$.next(
-      flatNodesToTree([...chunk, ...this._allEntities]).slice(
-        offset,
-        offset + CHUNK_SIZE
-      )
-    );
+    this.entities$.next([
+      ...chunk,
+      ...flatNodesToTree(this._allEntities).slice(offset, offset + CHUNK_SIZE),
+    ]);
   };
 }

@@ -11,7 +11,7 @@ import {
 } from '@collections/repositories/types';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { facetToFlatNodes } from '../utils';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { paramType } from '@collections/services/custom-route.type';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import {
