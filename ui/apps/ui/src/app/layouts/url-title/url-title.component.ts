@@ -1,29 +1,48 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { RedirectService } from '@collections/services/redirect.service';
-import { truncate } from 'lodash-es';
+import { stripHtml } from 'string-strip-html';
+import { attachHighlightsToTxt, stripHighlightedFromHtml } from '../utils';
 
 @Component({
   selector: 'ess-url-title',
   template: `<h6>
     <a *ngIf="url; else onlyTitleRef" [attr.href]="url" target="_blank">
-      <b>{{ shortTitle }}</b>
+      <b [innerHTML]="highlightedTitle"></b>
     </a>
     <ng-template #onlyTitleRef
-      ><b>{{ shortTitle }}</b></ng-template
-    >
+      ><b [innerHTML]="highlightedTitle"></b
+    ></ng-template>
   </h6>`,
-  styles: [],
+  styles: [
+    `
+      ::ng-deep .highlighted {
+        background-color: #e8e7ff !important;
+        padding: 3px;
+      }
+    `,
+  ],
 })
-export class UrlTitleComponent {
-  shortTitle = '';
+export class UrlTitleComponent implements OnChanges {
+  highlightedTitle = '';
 
   @Input()
-  set title(title: string) {
-    this.shortTitle = truncate(title, { length: 100 });
-  }
+  title!: string;
 
   @Input()
   url: string | null = null;
 
+  @Input()
+  highlight: string[] = [];
+
   constructor(public redirectService: RedirectService) {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['highlight'] || changes['title']) {
+      const highlights = stripHighlightedFromHtml(this.highlight);
+      this.highlightedTitle = attachHighlightsToTxt(
+        stripHtml(this.title).result,
+        highlights
+      );
+    }
+  }
 }

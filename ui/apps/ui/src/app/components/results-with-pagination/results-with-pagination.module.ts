@@ -10,6 +10,7 @@ import { ColoredTagsModule } from '../../layouts/colored-tags/colored-tags.modul
 import { TagsModule } from '../../layouts/tags/tags.module';
 import { UrlTitleModule } from '../../layouts/url-title/url-title.module';
 import { SecondaryTagsModule } from '../../layouts/secondary-tags/secondary-tags.module';
+import { DescriptionModule } from '../../layouts/description/description.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SecondaryTagsModule } from '../../layouts/secondary-tags/secondary-tags
     TagsModule,
     UrlTitleModule,
     SecondaryTagsModule,
+    DescriptionModule,
   ],
   exports: [ResultsWithPaginationComponent],
 })

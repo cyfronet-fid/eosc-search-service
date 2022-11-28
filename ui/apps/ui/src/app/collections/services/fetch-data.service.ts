@@ -39,6 +39,7 @@ export class FetchDataService {
           numFound: response.numFound,
           nextCursorMark: response.nextCursorMark,
           facets: response.facets,
+          highlighting: response.highlighting,
         }))
       );
   }

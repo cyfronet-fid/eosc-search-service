@@ -67,8 +67,11 @@ async def search_post(
         "numFound": res_json["response"]["numFound"],
         "nextCursorMark": res_json["nextCursorMark"],
     }
-    try:
+
+    if "facets" in res_json:
         out["facets"] = res_json["facets"]
-    except KeyError:
-        pass
+
+    if "highlighting" in res_json:
+        out["highlighting"] = res_json["highlighting"]
+
     return out

@@ -2,27 +2,32 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
   TrackByFunction,
 } from '@angular/core';
 import { ISecondaryTag } from '@collections/repositories/types';
+import { combineHighlightsWith } from './utils';
 
 @Component({
   selector: 'ess-secondary-tags',
   template: `
     <div class="usage">
-      <ng-container *ngFor="let tag of tags; trackBy: identityTagTrack">
+      <ng-container *ngFor="let tag of parsedTags; trackBy: identityTagTrack">
         <ng-container [ngSwitch]="tag.type">
           <ng-container *ngSwitchCase="'url'">
             <span *ngIf="tag.values.length > 0" class="statistic text-muted"
               ><img [src]="tag.iconPath" alt="" />&nbsp;
-              <a
-                *ngFor="let keyword of tag.values"
-                href="javascript:void(0)"
-                (click)="setActiveFilter($any(tag.filter), keyword)"
-                >{{ keyword }}&nbsp;&nbsp;&nbsp;</a
-              ></span
-            >
+              <ng-container *ngFor="let keyword of tag.values">
+                <a
+                  href="javascript:void(0)"
+                  (click)="setActiveFilter($any(tag.filter), keyword.value)"
+                  [innerHTML]="keyword.label"
+                ></a
+                >&nbsp;&nbsp;&nbsp;
+              </ng-container>
+            </span>
           </ng-container>
 
           <ng-container *ngSwitchCase="'info'">
@@ -53,15 +58,31 @@ import { ISecondaryTag } from '@collections/repositories/types';
         margin-right: 10px;
         margin-top: 5px;
       }
+
+      ::ng-deep .highlighted {
+        background-color: #e8e7ff !important;
+        padding: 3px;
+      }
     `,
   ],
 })
-export class SecondaryTagsComponent {
+export class SecondaryTagsComponent implements OnChanges {
+  parsedTags: ISecondaryTag[] = [];
+
   @Input()
   tags: ISecondaryTag[] = [];
 
+  @Input()
+  highlights: { [field: string]: string[] | undefined } = {};
+
   @Output()
   activeFilter = new EventEmitter<{ filter: string; value: string }>();
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['tags'] || changes['highlights']) {
+      this.parsedTags = combineHighlightsWith(this.tags, this.highlights);
+    }
+  }
 
   identityTagTrack: TrackByFunction<ISecondaryTag> = (
     index: number,

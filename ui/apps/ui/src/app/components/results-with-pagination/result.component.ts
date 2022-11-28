@@ -6,14 +6,11 @@ import {
   IValueWithLabel,
 } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
-import { truncate } from 'lodash-es';
 import { Router } from '@angular/router';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { toArray } from '@collections/filters-serializers/utils';
 import { RedirectService } from '@collections/services/redirect.service';
-
-const MAX_CHARS_LENGTH = 256;
 
 @Component({
   selector: 'ess-result',
@@ -28,6 +25,7 @@ const MAX_CHARS_LENGTH = 256;
 
       <ess-url-title
         [title]="title"
+        [highlight]="highlights['title'] ?? []"
         [url]="redirectService.internalUrl(validUrl, id, type.label)"
       >
       </ess-url-title>
@@ -65,31 +63,22 @@ const MAX_CHARS_LENGTH = 256;
           <ng-container i18n>{{ views }} Views</ng-container></span
         >
       </div>
-
       <ess-tags
         [tags]="tags"
+        [highlights]="highlights"
         (activeFilter)="setActiveFilter($event.filter, $event.value)"
       >
       </ess-tags>
-
       <ess-secondary-tags
+        [highlights]="highlights"
         [tags]="secondaryTags"
         (activeFilter)="setActiveFilter($event.filter, $event.value)"
       >
       </ess-secondary-tags>
-
-      <p class="description">
-        <span>
-          {{ showFull ? description : truncate(description) }}
-        </span>
-        <a
-          *ngIf="displayShowMoreBtn()"
-          href="javascript:void(0)"
-          class="btn-show-more"
-          (click)="showFull = !showFull"
-          >Show {{ showFull ? 'less' : 'more' }}
-        </a>
-      </p>
+      <ess-description
+        [description]="description"
+        [highlights]="highlights['description'] ?? []"
+      ></ess-description>
     </div>
   `,
   styles: [
@@ -118,10 +107,7 @@ const MAX_CHARS_LENGTH = 256;
 })
 export class ResultComponent {
   q$ = this._customRoute.q$;
-
-  shortTitle = '';
   validUrl: string | null = null;
-  showFull = false;
 
   @Input() id!: string;
   @Input() date?: string;
@@ -161,6 +147,9 @@ export class ResultComponent {
   @Input()
   secondaryTags: ISecondaryTag[] = [];
 
+  @Input()
+  highlights: { [field: string]: string[] | undefined } = {};
+
   constructor(
     private _customRoute: CustomRoute,
     private _router: Router,
@@ -175,14 +164,6 @@ export class ResultComponent {
       },
       queryParamsHandling: 'merge',
     });
-  }
-
-  displayShowMoreBtn() {
-    return this.description.length >= MAX_CHARS_LENGTH;
-  }
-
-  truncate(description: string) {
-    return truncate(description, { length: MAX_CHARS_LENGTH });
   }
 
   _addFilter(filter: string, value: string): string[] {
