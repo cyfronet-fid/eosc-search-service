@@ -33,8 +33,19 @@ const MAX_CHARS_LENGTH = 256;
       </ess-url-title>
 
       <div class="usage">
-        <span class="statistic open-access"
-          ><img src="/assets/usage-access.svg" />
+        <span
+          [ngClass]="{
+            statistic: true,
+            'open-access': accessRight?.toLowerCase() === 'open access',
+            'other-access': accessRight?.toLowerCase() !== 'open access'
+          }"
+          ><img
+            [src]="
+              accessRight?.toLowerCase() === 'open access'
+                ? '/assets/usage-access.svg'
+                : '/assets/restricted access.svg'
+            "
+          />
           <ng-container i18n>{{ accessRight }}</ng-container></span
         >
         <span *ngIf="date !== null" class="statistic text-muted"

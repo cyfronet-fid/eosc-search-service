@@ -45,12 +45,6 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
-      id: 'unified_categories',
-      filter: 'unified_categories',
-      label: 'Research step',
-      type: 'multiselect',
-    },
-    {
       id: 'language',
       filter: 'language',
       label: 'Language',

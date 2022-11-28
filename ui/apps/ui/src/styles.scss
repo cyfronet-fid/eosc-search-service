@@ -22,7 +22,7 @@ a:hover {
   color: #05a6e7;
 }
 
-.ant-tree-switcher {
+.no-child-node .ant-tree-switcher {
   width: 0;
 }
 
@@ -617,6 +617,10 @@ h6 {
     .open-access {
       color: #27ae60;
     }
+
+    .other-access {
+      color: #F2994A;
+    }
   }
 
   h6 {
@@ -684,9 +688,9 @@ h6 {
     border-radius: 35px;
 
     &.tag-horizontal {
-      background: #FAFCFE;
+      background: #fafcfe;
       position: relative;
-      color: #A959EA;
+      color: #a959ea;
 
       &::before {
         content: '';

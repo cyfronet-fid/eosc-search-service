@@ -63,8 +63,8 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
-      id: 'related_platforms',
-      filter: 'related_platforms',
+      id: 'platforms',
+      filter: 'platforms',
       label: 'Related infrastructures and platforms',
       type: 'multiselect',
     },

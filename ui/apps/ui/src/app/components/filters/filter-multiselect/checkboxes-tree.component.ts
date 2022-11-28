@@ -12,7 +12,11 @@ import { IUIFilterTreeNode } from '@collections/repositories/types';
       [nzTreeControl]="$any(treeControl)"
       [nzDataSource]="dataSource"
     >
-      <nz-tree-node *nzTreeNodeDef="let node" nzTreeNodePadding="">
+      <nz-tree-node
+        class="no-child-node"
+        *nzTreeNodeDef="let node"
+        nzTreeNodePadding=""
+      >
         <nz-tree-node-toggle nzTreeNodeNoopToggle></nz-tree-node-toggle>
         <nz-tree-node-checkbox
           [nzDisabled]="node.disabled"
