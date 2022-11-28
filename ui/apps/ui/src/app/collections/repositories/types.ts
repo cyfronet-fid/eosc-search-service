@@ -22,7 +22,7 @@ export interface IResult {
 
 export interface ISecondaryTag {
   iconPath: string;
-  values: string[];
+  values: IValueWithLabel[];
   filter?: string;
   type: 'url' | 'info';
 }
@@ -56,6 +56,9 @@ export interface ISearchResults<T extends { id: string }> {
   facets: { [field: string]: IFacetResponse };
   nextCursorMark: string;
   numFound: number;
+  highlighting: {
+    [id: string]: { [field: string]: string[] | undefined } | undefined;
+  };
 }
 
 export interface IFacetParam {

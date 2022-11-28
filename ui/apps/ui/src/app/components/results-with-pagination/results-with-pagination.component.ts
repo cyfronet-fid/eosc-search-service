@@ -53,6 +53,7 @@ import { Router } from '@angular/router';
         [downloads]="result.downloads"
         [accessRight]="result.accessRight"
         [date]="result.date"
+        [highlights]="highlights[result.id] ?? {}"
       ></ess-result>
       <ess-pagination
         [paginationData]="$any(paginationData$ | async)"
@@ -65,6 +66,9 @@ import { Router } from '@angular/router';
 })
 export class ResultsWithPaginationComponent implements OnInit {
   _prevParamsWithoutCursor: { [name: string]: paramType } = {};
+  highlights: {
+    [id: string]: { [field: string]: string[] | undefined } | undefined;
+  } = {};
 
   @Input()
   set response(response: ISearchResults<IResult> | null) {
@@ -87,10 +91,13 @@ export class ResultsWithPaginationComponent implements OnInit {
     const params = this._customRoute.params();
     if (this._shouldInitPagination(params)) {
       this._paginationService.initPagination(response);
+      this.highlights = response.highlighting ?? {};
       return;
     }
 
     this._paginationService.updatePagination(params, response);
+    this.highlights = response.highlighting ?? {};
+
     this._paginationService.setLoading(false);
   }
 

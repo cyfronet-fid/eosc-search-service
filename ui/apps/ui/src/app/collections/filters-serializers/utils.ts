@@ -16,8 +16,13 @@ export const toValueWithLabel = (values: string[]): IValueWithLabel[] => {
   return values.map((value) => ({ label: value, value }));
 };
 
-export const queryChanger = (q: string): string =>
-  q
-    .split(' ')
-    .map((word) => `${word}~1`)
-    .join(' ');
+export const queryChanger = (q: string): string => {
+  q = q.trim();
+  if (q === '*') {
+    return q;
+  }
+
+  const addFuzzySearchSign = (word: string) => `${word}~1`;
+  const words = q.split(' ');
+  return words.map(addFuzzySearchSign).join(' ');
+};

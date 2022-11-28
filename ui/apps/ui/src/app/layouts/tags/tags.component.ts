@@ -2,15 +2,18 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
   TrackByFunction,
 } from '@angular/core';
 import { ITag } from '@collections/repositories/types';
+import { combineHighlightsWith } from './utils';
 
 @Component({
   selector: 'ess-tags',
   template: ` <div id="tags">
-    <ng-container *ngFor="let tag of tags; trackBy: trackByLabel">
+    <ng-container *ngFor="let tag of parsedTags; trackBy: trackByLabel">
       <div class="tag-row" *ngIf="tag.values.length > 0">
         <span class="tag tag-title"
           ><strong>{{ tag.label }}: </strong></span
@@ -20,23 +23,42 @@ import { ITag } from '@collections/repositories/types';
             ><a
               href="javascript:void(0)"
               (click)="setActiveFilter(tag.filter, singleValue.value)"
-              >{{ singleValue.label }}</a
+              [innerHTML]="singleValue.label"
+            ></a
             >&nbsp;&nbsp;</span
           >
         </ng-container>
       </div>
     </ng-container>
   </div>`,
-  styles: [],
+  styles: [
+    `
+      ::ng-deep .highlighted {
+        background-color: #e8e7ff !important;
+        padding: 3px;
+      }
+    `,
+  ],
 })
-export class TagsComponent {
+export class TagsComponent implements OnChanges {
+  parsedTags: ITag[] = [];
+
   @Input()
   tags: ITag[] = [];
+
+  @Input()
+  highlights: { [field: string]: string[] | undefined } = {};
 
   @Output()
   activeFilter = new EventEmitter<{ filter: string; value: string }>();
   trackByLabel: TrackByFunction<ITag> = (index: number, entity: ITag) =>
     entity.label;
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['tags'] || changes['highlights']) {
+      this.parsedTags = combineHighlightsWith(this.tags, this.highlights);
+    }
+  }
 
   setActiveFilter(filter: string, value: string): void {
     this.activeFilter.emit({ filter, value });
