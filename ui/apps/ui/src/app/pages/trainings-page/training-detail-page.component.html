@@ -8,15 +8,15 @@
             <div class="col-12 col-lg-10 row">
               <div class="col-12 col-sm-9">
                 <h1>{{ training.title }}</h1>
-                <p class="mb-1">{{ this.training.keywords }}</p>
+                <p class="mb-1">{{ keywords }}</p>
                 <span class="clearfix"></span>
               </div>
             </div>
             <div class="col-12 col-lg-2 text-center">
               <div class="vertical-center-inner access-type">
                 <span class="accesstype-label">
-                  <i class="accesstype accesstype-{{ this.training.accessRight }}"></i>
-                  {{ this.training.accessRight }}
+                  <i class="accesstype accesstype-{{ accessType }}"></i>
+                  {{ accessType }}
                 </span>
               </div>
             </div>
@@ -71,7 +71,7 @@
               </div>
               <div class="col-12 col-lg-3 trainings-right-column">
                 <div class="right-panel">
-                  <ng-container *ngFor="let tag of this.training.tags">
+                  <ng-container *ngFor="let tag of sidebarTags">
                     <h5>{{ tag.label }}</h5>
                     <ul class="list-group domains mb-4">
                       <ng-container *ngIf="isArray(tag.values); else oneValue">
@@ -108,7 +108,7 @@
         >
           <div class="container">
             <div class="row p-4">
-              <ng-container *ngFor="let tag of this.training?.tags">
+              <ng-container *ngFor="let tag of detailsTags">
                 <div class="col-12 col-lg-4">
                   <div class="details-box">
                     <div class="details-box-header">

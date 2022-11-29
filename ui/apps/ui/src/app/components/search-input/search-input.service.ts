@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
+import { AdaptersRepository } from '@collections/repositories/adapters.repository';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { FetchDataService } from '@collections/services/fetch-data.service';
 import { combineLatest, map, of } from 'rxjs';
-import { ICollectionSearchMetadata } from '@collections/repositories/types';
+import {
+  ICollectionSearchMetadata,
+  adapterType,
+} from '@collections/repositories/types';
 import { toSuggestedResults } from './utils';
 import { URL_PARAM_NAME } from '@collections/data/all/nav-config.data';
 import { queryChanger } from '@collections/filters-serializers/utils';
-import { allCollectionsAdapter } from '@collections/data/all/adapter.data';
 
 const MAX_COLLECTION_RESULTS = 3; // TODO: Move to env file
 
@@ -15,6 +18,7 @@ const MAX_COLLECTION_RESULTS = 3; // TODO: Move to env file
 })
 export class SearchInputService {
   constructor(
+    private _adaptersRepository: AdaptersRepository,
     private _searchMetadataRepository: SearchMetadataRepository,
     private _fetchDataService: FetchDataService
   ) {}
@@ -48,12 +52,10 @@ export class SearchInputService {
         sort: [],
         ...metadata.params,
       };
+      const adapter = this._adaptersRepository.get(metadata.id)
+        ?.adapter as adapterType;
       return this._fetchDataService
-        .fetchResults$(
-          searchMetadata,
-          metadata.facets,
-          allCollectionsAdapter.adapter
-        )
+        .fetchResults$(searchMetadata, metadata.facets, adapter)
         .pipe(map((results) => ({ ...results, link: metadata.id })));
     });
   }

@@ -7,7 +7,6 @@ export const LABEL = 'Data';
 export const datasetsNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,
-  resourceType: 'dataset',
   breadcrumbs: [
     {
       label: ALL_COLLECTIONS_LABEL,

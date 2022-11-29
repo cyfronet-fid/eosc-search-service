@@ -21,7 +21,7 @@ export class FetchDataService {
 
   constructor(private _http: HttpClient) {}
 
-  fetchResults$<T extends { id: string; type: string }>(
+  fetchResults$<T extends { id: string }>(
     params: ISolrCollectionParams & ISolrQueryParams,
     facets: { [field: string]: IFacetParam },
     adapter: adapterType
