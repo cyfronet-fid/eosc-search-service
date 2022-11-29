@@ -19,6 +19,7 @@ oidcrp = "*"
 uvicorn = "*"
 "stomp.py" = "*"
 cachetools = "*"
+async-lru = "*"
 
 [dev-packages]
 black = "*"

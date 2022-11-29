@@ -44,6 +44,9 @@ OIDC_CLIENT_ID = config("OIDC_CLIENT_ID", cast=str, default="NO_CLIENT_ID")
 OIDC_CLIENT_SECRET = config("OIDC_CLIENT_SECRET", cast=str, default="NO_CLIENT_SECRET")
 
 SHOW_RECOMMENDATIONS = config("SHOW_RECOMMENDATIONS", cast=bool, default=True)
+SHOW_FIXED_RECOMMENDATIONS = config(
+    "SHOW_FIXED_RECOMMENDATIONS", cast=bool, default=True
+)
 STOMP_HOST = config("STOMP_HOST", cast=str, default="127.0.0.1")
 STOMP_PORT = config("STOMP_PORT", cast=str, default="61613")
 STOMP_LOGIN = config("STOMP_LOGIN", cast=str, default="guest")
