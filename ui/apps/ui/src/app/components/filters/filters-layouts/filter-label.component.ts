@@ -7,8 +7,7 @@ import { Router } from '@angular/router';
   template: `<span class="filter-title"
       ><b>{{ label }}</b></span
     >
-    <span (click)="resetAllActiveEntities()">
-      &nbsp; &nbsp;
+    <span (click)="resetAllActiveEntities()" class="clear-button-wrapper">
       <a href="javascript:void(0)" class="clear-button">clear all</a>
     </span>`,
   styles: [
