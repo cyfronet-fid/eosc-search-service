@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.8.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.7.1...v1.8.0) (2022-11-29)
+
+
+### Features
+
+* move from multi collection to single collection ([aa274d1](https://github.com/cyfronet-fid/eosc-search-service/commit/aa274d1909e3228ecdd8d5bec3576c325561d097))
+* update ccs styles ([29f65b0](https://github.com/cyfronet-fid/eosc-search-service/commit/29f65b09d79c80a3905ca7ee45a6dec1038231ac))
+
+
+### Bug Fixes
+
+* improve recommendations ([fb6bfaf](https://github.com/cyfronet-fid/eosc-search-service/commit/fb6bfafc3075bb00db081d6cfd243de74eb8d9b7))
+
 ## [1.7.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.7.0...v1.7.1) (2022-11-28)
 
 
