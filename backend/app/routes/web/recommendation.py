@@ -9,13 +9,19 @@ import uuid
 from typing import Literal
 
 import httpx
+from async_lru import alru_cache
 from fastapi import APIRouter, HTTPException, Request
 from httpx import AsyncClient
+from starlette.status import HTTP_200_OK
 
-from app.config import RECOMMENDER_ENDPOINT, SHOW_RECOMMENDATIONS
+from app.config import (
+    RECOMMENDER_ENDPOINT,
+    SHOW_FIXED_RECOMMENDATIONS,
+    SHOW_RECOMMENDATIONS,
+)
 from app.generic.models.bad_request import BadRequest
 from app.schemas.session_data import SessionData
-from app.solr.operations import get
+from app.solr.operations import get, search
 from app.utils.cookie_validators import backend, cookie
 
 router = APIRouter()
@@ -23,7 +29,14 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 RecommendationPanelId = Literal[
-    "all", "publication", "dataset", "software", "training", "service"
+    "all",
+    "publication",
+    "dataset",
+    "software",
+    "training",
+    "service",
+    "other",
+    "data-source",
 ]
 
 RE_INT = re.compile("^[0-9]+$")
@@ -66,6 +79,7 @@ class SolrRetrieveError(RecommendationHttpError):
 def _get_panel(panel_id: RecommendationPanelId) -> list[str]:
     # IMPORTANT!!! recommender does not support services
     panel_id_options = ["publications", "datasets", "software", "trainings"]
+
     match panel_id:
         case "all":
             return [random.choice(panel_id_options)]
@@ -148,6 +162,36 @@ async def _get_recommended_items(client: AsyncClient, uuids: list[str]):
         raise SolrRetrieveError("Connection Error") from e
 
 
+# pylint: disable=unused-argument
+@alru_cache(maxsize=512)
+async def get_fixed_recommendations(
+    session_id: str | None, panel_id: RecommendationPanelId, count: int = 3
+) -> list[str]:
+    rows = 100
+    if panel_id == "data-source":
+        panel_id = "data source"
+    if panel_id == "all":
+        panel_id = "publication"
+    fq = [f'type:("{panel_id}")']
+    async with httpx.AsyncClient() as client:
+        response = await search(
+            client,
+            "all_collection",
+            q="*",
+            qf=["id"],
+            fq=fq,
+            sort=["id desc"],
+            rows=rows,
+        )
+    if response.status_code != HTTP_200_OK:
+        return []
+    docs: list = response.json()["response"]["docs"]
+    if len(docs) == 0:
+        return []
+
+    return [doc["id"] for doc in random.sample(docs, k=min(count, len(docs)))]
+
+
 @router.get(
     "/recommendations",
     responses={200: {"model": dict}, 500: {"model": BadRequest}},
@@ -155,14 +199,20 @@ async def _get_recommended_items(client: AsyncClient, uuids: list[str]):
 async def get_recommendations(panel_id: RecommendationPanelId, request: Request):
     if SHOW_RECOMMENDATIONS is False:
         return []
+    session_id = None
     try:
         session_id = cookie(request)
         session = await backend.read(session_id)
     except HTTPException:
         session = None
+
     try:
         async with httpx.AsyncClient() as client:
-            uuids = await _get_recommended_uuids(client, session, panel_id)
+            if SHOW_FIXED_RECOMMENDATIONS:
+                uuids = await get_fixed_recommendations(session_id, panel_id)
+            else:
+                uuids = await _get_recommended_uuids(client, session, panel_id)
+
             return await _get_recommended_items(client, uuids)
     except (RecommenderError, SolrRetrieveError) as e:
         logger.error("%s. %s", str(e), e.data)

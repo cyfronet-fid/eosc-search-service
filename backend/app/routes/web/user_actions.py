@@ -30,6 +30,7 @@ async def register_navigation_user_action(
         "training",
         "software",
         "data source",
+        "data-source",
         "other",
     ],
     page_id: str,
@@ -37,6 +38,9 @@ async def register_navigation_user_action(
     client: UserActionClient | None = Depends(user_actions_client),
 ):
     """Registers entering a URL and redirects to the URL"""
+    if resource_type == "data-source":
+        resource_type = "data source"
+
     response = RedirectResponse(status_code=303, url=url)
     if not client:
         return response
