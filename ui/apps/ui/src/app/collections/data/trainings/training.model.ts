@@ -1,5 +1,6 @@
 export interface ITraining {
   id: string;
+  url: string[];
   title: string[];
   description: string[];
   author_names: string;
