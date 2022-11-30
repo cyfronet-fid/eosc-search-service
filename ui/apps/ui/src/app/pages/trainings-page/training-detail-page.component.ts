@@ -38,7 +38,7 @@ export class TrainingDetailPageComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe((item) => {
         this.training = trainingsAdapter.adapter(item);
-        this.originUrl = item.URL_s;
+        this.originUrl = item.url[0];
         this.keywords = item.keywords;
         this.accessType = item.best_access_right;
         this.detailsTags = this.training.tags;
