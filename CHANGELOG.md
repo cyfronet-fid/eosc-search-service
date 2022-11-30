@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.8.0...v1.9.0) (2022-11-30)
+
+
+### Features
+
+* add redirect url btn to trainings ([c612778](https://github.com/cyfronet-fid/eosc-search-service/commit/c6127783cb5a588beb0c125686666af18789ec05))
+
 ## [1.8.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.7.1...v1.8.0) (2022-11-29)
 
 
