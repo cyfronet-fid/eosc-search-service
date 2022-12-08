@@ -4,9 +4,18 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+pyspark = "*"
+boto3 = "*"
+tqdm = "*"
+python-dotenv = "*"
+requests = "*"
 
 [dev-packages]
 pytest = "*"
+pylint = "*"
+jupyter = "*"
+black = {extras = ["jupyter"], version = "*"}
 
 [requires]
 python_version = "3.10"
+python_full_version = "3.10.5"
