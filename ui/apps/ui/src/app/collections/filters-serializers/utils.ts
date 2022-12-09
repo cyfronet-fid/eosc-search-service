@@ -22,7 +22,9 @@ export const queryChanger = (q: string): string => {
     return q;
   }
 
-  const addFuzzySearchSign = (word: string) => `${word}~1`;
-  const words = q.split(' ');
-  return words.map(addFuzzySearchSign).join(' ');
+  return q;
+  // Remove fuzzy search for now, as it impacts performance and author search.
+  // const addFuzzySearchSign = (word: string) => `${word}~1`;
+  // const words = q.split(' ');
+  // return words.map(addFuzzySearchSign).join(' ');
 };
