@@ -139,6 +139,9 @@ See docker-compose.yml for components.
   > Example: /topic/user_actions 
 - `STOMP_CLIENT_NAME`
   > Example: dev-client
+- `ESS_STOMP_SSL`
+  > Use SSL when connecting to STOMP queue (for user actions). Default: `0`
+  > Example: `1` or `0`
 - `NG_COLLECTIONS_PREFIX`, by default `''`
   > Example: NG_COLLECTIONS_PREFIX=prod_
   > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.

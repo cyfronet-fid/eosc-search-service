@@ -48,13 +48,14 @@ SHOW_FIXED_RECOMMENDATIONS = config(
     "SHOW_FIXED_RECOMMENDATIONS", cast=bool, default=True
 )
 STOMP_HOST = config("STOMP_HOST", cast=str, default="127.0.0.1")
-STOMP_PORT = config("STOMP_PORT", cast=str, default="61613")
+STOMP_PORT = config("STOMP_PORT", cast=int, default="61613")
 STOMP_LOGIN = config("STOMP_LOGIN", cast=str, default="guest")
 STOMP_PASS = config("STOMP_PASS", cast=str, default="guest")
 STOMP_USER_ACTIONS_TOPIC = config(
     "ESS_STOMP_USER_ACTION", cast=str, default="/topic/user_actions"
 )
 STOMP_CLIENT_NAME = config("ESS_QUEUE_CLIENT_NAME", cast=str, default="dev-client")
+STOMP_SSL = config("ESS_STOMP_SSL", cast=bool, default=False)
 
 OIDC_NEW_AUTH_ENDPOINT = "/auth/realms/core/protocol/openid-connect/auth"
 OIDC_OLD_AUTH_ENDPOINT = "/oidc/authorize"
