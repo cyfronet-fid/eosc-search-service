@@ -1,8 +1,8 @@
 """UserActions-specific dependencies"""
 import datetime
 import json
+import logging
 import uuid
-from functools import lru_cache
 from typing import Optional, Union
 
 import stomp
@@ -13,27 +13,36 @@ from app.config import (
     STOMP_LOGIN,
     STOMP_PASS,
     STOMP_PORT,
+    STOMP_SSL,
     STOMP_USER_ACTIONS_TOPIC,
 )
 from app.schemas.session_data import SessionData
+
+logger = logging.getLogger(__name__)
 
 
 class UserActionClient:
     """Wrapper for the STOMP client which sends valid user action to the databus"""
 
     # pylint: disable=too-many-arguments
-    def __init__(self, host: str, port: int, username: str, password: str, topic: str):
+    def __init__(
+        self, host: str, port: int, username: str, password: str, topic: str, ssl: bool
+    ):
         self.host = host
         self.port = port
         self.username = username
         self.password = password
         self.topic = topic
-        self.client = stomp.Connection(host_and_ports=[(STOMP_HOST, STOMP_PORT)])
+        self.ssl = ssl
+        hosts_and_ports = [(self.host, self.port)]
+        self.client = stomp.Connection(host_and_ports=hosts_and_ports)
+        if self.ssl:
+            self.client.set_ssl(hosts_and_ports)
 
     def connect(self) -> None:
         """Connect stomp internal client, this function must be called before using `send`
         """
-        self.client.connect(STOMP_LOGIN, STOMP_PASS, wait=True)
+        self.client.connect(self.username, self.password, wait=True)
 
     # pylint: disable=too-many-arguments
     def send(
@@ -110,7 +119,6 @@ class UserActionClient:
         return user_action
 
 
-@lru_cache()
 def user_actions_client() -> UserActionClient | None:
     """User actions databus client dependency"""
 
@@ -120,11 +128,13 @@ def user_actions_client() -> UserActionClient | None:
         STOMP_LOGIN,
         STOMP_PASS,
         STOMP_USER_ACTIONS_TOPIC,
+        STOMP_SSL,
     )
     try:
         client.connect()
         return client
     except ConnectFailedException:
+        logger.exception("Could not instantiate mqtt client")
         return None
 
 

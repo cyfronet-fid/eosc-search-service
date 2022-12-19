@@ -1,4 +1,5 @@
 # pylint: disable=missing-module-docstring
+import logging
 import uuid
 from typing import Literal
 
@@ -14,6 +15,7 @@ from app.schemas.session_data import SessionData
 from app.utils.cookie_validators import backend, cookie, verifier
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 
 # pylint: disable=too-many-arguments
@@ -43,6 +45,7 @@ async def register_navigation_user_action(
 
     response = RedirectResponse(status_code=303, url=url)
     if not client:
+        logger.debug("No mqtt client, user action not sent")
         return response
 
     try:

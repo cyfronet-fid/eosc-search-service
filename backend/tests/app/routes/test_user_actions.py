@@ -25,7 +25,7 @@ class TimeoutException(Exception):
     pass
 
 
-class TestListener(stomp.ConnectionListener):
+class MockListener(stomp.ConnectionListener):
     """Test listener"""
 
     def __init__(self, timeout: Seconds = 10):
@@ -74,7 +74,7 @@ async def test_redirects_to_the_target_url(app: FastAPI, client: AsyncClient):
 @pytest.mark.asyncio
 async def test_sends_user_action_after_response(app: FastAPI, client: AsyncClient):
     conn = stomp.Connection(host_and_ports=[(STOMP_HOST, STOMP_PORT)])
-    listener = TestListener()
+    listener = MockListener()
     conn.set_listener("test_listener", listener)
     conn.connect(STOMP_LOGIN, STOMP_PASS, wait=True)
     conn.subscribe(STOMP_USER_ACTIONS_TOPIC, STOMP_CLIENT_NAME, ack="auto")
