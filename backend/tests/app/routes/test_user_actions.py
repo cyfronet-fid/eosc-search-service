@@ -91,6 +91,7 @@ async def test_sends_user_action_after_response(app: FastAPI, client: AsyncClien
     )
 
     message = listener.last_message
+    message = json.loads(message)
 
     assert message["action"] == {"order": False, "text": "", "type": "browser action"}
     assert message["client_id"] == "search_service"

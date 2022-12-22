@@ -57,19 +57,22 @@ class UserActionClient:
         """Send user data to databus. Ensure that `.connect()` method has been called before.
         """
 
+        # this hack is required for legacy purposes.
+        message = json.dumps(
+            self._make_user_action(
+                session.aai_state,
+                url,
+                session.session_uuid,
+                resource_id,
+                resource_type,
+                page_id,
+                recommendation,
+            )
+        )
+
         self.client.send(
             self.topic,
-            json.dumps(
-                self._make_user_action(
-                    session.aai_state,
-                    url,
-                    session.session_uuid,
-                    resource_id,
-                    resource_type,
-                    page_id,
-                    recommendation,
-                )
-            ),
+            json.dumps(message),
             content_type="application/json",
         )
 
