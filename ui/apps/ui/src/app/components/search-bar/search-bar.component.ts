@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <div class="search-bar">
       <div class="container--xxl">
         <div class="row">
-          <div class="col-md-4 col-12 logo-wrapper">
+          <div class="col-md-3 col-12 logo-wrapper">
             <a href="/">
               <img
                 id="logo"
@@ -16,18 +16,21 @@ import { Component } from '@angular/core';
               />
             </a>
           </div>
-          <div class="col-md-8 col-12 search-row">
-            <ess-search-input></ess-search-input>
+          <div class="col-md-9 col-12">
+            <div class="col-xl-9 col-12 search-row">
+              <ess-search-input></ess-search-input>
+              <p class="user-announcement" i18n>
+                We're currently working on improving search engine. We test the
+                best solutions, which may also be associated with some problems.
+                We are open to all suggestions, if you want to report any issues
+                -
+                <a href="https://eosc-portal.eu/contact-us" target="_blank"
+                  >Contact us</a
+                >
+              </p>
+            </div>
           </div>
         </div>
-        <p class="user-announcement" i18n>
-          We're currently working on improving search engine. We test the best
-          solutions, which may also be associated with some problems. We are
-          open to all suggestions, if you want to report any issues -
-          <a href="https://eosc-portal.eu/contact-us" target="_blank"
-            >Contact us</a
-          >
-        </p>
       </div>
     </div>
   `,
@@ -51,10 +54,6 @@ import { Component } from '@angular/core';
       p.user-announcement a:hover {
         opacity: 0.9;
         text-decoration: underline;
-      }
-
-      .search-bar {
-        height: 170px;
       }
     `,
   ],
