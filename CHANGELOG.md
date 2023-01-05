@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.10.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.9.2...v1.10.0) (2023-01-05)
+
+
+### Features
+
+* [[#407](https://github.com/cyfronet-fid/eosc-search-service/issues/407)] add disclaimer about seearch engine ([45602af](https://github.com/cyfronet-fid/eosc-search-service/commit/45602aff83a7a77e64be92fdc49ddb33f47671e1))
+* search box and user announcement ([8ccd54c](https://github.com/cyfronet-fid/eosc-search-service/commit/8ccd54cad4a11039237f85c642ac7cb9a85a940c))
+
+
+### Bug Fixes
+
+* change type of user action from dict to string ([2e4de25](https://github.com/cyfronet-fid/eosc-search-service/commit/2e4de25f24365f3361643ad69bb17ec027da2efe))
+
 ## [1.9.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.8.0...v1.9.0) (2022-11-30)
 
 
