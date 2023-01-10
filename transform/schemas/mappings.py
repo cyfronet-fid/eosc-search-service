@@ -5,7 +5,7 @@
 # Access rights mapping
 OPEN_ACCESS_ = "Open access"
 RESTRICTED = "Restricted"
-ORDER_REQUIRED = "Ordered required"
+ORDER_REQUIRED = "Order required"
 LOGIN_REQUIRED = "Login required"
 LOGIN_REQUIRED_ON = (
     "Login required on EOSC Pillar, open access on the original resource page"
