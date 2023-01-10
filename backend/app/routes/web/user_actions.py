@@ -20,7 +20,10 @@ logger = logging.getLogger(__name__)
 
 
 # pylint: disable=too-many-arguments
-@router.get("/navigate", name="web:register-navigation-user-action")
+@router.get(
+    "/navigate",
+    name="web:register-navigation-user-action",
+)
 async def register_navigation_user_action(
     request: Request,
     background_tasks: BackgroundTasks,
@@ -48,11 +51,9 @@ async def register_navigation_user_action(
         url = UI_BASE_URL + url
 
     response = RedirectResponse(status_code=303, url=url)
-    if not client:
-        logger.debug("No mqtt client, user action not sent")
-        return response
 
     try:
+        cookie(request)
         session = (await verifier(request),)
     except HTTPException:
         session_id = uuid.uuid4()
@@ -62,6 +63,10 @@ async def register_navigation_user_action(
         )
         await backend.create(session_id, session)
         cookie.attach_to_response(response, session_id)
+
+    if not client:
+        logger.debug("No mqtt client, user action not sent")
+        return response
 
     background_tasks.add_task(
         send_user_action_bg_task,
