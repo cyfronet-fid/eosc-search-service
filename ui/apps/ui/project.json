@@ -66,6 +66,7 @@
       },
       "defaultConfiguration": "development",
       "options": {
+        "ssl": true,
         "proxyConfig": "apps/ui/proxy.conf.json"
       }
     },
