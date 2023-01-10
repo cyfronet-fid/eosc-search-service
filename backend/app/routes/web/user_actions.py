@@ -6,6 +6,7 @@ from typing import Literal
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from starlette.responses import RedirectResponse
 
+from app.config import UI_BASE_URL
 from app.dependencies.user_actions import (
     UserActionClient,
     send_user_action_bg_task,
@@ -42,6 +43,9 @@ async def register_navigation_user_action(
     """Registers entering a URL and redirects to the URL"""
     if resource_type == "data-source":
         resource_type = "data source"
+
+    if url.startswith("/"):
+        url = UI_BASE_URL + url
 
     response = RedirectResponse(status_code=303, url=url)
     if not client:
