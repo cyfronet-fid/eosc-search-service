@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.10.0...v1.10.1) (2023-01-10)
+
+
+### Bug Fixes
+
+* training user actions ([3120c4d](https://github.com/cyfronet-fid/eosc-search-service/commit/3120c4dda72d6eec50a0a409b9bad77a45c89877))
+
 ## [1.10.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.9.2...v1.10.0) (2023-01-05)
 
 
