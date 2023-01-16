@@ -61,6 +61,8 @@ async def auth_checkin(code: str, state: str):
     "/userinfo", dependencies=[Depends(cookie)], response_model=UserInfoResponse
 )
 async def user_info(session_data: SessionData = Depends(verifier)) -> UserInfoResponse:
+    if session_data.username is None:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     return UserInfoResponse(username=session_data.username)
 
 
