@@ -54,7 +54,7 @@ async def register_navigation_user_action(
 
     try:
         cookie(request)
-        session = (await verifier(request),)
+        session = await verifier(request)
     except HTTPException:
         session_id = uuid.uuid4()
 

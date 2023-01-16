@@ -34,8 +34,10 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
         if LOG_LEVEL == logging.getLevelName(logging.DEBUG):
             referer = request.headers["referer"] if "referer" in request.headers else ""
             logger.debug(
-                "\n\nREQUEST:\n\n id=%s\n path=%s\n referer=%s\n cookies=%s\n"
-                " headers=%s\n\n",
+                (
+                    "\n\nREQUEST:\n\n id=%s\n path=%s\n referer=%s\n cookies=%s\n"
+                    " headers=%s\n\n"
+                ),
                 uuid,
                 request.url.path,
                 referer,
