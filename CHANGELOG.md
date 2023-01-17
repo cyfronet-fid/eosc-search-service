@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.11.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.10.1...v1.11.0) (2023-01-17)
+
+
+### Features
+
+* add Google Analytics ([85c1ea5](https://github.com/cyfronet-fid/eosc-search-service/commit/85c1ea5c4b551706118f00fdf9b996fc228077c3))
+
+
+### Bug Fixes
+
+* access type mapping ([e880df3](https://github.com/cyfronet-fid/eosc-search-service/commit/e880df3a7767aa01179f5733181573f54c64881b))
+* session reset in user actions ([b31332a](https://github.com/cyfronet-fid/eosc-search-service/commit/b31332a577893e3f90ca4ed85830d83b5fa85b1c))
+* user actions for signed-in user ([12863e0](https://github.com/cyfronet-fid/eosc-search-service/commit/12863e0472ecb0a6accebbcd9deb11bb3cdcc268))
+
 ## [1.10.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.10.0...v1.10.1) (2023-01-10)
 
 
