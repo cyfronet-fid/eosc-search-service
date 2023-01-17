@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IRecommendation } from '@components/recommendations/recommendations.types';
+import { IRecommendationResponse } from '@components/recommendations/recommendations.types';
 import { UserProfileService } from '../../auth/user-profile.service';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -22,9 +22,15 @@ export class RecommendationsService {
 
   getRecommendations$(panelId: string): Observable<IResult[]> {
     const url = `${environment.backendApiPath}/${environment.recommendationsApiPath}?panel_id=${panelId}`;
-    return this._http.get<IRecommendation[]>(url).pipe(
-      catchError(() => of([])),
-      map((recommendations) =>
+    return this._http.get<IRecommendationResponse>(url).pipe(
+      catchError(() =>
+        of({
+          isRand: false,
+          message: 'Upssss, something gone wrong with recommendations',
+          recommendations: [],
+        } as IRecommendationResponse)
+      ),
+      map(({ recommendations }) =>
         recommendations.map((recommendation) =>
           allCollectionsAdapter.adapter(recommendation)
         )
