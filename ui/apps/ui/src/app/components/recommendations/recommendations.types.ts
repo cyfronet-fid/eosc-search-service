@@ -5,6 +5,11 @@ export interface IRecommendation {
   description: string;
   organisation: string;
 }
+export interface IRecommendationResponse {
+  isRand: boolean;
+  message: string;
+  recommendations: IRecommendation[];
+}
 
 export interface RecommendationStateProps {
   panelId: string;
