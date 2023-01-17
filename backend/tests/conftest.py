@@ -1,6 +1,8 @@
 # pylint: disable=redefined-outer-name,unused-argument,wrong-import-order
 
 """Test config"""
+import uuid
+
 import pytest
 from asgi_lifespan import LifespanManager
 from fastapi import FastAPI
@@ -9,7 +11,10 @@ from sqlalchemy.orm import Session
 
 import alembic
 from alembic.config import Config
+from app.schemas.session_data import SessionData
 from app.server import get_app
+from app.utils.cookie_validators import backend, cookie
+from tests.utils import UserSession
 
 
 @pytest.fixture
@@ -35,6 +40,34 @@ async def client(app: FastAPI) -> AsyncClient:
         app=app,
         base_url="http://testserver",
         headers={"Content-Type": "application/json"},
+    ) as client:
+        yield client
+
+
+@pytest.fixture
+async def user_session() -> UserSession:
+    """Create in memory user session and return UserSession object"""
+    session_id = uuid.uuid4()
+
+    session = SessionData(
+        username="testuser@test", aai_state="12345", session_uuid=str(uuid.uuid4())
+    )
+    await backend.create(session_id, session)
+    return UserSession(backend_session_id=session_id, session_data=session)
+
+
+@pytest.fixture
+async def auth_client(app: FastAPI, user_session: UserSession) -> AsyncClient:
+    """Get authorized lifecycle-managed AsyncClient"""
+    cookies = {
+        cookie.model.name: str(cookie.signer.dumps(user_session.backend_session_id.hex))
+    }
+
+    async with AsyncClient(
+        app=app,
+        base_url="http://testserver",
+        headers={"Content-Type": "application/json"},
+        cookies=cookies,
     ) as client:
         yield client
 

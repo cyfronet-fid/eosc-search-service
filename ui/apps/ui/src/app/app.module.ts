@@ -15,6 +15,11 @@ import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { MainHeaderModule } from '@components/main-header/main-header.module';
 import { UserProfileService } from './auth/user-profile.service';
+import {
+  NgxGoogleAnalyticsModule,
+  NgxGoogleAnalyticsRouterModule,
+} from 'ngx-google-analytics';
+import { environment } from '@environment/environment';
 
 registerLocaleData(en);
 
@@ -32,6 +37,12 @@ export const getUserProfileFactory$ = (
     HttpClientModule,
     AppRoutingModule,
     MainHeaderModule,
+    ...(environment['googleAnalyticsId'] == null
+      ? []
+      : [
+          NgxGoogleAnalyticsModule.forRoot(environment['googleAnalyticsId']),
+          NgxGoogleAnalyticsRouterModule,
+        ]),
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

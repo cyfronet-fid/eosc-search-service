@@ -145,6 +145,8 @@ See docker-compose.yml for components.
 - `NG_COLLECTIONS_PREFIX`, by default `''`
   > Example: NG_COLLECTIONS_PREFIX=prod_
   > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.
+- `NG_GOOGLE_ANALYTICS_ID`, by default `null`
+  > Google Analytics measurement-id
 
 `db` envs:
 - `DB_POSTGRES_DB`
