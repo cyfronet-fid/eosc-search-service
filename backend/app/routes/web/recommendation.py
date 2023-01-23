@@ -74,7 +74,14 @@ class SolrRetrieveError(RecommendationHttpError):
 
 def _get_panel(panel_id: RecommendationPanelId) -> str:
     # IMPORTANT!!! recommender does not support services
-    panel_id_options = ["publications", "datasets", "software", "trainings"]
+    panel_id_options = [
+        "publications",
+        "datasets",
+        "software",
+        "trainings",
+        "other_research_product",
+        "service",
+    ]
 
     match panel_id:
         case "all":
@@ -83,17 +90,14 @@ def _get_panel(panel_id: RecommendationPanelId) -> str:
             return "publications"
         case "dataset":
             return "datasets"
-        case "software":
-            return "software"
         case "training":
             return "trainings"
-        case "service":
-            return "service"
         case "data-source":
-            return "data-source"
+            return "data source"
         case "other":
-            return "other"
-    raise RecommenderError(f"{panel_id} is not valid {RecommendationPanelId}")
+            return "other_research_product"
+        case _:
+            return panel_id
 
 
 async def _get_recommended_uuids(
@@ -111,7 +115,7 @@ async def _get_recommended_uuids(
         }
 
         if session is not None:
-            request_body["aai_id"] = session.aai_id
+            request_body["aai_uid"] = session.aai_id
 
         response = await client.post(
             RECOMMENDER_ENDPOINT,
