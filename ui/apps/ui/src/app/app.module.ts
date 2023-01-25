@@ -29,6 +29,10 @@ export const getUserProfileFactory$ = (
   return () => userProfileService.get$();
 };
 
+const googleAnalyticsId = (
+  environment as unknown as { googleAnalyticsId: string }
+)['googleAnalyticsId'];
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -37,10 +41,10 @@ export const getUserProfileFactory$ = (
     HttpClientModule,
     AppRoutingModule,
     MainHeaderModule,
-    ...(environment['googleAnalyticsId'] == null
+    ...(googleAnalyticsId == null
       ? []
       : [
-          NgxGoogleAnalyticsModule.forRoot(environment['googleAnalyticsId']),
+          NgxGoogleAnalyticsModule.forRoot(googleAnalyticsId),
           NgxGoogleAnalyticsRouterModule,
         ]),
   ],
