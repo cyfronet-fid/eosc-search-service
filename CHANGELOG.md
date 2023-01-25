@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.11.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.11.0...v1.11.1) (2023-01-25)
+
+
+### Bug Fixes
+
+* recommender system ([aaa4ff2](https://github.com/cyfronet-fid/eosc-search-service/commit/aaa4ff2489d1c65df0c7afb061a1675dde274c3a)), closes [#417](https://github.com/cyfronet-fid/eosc-search-service/issues/417)
+* update recommendations fields ([7b82aa7](https://github.com/cyfronet-fid/eosc-search-service/commit/7b82aa73a483c4145a615d4f0c5e0407c5e5188a))
+
 ## [1.11.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.10.1...v1.11.0) (2023-01-17)
 
 
