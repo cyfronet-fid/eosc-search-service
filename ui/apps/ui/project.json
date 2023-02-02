@@ -17,6 +17,7 @@
         "assets": ["apps/ui/src/favicon.ico", "apps/ui/src/assets"],
         "styles": [
           "node_modules/bootstrap/dist/css/bootstrap.min.css",
+          "node_modules/bootstrap-icons/font/bootstrap-icons.scss",
           "apps/ui/src/styles.scss"
         ],
         "scripts": []
