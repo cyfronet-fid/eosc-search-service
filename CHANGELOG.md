@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.12.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.11.1...v1.12.0) (2023-02-03)
+
+
+### Features
+
+* add page loader ([8dd8216](https://github.com/cyfronet-fid/eosc-search-service/commit/8dd821661355fbace93175a0ab13b23b7ff2f682))
+* improve loading time ([1fdfcdb](https://github.com/cyfronet-fid/eosc-search-service/commit/1fdfcdb5aa81a34844a9d3519e319c67e69623e6))
+
 ## [1.11.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.11.0...v1.11.1) (2023-01-25)
 
 
