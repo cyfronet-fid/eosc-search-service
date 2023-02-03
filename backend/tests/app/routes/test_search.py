@@ -203,7 +203,7 @@ async def test_integration_500(app: FastAPI, client: AsyncClient) -> None:
 
 @pytest.fixture
 def setup_solr_collection(collection: str) -> None:
-    config_name = "oa_prod_20211208_v2"
+    config_name = "all_collection_15-11-2022"
     solr_url = SOLR_URL.replace("/solr/", "")
 
     os.system(
