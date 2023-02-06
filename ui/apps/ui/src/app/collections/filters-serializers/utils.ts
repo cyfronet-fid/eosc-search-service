@@ -22,7 +22,14 @@ export const queryChanger = (q: string): string => {
     return q;
   }
 
-  const addFuzzySearchSign = (word: string) => `${word}~1`;
+  const addFuzzySearchSign = (word: string): string => {
+    if (word.length > 5) {
+      return `${word}~1`;
+    } else {
+      return `${word}`;
+    }
+  };
+
   const words = q.split(' ');
   return words.map(addFuzzySearchSign).join(' ');
 };

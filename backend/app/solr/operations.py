@@ -10,7 +10,7 @@ async def search(
     collection: str,
     *,
     q: str,
-    qf: list[str],
+    qf: str,
     fq: list[str],
     sort: list[str],
     rows: int,
@@ -48,14 +48,15 @@ async def search(
             # when "OR" === at least 1 clause should be matched
             # when "AND" === all clauses should match
             # "q.op": "AND",
+            "mm":"80%",
             # How much lower weights fields score is taken against high weights fields score
             # 0.0 === lower weight field score is treated as high weight field score
             # 1.0 === only highest weighted fields score will be taken
             # https://solr.apache.org/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Thetie_TieBreaker_Parameter
-            # "tie": "0.1",
+            "tie": "0.1",
             # Query phrase slop, define how far words can be in sentence
             # https://solr.apache.org/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Theqs_QueryPhraseSlop_Parameter
-            "qs": "10",
+            "qs": "5",
             # Highlight, default: "false"
             # https://solr.apache.org/guide/solr/latest/query-guide/highlighting.html#highlighting-in-the-query-response
             "hl": "on",
@@ -64,6 +65,7 @@ async def search(
             # "hl.fl": "title,author_names,description,keywords,tag_list",
             "q": q,
             "qf": qf,
+            "pf": qf,
             "fq": fq,
             "rows": rows,
             "cursorMark": cursor,
@@ -71,9 +73,10 @@ async def search(
             "wt": "json",
         }
     }
+    
     if facets is not None and len(facets) > 0:
         request_body["facet"] = {k: v.dict() for k, v in facets.items()}
-
+    
     return await client.post(
         f"{SOLR_URL}{collection}/select",
         json=request_body,

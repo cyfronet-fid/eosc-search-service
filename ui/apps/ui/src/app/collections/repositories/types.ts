@@ -40,7 +40,7 @@ export interface IColoredTag {
 }
 
 export interface ISolrCollectionParams {
-  qf: string[];
+  qf: string;
   collection: string;
 }
 

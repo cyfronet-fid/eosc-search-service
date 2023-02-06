@@ -17,7 +17,7 @@ from .util import DEFAULT_SORT, internal_api_router
 async def recommend_post(
     collection: str = Query(..., description="Collection"),
     q: str = Query(..., description="Free-form query string"),
-    qf: list[str] = Query([], description="Query fields", example=["authors", "title"]),
+    qf: str = Query(..., description="Query fields"),
     fq: list[str] = Query(
         [],
         description="Filter query",
