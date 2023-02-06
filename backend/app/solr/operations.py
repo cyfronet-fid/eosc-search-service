@@ -48,7 +48,7 @@ async def search(
             # when "OR" === at least 1 clause should be matched
             # when "AND" === all clauses should match
             # "q.op": "AND",
-            "mm":"80%",
+            "mm": "80%",
             # How much lower weights fields score is taken against high weights fields score
             # 0.0 === lower weight field score is treated as high weight field score
             # 1.0 === only highest weighted fields score will be taken
@@ -73,10 +73,10 @@ async def search(
             "wt": "json",
         }
     }
-    
+
     if facets is not None and len(facets) > 0:
         request_body["facet"] = {k: v.dict() for k, v in facets.items()}
-    
+
     return await client.post(
         f"{SOLR_URL}{collection}/select",
         json=request_body,

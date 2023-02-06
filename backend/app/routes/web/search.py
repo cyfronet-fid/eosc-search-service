@@ -3,7 +3,7 @@
 from json import JSONDecodeError
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
-from httpx import AsyncClient, TransportError
+from httpx import AsyncClient
 
 from app.schemas.web import SearchRequest
 from app.solr.operations import search_dep
