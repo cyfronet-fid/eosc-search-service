@@ -8,6 +8,7 @@ from transform.transformers.base.oag import OagBaseTransformer
 
 class OtherRPTransformer(OagBaseTransformer):
     """Other research product transformer"""
+
     def __init__(self, spark):
         self.type = "other"
         super().__init__(self.type, self.cols_to_add, self.cols_to_drop, spark)

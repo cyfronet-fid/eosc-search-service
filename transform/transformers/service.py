@@ -11,10 +11,13 @@ from transform.transformers.base.marketplace import (
 
 class ServiceTransformer(MarketplaceBaseTransformer):
     """Service transformer"""
+
     def __init__(self, spark):
         self.type = SERVICE_TYPE
         id_increment = 0  # Do not change service ID
-        super().__init__(id_increment, self.type, self.cols_to_add, self.cols_to_drop, spark)
+        super().__init__(
+            id_increment, self.type, self.cols_to_add, self.cols_to_drop, spark
+        )
 
     @property
     def cols_to_add(self) -> tuple[str, ...]:
