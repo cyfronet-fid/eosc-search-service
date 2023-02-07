@@ -8,6 +8,7 @@ from transform.transformers.base.oag import OagBaseTransformer
 
 class SoftwareTransformer(OagBaseTransformer):
     """Software transformer"""
+
     def __init__(self, spark):
         self.type = "software"
         super().__init__(self.type, self.cols_to_add, self.cols_to_drop, spark)

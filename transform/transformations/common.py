@@ -62,7 +62,7 @@ def harvest_author_names_and_pids(df: DataFrame, harvested_properties: dict) -> 
             if authors:
                 for author in authors:
                     # Fullname
-                    author_names_row.append(author["fullname"])
+                    author_names_row.append(author["fullname"].replace(",", ""))
                     # Pids
                     if author["pid"]:
                         author_pid = [
@@ -374,3 +374,15 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
     )
 
     return df
+
+
+def remove_commas(df: DataFrame, col_name: str, harvested_properties: dict) -> DataFrame:
+    """Remove commas from a column values"""
+    column_with_commas = df.select(col_name).collect()
+    column_without_commas = [
+        [elem.replace(",", "") for elem in row[col_name]] for row in column_with_commas
+    ]
+
+    harvested_properties[col_name] = column_without_commas
+
+    return df.drop(col_name)

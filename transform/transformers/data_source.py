@@ -11,10 +11,13 @@ from transform.transformers.base.marketplace import (
 
 class DataSourceTransformer(MarketplaceBaseTransformer):
     """Data source transformer"""
+
     def __init__(self, spark):
         self.type = DATA_SOURCE_TYPE
         id_increment = 10_000_000
-        super().__init__(id_increment, self.type, self.cols_to_add, self.cols_to_drop, spark)
+        super().__init__(
+            id_increment, self.type, self.cols_to_add, self.cols_to_drop, spark
+        )
 
     @property
     def cols_to_add(self) -> tuple[str, ...]:

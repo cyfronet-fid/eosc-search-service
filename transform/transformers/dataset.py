@@ -8,6 +8,7 @@ from transform.transformers.base.oag import OagBaseTransformer
 
 class DatasetTransformer(OagBaseTransformer):
     """Dataset transformer"""
+
     def __init__(self, spark):
         self.type = "dataset"
         super().__init__(self.type, self.cols_to_add, self.cols_to_drop, spark)
