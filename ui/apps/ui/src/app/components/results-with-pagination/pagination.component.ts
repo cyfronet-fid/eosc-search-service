@@ -53,7 +53,7 @@ const MIN_PAGE_NR = 0;
             >{{ pageNr }}</a
           >
         </li>
-        <li *ngIf="$last" class="page-item">
+        <li *ngIf="$last && maxPage > currentPage" class="page-item">
           <a
             class="page-link"
             href="javascript:undefined"

@@ -116,7 +116,6 @@ export class SearchPageComponent implements OnInit {
             ...metadata.params,
             q: queryChanger(routerParams.q),
           };
-          console.log(searchMetadata);
           return this._fetchDataService
             .fetchResults$(searchMetadata, metadata.facets, adapter)
             .pipe(untilDestroyed(this));

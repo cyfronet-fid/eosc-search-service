@@ -43,7 +43,7 @@ async def test_post(
         ANY,
         "foo",
         q="bar",
-        qf=[],
+        qf="",
         fq=[],
         sort=["score desc", "id asc"],
         rows=10,
@@ -61,7 +61,7 @@ async def test_passes_all_query_params(
         params={
             "q": "bar",
             "collection": "foo",
-            "qf": ["bar", "baz"],
+            "qf": "bar baz",
             "fq": ['foo:"bar"'],
             "sort": ["fizz asc"],
             "rows": 42,
@@ -75,7 +75,7 @@ async def test_passes_all_query_params(
         ANY,
         "foo",
         q="bar",
-        qf=["bar", "baz"],
+        qf="bar baz",
         fq=['foo:"bar"'],
         sort=["fizz asc", "score desc", "id asc"],
         rows=42,
@@ -114,7 +114,7 @@ async def test_passes_all_facets(
         ANY,
         "foo",
         q="bar",
-        qf=[],
+        qf="",
         fq=[],
         sort=["score desc", "id asc"],
         rows=10,
@@ -145,7 +145,7 @@ async def test_integration(
         params={
             "q": "model",
             "collection": collection,
-            "qf": ["title", "description", "subject"],
+            "qf": "title description subject",
         },
         json={
             "facets": {
