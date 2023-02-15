@@ -54,6 +54,18 @@ unified_categories_mapping = {
 NOT_SPECIFIED = "Not specified"
 ENGLISH = "English"
 SPANISH = "Spanish"
+ALBANIAN = "Albanian"
+ARMENIAN = "Armenian"
+BOSNIAN = "Bosnian"
+BULGARIAN = "Bulgarian"
+CROATIAN = "Croatian"
+GREEK = "Greek"
+HUNGARIAN = "Hungarian"
+GEORGIAN = "Georgian"
+MACEDONIAN = "Macedonian"
+ROMANIAN = "Romanian"
+SERBIAN = "Serbian"
+SLOVENIAN = "Slovenian"
 language_mapping = {
     NOT_SPECIFIED: (
         "undetermined",
@@ -62,4 +74,16 @@ language_mapping = {
     ),
     ENGLISH: "en",
     SPANISH: "es",
+    ALBANIAN: "sq",
+    ARMENIAN: "hy",
+    BOSNIAN: "bs",
+    BULGARIAN: "bg",
+    CROATIAN: "hr",
+    GREEK: "el",
+    HUNGARIAN: "hu",
+    GEORGIAN: "ka",
+    MACEDONIAN: "mk",
+    ROMANIAN: "ro",
+    SERBIAN: "sr",
+    SLOVENIAN: "sl",
 }
