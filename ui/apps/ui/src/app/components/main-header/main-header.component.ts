@@ -15,7 +15,7 @@ declare let window: EoscCommonWindow;
       [id]="id"
       [attr.data-login-url]="backendUrl + '/auth/request'"
       [attr.data-logout-url]="backendUrl + '/auth/logout'"
-      #eoscCommonMainHeader
+      #h5er
     ></div>
   `,
   encapsulation: ViewEncapsulation.None,
