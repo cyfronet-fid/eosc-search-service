@@ -3,7 +3,7 @@
 from json import JSONDecodeError
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
-from httpx import AsyncClient
+from httpx import AsyncClient, TransportError
 
 from app.schemas.web import SearchRequest
 from app.solr.operations import search_dep
@@ -53,7 +53,7 @@ async def search_post(
                 cursor=cursor,
                 facets=request.facets,
             )
-        except Exception as e:
+        except TransportError as e:
             raise HTTPException(status_code=500, detail="Try again later") from e
     if response.is_error:
         try:
