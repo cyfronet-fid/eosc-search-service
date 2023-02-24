@@ -18,7 +18,7 @@ import {
 } from '@ngneat/elf-pagination';
 import { IResult, ISearchResults } from '@collections/repositories/types';
 
-export const MAX_COLLECTION_RESULTS = 100;
+export const MAX_COLLECTION_RESULTS = 50;
 export const RESULTS_PER_PAGE = 10;
 export const MAX_PAGES_PER_LOAD = MAX_COLLECTION_RESULTS / RESULTS_PER_PAGE;
 

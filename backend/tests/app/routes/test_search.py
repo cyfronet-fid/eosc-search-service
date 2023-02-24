@@ -34,7 +34,11 @@ async def test_post(
 ) -> None:
     res = await client.post(
         app.url_path_for("apis:post-search"),
-        params={"q": "bar", "collection": "foo"},
+        params={
+            "q": "bar",
+            "collection": "foo",
+            "qf": "bar baz",
+        },
         json={},
     )
 
@@ -43,7 +47,7 @@ async def test_post(
         ANY,
         "foo",
         q="bar",
-        qf=[],
+        qf="bar baz",
         fq=[],
         sort=["score desc", "id asc"],
         rows=10,
@@ -61,7 +65,7 @@ async def test_passes_all_query_params(
         params={
             "q": "bar",
             "collection": "foo",
-            "qf": ["bar", "baz"],
+            "qf": "bar baz",
             "fq": ['foo:"bar"'],
             "sort": ["fizz asc"],
             "rows": 42,
@@ -75,7 +79,7 @@ async def test_passes_all_query_params(
         ANY,
         "foo",
         q="bar",
-        qf=["bar", "baz"],
+        qf="bar baz",
         fq=['foo:"bar"'],
         sort=["fizz asc", "score desc", "id asc"],
         rows=42,
@@ -93,6 +97,7 @@ async def test_passes_all_facets(
         params={
             "q": "bar",
             "collection": "foo",
+            "qf": "bar baz",
         },
         json={
             "facets": {
@@ -114,7 +119,7 @@ async def test_passes_all_facets(
         ANY,
         "foo",
         q="bar",
-        qf=[],
+        qf="bar baz",
         fq=[],
         sort=["score desc", "id asc"],
         rows=10,
@@ -145,7 +150,7 @@ async def test_integration(
         params={
             "q": "model",
             "collection": collection,
-            "qf": ["title", "description", "subject"],
+            "qf": "title description subject",
         },
         json={
             "facets": {
@@ -163,7 +168,7 @@ async def test_integration(
     assert len(res_json["results"]) == 2
     assert (
         res_json["nextCursorMark"]
-        == "AoIIP1qOLj8SNTB8MzU1ZTY1NjI1Yjg4OjowYTU1Yjg3ODA5MTljZTBkNWVhMGU2ZWYxZDhjMDI0MQ=="
+        == "AoIIP3lcOD8SNTB8MzU1ZTY1NjI1Yjg4OjowYTU1Yjg3ODA5MTljZTBkNWVhMGU2ZWYxZDhjMDI0MQ=="
     )
     assert len(res_json["facets"]["sub"]["buckets"]) == 5
 
@@ -176,6 +181,7 @@ async def test_integration_400(app: FastAPI, client: AsyncClient) -> None:
         params={
             "q": "*",
             "collection": "test_collection",
+            "qf": "title description subject",
         },
         json={},
     )
@@ -193,6 +199,7 @@ async def test_integration_500(app: FastAPI, client: AsyncClient) -> None:
         params={
             "q": "*",
             "collection": "test_collection",
+            "qf": "title description subject",
         },
         json={},
     )

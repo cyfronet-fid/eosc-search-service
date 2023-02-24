@@ -171,7 +171,7 @@ async def get_fixed_recommendations(
             client,
             "all_collection",
             q="*",
-            qf=["id"],
+            qf="id",
             fq=fq,
             sort=["id desc"],
             rows=rows,

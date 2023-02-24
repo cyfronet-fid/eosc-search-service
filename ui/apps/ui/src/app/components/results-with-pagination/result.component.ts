@@ -25,7 +25,7 @@ import { RedirectService } from '@collections/services/redirect.service';
 
       <ess-url-title
         [title]="title"
-        [highlight]="highlights['title'] ?? []"
+        [highlight]="highlightsreal['title'] ?? []"
         [url]="redirectService.internalUrl(validUrl, id, type.label)"
       >
       </ess-url-title>
@@ -65,19 +65,19 @@ import { RedirectService } from '@collections/services/redirect.service';
       </div>
       <ess-tags
         [tags]="tags"
-        [highlights]="highlights"
+        [highlights]="highlightsreal"
         (activeFilter)="setActiveFilter($event.filter, $event.value)"
       >
       </ess-tags>
       <ess-secondary-tags
-        [highlights]="highlights"
+        [highlights]="highlightsreal"
         [tags]="secondaryTags"
         (activeFilter)="setActiveFilter($event.filter, $event.value)"
       >
       </ess-secondary-tags>
       <ess-description
         [description]="description"
-        [highlights]="highlights['description'] ?? []"
+        [highlights]="highlightsreal['description'] ?? []"
       ></ess-description>
     </div>
   `,
@@ -108,6 +108,7 @@ import { RedirectService } from '@collections/services/redirect.service';
 export class ResultComponent {
   q$ = this._customRoute.q$;
   validUrl: string | null = null;
+  highlightsreal: { [field: string]: string[] | undefined } = {};
 
   @Input() id!: string;
   @Input() date?: string;
@@ -148,7 +149,10 @@ export class ResultComponent {
   secondaryTags: ISecondaryTag[] = [];
 
   @Input()
-  highlights: { [field: string]: string[] | undefined } = {};
+  set highlights(highlights: { [field: string]: string[] | undefined }) {
+    this.highlightsreal = highlights;
+    return;
+  }
 
   constructor(
     private _customRoute: CustomRoute,
