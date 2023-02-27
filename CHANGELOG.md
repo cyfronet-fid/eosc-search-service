@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.13.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.12.0...v1.13.0) (2023-02-27)
+
+
+### Features
+
+* handle new languages ([131cbaa](https://github.com/cyfronet-fid/eosc-search-service/commit/131cbaac043cbbec8a755614878901d0455e31b8))
+* remove commas from authors ([11c16ae](https://github.com/cyfronet-fid/eosc-search-service/commit/11c16ae9f3484b2545471d6416991f3df2f45fcc))
+* search improve ([9bb58e7](https://github.com/cyfronet-fid/eosc-search-service/commit/9bb58e74f9f5c1bb6c9c8856eabaae6729f8e1fc))
+* search improvements for [#404](https://github.com/cyfronet-fid/eosc-search-service/issues/404) and [#397](https://github.com/cyfronet-fid/eosc-search-service/issues/397) and [#319](https://github.com/cyfronet-fid/eosc-search-service/issues/319) ([5d49764](https://github.com/cyfronet-fid/eosc-search-service/commit/5d49764c83ffdabf93329dcc763930424bd79a7f))
+* search improvements for [#404](https://github.com/cyfronet-fid/eosc-search-service/issues/404) and [#397](https://github.com/cyfronet-fid/eosc-search-service/issues/397) and [#319](https://github.com/cyfronet-fid/eosc-search-service/issues/319) ([f316fd5](https://github.com/cyfronet-fid/eosc-search-service/commit/f316fd5695b75954548bfc004cd6b13f411d3ff2))
+* search improvements for [#404](https://github.com/cyfronet-fid/eosc-search-service/issues/404) and [#397](https://github.com/cyfronet-fid/eosc-search-service/issues/397) and [#319](https://github.com/cyfronet-fid/eosc-search-service/issues/319) ([9c70d59](https://github.com/cyfronet-fid/eosc-search-service/commit/9c70d59b1be38616c584def3f2372345addb0039))
+* search minor tests fixes ([20a665b](https://github.com/cyfronet-fid/eosc-search-service/commit/20a665bd6e3320b4e285161a5a1a0d785cc3fca0))
+* search pagination fix ([7b7a1e0](https://github.com/cyfronet-fid/eosc-search-service/commit/7b7a1e07c1f01ae4cb5dccd40b9eb7eac43787ce))
+
 ## [1.12.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.11.1...v1.12.0) (2023-02-03)
 
 
