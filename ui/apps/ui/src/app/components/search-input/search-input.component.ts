@@ -137,7 +137,7 @@ import { RedirectService } from '@collections/services/redirect.service';
         position: absolute;
         top: 40px;
         max-width: 460px;
-        left: 20px;
+        left: 75px;
         border-radius: 0 0 10px 10px;
         z-index: 10;
       }
@@ -281,7 +281,7 @@ export class SearchInputComponent implements OnInit {
       queryParams: {
         q: sanitizeQuery(q) ?? '*',
       },
-      queryParamsHandling: 'merge',
+      //queryParamsHandling: 'merge',
     });
   }
 

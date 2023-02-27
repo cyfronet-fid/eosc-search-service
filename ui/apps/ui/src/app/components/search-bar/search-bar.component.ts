@@ -16,10 +16,10 @@ import { Component } from '@angular/core';
               />
             </a>
           </div>
-          <div class="col-md-9 col-12">
+          <div class="col-md-9 col-12 mt-4">
             <div class="col-xl-9 col-12 search-row">
               <ess-search-input></ess-search-input>
-              <p class="user-announcement" i18n>
+              <!--p class="user-announcement" i18n>
                 We're currently working on improving search engine. We test the
                 best solutions, which may also be associated with some problems.
                 We are open to all suggestions, if you want to report any issues
@@ -27,7 +27,7 @@ import { Component } from '@angular/core';
                 <a href="https://eosc-portal.eu/contact-us" target="_blank"
                   >Contact us</a
                 >
-              </p>
+              </p-->
             </div>
           </div>
         </div>

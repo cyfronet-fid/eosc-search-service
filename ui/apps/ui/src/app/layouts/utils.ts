@@ -23,7 +23,8 @@ export const attachHighlightsToTxt = (
 ): string => {
   const size = highlightedTxt.length;
   for (let i = 0; i < size; i++) {
-    const pattern = new RegExp(highlightedTxt[i], 'g');
+    const pattern = new RegExp('\\b(' + highlightedTxt[i] + ')\\b', 'gi');
+
     const replacement = `<span class="highlighted">${highlightedTxt[i]}</span>`;
     strippedTxt = strippedTxt.replace(pattern, replacement);
   }

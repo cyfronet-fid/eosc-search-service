@@ -49,6 +49,7 @@ class TrainingTransformer(BaseTransformer):
         create_open_access(self.harvested_properties)
         df = map_language(df, self.harvested_properties)
         create_unified_categories(df, self.harvested_properties)
+        df = remove_commas(df, "author_names", self.harvested_properties)
 
         return df
 
@@ -77,6 +78,7 @@ class TrainingTransformer(BaseTransformer):
         return sort_schema(
             StructType(
                 [
+                    StructField("author_names", ArrayType(StringType()), True),
                     StructField("best_access_right", StringType(), True),
                     StructField("language", ArrayType(StringType()), True),
                     StructField("open_access", BooleanType(), True),

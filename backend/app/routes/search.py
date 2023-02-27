@@ -16,7 +16,7 @@ from .util import DEFAULT_SORT, internal_api_router
 async def search_post(
     collection: str = Query(..., description="Collection"),
     q: str = Query(..., description="Free-form query string"),
-    qf: list[str] = Query([], description="Query fields", example=["authors", "title"]),
+    qf: str = Query(..., description="Query fields"),
     fq: list[str] = Query(
         [],
         description="Filter query",
@@ -25,7 +25,7 @@ async def search_post(
     sort: list[str] = Query(
         [], description="Sort order", example=["description asc", "name desc"]
     ),
-    rows: int = Query(10, description="Row count", gte=0, le=100),
+    rows: int = Query(10, description="Row count", gte=3, le=100),
     cursor: str = Query("*", description="Cursor"),
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_dep),

@@ -7,7 +7,7 @@ export const sanitizeQuery = (q: string | undefined): string | null => {
     return '*';
   }
 
-  const match = q.trim().match(/[^~!@#$%^&*()_\-+={}"'[\]|/\\:;<>?]+/g);
+  const match = q.trim().match(/[^~!@#$%^&*_+={}"'[\]|\\:;<>?]+/g);
   if (!match) {
     return '*';
   }
