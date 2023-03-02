@@ -1,6 +1,7 @@
 # pylint: disable=line-too-long, invalid-name, too-many-nested-blocks, unnecessary-dunder-call
 # pylint: disable=too-many-branches, unsubscriptable-object
 """Common dataframes transformations"""
+from itertools import chain
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, to_date, when, lit
 from pyspark.sql.utils import AnalysisException
@@ -34,6 +35,8 @@ from transform.schemas.properties_name import (
     INSTANCE,
     CONTEXT,
     PID,
+    RELATIONS,
+    RELATIONS_LONG,
 )
 from transform.schemas.mappings import (
     OPEN_ACCESS_,
@@ -317,6 +320,31 @@ def harvest_doi(df: DataFrame, harvested_properties: dict) -> None:
     harvested_properties[DOI] = doi_column
 
 
+def harvest_relations(df: DataFrame, harvested_properties: dict):
+    """Harvest relations from OAG resources"""
+    relations_collection = df.select(RELATIONS).collect()
+    relations_short_col = []
+    relations_long_col = []
+
+    for relations in chain.from_iterable(relations_collection):
+        targets_row = []
+        all_row = []
+        if relations:
+            for relation in relations:
+                target = relation["target"]
+                relation_name = relation["reltype"]["name"]
+                relation_type = relation["reltype"]["type"]
+
+                targets_row.append(target)
+                all_row.append([target, relation_name, relation_type])
+
+        relations_short_col.append(targets_row)
+        relations_long_col.append(all_row)
+
+    harvested_properties[RELATIONS] = relations_short_col
+    harvested_properties[RELATIONS_LONG] = relations_long_col
+
+
 def transform_date(df: DataFrame, col_name: str, date_format: str) -> DataFrame:
     """Cast string date type to date type"""
     df = df.withColumn(
@@ -376,7 +404,9 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
     return df
 
 
-def remove_commas(df: DataFrame, col_name: str, harvested_properties: dict) -> DataFrame:
+def remove_commas(
+    df: DataFrame, col_name: str, harvested_properties: dict
+) -> DataFrame:
     """Remove commas from a column values"""
     column_with_commas = df.select(col_name).collect()
     column_without_commas = [
