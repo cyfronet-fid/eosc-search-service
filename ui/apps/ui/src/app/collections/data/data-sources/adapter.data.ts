@@ -15,6 +15,7 @@ import {
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
+import { ConfigService } from '../../../services/config.service';
 
 const SERVICES_AS_DATASOURCES = ['b2share', 'b2find', 'b2safe'];
 
@@ -24,9 +25,9 @@ export const hackDataSourceUrl = (pid?: string) => {
   }
 
   if (SERVICES_AS_DATASOURCES.includes(pid)) {
-    return `https://marketplace.eosc-portal.eu/services/${pid}`;
+    return `${ConfigService.config?.marketplace_url}/services/${pid}`;
   }
-  return `https://marketplace.eosc-portal.eu/datasources/${pid}`;
+  return `${ConfigService.config?.marketplace_url}/datasources/${pid}`;
 };
 
 export const dataSourcesAdapter: IAdapter = {

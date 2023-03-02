@@ -148,3 +148,7 @@ AUTH_COOKIES_CONFIG = dict(
 RECOMMENDER_ENDPOINT = config(
     "RECOMMENDER_ENDPOINT", cast=str, default="http://localhost:8081/recommendations"
 )
+
+MARKETPLACE_BASE_URL = config(
+    "MARKETPLACE_BASE_URL", cast=str, default="https://marketplace.eosc-portal.eu"
+)

@@ -125,6 +125,8 @@ See docker-compose.yml for components.
   > Client id used to identify databus (jms) client
 - `RECOMMENDER_ENDPOINT`
   > Recommender endpoint (default http://localhost:8081/recommendations)
+- `MARKETPLACE_BASE_URL`
+  > marketplace base url (used to generate links back to MP) (default https://marketplace.eosc-portal.eu)
 - `LOG_LEVEL`
   > Level of logging, allowed values: DEBUG, INFO, ERROR 
 - `STOMP_HOST`

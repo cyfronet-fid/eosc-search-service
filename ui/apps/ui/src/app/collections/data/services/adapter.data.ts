@@ -15,6 +15,7 @@ import {
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
+import { ConfigService } from '../../../services/config.service';
 
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -28,7 +29,7 @@ export const servicesAdapter: IAdapter = {
       value: service.type || '',
     },
     url: service.pid
-      ? `https://marketplace.eosc-portal.eu/services/${service.pid}`
+      ? `${ConfigService.config?.marketplace_url}/services/${service.pid}`
       : '',
     collection: COLLECTION,
     coloredTags: [

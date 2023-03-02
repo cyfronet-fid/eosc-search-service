@@ -20,6 +20,7 @@ import {
   NgxGoogleAnalyticsRouterModule,
 } from 'ngx-google-analytics';
 import { environment } from '@environment/environment';
+import { ConfigService } from './services/config.service';
 
 registerLocaleData(en);
 
@@ -27,6 +28,10 @@ export const getUserProfileFactory$ = (
   userProfileService: UserProfileService
 ) => {
   return () => userProfileService.get$();
+};
+
+export const getConfigFactory$ = (configBootstrapService: ConfigService) => {
+  return () => configBootstrapService.load$();
 };
 
 const googleAnalyticsId = (
@@ -56,6 +61,12 @@ const googleAnalyticsId = (
       useFactory: getUserProfileFactory$,
       multi: true,
       deps: [UserProfileService],
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: getConfigFactory$,
+      multi: true,
+      deps: [ConfigService],
     },
   ],
   bootstrap: [AppComponent],
