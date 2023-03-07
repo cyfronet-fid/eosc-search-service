@@ -149,6 +149,14 @@ See docker-compose.yml for components.
   > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.
 - `NG_GOOGLE_ANALYTICS_ID`, by default `null`
   > Google Analytics measurement-id
+- `EOSC_COMMONS_URL`
+  > Base URL to eosc commons
+  > Default: `https://s3.cloud.cyfronet.pl/eosc-portal-common/`
+- `EOSC_COMMONS_ENV`
+  > Environment used to load eosc commons
+  > Default: `production`
+  > Together with `EOSC_COMMONS_URL` two assets are loaded:
+  > `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.js` and `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.css`
 
 `db` envs:
 - `DB_POSTGRES_DB`

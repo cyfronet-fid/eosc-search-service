@@ -1,4 +1,4 @@
-import { forEach, isArray } from 'lodash-es';
+import { isArray } from 'lodash-es';
 import { IValueWithLabel } from '@collections/repositories/types';
 
 const REGEXP_SPECIAL_CHAR = /[-/]/g;
