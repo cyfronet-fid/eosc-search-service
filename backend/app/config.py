@@ -152,3 +152,11 @@ RECOMMENDER_ENDPOINT = config(
 MARKETPLACE_BASE_URL = config(
     "MARKETPLACE_BASE_URL", cast=str, default="https://marketplace.eosc-portal.eu"
 )
+
+EOSC_COMMONS_URL = config(
+    "EOSC_COMMONS_URL",
+    cast=str,
+    default="https://s3.cloud.cyfronet.pl/eosc-portal-common/",
+)
+
+EOSC_COMMONS_ENV = config("EOSC_COMMONS_ENV", cast=str, default="production")

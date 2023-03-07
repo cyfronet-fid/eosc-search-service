@@ -21,6 +21,7 @@ import {
 } from 'ngx-google-analytics';
 import { environment } from '@environment/environment';
 import { ConfigService } from './services/config.service';
+import { WINDOW } from './app.providers';
 
 registerLocaleData(en);
 
@@ -56,6 +57,7 @@ const googleAnalyticsId = (
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: WINDOW, useValue: window },
     {
       provide: APP_INITIALIZER,
       useFactory: getUserProfileFactory$,
