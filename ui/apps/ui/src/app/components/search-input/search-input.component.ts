@@ -88,34 +88,34 @@ import { RedirectService } from '@collections/services/redirect.service';
             </div>
           </div>
         </form>
-      </div>
 
-      <div
-        class="list-group suggestions"
-        *ngIf="suggestedResults.length > 0 && focused"
-      >
-        <ng-container *ngFor="let group of suggestedResults">
-          <div class="list-group-item">
-            <span class="group">{{ group.label }}</span> &nbsp;<a
-              [routerLink]="['/search', group.link]"
-              [queryParams]="{ q: formControl.value }"
-              >see all</a
+        <div
+          class="list-group suggestions"
+          *ngIf="suggestedResults.length > 0 && focused"
+        >
+          <ng-container *ngFor="let group of suggestedResults">
+            <div class="list-group-item">
+              <span class="group">{{ group.label }}</span> &nbsp;<a
+                [routerLink]="['/search', group.link]"
+                [queryParams]="{ q: formControl.value }"
+                >see all</a
+              >
+            </div>
+            <a
+              *ngFor="let result of group.results"
+              [attr.href]="
+                redirectService.internalUrl(
+                  result.url,
+                  result.id,
+                  result.type.label
+                )
+              "
+              target="_blank"
+              class="list-group-item list-group-item-action result"
+              >{{ result.title }}</a
             >
-          </div>
-          <a
-            *ngFor="let result of group.results"
-            [attr.href]="
-              redirectService.internalUrl(
-                result.url,
-                result.id,
-                result.type.label
-              )
-            "
-            target="_blank"
-            class="list-group-item list-group-item-action result"
-            >{{ result.title }}</a
-          >
-        </ng-container>
+          </ng-container>
+        </div>
       </div>
     </div>
     <div class="backdrop" *ngIf="focused" (click)="focused = false"></div>
@@ -130,15 +130,6 @@ import { RedirectService } from '@collections/services/redirect.service';
         bottom: 0;
         background-color: black;
         opacity: 0;
-        z-index: 10;
-      }
-      .suggestions {
-        text-align: left;
-        position: absolute;
-        top: 40px;
-        max-width: 460px;
-        left: 75px;
-        border-radius: 0 0 10px 10px;
         z-index: 10;
       }
 

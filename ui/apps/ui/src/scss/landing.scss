@@ -66,10 +66,10 @@ h2 {
 
 .search-box input {
   height: 40px;
-  width: 375px;
+  width: 565px;
   border: none;
-  border-radius: 25px;
-  padding-left: 25px;
+  border-radius: 8px;
+  padding-left: 17px;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -91,7 +91,7 @@ h2 {
   background: #fff;
   padding: 0 20px 0 10px;
   border: none;
-  border-radius: 0 25px 25px 0;
+  border-radius: 0 8px 8px 0;
 }
 
 .search-box .input-group {
@@ -288,6 +288,7 @@ h2 {
   .search-box {
     margin: 46px 0 30px 0;
   }
+
   .search-box .btn-primary {
     padding-left: 10px;
     padding-right: 15px;
