@@ -3,7 +3,9 @@ import sys
 
 
 def usage() -> None:
-    print(f"Usage: {sys.argv[0]} (sample|range) [start, inclusive] [end, exclusive] [count, if sample]")
+    print(
+        f"Usage: {sys.argv[0]} (sample|range) [start, inclusive] [end, exclusive] [count, if sample]"
+    )
 
 
 def pad(num: int) -> str:
@@ -12,6 +14,7 @@ def pad(num: int) -> str:
 
 def do_sample(start: int, end: int, count: int) -> None:
     import random
+
     print(" ".join([pad(x) for x in random.sample(range(start, end), count)]))
 
 

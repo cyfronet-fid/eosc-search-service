@@ -149,6 +149,10 @@ RECOMMENDER_ENDPOINT = config(
     "RECOMMENDER_ENDPOINT", cast=str, default="http://localhost:8081/recommendations"
 )
 
+MAX_ITEMS_SORT_BY_RELEVANCE = config(
+    "MAX_ITEMS_SORT_BY_RELEVANCE", cast=int, default=100
+)
+
 MARKETPLACE_BASE_URL = config(
     "MARKETPLACE_BASE_URL", cast=str, default="https://marketplace.eosc-portal.eu"
 )
