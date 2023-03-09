@@ -7,10 +7,12 @@ import { queryParamsMapFrom } from '@collections/services/custom-route.utils';
 import { toArray } from '@collections/filters-serializers/utils';
 import { serializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
+import { DEFAULT_SORT } from '@components/sort-by-functionality/sort-value.type';
 
 const DEFAULT_PARAMS = {
   collection: null,
   q: '*',
+  sortUI: DEFAULT_SORT,
   fq: [],
   cursor: '*',
   sort: [],
@@ -35,6 +37,7 @@ export class CustomRoute {
     map((collection) => collection as string)
   );
   readonly q$ = this._store$.pipe(select(({ q }) => q));
+  readonly sortUI$ = this._store$.pipe(select(({ sortUI }) => sortUI));
   readonly fqMap$ = this._store$.pipe(
     select(({ fq }) =>
       serializeAll(
