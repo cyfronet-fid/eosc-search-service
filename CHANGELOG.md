@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.14.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.13.0...v1.14.0) (2023-03-10)
+
+
+### Features
+
+* [[#2884](https://github.com/cyfronet-fid/eosc-search-service/issues/2884)-MP] Header Update ([c228104](https://github.com/cyfronet-fid/eosc-search-service/commit/c22810443f8d111f9a5360f90027a4d6c598bfca))
+* [[#448](https://github.com/cyfronet-fid/eosc-search-service/issues/448)] redirects to custom marketplace url ([dd1648e](https://github.com/cyfronet-fid/eosc-search-service/commit/dd1648e8be845aa9ba4d43a3b8ae11db4730fe03))
+* [[#468](https://github.com/cyfronet-fid/eosc-search-service/issues/468)] Consistent look and feel ([8b8bcde](https://github.com/cyfronet-fid/eosc-search-service/commit/8b8bcde8e5eea772113d96a4fa91e0a779437c6c))
+* add relations and relations_long ([b1c77ec](https://github.com/cyfronet-fid/eosc-search-service/commit/b1c77ec2583a5d9653b736b4894642c987eb6bb4))
+* load eosc common assets based on env variable ([33c82fb](https://github.com/cyfronet-fid/eosc-search-service/commit/33c82fba0fa11b74867d93d133e7cd721ea58f30))
+
+
+### Bug Fixes
+
+* [[#462](https://github.com/cyfronet-fid/eosc-search-service/issues/462)] recommendations for services ([1f8b702](https://github.com/cyfronet-fid/eosc-search-service/commit/1f8b702720a71b39cac2bf4226f03e78839eeaa1))
+
 ## [1.13.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.12.0...v1.13.0) (2023-02-27)
 
 
