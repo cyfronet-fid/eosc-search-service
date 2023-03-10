@@ -96,19 +96,21 @@ class UserActionClient:
                 # "search/data", "search/publications", "search/software",
                 # "search/services", "search/trainings", - user dashboard - "dashboard"
                 "page_id": page_id,
-                "root": {
-                    "type": "recommendation_panel",  # "other" - from normal list
-                    "panel_id": "v1",
-                    "resource_id": resource_id,  # id of the clicked resource
-                    # publication, dataset, software, service, training
-                    "resource_type": resource_type,
-                }
-                if recommendation
-                else {
-                    "type": "other",
-                    "resource_id": resource_id,
-                    "resource_type": resource_type,
-                },
+                "root": (
+                    {
+                        "type": "recommendation_panel",  # "other" - from normal list
+                        "panel_id": "v1",
+                        "resource_id": resource_id,  # id of the clicked resource
+                        # publication, dataset, software, service, training
+                        "resource_type": resource_type,
+                    }
+                    if recommendation
+                    else {
+                        "type": "other",
+                        "resource_id": resource_id,
+                        "resource_type": resource_type,
+                    }
+                ),
             },
             "target": {"visit_id": str(uuid.uuid4()), "page_id": url},
             "action": {"type": "browser action", "text": "", "order": False},

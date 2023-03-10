@@ -4,9 +4,8 @@
 import logging
 
 import httpx
-from fastapi import APIRouter, HTTPException, Request, Query
+from fastapi import APIRouter, HTTPException, Query, Request
 from httpx import ReadTimeout
-
 
 from app.config import SHOW_RECOMMENDATIONS
 from app.generic.models.bad_request import BadRequest
@@ -17,9 +16,9 @@ from app.routes.web.recommendation_utils.common import (
     get_session,
 )
 from app.routes.web.recommendation_utils.recommendations import (
-    get_recommended_uuids,
     get_fixed_recommendations,
     get_recommended_items,
+    get_recommended_uuids,
 )
 from app.routes.web.recommendation_utils.sort_by_relevance import (
     get_candidates,
@@ -53,8 +52,10 @@ async def get_recommendations(panel_id: RecommendationPanelId, request: Request)
                 return {
                     "recommendations": items,
                     "isRand": True,
-                    "message": str(error)
-                    or "Solr or external recommender service read timeout",
+                    "message": (
+                        str(error)
+                        or "Solr or external recommender service read timeout"
+                    ),
                 }
     except (RecommenderError, SolrRetrieveError) as e:
         logger.error("%s. %s", str(e), e.data)
@@ -76,7 +77,6 @@ async def sort_by_relevance(
         example=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
 ):
-
     if SHOW_RECOMMENDATIONS is False:
         return []
     session, _ = await get_session(request)
@@ -98,8 +98,10 @@ async def sort_by_relevance(
             ) as error:
                 return {
                     "recommendations": [],
-                    "message": str(error)
-                    or "Solr or external recommender service read timeout",
+                    "message": (
+                        str(error)
+                        or "Solr or external recommender service read timeout"
+                    ),
                 }
     except (RecommenderError, SolrRetrieveError) as e:
         logger.error("%s. %s", str(e), e.data)

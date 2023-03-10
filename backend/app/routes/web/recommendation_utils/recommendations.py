@@ -11,11 +11,11 @@ from app.config import RECOMMENDER_ENDPOINT
 from app.routes.web.recommendation_utils.common import (
     RecommendationPanelId,
     RecommenderError,
-    _get_panel,
     SolrRetrieveError,
+    _get_panel,
 )
 from app.schemas.session_data import SessionData
-from app.solr.operations import search, get
+from app.solr.operations import get, search
 
 
 async def get_recommended_uuids(

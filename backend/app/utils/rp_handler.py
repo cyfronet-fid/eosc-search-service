@@ -1,3 +1,4 @@
+# pylint: disable=use-dict-literal
 """
     Module responsible for OIDC auth calls.
     Create one instance of Relaying Party Handler service instance,
