@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring,broad-except,missing-function-docstring,cyclic-import
+# pylint: disable=missing-module-docstring,broad-except,missing-function-docstring,cyclic-import,use-dict-literal
 import uuid
 from uuid import UUID, uuid4
 
@@ -23,8 +23,7 @@ async def auth_request():
         raise HTTPException(
             status_code=400, detail=f"Something went wrong: {err} {repr(err)}"
         ) from err
-    else:
-        return RedirectResponse(status_code=303, url=result["url"])
+    return RedirectResponse(status_code=303, url=result["url"])
 
 
 @router.get("/checkin")

@@ -1,3 +1,4 @@
+# pylint: disable=use-dict-literal
 """
     IMPORTANT!!! We're using environment variables served from system instead of
     keeping them in file due security risks.

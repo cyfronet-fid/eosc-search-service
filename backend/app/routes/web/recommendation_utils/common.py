@@ -5,7 +5,7 @@ from typing import Literal
 from fastapi import HTTPException
 from starlette.requests import Request
 
-from app.utils.cookie_validators import cookie, backend
+from app.utils.cookie_validators import backend, cookie
 
 RecommendationPanelId = Literal[
     "all",

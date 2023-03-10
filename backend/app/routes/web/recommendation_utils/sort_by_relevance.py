@@ -1,19 +1,20 @@
+import datetime
 import logging
 import uuid
-import datetime
+
 import httpx
-from starlette.status import HTTP_200_OK
 from httpx import AsyncClient
+from starlette.status import HTTP_200_OK
 
 from app.config import MAX_ITEMS_SORT_BY_RELEVANCE, RECOMMENDER_ENDPOINT
 from app.routes.web.recommendation_utils.common import (
     RecommendationPanelId,
     RecommenderError,
-    _get_panel,
     SolrRetrieveError,
+    _get_panel,
 )
-from app.solr.operations import search
 from app.schemas.session_data import SessionData
+from app.solr.operations import search
 
 logger = logging.getLogger(__name__)
 
@@ -103,7 +104,9 @@ async def perform_sort_by_relevance(
             "visit_id": str(uuid.uuid4()),
             "page_id": "/search/" + panel_id,
             "panel_id": _get_panel(panel_id),
-            "engine_version": engine_version,  # TODO [#450] change to "content_visit_sort" only
+            "engine_version": (
+                engine_version
+            ),  # TODO [#450] change to "content_visit_sort" only
             "candidates": candidates,  # TODO [#450] pass the whole "candidates_ids"
             "search_data": {},
         }
