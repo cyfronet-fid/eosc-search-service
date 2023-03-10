@@ -125,6 +125,8 @@ See docker-compose.yml for components.
   > Client id used to identify databus (jms) client
 - `RECOMMENDER_ENDPOINT`
   > Recommender endpoint (default http://localhost:8081/recommendations)
+- `MARKETPLACE_BASE_URL`
+  > marketplace base url (used to generate links back to MP) (default https://marketplace.eosc-portal.eu)
 - `LOG_LEVEL`
   > Level of logging, allowed values: DEBUG, INFO, ERROR 
 - `STOMP_HOST`
@@ -147,6 +149,14 @@ See docker-compose.yml for components.
   > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.
 - `NG_GOOGLE_ANALYTICS_ID`, by default `null`
   > Google Analytics measurement-id
+- `EOSC_COMMONS_URL`
+  > Base URL to eosc commons
+  > Default: `https://s3.cloud.cyfronet.pl/eosc-portal-common/`
+- `EOSC_COMMONS_ENV`
+  > Environment used to load eosc commons
+  > Default: `production`
+  > Together with `EOSC_COMMONS_URL` two assets are loaded:
+  > `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.js` and `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.css`
 
 `db` envs:
 - `DB_POSTGRES_DB`

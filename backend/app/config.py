@@ -148,3 +148,15 @@ AUTH_COOKIES_CONFIG = dict(
 RECOMMENDER_ENDPOINT = config(
     "RECOMMENDER_ENDPOINT", cast=str, default="http://localhost:8081/recommendations"
 )
+
+MARKETPLACE_BASE_URL = config(
+    "MARKETPLACE_BASE_URL", cast=str, default="https://marketplace.eosc-portal.eu"
+)
+
+EOSC_COMMONS_URL = config(
+    "EOSC_COMMONS_URL",
+    cast=str,
+    default="https://s3.cloud.cyfronet.pl/eosc-portal-common/",
+)
+
+EOSC_COMMONS_ENV = config("EOSC_COMMONS_ENV", cast=str, default="production")

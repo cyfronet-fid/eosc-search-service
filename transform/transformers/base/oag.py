@@ -53,6 +53,7 @@ class OagBaseTransformer(BaseTransformer):
         harvest_doi(df, self.harvested_properties)
         harvest_country(df, self.harvested_properties)
         harvest_research_community(df, self.harvested_properties)
+        harvest_relations(df, self.harvested_properties)
         create_unified_categories(df, self.harvested_properties)
 
         return df
@@ -75,6 +76,8 @@ class OagBaseTransformer(BaseTransformer):
                     StructField("funder", ArrayType(StringType()), True),
                     StructField("language", ArrayType(StringType()), True),
                     StructField("open_access", BooleanType(), True),
+                    StructField("relations", ArrayType(StringType()), True),
+                    StructField("relations_long", ArrayType(StringType()), True),
                     StructField("research_community", ArrayType(StringType()), True),
                     StructField("sdg", ArrayType(StringType()), True),
                     StructField("unified_categories", ArrayType(StringType()), True),

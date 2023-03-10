@@ -73,14 +73,13 @@ class SolrRetrieveError(RecommendationHttpError):
 
 
 def _get_panel(panel_id: RecommendationPanelId) -> str:
-    # IMPORTANT!!! recommender does not support services
     panel_id_options = [
         "publications",
         "datasets",
         "software",
         "trainings",
         "other_research_product",
-        "service",
+        "services",
     ]
 
     match panel_id:
@@ -90,12 +89,15 @@ def _get_panel(panel_id: RecommendationPanelId) -> str:
             return "publications"
         case "dataset":
             return "datasets"
-        case "training":
-            return "trainings"
-        case "data-source":
-            return "data source"
         case "other":
             return "other_research_product"
+        case "training":
+            return "trainings"
+        case "service":
+            return "services"
+        case "data-source":
+            return "data-sources"
+
         case _:
             return panel_id
 

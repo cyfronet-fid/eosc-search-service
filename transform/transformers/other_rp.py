@@ -57,5 +57,6 @@ class OtherRPTransformer(OagBaseTransformer):
             "originalId",
             "projects",
             "pid",
+            "relations",
             "subject",
         )

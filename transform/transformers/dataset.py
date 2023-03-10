@@ -59,5 +59,6 @@ class DatasetTransformer(OagBaseTransformer):
             "originalId",
             "projects",
             "pid",
+            "relations",
             "subject",
         )

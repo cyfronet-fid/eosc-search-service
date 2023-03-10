@@ -58,5 +58,6 @@ class SoftwareTransformer(OagBaseTransformer):
             "originalId",
             "projects",
             "pid",
+            "relations",
             "subject",
         )

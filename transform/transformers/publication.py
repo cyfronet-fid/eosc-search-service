@@ -60,5 +60,6 @@ class PublicationTransformer(OagBaseTransformer):
             "originalId",
             "projects",
             "pid",
+            "relations",
             "subject",
         )

@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     <div class="search-bar">
       <div class="container--xxl">
         <div class="row">
-          <div class="col-md-3 col-12 logo-wrapper">
+          <div class="col-12 logo-wrapper">
             <a href="/">
               <img
                 id="logo"
@@ -15,9 +15,10 @@ import { Component } from '@angular/core';
                 alt="EOSC logo"
               />
             </a>
+            <div class="top-title">Browse EOSC Marketplace Resources</div>
           </div>
-          <div class="col-md-9 col-12 mt-4">
-            <div class="col-xl-9 col-12 search-row">
+          <div class="col-12">
+            <div class="search-row">
               <ess-search-input></ess-search-input>
               <!--p class="user-announcement" i18n>
                 We're currently working on improving search engine. We test the

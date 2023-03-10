@@ -20,6 +20,7 @@ import {
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
+import { ConfigService } from '../../../services/config.service';
 
 const urlAdapter = (
   type: string,
@@ -36,7 +37,7 @@ const urlAdapter = (
     case 'data source':
       return hackDataSourceUrl(data?.pid);
     case 'service':
-      return `https://marketplace.eosc-portal.eu/services/${data?.pid}`;
+      return `${ConfigService.config?.marketplace_url}/services/${data?.pid}`;
     case 'training':
       return '/trainings/' + data.id;
     default:

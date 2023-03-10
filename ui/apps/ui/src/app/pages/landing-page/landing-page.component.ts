@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DEFAULT_COLLECTION_ID } from '@collections/data';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'ess-landing-page',
@@ -7,9 +8,13 @@ import { DEFAULT_COLLECTION_ID } from '@collections/data';
   styleUrls: ['./landing-page.component.scss'],
 })
 export class LandingPageComponent {
+  marketplaceUrl = this._config.get().marketplace_url;
   allUrlPath = '/search/' + DEFAULT_COLLECTION_ID;
   researchProductsPath = '/search/'; // TODO: set publications url
   trainingsPath = '/search/'; // TODO: set trainings url
+
+  constructor(private _config: ConfigService) {}
+
   fqBy(filterName: string, value: string) {
     return {
       q: '*',

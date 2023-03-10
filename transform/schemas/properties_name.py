@@ -28,6 +28,8 @@ PROJECTS = "projects"
 INSTANCE = "instance"
 CONTEXT = "context"
 PID = "pid"
+RELATIONS = "relations"
+RELATIONS_LONG = "relations_long"
 
 # Text general
 AUTHOR_NAMES_TG = "author_names_tg"

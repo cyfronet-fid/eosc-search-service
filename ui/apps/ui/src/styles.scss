@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import 'https://s3.cloud.cyfronet.pl/eosc-portal-common/latest/index.production.min.css';
 @import '~ng-zorro-antd/ng-zorro-antd.min.css';
 @import 'scss/landing';
 
@@ -8,7 +7,6 @@ body {
   font-size: 1rem;
   line-height: 1.5;
   color: #233d4c;
-  background: #f2f2f2;
 }
 
 h5 {
@@ -19,6 +17,7 @@ h5 {
 a {
   color: #0c2bd5;
 }
+
 a:hover {
   color: #05a6e7;
 }
@@ -28,14 +27,69 @@ a:hover {
 }
 
 .search-bar {
-  background: #3d4db6;
-  height: 170px;
+  background: #000 url(assets/top-bar-bg.jpg) no-repeat;
   position: relative;
+
+  .search-box {
+    margin: 35px auto 68px;
+    position: relative;
+    width: 770px;
+  }
 }
 
-#logo {
-  max-width: 200px;
-  margin-top: 55px;
+.eosc-back-search-bar {
+  margin-top: -18px;
+  height: 60px !important;
+  text-decoration: none;
+  font-weight: 100;
+  background: #000 url('assets/top-line-bg.jpg') top center !important;
+  background-size: 100% auto;
+}
+
+.suggestions {
+  text-align: left;
+  position: absolute;
+  top: 40px;
+  max-width: 730px;
+  left: 20px;
+  border-radius: 0 0 10px 10px;
+  z-index: 10;
+}
+
+.eosc-back-link {
+  padding-top: 17px;
+}
+
+.eosc-back-link {
+  .chevron-left {
+    background-image: url('assets/ico_back.svg') !important;
+    background-size: 10px auto;
+    background-position: 0 100% !important;
+    margin: 0 3px 0 0 !important;
+    width: 13px !important;
+  }
+}
+
+.logo-wrapper {
+  text-align: center;
+
+  .top-title {
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    margin-top: 25px;
+    color: #fff;
+  }
+
+  a {
+    margin: auto;
+
+    #logo {
+      max-width: 200px;
+      margin-top: 45px;
+    }
+  }
 }
 
 .clear-button {
@@ -86,7 +140,6 @@ a:hover {
   padding: 0 50px;
   max-width: 1340px;
   margin: 0 auto;
-  margin-bottom: 50px;
 }
 
 .container--xxl.navigation {
@@ -96,7 +149,7 @@ a:hover {
 #sub-nav {
   width: 100%;
   text-align: center;
-  padding: 35px 0;
+  padding: 30px 0 45px;
 }
 
 #sub-nav a {
@@ -182,7 +235,6 @@ h3,
 
 .dashboard {
   background: #fff;
-  border-radius: 25px;
 }
 
 .dashboard .left-column {
@@ -191,15 +243,15 @@ h3,
 }
 
 .dashboard .left-column #filters {
-  padding: 25px 0 25px 20px;
+  padding: 0;
 }
 
 .dashboard .center-column {
-  padding: 20px;
+  padding: 0 20px;
 }
 
 .dashboard .right-column {
-  padding: 25px 15px 40px 15px;
+  padding: 0 0 0 30px;
   width: 19%;
   border-left: 1px solid #d9dee2;
 }
@@ -328,6 +380,17 @@ h6 {
 }
 
 @media (max-width: 992px) {
+
+  .search-bar .search-box {
+    width: auto;
+  }
+
+  .suggestions {
+    top: 40px;
+    max-width: 80%;
+    left: 10%;
+  }
+
   .logo-wrapper {
     text-align: center;
   }
@@ -360,7 +423,9 @@ h6 {
     margin: 0 10px;
     min-width: 40px;
   }
-
+  .search-box input {
+    width: 500px;
+  }
   .dashboard .left-column {
     width: 29%;
   }
@@ -370,7 +435,7 @@ h6 {
   }
 
   .dashboard .right-column {
-    padding: 25px 15px 40px 25px;
+    padding: 0 0 0 25px;
     width: 98%;
     border-left: none;
     border-top: 1px solid #d9dee2;
@@ -389,7 +454,9 @@ h6 {
   .search-bar {
     height: 300px;
   }
-
+  .search-box input {
+    width: 320px;
+  }
   #container {
     margin-top: 20px;
   }
@@ -406,6 +473,12 @@ h6 {
 
   #sub-nav {
     margin-top: 0;
+  }
+
+  .logo-wrapper .top-title {
+    font-size: 15px;
+    line-height: 22px;
+    margin-top: 20px;
   }
 
   .eosc-common.footer {
@@ -435,7 +508,11 @@ h6 {
       margin-top: 10px;
     }
   }
-
+  .logo-wrapper .top-title {
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 20px;
+  }
   .heading {
     padding: 20px 0 20px !important;
 
@@ -468,13 +545,13 @@ h6 {
     .btn-primary {
       padding-left: 25px;
       padding-right: 25px;
-      border-radius: 25px;
+      border-radius: 8px;
     }
 
     select {
       max-width: 120px;
       font-size: 13px;
-      border-radius: 0 25px 25px 0 !important;
+      border-radius: 0 8px 8px 0 !important;
       padding: 0.375rem 1.25rem 0.375rem 0.25rem;
     }
   }
@@ -578,8 +655,15 @@ h6 {
     }
   }
 
-  .search-box {
-    margin: 20px 0 0 0;
+  .search-bar .search-box {
+    margin: 25px 0 30px;
+    width: auto;
+  }
+
+  .suggestions {
+    top: 40px;
+    max-width: 80%;
+    left: 10%;
   }
 
   .search-box .input-group {
@@ -603,7 +687,8 @@ h6 {
     margin-right: 9px;
   }
 
-  #logo {
+  .logo-wrapper a #logo {
+    max-width: 180px;
     margin-top: 20px;
   }
 }

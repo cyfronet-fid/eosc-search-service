@@ -77,6 +77,8 @@ UNIQUE_OAG_AND_TRAINING_COLS = (
     "programming_language",
     "publisher",
     "qualification",
+    "relations",
+    "relations_long",
     "research_community",
     "resource_type",
     "sdg",

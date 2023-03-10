@@ -107,6 +107,8 @@ class TrainingTransformer(BaseTransformer):
             "pid",
             "programming_language",
             "publisher",
+            "relations",
+            "relations_long",
             "research_community",
             "sdg",
             "size",
