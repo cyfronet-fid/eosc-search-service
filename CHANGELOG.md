@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.14.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.14.0...v1.14.1) (2023-03-13)
+
+
+### Bug Fixes
+
+* uhd ([a739e2c](https://github.com/cyfronet-fid/eosc-search-service/commit/a739e2c3f1c944dbdbaacf401286b4da621cc6e5))
+
 ## [1.14.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.13.0...v1.14.0) (2023-03-10)
 
 
