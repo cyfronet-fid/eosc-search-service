@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  HostListener,
   Inject,
   Input,
   OnInit,
@@ -206,6 +207,15 @@ export class SearchInputComponent implements OnInit {
   @Input() navigateOnCollectionChange = true;
 
   @ViewChild('inputQuery', { static: true }) inputQuery!: ElementRef;
+
+  // TODO: stream event - off when search is not focused and what with suggestes result set on []
+  @HostListener('document:click')
+  clicked() {
+    if (this.suggestedResults.length > 0) {
+      this.focused = false;
+      this.suggestedResults = [];
+    }
+  }
 
   constructor(
     public redirectService: RedirectService,
