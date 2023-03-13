@@ -31,7 +31,7 @@ a:hover {
   position: relative;
 
   .search-box {
-    margin: 35px auto 68px;
+    margin: 35px auto 55px;
     position: relative;
     width: 770px;
   }
@@ -864,4 +864,10 @@ h6 {
   display: inline;
   float: left;
   margin-right: 12px;
+}
+
+@media (min-width: 1920px) {
+  .search-bar {
+    background-size: cover;
+  }
 }
