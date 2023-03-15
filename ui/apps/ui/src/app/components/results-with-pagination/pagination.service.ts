@@ -16,12 +16,17 @@ export class PaginationService {
 
   initPagination = (response: ISearchResults<IResult>) =>
     this._paginationRepository.initialize(response);
+
   updatePagination = (
     allUrlParams: { [name: string]: paramType },
-    response: ISearchResults<IResult>
+    response: ISearchResults<IResult>,
+    newPageNr: number
   ) => {
     this._paginationRepository.addResultsAndPaginate(response.results);
     this._paginationRepository.setNextCursor(response.nextCursorMark);
+    this._paginationRepository.updatePaginationData({
+      currentPage: newPageNr,
+    });
   };
 
   hasPage = (pageNr: number) => {
