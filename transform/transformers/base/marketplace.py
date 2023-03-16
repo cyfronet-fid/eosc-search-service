@@ -1,4 +1,4 @@
-# pylint: disable=line-too-long, wildcard-import, unused-wildcard-import, invalid-name
+# pylint: disable=line-too-long, wildcard-import, unused-wildcard-import, invalid-name, too-many-arguments
 """Transform Marketplace's resources"""
 from abc import abstractmethod
 from pyspark.sql import SparkSession

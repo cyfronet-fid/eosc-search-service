@@ -9,6 +9,7 @@ boto3 = "*"
 tqdm = "*"
 python-dotenv = "*"
 requests = "*"
+pandas = "*"
 
 [dev-packages]
 pytest = "*"
