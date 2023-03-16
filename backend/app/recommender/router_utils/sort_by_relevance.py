@@ -7,7 +7,7 @@ from httpx import AsyncClient
 from starlette.status import HTTP_200_OK
 
 from app.config import MAX_ITEMS_SORT_BY_RELEVANCE, RECOMMENDER_ENDPOINT
-from app.routes.web.recommendation_utils.common import (
+from app.recommender.router_utils.common import (
     RecommendationPanelId,
     RecommenderError,
     SolrRetrieveError,
@@ -110,9 +110,6 @@ async def perform_sort_by_relevance(
             "candidates": candidates,  # TODO [#450] pass the whole "candidates_ids"
             "search_data": {},
         }
-        from pprint import pprint
-
-        pprint(request_body)
         if session is not None:
             request_body["aai_uid"] = session.aai_id
 

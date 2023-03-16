@@ -8,7 +8,7 @@ from httpx import AsyncClient
 from starlette.status import HTTP_200_OK
 
 from app.config import RECOMMENDER_ENDPOINT
-from app.routes.web.recommendation_utils.common import (
+from app.recommender.router_utils.common import (
     RecommendationPanelId,
     RecommenderError,
     SolrRetrieveError,
