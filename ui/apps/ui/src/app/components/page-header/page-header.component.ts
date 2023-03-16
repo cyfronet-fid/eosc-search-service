@@ -8,8 +8,10 @@ import { Router } from '@angular/router';
   selector: 'ess-page-header',
   template: `
     <div id="container" class="page-heading">
-      <span id="results-count" i18n>{{ resultsCount }} search results</span> in
-      {{ (activeNavConfig$ | async)?.title }}
+      <div>
+        <span id="results-count" i18n>{{ resultsCount }} search results</span>
+        {{ (activeNavConfig$ | async)?.title }}
+      </div>
       <!---
       <div id="breadcrumbs">
         <nz-breadcrumb nzSeparator=">">
@@ -31,8 +33,19 @@ import { Router } from '@angular/router';
         </nz-breadcrumb>
       </div>
     </div> --->
+      <ess-sort-by-functionality></ess-sort-by-functionality>
     </div>
   `,
+  styles: [
+    `
+      #container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    `,
+  ],
 })
 export class PageHeaderComponent {
   @Input()

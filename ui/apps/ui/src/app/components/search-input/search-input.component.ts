@@ -282,7 +282,7 @@ export class SearchInputComponent implements OnInit {
       queryParams: {
         q: sanitizeQuery(q) ?? '*',
       },
-      //queryParamsHandling: 'merge',
+      queryParamsHandling: 'merge',
     });
   }
 
