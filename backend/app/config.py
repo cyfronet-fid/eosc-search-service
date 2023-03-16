@@ -151,7 +151,7 @@ RECOMMENDER_ENDPOINT = config(
 )
 
 MAX_ITEMS_SORT_BY_RELEVANCE = config(
-    "MAX_ITEMS_SORT_BY_RELEVANCE", cast=int, default=100
+    "MAX_ITEMS_SORT_BY_RELEVANCE", cast=int, default=50
 )
 
 MARKETPLACE_BASE_URL = config(

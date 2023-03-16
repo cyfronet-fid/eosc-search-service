@@ -9,18 +9,18 @@ from httpx import ReadTimeout
 
 from app.config import SHOW_RECOMMENDATIONS
 from app.generic.models.bad_request import BadRequest
-from app.routes.web.recommendation_utils.common import (
+from app.recommender.router_utils.common import (
     RecommendationPanelId,
     RecommenderError,
     SolrRetrieveError,
     get_session,
 )
-from app.routes.web.recommendation_utils.recommendations import (
+from app.recommender.router_utils.recommendations import (
     get_fixed_recommendations,
     get_recommended_items,
     get_recommended_uuids,
 )
-from app.routes.web.recommendation_utils.sort_by_relevance import (
+from app.recommender.router_utils.sort_by_relevance import (
     get_candidates,
     perform_sort_by_relevance,
     sort_docs,
