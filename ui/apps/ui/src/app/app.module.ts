@@ -22,6 +22,7 @@ import {
 import { environment } from '@environment/environment';
 import { ConfigService } from './services/config.service';
 import { WINDOW } from './app.providers';
+import { NgxHotjarModule, NgxHotjarRouterModule } from 'ngx-hotjar';
 
 registerLocaleData(en);
 
@@ -39,6 +40,8 @@ const googleAnalyticsId = (
   environment as unknown as { googleAnalyticsId: string }
 )['googleAnalyticsId'];
 
+const hotjarId = (environment as unknown as { hotjarId: string })['hotjarId'];
+
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -47,6 +50,9 @@ const googleAnalyticsId = (
     HttpClientModule,
     AppRoutingModule,
     MainHeaderModule,
+    ...(hotjarId == null
+      ? []
+      : [NgxHotjarModule.forRoot(hotjarId), NgxHotjarRouterModule]),
     ...(googleAnalyticsId == null
       ? []
       : [

@@ -151,6 +151,8 @@ See docker-compose.yml for components.
   > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.
 - `NG_GOOGLE_ANALYTICS_ID`, by default `null`
   > Google Analytics measurement-id
+- `NG_HOTJAR_ID`, by default `null`
+  > Hotjar id used for tracking using hotjar
 - `EOSC_COMMONS_URL`
   > Base URL to eosc commons
   > Default: `https://s3.cloud.cyfronet.pl/eosc-portal-common/`
