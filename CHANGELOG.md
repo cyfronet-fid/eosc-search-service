@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.0.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.14.1...v2.0.0) (2023-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* only in view maked
+
+### Features
+
+* [[#450](https://github.com/cyfronet-fid/eosc-search-service/issues/450)] sort by relevance ([4c9af9d](https://github.com/cyfronet-fid/eosc-search-service/commit/4c9af9d07a45d22a02082beecad1522f1b24aee3))
+* [[#461](https://github.com/cyfronet-fid/eosc-search-service/issues/461)] add sort by functionality in the search service ([917c20e](https://github.com/cyfronet-fid/eosc-search-service/commit/917c20ec8c379b0f7ebce9d5b32d5004913dfa43))
+* hotjar integration ([2b02327](https://github.com/cyfronet-fid/eosc-search-service/commit/2b023270a25e7012d359728786302b555795a95e))
+
+
+### Bug Fixes
+
+* the autocomplete list does not close after clicking outside the list ([48d62d1](https://github.com/cyfronet-fid/eosc-search-service/commit/48d62d1e6d926260d6b1d142686749c4be8e844c))
+
 ## [1.14.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.14.0...v1.14.1) (2023-03-13)
 
 
