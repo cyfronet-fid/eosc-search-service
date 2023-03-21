@@ -125,6 +125,8 @@ See docker-compose.yml for components.
   > Client id used to identify databus (jms) client
 - `RECOMMENDER_ENDPOINT`
   > Recommender endpoint (default http://localhost:8081/recommendations)
+- `MAX_ITEMS_SORT_BY_RELEVANCE`
+  > The maximum number of resources for sort by relevance (default 50)
 - `MARKETPLACE_BASE_URL`
   > marketplace base url (used to generate links back to MP) (default https://marketplace.eosc-portal.eu)
 - `LOG_LEVEL`
@@ -149,6 +151,8 @@ See docker-compose.yml for components.
   > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.
 - `NG_GOOGLE_ANALYTICS_ID`, by default `null`
   > Google Analytics measurement-id
+- `NG_HOTJAR_ID`, by default `null`
+  > Hotjar id used for tracking using hotjar
 - `EOSC_COMMONS_URL`
   > Base URL to eosc commons
   > Default: `https://s3.cloud.cyfronet.pl/eosc-portal-common/`

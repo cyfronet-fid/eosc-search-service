@@ -1,3 +1,4 @@
+# pylint: disable=use-dict-literal
 """
     IMPORTANT!!! We're using environment variables served from system instead of
     keeping them in file due security risks.
@@ -147,6 +148,10 @@ AUTH_COOKIES_CONFIG = dict(
 
 RECOMMENDER_ENDPOINT = config(
     "RECOMMENDER_ENDPOINT", cast=str, default="http://localhost:8081/recommendations"
+)
+
+MAX_ITEMS_SORT_BY_RELEVANCE = config(
+    "MAX_ITEMS_SORT_BY_RELEVANCE", cast=int, default=50
 )
 
 MARKETPLACE_BASE_URL = config(

@@ -40,8 +40,7 @@ class UserActionClient:
             self.client.set_ssl(hosts_and_ports)
 
     def connect(self) -> None:
-        """Connect stomp internal client, this function must be called before using `send`
-        """
+        """Connect stomp internal client, this function must be called before using `send`"""
         self.client.connect(self.username, self.password, wait=True)
 
     # pylint: disable=too-many-arguments
@@ -54,8 +53,7 @@ class UserActionClient:
         resource_type: str,
         recommendation: bool,
     ) -> None:
-        """Send user data to databus. Ensure that `.connect()` method has been called before.
-        """
+        """Send user data to databus. Ensure that `.connect()` method has been called before."""
 
         # this hack is required for legacy purposes.
         message = json.dumps(
@@ -98,19 +96,21 @@ class UserActionClient:
                 # "search/data", "search/publications", "search/software",
                 # "search/services", "search/trainings", - user dashboard - "dashboard"
                 "page_id": page_id,
-                "root": {
-                    "type": "recommendation_panel",  # "other" - from normal list
-                    "panel_id": "v1",
-                    "resource_id": resource_id,  # id of the clicked resource
-                    # publication, dataset, software, service, training
-                    "resource_type": resource_type,
-                }
-                if recommendation
-                else {
-                    "type": "other",
-                    "resource_id": resource_id,
-                    "resource_type": resource_type,
-                },
+                "root": (
+                    {
+                        "type": "recommendation_panel",  # "other" - from normal list
+                        "panel_id": "v1",
+                        "resource_id": resource_id,  # id of the clicked resource
+                        # publication, dataset, software, service, training
+                        "resource_type": resource_type,
+                    }
+                    if recommendation
+                    else {
+                        "type": "other",
+                        "resource_id": resource_id,
+                        "resource_type": resource_type,
+                    }
+                ),
             },
             "target": {"visit_id": str(uuid.uuid4()), "page_id": url},
             "action": {"type": "browser action", "text": "", "order": False},

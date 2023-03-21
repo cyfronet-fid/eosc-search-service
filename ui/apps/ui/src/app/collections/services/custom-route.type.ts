@@ -1,6 +1,9 @@
+import { sortType } from '@components/sort-by-functionality/sort-value.type';
+
 export type paramType =
   | string
   | string[]
+  | sortType
   | undefined
   | null
   | number
@@ -8,6 +11,7 @@ export type paramType =
 export interface ICustomRouteProps {
   collection: string | null;
   q: string;
+  sortUI: sortType;
   fq: string[];
   cursor: string;
   sort: string[];
