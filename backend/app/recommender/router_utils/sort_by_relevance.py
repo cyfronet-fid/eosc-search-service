@@ -85,29 +85,15 @@ async def perform_sort_by_relevance(
     panel_id: RecommendationPanelId,
     candidates_ids: dict,
 ):
-    if panel_id == "all":  # TODO [#450] remove
-        # Take candidates with the most IDs
-        new_panel_id = max(candidates_ids, key=lambda x: len(candidates_ids[x]))
-        candidates = candidates_ids[new_panel_id]
-        panel_id = new_panel_id
-    else:
-        candidates = candidates_ids[panel_id]
-
-    engine_version = (
-        "NCFRanking" if panel_id == "service" else "content_visit_sort"
-    )  # TODO [#450] remove
-
     try:
         request_body = {
             "unique_id": session.session_uuid if session else str(uuid.uuid4()),
             "timestamp": datetime.datetime.utcnow().isoformat()[:-3] + "Z",
             "visit_id": str(uuid.uuid4()),
             "page_id": "/search/" + panel_id,
-            "panel_id": _get_panel(panel_id),
-            "engine_version": (
-                engine_version
-            ),  # TODO [#450] change to "content_visit_sort" only
-            "candidates": candidates,  # TODO [#450] pass the whole "candidates_ids"
+            "panel_id": _get_panel(panel_id, sort_by_relevance=True),
+            "engine_version": "content_visit_sort",
+            "candidates": candidates_ids,
             "search_data": {},
         }
         if session is not None:
@@ -129,9 +115,9 @@ async def perform_sort_by_relevance(
         if "recommendations" not in parsed_response:
             raise RecommenderError(message="No recommendations provided")
 
-        if len(candidates) != len(
+        if sum(len(v) for v in candidates_ids.values()) != len(
             parsed_response["recommendations"]
-        ):  # TODO [#450] change candidates to include whole dict
+        ):
             logger.warning(f"Not all candidates were returned by 'sort by relevance'")
 
         return parsed_response["recommendations"]
