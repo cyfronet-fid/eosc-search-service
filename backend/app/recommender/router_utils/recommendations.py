@@ -28,7 +28,7 @@ async def get_recommended_uuids(
             "visit_id": str(uuid.uuid4()),
             "page_id": "/search/" + panel_id,
             "panel_id": _get_panel(panel_id),
-            "candidates": [],  # TODO [#450] after changes in facade change [] -> {}
+            "candidates": {},
             "search_data": {},
         }
 

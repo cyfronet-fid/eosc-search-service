@@ -54,7 +54,7 @@ class SolrRetrieveError(RecommendationHttpError):
         return self.__repr__()
 
 
-def _get_panel(panel_id: RecommendationPanelId) -> str:
+def _get_panel(panel_id: RecommendationPanelId, sort_by_relevance: bool = False) -> str:
     panel_id_options = [
         "publications",
         "datasets",
@@ -64,9 +64,10 @@ def _get_panel(panel_id: RecommendationPanelId) -> str:
         "services",
     ]
 
+    if not sort_by_relevance and panel_id == "all":
+        return random.choice(panel_id_options)
+
     match panel_id:
-        case "all":
-            return random.choice(panel_id_options)
         case "publication":
             return "publications"
         case "dataset":
