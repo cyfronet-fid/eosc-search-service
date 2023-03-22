@@ -47,6 +47,7 @@ import { queryChanger } from '@collections/filters-serializers/utils';
         </div>
       </div>
     </div>
+    <ess-interoperability-navigation-bar></ess-interoperability-navigation-bar>
   `,
   styles: [
     `
