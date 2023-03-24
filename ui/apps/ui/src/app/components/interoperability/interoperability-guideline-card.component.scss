@@ -1,0 +1,47 @@
+:host {
+  padding: 12px;
+}
+
+.ig-card-container {
+  width: 385px;
+  height: 520px;
+  background-color: #fff;
+  padding: 24px;
+  box-shadow: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+}
+
+.type {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  color: #3D4DB6;
+}
+
+.author-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+  color: #101828;
+}
+
+.description {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: #667085;
+}
+
+.go-to-page {
+  width: 18px;
+  height: 18px;
+}

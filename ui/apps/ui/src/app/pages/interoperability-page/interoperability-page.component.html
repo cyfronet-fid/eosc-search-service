@@ -1,0 +1,25 @@
+<ess-back-to-search-bar></ess-back-to-search-bar>
+<div class="bg">
+  <div class="container--xxl">
+    <div class="content">
+      <div class="col-md-8 col-12" style="text-align: center; margin: auto; padding-top: 24px;">
+        <h5 i18n>Interoperability Guidelines</h5>
+        <p i18n>Enabling interoperability across resources and services is essential for building a European Open Science Cloud that is federated and fit for purpose. In turn, interoperability guidelines are necessary to facilitate the cross-discipline collaboration of researchers, providers and research communities.</p>
+      </div>
+      <div class="col-12">
+        <div class="search-row">
+          <ess-basic-search-input></ess-basic-search-input>
+        </div>
+      </div>
+    </div>
+    <div class="ig-container">
+      <ess-interoperability-guideline-card
+        *ngFor="let result of getIG$ | async"
+        [authorName]="result.author_names[0]"
+        [type]="result.type"
+        [description]="result.type_info[0]"
+      ></ess-interoperability-guideline-card>
+    </div>
+  </div>
+  <ess-interoperability-helper-navigation-bar></ess-interoperability-helper-navigation-bar>
+</div>
