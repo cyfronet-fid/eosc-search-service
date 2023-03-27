@@ -7,6 +7,7 @@ import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { TrainingsPageModule } from '@pages/trainings-page/trainings-page.module';
 import { AcceptableUsePolicyModule } from '@pages/acceptable-use-policy/acceptable-use-policy.module';
 import { PrivacyPolicyModule } from '@pages/privacy-policy/privacy-policy.module';
+import { InteroperabilityGuidelinesDetailsPageModule } from '@pages/interoperability-guidelines-details-page/interoperability-guidelines-details-page.module';
 
 @NgModule({
   imports: [
@@ -23,6 +24,10 @@ import { PrivacyPolicyModule } from '@pages/privacy-policy/privacy-policy.module
       {
         path: 'trainings',
         loadChildren: () => TrainingsPageModule,
+      },
+      {
+        path: 'interoperability-guidelines-details',
+        loadChildren: () => InteroperabilityGuidelinesDetailsPageModule,
       },
       {
         path: 'acceptable-use-policy',
