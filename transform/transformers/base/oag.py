@@ -12,6 +12,7 @@ from pyspark.sql.types import (
 from transform.transformations.common import *
 from transform.transformers.base.base import BaseTransformer
 from transform.utils.utils import sort_schema
+from transform.schemas.properties_name import *
 
 
 class OagBaseTransformer(BaseTransformer):
@@ -64,24 +65,22 @@ class OagBaseTransformer(BaseTransformer):
         return sort_schema(
             StructType(
                 [
-                    StructField("author_names", ArrayType(StringType()), True),
-                    StructField(
-                        "author_pids", ArrayType(ArrayType(StringType())), True
-                    ),
-                    StructField("best_access_right", StringType(), True),
-                    StructField("country", ArrayType(StringType()), True),
-                    StructField("document_type", ArrayType(StringType()), True),
-                    StructField("doi", ArrayType(StringType()), True),
-                    StructField("fos", ArrayType(StringType()), True),
-                    StructField("funder", ArrayType(StringType()), True),
-                    StructField("language", ArrayType(StringType()), True),
-                    StructField("open_access", BooleanType(), True),
-                    StructField("relations", ArrayType(StringType()), True),
-                    StructField("relations_long", ArrayType(StringType()), True),
-                    StructField("research_community", ArrayType(StringType()), True),
-                    StructField("sdg", ArrayType(StringType()), True),
-                    StructField("unified_categories", ArrayType(StringType()), True),
-                    StructField("url", ArrayType(StringType()), True),
+                    StructField(AUTHOR_NAMES, ArrayType(StringType()), True),
+                    StructField(AUTHOR_PIDS, ArrayType(ArrayType(StringType())), True),
+                    StructField(BEST_ACCESS_RIGHT, StringType(), True),
+                    StructField(COUNTRY, ArrayType(StringType()), True),
+                    StructField(DOCUMENT_TYPE, ArrayType(StringType()), True),
+                    StructField(DOI, ArrayType(StringType()), True),
+                    StructField(FOS, ArrayType(StringType()), True),
+                    StructField(FUNDER, ArrayType(StringType()), True),
+                    StructField(LANGUAGE, ArrayType(StringType()), True),
+                    StructField(OPEN_ACCESS, BooleanType(), True),
+                    StructField(RELATIONS, ArrayType(StringType()), True),
+                    StructField(RELATIONS_LONG, ArrayType(StringType()), True),
+                    StructField(RESEARCH_COMMUNITY, ArrayType(StringType()), True),
+                    StructField(SDG, ArrayType(StringType()), True),
+                    StructField(UNIFIED_CATEGORIES, ArrayType(StringType()), True),
+                    StructField(URL, ArrayType(StringType()), True),
                 ]
             )
         )

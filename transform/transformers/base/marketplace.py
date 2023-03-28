@@ -1,20 +1,21 @@
 # pylint: disable=line-too-long, wildcard-import, unused-wildcard-import, invalid-name, too-many-arguments
 """Transform Marketplace's resources"""
 from abc import abstractmethod
+from itertools import chain
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
     split,
 )
-from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
-    BooleanType,
-)
+from pyspark.sql.types import StringType
 from transform.transformations.common import *
 from transform.transformers.base.base import BaseTransformer
-from transform.utils.utils import sort_schema
-from transform.schemas.properties_name import ID
+
+from transform.schemas.properties_name import (
+    ID,
+    PERSIST_ID_SYS,
+    PERSIST_ID_SYS_ENTITY_TYPE,
+    PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES,
+)
 
 SERVICE_TYPE = "service"
 DATA_SOURCE_TYPE = "data source"
@@ -54,6 +55,8 @@ class MarketplaceBaseTransformer(BaseTransformer):
         which will be later on merged with the main dataframe"""
         df = map_best_access_right(df, self.harvested_properties, self.type)
         create_open_access(self.harvested_properties)
+        if self.type == DATA_SOURCE_TYPE:
+            df = self.harvest_persistent_id_systems(df)
 
         return df
 
@@ -78,17 +81,27 @@ class MarketplaceBaseTransformer(BaseTransformer):
             df = df.withColumn(urls, col(urls)[URL])
         return df
 
-    @property
-    def harvested_schema(self) -> StructType:
-        """Schema of harvested properties"""
-        return sort_schema(
-            StructType(
-                [
-                    StructField("best_access_right", StringType(), True),
-                    StructField("open_access", BooleanType(), True),
-                ]
-            )
-        )
+    def harvest_persistent_id_systems(self, df: DataFrame) -> DataFrame:
+        """
+        1) Retrieve persistent_identity_systems.entity_type as arr[str, ...]
+        2) Retrieve persistent_identity_systems.entity_type_schemes as arr[arr[str], ...]
+        """
+        persist_ids_collection = df.select(PERSIST_ID_SYS).collect()
+        types_column = []
+        schemas_column = []
+        for persist_ids in chain.from_iterable(persist_ids_collection):
+            types_row = []
+            schemas_row = []
+            for persist_id in persist_ids:
+                types_row.append(persist_id["entity_type"])
+                schemas_row.append(persist_id["entity_type_schemes"])
+            types_column.append(types_row)
+            schemas_column.append(schemas_row)
+
+        self.harvested_properties[PERSIST_ID_SYS_ENTITY_TYPE] = types_column
+        self.harvested_properties[PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES] = schemas_column
+
+        return df.drop(PERSIST_ID_SYS)
 
     @staticmethod
     def cast_columns(df: DataFrame) -> DataFrame:

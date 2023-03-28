@@ -13,7 +13,7 @@ from pyspark.sql.types import (
 from transform.transformations.common import *
 from transform.transformers.base.base import BaseTransformer
 from transform.utils.utils import sort_schema
-from transform.schemas.properties_name import ID, TYPE
+from transform.schemas.properties_name import *
 from transform.schemas.unique_cols_name import (
     UNIQUE_SERVICE_COLUMNS,
     UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
@@ -78,11 +78,11 @@ class TrainingTransformer(BaseTransformer):
         return sort_schema(
             StructType(
                 [
-                    StructField("author_names", ArrayType(StringType()), True),
-                    StructField("best_access_right", StringType(), True),
-                    StructField("language", ArrayType(StringType()), True),
-                    StructField("open_access", BooleanType(), True),
-                    StructField("unified_categories", ArrayType(StringType()), True),
+                    StructField(AUTHOR_NAMES, ArrayType(StringType()), True),
+                    StructField(BEST_ACCESS_RIGHT, StringType(), True),
+                    StructField(LANGUAGE, ArrayType(StringType()), True),
+                    StructField(OPEN_ACCESS, BooleanType(), True),
+                    StructField(UNIFIED_CATEGORIES, ArrayType(StringType()), True),
                 ]
             )
         )

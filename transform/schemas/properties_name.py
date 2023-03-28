@@ -30,6 +30,9 @@ CONTEXT = "context"
 PID = "pid"
 RELATIONS = "relations"
 RELATIONS_LONG = "relations_long"
+PERSIST_ID_SYS = "persistent_identity_systems"
+PERSIST_ID_SYS_ENTITY_TYPE = "persistent_identity_systems_entity_type"
+PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES = "persistent_identity_systems_entity_type_schemes"
 
 # Text general
 AUTHOR_NAMES_TG = "author_names_tg"

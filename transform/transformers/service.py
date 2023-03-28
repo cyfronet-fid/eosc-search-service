@@ -1,11 +1,22 @@
 """Transform services"""
-from transform.schemas.unique_cols_name import (
-    UNIQUE_OAG_AND_TRAINING_COLS,
-    UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    StringType,
+    BooleanType,
 )
 from transform.transformers.base.marketplace import (
     MarketplaceBaseTransformer,
     SERVICE_TYPE,
+)
+from transform.schemas.unique_cols_name import (
+    UNIQUE_OAG_AND_TRAINING_COLS,
+    UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+)
+from transform.utils.utils import sort_schema
+from transform.schemas.properties_name import (
+    BEST_ACCESS_RIGHT,
+    OPEN_ACCESS,
 )
 
 
@@ -17,6 +28,18 @@ class ServiceTransformer(MarketplaceBaseTransformer):
         id_increment = 0  # Do not change service ID
         super().__init__(
             id_increment, self.type, self.cols_to_add, self.cols_to_drop, spark
+        )
+
+    @property
+    def harvested_schema(self) -> StructType:
+        """Schema of harvested properties"""
+        return sort_schema(
+            StructType(
+                [
+                    StructField(BEST_ACCESS_RIGHT, StringType(), True),
+                    StructField(OPEN_ACCESS, BooleanType(), True),
+                ]
+            )
         )
 
     @property
