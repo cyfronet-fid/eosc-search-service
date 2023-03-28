@@ -101,7 +101,6 @@ class TrainingTransformer(BaseTransformer):
             "documentation_url",
             "doi",
             "fos",
-            "format",
             "funder",
             "horizontal",
             "pid",

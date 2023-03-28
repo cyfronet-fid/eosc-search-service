@@ -68,7 +68,6 @@ UNIQUE_OAG_AND_TRAINING_COLS = (
     "doi",
     "duration",
     "eosc_provider",
-    "format",
     "fos",
     "funder",
     "keywords",

@@ -62,8 +62,6 @@ SEPARATE_COLLECTION = "SEPARATE_COLLECTION"
 SOLR_COL_NAMES = "SOLR_COL_NAMES"
 PATH = "PATH"
 ADDRESS = "ADDRESS"
-FIRST_FILE_PATH = "FIRST_FILE_PATH"
-FIRST_FILE_DF = "FIRST_FILE_DF"
 
 solr_all_col_mapping = {
     DATASOURCE: SOLR_DATASOURCE_COLS,
@@ -146,45 +144,28 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
     collections = {
         DATASOURCE: {
             PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
-            FIRST_FILE_PATH: None,
         },
         SERVICE: {
             PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
-            FIRST_FILE_PATH: None,
         },
         TRAINING: {
             PATH: os.environ.get(TRAINING_PATH, "input_data/training/"),
-            FIRST_FILE_PATH: None,
         },
         OTHER_RP: {
             PATH: os.environ.get(OTHER_RP_PATH, "input_data/other_rp/"),
-            FIRST_FILE_PATH: None,
         },
         SOFTWARE: {
             PATH: os.environ.get(SOFTWARE_PATH, "input_data/software/"),
-            FIRST_FILE_PATH: None,
         },
         DATASET: {
             PATH: os.environ.get(DATASET_PATH, "input_data/dataset/"),
-            FIRST_FILE_PATH: None,
         },
         PUBLICATION: {
             PATH: os.environ.get(PUBLICATION_PATH, "input_data/publication/"),
-            FIRST_FILE_PATH: None,
         },
     }
     if solr_flag:
-        for col_name, col_val in collections.items():
-            col_val[SOLR_COL_NAMES] = os.environ.get(solr_all_col_mapping[col_name])
-
-    get_first_file_paths(collections)
-
-    if any(
-        (not bool(env_var) for col in collections.values() for env_var in col.values())
-    ):
-        raise ValueError(
-            f"Not all necessary .env variables were passed. Env = {collections}"
-        )
+        load_solr_cols_name(collections, solr_all_col_mapping)
 
     return collections
 
@@ -203,28 +184,19 @@ def load_vars_sep_collection(solr_flag: bool) -> dict:
         },
     }
     if solr_flag:
-        for col_name, col_val in sep_collections.items():
-            col_val[SOLR_COL_NAMES] = os.environ.get(solr_sep_col_mapping[col_name])
-
-    if any(
-        (
-            not bool(env_var)
-            for col in sep_collections.values()
-            for env_var in col.values()
-        )
-    ):
-        raise ValueError(
-            f"Not all necessary .env variables were passed. Env = {sep_collections}"
-        )
+        load_solr_cols_name(sep_collections, solr_sep_col_mapping)
 
     return sep_collections
 
 
-def get_first_file_paths(collections: dict) -> None:
-    """Get the first files from resource type directories.
-    Used to check if the schema after transformations is appropriate for solr"""
-    for col_name, col_props in collections.items():
-        col_input_dir = col_props[PATH]
-        collections[col_name][FIRST_FILE_PATH] = (
-            col_input_dir + sorted(os.listdir(col_input_dir))[0]
+def load_solr_cols_name(collections: dict, solr_mapping: dict) -> None:
+    """Load solr collections name"""
+    for col_name, col_val in collections.items():
+        col_val[SOLR_COL_NAMES] = os.environ.get(solr_mapping[col_name])
+
+    if any(
+        (not bool(env_var) for col in collections.values() for env_var in col.values())
+    ):
+        raise ValueError(
+            f"Not all necessary .env variables were passed. Env = {collections}"
         )
