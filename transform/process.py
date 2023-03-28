@@ -8,7 +8,9 @@ from transform.utils.utils import (
     print_results,
     print_errors,
 )
-from transform.utils.validate import check_trans_consistency, check_dfs_cols
+from transform.utils.validate import (
+    check_schema_after_trans,
+)
 from transform.utils.save import (
     save_df,
     create_dump_struct,
@@ -20,12 +22,11 @@ from transform.utils.send import (
 )
 from transform.transformers.guideline import upload_guidelines
 from transform.transformers.provider import upload_providers
+from transform.schemas.expected_all_col_schema import expected_all_col_schema
 
 
 def upload_all_col_data() -> None:
     """Upload data to all collection & other collection on demand"""
-    check_trans_consistency(env_vars[ALL_COLLECTION], spark, logger)
-
     for col_name, col_prop in env_vars[ALL_COLLECTION].items():
         col_input_dir = col_prop[PATH]
         files = sorted(os.listdir(col_input_dir))
@@ -41,7 +42,7 @@ def upload_all_col_data() -> None:
                 continue
             # Check the consistency of transformation
             try:
-                check_dfs_cols((df_trans, col_prop[FIRST_FILE_DF]))
+                check_schema_after_trans(df_trans, expected_all_col_schema)
             except AssertionError:
                 print_errors("consistency_fail", failed_files, col_name, file, logger)
                 continue

@@ -27,7 +27,6 @@ class DatasetTransformer(OagBaseTransformer):
             "content_type",
             "duration",
             "eosc_provider",
-            "format",
             "horizontal",
             "pid",
             "level_of_expertise",
