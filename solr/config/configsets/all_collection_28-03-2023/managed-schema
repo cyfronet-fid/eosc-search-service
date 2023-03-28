@@ -447,6 +447,7 @@
       <tokenizer class="solr.WhitespaceTokenizerFactory"/>
     </analyzer>
   </fieldType>
+  <field name="_delete____" type="text_general"/>
   <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
   <field name="_version_" type="plong" indexed="false" stored="false"/>
   <field name="abbreviation" type="string" required="false" useDocValuesAsStored="true"/>
@@ -504,9 +505,8 @@
   <field name="open_source_technologies" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="order_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="payment_model_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
-  <field name="persistent_identity_systems" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
-  <field name="persistent_identity_systems.entity_type" type="text_general"/>
-  <field name="persistent_identity_systems.entity_type_schemes" type="text_general"/>
+  <field name="persistent_identity_systems_entity_type" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="persistent_identity_systems_entity_type_schemes" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="phase" type="string" required="false"/>
   <field name="pid" type="string" required="false" useDocValuesAsStored="true"/>
   <field name="platforms" type="strings" required="false"/>
@@ -521,6 +521,8 @@
   <field name="qualification" type="strings" required="false"/>
   <field name="rating" type="pdouble" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="related_platforms" type="strings" required="false"/>
+  <field name="relations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="relations_long" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_community" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="research_entity_types" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_product_access_policies" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -638,4 +640,5 @@
   <copyField source="persistent_identity_systems.entity_type" dest="persistent_identity_systems.entity_type_str" maxChars="256"/>
   <copyField source="persistent_identity_systems.entity_type_schemes" dest="persistent_identity_systems.entity_type_schemes_str" maxChars="256"/>
   <copyField source="langauge" dest="langauge_str" maxChars="256"/>
+  <copyField source="_delete____" dest="_delete_____str" maxChars="256"/>
 </schema>
