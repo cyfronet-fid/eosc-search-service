@@ -147,12 +147,15 @@ a:hover {
 }
 
 #sub-nav {
+  display: flex;
+  justify-content: center;
   width: 100%;
   text-align: center;
   padding: 30px 0 45px;
 }
 
 #sub-nav a {
+  max-width: 120px;
   text-transform: uppercase;
   font-size: 12px;
   display: inline-block;
@@ -208,6 +211,10 @@ a:hover {
 
 #sub-nav a.Trainings::before {
   background-image: url(assets/top-icon-07.png);
+}
+
+#sub-nav a.Guidelines::before {
+  background-image: url(assets/top-icon-09.png);
 }
 
 #sub-nav a.Other::before {

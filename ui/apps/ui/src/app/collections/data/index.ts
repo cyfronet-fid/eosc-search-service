@@ -1,6 +1,9 @@
 import { trainingsNavConfig } from './trainings/nav-config.data';
+import { guidelinesNavConfig } from './guidelines/nav-config.data';
 import { trainingsAdapter } from './trainings/adapter.data';
+import { guidelinesAdapter } from './guidelines/adapter.data';
 import { trainingsSearchMetadata } from './trainings/search-metadata.data';
+import { guidelinesSearchMetadata } from './guidelines/search-metadata.data';
 import {
   IAdapter,
   ICollectionNavConfig,
@@ -18,6 +21,7 @@ import { datasetsFilters } from './datasets/filters.data';
 import { softwareFilters } from './software/filters.data';
 import { dataSourcesFilters } from './data-sources/filters.data';
 import { trainingsFilters } from './trainings/filters.data';
+import { guidelinesFilters } from './guidelines/filters.data';
 import {
   URL_PARAM_NAME as ALL_COLLECTIONS_URL_PARAM_NAME,
   allCollectionsNavConfig,
@@ -51,6 +55,7 @@ export const ADAPTERS: IAdapter[] = [
   servicesAdapter,
   dataSourcesAdapter,
   trainingsAdapter,
+  guidelinesAdapter,
   otherResourcesProductsAdapter,
 ];
 export const FILTERS: IFiltersConfig[] = [
@@ -61,6 +66,7 @@ export const FILTERS: IFiltersConfig[] = [
   servicesFilters,
   dataSourcesFilters,
   trainingsFilters,
+  guidelinesFilters,
   otherResourcesProductsFilters,
 ];
 export const NAV_CONFIGS: ICollectionNavConfig[] = [
@@ -71,6 +77,7 @@ export const NAV_CONFIGS: ICollectionNavConfig[] = [
   servicesNavConfig,
   dataSourcesNavConfig,
   trainingsNavConfig,
+  guidelinesNavConfig,
   othersResourcesProductsNavConfig,
 ];
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
@@ -81,6 +88,7 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   servicesSearchMetadata,
   dataSourcesSearchMetadata,
   trainingsSearchMetadata,
+  guidelinesSearchMetadata,
   otherResourcesProductsSearchMetadata,
 ];
 
