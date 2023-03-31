@@ -12,12 +12,28 @@ from transform.utils.loader import (
     ALL_COLLECTION,
     SEPARATE_COLLECTION,
     CREATE_LOCAL_DUMP,
+    GUIDELINE,
 )
 
 py_logger = logging.getLogger(__name__)
 
 
 def save_df(
+    df: pyspark.sql.dataframe.DataFrame,
+    col_name: str,
+    path: str,
+    logger: Log4J,
+    _format="json",
+    mode="overwrite",
+    verbose=False,
+) -> None:
+    if col_name == GUIDELINE:
+        save_pd_df(df, path, verbose)
+    else:
+        save_spark_df(df, path, logger, _format, mode, verbose)
+
+
+def save_spark_df(
     df: pyspark.sql.dataframe.DataFrame,
     path: str,
     logger: Log4J,
@@ -40,7 +56,6 @@ def save_pd_df(
     verbose=False,
 ) -> None:
     """Save pandas dataframe"""
-
     clear_folder(path)
     path = os.path.join(path, "guideline.json")
     df.to_json(path, orient="records", lines=True)

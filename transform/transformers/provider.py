@@ -121,6 +121,7 @@ def upload_providers(env_vars: dict, spark: SparkSession, logger: Log4J) -> None
 
         save_df(
             df_trans,
+            PROVIDER,
             env_vars[OUTPUT_PATH],
             logger,
             _format=env_vars[OUTPUT_FORMAT],

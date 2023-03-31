@@ -119,3 +119,15 @@ UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE = (
     "thematic",
     "version_control",
 )
+UNIQUE_GUIDELINES_COLS = (
+    "author_types",
+    "domain",
+    "eosc_guideline_type",
+    "eosc_integration_options",
+    "eosc_related_standards",
+    "publication_year",
+    "right_id",
+    "right_title",
+    "right_uri",
+    "type_info",
+)
