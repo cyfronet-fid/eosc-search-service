@@ -12,6 +12,7 @@ from transform.transformers.base.marketplace import (
 from transform.schemas.unique_cols_name import (
     UNIQUE_OAG_AND_TRAINING_COLS,
     UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+    UNIQUE_GUIDELINES_COLS,
 )
 from transform.utils.utils import sort_schema
 from transform.schemas.properties_name import (
@@ -48,6 +49,7 @@ class ServiceTransformer(MarketplaceBaseTransformer):
         return (
             *UNIQUE_OAG_AND_TRAINING_COLS,
             *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+            *UNIQUE_GUIDELINES_COLS,
         )
 
     @property

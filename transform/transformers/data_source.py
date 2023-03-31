@@ -14,6 +14,7 @@ from transform.utils.utils import sort_schema
 from transform.schemas.unique_cols_name import (
     UNIQUE_OAG_AND_TRAINING_COLS,
     UNIQUE_SERVICE_COLS_FOR_DATA_SOURCE,
+    UNIQUE_GUIDELINES_COLS,
 )
 from transform.schemas.properties_name import (
     PERSIST_ID_SYS_ENTITY_TYPE,
@@ -61,6 +62,7 @@ class DataSourceTransformer(MarketplaceBaseTransformer):
         return (
             *UNIQUE_OAG_AND_TRAINING_COLS,
             *UNIQUE_SERVICE_COLS_FOR_DATA_SOURCE,
+            *UNIQUE_GUIDELINES_COLS,
         )
 
     @property

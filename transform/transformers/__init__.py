@@ -8,6 +8,7 @@ from transform.utils.loader import (
     TRAINING,
     SERVICE,
     DATASOURCE,
+    GUIDELINE,
 )
 from .dataset import DatasetTransformer
 from .publication import PublicationTransformer
@@ -16,6 +17,7 @@ from .other_rp import OtherRPTransformer
 from .training import TrainingTransformer
 from .service import ServiceTransformer
 from .data_source import DataSourceTransformer
+from .guideline import transform_guidelines
 
 __all__ = ["all_col_trans_map"]
 
@@ -28,4 +30,5 @@ all_col_trans_map = {
     TRAINING: TrainingTransformer,
     SERVICE: ServiceTransformer,
     DATASOURCE: DataSourceTransformer,
+    GUIDELINE: transform_guidelines,
 }

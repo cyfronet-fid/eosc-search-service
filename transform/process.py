@@ -1,5 +1,6 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
 """Load, transform and send data"""
+import requests
 from tqdm import tqdm
 import transform.transformers as trans
 from transform.conf.spark import apply_spark_conf
@@ -20,7 +21,6 @@ from transform.utils.send import (
     send_data,
     failed_files,
 )
-from transform.transformers.guideline import upload_guidelines
 from transform.transformers.provider import upload_providers
 from transform.schemas.expected_all_col_schema import expected_all_col_schema
 
@@ -28,33 +28,52 @@ from transform.schemas.expected_all_col_schema import expected_all_col_schema
 def upload_all_col_data() -> None:
     """Upload data to all collection & other collection on demand"""
     for col_name, col_prop in env_vars[ALL_COLLECTION].items():
-        col_input_dir = col_prop[PATH]
-        files = sorted(os.listdir(col_input_dir))
+        if col_prop.get(PATH):
+            # Data provided via files
+            col_input_dir = col_prop[PATH]
+            data_points = sorted(os.listdir(col_input_dir))
+        else:
+            # Data from API
+            data_points = col_prop[ADDRESS].split(" ")
 
-        for file_num, file in enumerate(tqdm(files, desc=col_name)):
-            file_path = os.path.join(col_input_dir, file)
-            df = load_data(spark, file_path, col_name)
+        for data_num, data_point in enumerate(tqdm(data_points, desc=col_name)):
+            if col_prop.get(PATH):
+                file_path = os.path.join(col_input_dir, data_point)
+                df = load_data(spark, file_path, col_name)
+            else:
+                df = requests.get(data_point, timeout=20).json()["results"]
+
             # Transform
             try:
-                df_trans = trans.all_col_trans_map[col_name](spark)(df)
+                if col_name == GUIDELINE:
+                    # Transform using Pandas
+                    df_trans = trans.all_col_trans_map[col_name](df)
+                else:
+                    # Transform using Spark
+                    df_trans = trans.all_col_trans_map[col_name](spark)(df)
             except (ValueError, AssertionError, KeyError):
-                print_errors("transform_fail", failed_files, col_name, file, logger)
+                print_errors(
+                    "transform_fail", failed_files, col_name, data_point, logger
+                )
                 continue
+
             # Check the consistency of transformation
-            try:
-                check_schema_after_trans(df_trans, expected_all_col_schema)
-            except AssertionError:
-                print_errors("consistency_fail", failed_files, col_name, file, logger)
-                continue
+            if col_name != GUIDELINE:
+                try:
+                    check_schema_after_trans(df_trans, expected_all_col_schema)
+                except AssertionError:
+                    print_errors("consistency_fail", failed_files, col_name, data_point, logger)
+                    continue
 
             save_df(
                 df_trans,
+                col_name,
                 env_vars[OUTPUT_PATH],
                 logger,
                 _format=env_vars[OUTPUT_FORMAT],
             )
 
-            send_data(env_vars, col_name, file, file_num)
+            send_data(env_vars, col_name, data_point, data_num)
 
 
 if __name__ == "__main__":
@@ -63,7 +82,6 @@ if __name__ == "__main__":
     create_dump_struct(env_vars)
 
     # Only separate collections
-    upload_guidelines(env_vars)
     upload_providers(env_vars, spark, logger)
 
     # All collection

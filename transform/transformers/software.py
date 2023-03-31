@@ -2,6 +2,7 @@
 from transform.schemas.unique_cols_name import (
     UNIQUE_SERVICE_COLUMNS,
     UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+    UNIQUE_GUIDELINES_COLS,
 )
 from transform.transformers.base.oag import OagBaseTransformer
 
@@ -19,6 +20,7 @@ class SoftwareTransformer(OagBaseTransformer):
         return (
             *UNIQUE_SERVICE_COLUMNS,
             *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+            *UNIQUE_GUIDELINES_COLS,
             "contactgroup",
             "contactperson",
             "size",

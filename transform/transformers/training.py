@@ -17,6 +17,7 @@ from transform.schemas.properties_name import *
 from transform.schemas.unique_cols_name import (
     UNIQUE_SERVICE_COLUMNS,
     UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+    UNIQUE_GUIDELINES_COLS,
 )
 
 
@@ -93,6 +94,7 @@ class TrainingTransformer(BaseTransformer):
         return (
             *UNIQUE_SERVICE_COLUMNS,
             *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
+            *UNIQUE_GUIDELINES_COLS,
             "author_pids",
             "contactgroup",
             "contactperson",

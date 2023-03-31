@@ -64,6 +64,7 @@ PATH = "PATH"
 ADDRESS = "ADDRESS"
 
 solr_all_col_mapping = {
+    GUIDELINE: SOLR_GUIDELINE_COLS,
     DATASOURCE: SOLR_DATASOURCE_COLS,
     SERVICE: SOLR_SERVICE_COLS,
     TRAINING: SOLR_TRAINING_COLS,
@@ -75,7 +76,6 @@ solr_all_col_mapping = {
 
 solr_sep_col_mapping = {
     PROVIDER: SOLR_PROVIDER_COLS,
-    GUIDELINE: SOLR_GUIDELINE_COLS,
 }
 
 load_dotenv()
@@ -142,6 +142,12 @@ def load_config(env_vars: dict) -> None:
 def load_vars_all_collection(solr_flag: bool) -> dict:
     """Load variables for all collection"""
     collections = {
+        GUIDELINE: {
+            ADDRESS: os.environ.get(
+                GUIDELINE_ADDRESS,
+                "https://beta.providers.eosc-portal.eu/api/interoperabilityRecord/all",
+            ),
+        },
         DATASOURCE: {
             PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
         },
@@ -175,13 +181,7 @@ def load_vars_sep_collection(solr_flag: bool) -> dict:
     sep_collections = {
         PROVIDER: {
             PATH: os.environ.get(PROVIDER_PATH, "input_data/provider/"),
-        },
-        GUIDELINE: {
-            ADDRESS: os.environ.get(
-                GUIDELINE_ADDRESS,
-                "https://beta.providers.eosc-portal.eu/api/interoperabilityRecord/all",
-            ),
-        },
+        }
     }
     if solr_flag:
         load_solr_cols_name(sep_collections, solr_sep_col_mapping)
