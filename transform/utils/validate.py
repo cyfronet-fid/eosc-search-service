@@ -21,5 +21,5 @@ def check_schema_after_trans(df: DataFrame, expected_schema: dict) -> None:
         for df_sch, exp_sch in zip(schemas, expected_schema.values())
         if df_sch != "void"
     ), logger.error(
-        f"Wrong schema after transformation.\n Dataframe schema={schemas} \n Expected schema={expected_schema.values()}"
+        f"Wrong schema after transformation.\n {list(zip(expected_schema.items(), schemas))}"
     )

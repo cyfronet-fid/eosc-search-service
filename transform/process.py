@@ -42,6 +42,8 @@ def upload_all_col_data() -> None:
                 df = load_data(spark, file_path, col_name)
             else:
                 df = requests.get(data_point, timeout=20).json()["results"]
+                if col_name != GUIDELINE:
+                    df = load_data(spark, df, col_name)
 
             # Transform
             try:
@@ -62,7 +64,9 @@ def upload_all_col_data() -> None:
                 try:
                     check_schema_after_trans(df_trans, expected_all_col_schema)
                 except AssertionError:
-                    print_errors("consistency_fail", failed_files, col_name, data_point, logger)
+                    print_errors(
+                        "consistency_fail", failed_files, col_name, data_point, logger
+                    )
                     continue
 
             save_df(

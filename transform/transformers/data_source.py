@@ -63,6 +63,7 @@ class DataSourceTransformer(MarketplaceBaseTransformer):
             *UNIQUE_OAG_AND_TRAINING_COLS,
             *UNIQUE_SERVICE_COLS_FOR_DATA_SOURCE,
             *UNIQUE_GUIDELINES_COLS,
+            "catalogue",
         )
 
     @property

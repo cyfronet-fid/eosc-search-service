@@ -6,13 +6,13 @@ We are using .env to store user-specific constants. This file is not tracked by 
 - `PUBLICATION_PATH` - A path to publications **directory**. Default: `input_data/publication/`
 - `SOFTWARE_PATH` - A path to software **directory**. Default: `input_data/software/`
 - `OTHER_RP_PATH` - A path to other research products **directory**. Default: `input_data/orther_rp/`
-- `TRAINING_PATH` - A path to trainings **directory**. Default: `input_data/training/`
 - `SERVICE_PATH` - A path to services **directory**. Default: `input_data/service/`
 - `DATASOURCE_PATH` - A path to datasources **directory**. Default: `input_data/datasource/`
 - `PROVIDER_PATH` - A path to providers **directory**. Default: `input_data/provider/`
 
 ### Data from API:
-- `GUIDELINE_ADDRESS` - A full address to get all interoperability guidelines **endpoint**. Default: `"https://beta.providers.eosc-portal.eu/api/interoperabilityRecord/all"`
+- `GUIDELINE_ADDRESS` - A full address to get all interoperability guidelines **endpoint**. Default: `https://beta.providers.eosc-portal.eu/api/interoperabilityRecord/all`
+- `TRAINING_ADDRESS` - A full address to get all trainings **endpoint**. Default: `https://beta.providers.eosc-portal.eu/api/trainingResource/all`
 <br></br>
 
 ### Other data related params:
