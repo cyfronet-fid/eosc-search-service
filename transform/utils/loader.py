@@ -1,6 +1,7 @@
 # pylint: disable=line-too-long
 """Load data"""
 import os
+import json
 from datetime import date
 from dotenv import load_dotenv
 from pyspark.sql import SparkSession
@@ -17,17 +18,16 @@ DATASOURCE = "DATASOURCE"
 PROVIDER = "PROVIDER"
 GUIDELINE = "GUIDELINE"
 
-
 DATASET_PATH = "DATASET_PATH"
 PUBLICATION_PATH = "PUBLICATION_PATH"
 SOFTWARE_PATH = "SOFTWARE_PATH"
 OTHER_RP_PATH = "OTHER_RP_PATH"
-TRAINING_PATH = "TRAINING_PATH"
 SERVICE_PATH = "SERVICE_PATH"
 DATASOURCE_PATH = "DATASOURCE_PATH"
 PROVIDER_PATH = "PROVIDER_PATH"
 
 GUIDELINE_ADDRESS = "GUIDELINE_ADDRESS"
+TRAINING_ADDRESS = "TRAINING_ADDRESS"
 
 INPUT_FORMAT = "INPUT_FORMAT"
 OUTPUT_FORMAT = "OUTPUT_FORMAT"
@@ -87,6 +87,8 @@ def load_data(
     """Load data based on the provided data path"""
     if col_name in {SERVICE, DATASOURCE, PROVIDER}:
         return spark.read.format(_format).option("multiline", True).load(data_path)
+    elif col_name == TRAINING:
+        return spark.read.json(spark.sparkContext.parallelize([json.dumps(data_path)]))
     return spark.read.format(_format).load(data_path)
 
 
@@ -142,6 +144,12 @@ def load_config(env_vars: dict) -> None:
 def load_vars_all_collection(solr_flag: bool) -> dict:
     """Load variables for all collection"""
     collections = {
+        TRAINING: {
+            ADDRESS: os.environ.get(
+                TRAINING_ADDRESS,
+                "https://beta.providers.eosc-portal.eu/api/trainingResource/all",
+            ),
+        },
         GUIDELINE: {
             ADDRESS: os.environ.get(
                 GUIDELINE_ADDRESS,
@@ -153,9 +161,6 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
         },
         SERVICE: {
             PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
-        },
-        TRAINING: {
-            PATH: os.environ.get(TRAINING_PATH, "input_data/training/"),
         },
         OTHER_RP: {
             PATH: os.environ.get(OTHER_RP_PATH, "input_data/other_rp/"),

@@ -33,6 +33,13 @@ RELATIONS_LONG = "relations_long"
 PERSIST_ID_SYS = "persistent_identity_systems"
 PERSIST_ID_SYS_ENTITY_TYPE = "persistent_identity_systems_entity_type"
 PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES = "persistent_identity_systems_entity_type_schemes"
+CONTENT_TYPE = "content_type"
+LVL_OF_EXPERTISE = "level_of_expertise"
+GEO_AV = "geographical_availabilities"
+RESOURCE_TYPE = "resource_type"
+SCIENTIFIC_DOMAINS = "scientific_domains"
+TARGET_GROUP = "target_group"
+PUBLICATION_DATE = "publication_date"
 
 # Text general
 AUTHOR_NAMES_TG = "author_names_tg"
