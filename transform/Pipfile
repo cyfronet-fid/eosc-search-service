@@ -10,6 +10,7 @@ tqdm = "*"
 python-dotenv = "*"
 requests = "*"
 pandas = "*"
+pycountry = "*"
 
 [dev-packages]
 pytest = "*"
