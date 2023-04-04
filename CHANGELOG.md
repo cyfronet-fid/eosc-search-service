@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.1.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.0.0...v2.1.0) (2023-04-04)
+
+
+### Features
+
+* [[#451](https://github.com/cyfronet-fid/eosc-search-service/issues/451), [#453](https://github.com/cyfronet-fid/eosc-search-service/issues/453)] add providers and guidelines ([f1a8997](https://github.com/cyfronet-fid/eosc-search-service/commit/f1a899705e5201849445de3f61f0b6b09469d3f0))
+* [#483](https://github.com/cyfronet-fid/eosc-search-service/issues/483) add bar with go to search action ([efe8113](https://github.com/cyfronet-fid/eosc-search-service/commit/efe8113ff3af9f8cb3379bbb77cfa9ed3405aa1e))
+* customized commons privacy policy and tos ([891e8a9](https://github.com/cyfronet-fid/eosc-search-service/commit/891e8a961d08198b6e9a7b31341a50b5df34d00a))
+
+
+### Bug Fixes
+
+* [[#241](https://github.com/cyfronet-fid/eosc-search-service/issues/241)] Fix pagination bug on every 5th page ([95f6cfa](https://github.com/cyfronet-fid/eosc-search-service/commit/95f6cfa1d8822625560095964c05235acc2f8b86))
+
 ## [2.0.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.14.1...v2.0.0) (2023-03-21)
 
 
