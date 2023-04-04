@@ -95,7 +95,11 @@ export class ResultsWithPaginationComponent implements OnInit {
       return;
     }
 
-    this._paginationService.updatePagination(params, response);
+    this._paginationService.updatePagination(
+      params,
+      response,
+      this.pageNr$.value
+    );
     this.highlights = response.highlighting ?? {};
 
     this._paginationService.setLoading(false);

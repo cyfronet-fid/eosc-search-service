@@ -18,28 +18,28 @@ from transform.utils.send import (
     send_data,
     failed_files,
 )
+from transform.transformers.guideline import upload_guidelines
+from transform.transformers.provider import upload_providers
 
-if __name__ == "__main__":
-    spark, logger = apply_spark_conf()
-    env_vars = load_env_vars()
-    check_trans_consistency(env_vars[COLLECTIONS], spark, logger)
-    create_dump_struct(env_vars)
 
-    for col_name, col_prop in env_vars[COLLECTIONS].items():
+def upload_all_col_data() -> None:
+    """Upload data to all collection & other collection on demand"""
+    check_trans_consistency(env_vars[ALL_COLLECTION], spark, logger)
+
+    for col_name, col_prop in env_vars[ALL_COLLECTION].items():
         col_input_dir = col_prop[PATH]
         files = sorted(os.listdir(col_input_dir))
 
         for file_num, file in enumerate(tqdm(files, desc=col_name)):
-            file_path = col_input_dir + file
+            file_path = os.path.join(col_input_dir, file)
             df = load_data(spark, file_path, col_name)
             # Transform
             try:
-                df_trans = trans.trans_map[col_name](spark)(df)
+                df_trans = trans.all_col_trans_map[col_name](spark)(df)
             except (ValueError, AssertionError, KeyError):
                 print_errors("transform_fail", failed_files, col_name, file, logger)
                 continue
-
-            # Check transformation consistency
+            # Check the consistency of transformation
             try:
                 check_dfs_cols((df_trans, col_prop[FIRST_FILE_DF]))
             except AssertionError:
@@ -53,7 +53,20 @@ if __name__ == "__main__":
                 _format=env_vars[OUTPUT_FORMAT],
             )
 
-            send_data(env_vars, col_name, file, file_num, logger)
+            send_data(env_vars, col_name, file, file_num)
+
+
+if __name__ == "__main__":
+    spark, logger = apply_spark_conf()
+    env_vars = load_env_vars()
+    create_dump_struct(env_vars)
+
+    # Only separate collections
+    upload_guidelines(env_vars)
+    upload_providers(env_vars, spark, logger)
+
+    # All collection
+    upload_all_col_data()
 
     if env_vars[CREATE_LOCAL_DUMP]:
         make_archive(env_vars)

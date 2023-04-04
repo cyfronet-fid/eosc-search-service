@@ -43,6 +43,7 @@ export class PaginationRepository {
     selectCurrentPageEntities()
   );
   readonly paginationData$ = this._store$.pipe(selectPaginationData());
+  private lastLoadedPage = 0;
 
   initialize = (response: ISearchResults<IResult>) => {
     this.clear();
@@ -67,24 +68,26 @@ export class PaginationRepository {
     }
 
     this._store$.update(addEntities(results));
+
     const resultsIds = results.map(({ id }) => id);
-    let newPageId =
-      this.paginationData().currentPage === 1
-        ? 1
-        : this.paginationData().currentPage + 1;
-    while (resultsIds.length > 0) {
-      this.setPage(
-        newPageId,
-        resultsIds.splice(0, this.paginationData().perPage)
-      );
-      newPageId += 1;
+    const newPageId = this.lastLoadedPage + 1;
+    const newPagesLen = Math.ceil(
+      results.length / this.paginationData().perPage
+    );
+
+    for (let i = newPageId; i < newPageId + newPagesLen; i++) {
+      this.setPage(i, resultsIds.splice(0, this.paginationData().perPage));
     }
+
+    this.lastLoadedPage += newPagesLen;
   };
+
   setNextCursor = (cursor: string) =>
     this._store$.update((state) => ({
       ...state,
       nextCursor: cursor,
     }));
+
   updatePaginationData = (paginationData: Partial<PaginationData>) =>
     this._store$.update(
       updatePaginationData({
@@ -92,7 +95,8 @@ export class PaginationRepository {
         ...paginationData,
       })
     );
-  clear = () =>
+
+  clear = () => {
     this._store$.update(
       (state) => ({
         ...state,
@@ -102,11 +106,15 @@ export class PaginationRepository {
       deleteAllEntities(),
       deleteAllPages()
     );
+    this.lastLoadedPage = 0;
+  };
+
   setLoading = (isLoading: boolean) =>
     this._store$.update((state) => ({
       ...state,
       isLoading,
     }));
+
   setPage = (pageId: number, resultsIds: string[]) =>
     this._store$.update(setPage(pageId, resultsIds));
 }

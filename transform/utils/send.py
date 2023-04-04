@@ -1,12 +1,13 @@
-# pylint: disable=line-too-long, too-many-arguments, consider-using-with, invalid-name
+# pylint: disable=line-too-long, too-many-arguments, consider-using-with, invalid-name, logging-fstring-interpolation
 """Module to send data"""
 import os
 import shutil
+import logging
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
-from botocore.exceptions import ClientError
+from botocore.exceptions import ClientError, EndpointConnectionError
 from transform.utils.loader import (
-    COLLECTIONS,
+    ALL_COLLECTION,
     OUTPUT_PATH,
     SOLR_ADDRESS,
     SOLR_PORT,
@@ -25,8 +26,14 @@ from transform.utils.loader import (
     TRAINING,
     SERVICE,
     DATASOURCE,
+    SEPARATE_COLLECTION,
+    OUTPUT_FORMAT,
+    GUIDELINE,
+    PROVIDER,
 )
-from transform.conf.logger import Log4J
+
+
+logger = logging.getLogger(__name__)
 
 SOLR = "SOLR"
 S3 = "S3"
@@ -41,6 +48,8 @@ failed_files = {
     TRAINING: {SOLR: [], S3: [], LOCAL_DUMP: []},
     SERVICE: {SOLR: [], S3: [], LOCAL_DUMP: []},
     DATASOURCE: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    PROVIDER: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    GUIDELINE: {SOLR: [], S3: [], LOCAL_DUMP: []},
 }
 
 
@@ -48,31 +57,33 @@ def send_data(
     env_vars: dict,
     col_name: str,
     file: str,
-    file_num: int,
-    logger: Log4J,
+    file_num: int = 0,
 ) -> None:
     """Send data to appropriate places / create local dump"""
     if env_vars[SEND_TO_SOLR]:
-        send_to_solr(env_vars, col_name, file, file_num, logger)
+        send_to_solr(env_vars, col_name, file, file_num)
 
     if env_vars[SEND_TO_S3]:
-        send_to_s3(env_vars, col_name, file, file_num, logger)
+        send_to_s3(env_vars, col_name, file, file_num)
 
     if env_vars[CREATE_LOCAL_DUMP]:
-        create_local_dump(env_vars, col_name, file, file_num, logger)
+        create_local_dump(env_vars, col_name, file, file_num)
 
 
 def send_to_solr(
     env_vars: dict,
     col_name: str,
     file: str,
-    file_num: int,
-    logger: Log4J,
+    file_num: int = 0,
 ) -> None:
     """Send data to solr"""
     file_to_send = get_output_path(env_vars, col_name, file_num)
 
-    solr_col_names = env_vars[COLLECTIONS][col_name][SOLR_COL_NAMES].split(" ")
+    try:
+        solr_col_names = env_vars[ALL_COLLECTION][col_name][SOLR_COL_NAMES]
+    except KeyError:
+        solr_col_names = env_vars[SEPARATE_COLLECTION][col_name][SOLR_COL_NAMES]
+    solr_col_names = solr_col_names.split(" ")
     req_statuses = []
 
     for s_col_name in solr_col_names:
@@ -98,8 +109,7 @@ def send_to_s3(
     env_vars: dict,
     col_name: str,
     file: str,
-    file_num: int,
-    logger: Log4J,
+    file_num: int = 0,
 ) -> None:
     """Send data to S3"""
     s3 = env_vars[S3_CLIENT]
@@ -111,7 +121,7 @@ def send_to_s3(
         s3.upload_file(
             Filename=file_to_send_path, Bucket=env_vars[S3_BUCKET], Key=s3_path
         )
-    except ClientError as err:
+    except (ClientError, EndpointConnectionError) as err:
         failed_files[col_name][S3].append(file)
         logger.error(f"{col_name} - {file} failed to be sent to the S3 - {err}")
 
@@ -120,8 +130,7 @@ def create_local_dump(
     env_vars: dict,
     col_name: str,
     file: str,
-    file_num: int,
-    logger: Log4J,
+    file_num: int = 0,
 ) -> None:
     """Create local dump"""
     file_to_save = get_output_path(env_vars, col_name, file_num)
@@ -134,14 +143,14 @@ def create_local_dump(
         logger.error(f"{col_name} - {file} failed to be a part of the local dump")
 
 
-def get_output_path(env_vars: dict, col_name: str, file_num: int) -> str:
+def get_output_path(env_vars: dict, col_name: str, file_num: int = 0) -> str:
     """Rename the output file and get the path of the output file"""
-    desired_file_name = str(file_num) + "_" + col_name.lower() + ".json"
+    _format = f".{env_vars[OUTPUT_FORMAT].lower()}"
+    desired_file_name = str(file_num) + "_" + col_name.lower() + _format
     output_files = os.listdir(env_vars[OUTPUT_PATH])
     output_path = None
-
     for file in output_files:
-        if ".json" in file and ".crc" not in file:
+        if _format in file and ".crc" not in file:
             output_path = os.path.join(env_vars[OUTPUT_PATH], desired_file_name)
             os.rename(os.path.join(env_vars[OUTPUT_PATH], file), output_path)
             break

@@ -17,9 +17,10 @@ from .training import TrainingTransformer
 from .service import ServiceTransformer
 from .data_source import DataSourceTransformer
 
-__all__ = ["trans_map"]
+__all__ = ["all_col_trans_map"]
 
-trans_map = {
+# All collection - all collections here has to have the same data schema
+all_col_trans_map = {
     DATASET: DatasetTransformer,
     PUBLICATION: PublicationTransformer,
     SOFTWARE: SoftwareTransformer,

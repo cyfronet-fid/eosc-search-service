@@ -1,3 +1,5 @@
+# pylint: disable=line-too-long,
+"""Validate transformation"""
 from typing import Dict, Sequence
 
 from pyspark.sql import SparkSession
@@ -17,7 +19,7 @@ def check_trans_consistency(
     for col_name, col_val in collections.items():
         _df = load_data(spark, col_val[FIRST_FILE_PATH], col_name)
         # Transform each first file from each collection
-        dfs[col_name] = trans.trans_map[col_name](spark)(_df)
+        dfs[col_name] = trans.all_col_trans_map[col_name](spark)(_df)
         collections[col_name][FIRST_FILE_DF] = dfs[col_name]
 
     dfs_to_join = list(dfs.values())
