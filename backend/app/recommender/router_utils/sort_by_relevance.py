@@ -38,7 +38,8 @@ async def get_candidates(
     qf: str,
     fq: list[str],
 ) -> [dict, list[dict]]:
-    """Get candidates IDs for sort by relevance and whole documents to present later on"""
+    """Get candidates IDs for sort by relevance and whole documents to present later on
+    """
     if panel_id == "data-source":
         raise RecommenderError(
             message="Sorting by relevance for data sources cannot be performed"
