@@ -97,7 +97,7 @@ export const deserialize = (
     case 'range':
       return new RangeDeserializer()
         .filter(filter)
-        .values(values as [number, number])
+        .values(values as [number, number] | string)
         .deserialize();
     case 'date':
       return new DateDeserializer()
