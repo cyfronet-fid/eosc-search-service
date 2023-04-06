@@ -30,11 +30,18 @@ export const DESERIALIZE_DATES_RANGE = (
     .startOf('day')
     .format(DATE_FORMAT)}`;
 };
+
+function isValidDateTimeOrEmptySign(value: string): boolean {
+  const regex = /\d{4}-(0[1-9]|1[0-2])-([0-2]\d|3[0-1])T\d{2}:\d{2}:\d{2}Z|\*/;
+  return regex.test(value);
+}
+
 export type dateRangeType =
   | [Date, Date]
   | [Date, null]
   | [null, Date]
-  | [null, null];
+  | [null, null]
+  | string;
 export class DateDeserializer extends FilterDeserializer<
   string,
   dateRangeType
@@ -44,11 +51,30 @@ export class DateDeserializer extends FilterDeserializer<
       throw Error(`Tag deserializer: filters or values aren't set.`);
     }
 
-    const [startDate, endDate] = this._value || [];
-    if (!startDate && !endDate) {
-      return undefined;
+    let deserialized: string | undefined;
+
+    if (typeof this._value === 'string') {
+      const [startStr, endStr] = this._value.split(
+        ` ${DATE_RANGE_SPLIT_SIGN} `
+      );
+      if (
+        !isValidDateTimeOrEmptySign(startStr) ||
+        !isValidDateTimeOrEmptySign(endStr)
+      ) {
+        return undefined;
+      }
+
+      const startFormatted = startStr === '*' ? null : new Date(startStr);
+      const endFormatted = endStr === '*' ? null : new Date(endStr);
+      deserialized = DESERIALIZE_DATES_RANGE(startFormatted, endFormatted);
+    } else {
+      const [startDate, endDate] = this._value || [];
+      if (!startDate && !endDate) {
+        return undefined;
+      }
+      deserialized = DESERIALIZE_DATES_RANGE(startDate, endDate);
     }
 
-    return `${this._filter}:[${DESERIALIZE_DATES_RANGE(startDate, endDate)}]`;
+    return `${this._filter}:[${deserialized}]`;
   }
 }
