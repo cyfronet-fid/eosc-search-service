@@ -21,17 +21,44 @@ export const DESERIALIZE_RANGE = (
 
   return `${start} ${RANGE_SPLIT_SIGN} ${end}`;
 };
+
+function isValidTimeOrEmptyRange(input: string): boolean {
+  const regex = /^((0[0-9]|[1-9][0-9]):([0-5]?\d):([0-5]?\d)|\*)$/;
+  return regex.test(input);
+}
+
+function toSeconds(time: string): number {
+  const [hours, minutes, seconds] = time.split(':').map(Number);
+  return hours * 3600 + minutes * 60 + seconds;
+}
+
 export class RangeDeserializer extends FilterDeserializer<
   string,
-  [number, number]
+  [number, number] | string
 > {
   override deserialize(): string | undefined {
     if (!this._filter) {
-      throw Error(`Tag deserializer: filters or values aren't set.`);
+      throw new Error(`Tag deserializer: filters or values aren't set.`);
     }
 
-    const [start, end] = this._value || [];
-    const deserializedRange = DESERIALIZE_RANGE(start, end);
+    let deserializedRange: string | undefined;
+
+    if (typeof this._value === 'string') {
+      const [startStr, endStr] = this._value.split(` ${RANGE_SPLIT_SIGN} `);
+      if (
+        !isValidTimeOrEmptyRange(startStr) ||
+        !isValidTimeOrEmptyRange(endStr)
+      ) {
+        return undefined;
+      }
+      const startFormatted = startStr === '*' ? null : toSeconds(startStr);
+      const endFormatted = endStr === '*' ? null : toSeconds(endStr);
+      deserializedRange = DESERIALIZE_RANGE(startFormatted, endFormatted);
+    } else {
+      const [start, end] = this._value || [];
+      deserializedRange = DESERIALIZE_RANGE(start, end);
+    }
+
     if (!deserializedRange) {
       return undefined;
     }
