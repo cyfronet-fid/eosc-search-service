@@ -126,7 +126,12 @@ export class ResultsWithPaginationComponent implements OnInit {
       .pipe(
         untilDestroyed(this),
         skip(1),
-        tap((pageNr) => this._loadNewPage(pageNr))
+        tap((pageNr) => {
+          setTimeout(() => {
+            window.scrollTo(0, 0);
+          }, 100);
+          this._loadNewPage(pageNr);
+        })
       )
       .subscribe();
   }
