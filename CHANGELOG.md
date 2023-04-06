@@ -1,5 +1,124 @@
 # Changelog
 
+## [2.1.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.0.0...v2.1.0) (2023-04-04)
+
+
+### Features
+
+* [[#451](https://github.com/cyfronet-fid/eosc-search-service/issues/451), [#453](https://github.com/cyfronet-fid/eosc-search-service/issues/453)] add providers and guidelines ([f1a8997](https://github.com/cyfronet-fid/eosc-search-service/commit/f1a899705e5201849445de3f61f0b6b09469d3f0))
+* [#483](https://github.com/cyfronet-fid/eosc-search-service/issues/483) add bar with go to search action ([efe8113](https://github.com/cyfronet-fid/eosc-search-service/commit/efe8113ff3af9f8cb3379bbb77cfa9ed3405aa1e))
+* customized commons privacy policy and tos ([891e8a9](https://github.com/cyfronet-fid/eosc-search-service/commit/891e8a961d08198b6e9a7b31341a50b5df34d00a))
+
+
+### Bug Fixes
+
+* [[#241](https://github.com/cyfronet-fid/eosc-search-service/issues/241)] Fix pagination bug on every 5th page ([95f6cfa](https://github.com/cyfronet-fid/eosc-search-service/commit/95f6cfa1d8822625560095964c05235acc2f8b86))
+
+## [2.0.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.14.1...v2.0.0) (2023-03-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* only in view maked
+
+### Features
+
+* [[#450](https://github.com/cyfronet-fid/eosc-search-service/issues/450)] sort by relevance ([4c9af9d](https://github.com/cyfronet-fid/eosc-search-service/commit/4c9af9d07a45d22a02082beecad1522f1b24aee3))
+* [[#461](https://github.com/cyfronet-fid/eosc-search-service/issues/461)] add sort by functionality in the search service ([917c20e](https://github.com/cyfronet-fid/eosc-search-service/commit/917c20ec8c379b0f7ebce9d5b32d5004913dfa43))
+* hotjar integration ([2b02327](https://github.com/cyfronet-fid/eosc-search-service/commit/2b023270a25e7012d359728786302b555795a95e))
+
+
+### Bug Fixes
+
+* the autocomplete list does not close after clicking outside the list ([48d62d1](https://github.com/cyfronet-fid/eosc-search-service/commit/48d62d1e6d926260d6b1d142686749c4be8e844c))
+
+## [1.14.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.14.0...v1.14.1) (2023-03-13)
+
+
+### Bug Fixes
+
+* uhd ([a739e2c](https://github.com/cyfronet-fid/eosc-search-service/commit/a739e2c3f1c944dbdbaacf401286b4da621cc6e5))
+
+## [1.14.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.13.0...v1.14.0) (2023-03-10)
+
+
+### Features
+
+* [[#2884](https://github.com/cyfronet-fid/eosc-search-service/issues/2884)-MP] Header Update ([c228104](https://github.com/cyfronet-fid/eosc-search-service/commit/c22810443f8d111f9a5360f90027a4d6c598bfca))
+* [[#448](https://github.com/cyfronet-fid/eosc-search-service/issues/448)] redirects to custom marketplace url ([dd1648e](https://github.com/cyfronet-fid/eosc-search-service/commit/dd1648e8be845aa9ba4d43a3b8ae11db4730fe03))
+* [[#468](https://github.com/cyfronet-fid/eosc-search-service/issues/468)] Consistent look and feel ([8b8bcde](https://github.com/cyfronet-fid/eosc-search-service/commit/8b8bcde8e5eea772113d96a4fa91e0a779437c6c))
+* add relations and relations_long ([b1c77ec](https://github.com/cyfronet-fid/eosc-search-service/commit/b1c77ec2583a5d9653b736b4894642c987eb6bb4))
+* load eosc common assets based on env variable ([33c82fb](https://github.com/cyfronet-fid/eosc-search-service/commit/33c82fba0fa11b74867d93d133e7cd721ea58f30))
+
+
+### Bug Fixes
+
+* [[#462](https://github.com/cyfronet-fid/eosc-search-service/issues/462)] recommendations for services ([1f8b702](https://github.com/cyfronet-fid/eosc-search-service/commit/1f8b702720a71b39cac2bf4226f03e78839eeaa1))
+
+## [1.13.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.12.0...v1.13.0) (2023-02-27)
+
+
+### Features
+
+* handle new languages ([131cbaa](https://github.com/cyfronet-fid/eosc-search-service/commit/131cbaac043cbbec8a755614878901d0455e31b8))
+* remove commas from authors ([11c16ae](https://github.com/cyfronet-fid/eosc-search-service/commit/11c16ae9f3484b2545471d6416991f3df2f45fcc))
+* search improve ([9bb58e7](https://github.com/cyfronet-fid/eosc-search-service/commit/9bb58e74f9f5c1bb6c9c8856eabaae6729f8e1fc))
+* search improvements for [#404](https://github.com/cyfronet-fid/eosc-search-service/issues/404) and [#397](https://github.com/cyfronet-fid/eosc-search-service/issues/397) and [#319](https://github.com/cyfronet-fid/eosc-search-service/issues/319) ([5d49764](https://github.com/cyfronet-fid/eosc-search-service/commit/5d49764c83ffdabf93329dcc763930424bd79a7f))
+* search improvements for [#404](https://github.com/cyfronet-fid/eosc-search-service/issues/404) and [#397](https://github.com/cyfronet-fid/eosc-search-service/issues/397) and [#319](https://github.com/cyfronet-fid/eosc-search-service/issues/319) ([f316fd5](https://github.com/cyfronet-fid/eosc-search-service/commit/f316fd5695b75954548bfc004cd6b13f411d3ff2))
+* search improvements for [#404](https://github.com/cyfronet-fid/eosc-search-service/issues/404) and [#397](https://github.com/cyfronet-fid/eosc-search-service/issues/397) and [#319](https://github.com/cyfronet-fid/eosc-search-service/issues/319) ([9c70d59](https://github.com/cyfronet-fid/eosc-search-service/commit/9c70d59b1be38616c584def3f2372345addb0039))
+* search minor tests fixes ([20a665b](https://github.com/cyfronet-fid/eosc-search-service/commit/20a665bd6e3320b4e285161a5a1a0d785cc3fca0))
+* search pagination fix ([7b7a1e0](https://github.com/cyfronet-fid/eosc-search-service/commit/7b7a1e07c1f01ae4cb5dccd40b9eb7eac43787ce))
+
+## [1.12.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.11.1...v1.12.0) (2023-02-03)
+
+
+### Features
+
+* add page loader ([8dd8216](https://github.com/cyfronet-fid/eosc-search-service/commit/8dd821661355fbace93175a0ab13b23b7ff2f682))
+* improve loading time ([1fdfcdb](https://github.com/cyfronet-fid/eosc-search-service/commit/1fdfcdb5aa81a34844a9d3519e319c67e69623e6))
+
+## [1.11.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.11.0...v1.11.1) (2023-01-25)
+
+
+### Bug Fixes
+
+* recommender system ([aaa4ff2](https://github.com/cyfronet-fid/eosc-search-service/commit/aaa4ff2489d1c65df0c7afb061a1675dde274c3a)), closes [#417](https://github.com/cyfronet-fid/eosc-search-service/issues/417)
+* update recommendations fields ([7b82aa7](https://github.com/cyfronet-fid/eosc-search-service/commit/7b82aa73a483c4145a615d4f0c5e0407c5e5188a))
+
+## [1.11.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.10.1...v1.11.0) (2023-01-17)
+
+
+### Features
+
+* add Google Analytics ([85c1ea5](https://github.com/cyfronet-fid/eosc-search-service/commit/85c1ea5c4b551706118f00fdf9b996fc228077c3))
+
+
+### Bug Fixes
+
+* access type mapping ([e880df3](https://github.com/cyfronet-fid/eosc-search-service/commit/e880df3a7767aa01179f5733181573f54c64881b))
+* session reset in user actions ([b31332a](https://github.com/cyfronet-fid/eosc-search-service/commit/b31332a577893e3f90ca4ed85830d83b5fa85b1c))
+* user actions for signed-in user ([12863e0](https://github.com/cyfronet-fid/eosc-search-service/commit/12863e0472ecb0a6accebbcd9deb11bb3cdcc268))
+
+## [1.10.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.10.0...v1.10.1) (2023-01-10)
+
+
+### Bug Fixes
+
+* training user actions ([3120c4d](https://github.com/cyfronet-fid/eosc-search-service/commit/3120c4dda72d6eec50a0a409b9bad77a45c89877))
+
+## [1.10.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.9.2...v1.10.0) (2023-01-05)
+
+
+### Features
+
+* [[#407](https://github.com/cyfronet-fid/eosc-search-service/issues/407)] add disclaimer about seearch engine ([45602af](https://github.com/cyfronet-fid/eosc-search-service/commit/45602aff83a7a77e64be92fdc49ddb33f47671e1))
+* search box and user announcement ([8ccd54c](https://github.com/cyfronet-fid/eosc-search-service/commit/8ccd54cad4a11039237f85c642ac7cb9a85a940c))
+
+
+### Bug Fixes
+
+* change type of user action from dict to string ([2e4de25](https://github.com/cyfronet-fid/eosc-search-service/commit/2e4de25f24365f3361643ad69bb17ec027da2efe))
+
 ## [1.9.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v1.8.0...v1.9.0) (2022-11-30)
 
 

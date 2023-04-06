@@ -3,9 +3,9 @@ version: '3.9'
 services:
   api:
     build: ./backend
-    command: uvicorn app.main:app --workers 1 --host 0.0.0.0 --port 8000
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     ports:
-      - "127.0.0.1:8000:8000"
+      - "8000:8000"
     networks:
       - ess-local
     environment:
@@ -33,7 +33,7 @@ services:
   db:
     image: postgres:14
     ports:
-      - "127.0.0.1:5442:5432"
+      - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -45,7 +45,7 @@ services:
   solr1:
     image: solr:8.11
     ports:
-      - "127.0.0.1:8983:8983"
+      - "8983:8983"
     volumes:
       - solr-data:/var/solr
       - ./solr/config/configsets:/configsets
@@ -61,7 +61,7 @@ services:
     image: zookeeper:3.7
     restart: always
     ports:
-      - "127.0.0.1:2181:2181"
+      - "2181:2181"
     volumes:
       - zoo1-data:/data
       - zoo1-datalog:/datalog
@@ -72,9 +72,15 @@ services:
 
   rabbitmq:
     image: itzg/rabbitmq-stomp:latest
+    networks:
+      - ess-local
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
     ports:
-      - "127.0.0.1:61613:61613"
-      - "127.0.0.1:15672:15672"  # admin interface for rabbitmqadmin
+      - "5672:5672"
+      - "61613:61613"
+      - "15672:15672"  # admin interface for rabbitmqadmin
 
 volumes:
   db-data:
