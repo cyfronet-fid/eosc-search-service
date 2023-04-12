@@ -21,7 +21,8 @@ export class RedirectService {
     const sourceUrl = this._router.url.includes('?')
       ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
       : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
-    const sourceQueryParams = sourceUrl.split('?')[1];
+    const sourceQueryParams =
+      sourceUrl.split('?')[1] + `&pv=search/${this._customRoute.collection()}`;
 
     const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
     const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
