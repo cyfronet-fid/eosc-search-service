@@ -60,6 +60,8 @@ async def call_navigate_api(app: FastAPI, client: AsyncClient) -> Response:
         app.url_path_for("web:register-navigation-user-action"),
         params={
             "url": "https://anothersite.org/",
+            "pv": "search/all",
+            "q": "*",
             "resource_id": "123",
             "resource_type": "service",
             "page_id": "/search/all",
