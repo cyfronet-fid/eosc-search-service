@@ -27,7 +27,9 @@ logger = logging.getLogger(__name__)
 async def register_navigation_user_action(
     request: Request,
     background_tasks: BackgroundTasks,
+    q: str,
     url: str,
+    pv: str,
     resource_id: str,
     resource_type: Literal[
         "service",
@@ -50,7 +52,13 @@ async def register_navigation_user_action(
     if url.startswith("/"):
         url = UI_BASE_URL + url
 
-    response = RedirectResponse(status_code=303, url=url)
+    url_params = url
+    if "?id" in url:
+        url_params = url + "&pv=" + pv + "&q=" + q
+    else:
+        url_params = url + "?pv=" + pv + "&q=" + q
+
+    response = RedirectResponse(status_code=303, url=url_params)
 
     try:
         cookie(request)

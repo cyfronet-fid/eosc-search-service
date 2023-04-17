@@ -111,7 +111,6 @@ import { RedirectService } from '@collections/services/redirect.service';
                   result.type.label
                 )
               "
-              target="_blank"
               class="list-group-item list-group-item-action result"
               >{{ result.title }}</a
             >

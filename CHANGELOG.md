@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.1.0...v2.1.1) (2023-04-06)
+
+
+### Bug Fixes
+
+* close stomp connection after send ([52dbbca](https://github.com/cyfronet-fid/eosc-search-service/commit/52dbbca2a5bb848edfed6233bbb39128039c7847))
+
 ## [2.1.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.0.0...v2.1.0) (2023-04-04)
 
 
