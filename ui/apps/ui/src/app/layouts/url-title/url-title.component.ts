@@ -6,7 +6,7 @@ import { attachHighlightsToTxt, stripHighlightedFromHtml } from '../utils';
 @Component({
   selector: 'ess-url-title',
   template: `<h6>
-    <a *ngIf="url; else onlyTitleRef" [attr.href]="url" target="_blank">
+    <a *ngIf="url; else onlyTitleRef" [attr.href]="url">
       <b [innerHTML]="highlightedTitle"></b>
     </a>
     <ng-template #onlyTitleRef
