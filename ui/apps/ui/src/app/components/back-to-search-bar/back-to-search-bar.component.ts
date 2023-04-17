@@ -23,8 +23,6 @@ export class BackToSearchBarComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.q = params['q'];
       this.pv = params['pv'];
-      console.log(this.pv);
-      console.log(this.q);
     });
   }
 }
