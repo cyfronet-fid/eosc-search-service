@@ -22,7 +22,6 @@ from transform.utils.send import (
     failed_files,
 )
 from transform.transformers.provider import upload_providers
-from transform.schemas.expected_all_col_schema import expected_all_col_schema
 
 
 def upload_all_col_data() -> None:
@@ -62,7 +61,7 @@ def upload_all_col_data() -> None:
             # Check the consistency of transformation
             if col_name != GUIDELINE:
                 try:
-                    check_schema_after_trans(df_trans, expected_all_col_schema)
+                    check_schema_after_trans(df_trans, col_prop[OUTPUT_SCHEMA])
                 except AssertionError:
                     print_errors(
                         "consistency_fail", failed_files, col_name, data_point, logger

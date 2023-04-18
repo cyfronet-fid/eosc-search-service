@@ -14,9 +14,9 @@ class BaseTransformer(ABC):
     def __init__(
         self,
         desired_type: str,
-        cols_to_add: [tuple[str, ...], None],
-        cols_to_drop: [tuple[str, ...], None],
-        cols_to_rename: [dict[str, str], None],
+        cols_to_add: tuple[str, ...] | None,
+        cols_to_drop: tuple[str, ...] | None,
+        cols_to_rename: dict[str, str] | None,
         spark: SparkSession,
     ):
         self.type = desired_type
@@ -51,7 +51,7 @@ class BaseTransformer(ABC):
         if self._cols_to_add:
             df = add_columns(df, self._cols_to_add)
 
-        df = add_tg_fields(df, self.type)
+        df = add_tg_fields(df)
         df = replace_empty_str(df)
         df = df.select(sorted(df.columns))
 
@@ -75,7 +75,7 @@ class BaseTransformer(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def apply_complex_trans(self, df: DataFrame) -> [DataFrame, None]:
+    def apply_complex_trans(self, df: DataFrame) -> DataFrame | None:
         """Harvest oag properties that requires more complex transformations
         Basically from those harvested properties there will be created another dataframe
         which will be later on merged with the main dataframe"""
@@ -89,7 +89,7 @@ class BaseTransformer(ABC):
 
     @property
     @abstractmethod
-    def harvested_schema(self) -> [StructType, None]:
+    def harvested_schema(self) -> StructType | None:
         """Schema of harvested properties"""
         raise NotImplementedError
 

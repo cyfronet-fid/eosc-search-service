@@ -17,6 +17,7 @@ from transform.utils.loader import (
     load_data,
     OUTPUT_PATH,
     OUTPUT_FORMAT,
+    OUTPUT_SCHEMA,
 )
 from transform.utils.utils import print_errors
 from transform.utils.send import (
@@ -25,6 +26,9 @@ from transform.utils.send import (
 )
 from transform.utils.save import save_df
 from transform.conf.logger import Log4J
+from transform.utils.validate import (
+    check_schema_after_trans,
+)
 
 
 PROVIDER_TYPE = "provider"
@@ -106,6 +110,7 @@ class ProviderTransformer(BaseTransformer):
 def upload_providers(env_vars: dict, spark: SparkSession, logger: Log4J) -> None:
     """Upload providers to the separate collection"""
     provider_input_dir = env_vars[SEPARATE_COLLECTION][PROVIDER][PATH]
+    provider_output_schema = env_vars[SEPARATE_COLLECTION][PROVIDER][OUTPUT_SCHEMA]
     files = sorted(os.listdir(provider_input_dir))
 
     for file_num, file in enumerate(tqdm(files, desc=PROVIDER)):
@@ -117,6 +122,12 @@ def upload_providers(env_vars: dict, spark: SparkSession, logger: Log4J) -> None
             df_trans = ProviderTransformer(spark)(df)
         except (ValueError, AssertionError, KeyError):
             print_errors("transform_fail", failed_files, PROVIDER, file, logger)
+            continue
+
+        try:
+            check_schema_after_trans(df_trans, provider_output_schema)
+        except AssertionError:
+            print_errors("consistency_fail", failed_files, PROVIDER, file, logger)
             continue
 
         save_df(

@@ -9,11 +9,6 @@ from transform.transformers.base.marketplace import (
     MarketplaceBaseTransformer,
     SERVICE_TYPE,
 )
-from transform.schemas.unique_cols_name import (
-    UNIQUE_OAG_AND_TRAINING_COLS,
-    UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
-    UNIQUE_GUIDELINES_COLS,
-)
 from transform.utils.utils import sort_schema
 from transform.schemas.properties_name import (
     BEST_ACCESS_RIGHT,
@@ -44,13 +39,9 @@ class ServiceTransformer(MarketplaceBaseTransformer):
         )
 
     @property
-    def cols_to_add(self) -> tuple[str, ...]:
+    def cols_to_add(self) -> None:
         """Add those columns to the dataframe"""
-        return (
-            *UNIQUE_OAG_AND_TRAINING_COLS,
-            *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
-            *UNIQUE_GUIDELINES_COLS,
-        )
+        return None
 
     @property
     def cols_to_drop(self) -> tuple[str, ...]:

@@ -1,4 +1,4 @@
-# pylint: disable=line-too-long
+# pylint: disable=line-too-long, wildcard-import
 """Load data"""
 import os
 import json
@@ -6,6 +6,7 @@ from datetime import date
 from dotenv import load_dotenv
 from pyspark.sql import SparkSession
 from transform.conf.s3 import connect_to_s3
+from transform.schemas.output import *
 
 
 DATASET = "DATASET"
@@ -32,6 +33,7 @@ TRAINING_ADDRESS = "TRAINING_ADDRESS"
 INPUT_FORMAT = "INPUT_FORMAT"
 OUTPUT_FORMAT = "OUTPUT_FORMAT"
 OUTPUT_PATH = "OUTPUT_PATH"
+OUTPUT_SCHEMA = "OUTPUT_SCHEMA"
 
 SEND_TO_SOLR = "SEND_TO_SOLR"
 SOLR_ADDRESS = "SOLR_ADDRESS"
@@ -87,7 +89,7 @@ def load_data(
     """Load data based on the provided data path"""
     if col_name in {SERVICE, DATASOURCE, PROVIDER}:
         return spark.read.format(_format).option("multiline", True).load(data_path)
-    elif col_name == TRAINING:
+    if col_name == TRAINING:
         return spark.read.json(spark.sparkContext.parallelize([json.dumps(data_path)]))
     return spark.read.format(_format).load(data_path)
 
@@ -149,30 +151,38 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
                 TRAINING_ADDRESS,
                 "https://beta.providers.eosc-portal.eu/api/trainingResource/all",
             ),
+            OUTPUT_SCHEMA: training_output_schema,
         },
         GUIDELINE: {
             ADDRESS: os.environ.get(
                 GUIDELINE_ADDRESS,
                 "https://beta.providers.eosc-portal.eu/api/interoperabilityRecord/all",
             ),
+            OUTPUT_SCHEMA: guideline_output_schema,
         },
         DATASOURCE: {
             PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
+            OUTPUT_SCHEMA: data_source_output_schema,
         },
         SERVICE: {
             PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
+            OUTPUT_SCHEMA: service_output_schema,
         },
         OTHER_RP: {
             PATH: os.environ.get(OTHER_RP_PATH, "input_data/other_rp/"),
+            OUTPUT_SCHEMA: other_rp_output_schema,
         },
         SOFTWARE: {
             PATH: os.environ.get(SOFTWARE_PATH, "input_data/software/"),
+            OUTPUT_SCHEMA: software_output_schema,
         },
         DATASET: {
             PATH: os.environ.get(DATASET_PATH, "input_data/dataset/"),
+            OUTPUT_SCHEMA: dataset_output_schema,
         },
         PUBLICATION: {
             PATH: os.environ.get(PUBLICATION_PATH, "input_data/publication/"),
+            OUTPUT_SCHEMA: publication_output_schema,
         },
     }
     if solr_flag:
@@ -186,6 +196,7 @@ def load_vars_sep_collection(solr_flag: bool) -> dict:
     sep_collections = {
         PROVIDER: {
             PATH: os.environ.get(PROVIDER_PATH, "input_data/provider/"),
+            OUTPUT_SCHEMA: provider_output_schema,
         }
     }
     if solr_flag:

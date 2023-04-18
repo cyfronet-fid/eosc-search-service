@@ -21,8 +21,8 @@ class OagBaseTransformer(BaseTransformer):
     def __init__(
         self,
         desired_type: str,
-        cols_to_add: tuple[str, ...],
-        cols_to_drop: tuple[str, ...],
+        cols_to_add: tuple[str, ...] | None,
+        cols_to_drop: tuple[str, ...] | None,
         spark: SparkSession,
     ):
         super().__init__(

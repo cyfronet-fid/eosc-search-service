@@ -1,9 +1,4 @@
 """Transform software"""
-from transform.schemas.unique_cols_name import (
-    UNIQUE_SERVICE_COLUMNS,
-    UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
-    UNIQUE_GUIDELINES_COLS,
-)
 from transform.transformers.base.oag import OagBaseTransformer
 
 
@@ -17,32 +12,7 @@ class SoftwareTransformer(OagBaseTransformer):
     @property
     def cols_to_add(self) -> tuple[str, ...]:
         """Add those columns to the dataframe"""
-        return (
-            *UNIQUE_SERVICE_COLUMNS,
-            *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
-            *UNIQUE_GUIDELINES_COLS,
-            "catalogue",
-            "contactgroup",
-            "contactperson",
-            "size",
-            "subtitle",
-            "version",
-            "content_type",
-            "duration",
-            "eosc_provider",
-            "horizontal",
-            "geographical_availabilities",
-            "pid",
-            "learning_outcomes",
-            "level_of_expertise",
-            "license",
-            "qualification",
-            "related_services",
-            "resource_type",
-            "scientific_domains",
-            "target_group",
-            "tool",
-        )
+        return ("subtitle",)
 
     @property
     def cols_to_drop(self) -> tuple[str, ...]:
