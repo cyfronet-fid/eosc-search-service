@@ -1,8 +1,8 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
 """Transform trainings"""
 from itertools import chain
-from dateutil import parser
 from datetime import datetime
+from dateutil import parser
 import pycountry
 from pyspark.sql.functions import split
 from pyspark.sql import SparkSession
@@ -18,11 +18,6 @@ from transform.transformations.common import *
 from transform.transformers.base.base import BaseTransformer
 from transform.utils.utils import sort_schema
 from transform.schemas.properties_name import *
-from transform.schemas.unique_cols_name import (
-    UNIQUE_SERVICE_COLUMNS,
-    UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
-    UNIQUE_GUIDELINES_COLS,
-)
 
 
 class TrainingTransformer(BaseTransformer):
@@ -96,37 +91,9 @@ class TrainingTransformer(BaseTransformer):
         )
 
     @property
-    def cols_to_add(self) -> tuple[str, ...]:
+    def cols_to_add(self) -> None:
         """Add those columns to the dataframe"""
-        return (
-            *UNIQUE_SERVICE_COLUMNS,
-            *UNIQUE_DATA_SOURCE_COLS_FOR_SERVICE,
-            *UNIQUE_GUIDELINES_COLS,
-            "author_pids",
-            "contactgroup",
-            "contactperson",
-            "country",
-            "document_type",
-            "documentation_url",
-            "doi",
-            "fos",
-            "funder",
-            "horizontal",
-            "pid",
-            "programming_language",
-            "publisher",
-            "relations",
-            "relations_long",
-            "research_community",
-            "sdg",
-            "size",
-            "source",
-            "subtitle",
-            "tool",
-            "usage_counts_downloads",
-            "usage_counts_views",
-            "version",
-        )
+        return None
 
     @property
     def cols_to_drop(self) -> tuple:
@@ -163,15 +130,15 @@ class TrainingTransformer(BaseTransformer):
         tr_content_resource_type-video -> Video
         target_user-researchers -> Researchers"""
 
-        for col in cols_list:
-            df_raw = df.select(col).collect()
+        for _col in cols_list:
+            df_raw = df.select(_col).collect()
             df_column = []
 
             for column in chain.from_iterable(df_raw):
                 df_column.append([row.split("-")[-1].capitalize() for row in column])
 
-            self.harvested_properties[col] = df_column
-            df = df.drop(col)
+            self.harvested_properties[_col] = df_column
+            df = df.drop(_col)
 
         return df
 

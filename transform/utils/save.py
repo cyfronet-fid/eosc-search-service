@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name, logging-fstring-interpolation, broad-except
+# pylint: disable=invalid-name, logging-fstring-interpolation, broad-except, too-many-arguments
 """Save dataframe"""
 import os
 import shutil
@@ -27,6 +27,7 @@ def save_df(
     mode="overwrite",
     verbose=False,
 ) -> None:
+    """Save dataframe"""
     if col_name == GUIDELINE:
         save_pd_df(df, path, verbose)
     else:

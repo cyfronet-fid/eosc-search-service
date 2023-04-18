@@ -43,9 +43,11 @@ def add_typed_columns(arr_to_add: tuple, str_to_add: tuple, df: DataFrame) -> Da
 
 
 def add_columns(df: DataFrame, cols: tuple) -> DataFrame:
-    """Add columns to a dataframe"""
+    """Add columns to a dataframe if they are not present already.
+    Used when certain dfs of a given type contain certain cols, but others don't"""
     for c in cols:
-        df = df.withColumn(c, lit(None))
+        if c not in df.columns:
+            df = df.withColumn(c, lit(None))
 
     return df
 

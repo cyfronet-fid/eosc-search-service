@@ -391,18 +391,18 @@ def simplify_indicators(df: DataFrame) -> DataFrame:
     return df
 
 
-def add_tg_fields(df: DataFrame, col_name: str) -> DataFrame:
+def add_tg_fields(df: DataFrame) -> DataFrame:
     """Add copy of certain fields for solr text_general
     strings - type used for filtering
     text_general - type used for searching"""
-    if col_name == "provider":
+    columns = df.columns
+
+    if AUTHOR_NAMES in columns:
+        df = df.withColumn(AUTHOR_NAMES_TG, col(AUTHOR_NAMES))
+    if KEYWORDS in columns:
+        df = df.withColumn(KEYWORDS_TG, col(KEYWORDS))
+    if TAG_LIST in columns:
         df = df.withColumn(TAG_LIST_TG, col(TAG_LIST))
-    else:
-        df = (
-            df.withColumn(AUTHOR_NAMES_TG, col(AUTHOR_NAMES))
-            .withColumn(KEYWORDS_TG, col(KEYWORDS))
-            .withColumn(TAG_LIST_TG, col(TAG_LIST))
-        )
 
     return df
 
