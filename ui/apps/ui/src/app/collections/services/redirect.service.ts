@@ -12,7 +12,8 @@ export class RedirectService {
   internalUrl(
     externalUrl: string | null,
     id: string,
-    type: string
+    type: string,
+    recommendation: boolean = false
   ): string | null {
     if (externalUrl === null) {
       return null;
@@ -26,6 +27,6 @@ export class RedirectService {
 
     const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
     const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
-    return `${destinationUrl}?${destinationQueryParams}&resource_id=${id}&resource_type=${type}&page_id=/search/${this._customRoute.collection()}`;
+    return `${destinationUrl}?${destinationQueryParams}&resource_id=${id}&resource_type=${type}&page_id=/search/${this._customRoute.collection()}&recommendation=${recommendation}`;
   }
 }
