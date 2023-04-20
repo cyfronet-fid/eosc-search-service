@@ -24,6 +24,7 @@ dataset_output_schema = {
     "sdg": "array<string>",
     "size": "string",
     "source": "array<string>",
+    "subtitle": "string",  # Very few records have subtitle
     "title": "string",
     "type": "string",
     "unified_categories": "array<string>",
