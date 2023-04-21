@@ -1,5 +1,29 @@
 # Changelog
 
+## [2.2.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.1.1...v2.2.0) (2023-04-21)
+
+
+### Features
+
+* [[#452](https://github.com/cyfronet-fid/eosc-search-service/issues/452)] introduce new trainings ([a3ec559](https://github.com/cyfronet-fid/eosc-search-service/commit/a3ec559cb6f9e6fa914e94868ead19a0cf17d90e))
+* [[#507](https://github.com/cyfronet-fid/eosc-search-service/issues/507)] transform validation static ([860f9e9](https://github.com/cyfronet-fid/eosc-search-service/commit/860f9e97113a89e56ffc091a7618e7a1e2165adf))
+* [[#509](https://github.com/cyfronet-fid/eosc-search-service/issues/509)] move guidelines to all col ([58b6e15](https://github.com/cyfronet-fid/eosc-search-service/commit/58b6e151547ebaef387475cdb6bf6565754e6cb1))
+* back to search redirects [#523](https://github.com/cyfronet-fid/eosc-search-service/issues/523) ([ce6213e](https://github.com/cyfronet-fid/eosc-search-service/commit/ce6213e8c40d20bde2c51a549a08911ea8aee2a9))
+* proper routing for tranings [#533](https://github.com/cyfronet-fid/eosc-search-service/issues/533) ([5285540](https://github.com/cyfronet-fid/eosc-search-service/commit/5285540717c468a6354c3d3b923c961578bda3d4))
+* proper routing for tranings [#533](https://github.com/cyfronet-fid/eosc-search-service/issues/533) remove logs ([c2405cf](https://github.com/cyfronet-fid/eosc-search-service/commit/c2405cf15e1d5545d76825d13ab94bd5448b39b7))
+* sort by relevance after facade adjustments ([5bf3937](https://github.com/cyfronet-fid/eosc-search-service/commit/5bf3937010dd87e446a56e074e55aebb2b159530))
+
+
+### Bug Fixes
+
+* [[#278](https://github.com/cyfronet-fid/eosc-search-service/issues/278)] Date does not disappear with other filters ([6b27c4d](https://github.com/cyfronet-fid/eosc-search-service/commit/6b27c4dc8327e096faa3dfa311ec0d63653bbce3))
+* [[#283](https://github.com/cyfronet-fid/eosc-search-service/issues/283)] Range does not disappear with other filters ([e920814](https://github.com/cyfronet-fid/eosc-search-service/commit/e920814f5d7673b1029a9b924e0344e1d40adb15))
+* [[#428](https://github.com/cyfronet-fid/eosc-search-service/issues/428)] Recommendation panel user action root content fixed ([6f83c82](https://github.com/cyfronet-fid/eosc-search-service/commit/6f83c82311337076b516693f8077c7431263218a))
+* [[#505](https://github.com/cyfronet-fid/eosc-search-service/issues/505)] simplify persistent IDs ([494db2c](https://github.com/cyfronet-fid/eosc-search-service/commit/494db2cb5b82321dade3e29bf29f47c3ef7603a2))
+* [[#524](https://github.com/cyfronet-fid/eosc-search-service/issues/524)] User is redirected to the top of the page after pagination ([509897c](https://github.com/cyfronet-fid/eosc-search-service/commit/509897cbb2ee4293bd87090949fdaf3ac5948b64))
+* [[#543](https://github.com/cyfronet-fid/eosc-search-service/issues/543)] remove unnecessary cols ([c985106](https://github.com/cyfronet-fid/eosc-search-service/commit/c985106cf63e3bd6b39a21a22bcd61f5e8958c18))
+* subtitle for datasets included ([1475473](https://github.com/cyfronet-fid/eosc-search-service/commit/1475473175ac7cf9d3cc0cbb3bf550f4365adfd0))
+
 ## [2.1.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.1.0...v2.1.1) (2023-04-06)
 
 
