@@ -1,0 +1,33 @@
+export interface IGuideline {
+  author_names?: string[];
+  author_names_tg?: string[];
+  author_types?: string[];
+  description?: string[];
+  doi?: string[] | null;
+  eosc_guideline_type?: string;
+  eosc_integration_options?: string[];
+  eosc_related_standards?: string[];
+  id?: string;
+  publication_date?: string;
+  publication_year?: number;
+  right_id?: string[];
+  right_title?: string[];
+  right_uri?: string[];
+  status?: string;
+  title?: string[];
+  type?: string;
+  type_info?: string[];
+  updated_at?: string;
+  keywords?: string[];
+  _version_?: number;
+  facets?: object;
+  domain?: string[];
+  identifier_type?: string[];
+  catalogue?: string[];
+  given_name?: string[];
+  family_name?: string[];
+  affiliation?: string[];
+  affiliation_identifier?: string[];
+  name_identifier?: string[];
+  provider?: string[];
+}
