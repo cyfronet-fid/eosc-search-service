@@ -8,12 +8,12 @@
             <img width="300px" [src]="'./assets/engineering.png'" alt="" />
           </div>
           <div style="padding-right: 64px;">
-            <p class="ig-about-title" i18n>{{  this.interoperabilityGuidelineItem?.title || '-'  }}</p>
+            <p class="ig-about-title" i18n>{{  this.interoperabilityGuidelineItem?.title ?? '-' }}</p>
             <p class="ig-about-subtitle" i18n>
-              {{  getEoscGuidelineType(this.interoperabilityGuidelineItem?.eosc_guideline_type || '-')  }}
+              {{ ( this.interoperabilityGuidelineItem?.eosc_guideline_type ?? '-' | guidelineTypePipe ) }}
             </p>
             <p class="ig-about-subtitle" i18n>
-              {{  this.interoperabilityGuidelineItem?.type_info || '-'  }}
+              {{  this.interoperabilityGuidelineItem?.type_info ?? '-' }}
             </p>
           </div>
         </div>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="about-description" i18n>
-        {{  this.interoperabilityGuidelineItem?.description || '-'  }}
+        {{  this.interoperabilityGuidelineItem?.description ?? '-' }}
       </div>
       <div class="ig-details-wrapper">
         <div class="header">
@@ -30,25 +30,25 @@
         </div>
         <div class="details">
           <div class="col-4 left-column">
-            <p class="section" i18n>Year of Publication<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.publication_year || '-'  }}</span></p>
-            <p class="section" i18n>Created<br><span class="section-description">{{ transformDate(this.interoperabilityGuidelineItem?.publication_date) || '-'  }}</span></p>
-            <p class="section" i18n>Updated<br><span class="section-description">{{ transformDate(this.interoperabilityGuidelineItem?.updated_at) || '-'  }}</span></p>
-            <p class="section" i18n>Status<br><span class="section-description">{{ getStatus(this.interoperabilityGuidelineItem?.status || '-')  }}</span></p>
-            <p class="section" i18n>Domain<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.domain || '-'  }}</span></p>
+            <p class="section" i18n>Year of Publication<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.publication_year ?? '-' }}</span></p>
+            <p class="section" i18n>Created<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.publication_date ?? '-' | transformDatePipe }}</span></p>
+            <p class="section" i18n>Updated<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.updated_at ?? '-' | transformDatePipe }}</span></p>
+            <p class="section" i18n>Status<br><span class="section-description">{{ ( this.interoperabilityGuidelineItem?.status ?? '-' | statusPipe ) }}</span></p>
+            <p class="section" i18n>Domain<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.domain ?? '-' }}</span></p>
             <p class="section" i18n>Resource Type General<br><span class="section-description">-</span></p>
           </div>
           <div class="col-4 column">
-            <p class="section" i18n>Identifier Type<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.identifier_type || '-'  }}</span></p>
-            <p class="section" i18n>Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.doi || '-'  }}</span></p>
-            <p class="section" i18n>EOSC Related Standards<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.eosc_related_standards || '-' }}</span></p>
-            <p class="section" i18n>Catalogue<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.catalogue || '-'  }}</span></p>
+            <p class="section" i18n>Identifier Type<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.identifier_type ?? '-' }}</span></p>
+            <p class="section" i18n>Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.doi ?? '-' }}</span></p>
+            <p class="section" i18n>EOSC Related Standards<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.eosc_related_standards ?? '-' }}</span></p>
+            <p class="section" i18n>Catalogue<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.catalogue ?? '-' }}</span></p>
             <p class="section" i18n>EOSC Integration Options<br>
               <span class="section-description" style="padding-top: 6px; padding-bottom: 6px;" *ngFor="let option of this.interoperabilityGuidelineItem?.eosc_integration_options">{{ option }}<br></span></p>
           </div>
           <div class="col-4 right-column">
-            <p class="section" i18n>Rights<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.right_title || '-'  }}</span></p>
-            <p class="section" i18n>Rights URI<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.right_uri || '-' }}</span></p>
-            <p class="section" i18n>Rights Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.right_id || '-'  }}</span></p>
+            <p class="section" i18n>Rights<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.right_title ?? '-' }}</span></p>
+            <p class="section" i18n>Rights URI<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.right_uri ?? '-' }}</span></p>
+            <p class="section" i18n>Rights Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.right_id ?? '-' }}</span></p>
           </div>
         </div>
       </div>
@@ -58,16 +58,16 @@
         </div>
         <div class="details">
           <div class="col-4 left-column">
-            <p class="section" i18n>Provider<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.provider  || '-' }}</span></p>
-            <p class="section" i18n>Creator Name<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_names  || '-' }}</span></p>
-            <p class="section" i18n>Name Type<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_types  || '-' }}</span></p>
-            <p class="section" i18n>Given Name<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.given_name  || '-' }}</span></p>
-            <p class="section" i18n>Family Name<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.family_name  || '-' }}</span></p>
+            <p class="section" i18n>Provider<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.provider  ?? '-' }}</span></p>
+            <p class="section" i18n>Creator Name<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_names  ?? '-' }}</span></p>
+            <p class="section" i18n>Name Type<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_types  ?? '-' }}</span></p>
+            <p class="section" i18n>Given Name<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.given_name  ?? '-' }}</span></p>
+            <p class="section" i18n>Family Name<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.family_name  ?? '-' }}</span></p>
           </div>
           <div class="col-4 column">
-            <p class="section" i18n>Name Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.name_identifier || '-' }}</span></p>
-            <p class="section" i18n>Affiliation<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.affiliation || '-' }}</span></p>
-            <p class="section" i18n>Affiliation Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.affiliation_identifier || '-' }}</span></p>
+            <p class="section" i18n>Name Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.name_identifier ?? '-' }}</span></p>
+            <p class="section" i18n>Affiliation<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.affiliation ?? '-' }}</span></p>
+            <p class="section" i18n>Affiliation Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.affiliation_identifier ?? '-' }}</span></p>
           </div>
           <div class="col-4 right-column">
           </div>

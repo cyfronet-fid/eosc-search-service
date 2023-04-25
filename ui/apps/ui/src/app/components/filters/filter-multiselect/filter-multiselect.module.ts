@@ -11,6 +11,7 @@ import { FilterLabelModule } from '@components/filters/filters-layouts/filter-la
 import { FirstNValuesComponent } from './first-n-values.component';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ShowAllComponent } from './show-all.component';
+import { InteroperabilityGuidelinesPipeModule } from '../../../pipe/interoperability-guidelines.pipe.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ShowAllComponent } from './show-all.component';
     ReactiveFormsModule,
     FilterLabelModule,
     NzSpinModule,
+    InteroperabilityGuidelinesPipeModule,
   ],
   exports: [FilterMultiselectComponent],
 })

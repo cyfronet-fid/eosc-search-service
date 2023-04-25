@@ -28,7 +28,9 @@ import { IUIFilterTreeNode } from '@collections/repositories/types';
           (nzClick)="leafItemSelectionToggle(node)"
         >
           <span [class.text-secondary]="+node.count === 0">{{
-            node.name
+            node.filter === 'status'
+              ? (node.name | statusPipe)
+              : (node.name | guidelineTypePipe)
           }}</span>
           <span class="filter-count">&nbsp;({{ node.count }})</span>
         </nz-tree-node-option>

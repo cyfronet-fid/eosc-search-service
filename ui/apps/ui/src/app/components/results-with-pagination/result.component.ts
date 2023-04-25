@@ -51,9 +51,7 @@ import { RedirectService } from '@collections/services/redirect.service';
           ><img src="/assets/usage-date.svg" />
           <ng-container i18n>{{ date }}</ng-container></span
         >
-        <span
-          *ngIf="type !== null && type.value !== 'guideline'"
-          class="statistic text-muted"
+        <span *ngIf="type !== null" class="statistic text-muted"
           ><img src="/assets/usage-type.svg" />
           <ng-container i18n>Type: {{ type.label }}</ng-container></span
         >

@@ -4,6 +4,7 @@ import { toArray } from '@collections/filters-serializers/utils';
 import { truncate } from 'lodash-es';
 import { IFqMap } from '@collections/services/custom-route.type';
 import { TREE_SPLIT_CHAR } from '@components/filters/utils';
+import { interoperabilityGuidelinesTypeDictionary } from '../../dictionary/interoperabilityGuidelinesTypeDictionary';
 
 export const mutateUiValue = (config: IFilterConfig, value: string) => {
   if (!config.onFacetsFetch) {
@@ -28,8 +29,11 @@ export const toActiveFilters = (
       ({ filter: configFilter }) => configFilter === filter
     ) as IFilterConfig;
     for (const value of toArray(filterValues)) {
+      const nextValue = interoperabilityGuidelinesTypeDictionary[value]
+        ? interoperabilityGuidelinesTypeDictionary[value]
+        : value;
       const truncatedName = truncate(
-        (value + '').split(TREE_SPLIT_CHAR).pop() ?? '',
+        (nextValue + '').split(TREE_SPLIT_CHAR).pop() ?? '',
         {
           length: 50,
         }
