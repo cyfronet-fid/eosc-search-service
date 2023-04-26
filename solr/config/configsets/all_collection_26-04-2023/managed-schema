@@ -460,11 +460,14 @@
   <field name="author_pids" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="author_types" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="best_access_right" type="string" required="false"/>
+  <field name="bundle_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="capabilities_of_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="catalogue" type="string" required="false"/>
   <field name="categories" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="certifications" type="strings" required="false"/>
   <field name="changelog" type="strings" required="false"/>
   <field name="code_repository_url" type="text_general" tokenized="false" indexed="false" stored="false" uninvertible="false" multiValued="false" required="false"/>
+  <field name="contact_email" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="contactgroup" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="contactperson" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="content_type" type="strings" required="false"/>
@@ -498,13 +501,17 @@
   <field name="langauge" type="text_general"/>
   <field name="language" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="last_update" type="pdate" sortMissingLast="true" required="false"/>
+  <field name="learning_outcomes" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="learning_resource_types" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="level_of_expertise" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="license" type="string" required="false" useDocValuesAsStored="true"/>
   <field name="life_cycle_status" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="link_research_product_metadata_license_urls" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="main_offer_id" type="pint" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="maintenance_url" type="text_general" sortMissingLast="true" required="false"/>
   <field name="manual_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="multimedia_urls" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="offer_ids" type="pints" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="offers_count" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="open_access" type="boolean" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="open_source_technologies" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
@@ -527,6 +534,8 @@
   <field name="qualification" type="strings" required="false"/>
   <field name="rating" type="pdouble" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="related_platforms" type="strings" required="false"/>
+  <field name="related_services" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="related_training" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="relations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="relations_long" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_community" type="strings" required="false" useDocValuesAsStored="true"/>
@@ -545,6 +554,7 @@
   <field name="scientific_domains" type="strings" required="false"/>
   <field name="sdg" type="strings" required="false"/>
   <field name="security_contact_email" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="service_id" type="pint" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="service_opinion_count" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="size" type="string" required="false"/>
   <field name="sla_url" type="text_general" sortMissingLast="true" required="false"/>
