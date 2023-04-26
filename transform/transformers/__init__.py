@@ -9,6 +9,7 @@ from transform.utils.loader import (
     SERVICE,
     DATASOURCE,
     GUIDELINE,
+    BUNDLE,
 )
 from .dataset import DatasetTransformer
 from .publication import PublicationTransformer
@@ -18,10 +19,11 @@ from .training import TrainingTransformer
 from .service import ServiceTransformer
 from .data_source import DataSourceTransformer
 from .guideline import transform_guidelines
+from .bundle import BundleTransformer
 
 __all__ = ["all_col_trans_map"]
 
-# All collection - all collections here has to have the same data schema
+# All collection
 all_col_trans_map = {
     DATASET: DatasetTransformer,
     PUBLICATION: PublicationTransformer,
@@ -31,4 +33,5 @@ all_col_trans_map = {
     SERVICE: ServiceTransformer,
     DATASOURCE: DataSourceTransformer,
     GUIDELINE: transform_guidelines,
+    BUNDLE: BundleTransformer,
 }

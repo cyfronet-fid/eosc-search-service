@@ -30,6 +30,7 @@ from transform.utils.loader import (
     OUTPUT_FORMAT,
     GUIDELINE,
     PROVIDER,
+    BUNDLE,
 )
 
 
@@ -50,6 +51,7 @@ failed_files = {
     DATASOURCE: {SOLR: [], S3: [], LOCAL_DUMP: []},
     PROVIDER: {SOLR: [], S3: [], LOCAL_DUMP: []},
     GUIDELINE: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    BUNDLE: {SOLR: [], S3: [], LOCAL_DUMP: []},
 }
 
 

@@ -18,6 +18,7 @@ SERVICE = "SERVICE"
 DATASOURCE = "DATASOURCE"
 PROVIDER = "PROVIDER"
 GUIDELINE = "GUIDELINE"
+BUNDLE = "BUNDLE"
 
 DATASET_PATH = "DATASET_PATH"
 PUBLICATION_PATH = "PUBLICATION_PATH"
@@ -26,6 +27,7 @@ OTHER_RP_PATH = "OTHER_RP_PATH"
 SERVICE_PATH = "SERVICE_PATH"
 DATASOURCE_PATH = "DATASOURCE_PATH"
 PROVIDER_PATH = "PROVIDER_PATH"
+BUNDLE_PATH = "BUNDLE_PATH"
 
 GUIDELINE_ADDRESS = "GUIDELINE_ADDRESS"
 TRAINING_ADDRESS = "TRAINING_ADDRESS"
@@ -47,6 +49,7 @@ SOLR_SERVICE_COLS = "SOLR_SERVICE_COLS"
 SOLR_DATASOURCE_COLS = "SOLR_DATASOURCE_COLS"
 SOLR_PROVIDER_COLS = "SOLR_PROVIDER_COLS"
 SOLR_GUIDELINE_COLS = "SOLR_GUIDELINE_COLS"
+SOLR_BUNDLE_COLS = "SOLR_BUNDLE_COLS"
 
 SEND_TO_S3 = "SEND_TO_S3"
 S3_ACCESS_KEY = "S3_ACCESS_KEY"
@@ -67,6 +70,7 @@ ADDRESS = "ADDRESS"
 
 solr_all_col_mapping = {
     GUIDELINE: SOLR_GUIDELINE_COLS,
+    BUNDLE: SOLR_BUNDLE_COLS,
     DATASOURCE: SOLR_DATASOURCE_COLS,
     SERVICE: SOLR_SERVICE_COLS,
     TRAINING: SOLR_TRAINING_COLS,
@@ -87,7 +91,7 @@ def load_data(
     spark: SparkSession, data_path: str, col_name: str, _format: str = "json"
 ):
     """Load data based on the provided data path"""
-    if col_name in {SERVICE, DATASOURCE, PROVIDER}:
+    if col_name in {SERVICE, DATASOURCE, PROVIDER, BUNDLE}:
         return spark.read.format(_format).option("multiline", True).load(data_path)
     if col_name == TRAINING:
         return spark.read.json(spark.sparkContext.parallelize([json.dumps(data_path)]))
@@ -159,6 +163,10 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
                 "https://beta.providers.eosc-portal.eu/api/interoperabilityRecord/all",
             ),
             OUTPUT_SCHEMA: guideline_output_schema,
+        },
+        BUNDLE: {
+            PATH: os.environ.get(BUNDLE_PATH, "input_data/bundle/"),
+            OUTPUT_SCHEMA: bundle_output_schema,
         },
         DATASOURCE: {
             PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
