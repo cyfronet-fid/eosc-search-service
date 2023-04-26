@@ -79,6 +79,7 @@ def upload_all_col_data() -> None:
             send_data(env_vars, col_name, data_point, data_num)
 
 
+# DO NOT MERGE ME
 if __name__ == "__main__":
     spark, logger = apply_spark_conf()
     env_vars = load_env_vars()
