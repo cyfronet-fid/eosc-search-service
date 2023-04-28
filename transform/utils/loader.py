@@ -150,19 +150,19 @@ def load_config(env_vars: dict) -> None:
 def load_vars_all_collection(solr_flag: bool) -> dict:
     """Load variables for all collection"""
     collections = {
-        TRAINING: {
-            ADDRESS: os.environ.get(
-                TRAINING_ADDRESS,
-                "https://beta.providers.eosc-portal.eu/api/trainingResource/all",
-            ),
-            OUTPUT_SCHEMA: training_output_schema,
-        },
         GUIDELINE: {
             ADDRESS: os.environ.get(
                 GUIDELINE_ADDRESS,
                 "https://beta.providers.eosc-portal.eu/api/interoperabilityRecord/all",
             ),
             OUTPUT_SCHEMA: guideline_output_schema,
+        },
+        TRAINING: {
+            ADDRESS: os.environ.get(
+                TRAINING_ADDRESS,
+                "https://beta.providers.eosc-portal.eu/api/trainingResource/all",
+            ),
+            OUTPUT_SCHEMA: training_output_schema,
         },
         BUNDLE: {
             PATH: os.environ.get(BUNDLE_PATH, "input_data/bundle/"),

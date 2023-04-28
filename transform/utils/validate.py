@@ -10,6 +10,7 @@ def check_schema_after_trans(df: DataFrame, expected_schema: dict) -> None:
     """Check whether data schema after transformation has a desired schema"""
     columns = df.columns
     schemas = [column.dataType.simpleString() for column in df.schema.fields]
+
     # All columns name are the same
     assert columns == list(expected_schema.keys()), logger.error(
         f"Not proper columns name after transformation. Difference: {set(columns) ^ set(expected_schema.keys())}"
