@@ -1,21 +1,27 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
-"""Transform bundles"""
+"""Transform offers"""
 from pyspark.sql.functions import split
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StringType, ArrayType, IntegerType
-from pyspark.sql.functions import udf
+from pyspark.sql.types import (
+    StructType,
+    StructField,
+    StringType,
+    BooleanType,
+)
 from transform.transformations.common import *
 from transform.transformers.base.base import BaseTransformer
+from transform.utils.utils import sort_schema
 from transform.schemas.properties_name import *
-from transform.transformers.offer import OFFER_IDS_INCREMENTOR
+
+OFFER_IDS_INCREMENTOR = 10_000
 
 
-class BundleTransformer(BaseTransformer):
+class OfferTransformer(BaseTransformer):
     """Transformer used to transform bundles"""
 
     def __init__(self, spark: SparkSession):
-        self.type = "bundle"
-        self.id_increment = 1_000_000
+        self.type = "offer"
+        self.id_increment = OFFER_IDS_INCREMENTOR
 
         super().__init__(
             self.type, self.cols_to_add, self.cols_to_drop, self.cols_to_rename, spark
@@ -27,15 +33,7 @@ class BundleTransformer(BaseTransformer):
         without a need to create another dataframe and merging"""
         df = df.withColumn(TYPE, lit(self.type))
         df = self.rename_cols(df)
-        # Increase bundles IDs to avoid confilicts
-        df = self.convert_int_ids(df, columns=(ID,), increment=self.id_increment)
-        # Increase offers IDs to match their increased IDs
-        df = self.convert_int_ids(
-            df, columns=("main_offer_id",), increment=OFFER_IDS_INCREMENTOR
-        )
-        df = self.convert_arr_ids(
-            df, columns=("offer_ids",), increment=OFFER_IDS_INCREMENTOR
-        )
+        df = self.convert_ids(df, increment=self.id_increment)
 
         return df
 
@@ -43,6 +41,9 @@ class BundleTransformer(BaseTransformer):
         """Harvest oag properties that requires more complex transformations
         Basically from those harvested properties there will be created another dataframe
         which will be later on merged with the main dataframe"""
+        df = map_best_access_right(df, self.harvested_properties, self.type)
+        create_open_access(self.harvested_properties)
+
         return df
 
     @staticmethod
@@ -52,9 +53,16 @@ class BundleTransformer(BaseTransformer):
         return df
 
     @property
-    def harvested_schema(self) -> None:
+    def harvested_schema(self) -> StructType:
         """Schema of harvested properties"""
-        return None
+        return sort_schema(
+            StructType(
+                [
+                    StructField(BEST_ACCESS_RIGHT, StringType(), True),
+                    StructField(OPEN_ACCESS, BooleanType(), True),
+                ]
+            )
+        )
 
     @property
     def cols_to_add(self) -> None:
@@ -62,37 +70,20 @@ class BundleTransformer(BaseTransformer):
         return None
 
     @property
-    def cols_to_drop(self) -> None:
+    def cols_to_drop(self) -> tuple[str, ...]:
         """Drop those columns from the dataframe"""
-        return None
+        return ("parameters",)
 
     @property
     def cols_to_rename(self) -> dict[str, str]:
         """Columns to rename. Keys are mapped to the values"""
         return {
             "name": "title",
-            "research_steps": "unified_categories",
-            "target_users": "dedicated_for",
+            "order_type": "best_access_right",
         }
 
     @staticmethod
-    def convert_int_ids(
-        df: DataFrame, columns: tuple[str, ...], increment: int
-    ) -> DataFrame:
-        """Convert dataframes IDs that are integers"""
-        for column in columns:
-            df = df.withColumn(column, (col(column) + increment).cast(StringType()))
-
-        return df
-
-    @staticmethod
-    def convert_arr_ids(
-        df: DataFrame, columns: tuple[str, ...], increment: int
-    ) -> DataFrame:
-        """Convert IDs that are array<int>"""
-        inc_ids = udf(lambda x: [i + increment for i in x], ArrayType(IntegerType()))
-
-        for column in columns:
-            df = df.withColumn(column, inc_ids(column))
-
-        return df
+    def convert_ids(df: DataFrame, increment) -> DataFrame:
+        """Increment dataframes IDs.
+        Assumption: IDs are ints"""
+        return df.withColumn(ID, (col(ID) + increment).cast(StringType()))

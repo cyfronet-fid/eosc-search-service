@@ -30,6 +30,7 @@ from transform.utils.loader import (
     OUTPUT_FORMAT,
     GUIDELINE,
     PROVIDER,
+    OFFER,
     BUNDLE,
 )
 
@@ -42,16 +43,17 @@ LOCAL_DUMP = "LOCAL_DUMP"
 
 req_headers = {"Accept": "application/json", "Content-Type": "application/json"}
 failed_files = {
-    DATASET: {SOLR: [], S3: [], LOCAL_DUMP: []},
-    PUBLICATION: {SOLR: [], S3: [], LOCAL_DUMP: []},
-    SOFTWARE: {SOLR: [], S3: [], LOCAL_DUMP: []},
-    OTHER_RP: {SOLR: [], S3: [], LOCAL_DUMP: []},
-    TRAINING: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    PROVIDER: {SOLR: [], S3: [], LOCAL_DUMP: []},
     SERVICE: {SOLR: [], S3: [], LOCAL_DUMP: []},
     DATASOURCE: {SOLR: [], S3: [], LOCAL_DUMP: []},
-    PROVIDER: {SOLR: [], S3: [], LOCAL_DUMP: []},
-    GUIDELINE: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    OFFER: {SOLR: [], S3: [], LOCAL_DUMP: []},
     BUNDLE: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    GUIDELINE: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    TRAINING: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    OTHER_RP: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    SOFTWARE: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    DATASET: {SOLR: [], S3: [], LOCAL_DUMP: []},
+    PUBLICATION: {SOLR: [], S3: [], LOCAL_DUMP: []},
 }
 
 
