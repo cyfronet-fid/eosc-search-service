@@ -1,12 +1,17 @@
-# pylint: disable=line-too-long, invalid-name, logging-fstring-interpolation, fixme
+# pylint: disable=line-too-long, invalid-name, logging-fstring-interpolation, too-many-locals, fixme
 """Transform interoperability guidelines"""
 import logging
-import copy
 from datetime import datetime
 
 import pandas as pd
 from pandas import DataFrame
-from transform.schemas.properties_name import DOI, URI, AUTHOR_NAMES, AUTHOR_NAMES_TG, TYPE
+from transform.schemas.properties_name import (
+    DOI,
+    URI,
+    AUTHOR_NAMES,
+    AUTHOR_NAMES_TG,
+    TYPE,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +70,7 @@ def harvest_identifiers(df: DataFrame) -> None:
 
 def harvest_authors_names(df: DataFrame) -> None:
     """Harvest creators from interoperability guideline"""
+
     def replace_empty_str(attr: str) -> [str, None]:
         """Replace empty string with None"""
         if not attr:
@@ -91,14 +97,16 @@ def harvest_authors_names(df: DataFrame) -> None:
 
         for author in authors:
             auth_name = replace_empty_str(author["creatorNameTypeInfo"]["creatorName"])
-            auth_typ = replace_empty_str(
-                author["creatorNameTypeInfo"]["nameType"]
-            )
+            auth_typ = replace_empty_str(author["creatorNameTypeInfo"]["nameType"])
             auth_given_name = replace_empty_str(author["givenName"])
             auth_family_name = replace_empty_str(author["familyName"])
             auth_name_id = replace_empty_str(author["nameIdentifier"])
-            auth_aff = replace_empty_str(author["creatorAffiliationInfo"]["affiliation"])
-            auth_aff_id = replace_empty_str(author["creatorAffiliationInfo"]["affiliationIdentifier"])
+            auth_aff = replace_empty_str(
+                author["creatorAffiliationInfo"]["affiliation"]
+            )
+            auth_aff_id = replace_empty_str(
+                author["creatorAffiliationInfo"]["affiliationIdentifier"]
+            )
 
             auth_row.append(auth_name)
             auth_typ_row.append(auth_typ)
@@ -145,7 +153,7 @@ def rename_cols(df: DataFrame) -> None:
             "updated": "updated_at",
             "eoscGuidelineType": "eosc_guideline_type",
             "eoscIntegrationOptions": "eosc_integration_options",
-            "providerId": "provider"
+            "providerId": "provider",
         }
 
     df.rename(columns=mapping_dict(), inplace=True)

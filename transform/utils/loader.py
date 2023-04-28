@@ -18,6 +18,7 @@ SERVICE = "SERVICE"
 DATASOURCE = "DATASOURCE"
 PROVIDER = "PROVIDER"
 GUIDELINE = "GUIDELINE"
+OFFER = "OFFER"
 BUNDLE = "BUNDLE"
 
 DATASET_PATH = "DATASET_PATH"
@@ -27,6 +28,7 @@ OTHER_RP_PATH = "OTHER_RP_PATH"
 SERVICE_PATH = "SERVICE_PATH"
 DATASOURCE_PATH = "DATASOURCE_PATH"
 PROVIDER_PATH = "PROVIDER_PATH"
+OFFER_PATH = "OFFER_PATH"
 BUNDLE_PATH = "BUNDLE_PATH"
 
 GUIDELINE_ADDRESS = "GUIDELINE_ADDRESS"
@@ -49,6 +51,7 @@ SOLR_SERVICE_COLS = "SOLR_SERVICE_COLS"
 SOLR_DATASOURCE_COLS = "SOLR_DATASOURCE_COLS"
 SOLR_PROVIDER_COLS = "SOLR_PROVIDER_COLS"
 SOLR_GUIDELINE_COLS = "SOLR_GUIDELINE_COLS"
+SOLR_OFFER_COLS = "SOLR_OFFER_COLS"
 SOLR_BUNDLE_COLS = "SOLR_BUNDLE_COLS"
 
 SEND_TO_S3 = "SEND_TO_S3"
@@ -69,15 +72,16 @@ PATH = "PATH"
 ADDRESS = "ADDRESS"
 
 solr_all_col_mapping = {
-    GUIDELINE: SOLR_GUIDELINE_COLS,
-    BUNDLE: SOLR_BUNDLE_COLS,
-    DATASOURCE: SOLR_DATASOURCE_COLS,
     SERVICE: SOLR_SERVICE_COLS,
+    DATASOURCE: SOLR_DATASOURCE_COLS,
+    GUIDELINE: SOLR_GUIDELINE_COLS,
+    OFFER: SOLR_OFFER_COLS,
+    BUNDLE: SOLR_BUNDLE_COLS,
     TRAINING: SOLR_TRAINING_COLS,
     OTHER_RP: SOLR_OTHER_RP_COLS,
     SOFTWARE: SOLR_SOFTWARE_COLS,
-    PUBLICATION: SOLR_PUBLICATION_COLS,
     DATASET: SOLR_DATASET_COLS,
+    PUBLICATION: SOLR_PUBLICATION_COLS,
 }
 
 solr_sep_col_mapping = {
@@ -91,7 +95,7 @@ def load_data(
     spark: SparkSession, data_path: str, col_name: str, _format: str = "json"
 ):
     """Load data based on the provided data path"""
-    if col_name in {SERVICE, DATASOURCE, PROVIDER, BUNDLE}:
+    if col_name in {SERVICE, DATASOURCE, PROVIDER, BUNDLE, OFFER}:
         return spark.read.format(_format).option("multiline", True).load(data_path)
     if col_name == TRAINING:
         return spark.read.json(spark.sparkContext.parallelize([json.dumps(data_path)]))
@@ -150,6 +154,22 @@ def load_config(env_vars: dict) -> None:
 def load_vars_all_collection(solr_flag: bool) -> dict:
     """Load variables for all collection"""
     collections = {
+        SERVICE: {
+            PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
+            OUTPUT_SCHEMA: service_output_schema,
+        },
+        DATASOURCE: {
+            PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
+            OUTPUT_SCHEMA: data_source_output_schema,
+        },
+        OFFER: {
+            PATH: os.environ.get(OFFER_PATH, "input_data/offer/"),
+            OUTPUT_SCHEMA: offer_output_schema,
+        },
+        BUNDLE: {
+            PATH: os.environ.get(BUNDLE_PATH, "input_data/bundle/"),
+            OUTPUT_SCHEMA: bundle_output_schema,
+        },
         GUIDELINE: {
             ADDRESS: os.environ.get(
                 GUIDELINE_ADDRESS,
@@ -163,18 +183,6 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
                 "https://providers.eosc-portal.eu/api/trainingResource/all?catalogue_id=all&quantity=10000",
             ),
             OUTPUT_SCHEMA: training_output_schema,
-        },
-        BUNDLE: {
-            PATH: os.environ.get(BUNDLE_PATH, "input_data/bundle/"),
-            OUTPUT_SCHEMA: bundle_output_schema,
-        },
-        DATASOURCE: {
-            PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
-            OUTPUT_SCHEMA: data_source_output_schema,
-        },
-        SERVICE: {
-            PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
-            OUTPUT_SCHEMA: service_output_schema,
         },
         OTHER_RP: {
             PATH: os.environ.get(OTHER_RP_PATH, "input_data/other_rp/"),

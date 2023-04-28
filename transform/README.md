@@ -9,6 +9,7 @@ We are using .env to store user-specific constants. This file is not tracked by 
 - `SERVICE_PATH` - A path to services **directory**. Default: `input_data/service/`
 - `DATASOURCE_PATH` - A path to datasources **directory**. Default: `input_data/datasource/`
 - `PROVIDER_PATH` - A path to providers **directory**. Default: `input_data/provider/`
+- `OFFER_PATH` - A path to offers **directory**. Default: `input_data/offer/`
 - `BUNDLE_PATH` - A path to bundles **directory**. Default: `input_data/bundle/`
 
 ### Data from API:
@@ -36,6 +37,7 @@ We are using .env to store user-specific constants. This file is not tracked by 
   - `SOLR_DATASOURCE_COLS` - The name of the collection/collections to which datasources will be sent. Example: `"all datasource"`.
   - `SOLR_PROVIDER_COLS` - The name of the collection/collections to which providers will be sent. Example: `"provider"`.
   - `SOLR_GUIDELINE_COLS` - The name of the collection/collections to which interoperability guidelines will be sent. Example: `"guideline"`.
+  - `SOLR_OFFER_COLS` - The name of the collection/collections to which offers will be sent. Example: `"all offer"`.
   - `SOLR_BUNDLE_COLS` - The name of the collection/collections to which bundles will be sent. Example: `"all bundle"`.
 <br></br>
 - `SEND_TO_S3` - A flag which indicates if data should be sent to S3. Default `False`.
