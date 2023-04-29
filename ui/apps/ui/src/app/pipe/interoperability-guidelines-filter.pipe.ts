@@ -1,23 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import moment from 'moment';
-import { interoperabilityGuidelinesStatusDictionary } from '../dictionary/interoperabilityGuidelinesStatusDictionary';
-import { interoperabilityGuidelinesTypeDictionary } from '../dictionary/interoperabilityGuidelinesTypeDictionary';
+import { runDictionaryForInteroperabilityGuidelines } from '../dictionary/runDictionaryForInteroperabilityGuidelines';
 
-@Pipe({ name: 'statusPipe' })
+@Pipe({ name: 'filterPipe' })
 export class InteroperabilityGuidelinesFilterPipe implements PipeTransform {
-  transform(value: string): string {
-    return interoperabilityGuidelinesStatusDictionary[value]
-      ? interoperabilityGuidelinesStatusDictionary[value]
-      : value;
-  }
-}
-
-@Pipe({ name: 'guidelineTypePipe' })
-export class InteroperabilityGuidelinesTypeFilterPipe implements PipeTransform {
-  transform(value: string): string {
-    return interoperabilityGuidelinesTypeDictionary[value]
-      ? interoperabilityGuidelinesTypeDictionary[value]
-      : value;
+  transform(value: string, type: string): string {
+    return runDictionaryForInteroperabilityGuidelines(type, value);
   }
 }
 

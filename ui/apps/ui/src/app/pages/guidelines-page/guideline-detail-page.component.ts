@@ -18,6 +18,12 @@ export class GuidelineDetailPageComponent implements OnInit {
   interoperabilityGuidelineItem?: IGuideline;
   currentTab = 'about';
 
+  DICTIONARY_TYPE_FOR_PIPE = {
+    STATUS: 'status',
+    DOMAIN: 'domain',
+    GUIDELINE_TYPE: 'eosc_guideline_type',
+  };
+
   constructor(
     private guidelinesService: GuidelinesService,
     private route: ActivatedRoute,
