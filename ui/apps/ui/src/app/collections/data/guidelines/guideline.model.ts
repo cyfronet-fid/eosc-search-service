@@ -6,7 +6,6 @@ export interface IGuideline {
   doi?: string[] | null;
   eosc_guideline_type?: string;
   eosc_integration_options?: string[];
-  eosc_related_standards?: string[];
   id?: string;
   publication_date?: string;
   publication_year?: number;
@@ -18,16 +17,16 @@ export interface IGuideline {
   type?: string;
   type_info?: string[];
   updated_at?: string;
+  domain?: string;
+  provider?: string;
+  author_affiliations: string[];
+  author_affiliations_id: string[];
+  author_family_names: string[];
+  author_given_names: string[];
+  author_names_id: string[];
+  catalogue?: string;
+  related_standards_uri: string[];
+  type_general: string[];
+  uri: string[];
   keywords?: string[];
-  _version_?: number;
-  facets?: object;
-  domain?: string[];
-  identifier_type?: string[];
-  catalogue?: string[];
-  given_name?: string[];
-  family_name?: string[];
-  affiliation?: string[];
-  affiliation_identifier?: string[];
-  name_identifier?: string[];
-  provider?: string[];
 }
