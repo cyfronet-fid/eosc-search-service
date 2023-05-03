@@ -161,6 +161,10 @@ See docker-compose.yml for components.
   > Default: `production`
   > Together with `EOSC_COMMONS_URL` two assets are loaded:
   > `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.js` and `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.css`
+- `EOSC_EXPLORE_URL`
+  > base url to explore - used when constructing links for publications
+  > Use when integrating with explore beta instance
+  > Default: https://explore.eosc-portal.eu
 
 `db` envs:
 - `DB_POSTGRES_DB`

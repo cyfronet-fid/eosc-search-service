@@ -14,6 +14,7 @@ import {
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
+import { ConfigService } from '../../../services/config.service';
 
 export const softwareAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -23,9 +24,9 @@ export const softwareAdapter: IAdapter = {
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
-    url: `https://explore.eosc-portal.eu/search/result?id=${openAIREResult?.id
-      ?.split('|')
-      ?.pop()}`,
+    url: `${
+      ConfigService.config?.eosc_explore_url
+    }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
     coloredTags: [
       toAccessRightColoredTag(openAIREResult?.best_access_right),
       {

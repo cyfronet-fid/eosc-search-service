@@ -22,11 +22,13 @@ export class RedirectService {
     const sourceUrl = this._router.url.includes('?')
       ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
       : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
-    const sourceQueryParams =
-      sourceUrl.split('?')[1] + `&pv=search/${this._customRoute.collection()}`;
+    const encodedPv = encodeURIComponent(
+      'search/' + this._customRoute.collection()
+    );
+    const sourceQueryParams = sourceUrl.split('?')[1] + `&pv=${encodedPv}`;
 
     const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
     const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
-    return `${destinationUrl}?${destinationQueryParams}&resource_id=${id}&resource_type=${type}&page_id=/search/${this._customRoute.collection()}&recommendation=${recommendation}`;
+    return `${destinationUrl}?${destinationQueryParams}&resource_id=${id}&resource_type=${type}&page_id=${encodedPv}&recommendation=${recommendation}`;
   }
 }
