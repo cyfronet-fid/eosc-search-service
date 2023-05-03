@@ -15,6 +15,7 @@ import {
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
+import { ConfigService } from '../../../services/config.service';
 
 export const publicationsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -27,9 +28,9 @@ export const publicationsAdapter: IAdapter = {
     date: openAIREResult['publication_date']
       ? moment(openAIREResult['publication_date']).format('DD MMMM YYYY')
       : '',
-    url: `https://explore.eosc-portal.eu/search/result?id=${openAIREResult?.id
-      ?.split('|')
-      ?.pop()}`,
+    url: `${
+      ConfigService.config?.eosc_explore_url
+    }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
     coloredTags: [
       toAccessRightColoredTag(openAIREResult?.best_access_right),
       {

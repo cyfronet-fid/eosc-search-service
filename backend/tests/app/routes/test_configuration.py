@@ -6,7 +6,7 @@ from starlette.status import HTTP_200_OK
 
 
 @pytest.mark.asyncio
-async def test_passes_all_facets(app: FastAPI, client: AsyncClient) -> None:
+async def test_return_backend_config(app: FastAPI, client: AsyncClient) -> None:
     response = await client.get(app.url_path_for("web:configuration"))
 
     assert response.status_code == HTTP_200_OK
@@ -14,4 +14,5 @@ async def test_passes_all_facets(app: FastAPI, client: AsyncClient) -> None:
         "eosc_commons_env": "production",
         "eosc_commons_url": "https://s3.cloud.cyfronet.pl/eosc-portal-common/",
         "marketplace_url": "https://marketplace.eosc-portal.eu",
+        "eosc_explore_url": "https://explore.eosc-portal.eu",
     }

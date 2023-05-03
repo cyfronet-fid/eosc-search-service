@@ -34,9 +34,9 @@ const urlAdapter = (
     case 'publication':
     case 'software':
     case 'other':
-      return `https://explore.eosc-portal.eu/search/result?id=${data?.id
-        ?.split('|')
-        ?.pop()}`;
+      return `${
+        ConfigService.config?.eosc_explore_url
+      }/search/result?id=${data?.id?.split('|')?.pop()}`;
     case 'data source':
       return hackDataSourceUrl(data?.pid);
     case 'service':
