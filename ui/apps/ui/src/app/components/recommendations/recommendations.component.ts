@@ -19,6 +19,7 @@ import { FiltersConfigsRepository } from '@collections/repositories/filters-conf
 })
 export class RecommendationsComponent implements OnInit {
   recommendations: IResult[] = [];
+  highlightsreal: { [field: string]: string[] | undefined } = {};
 
   constructor(
     private _customRoute: CustomRoute,
@@ -42,8 +43,8 @@ export class RecommendationsComponent implements OnInit {
         (recommendations) =>
           (this.recommendations = recommendations.map((recommended) => ({
             ...recommended,
-            title: truncate(recommended.title, { length: 50 }),
-            description: truncate(recommended.description, { length: 250 }),
+            title: truncate(recommended.title, { length: 80 }),
+            description: truncate(recommended.description, { length: 400 }),
           })))
       );
   }

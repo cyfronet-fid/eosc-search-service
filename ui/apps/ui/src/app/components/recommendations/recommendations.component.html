@@ -1,11 +1,20 @@
 <ng-container *ngIf="recommendations.length > 0">
-  <div class="row" style="padding: 5px 20px 0 10px">
-    <div class="container col-md-12">
-      <div class="row mb-4 ml-0 mr-0">
+  <div class="column" style="padding: 5px 20px 0 10px; display: flex; justify-content: space-between;">
+    <div class="container results col-md-12">
+      <h2 style="padding-top: 24px;">Resources selected for you</h2>
+      <div class="column mb-4 ml-0 mr-0" style="display: flex; justify-content: center;">
         <div
           *ngFor="let recommendation of recommendations"
-          class="service-info-box recommendation ver-1"
+          id="container"
+          class="suggested col-sm-4"
+          style=""
         >
+          <ess-colored-tags
+            [type]="recommendation.type"
+            [tags]="recommendation.coloredTags ?? []"
+            (activeFilter)="setActiveFilter($event.filter, $event.value)"
+          ></ess-colored-tags>
+
           <ess-url-title
             [title]="recommendation.title"
             [url]="
@@ -19,16 +28,57 @@
           >
           </ess-url-title>
 
-          <ess-colored-tags
-            [type]="recommendation.type"
-            [tags]="recommendation.coloredTags ?? []"
-            (activeFilter)="setActiveFilter($event.filter, $event.value)"
-          ></ess-colored-tags>
+          <div class="usage">
+
+            <span
+              *ngIf="recommendation.accessRight !== undefined"
+              [ngClass]="{
+            statistic: true,
+            'open-access': recommendation.accessRight?.toLowerCase() === 'open access',
+            'other-access': recommendation.accessRight?.toLowerCase() !== 'open access'
+          }"
+            ><img
+              [src]="
+              recommendation.accessRight?.toLowerCase() === 'open access'
+                ? '/assets/usage-access.svg'
+                : '/assets/restricted access.svg'
+            "
+            />
+          <ng-container i18n>{{ recommendation.accessRight }}</ng-container></span
+            >
+            <span *ngIf="recommendation.date !== null" class="statistic text-muted"
+            ><img src="/assets/usage-date.svg" />
+          <ng-container i18n>{{ recommendation.date }}</ng-container></span
+            >
+            <span *ngIf="recommendation.type !== null" class="statistic text-muted"
+            ><img src="/assets/usage-type.svg" />
+          <ng-container i18n>Type: {{ recommendation.type.label }}</ng-container></span
+            >
+            <span *ngIf="recommendation.downloads !== undefined" class="statistic text-muted"
+            ><img src="/assets/usage-downloads.svg" />
+          <ng-container i18n>{{ recommendation.downloads }} Downloads</ng-container></span
+            >
+            <span *ngIf="recommendation.views !== undefined" class="statistic text-muted"
+            ><img src="/assets/usage-views.svg" />
+          <ng-container i18n>{{ recommendation.views }} Views</ng-container></span
+            >
+          </div>
 
           <ess-tags
             [tags]="recommendation.tags"
             (activeFilter)="setActiveFilter($event.filter, $event.value)"
           ></ess-tags>
+          <ess-secondary-tags
+            [highlights]="highlightsreal"
+            [tags]="recommendation.secondaryTags ?? []"
+            (activeFilter)="setActiveFilter($event.filter, $event.value)"
+          >
+          </ess-secondary-tags>
+          <ess-description
+            [buttonOff]="true"
+            [description]="recommendation.description"
+            [highlights]="highlightsreal['description'] ?? []"
+          ></ess-description>
         </div>
       </div>
     </div>

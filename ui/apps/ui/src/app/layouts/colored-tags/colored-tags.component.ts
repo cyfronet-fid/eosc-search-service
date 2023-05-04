@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ViewportScroller } from '@angular/common';
 import { IColoredTag, IValueWithLabel } from '@collections/repositories/types';
 
 @Component({
