@@ -4,8 +4,8 @@ import { translateDictionaryValue } from '../dictionary/translateDictionaryValue
 
 @Pipe({ name: 'filterPipe' })
 export class InteroperabilityGuidelinesFilterPipe implements PipeTransform {
-  transform(value: string, type: string): string {
-    return translateDictionaryValue(type, value);
+  transform(value: string | string[], type: string | string[]): string {
+    return translateDictionaryValue(type, value).toString();
   }
 }
 

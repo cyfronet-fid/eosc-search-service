@@ -19,14 +19,15 @@ export interface IGuideline {
   updated_at?: string;
   domain?: string;
   provider?: string;
-  author_affiliations: string[];
-  author_affiliations_id: string[];
-  author_family_names: string[];
-  author_given_names: string[];
-  author_names_id: string[];
+  author_affiliations?: string[];
+  author_affiliations_id?: string[];
+  author_family_names?: string[];
+  author_given_names?: string[];
+  author_names_id?: string[];
   catalogue?: string;
-  related_standards_uri: string[];
+  related_standards_uri?: string[];
+  related_standards_id?: string[];
   type_general: string[];
-  uri: string[];
+  uri?: string[];
   keywords?: string[];
 }
