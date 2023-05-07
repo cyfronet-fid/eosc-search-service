@@ -1,11 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import moment from 'moment';
-import { runDictionaryForInteroperabilityGuidelines } from '../dictionary/runDictionaryForInteroperabilityGuidelines';
+import { translateDictionaryValue } from '../dictionary/translateDictionaryValue';
 
 @Pipe({ name: 'filterPipe' })
 export class InteroperabilityGuidelinesFilterPipe implements PipeTransform {
   transform(value: string, type: string): string {
-    return runDictionaryForInteroperabilityGuidelines(type, value);
+    return translateDictionaryValue(type, value);
   }
 }
 
