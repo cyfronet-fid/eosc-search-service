@@ -455,7 +455,12 @@
   <field name="access_policies_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="access_types" type="strings" required="false"/>
   <field name="activate_message" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="author_affiliations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="author_affiliations_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="author_family_names" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="author_given_names" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_names" type="strings" required="false" useDocValuesAsStored="true"/>
+  <field name="author_names_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_names_tg" type="text_general" uninvertible="true" docValues="false" multiValued="true" indexed="true" stored="true"/>
   <field name="author_pids" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="author_types" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -463,6 +468,7 @@
   <field name="bundle_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="capabilities_of_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="catalogue" type="string" required="false"/>
+  <field name="catalogueId" type="text_general"/>
   <field name="categories" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="certifications" type="strings" required="false"/>
   <field name="changelog" type="strings" required="false"/>
@@ -527,14 +533,20 @@
   <field name="privacy_policy_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="programming_language" type="string" required="false"/>
   <field name="project_items_count" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="provider" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="providerId" type="text_general"/>
   <field name="providers" type="strings" required="false"/>
   <field name="publication_date" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="publication_year" type="pint" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="publisher" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="qualification" type="strings" required="false"/>
   <field name="rating" type="pdouble" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="relatedStandards.relatedStandardIdentifier" type="text_general"/>
+  <field name="relatedStandards.relatedStandardURI" type="text_general"/>
   <field name="related_platforms" type="strings" required="false"/>
   <field name="related_services" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="related_standards_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="related_standards_uri" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_training" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="relations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="relations_long" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -577,11 +589,14 @@
   <field name="training_information_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="trl" type="text_general" docValues="false" indexed="true" stored="true"/>
   <field name="type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="type_general" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="type_info" type="text_general" uninvertible="true" docValues="false" multiValued="true" indexed="true" stored="true"/>
   <field name="unified_categories" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="updated_at" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="upstream_id" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="uri" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="url" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="url_type" type="string" uninvertible="true" docValues="false" indexed="true" stored="true"/>
   <field name="usage_counts_downloads" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="usage_counts_views" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="use_cases_urls" type="text_general" sortMissingLast="true" required="false"/>
@@ -659,4 +674,8 @@
   <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
   <copyField source="langauge" dest="langauge_str" maxChars="256"/>
   <copyField source="_delete____" dest="_delete_____str" maxChars="256"/>
+  <copyField source="catalogueId" dest="catalogueId_str" maxChars="256"/>
+  <copyField source="providerId" dest="providerId_str" maxChars="256"/>
+  <copyField source="relatedStandards.relatedStandardURI" dest="relatedStandards.relatedStandardURI_str" maxChars="256"/>
+  <copyField source="relatedStandards.relatedStandardIdentifier" dest="relatedStandards.relatedStandardIdentifier_str" maxChars="256"/>
 </schema>
