@@ -7,7 +7,8 @@ import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { TrainingsPageModule } from '@pages/trainings-page/trainings-page.module';
 import { AcceptableUsePolicyModule } from '@pages/acceptable-use-policy/acceptable-use-policy.module';
 import { PrivacyPolicyModule } from '@pages/privacy-policy/privacy-policy.module';
-import { GuidelinesPageModule } from '@pages/guidelines-page/guidelines-page.module';
+// TODO: temporarily off
+// import { GuidelinesPageModule } from '@pages/guidelines-page/guidelines-page.module';
 
 @NgModule({
   imports: [
@@ -25,10 +26,11 @@ import { GuidelinesPageModule } from '@pages/guidelines-page/guidelines-page.mod
         path: 'trainings',
         loadChildren: () => TrainingsPageModule,
       },
-      {
+      // TODO: temporarily off
+      /* {
         path: 'guidelines',
         loadChildren: () => GuidelinesPageModule,
-      },
+      }, */
       {
         path: 'acceptable-use-policy',
         pathMatch: 'full',
