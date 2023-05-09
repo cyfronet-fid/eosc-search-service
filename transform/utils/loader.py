@@ -160,7 +160,7 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
         TRAINING: {
             ADDRESS: os.environ.get(
                 TRAINING_ADDRESS,
-                "https://beta.providers.eosc-portal.eu/api/trainingResource/all",
+                "https://providers.eosc-portal.eu/api/trainingResource/all?catalogue_id=all&quantity=10000",
             ),
             OUTPUT_SCHEMA: training_output_schema,
         },

@@ -13,7 +13,7 @@ We are using .env to store user-specific constants. This file is not tracked by 
 
 ### Data from API:
 - `GUIDELINE_ADDRESS` - A full address to get all interoperability guidelines **endpoint**. Default: `https://beta.providers.eosc-portal.eu/api/interoperabilityRecord/all`
-- `TRAINING_ADDRESS` - A full address to get all trainings **endpoint**. Default: `https://beta.providers.eosc-portal.eu/api/trainingResource/all`
+- `TRAINING_ADDRESS` - A full address to get all trainings **endpoint**. Default: `https://providers.eosc-portal.eu/api/trainingResource/all?catalogue_id=all&quantity=10000`
 <br></br>
 
 ### Other data related params:
