@@ -501,6 +501,7 @@
   <field name="helpdesk_url" type="text_general" sortMissingLast="true" required="false"/>
   <field name="horizontal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+  <field name="internal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="jurisdiction" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="keywords" type="strings" required="false"/>
   <field name="keywords_tg" type="text_general" uninvertible="true" docValues="false" multiValued="true" indexed="true" stored="true"/>
@@ -602,6 +603,7 @@
   <field name="use_cases_urls" type="text_general" sortMissingLast="true" required="false"/>
   <field name="version" type="string" required="false"/>
   <field name="version_control" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="voucherable" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="webpage_url" type="text_general" sortMissingLast="true" required="false"/>
   <dynamicField name="*_txt_en_split_tight" type="text_en_splitting_tight" indexed="true" stored="true"/>
   <dynamicField name="*_descendent_path" type="descendent_path" indexed="true" stored="true"/>
