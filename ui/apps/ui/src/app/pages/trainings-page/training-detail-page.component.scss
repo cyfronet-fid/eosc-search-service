@@ -17,11 +17,19 @@
 }
 
 .about {
-  height: 478px;
   display: flex;
   flex-direction: column;
   border: 1px solid #D8D8D8;
   border-radius: 4px;
+}
+
+.about-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about-content-title {
+  padding-top: 48px;
 }
 
 .details {
@@ -53,7 +61,7 @@
 }
 
 .footer p {
-  padding-left: 64px;
+  padding-left: 48px;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
@@ -63,7 +71,7 @@
 }
 
 .ig-logo-container {
-  padding: 24px;
+  padding: 48px 36px 48px 36px;
 }
 
 .ig-about-title {
@@ -86,7 +94,7 @@
 }
 
 .about-description {
-  padding: 24px 48px 48px 48px;
+  padding: 48px 48px 48px 36px;
 }
 
 .section {
@@ -114,6 +122,13 @@
 
 .column {
   padding: 24px 24px 24px 0;
+}
+
+.column-right {
+  padding-top: 24px;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
 }
 
 .right-column {
@@ -154,15 +169,15 @@
   background: none;
   border-radius: 90px;
   text-align: center;
-  line-height: 2.4;
+  line-height: 3.4;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
-  line-height: 24px;
   /* identical to box height, or 200% */
   letter-spacing: 0.03em;
   color: #828282;
+  text-transform: uppercase;
 }
 
 .button-container {
@@ -176,6 +191,7 @@
 .details {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .column-right {
@@ -241,4 +257,84 @@ h6 {
   height: 24px;
   background: #F1F1F1;
   border-radius: 4px;
+}
+
+.details-box {
+  margin-bottom: 24px;
+  border: 1px solid #D8D8D8;
+}
+
+.details-header {
+  padding-top: 24px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 21px;
+  /* identical to box height, or 105% */
+  color: #000000;
+}
+
+.category-box {
+  width: 84px;
+  height: 84px;
+  border: 1px solid #D8D8D8;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-box {
+  width: 84px;
+  height: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-name {
+  width: 100%;
+  font-size: 10px;
+  line-height: 11px;
+  text-align: center;
+}
+
+.column-container {
+  display: flex;
+  padding: 0 24px 24px 24px;
+}
+
+.details-box-container {
+  display: flex;
+  align-items: center;
+}
+
+.column-left {
+  padding-top: 24px;
+  padding-right: 24px;
+  width: 100%;
+}
+
+.keywords-container {
+  margin-top: 24px;
+}
+
+.keywords-container p {
+  font-size: 14px;
+}
+
+.sub-headline-color {
+  color: #3D4DB6;
+  text-transform: uppercase;
+}
+
+.ig-logo-container img {
+  width: 300px;
+}
+
+.headline-container {
+  display: flex;
 }

@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { IResult, ITag } from '@collections/repositories/types';
 import { TrainingsService } from './trainings.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { trainingsAdapter } from '@collections/data/trainings/adapter.data';
 import isArray from 'lodash-es/isArray';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ITraining } from '@collections/data/trainings/training.model';
+import { toArray } from '@collections/filters-serializers/utils';
+import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
+import { CustomRoute } from '@collections/services/custom-route.service';
+import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 
 @UntilDestroy()
 @Component({
@@ -24,68 +28,12 @@ export class TrainingDetailPageComponent implements OnInit {
   isArray = isArray;
   myTraining?: ITraining;
 
-  mockItem = {
-    author_names: [
-      'Bezuidenhout Louise',
-      'Clare Helen',
-      'Dijk Elly',
-      'Ferguson Kim',
-      'Flohr Pascal',
-      'Hirsch Lisa',
-      'Kuchma Iryna',
-      'Ševkušić Milica',
-      'Vipavc Brvar Irena',
-      'EOSC Future',
-    ],
-    author_names_tg: ['Venkataraman Shanmugasundaram', 'Moura Paula'],
-    best_access_right: 'Open access',
-    catalogue: 'eosc',
-    content_type: ['Text'],
-    description: [
-      'The Report describes the process for the development of the Toolkit for policymakers. The document also comprises the Templates',
-      ' Checklists and Factsheets for RFOs and RPOs and other materials and resources available through the OpenAIRE portal to NOADs and policymakers.',
-    ],
-    duration: null,
-    eosc_provider: ['openaire'],
-    geographical_availabilities: ['World'],
-    id: 'openaire.ae68509e9ca2ff3e0c0827ce6fb30b63',
-    keywords: [
-      'Open Science',
-      'Open access policies',
-      'Institutional policies',
-      'Funder policies',
-    ],
-    keywords_tg: [
-      'Open Science',
-      'Open access policies',
-      'Institutional policies',
-      'Funder policies',
-    ],
-    language: ['English'],
-    learning_outcomes: [
-      'Can use proper data formats to express resources',
-      'Can define the data formats for preservation when creating a DMP',
-    ],
-    level_of_expertise: 'Beginner',
-    license: 'CC BY 4.0',
-    open_access: true,
-    publication_date: '2020-09-01',
-    qualification: [],
-    related_services: [],
-    resource_organisation: 'openaire',
-    resource_type: ['Lesson Plan'],
-    scientific_domains: [['Generic', 'Generic>Generic']],
-    target_group: ['Researchers', 'Students'],
-    title:
-      'Data formats for preservation: What you need to know when creating a DMP',
-    type: 'training',
-    unified_categories: ['Access Training Material'],
-    url: ['https://www.openaire.eu/data-formats-preservation-guide'],
-  };
-
   constructor(
     private trainingsService: TrainingsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _customRoute: CustomRoute,
+    private _filtersConfigsRepository: FiltersConfigsRepository,
+    private _router: Router
   ) {}
 
   ngOnInit(): void {
@@ -106,6 +54,33 @@ export class TrainingDetailPageComponent implements OnInit {
         this.detailsTags = this.training.tags;
         this.sidebarTags = this.training.tags;
       });
+  }
+
+  _addFilter(filter: string, value: string): string[] {
+    const filtersConfigs = this._filtersConfigsRepository.get(
+      this._customRoute.collection()
+    ).filters;
+    const fqMap = this._customRoute.fqMap();
+    if (toArray(fqMap[value]).includes(value)) {
+      return deserializeAll(fqMap, filtersConfigs);
+    }
+
+    return deserializeAll(
+      {
+        ...this._customRoute.fqMap(),
+        [filter]: [...toArray(this._customRoute.fqMap()[filter]), value],
+      },
+      filtersConfigs
+    );
+  }
+
+  async setActiveFilter(filter: string, value: string) {
+    await this._router.navigate(['/search'], {
+      queryParams: {
+        fq: this._addFilter(filter, value),
+      },
+      queryParamsHandling: 'merge',
+    });
   }
 
   toggleTab(id: string) {

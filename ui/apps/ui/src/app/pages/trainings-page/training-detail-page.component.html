@@ -4,106 +4,119 @@
     <div *ngIf="myTraining !== undefined">
       <div class="ig-about-wrapper">
         <div class="about">
-          <div style="display: flex; justify-content: space-between;">
-            <div style="display: flex; align-items: center;">
+          <div class="about-content">
+            <div class="headline-container">
               <div class="ig-logo-container">
-                <img width="300px" [src]="'./assets/training.png'" alt="" />
+                <img [src]="'./assets/training.png'" alt="" />
               </div>
-              <div>
-                <p class="ig-about-title" i18n>{{ myTraining.title }}</p>
+              <div class="about-content-title">
+                <p class="ig-about-title" i18n>{{ myTraining?.title ?? '-' }}</p>
                 <p class="ig-about-subtitle" i18n>
-                  Resource organization: <span style="color: #3D4DB6">{{ myTraining.resource_organisation }}</span>
-                </p>
-                <p class="ig-about-subtitle" i18n>
-                  Provided by: <span style="color: #3D4DB6">{{ myTraining.eosc_provider }}</span>
+                  Resource organization: <span class="sub-headline-color">{{ myTraining?.resource_organisation ?? '-' }}</span><br>
+                  Provided by: <span class="sub-headline-color">{{ myTraining?.eosc_provider ?? '-' }}</span>
                 </p>
               </div>
             </div>
             <div class="button-container">
-              <a href="{{myTraining.url}}">
+              <a href="{{myTraining?.url ?? ''}}">
               <div class="button" i18n>
                 Access training
               </div>
               </a>
               <div class="button-off" i18n>
-                OPEN ACCESS
+                {{ myTraining?.best_access_right ?? '-' }}
               </div>
             </div>
           </div>
-
-<div style="position: relative; bottom: -117px;">
-  <div class="arrows" style="position: relative; border-top: 1px solid #D8D8D8;">
-    <p i18n class="urls-container" style="padding-left: 64px; height: 41px; margin: 0; display: flex; align-items: center;">
-      <a href="{{myTraining.url}}"><span> -> </span> Webpage </a>
-      <!-- <a><span> -> </span> Helpdesk </a>
-      <a><span> -> </span> Manual </a> -->
-    </p>
-  </div>
-  <div class="footer">
-    <p i18n>ABOUT</p>
-  </div>
-</div>
-
-
-
         </div>
         <div class="details">
-
-
-          <div class="column-left" style="padding-top: 24px; padding-right: 24px;">
-
-            <p>{{ myTraining.description }}</p>
-            <h2>Learning Outcome(s)</h2>
-            <ng-container *ngFor="let learn of myTraining.learning_outcomes">
-              <p>{{ learn }}</p>
-            </ng-container>
-
-            <div style="display: flex;">
-              <div class="col-4">
-                <p class="section" i18n>Authors<br>
-                  <ng-container *ngFor="let author of myTraining.author_names">
-                  <span class="section-description">{{ author }}</span><br>
-                  </ng-container>
-                </p>
-                <p class="section" i18n>Learning Resource Type<br>
-                  <ng-container *ngFor="let resource of myTraining.resource_type">
-                    <span class="section-description">{{ resource }}</span><br>
-                  </ng-container>
-                  </p>
-                <p class="section" i18n>Expertise Level<br><span class="section-description">{{ myTraining.level_of_expertise }}</span></p>
-                <p class="section" i18n>Qualification<br><span class="section-description">{{ '-' }}</span></p>
-                <p class="section" i18n>License<br><span class="section-description">{{ myTraining.license }}</span></p>
+          <div class="column-left">
+            <p>{{ myTraining?.description ?? '-'}}</p>
+            <div class="details-box">
+              <div class="details-box-container">
+                <div class="svg-box">
+                  <div class="category-icon">
+                    <span class="helper"></span>
+                    <img [src]="'./assets/light.svg'" alt="">
+                  </div>
+                </div>
+                <p class="details-header" i18n>Basic Details</p>
               </div>
-              <div class="col-4">
-                <p class="section" i18n>Version Date<br><span class="section-description">{{ myTraining.publication_date | transformDatePipe }}</span></p>
-                <p class="section" i18n>Catalogue<br><span class="section-description">{{ myTraining.catalogue  }}</span></p>
-                <p class="section" i18n>Content Resource Type<br>
-                  <ng-container *ngFor="let resource of myTraining.resource_type">
-                    <span class="section-description">{{  resource }}</span><br>
-                  </ng-container>
-                </p>
-                <p class="section" i18n>Duration<br><span class="section-description">{{  myTraining.duration }}</span></p>
-               </div>
+              <div class="column-container">
+                <div class="col-6">
+                  <p class="section" i18n>Version Date<br><span class="section-description">{{ myTraining?.publication_date ?? '-' | transformDatePipe }}</span></p>
+                  <p class="section" i18n>License<br><span class="section-description">{{ myTraining?.license ?? '-'}}</span></p>
+                  <p class="section" i18n>Resource URL type<br><span class="section-description">{{ myTraining?.url_type ?? '-' | filterPipe: 'url_type'  }}</span></p>
+                </div>
+                <div class="col-6">
+                  <p class="section" i18n>Authors<br>
+                    <ng-container *ngFor="let author of myTraining.author_names; let i = index;">
+                      <span class="section-description">{{ author }}</span>{{ i === ((myTraining?.author_names?.length ?? 0)-1) ? '' : ','}}
+                    </ng-container>
+                  </p>
+                </div>
+              </div>
             </div>
 
-
+            <div class="details-box">
+              <div class="details-box-container">
+                <div class="svg-box">
+                  <div class="category-icon">
+                    <span class="helper"></span>
+                    <img [src]="'./assets/target.svg'" alt="">
+                  </div>
+                </div>
+                <p class="details-header" i18n>Learning Details</p>
+              </div>
+              <div  class="column-container">
+                <div class="col-6">
+                  <p class="section" i18n>Expertise Level<br><span class="section-description">{{ myTraining?.level_of_expertise ?? '-' }}</span></p>
+                  <p class="section" i18n>Qualification<br><span class="section-description">{{ myTraining?.qualification ?? '-'}}</span></p>
+                  <p class="section" i18n>Content Resource Type<br>
+                    <ng-container *ngFor="let resource of myTraining.content_type">
+                      <span class="section-description">{{  resource }}</span><br>
+                    </ng-container>
+                  </p>
+                </div>
+                <div class="col-6">
+                  <p class="section" i18n>Duration<br><span class="section-description">{{  myTraining?.duration ?? '-' }}</span></p>
+                  <p class="section" i18n>Learning Resource Type<br>
+                    <ng-container *ngFor="let resource of myTraining.resource_type">
+                      <span class="section-description">{{ resource }}</span><br>
+                    </ng-container>
+                  </p>
+                  <p class="section" i18n>Learning Outcome(s)<br>
+                    <ng-container *ngFor="let learn of myTraining.learning_outcomes">
+                      <span class="section-description">{{ learn }}</span><br>
+                    </ng-container>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-
-
-          <div class="column-right" style="padding-top: 24px; padding-left: 24px; display: flex; flex-direction: column;">
-           <!-- <h6 i18n>SCIENTIC CATEGORISATION</h6>
-            <div style="width: 58px; height: 58px; border: 1px solid #D8D8D8; margin-bottom: 24px;"></div> -->
-           <!-- <h6>CLASSIFICATION</h6>
+          <div class="column-right">
+           <h6 i18n>SCIENTIC CATEGORISATION</h6>
+            <div class="category-box">
+              <div class="category-icon">
+                <span class="helper"></span>
+                <img [src]="'./assets/ico_interdisciplinary.png'" alt="">
+              </div>
+              <div class="category-name" i18n>
+                Generic
+              </div>
+            </div>
             <div class="li-container">
               <ul>
-                <li>Engineering & Technology</li>
+                <ng-container *ngFor="let domain of myTraining.scientific_domains; let i = index">
+                  <li *ngIf="(i === 0)">{{ domain }}</li>
+                </ng-container>
               </ul>
-            </div> -->
-            <h6 i18n>SCIENTIFIC SUBDOMAIN</h6>
+            </div>
+            <h6 i18n>LANGUAGE</h6>
             <div class="li-container">
               <ul>
-                <ng-container *ngFor="let subdomain of myTraining.scientific_domains">
-                  <li>{{  subdomain }}</li>
+                <ng-container *ngFor="let language of myTraining.language">
+                  <li>{{ language }}</li>
                 </ng-container>
               </ul>
             </div>
@@ -111,7 +124,7 @@
             <div class="li-container">
               <ul>
                 <ng-container *ngFor="let target of myTraining.target_group">
-                  <li>{{  target }}</li>
+                  <li>{{ target | filterPipe: 'target_group' }}</li>
                 </ng-container>
               </ul>
             </div>
@@ -123,33 +136,12 @@
                 </ng-container>
               </ul>
             </div>
-
-          </div>
-
-
-
-        </div>
-<!--
-        <div class="service-container">
-
-          <h4 i18n>EOSC Related service</h4>
-          <div class="service-box" style="padding: 12px; background-color: #D8D8D8; width: 360px;">
-            <h5 i18n>EGI Cloud Container Compute</h5>
-            <div class="logo-service-box" style="display: flex; margin-bottom: 24px;">
-              <div style="min-width: 80px; min-height: 80px; border: 1px solid #FFFFFF; margin-right: 12px;"></div>
-              <div><p>Run Docker containers in a lightweight virtualised environment</p></div>
-            </div>
-            <div class="info-box-service" style="display: flex; border-top: 1px solid #FFFFFF; justify-content: space-between; padding-top: 12px;">
-              <p style="font-size: 12px;">Organistaion:<br><span>EGI Foundation</span></p>
-              <p style="font-size: 12px;">Dedicated for:<br><span>Businesses, ...</span></p>
-            </div>
           </div>
         </div>
--->
-        <div class="keywords-container" style="margin-top: 24px;">
-          <p style="font-size: 14px;">Keywords:
+        <div class="keywords-container">
+          <p>Keywords:
             <ng-container *ngFor="let key of myTraining.keywords">
-              <span class="key">{{ key }}</span>
+              <a href="javascript:void(0)" (click)="setActiveFilter('keywords', key)"><span class="key">{{ key }}</span></a>
             </ng-container>
         </div>
       </div>
