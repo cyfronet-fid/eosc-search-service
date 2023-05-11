@@ -1,5 +1,5 @@
 # pylint: disable-all
-from transform.utils.utils import sort_schema
+from utils.utils import sort_schema
 
 
 def test_sort_schema(hp_sorted_schema, hp_not_sorted_schema):

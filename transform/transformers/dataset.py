@@ -1,5 +1,5 @@
 """Transform datasets"""
-from transform.transformers.base.oag import OagBaseTransformer
+from transformers.base.oag import OagBaseTransformer
 
 
 class DatasetTransformer(OagBaseTransformer):

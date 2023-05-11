@@ -4,8 +4,8 @@ import traceback
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import when, col, lit, split
 from pyspark.sql.types import StringType, StructType
-from transform.conf.logger import Log4J
-from transform.utils.send import SOLR, S3, LOCAL_DUMP
+from conf.logger import Log4J
+from utils.send import SOLR, S3, LOCAL_DUMP
 
 
 def replace_empty_str(df: DataFrame) -> DataFrame:

@@ -1,5 +1,5 @@
 """Transform other research products"""
-from transform.transformers.base.oag import OagBaseTransformer
+from transformers.base.oag import OagBaseTransformer
 
 
 class OtherRPTransformer(OagBaseTransformer):

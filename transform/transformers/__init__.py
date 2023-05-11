@@ -1,6 +1,6 @@
 # pylint: disable=undefined-variable, cyclic-import
 """Import transformations"""
-from transform.utils.loader import (
+from utils.loader import (
     DATASET,
     PUBLICATION,
     SOFTWARE,

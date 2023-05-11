@@ -5,12 +5,12 @@ from pyspark.sql.types import (
     StringType,
     BooleanType,
 )
-from transform.transformers.base.marketplace import (
+from transformers.base.marketplace import (
     MarketplaceBaseTransformer,
     SERVICE_TYPE,
 )
-from transform.utils.utils import sort_schema
-from transform.schemas.properties_name import (
+from utils.utils import sort_schema
+from schemas.properties_name import (
     BEST_ACCESS_RIGHT,
     OPEN_ACCESS,
 )

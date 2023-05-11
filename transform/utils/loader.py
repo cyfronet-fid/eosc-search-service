@@ -5,8 +5,8 @@ import json
 from datetime import date
 from dotenv import load_dotenv
 from pyspark.sql import SparkSession
-from transform.conf.s3 import connect_to_s3
-from transform.schemas.output import *
+from conf.s3 import connect_to_s3
+from schemas.output import *
 
 
 DATASET = "DATASET"

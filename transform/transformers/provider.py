@@ -7,10 +7,10 @@ from pyspark.sql.functions import (
     split,
 )
 from pyspark.sql.types import StringType
-from transform.transformations.common import *
-from transform.transformers.base.base import BaseTransformer
-from transform.schemas.properties_name import ID
-from transform.utils.loader import (
+from transformations.common import *
+from transformers.base.base import BaseTransformer
+from schemas.properties_name import ID
+from utils.loader import (
     SEPARATE_COLLECTION,
     PATH,
     PROVIDER,
@@ -19,14 +19,14 @@ from transform.utils.loader import (
     OUTPUT_FORMAT,
     OUTPUT_SCHEMA,
 )
-from transform.utils.utils import print_errors
-from transform.utils.send import (
+from utils.utils import print_errors
+from utils.send import (
     send_data,
     failed_files,
 )
-from transform.utils.save import save_df
-from transform.conf.logger import Log4J
-from transform.utils.validate import (
+from utils.save import save_df
+from conf.logger import Log4J
+from utils.validate import (
     check_schema_after_trans,
 )
 

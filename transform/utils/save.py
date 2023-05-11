@@ -6,8 +6,8 @@ import logging
 import pyspark
 from pyspark.sql.functions import spark_partition_id
 import pandas
-from transform.conf.logger import Log4J
-from transform.utils.loader import (
+from conf.logger import Log4J
+from utils.loader import (
     LOCAL_DUMP_PATH,
     ALL_COLLECTION,
     SEPARATE_COLLECTION,
