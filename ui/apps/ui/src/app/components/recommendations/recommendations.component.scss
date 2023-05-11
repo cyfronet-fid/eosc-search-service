@@ -120,3 +120,37 @@ $palette-gray-80: rgba($palette-gray-100, 0.8);
     padding: 15px 20px;
   }
 }
+
+.usage > .statistic {
+  font-size: 11px;
+  margin-right: 15px;
+  display: inline-block;
+  line-height: 17px;
+  height: 17px;
+  vertical-align: middle;
+}
+
+.usage > .statistic img {
+  margin-right: 5px;
+  max-height: 17px;
+  width: auto;
+  vertical-align: middle;
+}
+
+.column .suggested:not(:first-child) {
+ margin-left: 24px;
+}
+
+.suggested {
+  background: #fff;
+  padding: 24px 20px 20px;
+  overflow: hidden;
+  border: 1px solid #d9dee2;
+  border-radius: 8px;
+  position: relative;
+  margin: 0 0 20px;
+}
+
+.results #container:not(:first-child) {
+  margin-left: 24px;
+}

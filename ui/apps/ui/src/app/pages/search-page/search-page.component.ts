@@ -40,7 +40,7 @@ import { queryChanger } from '@collections/filters-serializers/utils';
               [response]="response"
             ></ess-results-with-pagination>
           </div>
-          <div
+          <!-- <div
             class="col-sm-2 col-12 right-column"
             *ngIf="
               (response?.results ?? []).length > 0 &&
@@ -49,9 +49,12 @@ import { queryChanger } from '@collections/filters-serializers/utils';
           >
             <h5>Suggested</h5>
             <ess-recommendations></ess-recommendations>
-          </div>
+          </div> -->
         </div>
       </div>
+    </div>
+    <div class="suggested" style="background-color: #EFF1FF;">
+      <ess-recommendations></ess-recommendations>
     </div>
   `,
   styles: [
