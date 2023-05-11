@@ -1,5 +1,26 @@
 # Changelog
 
+## [2.3.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.2.0...v2.3.0) (2023-05-11)
+
+
+### Features
+
+* [[#465](https://github.com/cyfronet-fid/eosc-search-service/issues/465)] index bundles ([8e05fed](https://github.com/cyfronet-fid/eosc-search-service/commit/8e05fedb3a483e4ab63155ee409cc705fe3f9667))
+* [[#494](https://github.com/cyfronet-fid/eosc-search-service/issues/494)] index offers ([98540c6](https://github.com/cyfronet-fid/eosc-search-service/commit/98540c6cde4860a59c60d4a2533625d6ca498387))
+* [[#563](https://github.com/cyfronet-fid/eosc-search-service/issues/563)] map all guidelines properties ([7dbdf58](https://github.com/cyfronet-fid/eosc-search-service/commit/7dbdf58ceb0826f324fc0cc044a8a953459d35fa))
+* [[#578](https://github.com/cyfronet-fid/eosc-search-service/issues/578)] add url_type for trainings ([300931d](https://github.com/cyfronet-fid/eosc-search-service/commit/300931d62df6bb8c3045f5d05804b035de5169a5))
+* [[#583](https://github.com/cyfronet-fid/eosc-search-service/issues/583)] set catalogue_id=all for trainings ([a03de8c](https://github.com/cyfronet-fid/eosc-search-service/commit/a03de8c7d9934efa1f01b10e8fbf7e13cfce7381))
+* [#510](https://github.com/cyfronet-fid/eosc-search-service/issues/510) interoperability guidelines sections with details page to search services added ([c37c421](https://github.com/cyfronet-fid/eosc-search-service/commit/c37c421a17509fc8ecb1fa32ac36a294886c9b05))
+* [#537](https://github.com/cyfronet-fid/eosc-search-service/issues/537) trainings ([0b6d913](https://github.com/cyfronet-fid/eosc-search-service/commit/0b6d913c8f84bb2d25f0d08e3935bd2cf1083263))
+* [#544](https://github.com/cyfronet-fid/eosc-search-service/issues/544) interoperability guidelines filters ([85943ff](https://github.com/cyfronet-fid/eosc-search-service/commit/85943ff5a25ef689bc47e6b23d7b4557d2b76097))
+* [#557](https://github.com/cyfronet-fid/eosc-search-service/issues/557) suggested move on the bottom ([5edfee9](https://github.com/cyfronet-fid/eosc-search-service/commit/5edfee9dda20353b2c00f2c2bdb750ebbac9ab2f))
+* [#565](https://github.com/cyfronet-fid/eosc-search-service/issues/565) guidelines schema and filters fixes ([e088832](https://github.com/cyfronet-fid/eosc-search-service/commit/e088832b180494ea48270b89f1a8f55d7e01f5c7))
+* [#572](https://github.com/cyfronet-fid/eosc-search-service/issues/572) training improvement ([8d32134](https://github.com/cyfronet-fid/eosc-search-service/commit/8d32134c63b90831491fd68c20f70258c254ba31))
+* [#580](https://github.com/cyfronet-fid/eosc-search-service/issues/580) interoberability guidelines temporily off ([d36097c](https://github.com/cyfronet-fid/eosc-search-service/commit/d36097c2e743857b12a21617f134c988b543b268))
+* [#588](https://github.com/cyfronet-fid/eosc-search-service/issues/588) filter lowercase bug fixed ([20a8950](https://github.com/cyfronet-fid/eosc-search-service/commit/20a8950a3e1423096083c7cfff0b8ab58e2b0818))
+* add configurable explore url ([91a26c6](https://github.com/cyfronet-fid/eosc-search-service/commit/91a26c672effa96e30d6467a3e9a338ddc6c3892))
+* add show-eosc-links="true" to header ([ae06fb8](https://github.com/cyfronet-fid/eosc-search-service/commit/ae06fb82478cd7c2938301f219c32bd17628f585))
+
 ## [2.2.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.1.1...v2.2.0) (2023-04-21)
 
 
