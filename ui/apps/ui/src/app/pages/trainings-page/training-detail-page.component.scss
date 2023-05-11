@@ -1,178 +1,340 @@
-.details-header {
-  width: 100%;
-  margin-top: 40px;
-  padding: 0;
-  overflow: hidden;
-
-  .container {
-    max-width: 100%;
-  }
-
-  h1 {
-    font-size: 1.4em;
-    font-weight: 600;
-    line-height: 1.2em;
-  }
+.ig-about-wrapper {
+  margin: 24px 0 0 0;
 }
 
-#description-tab {
-  .container {
-    max-width: 100%;
-  }
+.ig-details-wrapper {
+  min-height: 478px;
+  margin: 0 0 64px 0;
+  border: 1px solid #D8D8D8;
+  border-radius: 4px;
 }
 
-.btn-primary {
-  background-color: #0c2bd5;
-  border-color: #fff;
-  padding: 10px 10px;
-  background-image: linear-gradient(135deg, #05cae7, #0c2bd5);
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+.ig-provider-information-wrapper {
+  height: 478px;
+  margin: 0 0 64px 0;
+  border: 1px solid #D8D8D8;
+  border-radius: 4px;
 }
 
-.btn-primary:hover {
-  background: #0c2bd5;
-  border-color: #0c2bd5;
+.about {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #D8D8D8;
+  border-radius: 4px;
 }
 
-.download {
-  margin: 2px 0 5px;
-  font-size: 0.95em;
+.about-content {
+  display: flex;
+  justify-content: space-between;
 }
 
-.accesstype-label {
-  font-size: 0.95em;
+.about-content-title {
+  padding-top: 48px;
 }
 
-.nav-tabs .nav-item {
-  width: auto;
+.details {
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+}
+
+.header {
+  height: 54px;
+  background: #F4F4F5;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.header p {
+  padding-left: 48px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 54px;
+  color: #37434c;
+}
+
+.footer {
+  height: 54px;
+  background: #F4F4F5;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.footer p {
+  padding-left: 48px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 54px;
+  color: #37434c;
+}
+
+.ig-logo-container {
+  padding: 48px 36px 48px 36px;
+}
+
+.ig-about-title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26px;
+  color: #000000;
+}
+
+.ig-about-subtitle {
+  max-width: 780px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.about-description {
+  padding: 48px 48px 48px 36px;
+}
+
+.section {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.section-description {
+  overflow-wrap: break-word;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.left-column {
+  padding: 24px 0 0 48px;
+}
+
+.column {
+  padding: 24px 24px 24px 0;
+}
+
+.column-right {
+  padding-top: 24px;
+  padding-left: 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-column {
+  padding: 24px 24px 0 0;
+}
+
+.urls-container a {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #404DB1;
+  padding-right: 12px;
+}
+
+.urls-container a span {
+  color: #F7CF46;
+}
+
+.button {
+  width: 235px;
+  height: 40px;
+  text-align: center;
+  line-height: 2.4;
+  background: #040F81;
+  border-radius: 90px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #FFFFFF;
+}
+
+.button-off {
+  width: 235px;
+  height: 40px;
   background: none;
-  font-weight: bold;
-
-  a {
-    border: none;
-    background: none;
-    color: rgba(0, 0, 0, 0.85);
-
-    &.active {
-      color: #0c2bd5;
-      border-bottom: 2px solid #0c2bd5;
-    }
-
-    &:hover {
-      opacity: 0.7;
-    }
-  }
+  border-radius: 90px;
+  text-align: center;
+  line-height: 3.4;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  /* identical to box height, or 200% */
+  letter-spacing: 0.03em;
+  color: #828282;
+  text-transform: uppercase;
 }
 
-.nav-tabs {
-  background-color: rgba(28, 49, 58, 0.05);
-  border: none;
-  padding: 0 30px;
-  margin-top: 30px;
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px;
 }
 
-.tab-content .container {
-  padding-left: 0;
-  padding-right: 0;
+.details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.right-panel {
-  padding: 0 0 0 25px;
-  border-left: 1px solid rgba(0, 0, 0, 0.125);
+.column-right {
+  display: flex;
+  min-width: 363px;
+}
 
-  h5 {
-    margin: 0;
-    font-size: 0.85rem;
-  }
+.li-container {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  min-height: 53px;
+  border: 1px solid #D8D8D8;
+}
 
-  .list-group {
-    margin-top: 7px;
-    padding: 10px 0 0 10px;
-    border: 1px solid rgba(0, 0, 0, 0.125);
-    list-style-type: disc !important;
+.li-container ul {
+  padding-top: 12px;
+}
 
-    li {
-      border: none;
-      padding: 0;
-      font-size: 0.85rem;
-      margin: 0 0 10px 10px;
-      list-style-type: disc !important;
-      color: #ffcd00;
+li::marker {
+  color: #F7CF46;
+}
 
-      span {
-        color: #233d4c;
-      }
-    }
-  }
+h4 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  /* identical to box height, or 120% */
+  color: #000000;
+}
+
+h5 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+  /* identical to box height, or 120% */
+  color: #000000;
+}
+
+h6 {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 24px;
+  /* identical to box height, or 200% */
+
+  letter-spacing: 0.02em;
+
+  color: #000000;
+  margin-bottom: 12px;
+}
+
+.key {
+  padding: 0px 6px;
+  gap: 10px;
+  margin-right: 6px;
+  width: 235px;
+  height: 24px;
+  background: #F1F1F1;
+  border-radius: 4px;
 }
 
 .details-box {
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  padding: 0;
-  border-radius: 10px;
-
-  .details-box-header {
-    padding: 7px 20px;
-    font-weight: 500;
-  }
-
-  .details-content {
-    padding: 9px 20px 0 30px;
-    background: rgba(28, 49, 58, 0.05);
-
-    ul {
-      margin-top: 0;
-      padding: 0;
-      list-style-type: disc !important;
-
-      li {
-        padding: 0;
-        font-size: 0.85rem;
-        margin: 0 0 12px 10px;
-        list-style-type: disc !important;
-        color: #ffcd00;
-
-        span {
-          color: #0c2bd5;
-        }
-      }
-    }
-  }
+  margin-bottom: 24px;
+  border: 1px solid #D8D8D8;
 }
 
-@media (max-width: 576px) {
-  .details-header {
-    h1 {
-      font-size: 1em;
-      line-height: 1em;
-    }
+.details-header {
+  padding-top: 24px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 21px;
+  /* identical to box height, or 105% */
+  color: #000000;
+}
 
-    .container {
-      padding: 0 25px;
+.category-box {
+  width: 84px;
+  height: 84px;
+  border: 1px solid #D8D8D8;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-      .btn {
-        margin-top: 20px;
-      }
-    }
-  }
+.svg-box {
+  width: 84px;
+  height: 84px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  .right-column {
-    margin-top: 0;
-  }
+.category-name {
+  width: 100%;
+  font-size: 10px;
+  line-height: 11px;
+  text-align: center;
+}
 
-  #details {
-    .row {
-      width: 100%;
-      margin: 0;
-    }
-  }
+.column-container {
+  display: flex;
+  padding: 0 24px 24px 24px;
+}
 
-  .details-box {
-    margin: 0 0 20px;
-  }
+.details-box-container {
+  display: flex;
+  align-items: center;
+}
 
-  .right-panel {
-    margin-bottom: 25px;
-  }
+.column-left {
+  padding-top: 24px;
+  padding-right: 24px;
+  width: 100%;
+}
+
+.keywords-container {
+  margin-top: 24px;
+}
+
+.keywords-container p {
+  font-size: 14px;
+}
+
+.sub-headline-color {
+  color: #3D4DB6;
+  text-transform: uppercase;
+}
+
+.ig-logo-container img {
+  width: 300px;
+}
+
+.headline-container {
+  display: flex;
 }

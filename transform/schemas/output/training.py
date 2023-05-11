@@ -29,4 +29,5 @@ training_output_schema = {
     "type": "string",
     "unified_categories": "array<string>",
     "url": "array<string>",
+    "url_type": "string",
 }

@@ -1,153 +1,150 @@
 <div xmlns="http://www.w3.org/1999/html">
   <ess-back-to-search-bar></ess-back-to-search-bar>
   <div class="container-xxl mb-5">
-    <div class="dashboard" style="position: relative">
-      <section class="details-header">
-        <div class="container" *ngIf="training !== undefined">
-          <div class="row">
-            <div class="col-12 col-lg-10 row">
-              <div class="col-12 col-sm-9 p-0">
-                <h1>{{ training.title }}</h1>
-                <p class="mb-1">{{ keywords }}</p>
-                <span class="clearfix"></span>
+    <div *ngIf="myTraining !== undefined">
+      <div class="ig-about-wrapper">
+        <div class="about">
+          <div class="about-content">
+            <div class="headline-container">
+              <div class="ig-logo-container">
+                <img [src]="'./assets/training.png'" alt="" />
+              </div>
+              <div class="about-content-title">
+                <p class="ig-about-title" i18n>{{ myTraining?.title ?? '-' }}</p>
+                <p class="ig-about-subtitle" i18n>
+                  Resource organization: <span class="sub-headline-color">{{ myTraining?.resource_organisation ?? '-' }}</span><br>
+                  Provided by: <span class="sub-headline-color">{{ myTraining?.eosc_provider ?? '-' }}</span>
+                </p>
               </div>
             </div>
-            <div class="col-12 col-lg-2 text-center">
-              <p class="download font-light">
-                <a href="{{ originUrl }}">Access the training</a>
-              </p>
-              <div class="vertical-center-inner access-type">
-                <span class="accesstype-label">
-                  <i class="accesstype accesstype-{{ accessType }}"></i>
-                  {{ accessType }}
-                </span>
+            <div class="button-container">
+              <a href="{{myTraining?.url ?? ''}}">
+              <div class="button" i18n>
+                Access training
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <ul class="nav nav-tabs row pl-3" id="my-tab" role="tablist">
-              <li class="nav-item">
-                <a
-                  class="nav-link text-uppercase {{
-                    currentTab === 'about' ? 'active' : ''
-                  }}"
-                  (click)="toggleTab('about')"
-                  role="tab"
-                  href="javascript:undefined"
-                  >About</a
-                >
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link text-uppercase {{
-                    currentTab === 'details' ? 'active' : ''
-                  }}"
-                  (click)="toggleTab('details')"
-                  role="tab"
-                  href="javascript:undefined"
-                  >Details</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <section id="description-tab">
-        <div
-          id="about"
-          class="tab-content {{
-            currentTab === 'about' ? 'd-block' : 'd-none'
-          }}"
-          *ngIf="training !== undefined"
-        >
-          <div
-            aria-labelledby="home-tab"
-            class="container pt-2 desc"
-            id="desc"
-            role="tabpanel"
-          >
-            <div class="row p-4 justify-content-between">
-              <div class="col-12 col-lg-9 pr-5 mb-4 trainings-left-column">
-                <p>{{ training.description }}</p>
-              </div>
-              <div class="col-12 col-lg-3 trainings-right-column">
-                <div class="right-panel">
-                  <ng-container *ngFor="let tag of sidebarTags">
-                    <h5>{{ tag.label }}</h5>
-                    <ul class="list-group domains mb-4">
-                      <ng-container *ngIf="isArray(tag.values); else oneValue">
-                        <ng-container
-                          *ngFor="let singleValue of $any(tag.values)"
-                        >
-                          <li>
-                            <span>
-                              {{ singleValue.label }}
-                            </span>
-                          </li>
-                        </ng-container>
-                      </ng-container>
-                      <ng-template #oneValue>
-                        <li>
-                          <span>
-                            {{ tag.values }}
-                          </span>
-                        </li>
-                      </ng-template>
-                    </ul>
-                  </ng-container>
-                </div>
+              </a>
+              <div class="button-off" i18n>
+                {{ myTraining?.best_access_right ?? '-' }}
               </div>
             </div>
           </div>
         </div>
-
-        <div
-          id="details"
-          class="tab-content {{
-            currentTab === 'details' ? 'd-block' : 'd-none'
-          }}"
-        >
-          <div class="container">
-            <div class="row p-4">
-              <ng-container *ngFor="let tag of detailsTags">
-                <div class="col-12 col-lg-4">
-                  <div class="details-box">
-                    <div class="details-box-header">
-                      {{ tag.label }}
-                    </div>
-                    <div class="details-content">
-                      <ul class="list-group">
-                        <ng-container
-                          *ngIf="isArray(tag.values); else oneValue"
-                        >
-                          <ng-container
-                            *ngFor="let singleValue of $any(tag.values)"
-                          >
-                            <li>
-                              <span>
-                                {{ singleValue.label }}
-                              </span>
-                            </li>
-                          </ng-container>
-                        </ng-container>
-                        <ng-template #oneValue>
-                          <li>
-                            <span>
-                              {{ tag.values }}
-                            </span>
-                          </li>
-                        </ng-template>
-                      </ul>
-                    </div>
+        <div class="details">
+          <div class="column-left">
+            <p>{{ myTraining?.description ?? '-'}}</p>
+            <div class="details-box">
+              <div class="details-box-container">
+                <div class="svg-box">
+                  <div class="category-icon">
+                    <span class="helper"></span>
+                    <img [src]="'./assets/light.svg'" alt="">
                   </div>
                 </div>
-              </ng-container>
+                <p class="details-header" i18n>Basic Details</p>
+              </div>
+              <div class="column-container">
+                <div class="col-6">
+                  <p class="section" i18n>Version Date<br><span class="section-description">{{ myTraining?.publication_date ?? '-' | transformDatePipe }}</span></p>
+                  <p class="section" i18n>License<br><span class="section-description">{{ myTraining?.license ?? '-'}}</span></p>
+                  <p class="section" i18n>Resource URL type<br><span class="section-description">{{ myTraining?.url_type ?? '-' | filterPipe: 'url_type'  }}</span></p>
+                </div>
+                <div class="col-6">
+                  <p class="section" i18n>Authors<br>
+                    <ng-container *ngFor="let author of myTraining.author_names; let i = index;">
+                      <span class="section-description">{{ author }}</span>{{ i === ((myTraining?.author_names?.length ?? 0)-1) ? '' : ','}}
+                    </ng-container>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="details-box">
+              <div class="details-box-container">
+                <div class="svg-box">
+                  <div class="category-icon">
+                    <span class="helper"></span>
+                    <img [src]="'./assets/target.svg'" alt="">
+                  </div>
+                </div>
+                <p class="details-header" i18n>Learning Details</p>
+              </div>
+              <div  class="column-container">
+                <div class="col-6">
+                  <p class="section" i18n>Expertise Level<br><span class="section-description">{{ myTraining?.level_of_expertise ?? '-' }}</span></p>
+                  <p class="section" i18n>Qualification<br><span class="section-description">{{ myTraining?.qualification ?? '-'}}</span></p>
+                  <p class="section" i18n>Content Resource Type<br>
+                    <ng-container *ngFor="let resource of myTraining.content_type">
+                      <span class="section-description">{{  resource }}</span><br>
+                    </ng-container>
+                  </p>
+                </div>
+                <div class="col-6">
+                  <p class="section" i18n>Duration<br><span class="section-description">{{  myTraining?.duration ?? '-' }}</span></p>
+                  <p class="section" i18n>Learning Resource Type<br>
+                    <ng-container *ngFor="let resource of myTraining.resource_type">
+                      <span class="section-description">{{ resource }}</span><br>
+                    </ng-container>
+                  </p>
+                  <p class="section" i18n>Learning Outcome(s)<br>
+                    <ng-container *ngFor="let learn of myTraining.learning_outcomes">
+                      <span class="section-description">{{ learn }}</span><br>
+                    </ng-container>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column-right">
+           <h6 i18n>SCIENTIC CATEGORISATION</h6>
+            <div class="category-box">
+              <div class="category-icon">
+                <span class="helper"></span>
+                <img [src]="'./assets/ico_interdisciplinary.png'" alt="">
+              </div>
+              <div class="category-name" i18n>
+                Generic
+              </div>
+            </div>
+            <div class="li-container">
+              <ul>
+                <ng-container *ngFor="let domain of myTraining.scientific_domains; let i = index">
+                  <li *ngIf="(i === 0)">{{ domain }}</li>
+                </ng-container>
+              </ul>
+            </div>
+            <h6 i18n>LANGUAGE</h6>
+            <div class="li-container">
+              <ul>
+                <ng-container *ngFor="let language of myTraining.language">
+                  <li>{{ language }}</li>
+                </ng-container>
+              </ul>
+            </div>
+            <h6 i18n>TARGET USERS</h6>
+            <div class="li-container">
+              <ul>
+                <ng-container *ngFor="let target of myTraining.target_group">
+                  <li>{{ target | filterPipe: 'target_group' }}</li>
+                </ng-container>
+              </ul>
+            </div>
+            <h6 i18n>GEOGRAPHICAL AVAIABILITY</h6>
+            <div class="li-container">
+              <ul>
+                <ng-container *ngFor="let availabe of myTraining.geographical_availabilities">
+                  <li>{{  availabe }}</li>
+                </ng-container>
+              </ul>
             </div>
           </div>
         </div>
-      </section>
+        <div class="keywords-container">
+          <p>Keywords:
+            <ng-container *ngFor="let key of myTraining.keywords">
+              <a href="javascript:void(0)" (click)="setActiveFilter('keywords', key)"><span class="key">{{ key }}</span></a>
+            </ng-container>
+        </div>
+      </div>
     </div>
   </div>
 </div>

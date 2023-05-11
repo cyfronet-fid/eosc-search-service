@@ -98,7 +98,7 @@ class TrainingTransformer(BaseTransformer):
     @property
     def cols_to_drop(self) -> tuple:
         """Drop those columns from the dataframe"""
-        return ("contact", "url_type")
+        return ("contact",)
 
     @property
     def cols_to_rename(self) -> dict[str, str]:

@@ -32,6 +32,7 @@ import { RedirectService } from '@collections/services/redirect.service';
 
       <div class="usage">
         <span
+          *ngIf="accessRight !== undefined"
           [ngClass]="{
             statistic: true,
             'open-access': accessRight?.toLowerCase() === 'open access',

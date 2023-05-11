@@ -9,11 +9,14 @@ import {
 } from '@angular/core';
 import { ITag } from '@collections/repositories/types';
 import { combineHighlightsWith } from './utils';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'ess-tags',
   template: ` <div id="tags">
-    <ng-container *ngFor="let tag of parsedTags; trackBy: trackByLabel">
+    <ng-container
+      *ngFor="let tag of parsedTags; let i = index; trackBy: trackByLabel"
+    >
       <div class="tag-row" *ngIf="tag.values.length > 0">
         <span class="tag tag-title"
           ><strong>{{ tag.label }}: </strong></span
@@ -54,6 +57,8 @@ export class TagsComponent implements OnChanges {
   trackByLabel: TrackByFunction<ITag> = (index: number, entity: ITag) =>
     entity.label;
 
+  constructor(private viewPortScroller: ViewportScroller) {}
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tags'] || changes['highlights']) {
       this.parsedTags = combineHighlightsWith(this.tags, this.highlights);
@@ -62,5 +67,6 @@ export class TagsComponent implements OnChanges {
 
   setActiveFilter(filter: string, value: string): void {
     this.activeFilter.emit({ filter, value });
+    this.viewPortScroller.scrollToPosition([0, 0]);
   }
 }

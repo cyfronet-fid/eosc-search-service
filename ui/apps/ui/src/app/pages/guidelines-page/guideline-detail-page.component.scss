@@ -1,0 +1,124 @@
+.ig-about-wrapper {
+  height: 478px;
+  margin: 24px 0 0 0;
+  border: 1px solid #D8D8D8;
+  border-radius: 4px;
+}
+
+.ig-details-wrapper {
+  min-height: 478px;
+  margin: 0 0 64px 0;
+  border: 1px solid #D8D8D8;
+  border-radius: 4px;
+}
+
+.ig-provider-information-wrapper {
+  height: 478px;
+  margin: 0 0 64px 0;
+  border: 1px solid #D8D8D8;
+  border-radius: 4px;
+}
+
+.about {
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.details {
+  height: inherit;
+  display: flex;
+  flex-direction: row;
+}
+
+.header {
+  height: 54px;
+  background: #F4F4F5;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.header p {
+  padding-left: 48px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 54px;
+  color: #37434c;
+}
+
+.footer {
+  margin-top: -54px;
+  height: 54px;
+  background: #F4F4F5;
+  border-radius: 0px 0px 4px 4px;
+}
+
+.footer p {
+  padding-left: 64px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 54px;
+  color: #37434c;
+}
+
+.ig-logo-container {
+  padding: 64px;
+}
+
+.ig-about-title {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 26px;
+  color: #000000;
+}
+
+.ig-about-subtitle {
+  max-width: 780px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.about-description {
+  padding: 24px 48px 48px 48px;
+}
+
+.section {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.section-description {
+  overflow-wrap: break-word;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #000000;
+}
+
+.left-column {
+  padding: 24px 0 0 48px;
+}
+
+.column {
+  padding: 24px 24px 24px 0;
+}
+
+.right-column {
+  padding: 24px 24px 0 0;
+}

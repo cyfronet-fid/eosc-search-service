@@ -165,3 +165,6 @@ EOSC_COMMONS_URL = config(
 )
 
 EOSC_COMMONS_ENV = config("EOSC_COMMONS_ENV", cast=str, default="production")
+EOSC_EXPLORE_URL = config(
+    "EOSC_EXPLORE_URL", cast=str, default="https://explore.eosc-portal.eu"
+)

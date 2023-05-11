@@ -1,9 +1,7 @@
 export interface ITraining {
   id: string;
-  url: string[];
-  title: string[];
-  description: string[];
-  author_names: string;
+  title?: string[];
+  description?: string[];
   language: string;
   keywords: string[];
   license: string;
@@ -21,4 +19,13 @@ export interface ITraining {
   type: string;
   usage_counts_views: string;
   usage_counts_downloads: string;
+  author_names?: string[];
+  author_names_tg: string[];
+  catalogue: string;
+  resource_organisation?: string;
+  url?: string[];
+  url_type?: string;
+  learning_outcomes?: string[];
+  geographical_availabilities?: string[];
+  scientific_domains?: string[];
 }

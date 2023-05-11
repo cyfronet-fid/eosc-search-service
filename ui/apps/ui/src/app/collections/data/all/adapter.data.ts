@@ -5,6 +5,7 @@ import { IOpenAIREResult } from '@collections/data/openair.model';
 import moment from 'moment';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
+import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { IService } from '@collections/data/services/service.model';
 import { hackDataSourceUrl } from '@collections/data/data-sources/adapter.data';
 import {
@@ -24,22 +25,26 @@ import { ConfigService } from '../../../services/config.service';
 
 const urlAdapter = (
   type: string,
-  data: Partial<IOpenAIREResult & IDataSource & IService & ITraining>
+  data: Partial<
+    IOpenAIREResult & IDataSource & IService & ITraining & IGuideline
+  >
 ) => {
   switch (type) {
     case 'dataset':
     case 'publication':
     case 'software':
     case 'other':
-      return `https://explore.eosc-portal.eu/search/result?id=${data?.id
-        ?.split('|')
-        ?.pop()}`;
+      return `${
+        ConfigService.config?.eosc_explore_url
+      }/search/result?id=${data?.id?.split('|')?.pop()}`;
     case 'data source':
       return hackDataSourceUrl(data?.pid);
     case 'service':
       return `${ConfigService.config?.marketplace_url}/services/${data?.pid}`;
     case 'training':
       return '/trainings/' + data.id;
+    case 'interoperability guideline':
+      return '/guidelines/' + data.id;
     default:
       return '';
   }
@@ -48,7 +53,9 @@ const urlAdapter = (
 export const allCollectionsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (
-    data: Partial<IOpenAIREResult & ITraining & IDataSource & IService> & {
+    data: Partial<
+      IOpenAIREResult & ITraining & IDataSource & IService & IGuideline
+    > & {
       id: string;
     }
   ): IResult => ({

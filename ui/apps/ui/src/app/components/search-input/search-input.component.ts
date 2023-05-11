@@ -67,7 +67,6 @@ import { RedirectService } from '@collections/services/redirect.service';
             </div>
             <select
               class="form-select"
-              style="flex-grow: 0; flex-basis: 150px;"
               (click)="focused = false"
               [formControl]="collectionFc"
             >
@@ -96,7 +95,12 @@ import { RedirectService } from '@collections/services/redirect.service';
         >
           <ng-container *ngFor="let group of suggestedResults">
             <div class="list-group-item">
-              <span class="group">{{ group.label }}</span> &nbsp;<a
+              <span class="group">{{
+                group.label === 'guideline'
+                  ? 'INTEROPERABILITY GUIDELINES'
+                  : group.label
+              }}</span>
+              &nbsp;<a
                 [routerLink]="['/search', group.link]"
                 [queryParams]="{ q: formControl.value }"
                 >see all</a
@@ -176,6 +180,18 @@ import { RedirectService } from '@collections/services/redirect.service';
       #btn--search {
         float: left;
         height: 40px;
+      }
+
+      .form-select {
+        flex-grow: 0;
+        flex-basis: 150px;
+        width: auto;
+        min-width: auto;
+      }
+
+      .input-group {
+        display: flex;
+        flex-wrap: nowrap;
       }
     `,
   ],

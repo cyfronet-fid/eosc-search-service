@@ -10,6 +10,7 @@ export interface BackendConfig {
   marketplace_url: string;
   eosc_commons_url: string;
   eosc_commons_env: string;
+  eosc_explore_url: string;
 }
 
 @Injectable({

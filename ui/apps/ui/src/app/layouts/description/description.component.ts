@@ -11,7 +11,7 @@ const MAX_CHARS_LENGTH = 256;
     <p class="description">
       <span [innerHTML]="showFull ? fullDescription : shortDescription"></span>
       <a
-        *ngIf="hasShowMoreBtn"
+        *ngIf="hasShowMoreBtn && !buttonOff"
         href="javascript:void(0)"
         class="btn-show-more"
         (click)="showFull = !showFull"
@@ -40,6 +40,9 @@ export class DescriptionComponent implements OnChanges {
 
   @Input()
   highlights: string[] = [];
+
+  @Input()
+  buttonOff!: boolean;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['description'] || changes['highlights']) {
