@@ -2,26 +2,26 @@
 """Load, transform and send data"""
 import requests
 from tqdm import tqdm
-import transform.transformers as trans
-from transform.conf.spark import apply_spark_conf
-from transform.utils.loader import *
-from transform.utils.utils import (
+import transformers as trans
+from conf.spark import apply_spark_conf
+from utils.loader import *
+from utils.utils import (
     print_results,
     print_errors,
 )
-from transform.utils.validate import (
+from utils.validate import (
     check_schema_after_trans,
 )
-from transform.utils.save import (
+from utils.save import (
     save_df,
     create_dump_struct,
     make_archive,
 )
-from transform.utils.send import (
+from utils.send import (
     send_data,
     failed_files,
 )
-from transform.transformers.provider import upload_providers
+from transformers.provider import upload_providers
 
 
 def upload_all_col_data() -> None:

@@ -2,7 +2,7 @@
 import configparser
 from pyspark import SparkConf
 from pyspark.sql import SparkSession
-from transform.conf.logger import Log4J
+from conf.logger import Log4J
 
 
 def apply_spark_conf() -> [SparkSession, Log4J]:

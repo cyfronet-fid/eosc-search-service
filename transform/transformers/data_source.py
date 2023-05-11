@@ -6,12 +6,12 @@ from pyspark.sql.types import (
     BooleanType,
     ArrayType,
 )
-from transform.transformers.base.marketplace import (
+from transformers.base.marketplace import (
     MarketplaceBaseTransformer,
     DATA_SOURCE_TYPE,
 )
-from transform.utils.utils import sort_schema
-from transform.schemas.properties_name import (
+from utils.utils import sort_schema
+from schemas.properties_name import (
     PERSIST_ID_SYS_ENTITY_TYPE,
     PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES,
     BEST_ACCESS_RIGHT,

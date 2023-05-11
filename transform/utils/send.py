@@ -6,7 +6,7 @@ import logging
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
 from botocore.exceptions import ClientError, EndpointConnectionError
-from transform.utils.loader import (
+from utils.loader import (
     ALL_COLLECTION,
     OUTPUT_PATH,
     SOLR_ADDRESS,

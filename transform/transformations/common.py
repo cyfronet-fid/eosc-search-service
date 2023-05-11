@@ -5,7 +5,7 @@ from itertools import chain
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, to_date, when, lit
 from pyspark.sql.utils import AnalysisException
-from transform.schemas.properties_name import (
+from schemas.properties_name import (
     AUTHOR,
     AUTHOR_NAMES,
     AUTHOR_PIDS,
@@ -38,7 +38,7 @@ from transform.schemas.properties_name import (
     RELATIONS,
     RELATIONS_LONG,
 )
-from transform.schemas.mappings import (
+from schemas.mappings import (
     OPEN_ACCESS_,
     access_rights_mapping,
     ZENODO,

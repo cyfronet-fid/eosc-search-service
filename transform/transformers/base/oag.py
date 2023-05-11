@@ -9,10 +9,10 @@ from pyspark.sql.types import (
     ArrayType,
     BooleanType,
 )
-from transform.transformations.common import *
-from transform.transformers.base.base import BaseTransformer
-from transform.utils.utils import sort_schema
-from transform.schemas.properties_name import *
+from transformations.common import *
+from transformers.base.base import BaseTransformer
+from utils.utils import sort_schema
+from schemas.properties_name import *
 
 
 class OagBaseTransformer(BaseTransformer):

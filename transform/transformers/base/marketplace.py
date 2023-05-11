@@ -7,10 +7,10 @@ from pyspark.sql.functions import (
     split,
 )
 from pyspark.sql.types import StringType
-from transform.transformations.common import *
-from transform.transformers.base.base import BaseTransformer
+from transformations.common import *
+from transformers.base.base import BaseTransformer
 
-from transform.schemas.properties_name import (
+from schemas.properties_name import (
     ID,
     PERSIST_ID_SYS,
     PERSIST_ID_SYS_ENTITY_TYPE,

@@ -3,9 +3,9 @@
 from abc import ABC, abstractmethod
 from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.types import StructType
-from transform.utils.join_dfs import create_df, join_different_dfs
-from transform.utils.utils import drop_columns, add_columns, replace_empty_str
-from transform.transformations.common import add_tg_fields
+from utils.join_dfs import create_df, join_different_dfs
+from utils.utils import drop_columns, add_columns, replace_empty_str
+from transformations.common import add_tg_fields
 
 
 class BaseTransformer(ABC):
