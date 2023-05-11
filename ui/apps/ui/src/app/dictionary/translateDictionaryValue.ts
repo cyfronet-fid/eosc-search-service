@@ -6,25 +6,25 @@ import { trainingTargetGroupDictionary } from './trainingTargetGroupDictionary';
 import { trainingUrlTypeDictionary } from './trainingUrlTypeDictionary';
 
 export function translateDictionaryValue(type: string, value: string) {
-  value = value.toLowerCase();
+  const valueType: string | string[] = value.toString().toLowerCase();
   switch (type) {
     case 'domain':
-      return interoperabilityGuidelinesDomainDictionary[value] || value;
+      return interoperabilityGuidelinesDomainDictionary[valueType] || value;
       break;
     case 'status':
-      return interoperabilityGuidelinesStatusDictionary[value] || value;
+      return interoperabilityGuidelinesStatusDictionary[valueType] || value;
       break;
     case 'eosc_guideline_type':
-      return interoperabilityGuidelinesTypeDictionary[value] || value;
+      return interoperabilityGuidelinesTypeDictionary[valueType] || value;
       break;
     case 'access_type':
-      return trainingAccessDictionary[value] || value;
+      return trainingAccessDictionary[valueType] || value;
       break;
     case 'target_group':
-      return trainingTargetGroupDictionary[value] || value;
+      return trainingTargetGroupDictionary[valueType] || value;
       break;
     case 'url_type':
-      return trainingUrlTypeDictionary[value] || value;
+      return trainingUrlTypeDictionary[valueType] || value;
       break;
     default:
       return value;
