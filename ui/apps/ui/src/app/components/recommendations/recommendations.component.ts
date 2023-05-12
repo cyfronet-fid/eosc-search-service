@@ -34,7 +34,6 @@ export class RecommendationsComponent implements OnInit {
       .pipe(
         untilDestroyed(this),
         switchMap((panelId) => {
-          // TODO: block request if interoperability guidelines
           if (panelId === 'guideline') {
             return of([]);
           }
