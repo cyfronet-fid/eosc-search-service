@@ -567,6 +567,7 @@ h6 {
 
   #sub-nav {
     padding: 25px 0 5px;
+    flex-wrap: wrap;
   }
 
   .dashboard .left-column {
@@ -671,6 +672,7 @@ h6 {
 
   .search-box .input-group {
     max-width: 550px;
+    flex-wrap: wrap !important;
   }
 
   .search-bar .col-sm-3 {

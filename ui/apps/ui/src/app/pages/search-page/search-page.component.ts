@@ -25,10 +25,17 @@ import { queryChanger } from '@collections/filters-serializers/utils';
     <div class="container--xxl">
       <div class="dashboard" style="position: relative">
         <div class="row" id="dashboard__main">
-          <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
-            <ess-filters
-              *ngIf="(response?.results ?? []).length > 0"
-            ></ess-filters>
+
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Button with data-target
+          </button>
+
+          <div class="collapse" id="collapseExample">
+            <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
+              <ess-filters
+                *ngIf="(response?.results ?? []).length > 0"
+              ></ess-filters>
+            </div>
           </div>
           <div class="col-sm-7 col-12 center-column">
             <ess-page-header
