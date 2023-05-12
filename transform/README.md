@@ -13,8 +13,8 @@ We are using .env to store user-specific constants. This file is not tracked by 
 - `BUNDLE_PATH` - A path to bundles **directory**. Default: `input_data/bundle/`
 
 ### Data from API:
-- `GUIDELINE_ADDRESS` - A full address to get all interoperability guidelines **endpoint**. Default: `https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all`
-- `TRAINING_ADDRESS` - A full address to get all trainings **endpoint**. Default: `https://providers.eosc-portal.eu/api/trainingResource/all?catalogue_id=all&quantity=10000`
+- `GUIDELINE_ADDRESS` - A full address to get all interoperability guidelines **endpoint**. Default: `https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&quantity=10000`
+- `TRAINING_ADDRESS` - A full address to get all trainings **endpoint**. Default: `https://beta.providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&quantity=10000`
 <br></br>
 
 ### Other data related params:
