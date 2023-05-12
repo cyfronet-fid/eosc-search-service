@@ -23,8 +23,8 @@ export const guidelinesFilters: IFiltersConfig = {
       type: 'tag',
     },
     {
-      id: 'resource_type_general',
-      filter: 'resource_type_general',
+      id: 'type_general',
+      filter: 'type_general',
       label: 'Resource Type Category',
       type: 'multiselect',
     },
@@ -54,11 +54,3 @@ export const guidelinesFilters: IFiltersConfig = {
     },
   ],
 };
-
-/*
- EIG.BAI.15 should be used in the [RESOURCE] filter
- Publisher (bringing in data from EIG.BAI.04)
- Status (EIG.BAI.23)
- Domain (EIG.BAI.24)
- Guideline Type (EIG.BAI.25)
-* */

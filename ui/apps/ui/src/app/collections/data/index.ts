@@ -55,8 +55,7 @@ export const ADAPTERS: IAdapter[] = [
   servicesAdapter,
   dataSourcesAdapter,
   trainingsAdapter,
-  // TODO: temporarily off
-  // guidelinesAdapter,
+  guidelinesAdapter,
   otherResourcesProductsAdapter,
 ];
 export const FILTERS: IFiltersConfig[] = [
@@ -67,8 +66,7 @@ export const FILTERS: IFiltersConfig[] = [
   servicesFilters,
   dataSourcesFilters,
   trainingsFilters,
-  // TODO: temporarily off
-  // guidelinesFilters,
+  guidelinesFilters,
   otherResourcesProductsFilters,
 ];
 export const NAV_CONFIGS: ICollectionNavConfig[] = [
@@ -79,8 +77,7 @@ export const NAV_CONFIGS: ICollectionNavConfig[] = [
   servicesNavConfig,
   dataSourcesNavConfig,
   trainingsNavConfig,
-  // TODO: temporarily off
-  // guidelinesNavConfig,
+  guidelinesNavConfig,
   othersResourcesProductsNavConfig,
 ];
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
@@ -91,8 +88,7 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   servicesSearchMetadata,
   dataSourcesSearchMetadata,
   trainingsSearchMetadata,
-  // TODO: temporarily off
-  // guidelinesSearchMetadata,
+  guidelinesSearchMetadata,
   otherResourcesProductsSearchMetadata,
 ];
 

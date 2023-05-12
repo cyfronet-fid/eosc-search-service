@@ -6,6 +6,7 @@ import { guidelinesAdapter } from '@collections/data/guidelines/adapter.data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { NEVER, catchError, from, map, switchMap } from 'rxjs';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
+import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
 
 @UntilDestroy()
 @Component({
@@ -18,11 +19,7 @@ export class GuidelineDetailPageComponent implements OnInit {
   interoperabilityGuidelineItem?: IGuideline;
   currentTab = 'about';
 
-  DICTIONARY_TYPE_FOR_PIPE = {
-    STATUS: 'status',
-    DOMAIN: 'domain',
-    GUIDELINE_TYPE: 'eosc_guideline_type',
-  };
+  type = DICTIONARY_TYPE_FOR_PIPE;
 
   constructor(
     private guidelinesService: GuidelinesService,
