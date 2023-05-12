@@ -120,3 +120,56 @@
 .right-column {
   padding: 24px 24px 0 0;
 }
+
+.related-services-header {
+  font-weight: 100;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  font-size: 1.375rem;
+  line-height: 1.2;
+}
+
+.related-services-title {
+  font-size: 1.3em;
+  font-weight: 600;
+  color: #3d4db6;
+  text-decoration : none;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.related-services-desc {
+  font-size: .875rem;
+  font-weight: 300;
+  line-height: 1.5;
+  color: #233d4c;
+  word-wrap: break-word;
+}
+
+.related-services-down {
+  font-size: .75rem;
+  font-weight: 300;
+  color: #233d4c;
+  line-height: 1.5;
+}
+
+.related-services-up {
+  font-size: .75rem;
+  font-weight: 300;
+  color: #233d4c;
+  line-height: 1.5;
+}
+
+.related-services {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.service-box {
+  margin: 24px;
+  padding: 12px 12px 0 12px;
+  background-color: #F4F4F5;
+  min-width: 360px;
+  max-width: 360px;
+}
