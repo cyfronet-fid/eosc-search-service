@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RedirectService } from '@collections/services/redirect.service';
 import { RecommendationsService } from '@components/recommendations/recommendations.service';
-import { switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { IResult } from '@collections/repositories/types';
@@ -33,11 +33,15 @@ export class RecommendationsComponent implements OnInit {
     this._customRoute.collection$
       .pipe(
         untilDestroyed(this),
-        switchMap((panelId) =>
-          this._recommendationsService
+        switchMap((panelId) => {
+          // TODO: block request if interoperability guidelines
+          if (panelId === 'guideline') {
+            return of([]);
+          }
+          return this._recommendationsService
             .getRecommendations$(panelId)
-            .pipe(untilDestroyed(this))
-        )
+            .pipe(untilDestroyed(this));
+        })
       )
       .subscribe(
         (recommendations) =>
