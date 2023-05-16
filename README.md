@@ -165,6 +165,8 @@ See docker-compose.yml for components.
   > base url to explore - used when constructing links for publications
   > Use when integrating with explore beta instance
   > Default: https://explore.eosc-portal.eu
+- `RELATED_SERVICES_ENDPOINT`
+  > base url to get related services for interoperability guidelines. Default: https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources
 
 `db` envs:
 - `DB_POSTGRES_DB`

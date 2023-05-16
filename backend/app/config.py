@@ -1,4 +1,4 @@
-# pylint: disable=use-dict-literal
+# pylint: disable=use-dict-literal, line-too-long
 """
     IMPORTANT!!! We're using environment variables served from system instead of
     keeping them in file due security risks.
@@ -167,4 +167,10 @@ EOSC_COMMONS_URL = config(
 EOSC_COMMONS_ENV = config("EOSC_COMMONS_ENV", cast=str, default="production")
 EOSC_EXPLORE_URL = config(
     "EOSC_EXPLORE_URL", cast=str, default="https://explore.eosc-portal.eu"
+)
+
+RELATED_SERVICES_ENDPOINT = config(
+    "RELATED_SERVICES_ENDPOINT",
+    cast=str,
+    default="https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources",
 )

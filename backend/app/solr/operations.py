@@ -88,9 +88,20 @@ async def get(
     collection: str,
     item_id: int | str,
 ) -> Response:
-    """Get item from defined collection"""
+    """Get item from defined collection based on ID"""
     return await client.get(
         f"{SOLR_URL}{collection}/get?id={item_id}",
+    )
+
+
+async def get_item_by_pid(
+    client: AsyncClient,
+    collection: str,
+    item_pid: str,
+) -> Response:
+    """Get item from defined collection based on PID"""
+    return await client.get(
+        f"{SOLR_URL}{collection}/get?pid={item_pid}",
     )
 
 
