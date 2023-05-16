@@ -30,14 +30,14 @@ import { queryChanger } from '@collections/filters-serializers/utils';
             Button with data-target
           </button>
 
-          <div class="collapse" id="collapseExample">
-            <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
-              <ess-filters
-                *ngIf="(response?.results ?? []).length > 0"
-              ></ess-filters>
-            </div>
+
+          <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
+            <ess-filters
+              *ngIf="(response?.results ?? []).length > 0"
+            ></ess-filters>
           </div>
-          <div class="col-sm-7 col-12 center-column">
+
+          <div class="col-sm-9 col-12 center-column">
             <ess-page-header
               [resultsCount]="response?.numFound ?? 0"
             ></ess-page-header>
