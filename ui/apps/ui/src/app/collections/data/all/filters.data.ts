@@ -86,5 +86,11 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Keywords',
       type: 'tag',
     },
+    {
+      id: 'type',
+      filter: 'beta',
+      label: '[Beta]',
+      type: 'tag',
+    },
   ],
 };

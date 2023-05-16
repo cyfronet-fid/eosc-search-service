@@ -5,6 +5,20 @@ import {
 } from '@collections/filters-serializers/utils';
 import { IColoredTag } from '@collections/repositories/types';
 
+export const toBetaTag = (isBeta: undefined | string): IColoredTag => ({
+  colorClassName: 'tag-beta',
+  filter: 'beta',
+  values:
+    isBeta === 'interoperability guideline'
+      ? [
+          {
+            label: '[Beta]',
+            value: '' + isBeta,
+          },
+        ]
+      : [],
+});
+
 export const toHorizontalServiceTag = (
   isHorizontal: undefined | boolean
 ): IColoredTag => ({
