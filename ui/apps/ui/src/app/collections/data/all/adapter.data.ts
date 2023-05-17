@@ -14,6 +14,7 @@ import {
 } from '@collections/filters-serializers/utils';
 import {
   toAccessRightColoredTag,
+  toBetaTag,
   toHorizontalServiceTag,
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
@@ -70,6 +71,7 @@ export const allCollectionsAdapter: IAdapter = {
       toHorizontalServiceTag(data?.horizontal),
       toAccessRightColoredTag(data?.best_access_right),
       toLanguageColoredTag(data?.language),
+      toBetaTag(data?.type),
     ],
     tags: [
       {

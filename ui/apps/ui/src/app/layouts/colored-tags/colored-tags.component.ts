@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ViewportScroller } from '@angular/common';
 import { IColoredTag, IValueWithLabel } from '@collections/repositories/types';
 
 @Component({
@@ -23,7 +22,14 @@ import { IColoredTag, IValueWithLabel } from '@collections/repositories/types';
       </a>
     </ng-container>
   </div>`,
-  styles: [],
+  styles: [
+    `
+      .tags-box a.tag-beta {
+        color: #5100fb;
+        background-color: #eee7ff;
+      }
+    `,
+  ],
 })
 export class ColoredTagsComponent {
   @Input()

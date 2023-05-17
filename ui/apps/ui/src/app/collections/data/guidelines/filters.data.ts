@@ -23,6 +23,12 @@ export const guidelinesFilters: IFiltersConfig = {
       type: 'tag',
     },
     {
+      id: 'type',
+      filter: 'beta',
+      label: '[Beta]',
+      type: 'tag',
+    },
+    {
       id: 'type_general',
       filter: 'type_general',
       label: 'Resource Type Category',
@@ -51,6 +57,12 @@ export const guidelinesFilters: IFiltersConfig = {
       filter: 'provider',
       label: 'Publisher',
       type: 'multiselect',
+    },
+    {
+      id: 'tag_list',
+      filter: 'tag_list',
+      label: 'Keywords',
+      type: 'tag',
     },
   ],
 };
