@@ -27,7 +27,7 @@ export const hackDataSourceUrl = (pid?: string) => {
   if (SERVICES_AS_DATASOURCES.includes(pid)) {
     return `${ConfigService.config?.marketplace_url}/services/${pid}`;
   }
-  return `${ConfigService.config?.marketplace_url}/datasources/${pid}`;
+  return `${ConfigService.config?.marketplace_url}/services/${pid}`;
 };
 
 export const dataSourcesAdapter: IAdapter = {
