@@ -44,12 +44,11 @@ async def get_whole_related_services(client: AsyncClient, pids: list[str]):
         items = []
         for pid in pids:
             response = (await get_item_by_pid(client, "service", pid)).json()
-            if not response:
+            item = response["response"]["docs"]
+            if not item:
                 logger.warning(f"No related service with pid={pid}")
                 continue
-
-            item = response["doc"]
-            items.append(item)
+            items.extend(item)
         return items
 
     except httpx.ConnectError as e:

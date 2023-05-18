@@ -100,9 +100,8 @@ async def get_item_by_pid(
     item_pid: str,
 ) -> Response:
     """Get item from defined collection based on PID"""
-    return await client.get(
-        f"{SOLR_URL}{collection}/get?pid={item_pid}",
-    )
+    url = f"{SOLR_URL}{collection}/query?q=pid:{item_pid}"
+    return await client.get(url)
 
 
 def search_dep():
