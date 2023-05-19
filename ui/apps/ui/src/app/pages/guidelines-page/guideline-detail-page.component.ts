@@ -4,9 +4,11 @@ import { GuidelinesService } from './guidelines.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { guidelinesAdapter } from '@collections/data/guidelines/adapter.data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { NEVER, catchError, from, map, switchMap } from 'rxjs';
+import { NEVER, Observable, catchError, from, map, switchMap } from 'rxjs';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
+import { IService } from '../../collections/data/services/service.model';
+import { ConfigService } from '../../services/config.service';
 
 @UntilDestroy()
 @Component({
@@ -18,8 +20,12 @@ export class GuidelineDetailPageComponent implements OnInit {
   guideline?: IResult;
   interoperabilityGuidelineItem?: IGuideline;
   currentTab = 'about';
+  services$: Observable<IService[]> | undefined; //           .subscribe((result) => (this.relatedServicesList = result))
 
   type = DICTIONARY_TYPE_FOR_PIPE;
+  relatedServicesList: IService[] = [];
+
+  marketplaceUrl: string = ConfigService.config?.marketplace_url;
 
   constructor(
     private guidelinesService: GuidelinesService,
@@ -45,6 +51,13 @@ export class GuidelineDetailPageComponent implements OnInit {
         this.guideline = guidelinesAdapter.adapter(
           item as Partial<IGuideline> & { id: string }
         );
+
+        this.guidelinesService
+          .getFromProviderById$(this.interoperabilityGuidelineItem.id ?? 0)
+          .subscribe((data) => {
+            const arr = data?.related_services;
+            this.relatedServicesList = [...arr];
+          });
       });
   }
 

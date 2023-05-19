@@ -72,6 +72,29 @@
           </div>
         </div>
       </div>
+      <div class="service-container mb-5" *ngIf="(this.relatedServicesList.length > 0)">
+        <h4 class="related-services-header" i18n>EOSC Related service</h4>
+        <div class="related-services mb-5">
+          <div  *ngFor="let service of this.relatedServicesList" class="service-box" style="padding: 12px 12px 0 12px; background-color: #F4F4F5; width: 360px;">
+            <h5 class="related-services-title" i18n><a href="{{this.marketplaceUrl}}/services/{{ service.pid }}">{{ service.title }}</a></h5>
+            <div class="logo-service-box" style="display: flex; margin-bottom: 24px;">
+              <div style="min-width: 80px; min-height: 80px; margin-right: 12px;">
+                <img width="80px" src="/assets/related_services.png" />
+              </div>
+              <div><p class="related-services-desc">{{ service.tagline }}</p></div>
+            </div>
+            <div class="info-box-service" style="display: flex; border-top: 1px solid #FFFFFF; justify-content: space-between; padding-top: 12px;">
+              <p class="related-services-up"><strong>Organistaion:</strong><br><span class="related-services-up">{{ service.resource_organisation
+                 }}</span></p>
+              <p class="related-services-up"><strong>Dedicated for:</strong><br>
+                <ng-container *ngFor="let dedicated of service.dedicated_for; let i = index;">
+                  <span *ngIf="(i < 2)" class="related-services-down">{{ dedicated }}</span>{{ i === ((service?.dedicated_for?.length ?? 0)-1) ? ((service?.dedicated_for?.length ?? 0 > 1) ? '...' : '') : ', '}}
+                </ng-container>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -53,6 +53,10 @@ export class TrainingDetailPageComponent implements OnInit {
         this.accessType = item.best_access_right;
         this.detailsTags = this.training.tags;
         this.sidebarTags = this.training.tags;
+
+        this.trainingsService
+          .getFromProviderById$()
+          .subscribe((result) => console.log(result));
       });
   }
 

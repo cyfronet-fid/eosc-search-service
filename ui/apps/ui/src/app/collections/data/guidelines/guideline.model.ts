@@ -6,7 +6,7 @@ export interface IGuideline {
   doi?: string[] | null;
   eosc_guideline_type?: string;
   eosc_integration_options?: string[];
-  id?: string;
+  id: string | number;
   publication_date?: string;
   publication_year?: number;
   right_id?: string[];

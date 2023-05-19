@@ -139,3 +139,10 @@ export interface IFilterNode {
   parent?: string;
   disabled?: boolean;
 }
+
+export interface IInteroperabilityRecord {
+  id: string;
+  resourceId: string;
+  catalogueId: string;
+  interoperabilityRecordIds: string;
+}

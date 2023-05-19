@@ -4,6 +4,7 @@ import { environment } from '@environment/environment';
 import { Observable } from 'rxjs';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { COLLECTION } from '@collections/data/guidelines/search-metadata.data';
+import { IService } from '@collections/data/services/service.model';
 
 @Injectable({ providedIn: 'root' })
 export class GuidelinesService {
@@ -11,5 +12,10 @@ export class GuidelinesService {
   constructor(private _http: HttpClient) {}
   get$(id: number | string): Observable<IGuideline> {
     return this._http.get<IGuideline>(`${this.endpointUrl}/${id}`);
+  }
+
+  getFromProviderById$(id: number | string): Observable<any> {
+    const endpoint = `/${environment.backendApiPath}/related_services?guideline_id=`;
+    return this._http.get<IService[]>(`${endpoint}${id}`);
   }
 }

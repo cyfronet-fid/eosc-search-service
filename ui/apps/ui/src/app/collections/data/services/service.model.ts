@@ -12,5 +12,7 @@ export interface IService {
   usage_counts_views: string;
   usage_counts_downloads: string;
   tag_list: string[];
+  tagline: string;
   horizontal: boolean;
+  dedicated_for: string[];
 }
