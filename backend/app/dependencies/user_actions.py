@@ -2,8 +2,8 @@
 import datetime
 import json
 import logging
-import uuid
 from typing import Optional, Union
+from urllib.parse import urlparse
 
 import stomp
 from stomp.exception import ConnectFailedException
@@ -52,6 +52,7 @@ class UserActionClient:
         resource_id: Union[str, int],
         resource_type: str,
         recommendation: bool,
+        target_id: str,
     ) -> None:
         """Send user data to databus. Ensure that `.connect()` method has been called before."""
 
@@ -65,6 +66,7 @@ class UserActionClient:
                 resource_type,
                 page_id,
                 recommendation,
+                target_id,
             )
         )
 
@@ -85,6 +87,7 @@ class UserActionClient:
         resource_type: str,
         page_id: str,
         recommendation: bool,
+        target_id: str,
     ) -> dict:
         """Create valid user action json dict"""
 
@@ -113,7 +116,7 @@ class UserActionClient:
                     }
                 ),
             },
-            "target": {"visit_id": str(uuid.uuid4()), "page_id": url},
+            "target": {"visit_id": target_id, "page_id": urlparse(url).path},
             "action": {"type": "browser action", "text": "", "order": False},
         }
 
@@ -151,6 +154,9 @@ def send_user_action_bg_task(
     resource_id: str,
     resource_type: str,
     recommendation: bool,
+    target_id: str,
 ):
     """Simple wrapper function which can be used 'as is' in fastapi's BackgroundTask"""
-    client.send(session, url, page_id, resource_id, resource_type, recommendation)
+    client.send(
+        session, url, page_id, resource_id, resource_type, recommendation, target_id
+    )
