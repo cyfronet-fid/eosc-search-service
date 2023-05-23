@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.4.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.3.0...v2.4.0) (2023-05-23)
+
+
+### Features
+
+* [[#596](https://github.com/cyfronet-fid/eosc-search-service/issues/596)] get related services ([63fafad](https://github.com/cyfronet-fid/eosc-search-service/commit/63fafad4f4146cd2fd043ce28a53c41c5d834c9e))
+* [[#596](https://github.com/cyfronet-fid/eosc-search-service/issues/596)] get related services ([80edfe6](https://github.com/cyfronet-fid/eosc-search-service/commit/80edfe6274bcb36ca504115c3d37380ab4e7dab2))
+* [#571](https://github.com/cyfronet-fid/eosc-search-service/issues/571) - block recomendation request if panelId is set on guideline ([5afd6aa](https://github.com/cyfronet-fid/eosc-search-service/commit/5afd6aaf4ca3a16b5293fbe8b5a5fc4ddcb2d233))
+* [#571](https://github.com/cyfronet-fid/eosc-search-service/issues/571) - review todo off ([f1e32cf](https://github.com/cyfronet-fid/eosc-search-service/commit/f1e32cf5cf9c4ec1928df573b0f778f97cf2cc7d))
+* [#571](https://github.com/cyfronet-fid/eosc-search-service/issues/571) guidelines improvement ([2796907](https://github.com/cyfronet-fid/eosc-search-service/commit/279690749daa933815bf193123494e67a0e3d0d0))
+* [#581](https://github.com/cyfronet-fid/eosc-search-service/issues/581) - related services ([6ed3bc7](https://github.com/cyfronet-fid/eosc-search-service/commit/6ed3bc7a32c88f026208ac42681941f2ed0278d7))
+* [#594](https://github.com/cyfronet-fid/eosc-search-service/issues/594) pink beta on guidelines ([10a9e00](https://github.com/cyfronet-fid/eosc-search-service/commit/10a9e00d21f9f764e40e7d7cc5883ef8946c79a4))
+
+
+### Bug Fixes
+
+* datasources as services [#608](https://github.com/cyfronet-fid/eosc-search-service/issues/608) ([8f1221b](https://github.com/cyfronet-fid/eosc-search-service/commit/8f1221ba2b512383129b7306662dc268028b955a))
+
 ## [2.3.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.2.0...v2.3.0) (2023-05-11)
 
 
