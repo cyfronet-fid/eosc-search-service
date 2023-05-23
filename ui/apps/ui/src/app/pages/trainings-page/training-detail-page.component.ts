@@ -10,6 +10,8 @@ import { toArray } from '@collections/filters-serializers/utils';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
+import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
+import { translateDictionaryValue } from '../../dictionary/translateDictionaryValue';
 
 @UntilDestroy()
 @Component({
@@ -27,6 +29,7 @@ export class TrainingDetailPageComponent implements OnInit {
   currentTab = 'about';
   isArray = isArray;
   myTraining?: ITraining;
+  type = DICTIONARY_TYPE_FOR_PIPE;
 
   constructor(
     private trainingsService: TrainingsService,
@@ -85,5 +88,52 @@ export class TrainingDetailPageComponent implements OnInit {
 
   toggleTab(id: string) {
     this.currentTab = id;
+  }
+
+  getIcon(): string {
+    const value = this.myTraining?.scientific_domains
+      ? this.myTraining.scientific_domains[0]
+      : '-';
+
+    if (value.toLowerCase().indexOf('generic') !== -1) {
+      return 'ico_interdisciplinary';
+    }
+
+    if (value.toLowerCase().indexOf('engineering') !== -1) {
+      return 'ico_engineering';
+    }
+
+    if (value.toLowerCase().indexOf('humanities') !== -1) {
+      return 'ico_humanities';
+    }
+
+    if (value.toLowerCase().indexOf('agricultural') !== -1) {
+      return 'ico_agricultural';
+    }
+
+    if (value.toLowerCase().indexOf('medical') !== -1) {
+      return 'ico_medical';
+    }
+
+    if (value.toLowerCase().indexOf('social') !== -1) {
+      return 'ico_social';
+    }
+
+    return 'ico_other';
+  }
+
+  getCategory(): string {
+    const value = this.myTraining?.scientific_domains
+      ? translateDictionaryValue(
+          this.type.TRAINING_DOMAIN,
+          this.myTraining.scientific_domains[0].toString()
+        )
+      : '-';
+    return value.toString();
+  }
+
+  getSubstring(str: string): string {
+    const index = str.indexOf('>');
+    return str.substring(index + 1);
   }
 }

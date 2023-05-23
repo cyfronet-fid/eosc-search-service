@@ -54,7 +54,9 @@ import { IOffer } from '@collections/data/bundles/bundle.model';
                 : '/assets/restricted access.svg'
             "
           />
-          <ng-container i18n>{{ accessRight }}</ng-container></span
+          <ng-container i18n>{{
+            accessRight | filterPipe: 'access_right'
+          }}</ng-container></span
         >
         <span
           *ngIf="date !== null && type.value !== 'bundle'"
