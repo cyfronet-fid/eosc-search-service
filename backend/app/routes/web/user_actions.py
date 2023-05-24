@@ -1,5 +1,6 @@
 # pylint: disable=missing-module-docstring
 import logging
+import urllib.parse
 import uuid
 from typing import Literal
 
@@ -27,9 +28,9 @@ logger = logging.getLogger(__name__)
 async def register_navigation_user_action(
     request: Request,
     background_tasks: BackgroundTasks,
-    q: str,
+    return_path: str,
+    search_params: str,
     url: str,
-    pv: str,
     resource_id: str,
     resource_type: Literal[
         "service",
@@ -50,14 +51,19 @@ async def register_navigation_user_action(
     if resource_type == "data-source":
         resource_type = "data source"
 
+    url = urllib.parse.unquote(url)
+
     if url.startswith("/"):
         url = UI_BASE_URL + url
 
-    url_params = url
-    if "?id" in url:
-        url_params = url + "&pv=" + pv + "&q=" + q
-    else:
-        url_params = url + "?pv=" + pv + "&q=" + q
+    url_params = (
+        url
+        + ("&" if "?id" in url else "?")
+        + "return_path="
+        + return_path
+        + "&search_params="
+        + search_params
+    )
 
     response = RedirectResponse(status_code=303, url=url_params)
 

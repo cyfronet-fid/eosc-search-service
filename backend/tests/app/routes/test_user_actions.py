@@ -1,5 +1,6 @@
 # pylint: disable=missing-module-docstring,missing-function-docstring,missing-class-docstring
 import json
+import urllib.parse
 from time import sleep
 
 import pytest
@@ -59,9 +60,9 @@ async def call_navigate_api(app: FastAPI, client: AsyncClient) -> Response:
     return await client.get(
         app.url_path_for("web:register-navigation-user-action"),
         params={
-            "url": "https://anothersite.org/",
-            "pv": "search/all",
-            "q": "*",
+            "url": urllib.parse.quote("https://anothersite.org/"),
+            "return_path": "search/all",
+            "search_params": "q%3D%2A",
             "resource_id": "123",
             "resource_type": "service",
             "page_id": "/search/all",

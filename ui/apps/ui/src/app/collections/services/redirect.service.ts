@@ -19,16 +19,28 @@ export class RedirectService {
       return null;
     }
 
-    const sourceUrl = this._router.url.includes('?')
-      ? `${this._router.url}&url=${encodeURIComponent(externalUrl)}`
-      : `${this._router.url}?url=${encodeURIComponent(externalUrl)}`;
     const encodedPv = encodeURIComponent(
       'search/' + this._customRoute.collection()
     );
-    const sourceQueryParams = sourceUrl.split('?')[1] + `&pv=${encodedPv}`;
+
+    const originalQueryParams = this._router.url.includes('?')
+      ? encodeURIComponent(this._router.url.split('?')[1])
+      : '';
 
     const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
-    const destinationQueryParams = `${sourceQueryParams}&collection=${this._customRoute.collection()}`;
-    return `${destinationUrl}?${destinationQueryParams}&resource_id=${id}&resource_type=${type}&page_id=${encodedPv}&recommendation=${recommendation}`;
+
+    const queryParams = {
+      url: encodeURIComponent(externalUrl),
+      collection: this._customRoute.collection() ?? '',
+      resource_id: id,
+      resource_type: type,
+      page_id: encodedPv,
+      recommendation: recommendation ? 'true' : 'false',
+      return_path: encodedPv,
+      search_params: originalQueryParams,
+    };
+
+    const encodedQueryParams = new URLSearchParams(queryParams);
+    return destinationUrl + '?' + encodedQueryParams.toString();
   }
 }
