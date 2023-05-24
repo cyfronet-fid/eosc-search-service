@@ -71,7 +71,6 @@ export const allCollectionsAdapter: IAdapter = {
       toHorizontalServiceTag(data?.horizontal),
       toAccessRightColoredTag(data?.best_access_right),
       toLanguageColoredTag(data?.language),
-      toBetaTag(data?.type),
     ],
     tags: [
       {
