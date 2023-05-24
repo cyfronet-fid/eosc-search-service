@@ -7,7 +7,10 @@ import { ActivatedRoute } from '@angular/router';
     <div class="container">
       <div class="col-md-3 col-12 eosc-back-link">
         <div class="chevron-left"></div>
-        <a routerLink="/{{ pv }}" [queryParams]="{ q: this.q }" i18n
+        <a
+          routerLink="/{{ return_path }}"
+          [queryParams]="parsedQueryParams"
+          i18n
           >Go to Search</a
         >
       </div>
@@ -15,14 +18,21 @@ import { ActivatedRoute } from '@angular/router';
   </div>`,
 })
 export class BackToSearchBarComponent implements OnInit {
-  q: string | undefined;
-  pv: string | undefined;
+  return_path: string | undefined;
+  parsedQueryParams: { [id: string]: string } = {};
 
   constructor(private route: ActivatedRoute) {}
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      this.q = params['q'];
-      this.pv = params['pv'];
+      this.parsedQueryParams = [
+        ...new URLSearchParams(
+          decodeURIComponent(params['search_params'])
+        ).entries(),
+      ].reduce((pv: { [id: string]: string }, cv) => {
+        pv[cv[0]] = cv[1];
+        return pv;
+      }, {});
+      this.return_path = params['return_path'];
     });
   }
 }
