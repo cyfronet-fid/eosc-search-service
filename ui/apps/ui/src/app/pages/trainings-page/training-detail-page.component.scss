@@ -71,7 +71,7 @@
 }
 
 .ig-logo-container {
-  padding: 48px 36px 48px 36px;
+  padding: 35px 25px 35px 25px;
 }
 
 .ig-about-title {
@@ -195,8 +195,7 @@
 }
 
 .column-right {
-  display: flex;
-  min-width: 363px;
+
 }
 
 .li-container {
@@ -313,9 +312,7 @@ h6 {
 }
 
 .column-left {
-  padding-top: 24px;
-  padding-right: 24px;
-  width: 100%;
+  padding-top: 25px;
 }
 
 .keywords-container {
@@ -332,9 +329,30 @@ h6 {
 }
 
 .ig-logo-container img {
-  width: 300px;
+  width: 100%;
 }
 
 .headline-container {
   display: flex;
+}
+
+
+@media (max-width: 576px) {
+
+  .ig-logo-container {
+    padding-bottom: 0;
+  }
+
+  .about-content-title {
+    padding: 25px 20px 0;
+  }
+
+  .button-container {
+    padding: 30px;
+  }
+
+  .ig-about-title {
+    font-size: 17px;
+    line-height: 25px;
+  }
 }
