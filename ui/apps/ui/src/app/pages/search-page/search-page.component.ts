@@ -21,17 +21,36 @@ import { queryChanger } from '@collections/filters-serializers/utils';
   selector: 'ess-search-service-page',
   template: `
     <ess-search-bar></ess-search-bar>
-    <ess-collections-navigation></ess-collections-navigation>
+
+    <div class="container">
+      <div class="row mobile-buttons">
+        <div class="col-6">
+          <button (click)="showFilters = !showFilters" class="btn btn-special mobile-show-flters" type="button">
+            <ng-container *ngIf="!showFilters; else hideFiltersCaption">Show filters</ng-container>
+            <ng-template #hideFiltersCaption>Hide filters</ng-template>
+            <i class="bi bi-filter"></i>
+          </button>
+        </div>
+
+        <div class="col-6">
+          <button (click)="showCollections = !showCollections" class="btn btn-special mobile-show-collections" type="button">
+            <ng-container *ngIf="!showCollections; else hideCollectionsCaption">All catalogs</ng-container>
+            <ng-template #hideCollectionsCaption>Hide catalogs</ng-template>
+            <i class="bi bi-chevron-down"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div [ngClass]="{'mobile-collections-hidden': !showCollections, 'mobile-collections-show': showCollections}">
+        <ess-collections-navigation></ess-collections-navigation>
+    </div>
+
     <div class="container--xxl">
       <div class="dashboard" style="position: relative">
         <div class="row" id="dashboard__main">
 
-          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Button with data-target
-          </button>
-
-
-          <div class="col-sm-3 col-12 left-column" id="dashboard__filters">
+          <div class="col-sm-3 col-12 left-column" [ngClass]="{'mobile-filters-hidden': !showFilters, 'mobile-filters-show': showFilters}" id="dashboard__filters">
             <ess-filters
               *ngIf="(response?.results ?? []).length > 0"
             ></ess-filters>
@@ -103,6 +122,8 @@ import { queryChanger } from '@collections/filters-serializers/utils';
   ],
 })
 export class SearchPageComponent implements OnInit {
+  public showFilters: boolean = false;
+  public showCollections: boolean = false;
   response: ISearchResults<IResult> | null = null;
 
   constructor(

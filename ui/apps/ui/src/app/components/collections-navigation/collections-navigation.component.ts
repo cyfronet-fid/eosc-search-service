@@ -7,7 +7,7 @@ import { toNavigationLink } from './utils';
 @Component({
   selector: 'ess-collections-navigation',
   template: `
-    <div class="container--xxl navigation">
+    <div class="container--xxl navigation" >
       <div id="sub-nav">
         <a
           class="nav-btn {{ link.label }}"
@@ -23,6 +23,7 @@ import { toNavigationLink } from './utils';
 })
 export class CollectionsNavigationComponent implements OnInit {
   public navigationLinks: INavigationLink[] = [];
+  public showCollections: boolean = false;
   public q$ = this._customRoute.q$;
 
   constructor(
