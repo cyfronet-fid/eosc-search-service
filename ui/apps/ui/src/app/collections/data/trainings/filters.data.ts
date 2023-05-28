@@ -25,7 +25,7 @@ export const trainingsFilters: IFiltersConfig = {
     {
       id: 'content_type',
       filter: 'content_type',
-      label: 'Content type',
+      label: 'Material type (format)',
       type: 'multiselect',
     },
     {
@@ -41,12 +41,6 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
-      id: 'format',
-      filter: 'format',
-      label: 'Format',
-      type: 'multiselect',
-    },
-    {
       id: 'level_of_expertise',
       filter: 'level_of_expertise',
       label: 'Level of expertise',
@@ -56,12 +50,6 @@ export const trainingsFilters: IFiltersConfig = {
       id: 'target_group',
       filter: 'target_group',
       label: 'Target group',
-      type: 'multiselect',
-    },
-    {
-      id: 'qualification',
-      filter: 'qualification',
-      label: 'Qualification',
       type: 'multiselect',
     },
     {
@@ -75,6 +63,18 @@ export const trainingsFilters: IFiltersConfig = {
       filter: 'publication_date',
       label: 'Version date',
       type: 'date',
+    },
+    {
+      id: 'format',
+      filter: 'format',
+      label: 'Format',
+      type: 'multiselect',
+    },
+    {
+      id: 'qualification',
+      filter: 'qualification',
+      label: 'Qualification',
+      type: 'multiselect',
     },
     {
       id: 'author_names',

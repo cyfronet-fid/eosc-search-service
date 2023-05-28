@@ -16,20 +16,9 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
-      id: 'horizontal',
-      filter: 'horizontal',
-      label: 'Horizontal service',
-      type: 'multiselect',
-      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
-        facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
-          ...node,
-          name: node.name === 'true' ? 'yes' : 'no',
-        })),
-    },
-    {
       id: 'best_access_right',
       filter: 'best_access_right',
-      label: 'Order type',
+      label: 'Access type',
       type: 'multiselect',
     },
     {
@@ -65,7 +54,7 @@ export const dataSourcesFilters: IFiltersConfig = {
     {
       id: 'platforms',
       filter: 'platforms',
-      label: 'Related infrastructures and platforms',
+      label: 'Related scientific communities and platforms',
       type: 'multiselect',
     },
     {
@@ -77,8 +66,27 @@ export const dataSourcesFilters: IFiltersConfig = {
     {
       id: 'geographical_availabilities',
       filter: 'geographical_availabilities',
-      label: 'Country',
+      label: 'Access restrictions',
       type: 'multiselect',
+
+      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
+        facetToFlatNodes(bucketValues, 'geographical_availabilities').map(
+          (node) => ({
+            ...node,
+            name: node.name === 'World' ? 'None' : node.name,
+          })
+        ),
+    },
+    {
+      id: 'horizontal',
+      filter: 'horizontal',
+      label: 'Horizontal service',
+      type: 'multiselect',
+      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
+        facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
+          ...node,
+          name: node.name === 'true' ? 'yes' : 'no',
+        })),
     },
     {
       id: 'language',
