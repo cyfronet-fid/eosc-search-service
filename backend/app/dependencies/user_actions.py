@@ -58,7 +58,7 @@ class UserActionClient:
         # this hack is required for legacy purposes.
         message = json.dumps(
             self._make_user_action(
-                session.aai_state,
+                session.aai_id,
                 url,
                 session.session_uuid,
                 resource_id,
