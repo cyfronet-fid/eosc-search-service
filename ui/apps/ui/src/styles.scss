@@ -646,44 +646,7 @@ h6 {
 }
 
 @media (max-width: 768px) {
-  .search-bar {
-    height: 300px;
-  }
-  .search-box input {
-    width: 320px;
-  }
-  #container {
-    margin-top: 20px;
-  }
 
-  #dashboard__filters {
-    .filter-title {
-      width: 85%;
-    }
-  }
-
-  .query-input {
-    margin-top: 10px;
-  }
-
-  #sub-nav {
-    margin-top: 0;
-  }
-
-  .logo-wrapper .top-title {
-    font-size: 15px;
-    line-height: 22px;
-    margin-top: 20px;
-  }
-
-  .eosc-common.footer {
-    ul {
-      margin-bottom: 25px;
-    }
-  }
-}
-
-@media (max-width: 576px) {
   body {
     font-size: 0.8rem;
     line-height: 1.4;
@@ -728,7 +691,6 @@ h6 {
     input {
       font-size: 16px;
       padding-left: 15px;
-      max-width: 185px;
     }
 
     .input-group-btn {
@@ -763,7 +725,7 @@ h6 {
   }
 
   .dashboard .left-column {
-    width: 96%;
+    width: 100%;
     border: none;
   }
 
@@ -873,7 +835,6 @@ h6 {
   }
 
   .search-box .input-group {
-    max-width: 550px;
     flex-wrap: wrap !important;
   }
 
@@ -914,6 +875,51 @@ h6 {
 
   .pagination {
     margin-bottom: 25px;
+  }
+
+  .search-bar {
+    height: 300px;
+  }
+  .search-box input {
+    width: 320px;
+  }
+  #container {
+    margin-top: 20px;
+  }
+
+  #dashboard__filters {
+    .filter-title {
+      width: 85%;
+    }
+  }
+
+  .query-input {
+    margin-top: 10px;
+  }
+
+  #sub-nav {
+    margin-top: 0;
+  }
+
+  .logo-wrapper .top-title {
+    font-size: 15px;
+    line-height: 22px;
+    margin-top: 20px;
+  }
+
+  .eosc-common.footer {
+    ul {
+      margin-bottom: 25px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+
+  .search-box {
+    input {
+      max-width: 185px;
+    }
   }
 
 }

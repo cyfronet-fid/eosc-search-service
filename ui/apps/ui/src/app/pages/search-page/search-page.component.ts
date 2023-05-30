@@ -22,7 +22,7 @@ import { queryChanger } from '@collections/filters-serializers/utils';
   template: `
     <ess-search-bar></ess-search-bar>
 
-    <div class="container d-sm-none">
+    <div class="container d-md-none">
       <div class="row mobile-buttons">
         <div class="col-6">
           <button (click)="showFilters = !showFilters" class="btn btn-special mobile-show-flters" type="button">
