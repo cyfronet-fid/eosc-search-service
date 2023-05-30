@@ -139,4 +139,4 @@ async def test_sends_aai_uid_in_user_action_for_signed_in_user(
     message = listener.last_message
     message = json.loads(message)
 
-    assert message["aai_uid"] == user_session.session_data.aai_state
+    assert message["aai_uid"] == user_session.session_data.aai_id
