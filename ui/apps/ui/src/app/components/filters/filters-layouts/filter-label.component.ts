@@ -6,9 +6,18 @@ import { Router } from '@angular/router';
   selector: 'ess-filter-label',
   template: `
     <div class="filter-title-container">
-      <span class="filter-title"
-        ><b>{{ label }}</b></span
-      >
+      <span class="filter-title">
+        <b>{{ label }}</b>
+      </span>
+      <div id="tooltipIcon">
+        <img
+          src="assets/tooltip_prompt.svg"
+          [ngbTooltip]="tooltipText"
+          alt="Tooltip prompt icon"
+          *ngIf="!!tooltipText"
+          class="tooltip-prompt-icon"
+        />
+      </div>
       <div *ngIf="showClearButton">
         <span (click)="resetAllActiveEntities()" class="clear-button-span">
           <a href="javascript:void(0)" class="clear-button">clear</a>
@@ -57,6 +66,10 @@ import { Router } from '@angular/router';
       .expand-collapse-button.collapsed img {
         transition: transform 0.3s;
       }
+      .tooltip-prompt-icon {
+        margin: 11px 10px 0 10px;
+        width: 1.12em;
+      }
     `,
   ],
 })
@@ -71,6 +84,8 @@ export class FilterLabelComponent {
   @Output() isExpandedChanged = new EventEmitter<boolean>();
 
   @Input() showClearButton = false;
+
+  @Input() tooltipText!: string;
 
   constructor(private _customRoute: CustomRoute, private _router: Router) {}
 

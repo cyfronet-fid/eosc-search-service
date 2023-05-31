@@ -1,5 +1,6 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
+import { SDG_TOOLTIP_TEXT } from '@collections/data/config';
 
 export const softwareFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -10,6 +11,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Research step',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'best_access_right',
@@ -17,6 +19,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Access right',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'publication_date',
@@ -24,6 +27,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Year range',
       type: 'date',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'document_type',
@@ -31,6 +35,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Document type',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'fos',
@@ -38,6 +43,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Scientific domain',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'country',
@@ -45,6 +51,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Country',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'language',
@@ -52,6 +59,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Language',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'publisher',
@@ -59,6 +67,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Publisher',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'research_community',
@@ -66,6 +75,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Research community',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'funder',
@@ -73,6 +83,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Funder',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'sdg',
@@ -80,6 +91,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Sustainable development goals',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: SDG_TOOLTIP_TEXT,
     },
     {
       id: 'author_names',
@@ -87,6 +99,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Author names',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'license',
@@ -94,6 +107,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'License',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'doi',
@@ -101,6 +115,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'DOI',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'keywords',
@@ -108,6 +123,7 @@ export const softwareFilters: IFiltersConfig = {
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
   ],
 };

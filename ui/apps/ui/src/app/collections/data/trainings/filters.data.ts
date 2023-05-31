@@ -10,6 +10,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Research step',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'best_access_right',
@@ -17,6 +18,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Access right',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'resource_type',
@@ -24,6 +26,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Resource type',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'content_type',
@@ -31,6 +34,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Material type (format)',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'language',
@@ -38,6 +42,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Language',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'eosc_provider',
@@ -45,6 +50,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Organisation',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'level_of_expertise',
@@ -52,6 +58,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Level of expertise',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'target_group',
@@ -59,6 +66,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Target group',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'duration',
@@ -66,6 +74,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Duration',
       type: 'range',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'publication_date',
@@ -73,6 +82,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Version date',
       type: 'date',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'format',
@@ -80,6 +90,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Format',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'qualification',
@@ -87,6 +98,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Qualification',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'author_names',
@@ -94,6 +106,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Authors',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'keywords',
@@ -101,6 +114,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'license',
@@ -108,6 +122,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'License',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'keywords',
@@ -115,6 +130,7 @@ export const trainingsFilters: IFiltersConfig = {
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
   ],
 };

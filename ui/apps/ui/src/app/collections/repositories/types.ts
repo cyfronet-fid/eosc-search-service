@@ -97,6 +97,7 @@ export interface IFilterConfig {
   label: string;
   type: 'multiselect' | 'select' | 'date' | 'tag' | 'range';
   defaultCollapsed: boolean;
+  tooltipText: string;
 
   onFacetsFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[]; // !!! only for multiselect !!!
 }

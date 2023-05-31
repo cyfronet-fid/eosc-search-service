@@ -6,6 +6,8 @@ import {
 import { URL_PARAM_NAME } from './nav-config.data';
 import { facetToFlatNodes } from '@components/filters/utils';
 
+import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
+
 export const dataSourcesFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
@@ -15,6 +17,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Research step',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'best_access_right',
@@ -22,6 +25,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Access type',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'categories',
@@ -29,6 +33,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Categories',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'scientific_domains',
@@ -36,6 +41,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Scientific Domains',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'providers',
@@ -43,6 +49,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Providers',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'resource_organisation',
@@ -50,6 +57,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Resource organisation',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'dedicated_for',
@@ -57,6 +65,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Dedicated for',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'platforms',
@@ -64,6 +73,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Related scientific communities and platforms',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'rating',
@@ -71,6 +81,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Rating',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'geographical_availabilities',
@@ -78,6 +89,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Access restrictions',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
 
       onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
         facetToFlatNodes(bucketValues, 'geographical_availabilities').map(
@@ -93,6 +105,8 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Horizontal service',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: HORIZONTAL_TOOLTIP_TEXT,
+
       onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
         facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
           ...node,
@@ -105,6 +119,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Language',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'tag_list',
@@ -112,6 +127,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
   ],
 };
