@@ -94,19 +94,16 @@ a:hover {
 
 .clear-button {
   font-size: 13px;
-  border-radius: 35px;
   line-height: 1.36;
-  float: right;
-  background: #eee;
-  margin-top: 10px;
-  color: #555;
-  padding: 3px 10px 5px;
+  float: left;
+  margin-top: 12px;
+  margin-left: 20px;
+  color: #2255a4;
   transition: all 0.2s ease;
 }
 
 .clear-button:hover {
-  background: #3d4db6;
-  color: #fff;
+  color: #000;
 }
 
 .show-more {
@@ -213,7 +210,7 @@ a:hover {
   background-image: url(assets/top-icon-07.png);
 }
 
- #sub-nav a.Guidelines::before {
+#sub-nav a.Guidelines::before {
   background-image: url(assets/top-icon-09.png);
 }
 
@@ -387,7 +384,6 @@ h6 {
 }
 
 @media (max-width: 992px) {
-
   .search-bar .search-box {
     width: auto;
   }

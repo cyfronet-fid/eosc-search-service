@@ -36,33 +36,43 @@ import { IFqMap } from '@collections/services/custom-route.type';
   selector: 'ess-filter-multiselect',
   template: `
     <div class="filter" *ngIf="hasEntities$ | async">
-      <ess-filter-label [label]="label" [filter]="filter"></ess-filter-label>
+      <ess-filter-label
+        [label]="label"
+        [filter]="filter"
+        [isExpanded]="isExpanded"
+        [showClearButton]="anyActive"
+        (isExpandedChanged)="isExpandedChanged($event)"
+      ></ess-filter-label>
 
       <input
         *ngIf="hasShowMore$ | async"
         [attr.placeholder]="'Search in ' + label.toLowerCase() + '...'"
         class="query-input form-control form-control-sm"
         [formControl]="queryFc"
+        (keyup)="isExpanded = isExpanded || queryFc.value.length > 0"
       />
-      <ess-first-n-values
-        *ngIf="!showMore; else showAll"
-        [allEntities]="(allEntities$ | async) ?? []"
-        [query]="query"
-        (toggleActive)="toggleActive($event)"
-      ></ess-first-n-values>
-      <ng-template #showAll>
-        <ess-show-all
-          *ngIf="showMore"
+
+      <div *ngIf="isExpanded">
+        <ess-first-n-values
+          *ngIf="!showMore; else showAll"
           [allEntities]="(allEntities$ | async) ?? []"
           [query]="query"
           (toggleActive)="toggleActive($event)"
-        ></ess-show-all>
-      </ng-template>
-      <span *ngIf="hasShowMore$ | async" (click)="showMore = !showMore">
-        <a href="javascript:void(0)" class="show-more">{{
-          showMore ? 'show less' : 'show more'
-        }}</a>
-      </span>
+        ></ess-first-n-values>
+        <ng-template #showAll>
+          <ess-show-all
+            *ngIf="showMore"
+            [allEntities]="(allEntities$ | async) ?? []"
+            [query]="query"
+            (toggleActive)="toggleActive($event)"
+          ></ess-show-all>
+        </ng-template>
+        <span *ngIf="hasShowMore$ | async" (click)="showMore = !showMore">
+          <a href="javascript:void(0)" class="show-more">{{
+            showMore ? 'show less' : 'show more'
+          }}</a>
+        </span>
+      </div>
 
       <ng-container *ngIf="isLoading$ | async">
         <div class="mask">
@@ -100,6 +110,9 @@ export class FilterMultiselectComponent implements OnInit {
   @ViewChild('content', { static: false }) content?: unknown;
 
   @Input()
+  isExpanded!: boolean;
+
+  @Input()
   label!: string;
 
   @Input()
@@ -119,6 +132,8 @@ export class FilterMultiselectComponent implements OnInit {
 
   queryFc = new UntypedFormControl('');
   query: string | null = null;
+
+  anyActive = false;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -175,7 +190,9 @@ export class FilterMultiselectComponent implements OnInit {
         distinctUntilChanged(isEqual)
       )
       .subscribe((activeIds) => {
-        this._filterMultiselectService.setActiveIds(toArray(activeIds));
+        const activeIdsArr = toArray(activeIds);
+        this.anyActive = activeIdsArr.length > 0;
+        this._filterMultiselectService.setActiveIds(activeIdsArr);
       });
   }
 
@@ -248,6 +265,7 @@ export class FilterMultiselectComponent implements OnInit {
       )
       .subscribe((entities) => {
         const activeIds = toArray(this._customRoute.fqMap()[this.filter]);
+        this.anyActive = activeIds.length > 0;
         this._filterMultiselectService.setEntities(entities);
         this._filterMultiselectService.setActiveIds(activeIds);
         this._filterMultiselectService.setLoading(false);
@@ -277,5 +295,9 @@ export class FilterMultiselectComponent implements OnInit {
       ? ([...fqMap[filterName], value] as string[])
       : [value];
     return deserializeAll(fqMap, allFilters);
+  }
+
+  isExpandedChanged(newExpanded: boolean) {
+    this.isExpanded = newExpanded;
   }
 }
