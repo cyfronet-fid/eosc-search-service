@@ -33,7 +33,7 @@ import { Router } from '@angular/router';
         </nz-breadcrumb>
       </div>
     </div> --->
-      <!--      <ess-sort-by-functionality></ess-sort-by-functionality>-->
+      <ess-sort-by-functionality></ess-sort-by-functionality>
     </div>
   `,
   styles: [
