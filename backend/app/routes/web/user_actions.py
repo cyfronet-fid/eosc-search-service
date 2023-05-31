@@ -74,7 +74,7 @@ async def register_navigation_user_action(
         session_id = uuid.uuid4()
 
         session = SessionData(
-            username=None, aai_state=None, session_uuid=str(uuid.uuid4())
+            username=None, aai_state=None, aai_id="", session_uuid=str(uuid.uuid4())
         )
         await backend.create(session_id, session)
         cookie.attach_to_response(response, session_id)
