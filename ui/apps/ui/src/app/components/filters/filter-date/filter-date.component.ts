@@ -20,6 +20,7 @@ import {
         [label]="label"
         [filter]="filter"
         [isExpanded]="isExpanded"
+        [tooltipText]="tooltipText"
         (isExpandedChanged)="isExpandedChanged($event)"
       ></ess-filter-label>
 
@@ -64,6 +65,9 @@ export class FilterDateComponent implements OnInit {
 
   @Input()
   isExpanded!: boolean;
+
+  @Input()
+  tooltipText!: string;
 
   startDate: Date | null = null;
   endDate: Date | null = null;

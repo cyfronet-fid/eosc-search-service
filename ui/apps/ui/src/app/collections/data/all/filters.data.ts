@@ -5,6 +5,7 @@ import {
 } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { facetToFlatNodes } from '@components/filters/utils';
+import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
 
 export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -15,6 +16,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Research step',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'type',
@@ -22,6 +24,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Type of research product',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'best_access_right',
@@ -29,6 +32,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Access right',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'fos',
@@ -36,6 +40,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Scientific discipline',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'language',
@@ -43,6 +48,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Language',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: '',
     },
     {
       id: 'horizontal',
@@ -50,6 +56,8 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Horizontal service',
       type: 'multiselect',
       defaultCollapsed: true,
+      tooltipText: HORIZONTAL_TOOLTIP_TEXT,
+
       onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
         facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
           ...node,
@@ -62,6 +70,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Author names',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'doi',
@@ -69,6 +78,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'DOI',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'scientific_domains',
@@ -76,6 +86,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Scientific Domains',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'resource_organisation',
@@ -83,6 +94,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Resource organisation',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'keywords',
@@ -90,6 +102,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'tag_list',
@@ -97,6 +110,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
   ],
 };

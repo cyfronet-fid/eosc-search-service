@@ -30,6 +30,7 @@ import { toRangeTimeFormat } from '@collections/filters-serializers/range.serial
       [label]="label"
       [filter]="filter"
       [isExpanded]="isExpanded"
+      [tooltipText]="tooltipText"
       (isExpandedChanged)="isExpandedChanged($event)"
     ></ess-filter-label>
     <div *ngIf="isExpanded">
@@ -62,6 +63,9 @@ export class FilterRangeComponent implements OnInit {
 
   @Input()
   isExpanded!: boolean;
+
+  @Input()
+  tooltipText!: string;
 
   min = 0;
   max = 40 * 60 * 60;

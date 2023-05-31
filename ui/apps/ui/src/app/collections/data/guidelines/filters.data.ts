@@ -10,6 +10,7 @@ export const guidelinesFilters: IFiltersConfig = {
       label: 'Creator Name',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'right_id',
@@ -17,6 +18,7 @@ export const guidelinesFilters: IFiltersConfig = {
       label: 'License',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'keywords',
@@ -24,6 +26,7 @@ export const guidelinesFilters: IFiltersConfig = {
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'type_general',
@@ -31,6 +34,7 @@ export const guidelinesFilters: IFiltersConfig = {
       label: 'Resource Type Category',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'status',
@@ -38,6 +42,7 @@ export const guidelinesFilters: IFiltersConfig = {
       label: 'Status',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'domain',
@@ -45,6 +50,7 @@ export const guidelinesFilters: IFiltersConfig = {
       label: 'Domain',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'eosc_guideline_type',
@@ -52,6 +58,7 @@ export const guidelinesFilters: IFiltersConfig = {
       label: 'Guideline Type',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'provider',
@@ -59,6 +66,7 @@ export const guidelinesFilters: IFiltersConfig = {
       label: 'Publisher',
       type: 'multiselect',
       defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'tag_list',
@@ -66,6 +74,7 @@ export const guidelinesFilters: IFiltersConfig = {
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
+      tooltipText: '',
     },
   ],
 };

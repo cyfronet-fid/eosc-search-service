@@ -41,6 +41,7 @@ import { IFqMap } from '@collections/services/custom-route.type';
         [filter]="filter"
         [isExpanded]="isExpanded"
         [showClearButton]="anyActive"
+        [tooltipText]="tooltipText"
         (isExpandedChanged)="isExpandedChanged($event)"
       ></ess-filter-label>
 
@@ -84,8 +85,10 @@ import { IFqMap } from '@collections/services/custom-route.type';
   styles: [
     `
       .filter {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
+        padding-bottom: 5px;
         position: relative;
+        border-bottom: 1px solid #d9dee2;
       }
       .query-input {
         margin-bottom: 12px;
@@ -117,6 +120,9 @@ export class FilterMultiselectComponent implements OnInit {
 
   @Input()
   filter!: string;
+
+  @Input()
+  tooltipText!: string;
 
   @Input()
   onValuesFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[];
