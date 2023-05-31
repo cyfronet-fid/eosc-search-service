@@ -16,20 +16,9 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
-      id: 'horizontal',
-      filter: 'horizontal',
-      label: 'Horizontal service',
-      type: 'multiselect',
-      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
-        facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
-          ...node,
-          name: node.name === 'true' ? 'yes' : 'no',
-        })),
-    },
-    {
       id: 'type',
       filter: 'type',
-      label: 'Type of product',
+      label: 'Type of research',
       type: 'multiselect',
     },
     {
@@ -49,6 +38,17 @@ export const allCollectionsFilters: IFiltersConfig = {
       filter: 'language',
       label: 'Language',
       type: 'multiselect',
+    },
+    {
+      id: 'horizontal',
+      filter: 'horizontal',
+      label: 'Horizontal service',
+      type: 'multiselect',
+      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
+        facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
+          ...node,
+          name: node.name === 'true' ? 'yes' : 'no',
+        })),
     },
     {
       id: 'author_names',

@@ -99,6 +99,10 @@ export interface IFilterConfig {
 
   onFacetsFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[]; // !!! only for multiselect !!!
 }
+export interface IExcludedFiltersConfig {
+  id: string;
+  excluded: string[];
+}
 
 export interface ICollectionSearchMetadata {
   id: string;

@@ -35,18 +35,6 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
-      id: 'funder',
-      filter: 'funder',
-      label: 'Funder',
-      type: 'multiselect',
-    },
-    {
-      id: 'sdg',
-      filter: 'sdg',
-      label: 'SDG [Beta]',
-      type: 'multiselect',
-    },
-    {
       id: 'country',
       filter: 'country',
       label: 'Country',
@@ -68,6 +56,18 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       id: 'research_community',
       filter: 'research_community',
       label: 'Research community',
+      type: 'multiselect',
+    },
+    {
+      id: 'funder',
+      filter: 'funder',
+      label: 'Funder',
+      type: 'multiselect',
+    },
+    {
+      id: 'sdg',
+      filter: 'sdg',
+      label: 'Sustainable development goals',
       type: 'multiselect',
     },
     {

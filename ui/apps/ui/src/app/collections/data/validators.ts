@@ -2,18 +2,21 @@ import {
   IAdapter,
   ICollectionNavConfig,
   ICollectionSearchMetadata,
+  IExcludedFiltersConfig,
   IFiltersConfig,
 } from '@collections/repositories/types';
-import { differenceWith, isEqual } from 'lodash-es';
+import { difference, differenceWith, isEqual } from 'lodash-es';
 
 export const validateCollections = (
   adapters: IAdapter[],
   filters: IFiltersConfig[],
+  excludedFilters: IExcludedFiltersConfig[],
   navConfigs: ICollectionNavConfig[],
   searchMetadata: ICollectionSearchMetadata[]
 ): void => {
   _validateComponentsIntegrity(adapters, filters, navConfigs, searchMetadata);
   _validateFiltersConsistency(searchMetadata, filters, adapters);
+  _validateExcludedFilters(filters, excludedFilters);
   _validateCollectionsConsistency(searchMetadata, adapters);
   _validateLabelsConsistency(adapters, navConfigs);
   _validateBreadcrumbs(navConfigs);
@@ -205,4 +208,23 @@ export const _validateBreadcrumbs = (navConfigs: ICollectionNavConfig[]) => {
 
   // eslint-disable-next-line no-restricted-syntax
   console.info('[COLLECTIONS VALIDATOR]: Breadcrumbs are valid.');
+};
+
+export const _validateExcludedFilters = (
+  filters: IFiltersConfig[],
+  excludedFilters: IExcludedFiltersConfig[]
+) => {
+  const filterIds = filters.map(({ id }) => id);
+  const excludedFilterIds = excludedFilters.map(({ id }) => id);
+
+  const missingExcludedConfig = difference(filterIds, excludedFilterIds);
+
+  if (missingExcludedConfig.length > 0) {
+    throw Error(
+      `[COLLECTIONS VALIDATOR]: All collection filters need to have an excluded filters config. Missing for: ${missingExcludedConfig}`
+    );
+  }
+
+  // eslint-disable-next-line no-restricted-syntax
+  console.info('[COLLECTIONS VALIDATOR]: Excluded filter configs are valid.');
 };

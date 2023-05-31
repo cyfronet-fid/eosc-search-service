@@ -8,6 +8,7 @@ import {
   IAdapter,
   ICollectionNavConfig,
   ICollectionSearchMetadata,
+  IExcludedFiltersConfig,
   IFiltersConfig,
 } from '../repositories/types';
 import { allCollectionsAdapter } from './all/adapter.data';
@@ -45,6 +46,15 @@ import { otherResourcesProductsFilters } from '@collections/data/other-resources
 import { othersResourcesProductsNavConfig } from '@collections/data/other-resources-products/nav-config.data';
 import { otherResourcesProductsSearchMetadata } from '@collections/data/other-resources-products/search-metadata.data';
 import { otherResourcesProductsAdapter } from '@collections/data/other-resources-products/adapter.data';
+import { excludedPublicationsFilters } from '@collections/data/publications/excluded.data';
+import { excludedDatasetsFilters } from '@collections/data/datasets/excluded.data';
+import { excludedAllCollectionsFilters } from '@collections/data/all/excluded.data';
+import { excludedSoftwareFilters } from '@collections/data/software/excluded.data';
+import { excludedServicesFilters } from '@collections/data/services/excluded.data';
+import { excludedDataSourcesFilters } from '@collections/data/data-sources/excluded.data';
+import { excludedTrainingsFilters } from '@collections/data/trainings/excluded.data';
+import { excludedOtherResourcesProductsFilters } from '@collections/data/other-resources-products/excluded.data';
+import { excludedGuidelinesFilters } from '@collections/data/guidelines/excluded.data';
 
 export const DEFAULT_COLLECTION_ID = ALL_COLLECTIONS_URL_PARAM_NAME;
 export const ADAPTERS: IAdapter[] = [
@@ -69,6 +79,21 @@ export const FILTERS: IFiltersConfig[] = [
   guidelinesFilters,
   otherResourcesProductsFilters,
 ];
+
+// Excluded filters according to adjustments in
+// https://github.com/cyfronet-fid/eosc-search-service/issues/597
+export const EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
+  excludedAllCollectionsFilters,
+  excludedPublicationsFilters,
+  excludedDatasetsFilters,
+  excludedSoftwareFilters,
+  excludedServicesFilters,
+  excludedDataSourcesFilters,
+  excludedTrainingsFilters,
+  excludedGuidelinesFilters,
+  excludedOtherResourcesProductsFilters,
+];
+
 export const NAV_CONFIGS: ICollectionNavConfig[] = [
   allCollectionsNavConfig,
   publicationsNavConfig,
@@ -92,4 +117,10 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   otherResourcesProductsSearchMetadata,
 ];
 
-validateCollections(ADAPTERS, FILTERS, NAV_CONFIGS, SEARCH_METADATA);
+validateCollections(
+  ADAPTERS,
+  FILTERS,
+  EXCLUDED_FILTERS,
+  NAV_CONFIGS,
+  SEARCH_METADATA
+);

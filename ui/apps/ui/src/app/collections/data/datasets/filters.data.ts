@@ -35,18 +35,6 @@ export const datasetsFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
-      id: 'funder',
-      filter: 'funder',
-      label: 'Funder',
-      type: 'multiselect',
-    },
-    {
-      id: 'sdg',
-      filter: 'sdg',
-      label: 'SDG [Beta]',
-      type: 'multiselect',
-    },
-    {
       id: 'country',
       filter: 'country',
       label: 'Country',
@@ -71,6 +59,24 @@ export const datasetsFilters: IFiltersConfig = {
       type: 'multiselect',
     },
     {
+      id: 'funder',
+      filter: 'funder',
+      label: 'Funder',
+      type: 'multiselect',
+    },
+    {
+      id: 'sdg',
+      filter: 'sdg',
+      label: 'Sustainable development goals',
+      type: 'multiselect',
+    },
+    {
+      id: 'publisher',
+      filter: 'publisher',
+      label: 'Publisher',
+      type: 'tag',
+    },
+    {
       id: 'author_names',
       filter: 'author_names',
       label: 'Author names',
@@ -80,12 +86,6 @@ export const datasetsFilters: IFiltersConfig = {
       id: 'license',
       filter: 'license',
       label: 'License',
-      type: 'tag',
-    },
-    {
-      id: 'publisher',
-      filter: 'publisher',
-      label: 'Publisher',
       type: 'tag',
     },
     {
