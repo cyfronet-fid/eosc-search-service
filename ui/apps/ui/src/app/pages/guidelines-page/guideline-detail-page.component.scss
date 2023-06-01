@@ -1,3 +1,8 @@
+.ig-title-container {
+  padding-top: 48px;
+  padding-right: 64px;
+}
+
 .ig-about-wrapper {
   margin: 24px 0 0 0;
   border: 1px solid #D8D8D8;
@@ -172,4 +177,11 @@
   background-color: #F4F4F5;
   min-width: 360px;
   max-width: 360px;
+}
+
+.info-box-service {
+  display: flex;
+  border-top: 1px solid #FFFFFF;
+  justify-content: space-between;
+  padding-top: 12px;
 }

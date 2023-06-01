@@ -111,16 +111,6 @@ $palette-gray-80: rgba($palette-gray-100, 0.8);
   }
 }
 
-@media (max-width: 768px) {
-  .service-info-box {
-    width: 100%;
-    flex: auto;
-    height: auto;
-    margin: 0 0 20px;
-    padding: 15px 20px;
-  }
-}
-
 .usage > .statistic {
   font-size: 11px;
   margin-right: 15px;
@@ -153,4 +143,18 @@ $palette-gray-80: rgba($palette-gray-100, 0.8);
 
 .results #container:not(:first-child) {
   margin-left: 24px;
+}
+
+@media (max-width: 768px) {
+  .service-info-box {
+    width: 100%;
+    flex: auto;
+    height: auto;
+    margin: 0 0 20px;
+    padding: 15px 20px;
+  }
+
+  .results #container:not(:first-child) {
+    margin-left: 0;
+  }
 }
