@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -24,7 +24,7 @@ import {
       <option value="dmr" i18n>Date - Most recent</option>
       <option value="dlr" i18n>Date – Least recent</option>
       <option value="mp" i18n>Most popular</option>
-      <option value="r" i18n>Relevancy</option>
+      <option *ngIf="!sortByOptionOff" value="r" i18n>Relevancy</option>
     </select>
   </div>`,
   styles: [
@@ -67,20 +67,23 @@ import {
   ],
 })
 export class SortByFunctionalityComponent implements OnInit {
+  @Input()
+  sortByOptionOff!: boolean;
+
   public selectedSortOptionControl: FormControl<sortType> =
     new FormControl<sortType>(DEFAULT_SORT, { nonNullable: true });
 
   constructor(private _customRoute: CustomRoute, private _router: Router) {}
 
   ngOnInit() {
-    this._customRoute.sortUI$
+    this._customRoute.sort_ui$
       .pipe(
         untilDestroyed(this), // TODO: event triggered on clear or change search criteria
-        filter((sortUI) => sortUI !== this.selectedSortOptionControl.value)
+        filter((sort_ui) => sort_ui !== this.selectedSortOptionControl.value)
       )
-      .subscribe((sortUI) => {
+      .subscribe((sort_ui) => {
         this.selectedSortOptionControl.setValue(
-          isSortOption(sortUI) ? sortUI : DEFAULT_SORT,
+          isSortOption(sort_ui) ? sort_ui : DEFAULT_SORT,
           { emitEvent: false }
         );
       });
@@ -95,7 +98,7 @@ export class SortByFunctionalityComponent implements OnInit {
   async updateQueryParams(sortOption: sortType) {
     await this._router.navigate([], {
       queryParams: {
-        sortUI: sanitizeQuery(sortOption) ?? DEFAULT_SORT,
+        sort_ui: sanitizeQuery(sortOption) ?? DEFAULT_SORT,
       },
       queryParamsHandling: 'merge',
     });

@@ -4,7 +4,7 @@
 import logging
 
 import httpx
-from fastapi import APIRouter, HTTPException, Query, Request
+from fastapi import APIRouter, HTTPException, Request
 from httpx import ReadTimeout
 
 from app.config import SHOW_RECOMMENDATIONS
@@ -21,7 +21,7 @@ from app.recommender.router_utils.recommendations import (
     get_recommended_uuids,
 )
 from app.recommender.router_utils.sort_by_relevance import (
-    get_candidates,
+    parse_candidates,
     perform_sort_by_relevance,
     sort_docs,
 )
@@ -62,34 +62,21 @@ async def get_recommendations(panel_id: RecommendationPanelId, request: Request)
         raise HTTPException(status_code=500, detail=str(e)) from e
 
 
-@router.get(
-    "/sort_by_relevance",
-    responses={200: {"model": dict}, 500: {"model": BadRequest}},
-)
 async def sort_by_relevance(
     panel_id: RecommendationPanelId,
-    request: Request,
-    q: str = Query("*", description="Free-form query string"),
-    qf: str = Query("id", description="Query fields"),
-    fq: list[str] = Query(
-        [],
-        description="Filter query",
-        example=["journal:Geonomos", 'journal:"Solar Energy"'],
-    ),
+    documents: list,
 ):
-    if SHOW_RECOMMENDATIONS is False:
-        return []
-    session, _ = await get_session(request)
+    # session, _ = await get_session(request)
 
     try:
         async with httpx.AsyncClient() as client:
             try:
-                candidates_ids, docs = await get_candidates(panel_id, q, qf, fq)
+                candidates_ids = await parse_candidates(documents)
                 uuids = await perform_sort_by_relevance(
-                    client, session, panel_id, candidates_ids
+                    client, None, panel_id, candidates_ids
                 )
-                items = await sort_docs(uuids, docs)
-                return {"recommendations": items, "isRand": False}
+                items = await sort_docs(uuids, documents)
+                return items
             except (
                 RecommenderError,
                 SolrRetrieveError,

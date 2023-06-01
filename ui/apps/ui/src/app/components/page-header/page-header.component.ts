@@ -33,7 +33,9 @@ import { Router } from '@angular/router';
         </nz-breadcrumb>
       </div>
     </div> --->
-      <!--      <ess-sort-by-functionality></ess-sort-by-functionality>-->
+      <ess-sort-by-functionality
+        [sortByOptionOff]="sortByOptionOff"
+      ></ess-sort-by-functionality>
     </div>
   `,
   styles: [
@@ -50,6 +52,12 @@ import { Router } from '@angular/router';
 export class PageHeaderComponent {
   @Input()
   resultsCount!: number;
+
+  @Input()
+  sortByPermitted!: string[];
+
+  @Input()
+  sortByOptionOff!: boolean;
 
   activeNavConfig$ = this._navConfigsRepository.activeEntity$;
 
