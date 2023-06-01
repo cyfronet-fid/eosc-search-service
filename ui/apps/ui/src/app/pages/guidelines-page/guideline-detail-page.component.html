@@ -7,7 +7,7 @@
           <div class="ig-logo-container">
             <img width="300px" [src]="'./assets/engineering.png'" alt="" />
           </div>
-          <div style="padding-top: 48px; padding-right: 64px;">
+          <div class="ig-title-container">
             <p class="ig-about-title" i18n>{{  this.interoperabilityGuidelineItem?.title ?? '-' }}<br><span class="ig-about-subtitle" i18>{{ ( this.interoperabilityGuidelineItem?.eosc_guideline_type ?? '-' | filterPipe: type.GUIDELINE_TYPE ) }}</span></p>
             <p class="ig-about-subtitle" i18n>
               {{  this.interoperabilityGuidelineItem?.type_info ?? '-' }}
@@ -83,7 +83,7 @@
               </div>
               <div><p class="related-services-desc">{{ service.tagline }}</p></div>
             </div>
-            <div class="info-box-service" style="display: flex; border-top: 1px solid #FFFFFF; justify-content: space-between; padding-top: 12px;">
+            <div class="info-box-service">
               <p class="related-services-up"><strong>Organistaion:</strong><br><span class="related-services-up">{{ service.resource_organisation
                  }}</span></p>
               <p class="related-services-up"><strong>Dedicated for:</strong><br>
