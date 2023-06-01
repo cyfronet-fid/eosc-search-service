@@ -12,10 +12,12 @@ RecommendationPanelId = Literal[
     "publication",
     "dataset",
     "software",
+    "other",
     "training",
     "service",
-    "other",
     "data-source",
+    "bundle",
+    "guideline",
 ]
 RE_INT = re.compile("^[0-9]+$")
 
@@ -80,6 +82,10 @@ def _get_panel(panel_id: RecommendationPanelId, sort_by_relevance: bool = False)
             return "services"
         case "data-source":
             return "data-sources"
+        case "bundle":
+            return "bundles"
+        case "guideline":
+            return "guidelines"
 
         case _:
             return panel_id

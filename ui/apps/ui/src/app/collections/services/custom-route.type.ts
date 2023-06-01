@@ -11,7 +11,7 @@ export type paramType =
 export interface ICustomRouteProps {
   collection: string | null;
   q: string;
-  sortUI: sortType;
+  sort_ui: sortType;
   fq: string[];
   cursor: string;
   sort: string[];

@@ -5,8 +5,10 @@ from json import JSONDecodeError
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from httpx import AsyncClient, TransportError
+from pydantic.typing import Literal
 from requests import Response
 
+from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.web import SearchRequest
 from app.solr.operations import get, search_dep
 
@@ -28,8 +30,14 @@ async def search_post(
         description="Filter query",
         example=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
+    sort_ui: str = Literal[
+        "dmr",
+        "dlr",
+        "mp",
+        "r",
+    ],
     sort: list[str] = Query(
-        [], description="Sort order", example=["description asc", "name desc"]
+        [], description="Solr sort", example=["description asc", "name desc"]
     ),
     rows: int = Query(10, description="Row count", gte=3, le=100),
     cursor: str = Query("*", description="Cursor"),
@@ -44,6 +52,8 @@ async def search_post(
     Paging is cursor-based, see
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
     """
+    final_solr_sorting = await define_sorting(sort_ui, sort)
+
     async with AsyncClient() as client:
         response = await handle_search_errors(
             search(
@@ -52,7 +62,7 @@ async def search_post(
                 q=q,
                 qf=qf,
                 fq=fq,
-                sort=sort + DEFAULT_SORT,
+                sort=final_solr_sorting,
                 rows=rows,
                 cursor=cursor,
                 facets=request.facets,
@@ -61,14 +71,32 @@ async def search_post(
 
         res_json = response.json()
 
+        # Extent the results with bundles
         if "all_collection" in collection or "bundle" in collection:
             await extend_results_with_bundles(client, res_json)
 
+    out = await create_output(res_json, collection, sort_ui)
+    return out
+
+
+async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:
+    """Create an output"""
     out = {
-        "results": res_json["response"]["docs"],
         "numFound": res_json["response"]["numFound"],
         "nextCursorMark": res_json["nextCursorMark"],
     }
+
+    # Sort by relevance
+    if sort_ui == "r":
+        if collection == "other_rp":
+            collection = "other"
+
+        rel_sorted_items = await sort_by_relevance(
+            collection, res_json["response"]["docs"]
+        )
+        out["results"] = rel_sorted_items
+    else:
+        out["results"] = res_json["response"]["docs"]
 
     if "facets" in res_json:
         out["facets"] = res_json["facets"]
@@ -154,3 +182,25 @@ async def extend_results_with_bundles(client, res_json):
                 ]
     else:
         return
+
+
+async def define_sorting(sort_ui: str, sort: list[str]):
+    """Retrieve proper solr sorting based on sort_ui param"""
+    match sort_ui:
+        case "dmr":
+            return ["publication_date desc"] + DEFAULT_SORT
+        case "dlr":
+            return ["publication_date asc"] + DEFAULT_SORT
+        case "mp":
+            return [
+                "usage_counts_views desc",
+                "usage_counts_downloads desc",
+            ] + DEFAULT_SORT
+        case "r":
+            # Sort by relevance the most popular resources
+            return [
+                "usage_counts_views desc",
+                "usage_counts_downloads desc",
+            ] + DEFAULT_SORT
+        case _:
+            return sort + DEFAULT_SORT

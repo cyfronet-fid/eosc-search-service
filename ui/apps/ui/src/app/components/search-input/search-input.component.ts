@@ -112,7 +112,7 @@ import { RedirectService } from '@collections/services/redirect.service';
                 redirectService.internalUrl(
                   result.url,
                   result.id,
-                  result.type.label
+                  result.type.value
                 )
               "
               class="list-group-item list-group-item-action result"
