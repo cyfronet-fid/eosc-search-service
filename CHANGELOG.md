@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.5.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.4.0...v2.5.0) (2023-06-02)
+
+
+### Features
+
+* [[#598](https://github.com/cyfronet-fid/eosc-search-service/issues/598)] Add conditional filter tooltips ([71e6fa4](https://github.com/cyfronet-fid/eosc-search-service/commit/71e6fa44636a44b52b8fccfc976514490a040567))
+* [[#601](https://github.com/cyfronet-fid/eosc-search-service/issues/601)] Add filter collapse/expansion mechanism ([b877151](https://github.com/cyfronet-fid/eosc-search-service/commit/b877151eaddd638a6e859a1a070e5f0602cf1a80))
+* [#614](https://github.com/cyfronet-fid/eosc-search-service/issues/614) change beta badge on ig box ([50b82e6](https://github.com/cyfronet-fid/eosc-search-service/commit/50b82e6fdd545f3dc94e47baaedb94b3e6a96c9d))
+* [#623](https://github.com/cyfronet-fid/eosc-search-service/issues/623) mobile view fix ([30775e7](https://github.com/cyfronet-fid/eosc-search-service/commit/30775e7e41d8fc4e8f2269098b2e3c413ff0e285))
+* encode return_path and search_params ([05e9de8](https://github.com/cyfronet-fid/eosc-search-service/commit/05e9de8648e3175e13fdb35ba5f1f96a12fec740))
+
+
+### Bug Fixes
+
+* [[#597](https://github.com/cyfronet-fid/eosc-search-service/issues/597)] Adjust ordering and naming of filters ([db83a2e](https://github.com/cyfronet-fid/eosc-search-service/commit/db83a2e1201f8ec33a2c9771ed84dd32cc62d80e))
+* quick fix for user actions aai_id [#512](https://github.com/cyfronet-fid/eosc-search-service/issues/512) ([53e71a0](https://github.com/cyfronet-fid/eosc-search-service/commit/53e71a020fd1f1cd637b594a7257eb8ee1636ed4))
+* quick fix for user actions aai_id [#512](https://github.com/cyfronet-fid/eosc-search-service/issues/512) ([7724449](https://github.com/cyfronet-fid/eosc-search-service/commit/7724449c935eb1c5fcd7d586469bffbfbf008ac5))
+
 ## [2.4.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.3.0...v2.4.0) (2023-05-23)
 
 
