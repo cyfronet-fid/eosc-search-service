@@ -105,7 +105,7 @@ import { IOffer } from '@collections/data/bundles/bundle.model';
               </div>
               <div class="bundle-offer-desc p-2">
                 <h4 class="card-title">
-                  {{ offer.service?.title ?? 'Unknown Service' }}
+                  {{ offer.title }}
                 </h4>
                 <div class="provided-by">
                   Provided by {{ offer.service?.resource_organisation }}
