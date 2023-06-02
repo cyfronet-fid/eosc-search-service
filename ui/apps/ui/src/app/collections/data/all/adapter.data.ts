@@ -14,6 +14,7 @@ import {
 } from '@collections/filters-serializers/utils';
 import {
   toAccessRightColoredTag,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toBetaTag,
   toHorizontalServiceTag,
   toLanguageColoredTag,
@@ -71,7 +72,6 @@ export const allCollectionsAdapter: IAdapter = {
       toHorizontalServiceTag(data?.horizontal),
       toAccessRightColoredTag(data?.best_access_right),
       toLanguageColoredTag(data?.language),
-      toBetaTag(data?.type),
     ],
     tags: [
       {

@@ -16,24 +16,32 @@ import {
   selector: 'ess-filter-date',
   template: `
     <div class="filter">
-      <ess-filter-label [label]="label" [filter]="filter"></ess-filter-label>
+      <ess-filter-label
+        [label]="label"
+        [filter]="filter"
+        [isExpanded]="isExpanded"
+        [tooltipText]="tooltipText"
+        (isExpandedChanged)="isExpandedChanged($event)"
+      ></ess-filter-label>
 
-      <br />
-      <label>Start date</label>
-      <nz-date-picker
-        nzPlaceHolder="Select start date"
-        [nzDisabledDate]="disableStartDate()"
-        [(ngModel)]="startDate"
-        (ngModelChange)="onStartDateChange($event)"
-      ></nz-date-picker>
+      <div *ngIf="isExpanded">
+        <br />
+        <label>Start date</label>
+        <nz-date-picker
+          nzPlaceHolder="Select start date"
+          [nzDisabledDate]="disableStartDate()"
+          [(ngModel)]="startDate"
+          (ngModelChange)="onStartDateChange($event)"
+        ></nz-date-picker>
 
-      <label>End date</label>
-      <nz-date-picker
-        nzPlaceHolder="Select end date"
-        [nzDisabledDate]="disableEndDate()"
-        [(ngModel)]="endDate"
-        (ngModelChange)="onEndDateChange($event)"
-      ></nz-date-picker>
+        <label>End date</label>
+        <nz-date-picker
+          nzPlaceHolder="Select end date"
+          [nzDisabledDate]="disableEndDate()"
+          [(ngModel)]="endDate"
+          (ngModelChange)="onEndDateChange($event)"
+        ></nz-date-picker>
+      </div>
     </div>
   `,
   styles: [
@@ -54,6 +62,12 @@ export class FilterDateComponent implements OnInit {
 
   @Input()
   filter!: string;
+
+  @Input()
+  isExpanded!: boolean;
+
+  @Input()
+  tooltipText!: string;
 
   startDate: Date | null = null;
   endDate: Date | null = null;
@@ -137,5 +151,9 @@ export class FilterDateComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+  }
+
+  isExpandedChanged(newExpanded: boolean) {
+    this.isExpanded = newExpanded;
   }
 }

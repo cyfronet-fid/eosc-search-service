@@ -26,17 +26,25 @@ import { toRangeTimeFormat } from '@collections/filters-serializers/range.serial
 @Component({
   selector: 'ess-filter-range',
   template: ` <div class="filter">
-    <ess-filter-label [label]="label" [filter]="filter"></ess-filter-label>
-    <nz-slider
-      nzRange
-      [nzMarks]="marks"
-      [nzTipFormatter]="formatTooltip"
-      [nzMin]="min"
-      [nzMax]="max"
-      [nzStep]="step"
-      [ngModel]="range$.value"
-      (ngModelChange)="range$.next($event)"
-    ></nz-slider>
+    <ess-filter-label
+      [label]="label"
+      [filter]="filter"
+      [isExpanded]="isExpanded"
+      [tooltipText]="tooltipText"
+      (isExpandedChanged)="isExpandedChanged($event)"
+    ></ess-filter-label>
+    <div *ngIf="isExpanded">
+      <nz-slider
+        nzRange
+        [nzMarks]="marks"
+        [nzTipFormatter]="formatTooltip"
+        [nzMin]="min"
+        [nzMax]="max"
+        [nzStep]="step"
+        [ngModel]="range$.value"
+        (ngModelChange)="range$.next($event)"
+      ></nz-slider>
+    </div>
   </div>`,
   styles: [
     `
@@ -52,6 +60,12 @@ export class FilterRangeComponent implements OnInit {
 
   @Input()
   filter!: string;
+
+  @Input()
+  isExpanded!: boolean;
+
+  @Input()
+  tooltipText!: string;
 
   min = 0;
   max = 40 * 60 * 60;
@@ -129,5 +143,9 @@ export class FilterRangeComponent implements OnInit {
 
   formatTooltip(seconds: number): string {
     return toRangeTimeFormat(seconds);
+  }
+
+  isExpandedChanged(newExpanded: boolean) {
+    this.isExpanded = newExpanded;
   }
 }

@@ -18,12 +18,16 @@ import { IFiltersConfig } from '@collections/repositories/types';
             *ngSwitchCase="'multiselect'"
             [label]="filterConfig.label"
             [filter]="filterConfig.filter"
+            [isExpanded]="!filterConfig.defaultCollapsed"
+            [tooltipText]="filterConfig.tooltipText"
             [onValuesFetch]="filterConfig.onFacetsFetch"
           ></ess-filter-multiselect>
           <ess-filter-date
             *ngSwitchCase="'date'"
             [label]="filterConfig.label"
             [filter]="filterConfig.filter"
+            [tooltipText]="filterConfig.tooltipText"
+            [isExpanded]="!filterConfig.defaultCollapsed"
           >
           </ess-filter-date>
         </ng-container>
@@ -32,6 +36,8 @@ import { IFiltersConfig } from '@collections/repositories/types';
             *ngSwitchCase="'range'"
             [label]="filterConfig.label"
             [filter]="filterConfig.filter"
+            [tooltipText]="filterConfig.tooltipText"
+            [isExpanded]="!filterConfig.defaultCollapsed"
           ></ess-filter-range>
         </ng-container>
       </ng-container>

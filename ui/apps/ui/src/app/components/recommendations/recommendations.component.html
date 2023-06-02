@@ -2,11 +2,11 @@
   <div class="column" style="padding: 5px 20px 0 10px; display: flex; justify-content: space-between;">
     <div class="container results col-md-12">
       <h2 style="padding-top: 24px;">Resources selected for you</h2>
-      <div class="column mb-4 ml-0 mr-0" style="display: flex; justify-content: center;">
+      <div class="row mb-4 ml-0 mr-0" style="display: flex; justify-content: center;">
         <div
           *ngFor="let recommendation of recommendations"
           id="container"
-          class="suggested col-sm-4"
+          class="suggested col-md"
           style=""
         >
           <ess-colored-tags

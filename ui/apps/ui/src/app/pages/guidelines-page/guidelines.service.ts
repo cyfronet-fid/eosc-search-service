@@ -14,6 +14,7 @@ export class GuidelinesService {
     return this._http.get<IGuideline>(`${this.endpointUrl}/${id}`);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getFromProviderById$(id: number | string): Observable<any> {
     const endpoint = `/${environment.backendApiPath}/related_services?guideline_id=`;
     return this._http.get<IService[]>(`${endpoint}${id}`);

@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://api.eosc-search-service.grid.cyfronet.pl",
+    "target": "https://beta.search.marketplace.eosc-portal.eu",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "debug"

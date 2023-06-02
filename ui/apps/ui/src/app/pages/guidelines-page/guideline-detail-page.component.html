@@ -3,11 +3,11 @@
   <div class="container-xxl mb-5">
     <div  *ngIf="guideline !== undefined">
       <div class="ig-about-wrapper">
-        <div class="about">
-          <div class="ig-logo-container">
+        <div class="about row">
+          <div class="ig-logo-container col-md-5 col-12">
             <img width="300px" [src]="'./assets/engineering.png'" alt="" />
           </div>
-          <div style="padding-top: 48px; padding-right: 64px;">
+          <div class="ig-title-container about-content-title col-md-7 col-12" >
             <p class="ig-about-title" i18n>{{  this.interoperabilityGuidelineItem?.title ?? '-' }}<br><span class="ig-about-subtitle" i18>{{ ( this.interoperabilityGuidelineItem?.eosc_guideline_type ?? '-' | filterPipe: type.GUIDELINE_TYPE ) }}</span></p>
             <p class="ig-about-subtitle" i18n>
               {{  this.interoperabilityGuidelineItem?.type_info ?? '-' }}
@@ -83,7 +83,7 @@
               </div>
               <div><p class="related-services-desc">{{ service.tagline }}</p></div>
             </div>
-            <div class="info-box-service" style="display: flex; border-top: 1px solid #FFFFFF; justify-content: space-between; padding-top: 12px;">
+            <div class="info-box-service">
               <p class="related-services-up"><strong>Organistaion:</strong><br><span class="related-services-up">{{ service.resource_organisation
                  }}</span></p>
               <p class="related-services-up"><strong>Dedicated for:</strong><br>

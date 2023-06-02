@@ -23,6 +23,7 @@ import { toNavigationLink } from './utils';
 })
 export class CollectionsNavigationComponent implements OnInit {
   public navigationLinks: INavigationLink[] = [];
+  public showCollections = false;
   public q$ = this._customRoute.q$;
 
   constructor(

@@ -96,8 +96,14 @@ export interface IFilterConfig {
   filter: string;
   label: string;
   type: 'multiselect' | 'select' | 'date' | 'tag' | 'range';
+  defaultCollapsed: boolean;
+  tooltipText: string;
 
   onFacetsFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[]; // !!! only for multiselect !!!
+}
+export interface IExcludedFiltersConfig {
+  id: string;
+  excluded: string[];
 }
 
 export interface ICollectionSearchMetadata {

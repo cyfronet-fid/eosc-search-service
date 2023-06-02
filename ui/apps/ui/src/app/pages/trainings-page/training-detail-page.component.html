@@ -5,32 +5,34 @@
       <div class="ig-about-wrapper">
         <div class="about">
           <div class="about-content">
-            <div class="headline-container">
-              <div class="ig-logo-container">
+            <div class="headline-container row">
+              <div class="ig-logo-container col-md-4 col-12">
                 <img [src]="'./assets/training.png'" alt="" />
               </div>
-              <div class="about-content-title">
+              <div class="about-content-title col-md-5 col-12">
                 <p class="ig-about-title" i18n>{{ myTraining?.title ?? '-' }}</p>
                 <p class="ig-about-subtitle" i18n>
                   Resource organization: <span class="sub-headline-color">{{ myTraining?.resource_organisation ?? '-' }}</span><br>
                   Provided by: <span class="sub-headline-color">{{ myTraining?.eosc_provider ?? '-' }}</span>
                 </p>
               </div>
-            </div>
-            <div class="button-container">
-              <a href="{{myTraining?.url ?? ''}}">
-              <div class="button" i18n>
-                Access training
+
+              <div class="button-container col-md-3 col-12">
+                <a href="{{myTraining?.url ?? ''}}">
+                  <div class="button" i18n>
+                    Access training
+                  </div>
+                </a>
+                <div class="button-off" i18n>
+                  {{ myTraining?.best_access_right ?? '-' }}
+                </div>
               </div>
-              </a>
-              <div class="button-off" i18n>
-                {{ myTraining?.best_access_right ?? '-' }}
-              </div>
             </div>
+
           </div>
         </div>
-        <div class="details">
-          <div class="column-left">
+        <div class="details row">
+          <div class="column-left col-md-9 col-12">
             <p>{{ myTraining?.description ?? '-'}}</p>
             <div class="details-box">
               <div class="details-box-container">
@@ -94,7 +96,7 @@
               </div>
             </div>
           </div>
-          <div class="column-right">
+          <div class="column-right col-md-3 col-12">
            <h6 i18n>SCIENTIC CATEGORISATION</h6>
             <div class="category-box">
               <div class="category-icon">

@@ -50,7 +50,10 @@ async def user_session() -> UserSession:
     session_id = uuid.uuid4()
 
     session = SessionData(
-        username="testuser@test", aai_state="12345", session_uuid=str(uuid.uuid4())
+        username="testuser@test",
+        aai_state="12345",
+        aai_id="test",
+        session_uuid=str(uuid.uuid4()),
     )
     await backend.create(session_id, session)
     return UserSession(backend_session_id=session_id, session_data=session)

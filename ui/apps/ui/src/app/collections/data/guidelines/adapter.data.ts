@@ -11,7 +11,6 @@ import {
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
-import { toBetaTag } from '@collections/data/shared-tags';
 
 export const guidelinesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -34,7 +33,6 @@ export const guidelinesAdapter: IAdapter = {
         values: toValueWithLabel(toArray(guideline['right_id'])),
         filter: 'right_id',
       },
-      toBetaTag(guideline?.type),
     ],
     tags: [
       {
