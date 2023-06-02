@@ -18,6 +18,7 @@ export interface IResult {
   accessRight?: string;
   views?: number;
   downloads?: number;
+  offers?: any[];
 }
 
 export interface ISecondaryTag {

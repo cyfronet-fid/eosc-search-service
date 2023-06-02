@@ -54,6 +54,7 @@ import { Router } from '@angular/router';
         [accessRight]="result.accessRight"
         [date]="result.date"
         [highlights]="highlights[result.id] ?? {}"
+        [offers]="result.offers ?? []"
       ></ess-result>
       <ess-pagination
         [paginationData]="$any(paginationData$ | async)"

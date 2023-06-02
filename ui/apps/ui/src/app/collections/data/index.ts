@@ -46,6 +46,10 @@ import { otherResourcesProductsFilters } from '@collections/data/other-resources
 import { othersResourcesProductsNavConfig } from '@collections/data/other-resources-products/nav-config.data';
 import { otherResourcesProductsSearchMetadata } from '@collections/data/other-resources-products/search-metadata.data';
 import { otherResourcesProductsAdapter } from '@collections/data/other-resources-products/adapter.data';
+import { bundlesNavConfig } from '@collections/data/bundles/nav-config.data';
+import { bundlesSearchMetadata } from '@collections/data/bundles/search-metadata.data';
+import { bundlesFilters } from '@collections/data/bundles/filters.data';
+import { bundlesAdapter } from '@collections/data/bundles/adapter.data';
 import { excludedPublicationsFilters } from '@collections/data/publications/excluded.data';
 import { excludedDatasetsFilters } from '@collections/data/datasets/excluded.data';
 import { excludedAllCollectionsFilters } from '@collections/data/all/excluded.data';
@@ -55,6 +59,7 @@ import { excludedDataSourcesFilters } from '@collections/data/data-sources/exclu
 import { excludedTrainingsFilters } from '@collections/data/trainings/excluded.data';
 import { excludedOtherResourcesProductsFilters } from '@collections/data/other-resources-products/excluded.data';
 import { excludedGuidelinesFilters } from '@collections/data/guidelines/excluded.data';
+import { excludedBundlesFilters } from '@collections/data/bundles/excluded.data';
 
 export const DEFAULT_COLLECTION_ID = ALL_COLLECTIONS_URL_PARAM_NAME;
 export const ADAPTERS: IAdapter[] = [
@@ -66,6 +71,7 @@ export const ADAPTERS: IAdapter[] = [
   dataSourcesAdapter,
   trainingsAdapter,
   guidelinesAdapter,
+  bundlesAdapter,
   otherResourcesProductsAdapter,
 ];
 export const FILTERS: IFiltersConfig[] = [
@@ -77,6 +83,7 @@ export const FILTERS: IFiltersConfig[] = [
   dataSourcesFilters,
   trainingsFilters,
   guidelinesFilters,
+  bundlesFilters,
   otherResourcesProductsFilters,
 ];
 
@@ -91,6 +98,7 @@ export const EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
   excludedDataSourcesFilters,
   excludedTrainingsFilters,
   excludedGuidelinesFilters,
+  excludedBundlesFilters,
   excludedOtherResourcesProductsFilters,
 ];
 
@@ -103,6 +111,7 @@ export const NAV_CONFIGS: ICollectionNavConfig[] = [
   dataSourcesNavConfig,
   trainingsNavConfig,
   guidelinesNavConfig,
+  bundlesNavConfig,
   othersResourcesProductsNavConfig,
 ];
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
@@ -114,6 +123,7 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   dataSourcesSearchMetadata,
   trainingsSearchMetadata,
   guidelinesSearchMetadata,
+  bundlesSearchMetadata,
   otherResourcesProductsSearchMetadata,
 ];
 

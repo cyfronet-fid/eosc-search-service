@@ -42,6 +42,7 @@ async def register_navigation_user_action(
         "data-source",
         "other",
         "interoperability guideline",
+        "bundle",
     ],
     page_id: str,
     recommendation: bool = False,
