@@ -55,6 +55,7 @@ class OagBaseTransformer(BaseTransformer):
         harvest_country(df, self.harvested_properties)
         harvest_research_community(df, self.harvested_properties)
         harvest_relations(df, self.harvested_properties)
+        harvest_eosc_if(df, self.harvested_properties)
         create_unified_categories(df, self.harvested_properties)
 
         return df
@@ -71,6 +72,7 @@ class OagBaseTransformer(BaseTransformer):
                     StructField(COUNTRY, ArrayType(StringType()), True),
                     StructField(DOCUMENT_TYPE, ArrayType(StringType()), True),
                     StructField(DOI, ArrayType(StringType()), True),
+                    StructField(EOSC_IF, ArrayType(StringType()), True),
                     StructField(FOS, ArrayType(StringType()), True),
                     StructField(FUNDER, ArrayType(StringType()), True),
                     StructField(LANGUAGE, ArrayType(StringType()), True),
