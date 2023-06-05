@@ -360,6 +360,7 @@ def harvest_eosc_if(df: DataFrame, harvested_properties: dict):
 
     harvested_properties[EOSC_IF] = eosc_if_col
 
+
 def transform_date(df: DataFrame, col_name: str, date_format: str) -> DataFrame:
     """Cast string date type to date type"""
     df = df.withColumn(
