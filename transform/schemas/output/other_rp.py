@@ -11,6 +11,7 @@ other_rp_output_schema = {
     "description": "array<string>",
     "document_type": "array<string>",
     "doi": "array<string>",
+    "eosc_if": "array<string>",
     "fos": "array<string>",
     "funder": "array<string>",
     "id": "string",

@@ -10,6 +10,7 @@ software_output_schema = {
     "document_type": "array<string>",
     "documentation_url": "array<string>",
     "doi": "array<string>",
+    "eosc_if": "array<string>",
     "fos": "array<string>",
     "funder": "array<string>",
     "id": "string",

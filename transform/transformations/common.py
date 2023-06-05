@@ -37,6 +37,7 @@ from schemas.properties_name import (
     PID,
     RELATIONS,
     RELATIONS_LONG,
+    EOSC_IF,
 )
 from schemas.mappings import (
     OPEN_ACCESS_,
@@ -344,6 +345,20 @@ def harvest_relations(df: DataFrame, harvested_properties: dict):
     harvested_properties[RELATIONS] = relations_short_col
     harvested_properties[RELATIONS_LONG] = relations_long_col
 
+
+def harvest_eosc_if(df: DataFrame, harvested_properties: dict):
+    """Harvest eoscIF from OAG resources"""
+    eosc_if_collection = df.select("eoscIF").collect()
+    eosc_if_col = []
+
+    for eosc_if in chain.from_iterable(eosc_if_collection):
+        if eosc_if:
+            eosc_if_row = [elem["code"] for elem in eosc_if]
+            eosc_if_col.append(eosc_if_row)
+        else:
+            eosc_if_col.append([])
+
+    harvested_properties[EOSC_IF] = eosc_if_col
 
 def transform_date(df: DataFrame, col_name: str, date_format: str) -> DataFrame:
     """Cast string date type to date type"""

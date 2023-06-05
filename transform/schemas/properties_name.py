@@ -41,6 +41,7 @@ RESOURCE_TYPE = "resource_type"
 SCIENTIFIC_DOMAINS = "scientific_domains"
 TARGET_GROUP = "target_group"
 PUBLICATION_DATE = "publication_date"
+EOSC_IF = "eosc_if"
 
 # Text general
 AUTHOR_NAMES_TG = "author_names_tg"
