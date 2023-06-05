@@ -1,6 +1,6 @@
 import { IIGDictionary } from './IIGDictionary.interface';
 
-export const interoperabilityGuidelinesDomainDictionary: IIGDictionary = {
+export const domainDictionary: IIGDictionary = {
   'scientific_domain-agricultural_sciences': 'Agricultural Sciences',
   'scientific_domain-engineering_and_technology': 'Engineering & Technology',
   'scientific_domain-generic': 'Generic',

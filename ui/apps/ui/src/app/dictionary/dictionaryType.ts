@@ -6,6 +6,10 @@ export const DICTIONARY_TYPE_FOR_PIPE = {
   AUTHOR_TYPE: 'author_type',
   RESOURCE_GENERAL_TYPE: 'resource_type_general-guideline',
   TRAINING_ACCESS_TYPE: 'access_type',
-  TRANING_TARGET_GROUP: 'target_group',
+  TRAINING_BEST_ACCESS_RIGHT: 'best_access_right',
+  TRAINING_ACCESS_RIGHT: 'access_right',
+  TRAINING_TARGET_GROUP: 'target_group',
   TRAINING_URL_TYPE: 'url_type',
+  TRAINING_QUALIFICATIONS: 'qualification',
+  TRAINING_DOMAIN: 'training_domain',
 };
