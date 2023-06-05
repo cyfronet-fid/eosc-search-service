@@ -15,7 +15,7 @@ export const bundlesAdapter: IAdapter = {
     title: bundle['title']?.join(' ') || '',
     description: bundle['description']?.join(' ') || '',
     type: {
-      label: `Service ${bundle['type']}` || '',
+      label: bundle.type || '',
       value: 'bundle',
     },
     collection: COLLECTION,
