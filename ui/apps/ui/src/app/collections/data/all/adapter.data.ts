@@ -107,7 +107,7 @@ export const allCollectionsAdapter: IAdapter = {
             },
           ],
     type: {
-      label: data.type || '', // data.type === 'bundle' ? `Service ${data['type']}` : data.type || '',
+      label: data.type || '',
       value: (data.type || '')?.replace(/ +/gm, '-'),
     },
     collection: COLLECTION,
