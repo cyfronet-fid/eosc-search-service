@@ -26,7 +26,7 @@ import { ViewportScroller } from '@angular/common';
             ><a
               href="javascript:void(0)"
               (click)="setActiveFilter(tag.filter, singleValue.value)"
-              [innerHTML]="singleValue.label"
+              [innerHTML]="singleValue.label | filterPipe: tag.filter"
             ></a
             >&nbsp;&nbsp;</span
           >
