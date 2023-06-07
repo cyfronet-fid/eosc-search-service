@@ -6,6 +6,7 @@ import {
 import { URL_PARAM_NAME } from './nav-config.data';
 import { facetToFlatNodes } from '@components/filters/utils';
 import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
+import { alphanumericFilterSort } from '@collections/data/utils';
 
 export const servicesFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -119,6 +120,7 @@ export const servicesFilters: IFiltersConfig = {
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
+      customSort: alphanumericFilterSort,
     },
     {
       id: 'tag_list',

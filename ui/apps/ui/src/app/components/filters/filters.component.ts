@@ -21,6 +21,7 @@ import { IFiltersConfig } from '@collections/repositories/types';
             [isExpanded]="!filterConfig.defaultCollapsed"
             [tooltipText]="filterConfig.tooltipText"
             [onValuesFetch]="filterConfig.onFacetsFetch"
+            [customSort]="filterConfig.customSort"
           ></ess-filter-multiselect>
           <ess-filter-date
             *ngSwitchCase="'date'"

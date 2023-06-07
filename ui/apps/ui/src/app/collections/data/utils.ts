@@ -1,4 +1,8 @@
-import { IResult, ISecondaryTag } from '@collections/repositories/types';
+import {
+  IFilterNode,
+  IResult,
+  ISecondaryTag,
+} from '@collections/repositories/types';
 import {
   toArray,
   toValueWithLabel,
@@ -38,3 +42,5 @@ export const parseStatistics = (data: any): Partial<IResult> => {
     accessRight: data['best_access_right'],
   };
 };
+export const alphanumericFilterSort = (a: IFilterNode, b: IFilterNode) =>
+  a.value.localeCompare(b.value);

@@ -6,6 +6,7 @@ import {
 import { URL_PARAM_NAME } from './nav-config.data';
 import { facetToFlatNodes } from '@components/filters/utils';
 import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
+import { alphanumericFilterSort } from '@collections/data/utils';
 
 export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -49,6 +50,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      customSort: alphanumericFilterSort,
     },
     {
       id: 'horizontal',
