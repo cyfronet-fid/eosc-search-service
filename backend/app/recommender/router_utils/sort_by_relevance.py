@@ -4,17 +4,14 @@ import uuid
 
 import httpx
 from httpx import AsyncClient
-from starlette.status import HTTP_200_OK
 
-from app.config import MAX_ITEMS_SORT_BY_RELEVANCE, RECOMMENDER_ENDPOINT
+from app.config import RECOMMENDER_ENDPOINT
 from app.recommender.router_utils.common import (
     RecommendationPanelId,
     RecommenderError,
-    SolrRetrieveError,
     _get_panel,
 )
 from app.schemas.session_data import SessionData
-from app.solr.operations import search
 
 logger = logging.getLogger(__name__)
 

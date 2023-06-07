@@ -88,9 +88,7 @@ async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:
 
     # Sort by relevance
     if sort_ui == "r":
-        if collection == "other_rp":
-            collection = "other"
-
+        collection = await parse_col_name(collection)
         rel_sorted_items = await sort_by_relevance(
             collection, res_json["response"]["docs"]
         )
@@ -105,6 +103,33 @@ async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:
         out["highlighting"] = res_json["highlighting"]
 
     return out
+
+
+# pylint: disable=too-many-return-statements
+async def parse_col_name(collection: str) -> str | None:
+    """Parse collection name for sort by relevance"""
+    # Handle prefixes
+    if "all" in collection:
+        return "all"
+    if "publication" in collection:
+        return "publication"
+    if "dataset" in collection:
+        return "dataset"
+    if "software" in collection:
+        return "software"
+    if "service" in collection:
+        return "service"
+    if "data-source" in collection:
+        return "data-source"
+    if "training" in collection:
+        return "training"
+    if "guideline" in collection:
+        return "guideline"
+    if "bundle" in collection:
+        return "bundle"
+    if "other" in collection:
+        return "other"
+    return None
 
 
 async def handle_search_errors(search_coroutine) -> Response:
