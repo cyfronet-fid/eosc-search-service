@@ -55,6 +55,13 @@ const urlAdapter = (
   }
 };
 
+const forInteroperabilityGuidelinesValueAdapter = (value: string = '') => {
+  const valueToLowerCase = value.toLowerCase();
+  return valueToLowerCase.indexOf('interoperability') !== -1
+    ? 'guideline'
+    : value;
+};
+
 export const allCollectionsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (
@@ -108,7 +115,10 @@ export const allCollectionsAdapter: IAdapter = {
           ],
     type: {
       label: data.type || '',
-      value: (data.type || '')?.replace(/ +/gm, '-'),
+      value: forInteroperabilityGuidelinesValueAdapter(data.type)?.replace(
+        / +/gm,
+        '-'
+      ),
     },
     collection: COLLECTION,
     secondaryTags: [
