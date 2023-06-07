@@ -58,6 +58,7 @@ import { IFqMap } from '@collections/services/custom-route.type';
           *ngIf="!showMore; else showAll"
           [allEntities]="(allEntities$ | async) ?? []"
           [query]="query"
+          [customSort]="customSort"
           (toggleActive)="toggleActive($event)"
         ></ess-first-n-values>
         <ng-template #showAll>
@@ -65,6 +66,7 @@ import { IFqMap } from '@collections/services/custom-route.type';
             *ngIf="showMore"
             [allEntities]="(allEntities$ | async) ?? []"
             [query]="query"
+            [customSort]="customSort"
             (toggleActive)="toggleActive($event)"
           ></ess-show-all>
         </ng-template>
@@ -126,6 +128,9 @@ export class FilterMultiselectComponent implements OnInit {
 
   @Input()
   onValuesFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[];
+
+  @Input()
+  customSort?: (a: IFilterNode, b: IFilterNode) => number;
 
   isLoading$ = this._filterMultiselectService.isLoading$;
   entitiesCount$ = this._filterMultiselectService.entitiesCount$;

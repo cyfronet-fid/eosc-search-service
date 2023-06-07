@@ -1,5 +1,6 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
+import { alphanumericFilterSort } from '@collections/data/utils';
 
 export const trainingsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -51,6 +52,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      customSort: alphanumericFilterSort,
     },
     {
       id: 'eosc_provider',

@@ -31,7 +31,11 @@ export function* toAllLevels(value: string) {
     yield currentLvl;
   }
 }
-export const flatNodesToTree = (nodes: IFilterNode[]): IUIFilterTreeNode[] => {
+
+export const flatNodesToTree = (
+  nodes: IFilterNode[],
+  customSort?: (a: IFilterNode, b: IFilterNode) => number
+): IUIFilterTreeNode[] => {
   const allLvlsPermutations = facetToFlatNodes(
     [
       ...new Set(
@@ -68,7 +72,9 @@ export const flatNodesToTree = (nodes: IFilterNode[]): IUIFilterTreeNode[] => {
     ];
   }
 
+  const defaultSort = (a: IFilterNode, b: IFilterNode) => +b.count - +a.count;
+
   return Object.values(fullMap)
     .filter(({ level }) => level === 0)
-    .sort((a, b) => +b.count - +a.count);
+    .sort(customSort ?? defaultSort);
 };
