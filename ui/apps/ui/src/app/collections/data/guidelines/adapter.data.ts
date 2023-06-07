@@ -36,9 +36,9 @@ export const guidelinesAdapter: IAdapter = {
     ],
     tags: [
       {
-        label: 'Creator Name',
-        values: toValueWithLabel(toArray(guideline['author_names'])),
-        filter: 'author_names',
+        label: 'Provider',
+        values: toValueWithLabel(toArray(guideline['provider'])),
+        filter: 'provider',
       },
     ],
     secondaryTags: [

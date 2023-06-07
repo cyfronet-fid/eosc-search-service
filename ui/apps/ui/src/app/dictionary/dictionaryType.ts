@@ -12,4 +12,5 @@ export const DICTIONARY_TYPE_FOR_PIPE = {
   TRAINING_URL_TYPE: 'url_type',
   TRAINING_QUALIFICATIONS: 'qualification',
   TRAINING_DOMAIN: 'training_domain',
+  GUIDELINE_PROVIDER: 'provider',
 };
