@@ -143,7 +143,7 @@
         <div class="keywords-container">
           <p>Keywords:
             <ng-container *ngFor="let key of myTraining.keywords">
-              <a href="javascript:void(0)" (click)="setActiveFilter('keywords', key)"><span class="key">{{ key }}</span></a>
+              <a [routerLink]="['/search/all']" [queryParams]="keywordQueryParam(key)"><span class="key">{{ key }}</span></a>
             </ng-container>
         </div>
       </div>

@@ -77,13 +77,15 @@ export class TrainingDetailPageComponent implements OnInit {
     );
   }
 
-  async setActiveFilter(filter: string, value: string) {
-    await this._router.navigate(['/search'], {
-      queryParams: {
-        fq: this._addFilter(filter, value),
-      },
-      queryParamsHandling: 'merge',
-    });
+  keywordQueryParam(value: string): {
+    [key: string]: string[] | undefined | string;
+  } {
+    return {
+      fq: this._addFilter('keywords', value),
+      q: '*',
+      return_path: undefined,
+      search_params: undefined,
+    };
   }
 
   toggleTab(id: string) {
