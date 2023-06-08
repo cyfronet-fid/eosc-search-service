@@ -13,6 +13,7 @@ export class RedirectService {
     externalUrl: string | null,
     id: string,
     type: string,
+    offerId: string,
     recommendation: boolean = false
   ): string | null {
     if (externalUrl === null) {
@@ -41,6 +42,8 @@ export class RedirectService {
     };
 
     const encodedQueryParams = new URLSearchParams(queryParams);
-    return destinationUrl + '?' + encodedQueryParams.toString();
+    return offerId === ''
+      ? destinationUrl + '?' + encodedQueryParams.toString()
+      : destinationUrl + '?' + encodedQueryParams.toString() + offerId;
   }
 }

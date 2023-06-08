@@ -35,7 +35,18 @@ import { IOffer } from '@collections/data/bundles/bundle.model';
       <ess-url-title
         [title]="title"
         [highlight]="highlightsreal['title'] ?? []"
-        [url]="redirectService.internalUrl(validUrl, id, type.value)"
+        [url]="
+          type.value === 'bundle'
+            ? redirectService.internalUrl(
+                validUrl,
+                id,
+                type.value,
+                offers[0]?.main_offer_id
+                  ? '#offer-' + offers[0].main_offer_id.toString().substring(2)
+                  : ''
+              )
+            : redirectService.internalUrl(validUrl, id, type.value, '')
+        "
       >
       </ess-url-title>
 
@@ -100,21 +111,26 @@ import { IOffer } from '@collections/data/bundles/bundle.model';
           *ngFor="let offer of offers"
           class="bundle-item align-items-stretch"
         >
-          <div class="card">
-            <div class="card-body d-flex flex-row">
-              <div class="bundle-offer-pic p-2">
-                <img src="assets/bundle_service.svg" />
-              </div>
-              <div class="bundle-offer-desc p-2">
-                <h4 class="card-title">
-                  {{ offer.title }}
-                </h4>
-                <div class="provided-by">
-                  Provided by {{ offer.service?.resource_organisation }}
+          <ng-container *ngIf="offer">
+            <div class="card">
+              <div class="card-body d-flex flex-row">
+                <div class="bundle-offer-pic p-2">
+                  <img src="assets/bundle_service.svg" />
+                </div>
+                <div class="bundle-offer-desc p-2">
+                  <h4 class="card-title">
+                    {{ offer.title }}
+                  </h4>
+                  <div class="provided-by">
+                    Service {{ offer.service?.title }}
+                  </div>
+                  <div class="provided-by">
+                    Provided by {{ offer.service?.resource_organisation }}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ng-container>
         </div>
       </div>
     </div>

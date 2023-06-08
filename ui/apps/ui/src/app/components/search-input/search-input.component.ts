@@ -95,11 +95,7 @@ import { RedirectService } from '@collections/services/redirect.service';
         >
           <ng-container *ngFor="let group of suggestedResults">
             <div class="list-group-item">
-              <span class="group">{{
-                group.label === 'guideline'
-                  ? 'INTEROPERABILITY GUIDELINES'
-                  : group.label
-              }}</span>
+              <span class="group">{{ getLabel(group.label) }}</span>
               &nbsp;<a
                 [routerLink]="['/search', group.link]"
                 [queryParams]="{ q: formControl.value }"
@@ -112,7 +108,8 @@ import { RedirectService } from '@collections/services/redirect.service';
                 redirectService.internalUrl(
                   result.url,
                   result.id,
-                  result.type.value
+                  result.type.value,
+                  ''
                 )
               "
               class="list-group-item list-group-item-action result"
@@ -313,5 +310,18 @@ export class SearchInputComponent implements OnInit {
     await this._router.navigate(['/search', $event.urlParam], {
       queryParamsHandling: 'preserve',
     });
+  }
+
+  getLabel(label: string): string {
+    switch (label) {
+      case 'guideline':
+        return 'INTEROPERABILITY GUIDELINES';
+        break;
+      case 'bundle':
+        return 'BUNDLES';
+        break;
+      default:
+        return label;
+    }
   }
 }
