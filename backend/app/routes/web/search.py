@@ -62,7 +62,7 @@ async def search_post(
         res_json = response.json()
 
         if "all_collection" in collection or "bundle" in collection:
-            await extend_results_with_bundles(client, res_json)
+            await extend_results_with_bundles(client, res_json, collection)
 
     out = {
         "results": res_json["response"]["docs"],
@@ -96,8 +96,17 @@ async def handle_search_errors(search_coroutine) -> Response:
 
 
 # pylint: disable=logging-fstring-interpolation, too-many-locals, useless-suppression
-async def extend_results_with_bundles(client, res_json):
+async def extend_results_with_bundles(client, res_json, collection: str):
     """Extend bundles in search results with information about offers and services"""
+
+    async def get_col_prefix() -> str | None:
+        """Get collection prefix"""
+        if "all_collection" in collection:
+            return collection.split("all_collection")[0]
+        if "bundle" in collection:
+            return collection.split("bundle")[0]
+        return None
+
     bundle_results = list(
         filter(lambda doc: doc["type"] == "bundle", res_json["response"]["docs"])
     )
@@ -118,7 +127,8 @@ async def extend_results_with_bundles(client, res_json):
             offers = {}
             offer_results = []
             for offer_id in offer_ids:
-                response = (await get(client, "offer", offer_id)).json()
+                offer_col_name = await get_col_prefix() + "offer"
+                response = (await get(client, offer_col_name, offer_id)).json()
                 item = response["doc"]
                 if item is None:
                     logger.warning(f"No offer with id={offer_id}")
@@ -134,7 +144,8 @@ async def extend_results_with_bundles(client, res_json):
             services = {}
             service_results = []
             for service_id in services_ids:
-                response = (await get(client, "service", service_id)).json()
+                service_col_name = await get_col_prefix() + "service"
+                response = (await get(client, service_col_name, service_id)).json()
                 item = response["doc"]
                 if item is None:
                     logger.warning(f"No service with id={service_id}")
