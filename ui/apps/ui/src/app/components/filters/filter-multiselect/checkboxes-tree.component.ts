@@ -52,7 +52,7 @@ import { IUIFilterTreeNode } from '@collections/repositories/types';
           (nzClick)="itemSelectionToggle(node)"
         >
           <span [class.text-secondary]="+node.count === 0">{{
-            node.name
+            node.name | filterPipe: node.filter
           }}</span>
           <span class="text-secondary">&nbsp;({{ node.count }})</span>
         </nz-tree-node-option>
@@ -104,7 +104,7 @@ export class CheckboxesTreeComponent {
         : {
             expandable: !!node.children && node.children.length > 0,
             id: node.id,
-            name: node.name,
+            name: node.name === 'bundle' ? 'bundles' : node.name,
             filter: node.filter,
             value: node.value,
             level,

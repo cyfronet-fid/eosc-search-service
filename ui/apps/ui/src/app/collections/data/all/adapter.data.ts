@@ -115,7 +115,7 @@ export const allCollectionsAdapter: IAdapter = {
             },
           ],
     type: {
-      label: data.type || '',
+      label: data.type === 'bundle' ? 'bundles' : data.type || '',
       value: forInteroperabilityGuidelinesValueAdapter(data.type)?.replace(
         / +/gm,
         '-'

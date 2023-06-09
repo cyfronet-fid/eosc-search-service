@@ -76,6 +76,9 @@ export function translateDictionaryValue(
     case DICTIONARY_TYPE_FOR_PIPE.GUIDELINE_PROVIDER:
       return cleanGuidelineProvider(valueType);
       break;
+    case DICTIONARY_TYPE_FOR_PIPE.BUNDLE:
+      return valueType === 'bundle' ? 'bundles' : value;
+      break;
     default:
       return value;
   }
