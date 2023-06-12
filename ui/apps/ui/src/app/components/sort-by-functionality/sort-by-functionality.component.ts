@@ -24,7 +24,7 @@ import {
       <option value="dmr" i18n>Date - Most recent</option>
       <option value="dlr" i18n>Date – Least recent</option>
       <option value="mp" i18n>Most popular</option>
-      <option *ngIf="!sortByOptionOff" value="r" i18n>Relevancy</option>
+      <!--<option *ngIf="!sortByOptionOff" value="r" i18n>Relevancy</option>-->
     </select>
   </div>`,
   styles: [
