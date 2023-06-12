@@ -27,5 +27,5 @@ export interface ITraining {
   url_type?: string;
   learning_outcomes?: string[];
   geographical_availabilities?: string[];
-  scientific_domains?: string[];
+  scientific_domains: string[];
 }

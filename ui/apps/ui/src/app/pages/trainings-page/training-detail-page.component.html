@@ -24,7 +24,7 @@
                   </div>
                 </a>
                 <div class="button-off" i18n>
-                  {{ myTraining?.best_access_right ?? '-' }}
+                  {{ myTraining?.best_access_right ?? '-' | filterPipe: type.TRAINING_ACCESS_TYPE }}
                 </div>
               </div>
             </div>
@@ -73,7 +73,7 @@
               <div  class="column-container">
                 <div class="col-6">
                   <p class="section" i18n>Expertise Level<br><span class="section-description">{{ myTraining?.level_of_expertise ?? '-' }}</span></p>
-                  <p class="section" i18n>Qualification<br><span class="section-description">{{ myTraining?.qualification ?? '-'}}</span></p>
+                  <p class="section" i18n>Qualification<br><span class="section-description">{{ myTraining?.qualification ?? '-' | filterPipe: type.TRAINING_QUALIFICATIONS }}</span></p>
                   <p class="section" i18n>Content Resource Type<br>
                     <ng-container *ngFor="let resource of myTraining.content_type">
                       <span class="section-description">{{  resource }}</span><br>
@@ -99,18 +99,18 @@
           <div class="column-right col-md-3 col-12">
            <h6 i18n>SCIENTIC CATEGORISATION</h6>
             <div class="category-box">
-              <div class="category-icon">
+              <div class="category-icon ico">
                 <span class="helper"></span>
-                <img [src]="'./assets/ico_interdisciplinary.png'" alt="">
+                <img [src]="'./assets/' + getIcon() + '.png'" alt="">
               </div>
               <div class="category-name" i18n>
-                Generic
+                {{ getCategory() }}
               </div>
             </div>
             <div class="li-container">
               <ul>
                 <ng-container *ngFor="let domain of myTraining.scientific_domains; let i = index">
-                  <li *ngIf="(i === 0)">{{ domain }}</li>
+                  <li *ngIf="(i === 1)">{{ getSubstring(domain) | filterPipe: type.TRAINING_DOMAIN }}</li>
                 </ng-container>
               </ul>
             </div>
@@ -126,7 +126,7 @@
             <div class="li-container">
               <ul>
                 <ng-container *ngFor="let target of myTraining.target_group">
-                  <li>{{ target | filterPipe: 'target_group' }}</li>
+                  <li>{{ target | filterPipe: type.TRAINING_TARGET_GROUP }}</li>
                 </ng-container>
               </ul>
             </div>
@@ -143,7 +143,7 @@
         <div class="keywords-container">
           <p>Keywords:
             <ng-container *ngFor="let key of myTraining.keywords">
-              <a href="javascript:void(0)" (click)="setActiveFilter('keywords', key)"><span class="key">{{ key }}</span></a>
+              <a [routerLink]="['/search/all']" [queryParams]="keywordQueryParam(key)"><span class="key">{{ key }}</span></a>
             </ng-container>
         </div>
       </div>

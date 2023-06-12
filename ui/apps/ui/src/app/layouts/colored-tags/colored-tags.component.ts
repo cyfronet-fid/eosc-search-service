@@ -8,7 +8,7 @@ import { IColoredTag, IValueWithLabel } from '@collections/repositories/types';
       [routerLink]="'/search/' + type.value.replace(' ', '-')"
       [queryParams]="{ q: q }"
     >
-      {{ type.label }}
+      {{ type.label | filterPipe: type.value }}
     </a>
 
     <ng-container *ngFor="let tag of tags">
@@ -18,7 +18,7 @@ import { IColoredTag, IValueWithLabel } from '@collections/repositories/types';
         href="javascript:void(0)"
         (click)="setActiveFilter(tag.filter, value.value)"
       >
-        {{ value.label }}
+        {{ value.label | filterPipe: tag.filter }}
       </a>
     </ng-container>
   </div>`,

@@ -18,6 +18,8 @@ export interface IResult {
   accessRight?: string;
   views?: number;
   downloads?: number;
+  offers?: any[];
+  sortByOptionOff: boolean;
 }
 
 export interface ISecondaryTag {
@@ -100,6 +102,7 @@ export interface IFilterConfig {
   tooltipText: string;
 
   onFacetsFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[]; // !!! only for multiselect !!!
+  customSort?: (a: IFilterNode, b: IFilterNode) => number;
 }
 export interface IExcludedFiltersConfig {
   id: string;

@@ -1,5 +1,6 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
+import { alphanumericFilterSort } from '@collections/data/utils';
 
 export const trainingsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -15,6 +16,14 @@ export const trainingsFilters: IFiltersConfig = {
     {
       id: 'best_access_right',
       filter: 'best_access_right',
+      label: 'Access right',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'access_right',
+      filter: 'access_right',
       label: 'Access right',
       type: 'multiselect',
       defaultCollapsed: false,
@@ -43,6 +52,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      customSort: alphanumericFilterSort,
     },
     {
       id: 'eosc_provider',

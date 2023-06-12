@@ -4,17 +4,14 @@ import uuid
 
 import httpx
 from httpx import AsyncClient
-from starlette.status import HTTP_200_OK
 
-from app.config import MAX_ITEMS_SORT_BY_RELEVANCE, RECOMMENDER_ENDPOINT
+from app.config import RECOMMENDER_ENDPOINT
 from app.recommender.router_utils.common import (
     RecommendationPanelId,
     RecommenderError,
-    SolrRetrieveError,
     _get_panel,
 )
 from app.schemas.session_data import SessionData
-from app.solr.operations import search
 
 logger = logging.getLogger(__name__)
 
@@ -32,51 +29,19 @@ def _get_raw_candidates() -> dict:
     }
 
 
-async def get_candidates(
-    panel_id: RecommendationPanelId,
-    q: str,
-    qf: str,
-    fq: list[str],
-) -> [dict, list[dict]]:
-    """Get candidates IDs for sort by relevance and whole documents to present later on"""
-    if panel_id == "data-source":
-        raise RecommenderError(
-            message="Sorting by relevance for data sources cannot be performed"
-        )
-
-    if panel_id == "all":
-        fq.append("-type:data\ source")  # Take all, but exclude data sources
-    else:
-        fq.append(f'type:("{panel_id}")')
-
-    async with httpx.AsyncClient() as client:
-        response = await search(
-            client,
-            "all_collection",
-            q=q,
-            qf=qf,
-            fq=fq,
-            sort=["id desc"],
-            rows=MAX_ITEMS_SORT_BY_RELEVANCE,
-        )
-    if response.status_code != HTTP_200_OK:
-        raise SolrRetrieveError(
-            message="There are no search results or connection to solr failed"
-        )
-
-    docs: list = response.json()["response"]["docs"]
-
-    if len(docs) == 0:
-        raise ValueError("Search results are empty")
-
+async def parse_candidates(documents: list) -> [dict, list[dict]]:
+    """Parse documents before sorting by relevance"""
     candidates_ids = _get_raw_candidates()
 
-    for doc in docs:
+    for doc in documents:
         # MP recommender requires IDs as integers
         _id = int(doc["id"]) if doc["type"] == "service" else doc["id"]
-        candidates_ids[doc["type"]].append(_id)
+        try:
+            candidates_ids[doc["type"]].append(_id)
+        except KeyError:
+            continue
 
-    return candidates_ids, docs
+    return candidates_ids
 
 
 async def perform_sort_by_relevance(

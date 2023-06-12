@@ -19,7 +19,7 @@ export class LandingPageComponent {
   fqBy(filterName: string, value: string) {
     return {
       q: '*',
-      sortUI: DEFAULT_SORT,
+      sort_ui: DEFAULT_SORT,
       fq: [`${filterName}:"${value}"`],
     };
   }

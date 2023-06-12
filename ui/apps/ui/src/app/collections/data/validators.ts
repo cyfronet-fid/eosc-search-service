@@ -216,9 +216,7 @@ export const _validateExcludedFilters = (
 ) => {
   const filterIds = filters.map(({ id }) => id);
   const excludedFilterIds = excludedFilters.map(({ id }) => id);
-
   const missingExcludedConfig = difference(filterIds, excludedFilterIds);
-
   if (missingExcludedConfig.length > 0) {
     throw Error(
       `[COLLECTIONS VALIDATOR]: All collection filters need to have an excluded filters config. Missing for: ${missingExcludedConfig}`

@@ -11,6 +11,7 @@ import { TagsModule } from '../../layouts/tags/tags.module';
 import { UrlTitleModule } from '../../layouts/url-title/url-title.module';
 import { SecondaryTagsModule } from '../../layouts/secondary-tags/secondary-tags.module';
 import { DescriptionModule } from '../../layouts/description/description.module';
+import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperability-guidelines.pipe.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { DescriptionModule } from '../../layouts/description/description.module'
     UrlTitleModule,
     SecondaryTagsModule,
     DescriptionModule,
+    InteroperabilityGuidelinesPipeModule,
   ],
   exports: [ResultsWithPaginationComponent],
 })

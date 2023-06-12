@@ -13,6 +13,12 @@ import { toNavigationLink } from './utils';
           class="nav-btn {{ link.label }}"
           *ngFor="let link of navigationLinks"
           [routerLink]="link.routerLink"
+          [routerLinkActiveOptions]="{
+            queryParams: 'ignored',
+            paths: 'exact',
+            matrixParams: 'ignored',
+            fragment: 'ignored'
+          }"
           routerLinkActive="active"
           [queryParams]="{ q: (q$ | async) }"
           >{{ link.label }}</a

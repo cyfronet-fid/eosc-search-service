@@ -20,6 +20,7 @@ import {
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (training: Partial<ITraining> & { id: string }): IResult => ({
+    sortByOptionOff: false,
     id: uuidv4(),
     title: training['title']?.join(' ') || '',
     description: training['description']?.join(' ') || '',
