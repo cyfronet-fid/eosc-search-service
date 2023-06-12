@@ -7,7 +7,7 @@ import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { IService } from '@collections/data/services/service.model';
-import { hackDataSourceUrl } from '@collections/data/data-sources/adapter.data';
+import { getDataSourceUrl } from '@collections/data/data-sources/adapter.data';
 import {
   toArray,
   toValueWithLabel,
@@ -41,7 +41,7 @@ const urlAdapter = (
         ConfigService.config?.eosc_explore_url
       }/search/result?id=${data?.id?.split('|')?.pop()}`;
     case 'data source':
-      return hackDataSourceUrl(data?.pid);
+      return getDataSourceUrl(data?.pid);
     case 'service':
       return `${ConfigService.config?.marketplace_url}/services/${data?.pid}`;
     case 'training':
