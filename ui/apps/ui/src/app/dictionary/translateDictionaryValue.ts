@@ -77,7 +77,7 @@ export function translateDictionaryValue(
       return cleanGuidelineProvider(valueType);
       break;
     case DICTIONARY_TYPE_FOR_PIPE.BUNDLE:
-      return valueType === 'bundle' ? 'bundles' : value;
+      return valueType === 'bundles' ? 'bundle' : value;
       break;
     default:
       return value;
