@@ -17,15 +17,9 @@ import {
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
 
-const SERVICES_AS_DATASOURCES = ['b2share', 'b2find', 'b2safe'];
-
-export const hackDataSourceUrl = (pid?: string) => {
+export const getDataSourceUrl = (pid?: string) => {
   if (!pid) {
     pid = '';
-  }
-
-  if (SERVICES_AS_DATASOURCES.includes(pid)) {
-    return `${ConfigService.config?.marketplace_url}/services/${pid}`;
   }
   return `${ConfigService.config?.marketplace_url}/services/${pid}`;
 };
@@ -42,7 +36,7 @@ export const dataSourcesAdapter: IAdapter = {
       label: dataSource.type || '',
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
-    url: hackDataSourceUrl(dataSource.pid),
+    url: getDataSourceUrl(dataSource.pid),
     collection: COLLECTION,
     coloredTags: [
       toHorizontalServiceTag(dataSource?.horizontal),
