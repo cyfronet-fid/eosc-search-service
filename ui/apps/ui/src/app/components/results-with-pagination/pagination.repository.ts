@@ -34,7 +34,7 @@ export class PaginationRepository {
       name: `current-results`,
     },
     withEntities<IResult>(),
-    withProps<IPaginationProps>({ isLoading: false, nextCursor: '*' }),
+    withProps<IPaginationProps>({ isLoading: true, nextCursor: '*' }),
     withPagination()
   );
 

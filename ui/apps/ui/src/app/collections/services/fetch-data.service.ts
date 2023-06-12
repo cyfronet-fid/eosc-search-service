@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of } from 'rxjs';
+import { Observable, catchError, map, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {
   IFacetParam,
@@ -12,6 +12,7 @@ import {
 } from '../repositories/types';
 import { environment } from '@environment/environment';
 import { _EMPTY_RESPONSE } from '../repositories/initial-states';
+import { PaginationRepository } from '@components/results-with-pagination/pagination.repository';
 
 @Injectable({
   providedIn: 'root',
@@ -19,13 +20,17 @@ import { _EMPTY_RESPONSE } from '../repositories/initial-states';
 export class FetchDataService {
   _url = `/${environment.backendApiPath}/${environment.search.apiPath}`;
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _paginationRepository: PaginationRepository
+  ) {}
 
   fetchResults$<T extends { id: string }>(
     params: ISolrCollectionParams & ISolrQueryParams,
     facets: { [field: string]: IFacetParam },
     adapter: adapterType
   ): Observable<ISearchResults<IResult>> {
+    this._paginationRepository.setLoading(true);
     return this._http
       .post<ISearchResults<T>>(
         this._url,
@@ -34,6 +39,7 @@ export class FetchDataService {
       )
       .pipe(
         catchError(() => of(_EMPTY_RESPONSE)),
+        tap(() => this._paginationRepository.setLoading(false)),
         map((response: ISearchResults<T>) => ({
           results: response.results.map((result) => adapter(result)),
           numFound: response.numFound,
