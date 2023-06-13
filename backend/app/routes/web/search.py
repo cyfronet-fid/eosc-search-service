@@ -35,6 +35,7 @@ async def search_post(
         "dlr",
         "mp",
         "r",
+        "default",
     ],
     sort: list[str] = Query(
         [], description="Solr sort", example=["description asc", "name desc"]
@@ -86,16 +87,19 @@ async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:
         "nextCursorMark": res_json["nextCursorMark"],
     }
 
-    # Sort by relevance
     if sort_ui == "r":
+        # Sort by relevance
         collection = await parse_col_name(collection)
         rel_sorted_items = await sort_by_relevance(
             collection, res_json["response"]["docs"]
         )
-        out["results"] = rel_sorted_items
+        out["results"] = rel_sorted_items["recommendations"]
+        out["numFound"] = len(out["results"])
+        if not out["numFound"]:
+            out["nextCursorMark"] = "*"
+
     else:
         out["results"] = res_json["response"]["docs"]
-
     if "facets" in res_json:
         out["facets"] = res_json["facets"]
 
@@ -238,5 +242,7 @@ async def define_sorting(sort_ui: str, sort: list[str]):
                 "usage_counts_views desc",
                 "usage_counts_downloads desc",
             ] + DEFAULT_SORT
+        case "default":
+            return DEFAULT_SORT
         case _:
             return sort + DEFAULT_SORT
