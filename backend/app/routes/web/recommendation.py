@@ -76,7 +76,7 @@ async def sort_by_relevance(
                     client, None, panel_id, candidates_ids
                 )
                 items = await sort_docs(uuids, documents)
-                return items
+                return {"recommendations": items, "message": ""}
             except (
                 RecommenderError,
                 SolrRetrieveError,
