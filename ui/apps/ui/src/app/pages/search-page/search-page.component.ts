@@ -65,7 +65,6 @@ import { queryChanger } from '@collections/filters-serializers/utils';
     >
       <ess-collections-navigation></ess-collections-navigation>
     </div>
-
     <div class="container--xxl">
       <div class="dashboard" style="position: relative">
         <div class="row" id="dashboard__main">
@@ -82,7 +81,7 @@ import { queryChanger } from '@collections/filters-serializers/utils';
             ></ess-filters>
           </div>
 
-          <div class="col-sm-9 col-12 center-column">
+          <div class="col-sm-7 col-12 center-column">
             <ess-page-header
               [resultsCount]="response?.numFound ?? 0"
               [isSortByRelevanceCollectionScopeOff]="
@@ -95,6 +94,10 @@ import { queryChanger } from '@collections/filters-serializers/utils';
             <ess-results-with-pagination
               [response]="response"
             ></ess-results-with-pagination>
+          </div>
+          <div class="col-sm-2 col-12 right-column">
+            <h5>Browse also</h5>
+            <ess-right-menu></ess-right-menu>
           </div>
           <!-- <div
             class="col-sm-2 col-12 right-column"

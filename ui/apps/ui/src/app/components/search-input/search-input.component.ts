@@ -271,9 +271,9 @@ export class SearchInputComponent implements OnInit {
             .pipe(untilDestroyed(this))
         )
       )
-      .subscribe(
-        (suggestedResults) => (this.suggestedResults = suggestedResults)
-      );
+      .subscribe((suggestedResults) => {
+        this.suggestedResults = suggestedResults;
+      });
     this.collectionFc.valueChanges
       .pipe(untilDestroyed(this))
       .subscribe((navConfig) => this.setCollection(navConfig));

@@ -7,6 +7,7 @@ import { ColoredTagsModule } from '../../layouts/colored-tags/colored-tags.modul
 import { UrlTitleModule } from '../../layouts/url-title/url-title.module';
 import { DescriptionModule } from '../../layouts/description/description.module';
 import { SecondaryTagsModule } from '../../layouts/secondary-tags/secondary-tags.module';
+import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperability-guidelines.pipe.module';
 
 @NgModule({
   declarations: [RecommendationsComponent],
@@ -18,6 +19,7 @@ import { SecondaryTagsModule } from '../../layouts/secondary-tags/secondary-tags
     UrlTitleModule,
     DescriptionModule,
     SecondaryTagsModule,
+    InteroperabilityGuidelinesPipeModule,
   ],
   exports: [RecommendationsComponent],
 })

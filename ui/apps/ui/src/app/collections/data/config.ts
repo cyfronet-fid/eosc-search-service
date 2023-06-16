@@ -6,6 +6,8 @@ export const DEFAULT_FACET: { [field: string]: ITermsFacetParam } = {
 export const DEFAULT_QF =
   'title^100 author_names_tg^120 description^10 keywords_tg^10 tag_list_tg^10';
 
+export const PROVIDER_QF = 'title^100 description^10 scientific_domains^10';
+
 export const HORIZONTAL_TOOLTIP_TEXT =
   'Horizontal Services’ are services potentially useful for all researchers' +
   ', no matter their affiliation nor scientific discipline. Usually provided' +

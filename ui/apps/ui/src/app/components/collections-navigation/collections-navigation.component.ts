@@ -9,19 +9,20 @@ import { toNavigationLink } from './utils';
   template: `
     <div class="container--xxl navigation">
       <div id="sub-nav">
-        <a
-          class="nav-btn {{ link.label }}"
-          *ngFor="let link of navigationLinks"
-          [routerLink]="link.routerLink"
-          [routerLinkActiveOptions]="{
-            queryParams: 'ignored',
-            paths: 'exact',
-            matrixParams: 'ignored',
-            fragment: 'ignored'
-          }"
-          routerLinkActive="active"
-          [queryParams]="{ q: (q$ | async) }"
-          >{{ link.label }}</a
+        <ng-container *ngFor="let link of navigationLinks">
+          <a
+            class="nav-btn {{ link.label }}"
+            [routerLink]="link.routerLink"
+            [routerLinkActiveOptions]="{
+              queryParams: 'ignored',
+              paths: 'exact',
+              matrixParams: 'ignored',
+              fragment: 'ignored'
+            }"
+            routerLinkActive="active"
+            [queryParams]="{ q: (q$ | async) }"
+            >{{ link.label }}</a
+          ></ng-container
         >
       </div>
     </div>

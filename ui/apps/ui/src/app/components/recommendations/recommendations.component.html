@@ -77,7 +77,7 @@
           </ess-secondary-tags>
           <ess-description
             [buttonOff]="true"
-            [description]="recommendation.description"
+            [description]="recommendation.description | transformArrayDescriptionPipe"
             [highlights]="highlightsreal['description'] ?? []"
           ></ess-description>
         </div>

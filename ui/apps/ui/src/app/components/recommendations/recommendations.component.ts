@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RedirectService } from '@collections/services/redirect.service';
 import { RecommendationsService } from '@components/recommendations/recommendations.service';
-import { of, switchMap } from 'rxjs';
+import { of, pipe, switchMap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { IResult } from '@collections/repositories/types';
@@ -10,6 +10,7 @@ import { toArray } from '@collections/filters-serializers/utils';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { Router } from '@angular/router';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
+import { TransformArrayDescriptionPipe } from '../../pipe/interoperability-guidelines-filter.pipe';
 
 @UntilDestroy()
 @Component({
@@ -34,7 +35,7 @@ export class RecommendationsComponent implements OnInit {
       .pipe(
         untilDestroyed(this),
         switchMap((panelId) => {
-          if (panelId === 'guideline') {
+          if (panelId === 'guideline' || panelId === 'provider') {
             return of([]);
           }
           return this._recommendationsService
@@ -47,7 +48,14 @@ export class RecommendationsComponent implements OnInit {
           (this.recommendations = recommendations.map((recommended) => ({
             ...recommended,
             title: truncate(recommended.title, { length: 80 }),
-            description: truncate(recommended.description, { length: 400 }),
+            description: truncate(
+              new TransformArrayDescriptionPipe().transform(
+                recommended.description
+              ),
+              {
+                length: 400,
+              }
+            ),
           })))
       );
   }

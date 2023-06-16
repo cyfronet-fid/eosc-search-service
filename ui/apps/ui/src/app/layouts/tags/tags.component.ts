@@ -40,6 +40,11 @@ import { ViewportScroller } from '@angular/common';
         background-color: #e8e7ff !important;
         padding: 3px;
       }
+
+      .tag a::after {
+        content: ',';
+        line-height: 1.2;
+      }
     `,
   ],
 })

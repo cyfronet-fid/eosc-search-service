@@ -11,12 +11,6 @@ import { interoperabilityGuidelinesAuthorTypeDictionary } from './interoperabili
 import { trainingQualificationsDictionary } from './trainingQualificationsDictionary';
 import { trainingDomainDictionary } from './trainingDomainDictionary';
 
-function cleanGuidelineProvider(str: string): string {
-  const index = str.indexOf('.');
-  const newValue = str.substring(index + 1).replace(/_+|-+/g, ' ');
-  return newValue;
-}
-
 export function translateDictionaryValue(
   type: string | string[],
   value: string | string[]
@@ -74,7 +68,7 @@ export function translateDictionaryValue(
       return trainingDomainDictionary[valueType] || value;
       break;
     case DICTIONARY_TYPE_FOR_PIPE.GUIDELINE_PROVIDER:
-      return cleanGuidelineProvider(valueType);
+      return trainingDomainDictionary[valueType] || value;
       break;
     case DICTIONARY_TYPE_FOR_PIPE.BUNDLE:
       return valueType === 'bundles' ? 'bundle' : value;

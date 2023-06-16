@@ -37,6 +37,7 @@ import { Router } from '@angular/router';
         [isSortByRelevanceCollectionScopeOff]="
           isSortByRelevanceCollectionScopeOff
         "
+        [type]="type"
       ></ess-sort-by-functionality>
     </div>
   `,
@@ -57,6 +58,9 @@ export class PageHeaderComponent {
 
   @Input()
   sortByPermitted!: string[];
+
+  @Input()
+  type!: string;
 
   @Input()
   isSortByRelevanceCollectionScopeOff!: boolean;

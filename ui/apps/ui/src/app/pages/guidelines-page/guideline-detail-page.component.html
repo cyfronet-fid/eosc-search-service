@@ -81,11 +81,11 @@
               <ng-container *ngFor="let author of this.interoperabilityGuidelineItem?.author_names, let i = index;">
                 <div>
                 <p class="section bottom-line creator" i18n>Creator<br>
-              <span class="section-description left20">Creator Name: {{ author  ?? '-' }}</span>
+              <!--<span class="section-description left20">Creator Name: {{ author  ?? '-' }}</span>-->
               <span class="section-description left20">Name Type: {{ getValue(this.interoperabilityGuidelineItem?.author_types, i) | filterPipe: type.AUTHOR_TYPE }}</span>
-              <span class="section-description left20">Given Name: {{ getValue(this.interoperabilityGuidelineItem?.author_given_names, i) }}</span>
+             <!-- <span class="section-description left20">Given Name: {{ getValue(this.interoperabilityGuidelineItem?.author_given_names, i) }}</span>
               <span class="section-description left20">Family Name: {{ getValue(this.interoperabilityGuidelineItem?.author_family_names, i) }}</span>
-              <span class="section-description left20">Name Identifier: {{ getValue(this.interoperabilityGuidelineItem?.author_names_id, i) }}</span>
+              <span class="section-description left20">Name Identifier: {{ getValue(this.interoperabilityGuidelineItem?.author_names_id, i) }}</span>-->
               <span class="section-description left20">Affiliation: {{ getValue(this.interoperabilityGuidelineItem?.author_affiliations, i) }}</span>
               <span class="section-description left20">Affiliation Identifier: <a href="{{ getValue(this.interoperabilityGuidelineItem?.author_affiliations_id, i) === '-' ?  'javascript:void(0)' :  getValue(this.interoperabilityGuidelineItem?.author_affiliations_id, i)}}">{{ getValue(this.interoperabilityGuidelineItem?.author_affiliations_id, i) }}</a></span>
                 </p>
