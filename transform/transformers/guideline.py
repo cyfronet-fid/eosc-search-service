@@ -96,17 +96,27 @@ def harvest_authors_names(df: DataFrame) -> None:
         affiliation_id_row = []
 
         for author in authors:
-            auth_name = replace_empty_str(author["creatorNameTypeInfo"]["creatorName"])
-            auth_typ = replace_empty_str(author["creatorNameTypeInfo"]["nameType"])
+            try:
+                auth_name = replace_empty_str(
+                    author["creatorNameTypeInfo"]["creatorName"]
+                )
+                auth_typ = replace_empty_str(author["creatorNameTypeInfo"]["nameType"])
+            except TypeError:
+                auth_name = None
+                auth_typ = None
             auth_given_name = replace_empty_str(author["givenName"])
             auth_family_name = replace_empty_str(author["familyName"])
             auth_name_id = replace_empty_str(author["nameIdentifier"])
-            auth_aff = replace_empty_str(
-                author["creatorAffiliationInfo"]["affiliation"]
-            )
-            auth_aff_id = replace_empty_str(
-                author["creatorAffiliationInfo"]["affiliationIdentifier"]
-            )
+            try:
+                auth_aff = replace_empty_str(
+                    author["creatorAffiliationInfo"]["affiliation"]
+                )
+                auth_aff_id = replace_empty_str(
+                    author["creatorAffiliationInfo"]["affiliationIdentifier"]
+                )
+            except TypeError:
+                auth_aff = None
+                auth_aff_id = None
 
             auth_row.append(auth_name)
             auth_typ_row.append(auth_typ)
