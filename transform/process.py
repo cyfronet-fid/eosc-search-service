@@ -66,7 +66,6 @@ def upload_all_col_data() -> None:
                     print_errors(
                         "consistency_fail", failed_files, col_name, data_point, logger
                     )
-                    continue
 
             save_df(
                 df_trans,
