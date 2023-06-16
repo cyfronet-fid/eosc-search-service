@@ -488,7 +488,6 @@
   <field name="domain" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="duration" type="plong" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="eosc_guideline_type" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
-  <field name="eosc_if" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_integration_options" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_provider" type="strings" required="false"/>
   <field name="eosc_related_standards" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
