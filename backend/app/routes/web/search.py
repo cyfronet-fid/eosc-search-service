@@ -129,6 +129,8 @@ async def parse_col_name(collection: str) -> str | None:
         return "bundle"
     if "other" in collection:
         return "other"
+    if "provider" in collection:
+        return "provider"
     return None
 
 

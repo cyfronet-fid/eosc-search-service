@@ -86,6 +86,8 @@ def _get_panel(panel_id: RecommendationPanelId, sort_by_relevance: bool = False)
             return "bundles"
         case "guideline":
             return "guidelines"
+        case "provider":
+            return "providers"
 
         case _:
             return panel_id
