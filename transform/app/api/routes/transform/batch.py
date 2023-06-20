@@ -8,7 +8,7 @@ router = APIRouter()
 
 
 @router.post("/batch")
-async def batch(
+async def batch_update(
     data_type: Literal[
         "service",
         "data source",
@@ -28,7 +28,7 @@ async def batch(
     ],
     data: dict | list[dict],
 ):
-    """Transform a single type of data - single or many records"""
+    """Transform a batch of a single type of data. Used for live update"""
     if action == "delete":
         delete_data_by_id(data_type, data)
     else:

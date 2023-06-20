@@ -25,12 +25,9 @@ DATASET_PATH = "DATASET_PATH"
 PUBLICATION_PATH = "PUBLICATION_PATH"
 SOFTWARE_PATH = "SOFTWARE_PATH"
 OTHER_RP_PATH = "OTHER_RP_PATH"
-SERVICE_PATH = "SERVICE_PATH"
-DATASOURCE_PATH = "DATASOURCE_PATH"
-PROVIDER_PATH = "PROVIDER_PATH"
-OFFER_PATH = "OFFER_PATH"
-BUNDLE_PATH = "BUNDLE_PATH"
 
+MP_API_ADDRESS = "MP_API_ADDRESS"
+MP_API_TOKEN = "MP_API_TOKEN"
 GUIDELINE_ADDRESS = "GUIDELINE_ADDRESS"
 TRAINING_ADDRESS = "TRAINING_ADDRESS"
 
@@ -108,6 +105,7 @@ def load_request_data(spark: SparkSession, data):
 def load_env_vars() -> dict:
     """Retrieve .env variables"""
     env_vars = {
+        MP_API_TOKEN: os.environ.get(MP_API_TOKEN),
         OUTPUT_PATH: os.environ.get(OUTPUT_PATH, "output/"),
         INPUT_FORMAT: os.environ.get(INPUT_FORMAT, "JSON"),
         OUTPUT_FORMAT: os.environ.get(OUTPUT_FORMAT, "JSON"),
@@ -116,6 +114,8 @@ def load_env_vars() -> dict:
         CREATE_LOCAL_DUMP: os.environ.get(CREATE_LOCAL_DUMP, False).lower()
         in ("true", "1", "t"),
     }
+    if not env_vars[MP_API_TOKEN]:
+        raise ValueError("MP_API_TOKEN needs to be specified.")
 
     if not (
         env_vars[SEND_TO_SOLR] or env_vars[SEND_TO_S3] or env_vars[CREATE_LOCAL_DUMP]
@@ -155,25 +155,30 @@ def load_config(env_vars: dict) -> None:
 
 def load_vars_all_collection(solr_flag: bool) -> dict:
     """Load variables for all collection"""
+    final_mp_api = os.environ.get(
+        MP_API_ADDRESS, "https://beta.marketplace.eosc-portal.eu"
+    )
+    final_mp_api = final_mp_api + "/api/v1/ess/"
+
     collections = {
         SERVICE: {
-            PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
+            ADDRESS: final_mp_api + "services",
             OUTPUT_SCHEMA: service_output_schema,
         },
         DATASOURCE: {
-            PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
+            ADDRESS: final_mp_api + "datasources",
             OUTPUT_SCHEMA: data_source_output_schema,
         },
         PROVIDER: {
-            PATH: os.environ.get(PROVIDER_PATH, "input_data/provider/"),
+            ADDRESS: final_mp_api + "providers",
             OUTPUT_SCHEMA: provider_output_schema,
         },
         OFFER: {
-            PATH: os.environ.get(OFFER_PATH, "input_data/offer/"),
+            ADDRESS: final_mp_api + "offers",
             OUTPUT_SCHEMA: offer_output_schema,
         },
         BUNDLE: {
-            PATH: os.environ.get(BUNDLE_PATH, "input_data/bundle/"),
+            ADDRESS: final_mp_api + "bundles",
             OUTPUT_SCHEMA: bundle_output_schema,
         },
         GUIDELINE: {
