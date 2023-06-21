@@ -1,4 +1,5 @@
 import {
+  IFacetBucket,
   IFilterNode,
   IResult,
   ISecondaryTag,
@@ -7,6 +8,8 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
+import { facetToFlatNodes } from '@components/filters/utils';
+import { COUNTRY_CODE_TO_NAME } from '@collections/data/config';
 
 export const toDownloadsStatisticsSecondaryTag = (
   data: string | number | null | undefined
@@ -44,3 +47,14 @@ export const parseStatistics = (data: any): Partial<IResult> => {
 };
 export const alphanumericFilterSort = (a: IFilterNode, b: IFilterNode) =>
   a.value.localeCompare(b.value);
+
+export const convertCountryCodeToName = (
+  bucketValues: IFacetBucket[]
+): IFilterNode[] =>
+  facetToFlatNodes(bucketValues, 'country').map((node) => ({
+    ...node,
+    name:
+      node.name in COUNTRY_CODE_TO_NAME
+        ? COUNTRY_CODE_TO_NAME[node.name]
+        : node.name,
+  }));

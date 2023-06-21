@@ -1,7 +1,10 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { SDG_TOOLTIP_TEXT } from '@collections/data/config';
-import { alphanumericFilterSort } from '@collections/data/utils';
+import {
+  alphanumericFilterSort,
+  convertCountryCodeToName,
+} from '@collections/data/utils';
 
 export const otherResourcesProductsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -53,6 +56,7 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      onFacetsFetch: convertCountryCodeToName,
     },
     {
       id: 'language',
