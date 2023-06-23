@@ -97,7 +97,13 @@ export interface IFilterConfig {
   id: string;
   filter: string;
   label: string;
-  type: 'multiselect' | 'select' | 'date' | 'tag' | 'range';
+  type:
+    | 'multiselect'
+    | 'select'
+    | 'date-year'
+    | 'date-calendar'
+    | 'tag'
+    | 'range';
   defaultCollapsed: boolean;
   tooltipText: string;
 

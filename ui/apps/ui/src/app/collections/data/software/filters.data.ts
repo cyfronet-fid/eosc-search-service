@@ -29,7 +29,7 @@ export const softwareFilters: IFiltersConfig = {
       id: 'publication_date',
       filter: 'publication_date',
       label: 'Year range',
-      type: 'date',
+      type: 'date-calendar',
       defaultCollapsed: false,
       tooltipText: '',
     },
