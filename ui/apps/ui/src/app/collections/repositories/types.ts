@@ -84,6 +84,11 @@ export interface ICollectionNavConfig {
     url?: string;
   }[];
 }
+
+export interface ICollectionTagsConfig {
+  name: string;
+}
+
 export interface IAdapter {
   id: string;
   adapter: adapterType;

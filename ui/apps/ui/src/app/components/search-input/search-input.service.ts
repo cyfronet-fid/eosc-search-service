@@ -9,7 +9,10 @@ import {
 } from '@collections/repositories/types';
 import { toSuggestedResults } from './utils';
 import { URL_PARAM_NAME } from '@collections/data/all/nav-config.data';
-import { queryChanger } from '@collections/filters-serializers/utils';
+import {
+  queryChanger,
+  queryChangerAdv,
+} from '@collections/filters-serializers/utils';
 
 const MAX_COLLECTION_RESULTS = 3; // TODO: Move to env file
 
@@ -41,6 +44,27 @@ export class SearchInputService {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  currentSuggestionsAdv(q: string, collectionName: string, tags: string[]) {
+    if ((q === '*' || q === '') && tags.length === 0) {
+      return of([]);
+    }
+
+    const collections: ICollectionSearchMetadata[] =
+      collectionName === 'all'
+        ? this._searchMetadataRepository
+            .getAll()
+            .filter(({ id }) => id !== URL_PARAM_NAME)
+        : [this._searchMetadataRepository.get(collectionName)];
+
+    return combineLatest(
+      this._suggestedResultsByAdv$(q, collections, tags)
+    ).pipe(
+      map((responses) => responses.filter(({ results }) => results.length > 0)),
+      map((responses) => responses.map(toSuggestedResults))
+    );
+  }
+
   _suggestedResultsBy$(q: string, collections: ICollectionSearchMetadata[]) {
     q = queryChanger(q);
     return collections.map((metadata) => {
@@ -56,6 +80,75 @@ export class SearchInputService {
         ?.adapter as adapterType;
       return this._fetchDataService
         .fetchResults$(searchMetadata, metadata.facets, adapter)
+        .pipe(map((results) => ({ ...results, link: metadata.id })));
+    });
+  }
+
+  _suggestedResultsByAdv$(
+    q: string,
+    collections: ICollectionSearchMetadata[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    tags: string[]
+  ) {
+    q = queryChangerAdv(q);
+    const filters: string[] = [];
+
+    for (const tag of tags) {
+      if (tag.startsWith('author:')) {
+        filters.push('author_names_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      }
+      if (tag.startsWith('exact:')) {
+        filters.push(
+          'title:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR author_names_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR description:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR keywords_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR tag_list_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '"'
+        );
+      }
+      if (tag.startsWith('none of:')) {
+        filters.push('!title:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!author_names_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      }
+      if (tag.startsWith('any of:')) {
+        filters.push(
+          'title:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR author_names_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR description:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR keywords_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR tag_list_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '"'
+        );
+      }
+    }
+
+    return collections.map((metadata) => {
+      const searchMetadata = {
+        q: q,
+        fq: filters,
+        rows: MAX_COLLECTION_RESULTS,
+        cursor: '*',
+        sort: [],
+        ...metadata.params,
+      };
+      const adapter = this._adaptersRepository.get(metadata.id)
+        ?.adapter as adapterType;
+      return this._fetchDataService
+        .fetchResultsAdv$(searchMetadata, metadata.facets, adapter)
         .pipe(map((results) => ({ ...results, link: metadata.id })));
     });
   }

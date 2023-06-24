@@ -16,6 +16,8 @@ const DEFAULT_PARAMS = {
   fq: [],
   cursor: '*',
   sort: [],
+  standard: 'true',
+  tags: [],
 };
 
 @Injectable({

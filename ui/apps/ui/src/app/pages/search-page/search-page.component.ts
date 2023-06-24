@@ -17,7 +17,10 @@ import {
 } from '@components/results-with-pagination/pagination.repository';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
-import { queryChanger } from '@collections/filters-serializers/utils';
+import {
+  queryChanger,
+  queryChangerAdv,
+} from '@collections/filters-serializers/utils';
 
 @UntilDestroy()
 @Component({
@@ -176,15 +179,137 @@ export class SearchPageComponent implements OnInit {
           ) as ICollectionSearchMetadata;
           const adapter = this._adaptersRepository.get(collection)
             ?.adapter as adapterType;
-          const searchMetadata = {
-            rows: MAX_COLLECTION_RESULTS,
-            ...routerParams,
-            ...metadata.params,
-            q: queryChanger(routerParams.q),
-          };
-          return this._fetchDataService
-            .fetchResults$(searchMetadata, metadata.facets, adapter)
-            .pipe(untilDestroyed(this));
+          if (routerParams.standard.toString() === 'true') {
+            const searchMetadata = {
+              rows: MAX_COLLECTION_RESULTS,
+              ...routerParams,
+              ...metadata.params,
+              q: queryChanger(routerParams.q),
+            };
+            return this._fetchDataService
+              .fetchResults$(searchMetadata, metadata.facets, adapter)
+              .pipe(untilDestroyed(this));
+          } else {
+            const filters: string[] = [];
+
+            if (Array.isArray(routerParams.tags)) {
+              for (const tag of routerParams.tags) {
+                if (tag.startsWith('author:')) {
+                  filters.push(
+                    'author_names_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                  );
+                }
+                if (tag.startsWith('exact:')) {
+                  filters.push(
+                    'title:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '" OR author_names_tg:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '" OR description:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '" OR keywords_tg:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '" OR tag_list_tg:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '"'
+                  );
+                }
+                if (tag.startsWith('none of:')) {
+                  filters.push('!title:"' + tag.split(':', 2)[1].trim() + '"');
+                  filters.push(
+                    '!author_names_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                  );
+                  filters.push(
+                    '!description:"' + tag.split(':', 2)[1].trim() + '"'
+                  );
+                  filters.push(
+                    '!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                  );
+                  filters.push(
+                    '!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                  );
+                }
+                if (tag.startsWith('any of:')) {
+                  filters.push(
+                    'title:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '" OR author_names_tg:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '" OR description:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '" OR keywords_tg:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '" OR tag_list_tg:"' +
+                      tag.split(':', 2)[1].trim() +
+                      '"'
+                  );
+                }
+              }
+            } else {
+              const tag: string = routerParams.tags;
+              if (tag.startsWith('author:')) {
+                filters.push(
+                  'author_names_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                );
+              }
+              if (tag.startsWith('exact:')) {
+                filters.push(
+                  'title:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '" OR author_names_tg:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '" OR description:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '" OR keywords_tg:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '" OR tag_list_tg:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '"'
+                );
+              }
+              if (tag.startsWith('none of:')) {
+                filters.push('!title:"' + tag.split(':', 2)[1].trim() + '"');
+                filters.push(
+                  '!author_names_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                );
+                filters.push(
+                  '!description:"' + tag.split(':', 2)[1].trim() + '"'
+                );
+                filters.push(
+                  '!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                );
+                filters.push(
+                  '!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                );
+              }
+              if (tag.startsWith('any of:')) {
+                filters.push(
+                  'title:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '" OR author_names_tg:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '" OR description:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '" OR keywords_tg:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '" OR tag_list_tg:"' +
+                    tag.split(':', 2)[1].trim() +
+                    '"'
+                );
+              }
+            }
+
+            const searchMetadata = {
+              rows: MAX_COLLECTION_RESULTS,
+              ...routerParams,
+              ...metadata.params,
+              q: queryChangerAdv(routerParams.q),
+              fq: filters,
+            };
+            return this._fetchDataService
+              .fetchResultsAdv$(searchMetadata, metadata.facets, adapter)
+              .pipe(untilDestroyed(this));
+          }
         })
       )
       .subscribe((response) => (this.response = response));

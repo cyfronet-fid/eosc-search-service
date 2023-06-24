@@ -2,6 +2,7 @@
 import itertools
 import logging
 from json import JSONDecodeError
+from app.solr.operations import searchadv_dep
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from httpx import AsyncClient, TransportError
@@ -78,6 +79,68 @@ async def search_post(
 
     out = await create_output(res_json, collection, sort_ui)
     return out
+
+
+# pylint: disable=too-many-arguments
+@router.post("/search-results-adv", name="web:post-search")
+async def search_post_adv(
+    collection: str = Query(..., description="Collection"),
+    q: str = Query(..., description="Free-form query string"),
+    qf: str = Query(..., description="Query fields"),
+    fq: list[str] = Query(
+        [],
+        description="Filter query",
+        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+    ),
+    sort_ui: str = Literal[
+        "dmr",
+        "dlr",
+        "mp",
+        "r",
+        "default",
+    ],
+    sort: list[str] = Query(
+        [], description="Solr sort", example=["description asc", "name desc"]
+    ),
+    rows: int = Query(10, description="Row count", gte=3, le=100),
+    cursor: str = Query("*", description="Cursor"),
+    request: SearchRequest = Body(..., description="Request body"),
+    search=Depends(searchadv_dep),
+):
+    """
+    Do a search against the specified collection.
+
+    The q, qf, fq, sort params correspond to
+    https://solr.apache.org/guide/8_11/query-syntax-and-parsing.html.
+    Paging is cursor-based, see
+    https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
+    """
+    final_solr_sorting = await define_sorting(sort_ui, sort)
+    print('advanced search triggered')
+    async with AsyncClient() as client:
+        response = await handle_search_errors(
+            search(
+                client,
+                collection,
+                q=q,
+                qf=qf,
+                fq=fq,
+                sort=final_solr_sorting,
+                rows=rows,
+                cursor=cursor,
+                facets=request.facets,
+            )
+        )
+
+        res_json = response.json()
+
+        # Extent the results with bundles
+        if "all_collection" in collection or "bundle" in collection:
+            await extend_results_with_bundles(client, res_json, collection)
+
+    out = await create_output(res_json, collection, sort_ui)
+    return out
+
 
 
 async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:
