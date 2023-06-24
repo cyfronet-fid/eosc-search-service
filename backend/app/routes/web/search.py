@@ -2,7 +2,6 @@
 import itertools
 import logging
 from json import JSONDecodeError
-from app.solr.operations import searchadv_dep
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from httpx import AsyncClient, TransportError
@@ -11,7 +10,7 @@ from requests import Response
 
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.web import SearchRequest
-from app.solr.operations import get, search_dep
+from app.solr.operations import get, search_dep, searchadv_dep
 
 from ..util import DEFAULT_SORT
 
@@ -116,7 +115,7 @@ async def search_post_adv(
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
     """
     final_solr_sorting = await define_sorting(sort_ui, sort)
-    print('advanced search triggered')
+    print("advanced search triggered")
     async with AsyncClient() as client:
         response = await handle_search_errors(
             search(
@@ -140,7 +139,6 @@ async def search_post_adv(
 
     out = await create_output(res_json, collection, sort_ui)
     return out
-
 
 
 async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:

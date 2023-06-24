@@ -186,9 +186,11 @@ def search_dep():
     """FastAPI search method dependency"""
     return search
 
+
 def searchadv_dep():
     """FastAPI search method dependency"""
     return searchadv
+
 
 def get_dep():
     """get method dependency"""
