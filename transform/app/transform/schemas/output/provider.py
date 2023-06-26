@@ -24,7 +24,7 @@ provider_output_schema = {
     "pid": "string",
     "postal_code": "string",
     "region": "string",
-    "scientific_domains": "array<array<string>>",
+    "scientific_domains": "array<string>",
     "slug": "string",
     "societal_grand_challenges": "array<string>",
     "street_name_and_number": "string",

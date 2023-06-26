@@ -13,7 +13,7 @@ bundle_output_schema = {
     "providers": "array<string>",
     "related_training": "boolean",
     "resource_organisation": "string",
-    "scientific_domains": "array<array<string>>",
+    "scientific_domains": "array<string>",
     "service_id": "bigint",
     "title": "string",
     "type": "string",
