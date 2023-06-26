@@ -10,9 +10,12 @@ LOGIN_REQUIRED = "Login required"
 LOGIN_REQUIRED_ON = (
     "Login required on EOSC Pillar, open access on the original resource page"
 )
+PAID_ACCESS = "Paid Access"
 CLOSED = "Closed"
 EMBARGO = "Embargo"
 OTHER = "Other"
+
+
 access_rights_mapping = {
     OPEN_ACCESS_: (
         "OPEN",
@@ -30,6 +33,7 @@ access_rights_mapping = {
     LOGIN_REQUIRED_ON: (
         "login required on EOSC Pillar, open access on the original resource page",
     ),
+    PAID_ACCESS: ("tr_access_right-paid_access",),
     CLOSED: ("CLOSED",),
     EMBARGO: ("EMBARGO",),
     OTHER: ("other",),

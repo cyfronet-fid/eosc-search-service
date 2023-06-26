@@ -74,7 +74,7 @@ class MarketplaceBaseTransformer(BaseTransformer):
             url_cols_to_simplify = (
                 "multimedia_urls",
                 "use_cases_urls",
-                "link_research_product_metadata_license_urls",
+                "research_product_metadata_license_urls",
                 "research_product_licensing_urls",
             )
 
@@ -82,7 +82,7 @@ class MarketplaceBaseTransformer(BaseTransformer):
             try:
                 df = df.withColumn(urls, col(urls)[URL])
             except AnalysisException:
-                continue
+                df = df.withColumn(urls, lit(None))
         return df
 
     def harvest_persistent_id_systems(self, df: DataFrame) -> DataFrame:
