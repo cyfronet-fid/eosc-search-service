@@ -1,0 +1,54 @@
+version: "3.9"
+
+services:
+  api:
+    build: ./
+    ports:
+      - 8080:8080
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8080
+    volumes:
+      - ./app:/app
+    environment:
+      SOLR_URL: http://149.156.182.2:8983/solr/
+      CELERY_BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    depends_on:
+      - redis
+
+  worker:
+    build: ./
+    command: celery -A app.worker.celery worker --loglevel=info --logfile=app/logs/celery.log
+    volumes:
+      - ./app:/app
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - api
+      - redis
+
+  dashboard:
+    build: ./
+    command: celery --broker=redis://redis:6379/0 flower --port=5555
+    ports:
+      - 5555:5555
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - api
+      - redis
+      - worker
+
+  redis:
+    image: redis:7
+
+#  mongo:
+#    image: mongo
+#    ports:
+#      - ${MONGODB_HOST:-127.0.0.1:27017}:27017
+#    volumes:
+#      - db-data:/data/db
+
+volumes:
+  db-data:

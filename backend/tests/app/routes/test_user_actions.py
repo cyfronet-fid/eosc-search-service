@@ -60,7 +60,7 @@ async def call_navigate_api(app: FastAPI, client: AsyncClient) -> Response:
     return await client.get(
         app.url_path_for("web:register-navigation-user-action"),
         params={
-            "url": urllib.parse.quote("https://anothersite.org/"),
+            "url": urllib.parse.quote("https://anothersite.org/path/deeppath"),
             "return_path": "search/all",
             "search_params": "q%3D%2A",
             "resource_id": "123",
@@ -80,6 +80,16 @@ async def test_redirects_to_the_target_url_and_set_session_cookie(
 
     assert res.status_code == HTTP_303_SEE_OTHER
     assert res.headers.get("set-cookie", {}) != {}
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_includes_user_action_continuation_data(
+    app: FastAPI, client: AsyncClient
+):
+    res = await call_navigate_api(app, client)
+    assert res.next_request.url.params.get("source_id")
+    assert res.next_request.url.params.get("client_uid")
 
 
 @pytest.mark.integration
@@ -117,7 +127,7 @@ async def test_sends_user_action_after_response(app: FastAPI, client_: AsyncClie
         "type": "other",
     }
     assert message["source"]["visit_id"] is not None
-    assert message["target"]["page_id"] == "https://anothersite.org/"
+    assert message["target"]["page_id"] == "/path/deeppath"
     assert message["target"]["visit_id"] is not None
     assert message["timestamp"] is not None
     assert message["unique_id"] is not None

@@ -11,6 +11,15 @@ python-dotenv = "*"
 requests = "*"
 pandas = "*"
 pycountry = "*"
+fastapi = "*"
+pymongo = "*"
+mongoengine = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+celery = {extras = ["redis"], version = "*"}
+flower = "*"
+jinja2 = "*"
+pydantic = "*"
+fastapi-utils = "*"
 
 [dev-packages]
 pytest = "*"
