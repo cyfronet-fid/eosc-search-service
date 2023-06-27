@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.7.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.6.0...v2.7.0) (2023-06-27)
+
+
+### Features
+
+* [[#399](https://github.com/cyfronet-fid/eosc-search-service/issues/399)] transform service ([9b9d062](https://github.com/cyfronet-fid/eosc-search-service/commit/9b9d06205e6a15ae7dc8c614521177cb8f269461))
+* [[#542](https://github.com/cyfronet-fid/eosc-search-service/issues/542)] Forward user action details to other services ([fab1555](https://github.com/cyfronet-fid/eosc-search-service/commit/fab1555216a68702bc272c3eef61efac59acd8b9))
+* mp types full update ([eaabb9c](https://github.com/cyfronet-fid/eosc-search-service/commit/eaabb9c491e5b2479766087d8e5a0e39dea8a1a7))
+
+
+### Bug Fixes
+
+* data schema fixed, paid access mapped ([115b79b](https://github.com/cyfronet-fid/eosc-search-service/commit/115b79bf0aeda9c7b56494cb2ba58b7d2496bdc2))
+* minor bugs in uploading batched data ([d2a7955](https://github.com/cyfronet-fid/eosc-search-service/commit/d2a79555c79fd5bf6b13a764e7590cc1571e24a3))
+* remove ds hacking ([1c9d037](https://github.com/cyfronet-fid/eosc-search-service/commit/1c9d0372e8fa5fb2bf76bff2708c3432629b68fc))
+* soft and hard commits in solr schema ([d05f8bd](https://github.com/cyfronet-fid/eosc-search-service/commit/d05f8bd9c17aac1f0d7491541f37e023ba9bac25))
+* sort by default ([3d33a2d](https://github.com/cyfronet-fid/eosc-search-service/commit/3d33a2d6bf20743371a8c518c4fc7d3993a8da46))
+* sort by relevancy ([01cf2bb](https://github.com/cyfronet-fid/eosc-search-service/commit/01cf2bb0634e83201cca0b3c6ef53574fb15718a))
+
 ## [2.6.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.5.0...v2.6.0) (2023-06-12)
 
 
