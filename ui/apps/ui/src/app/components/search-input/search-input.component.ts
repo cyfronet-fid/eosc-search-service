@@ -208,7 +208,7 @@ export interface Tags {
                 class="form-control2"
                 autocomplete="off"
                 i18n-placeholder
-                placeholder="Narrow by: author, exact phrase, any of, none of"
+                placeholder="Narrow by: author, exact phrase, in title, none of"
                 [formControl]="formControlAdv"
               />
               <button
@@ -237,7 +237,7 @@ export interface Tags {
                   })
                 "
               >
-                Enter
+                Add
               </button>
             </div>
           </div>
@@ -305,7 +305,7 @@ export interface Tags {
         z-index: 10;
       }
       .form-control2 {
-        width: 675px !important;
+        width: 683px !important;
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
       }
@@ -323,7 +323,7 @@ export interface Tags {
       .btn-enter {
         color: #ffffff;
         height: 40px;
-        background: black;
+        background: #3d4db6;
         padding: 0 20px 0 20px;
         border: none;
         border-radius: 0 8px 8px 0;
@@ -331,7 +331,7 @@ export interface Tags {
       .btn-enter:hover {
         color: #ffffff;
         height: 40px;
-        background: #3d4db6;
+        background: #3d4db6a1;
         padding: 0 20px 0 20px;
         border: none;
         border-radius: 0 8px 8px 0;
@@ -447,7 +447,7 @@ export class SearchInputComponent implements OnInit {
   collectionFcAdv = [
     { name: 'author' },
     { name: 'exact' },
-    { name: 'any of' },
+    { name: 'in title' },
     { name: 'none of' },
   ];
 
@@ -629,6 +629,9 @@ export class SearchInputComponent implements OnInit {
     }
 
     await this._router.navigate(['/search', $event.urlParam], {
+      queryParams: {
+        standard: this.standardSearch.toString(),
+      },
       queryParamsHandling: 'preserve',
     });
   }

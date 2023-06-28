@@ -229,20 +229,8 @@ export class SearchPageComponent implements OnInit {
                     '!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"'
                   );
                 }
-                if (tag.startsWith('any of:')) {
-                  filters.push(
-                    'title:"' +
-                      tag.split(':', 2)[1].trim() +
-                      '" OR author_names_tg:"' +
-                      tag.split(':', 2)[1].trim() +
-                      '" OR description:"' +
-                      tag.split(':', 2)[1].trim() +
-                      '" OR keywords_tg:"' +
-                      tag.split(':', 2)[1].trim() +
-                      '" OR tag_list_tg:"' +
-                      tag.split(':', 2)[1].trim() +
-                      '"'
-                  );
+                if (tag.startsWith('in title:')) {
+                  filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
                 }
               }
             } else {
@@ -282,20 +270,8 @@ export class SearchPageComponent implements OnInit {
                   '!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"'
                 );
               }
-              if (tag.startsWith('any of:')) {
-                filters.push(
-                  'title:"' +
-                    tag.split(':', 2)[1].trim() +
-                    '" OR author_names_tg:"' +
-                    tag.split(':', 2)[1].trim() +
-                    '" OR description:"' +
-                    tag.split(':', 2)[1].trim() +
-                    '" OR keywords_tg:"' +
-                    tag.split(':', 2)[1].trim() +
-                    '" OR tag_list_tg:"' +
-                    tag.split(':', 2)[1].trim() +
-                    '"'
-                );
+              if (tag.startsWith('in title:')) {
+                filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
               }
             }
 
