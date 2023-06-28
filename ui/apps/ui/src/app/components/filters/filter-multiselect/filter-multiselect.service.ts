@@ -46,17 +46,92 @@ export class FilterMultiselectService {
   setEntities = (entities: IFilterNode[]) =>
     this._filterMultiselectRepository.setEntities(entities);
 
+  getFiltersFromTags(tags: string[] | string) {
+    const filters: string[] = [];
+
+    if (Array.isArray(tags)) {
+      for (const tag of tags) {
+        if (tag.startsWith('author:')) {
+          filters.push('author_names_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        }
+        if (tag.startsWith('exact:')) {
+          filters.push(
+            'title:"' +
+              tag.split(':', 2)[1].trim() +
+              '" OR author_names_tg:"' +
+              tag.split(':', 2)[1].trim() +
+              '" OR description:"' +
+              tag.split(':', 2)[1].trim() +
+              '" OR keywords_tg:"' +
+              tag.split(':', 2)[1].trim() +
+              '" OR tag_list_tg:"' +
+              tag.split(':', 2)[1].trim() +
+              '"'
+          );
+        }
+        if (tag.startsWith('none of:')) {
+          filters.push('!title:"' + tag.split(':', 2)[1].trim() + '"');
+          filters.push(
+            '!author_names_tg:"' + tag.split(':', 2)[1].trim() + '"'
+          );
+          filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
+          filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+          filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        }
+        if (tag.startsWith('in title:')) {
+          filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
+        }
+      }
+    } else {
+      const tag: string = tags;
+      if (tag.startsWith('author:')) {
+        filters.push('author_names_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      }
+      if (tag.startsWith('exact:')) {
+        filters.push(
+          'title:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR author_names_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR description:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR keywords_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR tag_list_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '"'
+        );
+      }
+      if (tag.startsWith('none of:')) {
+        filters.push('!title:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!author_names_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      }
+      if (tag.startsWith('in title:')) {
+        filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
+      }
+    }
+
+    return filters;
+  }
+
   _fetchAllValues$(
     filter: string,
+    routerParams: { [param: string]: paramType },
     collection: string,
     mutator?: (bucketValues: IFacetBucket[]) => IFilterNode[]
   ): Observable<IFilterNode[]> {
     const metadata = this._searchMetadataRepository.get(
       collection
     ) as ICollectionSearchMetadata;
+    const tags = routerParams['tags'] as string[] | string;
+
+    const filters = this.getFiltersFromTags(tags);
     return this._fetchTreeNodes$(
       filter,
-      toSearchMetadata('*', [], metadata),
+      toSearchMetadata('*', filters, metadata),
       toFilterFacet(filter),
       mutator
     ).pipe(
@@ -80,10 +155,14 @@ export class FilterMultiselectService {
     );
     const q = routerParams['q'] as string;
     const fq = routerParams['fq'] as string[];
+    const tags = routerParams['tags'] as string[] | string;
+
+    const filters = this.getFiltersFromTags(tags);
+    const fq_m = fq.concat(filters);
 
     return this._fetchTreeNodes$(
       filter,
-      toSearchMetadata(q, fq, metadata),
+      toSearchMetadata(q, fq_m, metadata),
       toFilterFacet(filter),
       mutator
     ).pipe(map((entities) => entities.map(({ id, count }) => ({ id, count }))));

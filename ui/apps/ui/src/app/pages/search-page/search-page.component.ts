@@ -186,11 +186,13 @@ export class SearchPageComponent implements OnInit {
               ...metadata.params,
               q: queryChanger(routerParams.q),
             };
+
             return this._fetchDataService
               .fetchResults$(searchMetadata, metadata.facets, adapter)
               .pipe(untilDestroyed(this));
           } else {
             const filters: string[] = [];
+            const fq_o: string[] = routerParams.fq;
 
             if (Array.isArray(routerParams.tags)) {
               for (const tag of routerParams.tags) {
@@ -275,12 +277,14 @@ export class SearchPageComponent implements OnInit {
               }
             }
 
+            const fq_m = filters.concat(fq_o);
+
             const searchMetadata = {
               rows: MAX_COLLECTION_RESULTS,
               ...routerParams,
               ...metadata.params,
               q: queryChangerAdv(routerParams.q),
-              fq: filters,
+              fq: fq_m,
             };
             return this._fetchDataService
               .fetchResultsAdv$(searchMetadata, metadata.facets, adapter)

@@ -39,7 +39,9 @@ export class CustomRoute {
     map((collection) => collection as string)
   );
   readonly q$ = this._store$.pipe(select(({ q }) => q));
+  readonly standard$ = this._store$.pipe(select(({ standard }) => standard));
   readonly sort_ui$ = this._store$.pipe(select(({ sort_ui }) => sort_ui));
+  readonly tags$ = this._store$.pipe(select(({ tags }) => tags));
   readonly fqMap$ = this._store$.pipe(
     select(({ fq }) =>
       serializeAll(

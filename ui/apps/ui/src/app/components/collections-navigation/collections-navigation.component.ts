@@ -20,7 +20,11 @@ import { toNavigationLink } from './utils';
             fragment: 'ignored'
           }"
           routerLinkActive="active"
-          [queryParams]="{ q: (q$ | async) }"
+          [queryParams]="{
+            q: (q$ | async),
+            standard: (st$ | async),
+            tags: (tg$ | async)
+          }"
           >{{ link.label }}</a
         >
       </div>
@@ -31,6 +35,8 @@ export class CollectionsNavigationComponent implements OnInit {
   public navigationLinks: INavigationLink[] = [];
   public showCollections = false;
   public q$ = this._customRoute.q$;
+  public st$ = this._customRoute.standard$;
+  public tg$ = this._customRoute.tags$;
 
   constructor(
     private _customRoute: CustomRoute,

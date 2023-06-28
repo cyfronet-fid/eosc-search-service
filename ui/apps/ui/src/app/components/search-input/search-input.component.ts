@@ -209,6 +209,13 @@ export interface Tags {
                 autocomplete="off"
                 i18n-placeholder
                 placeholder="Narrow by: author, exact phrase, in title, none of"
+                (keydown.enter)="
+                  add({
+                    value: formControlAdv.value,
+                    input: formControlAdv,
+                    narrowed: collectionFcAdvForm.value.name
+                  })
+                "
                 [formControl]="formControlAdv"
               />
               <button
@@ -323,7 +330,7 @@ export interface Tags {
       .btn-enter {
         color: #ffffff;
         height: 40px;
-        background: #3d4db6;
+        background: #040f80;
         padding: 0 20px 0 20px;
         border: none;
         border-radius: 0 8px 8px 0;
@@ -331,7 +338,7 @@ export interface Tags {
       .btn-enter:hover {
         color: #ffffff;
         height: 40px;
-        background: #3d4db6a1;
+        background: #040f80a1;
         padding: 0 20px 0 20px;
         border: none;
         border-radius: 0 8px 8px 0;
@@ -629,9 +636,6 @@ export class SearchInputComponent implements OnInit {
     }
 
     await this._router.navigate(['/search', $event.urlParam], {
-      queryParams: {
-        standard: this.standardSearch.toString(),
-      },
       queryParamsHandling: 'preserve',
     });
   }
