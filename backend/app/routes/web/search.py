@@ -19,6 +19,9 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
+SortUi = Literal["dmr", "dlr", "mp", "r", "default"]
+
+
 # pylint: disable=too-many-arguments
 @router.post("/search-results", name="web:post-search")
 async def search_post(
@@ -30,13 +33,7 @@ async def search_post(
         description="Filter query",
         example=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
-    sort_ui: str = Literal[
-        "dmr",
-        "dlr",
-        "mp",
-        "r",
-        "default",
-    ],
+    sort_ui: SortUi = "default",
     sort: list[str] = Query(
         [], description="Solr sort", example=["description asc", "name desc"]
     ),
