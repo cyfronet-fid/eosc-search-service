@@ -1,5 +1,5 @@
 h1 {
-  font-family: Ubuntu, sans-serif;
+  font-family: Noto Sans, sans-serif;
   font-size: 32px;
   font-weight: 400;
   line-height: 37px;
@@ -11,7 +11,7 @@ h1 span {
 }
 
 h2 {
-  font-family: Ubuntu, sans-serif;
+  font-family: Noto Sans, sans-serif;
   font-size: 24px;
   font-weight: 400;
   line-height: 28px;
@@ -19,18 +19,18 @@ h2 {
 }
 
 .btn-primary {
-  background: linear-gradient(88.93deg, #5a69d1 1.83%, #3d4db6 124.59%);
+  background: #246119;
   border-radius: 25px;
   padding: 10px 30px;
   border: none;
 }
 
 .btn-primary:hover {
-  background: #3d4db6;
+  background: rgba(0,0,0,.85);
 }
 
 .heading {
-  background: #3d4db6;
+  background: #246119;
   padding: 35px 0 45px;
   color: #fff;
 }
@@ -98,7 +98,7 @@ h2 {
 }
 
 .search-box .btn-primary i {
-  color: #3d4db6;
+  color: #246119;
   font-size: 22px;
 }
 
@@ -189,7 +189,7 @@ h2 {
 
 .who-are-you .bg-light .card-title,
 .provider .bg-light .card-title {
-  color: #0c2bd5;
+  color: #246119;
   font-size: 24px;
   line-height: 28px;
   margin-top: 40px;
@@ -247,7 +247,7 @@ h2 {
 }
 
 .help .card .card-title {
-  color: #0c2bd5;
+  color: #246119;
   font-size: 20px;
   line-height: 23px;
   text-align: center;
@@ -261,12 +261,7 @@ h2 {
 }
 
 .looking {
-  background: linear-gradient(
-    117.95deg,
-    rgba(12, 43, 213, 0.8) 12.72%,
-    rgba(248, 206, 46, 0.4852) 99.99%,
-    rgba(251, 206, 44, 0.5) 100%
-  );
+  background: #E0FFDB
 }
 
 .looking h3 {

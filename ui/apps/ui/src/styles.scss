@@ -2,6 +2,8 @@
 @import '~ng-zorro-antd/ng-zorro-antd.min.css';
 @import 'scss/landing';
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,600;0,800;1,300&display=swap');
+
 body {
   font-family: 'Noto Sans', sans-serif;
   font-size: 1rem;
@@ -15,7 +17,7 @@ h5 {
 }
 
 a {
-  color: #0c2bd5;
+  color: #246119;
 }
 
 a:hover {
@@ -41,7 +43,7 @@ a:hover {
 }
 
 .search-bar {
-  background: #000 url(assets/top-bar-bg.jpg) no-repeat;
+  background: #246119;
   position: relative;
 
   .search-box {
@@ -111,7 +113,7 @@ a:hover {
   line-height: 1.36;
   float: left;
   margin: 12px 10px 0 12px;
-  color: #2255a4;
+  color: #246119;
   transition: all 0.2s ease;
 }
 
@@ -125,7 +127,7 @@ a:hover {
   line-height: 1.1;
   font-weight: 400;
   margin-top: 10px;
-  color: #2255a4;
+  color: #246119;
   background: #edf4ff;
   border-radius: 35px;
   display: inline-block;
@@ -133,7 +135,7 @@ a:hover {
 }
 
 .show-more:hover {
-  background: #2255a4;
+  background: #246119;
   color: #edf4ff;
 }
 
@@ -188,7 +190,7 @@ a:hover {
 }
 
 #sub-nav a.active {
-  color: #3d4db6;
+  color: #246119;
 }
 
 #sub-nav a.active::before {
@@ -241,12 +243,12 @@ a:hover {
   padding: 10px 0;
 }
 .active {
-  color: #3d4db6;
-  border-bottom: 3px solid #3d4db6;
+  color: #246119;
+  border-bottom: 3px solid #246119;
   font-weight: bold;
 }
 .nav-btn:hover {
-  color: #3d4db6;
+  color: #246119;
 }
 
 h3,
@@ -312,7 +314,7 @@ h3,
 }
 .badge .close-btn {
   cursor: pointer;
-  color: #2255a4;
+  color: #246119;
   background: none;
   font-size: 16px;
   position: absolute;
@@ -355,7 +357,7 @@ h3,
 
 .ant-tree .ant-tree-node-content-wrapper:hover {
   background: none;
-  color: #0c2bd5;
+  color: #246119;
 }
 
 .cdk-virtual-scroll-content-wrapper {
@@ -391,7 +393,7 @@ h6 {
 }
 
 .suggestions a.result {
-  color: #0c2bd5 !important;
+  color: #246119 !important;
 }
 
 .results #container {
@@ -449,13 +451,13 @@ h6 {
     font-weight: 400;
     margin: 15px 0 0;
     float: right;
-    color: #2255a4;
+    color: #246119;
     background: #edf4ff;
     border-radius: 35px;
 
     &:hover {
       color: #edf4ff;
-      background: #2255a4;
+      background: #246119;
     }
   }
 }
@@ -473,14 +475,14 @@ h6 {
     float: left;
     text-transform: capitalize;
     font-weight: 400;
-    color: #2255a4;
-    background: #edf4ff;
+    color: #246119;
+    background: #E0FFDB;
     border-radius: 35px;
 
     &.tag-horizontal {
       background: #fafcfe;
       position: relative;
-      color: #a959ea;
+      color: #246119;
 
       &::before {
         content: '';
@@ -558,7 +560,7 @@ h6 {
 }
 
 .page-item.active .page-link {
-  background: #3d4db6;
+  background: #246119;
 }
 
 .statistic a {
@@ -803,7 +805,7 @@ h6 {
 
   .who-are-you .bg-light .card-title,
   .provider .bg-light .card-title {
-    color: #0c2bd5;
+    color: #246119;
     font-size: 20px;
     line-height: 25px;
     margin-top: 25px;

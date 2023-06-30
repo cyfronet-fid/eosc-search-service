@@ -7,14 +7,6 @@ import { Component } from '@angular/core';
       <div class="container--xxl">
         <div class="row">
           <div class="col-12 logo-wrapper">
-            <a href="/">
-              <img
-                id="logo"
-                src="assets/logo-eosc-white.png"
-                i18n-alt
-                alt="EOSC logo"
-              />
-            </a>
             <div class="top-title">Browse EOSC Marketplace Resources</div>
           </div>
           <div class="col-12">
