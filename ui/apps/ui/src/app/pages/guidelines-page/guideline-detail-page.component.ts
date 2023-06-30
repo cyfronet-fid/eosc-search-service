@@ -64,4 +64,8 @@ export class GuidelineDetailPageComponent implements OnInit {
   toggleTab(id: string) {
     this.currentTab = id;
   }
+
+  getValue(value: string[] | undefined, index: number) {
+    return value && value.length ? value[index] : '-';
+  }
 }
