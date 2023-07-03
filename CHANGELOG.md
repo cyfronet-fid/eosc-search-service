@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.8.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.7.0...v2.8.0) (2023-07-03)
+
+
+### Features
+
+* [#693](https://github.com/cyfronet-fid/eosc-search-service/issues/693) html structure changed and relevance ([3a85117](https://github.com/cyfronet-fid/eosc-search-service/commit/3a8511769afa29609dbb8baeca06f2c7fa159941))
+
+
+### Bug Fixes
+
+* swagger / openapi manifest ([aa26e14](https://github.com/cyfronet-fid/eosc-search-service/commit/aa26e14deeef156f570d09846824d0e7c1d28757))
+
 ## [2.7.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.6.0...v2.7.0) (2023-06-27)
 
 
