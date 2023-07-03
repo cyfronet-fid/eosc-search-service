@@ -8,19 +8,23 @@
             <img width="300px" [src]="'./assets/engineering.png'" alt="" />
           </div>
           <div class="ig-title-container about-content-title col-md-7 col-12" >
-            <p class="ig-about-title" i18n>{{  this.interoperabilityGuidelineItem?.title ?? '-' }}<br><span class="ig-about-subtitle" i18>{{ ( this.interoperabilityGuidelineItem?.eosc_guideline_type ?? '-' | filterPipe: type.GUIDELINE_TYPE ) }}</span></p>
-            <p class="ig-about-subtitle" i18n>
-              {{  this.interoperabilityGuidelineItem?.type_info ?? '-' }}
-            </p>
+              <p class="ig-about-title" i18n>
+                <ng-container *ngFor="let title of this.interoperabilityGuidelineItem?.title; let i = index;">
+                  {{ ( title ?? '-' | filterPipe: type.GUIDELINE_TYPE ) }}{{ i !== ((this.interoperabilityGuidelineItem?.title?.length ?? 0)-1) ? ', ' : '' }}
+                <br><span class="ig-about-subtitle" i18>{{ ( this.interoperabilityGuidelineItem?.eosc_guideline_type ?? '-' | filterPipe: type.GUIDELINE_TYPE ) }}</span>
+                </ng-container>
+              </p>
           </div>
         </div>
         <div class="footer">
           <p i18n>ABOUT</p>
         </div>
       </div>
+      <ng-container *ngFor="let description of this.interoperabilityGuidelineItem?.description; let i = index;">
       <div class="about-description" i18n>
-        {{  this.interoperabilityGuidelineItem?.description ?? '-' }}
+        {{  description ?? '-' }}
       </div>
+      </ng-container>
       <div class="ig-details-wrapper">
         <div class="header">
           <p i18n>Details</p>
@@ -30,23 +34,37 @@
             <p class="section" i18n>Year of Publication<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.publication_year ?? '-' }}</span></p>
             <p class="section" i18n>Created<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.publication_date ?? '-' | transformDatePipe }}</span></p>
             <p class="section" i18n>Updated<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.updated_at ?? '-' | transformDatePipe }}</span></p>
-            <p class="section" i18n>Status<br><span class="section-description">{{ ( this.interoperabilityGuidelineItem?.status ?? '-' | filterPipe: type.STATUS ) }}</span></p>
-            <p class="section" i18n>Domain<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.domain ?? '-' | filterPipe: type.DOMAIN }}</span></p>
-            <p class="section" i18n>Resource Type General<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.type_general ?? '-' | filterPipe: type.RESOURCE_GENERAL_TYPE }}</span></p>
-          </div>
+           </div>
           <div class="col-4 column">
-            <p class="section" i18n>Identifier Type<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.doi !== undefined ? ('ir_identifier_type-doi' | filterPipe: type.IDENTIFIER_TYPE ) : ('ir_identifier_type-uri' | filterPipe: type.IDENTIFIER_TYPE) }}</span></p>
-            <p class="section" i18n>Identifier<br><span class="section-description"><a href="{{(this.interoperabilityGuidelineItem?.doi !== undefined ? this.interoperabilityGuidelineItem?.doi ?? 'javascript:void(0)' : this.interoperabilityGuidelineItem?.uri ?? 'javascript:void(0)')}}">{{ this.interoperabilityGuidelineItem?.doi ?? this.interoperabilityGuidelineItem?.uri ?? '-' }}</a></span></p>
-            <p class="section" i18n>Related Standard URI<br><span class="section-description"><a href="{{this.interoperabilityGuidelineItem?.related_standards_uri ?? 'javascript:void(0)'}}">{{ this.interoperabilityGuidelineItem?.related_standards_uri ?? '-' }}</a></span></p>
-            <p class="section" i18n>Related Standard Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.related_standards_id ?? '-' }}</span></p>
+            <p class="section" i18n>Status<br><span class="section-description">{{ ( this.interoperabilityGuidelineItem?.status ?? '-' | filterPipe: type.STATUS ) }}</span></p>
             <p class="section" i18n>EOSC Integration Options<br>
               <span class="section-description" style="padding-top: 6px; padding-bottom: 6px;" *ngIf="!this.interoperabilityGuidelineItem?.eosc_integration_options?.length">-</span>
               <span class="section-description" style="padding-top: 6px; padding-bottom: 6px;" *ngFor="let option of this.interoperabilityGuidelineItem?.eosc_integration_options">{{ option ?? '-' }}<br></span></p>
-          </div>
+            </div>
           <div class="col-4 right-column">
-            <p class="section" i18n>Rights<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.right_title ?? '-' }}</span></p>
-            <p class="section" i18n>Rights URI<br><span class="section-description"><a href="{{ this.interoperabilityGuidelineItem?.right_uri ?? 'javascript:void(0)'}}">{{ this.interoperabilityGuidelineItem?.right_uri ?? '-' }}</a></span></p>
-            <p class="section" i18n>Rights Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.right_id ?? '-' }}</span></p>
+            <p class="section" i18n>Domain<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.domain ?? '-' | filterPipe: type.DOMAIN }}</span></p>
+            <p class="section" i18n>Identifier Type<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.doi !== undefined ? ('ir_identifier_type-doi' | filterPipe: type.IDENTIFIER_TYPE ) : ('ir_identifier_type-uri' | filterPipe: type.IDENTIFIER_TYPE) }}</span></p>
+            <p class="section" i18n>Identifier<br><span class="section-description"><a href="{{(this.interoperabilityGuidelineItem?.doi !== undefined ? this.interoperabilityGuidelineItem?.doi ?? 'javascript:void(0)' : this.interoperabilityGuidelineItem?.uri ?? 'javascript:void(0)')}}">{{ this.interoperabilityGuidelineItem?.doi ?? this.interoperabilityGuidelineItem?.uri ?? '-' }}</a></span></p>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="ig-provider-information-wrapper">
+        <div class="header">
+          <p i18n>Resource Details</p>
+        </div>
+        <div class="details">
+          <div class="col-12 left-column creator-container">
+            <ng-container *ngFor="let general of this.interoperabilityGuidelineItem?.type_general, let i = index;">
+              <div>
+                <p class="section" i18n>
+                  <span class="creator">Resource Type General:</span><br><span class="section-description left20">{{ general  ?? '-' | filterPipe: type.RESOURCE_GENERAL_TYPE }}</span>
+                  <span class="left20">Resource Type:</span><br><span class="section-description left20">{{ getValue(this.interoperabilityGuidelineItem?.type_info, i) }}</span>
+                </p>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
@@ -57,18 +75,46 @@
         <div class="details">
           <div class="col-4 left-column">
             <p class="section" i18n>Provider<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.provider  ?? '-' }}</span></p>
-            <p class="section" i18n>Creator Name<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_names  ?? '-' }}</span></p>
-            <p class="section" i18n>Name Type<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_types  ?? '-' | filterPipe: type.AUTHOR_TYPE }}</span></p>
-            <p class="section" i18n>Given Name<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_given_names  ?? '-' }}</span></p>
-            <p class="section" i18n>Family Name<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_family_names  ?? '-' }}</span></p>
-          </div>
-          <div class="col-4 column">
-            <p class="section" i18n>Name Identifier<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_names_id ?? '-' }}</span></p>
-            <p class="section" i18n>Affiliation<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.author_affiliations ?? '-' }}</span></p>
-            <p class="section" i18n>Affiliation Identifier<br><span class="section-description"><a href="{{this.interoperabilityGuidelineItem?.author_affiliations_id ?? 'javascript:void(0)'}}">{{ this.interoperabilityGuidelineItem?.author_affiliations_id ?? '-' }}</a></span></p>
             <p class="section" i18n>Catalogue<br><span class="section-description">{{ this.interoperabilityGuidelineItem?.catalogue ?? '-' }}</span></p>
+           </div>
+          <div class="col-8 column creator-container">
+              <ng-container *ngFor="let author of this.interoperabilityGuidelineItem?.author_names, let i = index;">
+                <div>
+                <p class="section bottom-line creator" i18n>Creator<br>
+              <span class="section-description left20">Creator Name: {{ author  ?? '-' }}</span>
+              <span class="section-description left20">Name Type: {{ getValue(this.interoperabilityGuidelineItem?.author_types, i) | filterPipe: type.AUTHOR_TYPE }}</span>
+              <span class="section-description left20">Given Name: {{ getValue(this.interoperabilityGuidelineItem?.author_given_names, i) }}</span>
+              <span class="section-description left20">Family Name: {{ getValue(this.interoperabilityGuidelineItem?.author_family_names, i) }}</span>
+              <span class="section-description left20">Name Identifier: {{ getValue(this.interoperabilityGuidelineItem?.author_names_id, i) }}</span>
+              <span class="section-description left20">Affiliation: {{ getValue(this.interoperabilityGuidelineItem?.author_affiliations, i) }}</span>
+              <span class="section-description left20">Affiliation Identifier: <a href="{{ getValue(this.interoperabilityGuidelineItem?.author_affiliations_id, i) === '-' ?  'javascript:void(0)' :  getValue(this.interoperabilityGuidelineItem?.author_affiliations_id, i)}}">{{ getValue(this.interoperabilityGuidelineItem?.author_affiliations_id, i) }}</a></span>
+                </p>
+                </div>
+              </ng-container>
           </div>
-          <div class="col-4 right-column">
+        </div>
+      </div>
+      <div class="ig-provider-information-wrapper">
+        <div class="header">
+          <p i18n>Rights</p>
+        </div>
+        <div class="details">
+          <div class="col-4 left-column rights-container">
+            <ng-container *ngFor="let right of this.interoperabilityGuidelineItem?.right_title; let i = index;">
+              <div>
+            <p class="section creator" i18n>Rights<br><span class="section-description left20">{{ getValue(this.interoperabilityGuidelineItem?.right_title, i) }}</span></p>
+            <p class="section left20" i18n>Rights URI<br><span class="section-description"><a href="{{ getValue(this.interoperabilityGuidelineItem?.right_uri, i) === '-' ? 'javascript:void(0)' : getValue(this.interoperabilityGuidelineItem?.right_uri, i)}}">{{ getValue(this.interoperabilityGuidelineItem?.right_uri, i) }}</a></span></p>
+            <p class="section left20" i18n>Rights Identifier<br><span class="section-description">{{ getValue(this.interoperabilityGuidelineItem?.right_id, i)}}</span></p>
+              </div>
+            </ng-container>
+          </div>
+          <div class="col-12 column uri-container">
+            <ng-container *ngFor="let uri of this.interoperabilityGuidelineItem?.related_standards_uri; let i = index;">
+              <div class="uri-box">
+                <p class="section creator" i18n>Related Standard URI<br><span class="section-description left20"><a href="{{ uri ?? 'javascript:void(0)' }}">{{ uri ?? '-' }}</a></span></p>
+                <p class="section left20" i18n>Related Standard Identifier<br><span class="section-description">{{ getValue(this.interoperabilityGuidelineItem?.related_standards_id, i) }}</span></p>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
