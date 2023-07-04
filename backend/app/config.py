@@ -157,7 +157,7 @@ MARKETPLACE_BASE_URL = config(
 EOSC_COMMONS_URL = config(
     "EOSC_COMMONS_URL",
     cast=str,
-    default="https://s3.cloud.cyfronet.pl/eosc-portal-common/",
+    default="https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-header-class-names/",
 )
 
 EOSC_COMMONS_ENV = config("EOSC_COMMONS_ENV", cast=str, default="production")
