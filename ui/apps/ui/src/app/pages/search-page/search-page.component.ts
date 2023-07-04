@@ -85,8 +85,9 @@ import { queryChanger } from '@collections/filters-serializers/utils';
           <div class="col-sm-9 col-12 center-column">
             <ess-page-header
               [resultsCount]="response?.numFound ?? 0"
-              [sortByOptionOff]="
-                (response?.results ?? [])[0]?.sortByOptionOff ?? false
+              [isSortByRelevanceCollectionScopeOff]="
+                (response?.results ?? [])[0]
+                  ?.isSortByRelevanceCollectionScopeOff ?? false
               "
             ></ess-page-header>
             <ess-active-filters></ess-active-filters>
