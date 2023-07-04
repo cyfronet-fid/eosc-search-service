@@ -2,6 +2,7 @@
 import datetime
 import json
 import logging
+import uuid
 from typing import Optional, Union
 from urllib.parse import urlparse
 
@@ -96,7 +97,9 @@ class UserActionClient:
             "client_id": "search_service",
             "timestamp": datetime.datetime.utcnow().isoformat(),
             "source": {
-                "visit_id": session_uuid,
+                # We can generate the source here safely since the
+                # search service is always the root of the UA tree
+                "visit_id": str(uuid.uuid4()),
                 # "search/data", "search/publications", "search/software",
                 # "search/services", "search/trainings", - user dashboard - "dashboard"
                 "page_id": page_id,
