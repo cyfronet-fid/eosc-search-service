@@ -12,7 +12,9 @@ async def test_return_backend_config(app: FastAPI, client: AsyncClient) -> None:
     assert response.status_code == HTTP_200_OK
     assert response.json() == {
         "eosc_commons_env": "production",
-        "eosc_commons_url": "https://s3.cloud.cyfronet.pl/eosc-portal-common/",
+        "eosc_commons_url": (
+            "https://s3.cloud.cyfronet.pl/eosc-portal-common/pr-header-class-names/"
+        ),
         "marketplace_url": "https://marketplace.eosc-portal.eu",
         "eosc_explore_url": "https://explore.eosc-portal.eu",
     }
