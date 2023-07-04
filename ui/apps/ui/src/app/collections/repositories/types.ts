@@ -19,7 +19,7 @@ export interface IResult {
   views?: number;
   downloads?: number;
   offers?: any[];
-  sortByOptionOff: boolean;
+  isSortByRelevanceCollectionScopeOff: boolean;
 }
 
 export interface ISecondaryTag {

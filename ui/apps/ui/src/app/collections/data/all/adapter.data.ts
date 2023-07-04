@@ -76,7 +76,7 @@ export const allCollectionsAdapter: IAdapter = {
       id: string;
     }
   ): IResult => ({
-    sortByOptionOff: true,
+    isSortByRelevanceCollectionScopeOff: true,
     id: data.id,
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',

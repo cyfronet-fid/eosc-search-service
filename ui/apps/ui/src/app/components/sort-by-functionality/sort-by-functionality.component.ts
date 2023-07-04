@@ -10,11 +10,12 @@ import {
   isSortOption,
   sortType,
 } from '@components/sort-by-functionality/sort-value.type';
+import { environment } from '@environment/environment';
 
 @UntilDestroy()
 @Component({
   selector: 'ess-sort-by-functionality',
-  template: `<div class="col-sm-4 sort_container">
+  template: ` <div class="col-sm-4 sort_container">
     <label for="sorts" i18n>Sort By</label>
     <select
       [formControl]="selectedSortOptionControl"
@@ -24,7 +25,15 @@ import {
       <option value="dmr" i18n>Date - Most recent</option>
       <option value="dlr" i18n>Date – Least recent</option>
       <option value="mp" i18n>Most popular</option>
-      <!--<option *ngIf="!sortByOptionOff" value="r" i18n>Relevance</option>-->
+      <option
+        *ngIf="
+          isSortByRelevanceInstanceScope && !isSortByRelevanceCollectionScopeOff
+        "
+        value="r"
+        i18n
+      >
+        Relevance
+      </option>
       <option value="default" i18n>Default</option>
     </select>
   </div>`,
@@ -68,8 +77,9 @@ import {
   ],
 })
 export class SortByFunctionalityComponent implements OnInit {
+  isSortByRelevanceInstanceScope: boolean = environment.isSortByRelevance;
   @Input()
-  sortByOptionOff!: boolean;
+  isSortByRelevanceCollectionScopeOff!: boolean;
 
   public selectedSortOptionControl: FormControl<sortType> =
     new FormControl<sortType>(DEFAULT_SORT, { nonNullable: true });
