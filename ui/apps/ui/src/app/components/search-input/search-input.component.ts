@@ -24,7 +24,13 @@ import { SearchInputService } from './search-input.service';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { ISuggestedResults } from './type';
-import { Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  ParamMap,
+  Router,
+  RouterEvent,
+} from '@angular/router';
 import { sanitizeQuery } from '@components/search-input/query.sanitizer';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 import {
@@ -34,6 +40,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { RedirectService } from '@collections/services/redirect.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { forEach } from 'lodash-es';
 
 export interface Tags {
   narrow: string;
@@ -482,7 +489,14 @@ export class SearchInputComponent implements OnInit {
 
     // Add our tags
     if ((value || '').trim()) {
-      this.tags.push(narrow + ': ' + value.trim());
+      if (narrow === 'author') {
+        const splitted = value.split(' ');
+        splitted.forEach((el: string) =>
+          this.tags.push(narrow + ': ' + el.trim())
+        );
+      } else {
+        this.tags.push(narrow + ': ' + value.trim());
+      }
     }
 
     // Reset the input value
@@ -518,6 +532,7 @@ export class SearchInputComponent implements OnInit {
     private _router: Router,
     private _searchInputService: SearchInputService,
     private _navConfigsRepository: NavConfigsRepository,
+    private _route: ActivatedRoute,
     @Inject(DOCUMENT) private _document: Document
   ) {}
 
@@ -539,6 +554,18 @@ export class SearchInputComponent implements OnInit {
           { emitEvent: false }
         )
       );
+
+    const std = this._route.snapshot.queryParamMap.get('standard');
+    if (std) {
+      this.standardSearch = std === 'true';
+    }
+
+    const tgs = this._route.snapshot.queryParamMap.getAll('tags');
+    if (typeof tgs === 'string') {
+      this.tags.push(tgs);
+    } else if (tgs) {
+      tgs.forEach((el) => this.tags.push(el));
+    }
 
     combineLatest({
       q: this.formControl.valueChanges.pipe(
