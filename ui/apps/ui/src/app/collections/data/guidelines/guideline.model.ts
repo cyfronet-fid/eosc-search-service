@@ -30,4 +30,27 @@ export interface IGuideline {
   type_general: string[];
   uri?: string[];
   keywords?: string[];
+  creators: string | '';
+}
+
+export interface ICreators {
+  author_name_type_info: IAuthorNameTypeInfo;
+  author_names: string;
+  author_types: string | string[];
+  author_given_names: string;
+  author_family_names: string;
+  author_names_id: string;
+  author_affiliation_info: IAuthorAffiliationInfo;
+  author_affiliations: string;
+  author_affiliations_id: string;
+}
+
+export interface IAuthorAffiliationInfo {
+  affiliation: string;
+  affiliationIdentifier: string;
+}
+
+export interface IAuthorNameTypeInfo {
+  author_names: string;
+  author_types: string;
 }

@@ -33,6 +33,7 @@
   height: inherit;
   display: flex;
   flex-direction: row;
+  padding: 24px 24px 24px 48px;
 }
 
 .header {
@@ -79,6 +80,7 @@
   font-size: 22px;
   line-height: 26px;
   color: #000000;
+  padding-left: 64px;
 }
 
 .ig-about-subtitle {
@@ -117,15 +119,15 @@
 }
 
 .left-column {
-  padding: 24px 0 0 48px;
+  /*padding: 24px 0 0 48px;*/
 }
 
 .column {
-  padding: 24px 24px 24px 0;
+  /*padding: 24px 24px 24px 0;*/
 }
 
 .right-column {
-  padding: 24px 24px 0 0;
+  /*padding: 24px 24px 0 0;*/
 }
 
 .related-services-header {
@@ -209,7 +211,7 @@
 }
 
 .creator-container div {
-  width: 40%;
+  width: 33%;
   margin-bottom: 15px;
 }
 
@@ -237,5 +239,12 @@
 
 .uri-box {
   width: 40%;
-  margin: 0 15px 0 15px;
+}
+
+.creator {
+  padding-left: 24px;
+}
+
+.creator:first-child {
+  padding-left: 0;
 }
