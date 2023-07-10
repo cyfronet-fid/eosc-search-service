@@ -37,7 +37,11 @@ import { Router } from '@angular/router';
       *ngIf="
         $any(results$ | async)?.length > 0 && (isLoading$ | async) === false
       "
-    >
+      ><ess-pagination
+        [paginationData]="$any(paginationData$ | async)"
+        [loading]="(isLoading$ | async) ?? false"
+        (activePageChange)="pageNr$.next($event)"
+      ></ess-pagination>
       <ess-result
         class="results"
         *ngFor="let result of results$ | async; trackBy: trackByResultId"
