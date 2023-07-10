@@ -150,9 +150,10 @@ RECOMMENDER_ENDPOINT = config(
     "RECOMMENDER_ENDPOINT", cast=str, default="http://localhost:8081/recommendations"
 )
 
-MARKETPLACE_BASE_URL = config(
-    "MARKETPLACE_BASE_URL", cast=str, default="https://marketplace.eosc-portal.eu"
-)
+MARKETPLACE_BASE_URL = "https://marketplace-4.docker-fid.grid.cyf-kr.edu.pl"
+# config(
+#     "MARKETPLACE_BASE_URL", cast=str, default="https://marketplace.eosc-portal.eu"
+# )
 
 EOSC_COMMONS_URL = config(
     "EOSC_COMMONS_URL",
