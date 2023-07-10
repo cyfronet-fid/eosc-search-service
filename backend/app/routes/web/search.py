@@ -9,7 +9,7 @@ from pydantic.typing import Literal
 from requests import Response
 
 from app.routes.web.recommendation import sort_by_relevance
-from app.schemas.web import SearchRequest
+from app.schemas.search_request import SearchRequest
 from app.solr.operations import get, search_dep
 
 from ..util import DEFAULT_SORT

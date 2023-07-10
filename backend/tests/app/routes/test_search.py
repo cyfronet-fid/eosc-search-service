@@ -13,8 +13,10 @@ from starlette.status import (
     HTTP_500_INTERNAL_SERVER_ERROR,
 )
 
-from app.schemas.search_request import TermsFacet
 from app.settings import settings
+from app.config import SOLR_URL
+from app.schemas.search_request import StatFacet, TermsFacet
+from app.solr.operations import search, search_dep
 
 
 @pytest.mark.asyncio
@@ -108,7 +110,8 @@ async def test_passes_all_facets(
                     "sort": "name desc",
                     "mincount": 5,
                     "missing": False,
-                }
+                },
+                "max_bar": {"expression": "max(bar)"},
             }
         },
     )
@@ -132,7 +135,8 @@ async def test_passes_all_facets(
                 sort="name desc",
                 mincount=5,
                 missing=False,
-            )
+            ),
+            "max_bar": StatFacet(expression="max(bar)"),
         },
     )
 
