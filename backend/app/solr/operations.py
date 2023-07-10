@@ -1,8 +1,9 @@
 """Operations on Solr"""
 from httpx import AsyncClient, Response
 
-from app.schemas.search_request import TermsFacet
 from app.settings import settings
+from app.config import SOLR_URL
+from app.schemas.search_request import StatFacet, TermsFacet
 
 
 async def search(
@@ -15,7 +16,7 @@ async def search(
     sort: list[str],
     rows: int,
     cursor: str = "*",
-    facets: dict[str, TermsFacet] = None,
+    facets: dict[str, TermsFacet | StatFacet] = None,
 ) -> Response:
     # pylint: disable=line-too-long
     """
@@ -75,7 +76,9 @@ async def search(
     }
 
     if facets is not None and len(facets) > 0:
-        request_body["facet"] = {k: v.dict() for k, v in facets.items()}
+        request_body["facet"] = {
+            k: v.serialize_to_solr_format() for k, v in facets.items()
+        }
 
     return await client.post(
         f"{settings.SOLR_URL}{collection}/select",
