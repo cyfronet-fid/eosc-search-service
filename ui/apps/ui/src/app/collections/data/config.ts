@@ -1,6 +1,6 @@
-import { IFacetParam } from '@collections/repositories/types';
+import { ITermsFacetParam } from '@collections/repositories/types';
 
-export const DEFAULT_FACET: { [field: string]: IFacetParam } = {
+export const DEFAULT_FACET: { [field: string]: ITermsFacetParam } = {
   title: { field: 'title', type: 'terms', limit: 0 },
 };
 export const DEFAULT_QF =

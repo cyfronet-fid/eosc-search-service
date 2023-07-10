@@ -55,7 +55,7 @@ export interface ISolrQueryParams {
 
 export interface ISearchResults<T extends { id: string }> {
   results: T[];
-  facets: { [field: string]: IFacetResponse };
+  facets: { [field: string]: ITermsFacetResponse | IStatFacetResponse };
   nextCursorMark: string;
   numFound: number;
   highlighting: {
@@ -63,7 +63,7 @@ export interface ISearchResults<T extends { id: string }> {
   };
 }
 
-export interface IFacetParam {
+export interface ITermsFacetParam {
   type: 'terms';
   offset?: number;
   limit?: number;
@@ -72,6 +72,10 @@ export interface IFacetParam {
   contains?: string;
 
   [facet: string]: string | number | undefined;
+}
+
+export interface IStatFacetParam {
+  expression: string;
 }
 
 export interface ICollectionNavConfig {
@@ -117,7 +121,7 @@ export interface IExcludedFiltersConfig {
 
 export interface ICollectionSearchMetadata {
   id: string;
-  facets: { [field: string]: IFacetParam };
+  facets: { [field: string]: ITermsFacetParam };
   params: ISolrCollectionParams;
 }
 
@@ -134,9 +138,11 @@ export interface IFacetBucket {
   count: number;
 }
 
-export interface IFacetResponse {
+export interface ITermsFacetResponse {
   buckets: IFacetBucket[];
 }
+
+export type IStatFacetResponse = number;
 
 export interface IUIFilterTreeNode extends IFilterNode {
   children?: IUIFilterTreeNode[];

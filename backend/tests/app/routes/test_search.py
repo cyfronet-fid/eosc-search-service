@@ -13,10 +13,8 @@ from starlette.status import (
     HTTP_500_INTERNAL_SERVER_ERROR,
 )
 
-from app.settings import settings
-from app.config import SOLR_URL
 from app.schemas.search_request import StatFacet, TermsFacet
-from app.solr.operations import search, search_dep
+from app.settings import settings
 
 
 @pytest.mark.asyncio
