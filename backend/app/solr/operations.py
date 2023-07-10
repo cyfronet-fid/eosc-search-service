@@ -1,9 +1,8 @@
 """Operations on Solr"""
 from httpx import AsyncClient, Response
 
-from app.settings import settings
-from app.config import SOLR_URL
 from app.schemas.search_request import StatFacet, TermsFacet
+from app.settings import settings
 
 
 async def search(
