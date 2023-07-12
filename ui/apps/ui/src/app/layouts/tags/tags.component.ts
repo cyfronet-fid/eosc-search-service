@@ -19,7 +19,7 @@ import { ViewportScroller } from '@angular/common';
     >
       <div class="tag-row" *ngIf="tag.values.length > 0">
         <span class="tag tag-title"
-          ><strong>{{ tag.label }}: </strong></span
+          >{{ tag.label }}: </span
         >
         <ng-container *ngFor="let singleValue of tag.values">
           <span class="tag"
@@ -37,7 +37,7 @@ import { ViewportScroller } from '@angular/common';
   styles: [
     `
       ::ng-deep .highlighted {
-        background-color: #e8e7ff !important;
+        background-color: #effff1 !important;
         padding: 3px;
       }
     `,

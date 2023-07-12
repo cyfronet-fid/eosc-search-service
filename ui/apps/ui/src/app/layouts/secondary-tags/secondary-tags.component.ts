@@ -60,7 +60,7 @@ import { combineHighlightsWith } from './utils';
       }
 
       ::ng-deep .highlighted {
-        background-color: #e8e7ff !important;
+        background-color: #effff1 !important;
         padding: 3px;
       }
     `,

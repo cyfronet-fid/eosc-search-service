@@ -35,7 +35,7 @@ import { RedirectService } from '@collections/services/redirect.service';
   selector: 'ess-search-input',
   template: `
     <div id="container">
-      <div class="search-box">
+      <div class="search-box pl">
         <form>
           <div class="input-group">
             <div class="phase-box">

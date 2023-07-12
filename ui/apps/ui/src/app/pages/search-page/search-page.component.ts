@@ -23,7 +23,8 @@ import { queryChanger } from '@collections/filters-serializers/utils';
 @Component({
   selector: 'ess-search-service-page',
   template: `
-    <ess-search-bar></ess-search-bar>
+
+    <div class="top-bar"></div>
 
     <div class="container d-md-none">
       <div class="row mobile-buttons">
@@ -64,7 +65,10 @@ import { queryChanger } from '@collections/filters-serializers/utils';
       }"
     >
       <ess-collections-navigation></ess-collections-navigation>
+
     </div>
+
+
 
     <div class="container--xxl">
       <div class="dashboard" style="position: relative">
@@ -82,7 +86,10 @@ import { queryChanger } from '@collections/filters-serializers/utils';
             ></ess-filters>
           </div>
 
-          <div class="col-sm-9 col-12 center-column">
+          <div class="col-sm-7 col-12 center-column">
+
+            <ess-search-bar></ess-search-bar>
+
             <ess-page-header
               [resultsCount]="response?.numFound ?? 0"
               [sortByOptionOff]="
@@ -95,16 +102,23 @@ import { queryChanger } from '@collections/filters-serializers/utils';
               [response]="response"
             ></ess-results-with-pagination>
           </div>
-          <!-- <div
+          <div
             class="col-sm-2 col-12 right-column"
             *ngIf="
               (response?.results ?? []).length > 0 &&
               (response?.results ?? [])[0].type.value !== 'guideline'
             "
           >
-            <h5>Suggested</h5>
-            <ess-recommendations></ess-recommendations>
-          </div> -->
+            <h5>Nagłówek</h5>
+            <ul class="right-menu">
+              <li><a href="#">Polskie zespoły badawcze</a></li>
+              <li><a href="#">Dostawcy usług</a></li>
+              <li><a href="#">Instytucje</a></li>
+              <li><a href="#">Wzorce interoperacyjności</a></li>
+              <li><a href="#">Ludzie</a></li>
+              <li><a href="#">Katalog Europejski</a></li>
+              </ul>
+          </div>
         </div>
       </div>
     </div>

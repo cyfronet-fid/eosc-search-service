@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   template: `
     <div id="container" class="page-heading">
       <div>
-        <span id="results-count" i18n>{{ resultsCount }} search results</span>
+        <span id="results-count" i18n>{{ resultsCount }} wyników w: </span>
         {{ (activeNavConfig$ | async)?.title }}
       </div>
       <!---

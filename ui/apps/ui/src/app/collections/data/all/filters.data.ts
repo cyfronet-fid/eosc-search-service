@@ -12,17 +12,17 @@ export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
-      id: 'unified_categories',
-      filter: 'unified_categories',
-      label: 'Research step',
+      id: 'type',
+      filter: 'type',
+      label: 'Typ dokumentu',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
     },
     {
-      id: 'type',
-      filter: 'type',
-      label: 'Type of research product',
+      id: 'unified_categories',
+      filter: 'unified_categories',
+      label: 'Etap badania',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -30,7 +30,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'best_access_right',
       filter: 'best_access_right',
-      label: 'Access right',
+      label: 'Dostęp',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -38,7 +38,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'fos',
       filter: 'fos',
-      label: 'Scientific discipline',
+      label: 'Dyscyplina',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -46,7 +46,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'language',
       filter: 'language',
-      label: 'Language',
+      label: 'Język',
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
@@ -69,7 +69,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'author_names',
       filter: 'author_names',
-      label: 'Author names',
+      label: 'Autorzy',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

@@ -15,18 +15,18 @@ import {
 @Component({
   selector: 'ess-sort-by-functionality',
   template: `<div class="col-sm-4 sort_container">
-    <label for="sorts" i18n>Sort By</label>
+    <label for="sorts" i18n>Sortuj</label>
     <select
       [formControl]="selectedSortOptionControl"
       id="sorts"
       class="form-select"
     >
-      <option value="dmr" i18n>Date - Most recent</option>
-      <option value="dlr" i18n>Date – Least recent</option>
-      <option value="mp" i18n>Most popular</option>
+      <option value="dmr" i18n>Data - od najwszych</option>
+      <option value="dlr" i18n>Data – od najstarszych</option>
+      <option value="mp" i18n>Najbardziej popularne</option>
       <
       <!--<option *ngIf="!sortByOptionOff" value="r" i18n>Relevancy</option>-->
-      <option value="default" i18n>Default</option>
+      <option value="default" i18n>Domyslne</option>
     </select>
   </div>`,
   styles: [

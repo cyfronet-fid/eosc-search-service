@@ -4,12 +4,7 @@ import { Component } from '@angular/core';
   selector: 'ess-search-bar',
   template: `
     <div class="search-bar">
-      <div class="container--xxl">
-        <div class="row">
-          <div class="col-12 logo-wrapper">
-            <div class="top-title">Browse EOSC Marketplace Resources</div>
-          </div>
-          <div class="col-12">
+
             <div class="search-row">
               <ess-search-input></ess-search-input>
               <!--p class="user-announcement" i18n>
@@ -22,9 +17,7 @@ import { Component } from '@angular/core';
                 >
               </p-->
             </div>
-          </div>
-        </div>
-      </div>
+
     </div>
   `,
   styles: [

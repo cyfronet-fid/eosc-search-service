@@ -42,14 +42,17 @@ a:hover {
   font-size: 20px;
 }
 
+.top-bar {
+  background: #eee url(assets/top-background.png);
+  height: 85px;
+}
+
 .search-bar {
-  background: #246119;
   position: relative;
 
   .search-box {
-    margin: 35px auto 55px;
+    margin: auto auto 35px;
     position: relative;
-    width: 770px;
   }
 }
 
@@ -163,78 +166,23 @@ a:hover {
   justify-content: center;
   width: 100%;
   text-align: center;
-  padding: 30px 0 45px;
+  padding: 10px 0 35px;
+  align-content: flex-end;
+  align-items: flex-end;
 }
 
 #sub-nav a {
-  max-width: 120px;
-  text-transform: uppercase;
-  font-size: 12px;
+  font-size: 17px;
   display: inline-block;
-  padding: 57px 0 5px;
+  padding: 0 15px 5px;
   margin: 0 20px;
-  min-width: 50px;
+  font-weight: 400;
   color: #333;
   position: relative;
 }
 
-#sub-nav a::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: '';
-  width: 100%;
-  height: 58px;
-  background-repeat: no-repeat;
-  background-position: center 0;
-}
-
 #sub-nav a.active {
-  color: #246119;
-}
-
-#sub-nav a.active::before {
-  background-position: center -54px;
-}
-
-#sub-nav a.All::before {
-  background-image: url(assets/top-icon-01.png);
-}
-
-#sub-nav a.Publications::before {
-  background-image: url(assets/top-icon-02.png);
-}
-
-#sub-nav a.Data::before {
-  background-image: url(assets/top-icon-03.png);
-}
-
-#sub-nav a.Software::before {
-  background-image: url(assets/top-icon-04.png);
-}
-
-#sub-nav a.Services::before {
-  background-image: url(assets/top-icon-05.png);
-}
-
-#sub-nav a.Data.sources::before {
-  background-image: url(assets/top-icon-06.png);
-}
-
-#sub-nav a.Trainings::before {
-  background-image: url(assets/top-icon-07.png);
-}
-
-#sub-nav a.Guidelines::before {
-  background-image: url(assets/top-icon-09.png);
-}
-
-#sub-nav a.Bundles::before {
-  background-image: url(assets/top-icon-10.png);
-}
-
-#sub-nav a.Other::before {
-  background-image: url(assets/top-icon-08.png);
+  color: #333;
 }
 
 .nav-btn {
@@ -261,7 +209,6 @@ h3,
 }
 
 .dashboard .left-column {
-  border-right: 1px solid #d9dee2;
   width: 22%;
 }
 
@@ -276,7 +223,6 @@ h3,
 .dashboard .right-column {
   padding: 0 0 0 30px;
   width: 19%;
-  border-left: 1px solid #d9dee2;
 }
 
 #breadcrumbs {
@@ -385,7 +331,7 @@ h6 {
 }
 
 .tag {
-  font-size: 12px;
+  font-size: 14px;
 }
 
 #description {
@@ -425,12 +371,12 @@ h6 {
     a {
       font-weight: 600;
       font-size: 18px;
-      color: #333;
+      color: #246119;
       line-height: 1.36;
       margin-bottom: 10px;
 
       b {
-        font-weight: 600;
+        font-weight: 700;
       }
     }
   }
@@ -498,7 +444,9 @@ h6 {
 }
 
 .tag-row {
-  margin-bottom: 2px;
+  margin-bottom: 7px;
+  padding-bottom: 7px;
+  border-bottom: 1px dotted #d7d3d3;
   color: #233d4c;
 
   a {
@@ -569,6 +517,44 @@ h6 {
   margin-right: 12px;
 }
 
+.search-box.pl {
+
+  input {
+    width: auto;
+  }
+  .input-group{
+    border: 1px solid #ced4da;
+    justify-content: space-between;
+    border-radius: 6px;
+  }
+
+}
+
+.results {
+  .usage {
+    margin-bottom: 20px;
+  }
+}
+
+.right-menu {
+  padding: 0;
+  margin-top: 20px;
+  list-style: none;
+
+  li {
+    list-style: none;
+    margin: 0 0 10px;
+
+    a {
+      font-size: 18px;
+      color: #000;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
 @media (min-width: 1920px) {
   .search-bar {
     background-size: cover;
@@ -624,8 +610,9 @@ h6 {
     min-width: 40px;
   }
   .search-box input {
-    width: 500px;
+
   }
+
   .dashboard .left-column {
     width: 29%;
   }

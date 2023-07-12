@@ -26,7 +26,7 @@ import { IColoredTag, IValueWithLabel } from '@collections/repositories/types';
     `
       .tags-box a.tag-beta {
         color: #5100fb;
-        background-color: #eee7ff;
+        background-color: #effff1;
       }
     `,
   ],

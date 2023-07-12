@@ -10,7 +10,7 @@ import { IFiltersConfig } from '@collections/repositories/types';
   selector: 'ess-filters',
   template: `
     <section id="filters">
-      <h5>Filters</h5>
+      <h5>Filtrowanie</h5>
 
       <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
         <ng-container [ngSwitch]="filterConfig.type">

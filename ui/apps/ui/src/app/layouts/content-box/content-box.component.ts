@@ -15,7 +15,7 @@ const MAX_CHARS_LENGTH = 256;
         href="javascript:void(0)"
         class="btn-show-more"
         (click)="showFull = !showFull"
-        >Show {{ showFull ? 'less' : 'more' }}
+        >{{ showFull ? 'zwiń' : 'więcej' }}
       </a>
     </p>
   `,

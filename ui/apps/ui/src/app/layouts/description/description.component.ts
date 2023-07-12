@@ -15,14 +15,14 @@ const MAX_CHARS_LENGTH = 256;
         href="javascript:void(0)"
         class="btn-show-more"
         (click)="showFull = !showFull"
-        >Show {{ showFull ? 'less' : 'more' }}
+        >{{ showFull ? 'zwiń' : 'więcej' }}
       </a>
     </p>
   `,
   styles: [
     `
       ::ng-deep .highlighted {
-        background-color: #e8e7ff !important;
+        background-color: #effff1 !important;
         padding: 3px;
       }
     `,
