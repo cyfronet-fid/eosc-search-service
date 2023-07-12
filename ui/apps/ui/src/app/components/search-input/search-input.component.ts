@@ -215,7 +215,7 @@ export interface Tags {
                 class="form-control2"
                 autocomplete="off"
                 i18n-placeholder
-                placeholder="Narrow by: author, exact phrase, in title, none of"
+                placeholder="Narrow by: author, in author, exact phrase, in title, none of"
                 (keydown.enter)="
                   add({
                     value: formControlAdv.value,
@@ -269,8 +269,15 @@ export interface Tags {
               {{ navConfig.title }}
             </option>
           </select>
-          <span class="adv-search-text-btn" (click)="standardSearch = true"
-            >Hide Advanced Search</span
+          <span
+            class="adv-search-text-btn"
+            (click)="
+              standardSearch = true;
+              tags = [];
+              clearQueryAdv();
+              updateQueryParamsAdv(this.formControl.value || '*')
+            "
+            >Hide and Clear Advanced Search</span
           >
         </form>
 
@@ -489,11 +496,14 @@ export class SearchInputComponent implements OnInit {
 
     // Add our tags
     if ((value || '').trim()) {
-      if (narrow === 'author') {
-        const splitted = value.split(' ');
-        splitted.forEach((el: string) =>
-          this.tags.push(narrow + ': ' + el.trim())
-        );
+      if (narrow === 'in author') {
+        // Not used for now, but keep it
+        const splitted = value.trim().split(' ');
+        splitted.forEach((el: string) => {
+          if (el.trim() !== '') {
+            this.tags.push(narrow + ': ' + el.trim());
+          }
+        });
       } else {
         this.tags.push(narrow + ': ' + value.trim());
       }
