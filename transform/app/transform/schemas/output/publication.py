@@ -7,6 +7,7 @@ publication_output_schema = {
     "best_access_right": "string",
     "country": "array<string>",
     "description": "array<string>",
+    "direct_url": "array<string>",
     "document_type": "array<string>",
     "doi": "array<string>",
     "eosc_if": "array<string>",

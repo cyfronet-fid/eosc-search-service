@@ -20,6 +20,7 @@ class SoftwareTransformer(OagBaseTransformer):
         return (
             "affiliation",
             "author",
+            "collectedfrom",
             "context",
             "contributor",
             "country",
