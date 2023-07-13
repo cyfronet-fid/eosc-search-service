@@ -166,7 +166,9 @@ a:hover {
   justify-content: center;
   width: 100%;
   text-align: center;
-  padding: 10px 0 35px;
+  border-bottom: 1px solid #ced4da;
+  padding: 35px 0 0px;
+  margin-bottom: 30px;
   align-content: flex-end;
   align-items: flex-end;
 }
@@ -183,6 +185,14 @@ a:hover {
 
 #sub-nav a.active {
   color: #333;
+}
+
+#sub-nav a.Trainings,
+#sub-nav a.Software,
+#sub-nav a.Bundles,
+#sub-nav a.Other,
+#sub-nav a.Guidelines {
+  display: none !important;
 }
 
 .nav-btn {
@@ -210,6 +220,7 @@ h3,
 
 .dashboard .left-column {
   width: 22%;
+  padding-top: 35px;
 }
 
 .dashboard .left-column #filters {
@@ -221,7 +232,7 @@ h3,
 }
 
 .dashboard .right-column {
-  padding: 0 0 0 30px;
+  padding: 35px 0 0 55px;
   width: 19%;
 }
 
@@ -343,7 +354,9 @@ h6 {
 }
 
 .results #container {
-  background: #fff;
+  background: #fff url(assets/info-icons.png) no-repeat;
+  background-position: right 5px top 20px;
+  background-size: 190px auto;
   padding: 25px 20px 20px;
   overflow: hidden;
   border: 1px solid #d9dee2;

@@ -7,7 +7,7 @@ import { toNavigationLink } from './utils';
 @Component({
   selector: 'ess-collections-navigation',
   template: `
-    <div class="container--xxl navigation">
+    <div class="navigation">
       <div id="sub-nav">
         <a
           class="nav-btn {{ link.label }}"

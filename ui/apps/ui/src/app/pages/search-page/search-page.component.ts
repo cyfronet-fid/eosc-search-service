@@ -64,7 +64,7 @@ import { queryChanger } from '@collections/filters-serializers/utils';
         'mobile-collections-show': showCollections
       }"
     >
-      <ess-collections-navigation></ess-collections-navigation>
+
 
     </div>
 
@@ -87,6 +87,8 @@ import { queryChanger } from '@collections/filters-serializers/utils';
           </div>
 
           <div class="col-sm-7 col-12 center-column">
+
+            <ess-collections-navigation></ess-collections-navigation>
 
             <ess-search-bar></ess-search-bar>
 
