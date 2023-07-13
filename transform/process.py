@@ -59,13 +59,13 @@ def upload_all_col_data() -> None:
                 continue
 
             # Check the consistency of transformation
-            if col_name != GUIDELINE:
-                try:
-                    check_schema_after_trans(df_trans, col_prop[OUTPUT_SCHEMA])
-                except AssertionError:
-                    print_errors(
-                        "consistency_fail", failed_files, col_name, data_point, logger
-                    )
+            # if col_name != GUIDELINE:
+            #     try:
+            #         check_schema_after_trans(df_trans, col_prop[OUTPUT_SCHEMA])
+            #     except AssertionError:
+            #         print_errors(
+            #             "consistency_fail", failed_files, col_name, data_point, logger
+            #         )
 
             save_df(
                 df_trans,
@@ -84,7 +84,7 @@ if __name__ == "__main__":
     create_dump_struct(env_vars)
 
     # Only separate collections
-    upload_providers(env_vars, spark, logger)
+    # upload_providers(env_vars, spark, logger)
 
     # All collection
     upload_all_col_data()

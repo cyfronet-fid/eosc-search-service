@@ -9,6 +9,7 @@ other_rp_output_schema = {
     "contactperson": "array<string>",
     "country": "array<string>",
     "description": "array<string>",
+    "direct_url": "array<string>",
     "document_type": "array<string>",
     "doi": "array<string>",
     "eosc_if": "array<string>",

@@ -20,6 +20,7 @@ class PublicationTransformer(OagBaseTransformer):
         return (
             "affiliation",
             "author",
+            "collectedfrom",
             "context",
             "contributor",
             "country",
