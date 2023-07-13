@@ -103,6 +103,7 @@ class OagBaseTransformer(BaseTransformer):
             "programmingLanguage": "programming_language",
             "publicationdate": "publication_date",
             "maintitle": "title",
+            "fulltext": "direct_url",
         }
 
     @property
