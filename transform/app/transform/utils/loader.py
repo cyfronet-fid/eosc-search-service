@@ -107,8 +107,8 @@ def load_env_vars() -> dict:
     env_vars = {
         MP_API_TOKEN: os.environ.get(MP_API_TOKEN),
         OUTPUT_PATH: os.environ.get(OUTPUT_PATH, "output/"),
-        INPUT_FORMAT: os.environ.get(INPUT_FORMAT, "JSON"),
-        OUTPUT_FORMAT: os.environ.get(OUTPUT_FORMAT, "JSON"),
+        INPUT_FORMAT: os.environ.get(INPUT_FORMAT, "json"),
+        OUTPUT_FORMAT: os.environ.get(OUTPUT_FORMAT, "json"),
         SEND_TO_SOLR: os.environ.get(SEND_TO_SOLR, True).lower() in ("true", "1", "t"),
         SEND_TO_S3: os.environ.get(SEND_TO_S3, False).lower() in ("true", "1", "t"),
         CREATE_LOCAL_DUMP: os.environ.get(CREATE_LOCAL_DUMP, False).lower()
