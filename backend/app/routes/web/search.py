@@ -72,7 +72,6 @@ async def search_post(
         # Extent the results with bundles
         if "all_collection" in collection or "bundle" in collection:
             await extend_results_with_bundles(client, res_json, collection)
-
     out = await create_output(res_json, collection, sort_ui)
     return out
 
@@ -120,8 +119,8 @@ async def parse_col_name(collection: str) -> str | None:
         return "software"
     if "service" in collection:
         return "service"
-    if "data-source" in collection:
-        return "data-source"
+    if "data_source" in collection:
+        return "data_source"
     if "training" in collection:
         return "training"
     if "guideline" in collection:
