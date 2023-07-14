@@ -1,8 +1,7 @@
 # pylint: disable=missing-module-docstring,missing-function-docstring,redefined-outer-name
-import json
 import os
 import unittest.mock
-from unittest.mock import ANY, AsyncMock, Mock, create_autospec
+from unittest.mock import ANY, AsyncMock
 
 import pytest
 from fastapi import FastAPI
@@ -15,7 +14,6 @@ from starlette.status import (
 
 from app.config import SOLR_URL
 from app.schemas.search_request import TermsFacet
-from app.solr.operations import search, search_dep
 
 
 @pytest.mark.asyncio
@@ -232,25 +230,3 @@ async def index_solr_docs(setup_solr_collection: None, collection: str) -> None:
             f"{SOLR_URL}{collection}/update/json/docs?commit=true",
             content=request_body,
         )
-
-
-@pytest.fixture
-def mock_post_search(app: FastAPI) -> AsyncMock:
-    mock_search = get_mock("test_search.post.response.json")
-
-    app.dependency_overrides[search_dep] = lambda: mock_search
-    yield mock_search
-    del app.dependency_overrides[search_dep]
-
-
-def get_mock(file: str) -> AsyncMock:
-    mock_json = json.loads(read_file_contents(file))
-    mock_return = Mock()
-    mock_return.is_error = False
-    mock_return.json = Mock(return_value=mock_json)
-    return create_autospec(search, return_value=mock_return)
-
-
-def read_file_contents(file: str):
-    with open(f"{os.path.dirname(__file__)}/{file}", "r", encoding="utf-8") as f:
-        return f.read()
