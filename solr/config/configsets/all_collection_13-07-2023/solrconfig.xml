@@ -308,25 +308,24 @@
          If the updateLog is enabled, then it's highly recommended to
          have some sort of hard autoCommit to limit the log size.
       -->
-    <autoCommit>
-      <maxTime>1000</maxTime>
-      <maxDocs>10</maxDocs>
-      <openSearcher>false</openSearcher>
-    </autoCommit>
 
-    <!-- softAutoCommit is like autoCommit except it causes a
-         'soft' commit which only ensures that changes are visible
-         but does not ensure that data is synced to disk.  This is
-         faster and more near-realtime friendly than a hard commit.
-      -->
-
+    <!-- Soft Commit -->
     <autoSoftCommit>
-      <maxTime>1000</maxTime>
+      <maxTime>600000</maxTime> <!-- Soft Commit every 10 minutes -->
     </autoSoftCommit>
 
-    <commitWithin>
-      <softCommit>true</softCommit>
-    </commitWithin>
+    <!-- Hard Commit -->
+    <commit>
+      <maxTime>30000</maxTime> <!-- Hard Commit every 30 seconds -->
+      <reopenReaders>true</reopenReaders>
+    </commit>
+
+    <!-- Minimal configuration of autoCommit -->
+    <autoCommit>
+      <maxTime>99999999</maxTime>
+      <maxDocs>99999999</maxDocs>
+    </autoCommit>
+
 
     <!-- Update Related Event Listeners
 
