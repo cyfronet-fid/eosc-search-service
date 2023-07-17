@@ -10,10 +10,11 @@ from starlette.status import (
     HTTP_200_OK,
     HTTP_404_NOT_FOUND,
     HTTP_422_UNPROCESSABLE_ENTITY,
+    HTTP_500_INTERNAL_SERVER_ERROR,
 )
 
-from app.config import SOLR_URL
 from app.schemas.search_request import TermsFacet
+from app.settings import settings
 
 
 @pytest.mark.asyncio
@@ -190,7 +191,7 @@ async def test_integration_400(app: FastAPI, client: AsyncClient) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.integration
-@unittest.mock.patch("app.config.SOLR_URL", "http://localhost:8994/solr/")
+@unittest.mock.patch("app.settings.settings.SOLR_URL", "http://localhost:8994/solr/")
 async def test_integration_500(app: FastAPI, client: AsyncClient) -> None:
     res = await client.post(
         app.url_path_for("apis:post-search"),
@@ -201,16 +202,15 @@ async def test_integration_500(app: FastAPI, client: AsyncClient) -> None:
         },
         json={},
     )
-    # This is a temporary fixup for this test. Need to change!
-    assert res.status_code == HTTP_404_NOT_FOUND
-    assert res.json() == {"detail": "Not Found"}
+
+    assert res.status_code == HTTP_500_INTERNAL_SERVER_ERROR
+    assert res.json() == {"detail": "Try again later"}
 
 
 @pytest.fixture
 def setup_solr_collection(collection: str) -> None:
     config_name = "all_collection_16-06-2023"
-    solr_url = SOLR_URL.replace("/solr/", "")
-
+    solr_url = settings.SOLR_URL.replace("/solr/", "")
     os.system(
         f"../solr/create-collection.sh --name {collection}"
         f" --config-name {config_name} --solr-url {solr_url}"
@@ -227,6 +227,6 @@ async def index_solr_docs(setup_solr_collection: None, collection: str) -> None:
     request_body = f"[{','.join(lines)}]"
     async with AsyncClient() as client:
         await client.post(
-            f"{SOLR_URL}{collection}/update/json/docs?commit=true",
+            f"{settings.SOLR_URL}{collection}/update/json/docs?commit=true",
             content=request_body,
         )

@@ -7,13 +7,13 @@ from typing import Literal
 from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Request
 from starlette.responses import RedirectResponse
 
-from app.config import UI_BASE_URL
 from app.dependencies.user_actions import (
     UserActionClient,
     send_user_action_bg_task,
     user_actions_client,
 )
 from app.schemas.session_data import SessionData
+from app.settings import settings
 from app.utils.cookie_validators import backend, cookie, verifier
 
 router = APIRouter()
@@ -55,7 +55,7 @@ async def register_navigation_user_action(
     url = urllib.parse.unquote(url)
 
     if url.startswith("/"):
-        url = UI_BASE_URL + url
+        url = settings.UI_BASE_URL + url
 
     target_id = uuid.uuid4()
 

@@ -5,11 +5,11 @@ import logging
 import httpx
 from httpx import AsyncClient, ConnectError, ConnectTimeout
 
-from app.config import RELATED_SERVICES_ENDPOINT
 from app.recommender.router_utils.common import (
     RecommendationHttpError,
     SolrRetrieveError,
 )
+from app.settings import settings
 from app.solr.operations import get_item_by_pid
 
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ async def get_related_services_pids(
     """Get related services for interoperability guideline based on its ID"""
     try:
         response = await client.get(
-            f"{RELATED_SERVICES_ENDPOINT}/{guideline_id}",
+            f"{settings.RELATED_SERVICES_ENDPOINT}/{guideline_id}",
         )
 
         if response.status_code != 200:
