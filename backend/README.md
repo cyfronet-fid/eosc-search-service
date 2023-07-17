@@ -78,10 +78,10 @@ pipenv run pylint app tests
 You need to run the test services first `docker-compose -f dc-test.yml up -d`.
 
 ```console
-TESTING=1 SOLR_URL=http://localhost:8993/solr/ pipenv run pytest
+ENVIRONMENT=test SOLR_URL=http://localhost:8993/solr/ pipenv run pytest
 ```
 
 To skip integration tests:
 ```console
-TESTING=1 SOLR_URL=http://localhost:8993/solr/ pipenv run pytest -m "not integration"
+ENVIRONMENT=test SOLR_URL=http://localhost:8993/solr/ pipenv run pytest -m "not integration"
 ```

@@ -4,8 +4,8 @@ from json import JSONDecodeError
 from fastapi import Body, Depends, HTTPException, Query
 from httpx import AsyncClient, TransportError
 
-from app.config import RS_ROWS
 from app.recommender.operations import recommendations
+from app.settings import settings
 from app.solr.operations import search_dep
 
 from ..schemas.recommend_request import RecommendRequest
@@ -53,7 +53,7 @@ async def recommend_post(
                 qf=qf,
                 fq=fq,
                 sort=sort + DEFAULT_SORT,
-                rows=RS_ROWS,
+                rows=settings.RS_ROWS,
                 cursor="*",
             )
             if solr_response.is_error:

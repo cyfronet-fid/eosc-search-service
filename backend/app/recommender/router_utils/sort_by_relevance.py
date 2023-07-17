@@ -5,13 +5,13 @@ import uuid
 import httpx
 from httpx import AsyncClient
 
-from app.config import RECOMMENDER_ENDPOINT
 from app.recommender.router_utils.common import (
     RecommendationPanelId,
     RecommenderError,
     _get_panel,
 )
 from app.schemas.session_data import SessionData
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -65,7 +65,7 @@ async def perform_sort_by_relevance(
             request_body["aai_uid"] = session.aai_id
 
         response = await client.post(
-            RECOMMENDER_ENDPOINT,
+            settings.RECOMMENDER_ENDPOINT,
             json=request_body,
         )
 

@@ -18,7 +18,7 @@ from cachetools import TTLCache, cached
 from cryptojwt.key_jar import KeyJar, init_key_jar
 from oidcrp.rp_handler import RPHandler
 
-from app.config import OIDC_CONFIG, OIDC_JWT_ENCRYPT_CONFIG
+from app.settings import OIDC_CONFIG, OIDC_JWT_ENCRYPT_CONFIG
 
 cache = TTLCache(maxsize=1, ttl=64800)  # 24h
 

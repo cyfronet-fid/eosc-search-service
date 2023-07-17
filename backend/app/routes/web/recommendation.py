@@ -7,7 +7,6 @@ import httpx
 from fastapi import APIRouter, HTTPException, Request
 from httpx import ReadTimeout
 
-from app.config import SHOW_RECOMMENDATIONS
 from app.generic.models.bad_request import BadRequest
 from app.recommender.router_utils.common import (
     RecommendationPanelId,
@@ -25,6 +24,7 @@ from app.recommender.router_utils.sort_by_relevance import (
     perform_sort_by_relevance,
     sort_docs,
 )
+from app.settings import settings
 
 router = APIRouter()
 
@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
     responses={200: {"model": dict}, 500: {"model": BadRequest}},
 )
 async def get_recommendations(panel_id: RecommendationPanelId, request: Request):
-    if SHOW_RECOMMENDATIONS is False:
+    if settings.SHOW_RECOMMENDATIONS is False:
         return []
     session, session_id = await get_session(request)
 
