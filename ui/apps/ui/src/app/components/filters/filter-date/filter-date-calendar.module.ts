@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FilterDateComponent } from './filter-date.component';
+import { FilterDateCalendarComponent } from './filter-date-calendar.component';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { FormsModule } from '@angular/forms';
 import { FilterLabelModule } from '@components/filters/filters-layouts/filter-label.module';
 
 @NgModule({
-  declarations: [FilterDateComponent],
+  declarations: [FilterDateCalendarComponent],
   imports: [CommonModule, NzDatePickerModule, FormsModule, FilterLabelModule],
-  exports: [FilterDateComponent],
+  exports: [FilterDateCalendarComponent],
 })
-export class FilterDateModule {}
+export class FilterDateCalendarModule {}

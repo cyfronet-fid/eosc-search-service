@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomRoute } from '@collections/services/custom-route.service';
-import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import moment from 'moment';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
@@ -10,10 +9,11 @@ import {
   DATE_RANGE_SPLIT_SIGN,
   EMPTY_DATE_SIGN,
 } from '@collections/filters-serializers/date.deserializer';
+import { FilterDateUtils } from '@components/filters/filter-date/date-utils';
 
 @UntilDestroy()
 @Component({
-  selector: 'ess-filter-date',
+  selector: 'ess-filter-date-calendar',
   template: `
     <div class="filter">
       <ess-filter-label
@@ -56,7 +56,7 @@ import {
     `,
   ],
 })
-export class FilterDateComponent implements OnInit {
+export class FilterDateCalendarComponent implements OnInit {
   @Input()
   label!: string;
 
@@ -75,7 +75,8 @@ export class FilterDateComponent implements OnInit {
   constructor(
     private _customRoute: CustomRoute,
     private _router: Router,
-    private _filtersConfigsRepository: FiltersConfigsRepository
+    private _filtersConfigsRepository: FiltersConfigsRepository,
+    private _filterDateUtils: FilterDateUtils
   ) {}
 
   ngOnInit() {
@@ -132,25 +133,19 @@ export class FilterDateComponent implements OnInit {
   }
 
   async onStartDateChange(startDate: Date | null) {
-    await this._replaceRange(startDate, this.endDate);
+    await this._filterDateUtils.replaceRange(
+      this.filter,
+      startDate,
+      this.endDate
+    );
   }
 
   async onEndDateChange(endDate: Date) {
-    await this._replaceRange(this.startDate, endDate);
-  }
-
-  async _replaceRange(startDate: Date | null, endDate: Date | null) {
-    const fqMap = this._customRoute.fqMap();
-    fqMap[this.filter] = [startDate, endDate];
-    const filtersConfigs = this._filtersConfigsRepository.get(
-      this._customRoute.collection()
-    ).filters;
-    await this._router.navigate([], {
-      queryParams: {
-        fq: deserializeAll(fqMap, filtersConfigs),
-      },
-      queryParamsHandling: 'merge',
-    });
+    await this._filterDateUtils.replaceRange(
+      this.filter,
+      this.startDate,
+      endDate
+    );
   }
 
   isExpandedChanged(newExpanded: boolean) {

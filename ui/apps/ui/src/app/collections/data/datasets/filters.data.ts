@@ -29,7 +29,7 @@ export const datasetsFilters: IFiltersConfig = {
       id: 'publication_date',
       filter: 'publication_date',
       label: 'Year range',
-      type: 'date',
+      type: 'date-year',
       defaultCollapsed: false,
       tooltipText: '',
     },

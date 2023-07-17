@@ -90,7 +90,7 @@ export const trainingsFilters: IFiltersConfig = {
       id: 'publication_date',
       filter: 'publication_date',
       label: 'Version date',
-      type: 'date',
+      type: 'date-calendar',
       defaultCollapsed: false,
       tooltipText: '',
     },
