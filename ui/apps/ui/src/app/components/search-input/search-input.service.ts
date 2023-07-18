@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AdaptersRepository } from '@collections/repositories/adapters.repository';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { FetchDataService } from '@collections/services/fetch-data.service';
-import { combineLatest, generate, map, of } from 'rxjs';
+import { combineLatest, map, of } from 'rxjs';
 import {
   ICollectionSearchMetadata,
   adapterType,

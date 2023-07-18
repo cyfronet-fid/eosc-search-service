@@ -24,13 +24,7 @@ import { SearchInputService } from './search-input.service';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { ISuggestedResults } from './type';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  ParamMap,
-  Router,
-  RouterEvent,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { sanitizeQuery } from '@components/search-input/query.sanitizer';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 import {
@@ -40,7 +34,6 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { RedirectService } from '@collections/services/redirect.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { forEach } from 'lodash-es';
 
 export interface Tags {
   narrow: string;
@@ -240,9 +233,7 @@ export interface Tags {
               />
               <button
                 *ngIf="
-                  (formControlAdv.value &&
-                    formControlAdv.value.trim() !== '') ||
-                  (hasSetQuery$ | async)
+                  formControlAdv.value && formControlAdv.value.trim() !== ''
                 "
                 id="btn--clear-query"
                 type="button"
@@ -616,7 +607,9 @@ export class SearchInputComponent implements OnInit {
       );
     this.collectionFc.valueChanges
       .pipe(untilDestroyed(this))
-      .subscribe((navConfig) => this.setCollection(navConfig));
+      .subscribe((navConfig) =>
+        this.setCollection(this.formControl.value, navConfig)
+      );
   }
 
   isLanding() {
@@ -672,13 +665,17 @@ export class SearchInputComponent implements OnInit {
     this.formControlAdv.setValue('');
   }
 
-  async setCollection($event: ICollectionNavConfig) {
+  async setCollection(q: string, $event: ICollectionNavConfig) {
     if (!this.navigateOnCollectionChange) {
       return;
     }
 
     await this._router.navigate(['/search', $event.urlParam], {
-      queryParamsHandling: 'preserve',
+      queryParams: {
+        q: sanitizeQuery(q) ?? '*',
+        tags: this.tags,
+        standard: this.standardSearch.toString(),
+      },
     });
   }
 

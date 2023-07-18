@@ -18,6 +18,7 @@ export interface IResult {
   accessRight?: string;
   views?: number;
   downloads?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   offers?: any[];
   sortByOptionOff: boolean;
 }
