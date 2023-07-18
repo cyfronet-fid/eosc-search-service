@@ -98,7 +98,7 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
     {
       id: 'author_names',
       filter: 'author_names',
-      label: 'Author names',
+      label: 'Author name',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

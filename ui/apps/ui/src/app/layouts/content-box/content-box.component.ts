@@ -48,17 +48,18 @@ export class ContentBoxComponent implements OnChanges {
     if (changes['description'] || changes['highlights']) {
       this.hasShowMoreBtn = this.description.length >= MAX_CHARS_LENGTH;
       const highlights = stripHighlightedFromHtml(this.highlights);
+      const highlights_s = [...new Set(highlights)];
       const strippedDescription = stripHtml(this.description).result;
       const shortStrippedDescription = truncate(strippedDescription, {
         length: MAX_CHARS_LENGTH,
       });
       this.shortDescription = attachHighlightsToTxt(
         shortStrippedDescription,
-        highlights
+        highlights_s
       );
       this.fullDescription = attachHighlightsToTxt(
         strippedDescription,
-        highlights
+        highlights_s
       );
     }
   }

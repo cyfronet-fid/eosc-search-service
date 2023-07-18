@@ -94,7 +94,7 @@ export const allCollectionsAdapter: IAdapter = {
         ? []
         : [
             {
-              label: 'Author names',
+              label: 'Author name',
               values: toValueWithLabel(toArray(data?.author_names)),
               filter: 'author_names',
             },

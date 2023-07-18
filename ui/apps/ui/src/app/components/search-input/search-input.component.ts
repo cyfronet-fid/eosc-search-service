@@ -144,11 +144,24 @@ export interface Tags {
       <div *ngIf="!standardSearch" class="search-box-adv">
         <form>
           <div class="input-group" style="margin-bottom: 5px;">
+            <select
+              class="form-select"
+              style="margin-left: 0px;"
+              (click)="focused = false"
+              [formControl]="collectionFc"
+            >
+              <option
+                *ngFor="let navConfig of searchCollections"
+                [ngValue]="navConfig"
+              >
+                {{ navConfig.title }}
+              </option>
+            </select>
             <div class="phase-box">
               <input
                 #inputQueryAdv
                 type="text"
-                class="form-control"
+                class="form-control3"
                 autocomplete="off"
                 i18n-placeholder
                 placeholder="Search in catalogs"
@@ -255,20 +268,6 @@ export interface Tags {
               </button>
             </div>
           </div>
-          <span class="adv-search-text">Browse in</span>
-          <select
-            class="form-select"
-            style="margin-left: -45px; margin-bottom: 5px; margin-top: 5px;"
-            (click)="focused = false"
-            [formControl]="collectionFc"
-          >
-            <option
-              *ngFor="let navConfig of searchCollections"
-              [ngValue]="navConfig"
-            >
-              {{ navConfig.title }}
-            </option>
-          </select>
           <span
             class="adv-search-text-btn"
             (click)="
@@ -327,6 +326,12 @@ export interface Tags {
       }
       .form-control2 {
         width: 683px !important;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+
+      .form-control3 {
+        width: 565px !important;
         border-top-left-radius: 0 !important;
         border-bottom-left-radius: 0 !important;
       }
