@@ -21,12 +21,12 @@ import {
       id="sorts"
       class="form-select"
     >
-      <option value="dmr" i18n>Data - od najwszych</option>
-      <option value="dlr" i18n>Data – od najstarszych</option>
+      <option value="dmr" i18n>Od najwszych</option>
+      <option value="dlr" i18n>Od najstarszych</option>
       <option value="mp" i18n>Najbardziej popularne</option>
       <
       <!--<option *ngIf="!sortByOptionOff" value="r" i18n>Relevancy</option>-->
-      <option value="default" i18n>Domyslne</option>
+      <option value="default" i18n>Domyślnie</option>
     </select>
   </div>`,
   styles: [

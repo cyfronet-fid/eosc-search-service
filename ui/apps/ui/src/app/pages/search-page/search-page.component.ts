@@ -113,12 +113,12 @@ import { queryChanger } from '@collections/filters-serializers/utils';
           >
             <h5>Nagłówek</h5>
             <ul class="right-menu">
-              <li><a href="#">Polskie zespoły badawcze</a></li>
-              <li><a href="#">Dostawcy usług</a></li>
-              <li><a href="#">Instytucje</a></li>
-              <li><a href="#">Wzorce interoperacyjności</a></li>
-              <li><a href="#">Ludzie</a></li>
-              <li><a href="#">Katalog Europejski</a></li>
+              <li><a href="#">Polskie zespoły badawcze <i class="bi bi-arrow-right"></i></a></li>
+              <li><a href="#">Dostawcy usług <i class="bi bi-arrow-right"></i></a></li>
+              <li><a href="#">Instytucje <i class="bi bi-arrow-right"></i></a></li>
+              <li><a href="#">Wzorce interoperacyjności <i class="bi bi-arrow-right"></i></a></li>
+              <li><a href="#">Ludzie <i class="bi bi-arrow-right"></i></a></li>
+              <li><a href="#">Katalog Europejski <i class="bi bi-arrow-right"></i></a></li>
               </ul>
           </div>
         </div>

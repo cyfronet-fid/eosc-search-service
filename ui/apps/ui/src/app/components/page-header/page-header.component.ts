@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
   selector: 'ess-page-header',
   template: `
     <div id="container" class="page-heading">
+      <ess-sort-by-functionality
+        [sortByOptionOff]="sortByOptionOff"
+      ></ess-sort-by-functionality>
+
       <div>
         <span id="results-count" i18n>{{ resultsCount }} wyników w: </span>
         {{ (activeNavConfig$ | async)?.title }}
@@ -33,9 +37,7 @@ import { Router } from '@angular/router';
         </nz-breadcrumb>
       </div>
     </div> --->
-      <ess-sort-by-functionality
-        [sortByOptionOff]="sortByOptionOff"
-      ></ess-sort-by-functionality>
+
     </div>
   `,
   styles: [
