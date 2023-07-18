@@ -430,17 +430,17 @@ h6 {
   overflow: hidden;
 
   a {
-    padding: 4px 8px;
-    margin-right: 8px;
-    font-size: 13px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    font-size: 14px;
     margin-bottom: 7px;
     line-height: 1.1;
     float: left;
     text-transform: capitalize;
     font-weight: 400;
     color: #246119;
-    background: #E0FFDB;
-    border-radius: 35px;
+    background: RGB(209, 255, 214, 0.35);
+    border-radius: 5px;
 
     &.tag-horizontal {
       background: #fafcfe;
