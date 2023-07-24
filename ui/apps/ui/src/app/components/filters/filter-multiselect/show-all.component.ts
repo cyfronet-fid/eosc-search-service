@@ -16,8 +16,7 @@ import {
 import { flatNodesToTree } from '@components/filters/utils';
 
 const CHUNK_SIZE = 100;
-const RECORD_HEIGHT = 29; // PX
-const LOAD_NEXT_CHUNK_INDEX = CHUNK_SIZE * 0.9;
+const LOAD_NEXT_CHUNK_PERCENTAGE = 90;
 
 @Component({
   selector: 'ess-show-all',
@@ -39,7 +38,6 @@ const LOAD_NEXT_CHUNK_INDEX = CHUNK_SIZE * 0.9;
   ],
 })
 export class ShowAllComponent implements OnChanges {
-  private _latestChunk = 0;
   private _allEntities: IFilterNode[] = [];
   entities$ = new BehaviorSubject<IUIFilterTreeNode[]>([]);
 
@@ -64,17 +62,14 @@ export class ShowAllComponent implements OnChanges {
       this.entities$.next(
         flatNodesToTree(this._allEntities, this.customSort).slice(0, CHUNK_SIZE)
       );
-      this._latestChunk = 0;
     }
   }
 
   onScroll = (event: Event) => {
     const target = event.target as HTMLElement;
-    const currentPosition = target.scrollTop;
-    const currentIndex = Math.ceil(currentPosition / RECORD_HEIGHT);
-    const currentChunk = Math.floor(currentIndex / LOAD_NEXT_CHUNK_INDEX);
-    if (currentChunk > this._latestChunk) {
-      this._latestChunk = currentChunk;
+    const scrollPercentage = this._calculateScrollPercentage(target);
+
+    if (scrollPercentage >= LOAD_NEXT_CHUNK_PERCENTAGE) {
       this.loadNextNonActiveChunk();
     }
   };
@@ -95,4 +90,13 @@ export class ShowAllComponent implements OnChanges {
       ),
     ]);
   };
+
+  _calculateScrollPercentage(target: HTMLElement): number {
+    const totalHeight = target.scrollHeight;
+    const viewportHeight = target.clientHeight;
+    const totalScrollableHeight = totalHeight - viewportHeight;
+    const currentPosition = target.scrollTop;
+
+    return (currentPosition / totalScrollableHeight) * 100;
+  }
 }
