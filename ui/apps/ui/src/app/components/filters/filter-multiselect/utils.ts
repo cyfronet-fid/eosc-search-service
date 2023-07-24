@@ -22,6 +22,7 @@ export const search = (query: string | null, entities: IFilterNode[]) => {
   return new Fuse(entities, {
     keys: ['name'],
     shouldSort: false,
+    threshold: 0.2,
   })
     .search(query)
     .map(({ item }) => item);
