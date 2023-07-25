@@ -309,6 +309,12 @@
          have some sort of hard autoCommit to limit the log size.
       -->
 
+    <!-- softAutoCommit is like autoCommit except it causes a
+         'soft' commit which only ensures that changes are visible
+         but does not ensure that data is synced to disk.  This is
+         faster and more near-realtime friendly than a hard commit.
+      -->
+
     <!-- Soft Commit -->
     <autoSoftCommit>
       <maxTime>600000</maxTime> <!-- Soft Commit every 10 minutes -->
@@ -325,7 +331,6 @@
       <maxTime>99999999</maxTime>
       <maxDocs>99999999</maxDocs>
     </autoCommit>
-
 
     <!-- Update Related Event Listeners
 
