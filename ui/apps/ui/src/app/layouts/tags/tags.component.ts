@@ -7,9 +7,11 @@ import {
   SimpleChanges,
   TrackByFunction,
 } from '@angular/core';
-import { ITag } from '@collections/repositories/types';
+import { ITag, IValueWithLabel } from '@collections/repositories/types';
 import { combineHighlightsWith } from './utils';
 import { ViewportScroller } from '@angular/common';
+import { translateDictionaryValue } from '../../dictionary/translateDictionaryValue';
+import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
 
 @Component({
   selector: 'ess-tags',
@@ -21,7 +23,9 @@ import { ViewportScroller } from '@angular/common';
         <span class="tag tag-title"
           ><strong>{{ tag.label }}: </strong></span
         >
-        <ng-container *ngFor="let singleValue of tag.values">
+        <ng-container
+          *ngFor="let singleValue of cleanDuplicatedTagLabel(tag.values)"
+        >
           <span class="tag"
             ><a
               href="javascript:void(0)"
@@ -43,6 +47,17 @@ import { ViewportScroller } from '@angular/common';
 
       .tag a::after {
         content: ',';
+        width: 0px;
+        height: 0px;
+        border-radius: 0px;
+        line-height: 1.2;
+      }
+
+      .tag:last-child a::after {
+        content: '';
+        width: 0px;
+        height: 0px;
+        border-radius: 0px;
         line-height: 1.2;
       }
     `,
@@ -73,5 +88,33 @@ export class TagsComponent implements OnChanges {
   setActiveFilter(filter: string, value: string): void {
     this.activeFilter.emit({ filter, value });
     this.viewPortScroller.scrollToPosition([0, 0]);
+  }
+
+  cleanDuplicatedTagLabel(array: IValueWithLabel[]): IValueWithLabel[] {
+    if (array[array.length - 1].value.indexOf('>') !== -1) {
+      array.reverse();
+    }
+    const a = array.reduce(
+      (accumulator: IValueWithLabel[], current: IValueWithLabel) => {
+        if (
+          !accumulator.find(
+            (item) =>
+              translateDictionaryValue(
+                DICTIONARY_TYPE_FOR_PIPE.TYPE_SCIENTIFIC_DOMAINS,
+                item.label
+              ).toString() ===
+              translateDictionaryValue(
+                DICTIONARY_TYPE_FOR_PIPE.TYPE_SCIENTIFIC_DOMAINS,
+                current.label
+              ).toString()
+          )
+        ) {
+          accumulator.push(current);
+        }
+        return accumulator;
+      },
+      []
+    );
+    return a;
   }
 }

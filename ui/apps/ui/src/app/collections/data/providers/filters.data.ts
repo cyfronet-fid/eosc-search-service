@@ -12,5 +12,13 @@ export const providersFilters: IFiltersConfig = {
       defaultCollapsed: false,
       tooltipText: '',
     },
+    {
+      id: 'tag_list',
+      filter: 'tag_list',
+      label: 'Keywords',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
   ],
 };
