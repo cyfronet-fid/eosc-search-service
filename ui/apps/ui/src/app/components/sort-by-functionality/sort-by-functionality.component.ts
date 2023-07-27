@@ -81,6 +81,9 @@ export class SortByFunctionalityComponent implements OnInit {
   @Input()
   isSortByRelevanceCollectionScopeOff!: boolean;
 
+  @Input()
+  type!: string;
+
   public selectedSortOptionControl: FormControl<sortType> =
     new FormControl<sortType>(DEFAULT_SORT, { nonNullable: true });
 

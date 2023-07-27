@@ -43,6 +43,7 @@ async def register_navigation_user_action(
         "other",
         "guideline",
         "bundle",
+        "provider",
     ],
     page_id: str,
     recommendation: bool = False,

@@ -17,4 +17,5 @@ export const othersResourcesProductsNavConfig: ICollectionNavConfig = {
     },
   ],
   urlParam: URL_PARAM_NAME,
+  rightMenu: false,
 };

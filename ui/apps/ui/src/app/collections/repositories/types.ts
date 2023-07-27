@@ -6,12 +6,12 @@ export interface IValueWithLabel {
 export interface IResult {
   id: string;
   title: string;
-  description: string;
+  abbreviation?: string;
+  description: string | string[];
   type: IValueWithLabel;
   collection: string;
   url: string;
   tags: ITag[];
-
   date?: string;
   coloredTags?: IColoredTag[];
   secondaryTags?: ISecondaryTag[];
@@ -19,7 +19,7 @@ export interface IResult {
   views?: number;
   downloads?: number;
   offers?: any[];
-  isSortByRelevanceCollectionScopeOff: boolean;
+  isSortByRelevanceCollectionScopeOff?: boolean;
 }
 
 export interface ISecondaryTag {
@@ -82,6 +82,7 @@ export interface ICollectionNavConfig {
   id: string;
   title: string;
   urlParam: string;
+  rightMenu: boolean;
 
   breadcrumbs: {
     label: string;

@@ -20,6 +20,7 @@ import { PageHeaderModule } from '@components/page-header/page-header.module';
 import { FiltersModule } from '@components/filters/filters.module';
 import { ActiveFiltersModule } from '@components/active-filters/active-filters.module';
 import { RecommendationsModule } from '@components/recommendations/recommendations.module';
+import { RightMenuModule } from '@components/right-menu/right-menu.module';
 
 @NgModule({
   declarations: [SearchPageComponent],
@@ -49,6 +50,7 @@ import { RecommendationsModule } from '@components/recommendations/recommendatio
     FiltersModule,
     ActiveFiltersModule,
     RecommendationsModule,
+    RightMenuModule,
   ],
 })
 export class SearchPageModule {}
