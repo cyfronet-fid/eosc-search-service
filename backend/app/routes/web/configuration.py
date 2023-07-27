@@ -16,4 +16,5 @@ async def config():
         eosc_explore_url=settings.EOSC_EXPLORE_URL,
         eosc_commons_url=settings.EOSC_COMMONS_URL,
         eosc_commons_env=settings.EOSC_COMMONS_ENV,
+        is_sort_by_relevance=settings.IS_SORT_BY_RELEVANCE,
     )
