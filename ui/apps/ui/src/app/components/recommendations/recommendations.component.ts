@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RedirectService } from '@collections/services/redirect.service';
 import { RecommendationsService } from '@components/recommendations/recommendations.service';
-import { of, pipe, switchMap } from 'rxjs';
+import { of, switchMap } from 'rxjs';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { IResult } from '@collections/repositories/types';

@@ -7,3 +7,4 @@ class ConfigurationResponse(BaseModel):
     eosc_commons_url: AnyHttpUrl
     eosc_commons_env: str
     eosc_explore_url: AnyHttpUrl
+    is_sort_by_relevance: bool

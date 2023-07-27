@@ -11,10 +11,7 @@ import {
   ISearchResults,
   adapterType,
 } from '@collections/repositories/types';
-import {
-  MAX_COLLECTION_RESULTS,
-  PaginationRepository,
-} from '@components/results-with-pagination/pagination.repository';
+import { MAX_COLLECTION_RESULTS } from '@components/results-with-pagination/pagination.repository';
 import { ActivatedRoute, Router } from '@angular/router';
 import { combineLatest } from 'rxjs';
 import { queryChanger } from '@collections/filters-serializers/utils';

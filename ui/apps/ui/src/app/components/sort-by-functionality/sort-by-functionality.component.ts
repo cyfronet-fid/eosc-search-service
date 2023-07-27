@@ -10,7 +10,7 @@ import {
   isSortOption,
   sortType,
 } from '@components/sort-by-functionality/sort-value.type';
-import { environment } from '@environment/environment';
+import { ConfigService } from '../../services/config.service';
 
 @UntilDestroy()
 @Component({
@@ -77,7 +77,9 @@ import { environment } from '@environment/environment';
   ],
 })
 export class SortByFunctionalityComponent implements OnInit {
-  isSortByRelevanceInstanceScope: boolean = environment.isSortByRelevance;
+  isSortByRelevanceInstanceScope: boolean =
+    ConfigService.config?.is_sort_by_relevance;
+
   @Input()
   isSortByRelevanceCollectionScopeOff!: boolean;
 

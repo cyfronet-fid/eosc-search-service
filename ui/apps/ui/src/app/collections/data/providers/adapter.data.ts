@@ -17,6 +17,7 @@ const getDescription = (desc: string[]) => {
 export const providersAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (provider: Partial<IProvider> & { id: string }): IResult => ({
+    isSortByRelevanceCollectionScopeOff: true,
     id: uuidv4(),
     title: provider['title'] ? provider['title'].toString() : '',
     abbreviation: provider['abbreviation']

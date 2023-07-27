@@ -60,6 +60,7 @@ class GlobalSettings(BaseSettings):
     EOSC_COMMONS_ENV: str = "production"
     EOSC_EXPLORE_URL: AnyUrl = "https://explore.eosc-portal.eu"
     RELATED_SERVICES_ENDPOINT: AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"
+    IS_SORT_BY_RELEVANCE: bool = False
 
     @root_validator()
     def oidc_issuer_path(cls, values):

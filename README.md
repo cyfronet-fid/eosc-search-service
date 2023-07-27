@@ -165,6 +165,9 @@ See docker-compose.yml for components.
   > Default: https://explore.eosc-portal.eu
 - `RELATED_SERVICES_ENDPOINT`
   > base url to get related services for interoperability guidelines. Default: https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources
+- `IS_SORT_BY_RELEVANCE`
+  > Boolean variable that indicates whether sort by relevance should be enabled on the instance level. Default: False.
+
 
 `db` envs:
 - `DB_POSTGRES_DB`
