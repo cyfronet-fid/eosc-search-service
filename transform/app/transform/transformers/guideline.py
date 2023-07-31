@@ -2,6 +2,7 @@
 """Transform interoperability guidelines"""
 import logging
 from datetime import datetime
+import json
 
 import pandas as pd
 from pandas import DataFrame
@@ -70,6 +71,47 @@ def harvest_identifiers(df: DataFrame) -> None:
 
 def harvest_authors_names(df: DataFrame) -> None:
     """Harvest creators from interoperability guideline"""
+
+    def rename_creators(creators: df) -> df:
+        """Rename creators properties"""
+        if creators is None:
+            return None
+
+        for creator in creators:
+            if creator.get("creatorNameTypeInfo"):
+                creator["author_name_type_info"] = creator.pop("creatorNameTypeInfo")
+                if "creatorName" in creator["author_name_type_info"]:
+                    creator["author_name_type_info"]["author_names"] = creator[
+                        "author_name_type_info"
+                    ].pop("creatorName")
+                if "nameType" in creator["author_name_type_info"]:
+                    creator["author_name_type_info"]["author_types"] = creator[
+                        "author_name_type_info"
+                    ].pop("nameType")
+
+            if "givenName" in creator:
+                creator["author_given_names"] = creator.pop("givenName")
+
+            if "familyName" in creator:
+                creator["author_family_names"] = creator.pop("familyName")
+
+            if "nameIdentifier" in creator:
+                creator["author_names_id"] = creator.pop("nameIdentifier")
+
+            if creator.get("creatorAffiliationInfo"):
+                creator["author_affiliation_info"] = creator.pop(
+                    "creatorAffiliationInfo"
+                )
+                if "affiliation" in creator["author_affiliation_info"]:
+                    creator["author_affiliation_info"]["author_affiliations"] = creator[
+                        "author_affiliation_info"
+                    ].pop("affiliation")
+                if "affiliationIdentifier" in creator["author_affiliation_info"]:
+                    creator["author_affiliation_info"][
+                        "author_affiliations_id"
+                    ] = creator["author_affiliation_info"].pop("affiliationIdentifier")
+
+        return creators
 
     def replace_empty_str(attr: str) -> [str, None]:
         """Replace empty string with None"""
@@ -143,7 +185,9 @@ def harvest_authors_names(df: DataFrame) -> None:
     df[AUTHOR_AFFILIATIONS] = affiliation_col
     df[AUTHOR_AFFILIATIONS_ID] = affiliation_id_col
 
-    df.drop(CREATORS, inplace=True, axis=1)
+    df[CREATORS] = df[CREATORS].apply(rename_creators)
+    # Serialize creators
+    df[CREATORS] = df[CREATORS].apply(lambda x: json.dumps(x, indent=2))
 
 
 def map_str_to_arr(df: DataFrame, cols: list) -> None:
