@@ -61,6 +61,7 @@ async def perform_sort_by_relevance(
             "candidates": candidates_ids,
             "search_data": {},
         }
+
         if session is not None:
             request_body["aai_uid"] = session.aai_id
 

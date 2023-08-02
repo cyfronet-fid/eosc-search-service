@@ -3,7 +3,7 @@ import itertools
 import logging
 from json import JSONDecodeError
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 from httpx import AsyncClient, TransportError
 from pydantic.typing import Literal
 from requests import Response
@@ -22,9 +22,10 @@ logger = logging.getLogger(__name__)
 SortUi = Literal["dmr", "dlr", "mp", "r", "default"]
 
 
-# pylint: disable=too-many-arguments
+# pylint: disable=too-many-arguments, too-many-locals
 @router.post("/search-results", name="web:post-search")
 async def search_post(
+    request_session: Request,
     collection: str = Query(..., description="Collection"),
     q: str = Query(..., description="Free-form query string"),
     qf: str = Query(..., description="Query fields"),
@@ -72,11 +73,13 @@ async def search_post(
         # Extent the results with bundles
         if "all_collection" in collection or "bundle" in collection:
             await extend_results_with_bundles(client, res_json, collection)
-    out = await create_output(res_json, collection, sort_ui)
+    out = await create_output(request_session, res_json, collection, sort_ui)
     return out
 
 
-async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:
+async def create_output(
+    request_session: Request, res_json: dict, collection: str, sort_ui: str
+) -> dict:
     """Create an output"""
     out = {
         "numFound": res_json["response"]["numFound"],
@@ -87,7 +90,7 @@ async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:
         # Sort by relevance
         collection = await parse_col_name(collection)
         rel_sorted_items = await sort_by_relevance(
-            collection, res_json["response"]["docs"]
+            request_session, collection, res_json["response"]["docs"]
         )
         out["results"] = rel_sorted_items["recommendations"]
         out["numFound"] = len(out["results"])
