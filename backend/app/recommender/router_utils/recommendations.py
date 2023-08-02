@@ -76,7 +76,7 @@ async def get_recommended_items(client: AsyncClient, uuids: list[str]):
 # pylint: disable=unused-argument
 @alru_cache(maxsize=512)
 async def get_fixed_recommendations(
-    session_id: str | None, panel_id: RecommendationPanelId, count: int = 3
+    panel_id: RecommendationPanelId, count: int = 3
 ) -> list[str]:
     rows = 100
     if panel_id == "data-source":

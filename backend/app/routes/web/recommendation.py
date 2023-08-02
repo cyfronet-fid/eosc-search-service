@@ -38,7 +38,7 @@ logger = logging.getLogger(__name__)
 async def get_recommendations(panel_id: RecommendationPanelId, request: Request):
     if settings.SHOW_RECOMMENDATIONS is False:
         return []
-    session, session_id = await get_session(request)
+    session, _ = await get_session(request)
 
     try:
         async with httpx.AsyncClient() as client:
@@ -47,7 +47,7 @@ async def get_recommendations(panel_id: RecommendationPanelId, request: Request)
                 items = await get_recommended_items(client, uuids)
                 return {"recommendations": items, "isRand": False}
             except (RecommenderError, SolrRetrieveError, ReadTimeout) as error:
-                uuids = await get_fixed_recommendations(session_id, panel_id)
+                uuids = await get_fixed_recommendations(panel_id)
                 items = await get_recommended_items(client, uuids)
                 return {
                     "recommendations": items,
@@ -63,17 +63,18 @@ async def get_recommendations(panel_id: RecommendationPanelId, request: Request)
 
 
 async def sort_by_relevance(
+    request: Request,
     panel_id: RecommendationPanelId,
     documents: list,
 ):
-    # session, _ = await get_session(request)
+    session, _ = await get_session(request)
 
     try:
         async with httpx.AsyncClient() as client:
             try:
                 candidates_ids = await parse_candidates(documents)
                 uuids = await perform_sort_by_relevance(
-                    client, None, panel_id, candidates_ids
+                    client, session, panel_id, candidates_ids
                 )
                 items = await sort_docs(uuids, documents)
                 return {"recommendations": items, "message": ""}
