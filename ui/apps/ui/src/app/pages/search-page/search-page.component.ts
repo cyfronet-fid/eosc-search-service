@@ -23,7 +23,6 @@ import { queryChanger } from '@collections/filters-serializers/utils';
 @Component({
   selector: 'ess-search-service-page',
   template: `
-
     <div class="top-bar"></div>
 
     <div class="container d-md-none">
@@ -63,12 +62,7 @@ import { queryChanger } from '@collections/filters-serializers/utils';
         'mobile-collections-hidden': !showCollections,
         'mobile-collections-show': showCollections
       }"
-    >
-
-
-    </div>
-
-
+    ></div>
 
     <div class="container--xxl">
       <div class="dashboard" style="position: relative">
@@ -87,7 +81,6 @@ import { queryChanger } from '@collections/filters-serializers/utils';
           </div>
 
           <div class="col-sm-7 col-12 center-column">
-
             <ess-collections-navigation></ess-collections-navigation>
 
             <ess-search-bar></ess-search-bar>
@@ -113,13 +106,31 @@ import { queryChanger } from '@collections/filters-serializers/utils';
           >
             <h5>Nagłówek</h5>
             <ul class="right-menu">
-              <li><a href="#">Polskie zespoły badawcze <i class="bi bi-arrow-right"></i></a></li>
-              <li><a href="#">Dostawcy usług <i class="bi bi-arrow-right"></i></a></li>
-              <li><a href="#">Instytucje <i class="bi bi-arrow-right"></i></a></li>
-              <li><a href="#">Wzorce interoperacyjności <i class="bi bi-arrow-right"></i></a></li>
-              <li><a href="#">Ludzie <i class="bi bi-arrow-right"></i></a></li>
-              <li><a href="#">Katalog Europejski <i class="bi bi-arrow-right"></i></a></li>
-              </ul>
+              <li>
+                <a href="#"
+                  >Polskie zespoły badawcze <i class="bi bi-arrow-right"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#">Dostawcy usług <i class="bi bi-arrow-right"></i></a>
+              </li>
+              <li>
+                <a href="#">Instytucje <i class="bi bi-arrow-right"></i></a>
+              </li>
+              <li>
+                <a href="#"
+                  >Wzorce interoperacyjności <i class="bi bi-arrow-right"></i
+                ></a>
+              </li>
+              <li>
+                <a href="#">Ludzie <i class="bi bi-arrow-right"></i></a>
+              </li>
+              <li>
+                <a href="#"
+                  >Katalog Europejski <i class="bi bi-arrow-right"></i
+                ></a>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

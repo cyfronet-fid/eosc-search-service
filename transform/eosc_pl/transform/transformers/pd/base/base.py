@@ -7,6 +7,7 @@ from pandas import DataFrame
 
 class BaseTransformer(ABC):
     """Base pandas transformer class"""
+
     def __init__(
         self,
         desired_type: str,
@@ -61,9 +62,8 @@ class BaseTransformer(ABC):
         """Apply df transformations"""
         raise NotImplementedError
 
-    @staticmethod
     @abstractmethod
-    def cast_columns(df: DataFrame) -> DataFrame:
+    def cast_columns(self, df: DataFrame) -> DataFrame:
         """Cast certain columns"""
         raise NotImplementedError
 
