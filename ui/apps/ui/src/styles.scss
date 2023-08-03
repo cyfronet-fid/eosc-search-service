@@ -384,6 +384,11 @@ h6 {
 
 .tag {
   font-size: 11px;
+  margin-left: -3px;
+}
+
+.tag:first-child, .tag:nth-child(2) {
+  margin-left: 0px;
 }
 
 #description {

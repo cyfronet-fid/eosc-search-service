@@ -11,6 +11,18 @@ import { interoperabilityGuidelinesAuthorTypeDictionary } from './interoperabili
 import { trainingQualificationsDictionary } from './trainingQualificationsDictionary';
 import { trainingDomainDictionary } from './trainingDomainDictionary';
 
+function cleanGuidelineProvider(str: string): string {
+  const index = str.indexOf('.');
+  const newValue = str.substring(index + 1).replace(/_+|-+/g, ' ');
+  return newValue;
+}
+
+function cleanValueTypeForProvider(valueType: string): string {
+  const index = valueType.indexOf('>');
+  const newValueStr = valueType.substring(index + 1);
+  return newValueStr;
+}
+
 export function translateDictionaryValue(
   type: string | string[],
   value: string | string[]
@@ -23,7 +35,7 @@ export function translateDictionaryValue(
         value
       );
       break;
-    case 'type_general':
+    case DICTIONARY_TYPE_FOR_PIPE.TYPE_GENERAL:
       return (
         interoperabilityGuidelinesResourceTypeGeneralDictionary[valueType] ||
         value
@@ -68,10 +80,13 @@ export function translateDictionaryValue(
       return trainingDomainDictionary[valueType] || value;
       break;
     case DICTIONARY_TYPE_FOR_PIPE.GUIDELINE_PROVIDER:
-      return trainingDomainDictionary[valueType] || value;
+      return cleanGuidelineProvider(valueType);
       break;
     case DICTIONARY_TYPE_FOR_PIPE.BUNDLE:
       return valueType === 'bundles' ? 'bundle' : value;
+      break;
+    case DICTIONARY_TYPE_FOR_PIPE.TYPE_SCIENTIFIC_DOMAINS:
+      return cleanValueTypeForProvider(value.toString());
       break;
     default:
       return value;
