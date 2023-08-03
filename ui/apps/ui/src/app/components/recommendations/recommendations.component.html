@@ -1,7 +1,23 @@
+
 <ng-container *ngIf="recommendations.length > 0">
   <div class="column" style="padding: 5px 20px 0 10px; display: flex; justify-content: space-between;">
     <div class="container results col-md-12">
+      <div class="row">
+        <div class="col-md-auto">
       <h2 style="padding-top: 24px;">Resources selected for you</h2>
+    </div>
+    <div class="col-md-auto">
+      <div id="tooltipIcon" style="padding-top: 22px;">
+        <img
+          src="assets/tooltip_prompt.svg"
+          placement="bottom"
+          [ngbTooltip]="tooltipText"
+          alt="Tooltip prompt icon"
+          class="tooltip-prompt-icon"
+        />
+      </div>
+    </div>
+    </div>
       <div class="row mb-4 ml-0 mr-0" style="display: flex; justify-content: center;">
         <div
           *ngFor="let recommendation of recommendations"
