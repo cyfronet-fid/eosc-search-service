@@ -4,10 +4,9 @@ import { Component } from '@angular/core';
   selector: 'ess-search-bar',
   template: `
     <div class="search-bar">
-
-            <div class="search-row">
-              <ess-search-input></ess-search-input>
-              <!--p class="user-announcement" i18n>
+      <div class="search-row">
+        <ess-search-input></ess-search-input>
+        <!--p class="user-announcement" i18n>
                 We're currently working on improving search engine. We test the
                 best solutions, which may also be associated with some problems.
                 We are open to all suggestions, if you want to report any issues
@@ -16,8 +15,7 @@ import { Component } from '@angular/core';
                   >Contact us</a
                 >
               </p-->
-            </div>
-
+      </div>
     </div>
   `,
   styles: [

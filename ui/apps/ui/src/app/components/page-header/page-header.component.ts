@@ -37,7 +37,6 @@ import { Router } from '@angular/router';
         </nz-breadcrumb>
       </div>
     </div> --->
-
     </div>
   `,
   styles: [

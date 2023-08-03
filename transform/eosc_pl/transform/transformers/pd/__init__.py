@@ -2,7 +2,9 @@
 """Import transformations"""
 from .dataset import DatasetTransformer, DATASET
 
-__all__ = ["transformers", ]
+__all__ = [
+    "transformers",
+]
 
 transformers = {
     DATASET: DatasetTransformer,

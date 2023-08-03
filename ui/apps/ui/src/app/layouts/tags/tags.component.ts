@@ -18,9 +18,7 @@ import { ViewportScroller } from '@angular/common';
       *ngFor="let tag of parsedTags; let i = index; trackBy: trackByLabel"
     >
       <div class="tag-row" *ngIf="tag.values.length > 0">
-        <span class="tag tag-title"
-          >{{ tag.label }}: </span
-        >
+        <span class="tag tag-title">{{ tag.label }}: </span>
         <ng-container *ngFor="let singleValue of tag.values">
           <span class="tag"
             ><a

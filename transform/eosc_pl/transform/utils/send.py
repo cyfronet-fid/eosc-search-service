@@ -1,7 +1,8 @@
+# pylint: disable=invalid-name, line-too-long, logging-fstring-interpolation
 """Send data"""
+from logging import getLogger
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
-from logging import getLogger
 from eosc_pl.transform.utils.config import SOLR_ADDRESS, SOLR_COL_NAME
 
 logger = getLogger(__name__)

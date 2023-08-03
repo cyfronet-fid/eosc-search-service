@@ -1,3 +1,4 @@
+# pylint: disable=invalid-name, line-too-long
 """Dataset transformer"""
 from logging import getLogger
 from pandas import DataFrame
@@ -20,9 +21,7 @@ class DatasetTransformer(BaseTransformer):
     def __init__(self):
         self.type = DATASET.lower()
 
-        super().__init__(
-            self.type, self.cols_to_drop, self.cols_to_rename
-        )
+        super().__init__(self.type, self.cols_to_drop, self.cols_to_rename)
 
     def transform(self, df: DataFrame) -> DataFrame:
         """Apply df transformations"""
@@ -73,6 +72,7 @@ class DatasetTransformer(BaseTransformer):
     @staticmethod
     def check_subjects_empty(df: DataFrame) -> None:
         """Check if the "subjects" column is an empty array for all records"""
+
         def print_warning(df: DataFrame):
             """Print warning if subjects are not empty"""
             if not isinstance(df[SUBJECTS], list) or len(df[SUBJECTS]) != 0:
@@ -80,4 +80,6 @@ class DatasetTransformer(BaseTransformer):
             return False
 
         if df.apply(print_warning, axis=1).all():
-            logger.warning("'subjects' column contains non-empty arrays in some records - or they are not an array.")
+            logger.warning(
+                "'subjects' column contains non-empty arrays in some records - or they are not an array."
+            )
