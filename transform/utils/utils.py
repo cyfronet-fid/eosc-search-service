@@ -91,3 +91,20 @@ def print_errors(
 def sort_schema(schema: StructType) -> StructType:
     """Sort alphabetically schema based on the name of the columns"""
     return StructType(sorted(schema, key=lambda _col: getattr(_col, "name")))
+
+
+def extract_digits_and_trim(input_str: str):
+    """Extract digits and trim the string"""
+    # Delete spaces
+    input_str = input_str.strip()
+
+    # Find index in which digits ends
+    index = 0
+    for char in input_str:
+        if not char.isdigit():
+            break
+        index += 1
+
+    remaining_str = input_str[index:].strip()
+
+    return remaining_str

@@ -154,21 +154,21 @@ def load_config(env_vars: dict) -> None:
 def load_vars_all_collection(solr_flag: bool) -> dict:
     """Load variables for all collection"""
     collections = {
+        PUBLICATION: {
+            PATH: os.environ.get(PUBLICATION_PATH, "input_data/publication/"),
+            OUTPUT_SCHEMA: publication_output_schema,
+        },
         DATASET: {
             PATH: os.environ.get(DATASET_PATH, "input_data/dataset/"),
             OUTPUT_SCHEMA: dataset_output_schema,
-        },
-        SOFTWARE: {
-            PATH: os.environ.get(SOFTWARE_PATH, "input_data/software/"),
-            OUTPUT_SCHEMA: software_output_schema,
         },
         OTHER_RP: {
             PATH: os.environ.get(OTHER_RP_PATH, "input_data/other_rp/"),
             OUTPUT_SCHEMA: other_rp_output_schema,
         },
-        PUBLICATION: {
-            PATH: os.environ.get(PUBLICATION_PATH, "input_data/publication/"),
-            OUTPUT_SCHEMA: publication_output_schema,
+        SOFTWARE: {
+            PATH: os.environ.get(SOFTWARE_PATH, "input_data/software/"),
+            OUTPUT_SCHEMA: software_output_schema,
         },
         SERVICE: {
             PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
