@@ -2,6 +2,8 @@
 # pylint: disable=too-many-branches, unsubscriptable-object
 """Common transformations"""
 from itertools import chain
+from logging import getLogger
+import json
 
 from pyspark.errors import AnalysisException
 from pyspark.sql import DataFrame
@@ -15,13 +17,13 @@ from app.transform.schemas.mappings import (
     FIGSHARE,
     language_mapping,
     unified_categories_mapping,
+    scientific_domains_mapping,
 )
 from app.transform.schemas.properties_name import (
     AUTHOR,
     AUTHOR_NAMES,
     AUTHOR_PIDS,
     TYPE,
-    FOS,
     SDG,
     SUBJECT,
     BEST_ACCESS_RIGHT,
@@ -49,7 +51,12 @@ from app.transform.schemas.properties_name import (
     TAG_LIST,
     TAG_LIST_TG,
     EOSC_IF,
+    PIDS,
+    SCIENTIFIC_DOMAINS,
 )
+from app.transform.utils.utils import extract_digits_and_trim
+
+logger = getLogger(__name__)
 
 
 def harvest_author_names_and_pids(df: DataFrame, harvested_properties: dict) -> None:
@@ -94,14 +101,14 @@ def check_type(df: DataFrame, desired_type: str) -> None:
     ), f"Not all records have {TYPE}: {desired_type}"
 
 
-def harvest_sdg_and_fos(
-    df: DataFrame, harvested_properties: dict, prop_to_harvest: tuple = (FOS, SDG)
+def harvest_sdg_and_scientific_domains(
+    df: DataFrame, harvested_properties: dict, prop_to_harvest: tuple = ("fos", SDG)
 ) -> None:
-    """Harvest sdg and fos from subjects"""
+    """Harvest sdg and scientific_domains from subjects"""
     try:
         subjects = df.select(SUBJECT).collect()
     except AnalysisException:
-        harvested_properties[FOS] = [None] * df.count()
+        harvested_properties[SCIENTIFIC_DOMAINS] = [None] * df.count()
         harvested_properties[SDG] = [None] * df.count()
         return
 
@@ -113,14 +120,27 @@ def harvest_sdg_and_fos(
                 prop_list = []
                 if input_prop:
                     for value in input_prop:
-                        prop_list.append(value["value"])
-                    harvested_prop_column.append(prop_list)
+                        if prop == "fos":
+                            try:
+                                sd_value = extract_digits_and_trim(value["value"])
+                                prop_list.append(scientific_domains_mapping[sd_value])
+                            except KeyError:
+                                prop_list.append(value["value"])
+                                logger.warning(
+                                    f"Unexpected scientific domain: {value['value']}, trimmed version: {extract_digits_and_trim(value['value'])}"
+                                )
+                        else:
+                            prop_list.append(value["value"])
+                    harvested_prop_column.append(list(set(prop_list)))
                 else:
                     harvested_prop_column.append([])
             except (TypeError, ValueError):
                 harvested_prop_column.append([])
 
-        harvested_properties[prop] = harvested_prop_column
+        if prop == "fos":
+            harvested_properties[SCIENTIFIC_DOMAINS] = harvested_prop_column
+        else:
+            harvested_properties[prop] = harvested_prop_column
 
 
 def map_best_access_right(
@@ -310,12 +330,32 @@ def harvest_research_community(df: DataFrame, harvested_properties: dict) -> Non
     harvested_properties[RESEARCH_COMMUNITY] = rc_column
 
 
-def harvest_doi(df: DataFrame, harvested_properties: dict) -> None:
+def harvest_pids(df: DataFrame, harvested_properties: dict) -> None:
     """Harvest DOI from OAG resources"""
-    pids_list = df.select(PID).collect()
+    pids_raw_column = df.select(PID).collect()
+    pids_column = []
+
+    for pids_list in pids_raw_column:
+        pids = pids_list[PID] or []
+        pids_row = {
+            "arXiv": [],
+            "doi": [],
+            "handle": [],
+            "pdb": [],
+            "pmc": [],
+            "pmid": [],
+            "w3id": [],
+        }
+        for pid in pids:
+            pids_row[pid["scheme"]].append(pid["value"])
+        pids_column.append(json.dumps(pids_row))
+    harvested_properties[PIDS] = pids_column
+
+    # Add only DOI for backwards compatibility
+    # TODO delete me after switch to the latest pids
     doi_column = []
 
-    for pids in pids_list:
+    for pids in pids_raw_column:
         pids_raw_val = pids[PID] or []
         doi_urls = [pid["value"] for pid in pids_raw_val if pid["scheme"] == DOI]
         doi_column.append(doi_urls)

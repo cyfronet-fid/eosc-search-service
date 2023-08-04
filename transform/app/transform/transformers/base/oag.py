@@ -13,7 +13,7 @@ from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
     harvest_author_names_and_pids,
     check_type,
-    harvest_sdg_and_fos,
+    harvest_sdg_and_scientific_domains,
     map_best_access_right,
     create_open_access,
     map_publisher,
@@ -23,7 +23,7 @@ from app.transform.utils.common import (
     harvest_url_and_document_type,
     harvest_country,
     harvest_research_community,
-    harvest_doi,
+    harvest_pids,
     harvest_relations,
     transform_date,
     create_unified_categories,
@@ -66,10 +66,10 @@ class OagBaseTransformer(BaseTransformer):
         create_open_access(self.harvested_properties)
         df = map_language(df, self.harvested_properties)
         harvest_author_names_and_pids(df, self.harvested_properties)
-        harvest_sdg_and_fos(df, self.harvested_properties)
+        harvest_sdg_and_scientific_domains(df, self.harvested_properties)
         harvest_funder(df, self.harvested_properties)
         harvest_url_and_document_type(df, self.harvested_properties)
-        harvest_doi(df, self.harvested_properties)
+        harvest_pids(df, self.harvested_properties)
         harvest_country(df, self.harvested_properties)
         harvest_research_community(df, self.harvested_properties)
         harvest_relations(df, self.harvested_properties)
@@ -91,13 +91,14 @@ class OagBaseTransformer(BaseTransformer):
                     StructField(DOCUMENT_TYPE, ArrayType(StringType()), True),
                     StructField(DOI, ArrayType(StringType()), True),
                     StructField(EOSC_IF, ArrayType(StringType()), True),
-                    StructField(FOS, ArrayType(StringType()), True),
                     StructField(FUNDER, ArrayType(StringType()), True),
                     StructField(LANGUAGE, ArrayType(StringType()), True),
                     StructField(OPEN_ACCESS, BooleanType(), True),
+                    StructField(PIDS, StringType(), True),
                     StructField(RELATIONS, ArrayType(StringType()), True),
                     StructField(RELATIONS_LONG, ArrayType(StringType()), True),
                     StructField(RESEARCH_COMMUNITY, ArrayType(StringType()), True),
+                    StructField(SCIENTIFIC_DOMAINS, ArrayType(StringType()), True),
                     StructField(SDG, ArrayType(StringType()), True),
                     StructField(UNIFIED_CATEGORIES, ArrayType(StringType()), True),
                     StructField(URL, ArrayType(StringType()), True),
