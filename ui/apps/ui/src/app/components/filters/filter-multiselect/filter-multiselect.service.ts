@@ -1,29 +1,21 @@
 import { Injectable } from '@angular/core';
 import { FilterMultiselectRepository } from './filter-multiselect.repository';
-import { FetchDataService } from '@collections/services/fetch-data.service';
 import {
   ICollectionSearchMetadata,
   IFacetBucket,
   IFilterNode,
-  ISolrCollectionParams,
-  ISolrQueryParams,
-  ITermsFacetParam,
-  ITermsFacetResponse,
 } from '@collections/repositories/types';
-import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
-import { facetToFlatNodes, toSearchMetadata } from '../utils';
+import { toSearchMetadata } from '../utils';
 import { Observable, map } from 'rxjs';
 import { paramType } from '@collections/services/custom-route.type';
-import { CustomRoute } from '@collections/services/custom-route.service';
 import { toFilterFacet } from '@components/filters/filter-multiselect/utils';
+import { FilterService } from '@components/filters/filters.service';
 
 @Injectable()
 export class FilterMultiselectService {
   constructor(
-    private _customRoute: CustomRoute,
     private _filterMultiselectRepository: FilterMultiselectRepository,
-    private _fetchDataService: FetchDataService,
-    private _searchMetadataRepository: SearchMetadataRepository
+    private _filterService: FilterService
   ) {}
 
   isLoading$ = this._filterMultiselectRepository.isLoading$;
@@ -49,66 +41,47 @@ export class FilterMultiselectService {
     collection: string,
     mutator?: (bucketValues: IFacetBucket[]) => IFilterNode[]
   ): Observable<IFilterNode[]> {
-    const metadata = this._searchMetadataRepository.get(
+    const metadata = this._filterService.searchMetadataRepository.get(
       collection
     ) as ICollectionSearchMetadata;
-    return this._fetchTreeNodes$(
-      filter,
-      toSearchMetadata('*', [], metadata),
-      toFilterFacet(filter),
-      mutator
-    ).pipe(
-      map(
-        (entities) =>
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          entities.map(({ isSelected: _, ...other }) => ({
-            ...other,
-            count: '0',
-          })) as unknown as IFilterNode[]
+    return this._filterService
+      .fetchTreeNodes$(
+        [filter],
+        toSearchMetadata('*', [], metadata),
+        [toFilterFacet(filter)],
+        mutator
       )
-    );
+      .pipe(
+        map(
+          (entities) =>
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            entities.map(({ isSelected: _, ...other }) => ({
+              ...other,
+              count: '0',
+            })) as unknown as IFilterNode[]
+        )
+      );
   }
   _fetchCounts$(
     filter: string,
     routerParams: { [param: string]: paramType },
     mutator?: (bucketValues: IFacetBucket[]) => IFilterNode[]
   ): Observable<{ id: string; count: string }[]> {
-    const metadata = this._searchMetadataRepository.get(
+    const metadata = this._filterService.searchMetadataRepository.get(
       routerParams['collection'] as string
     );
     const q = routerParams['q'] as string;
     const fq = routerParams['fq'] as string[];
 
-    return this._fetchTreeNodes$(
-      filter,
-      toSearchMetadata(q, fq, metadata),
-      toFilterFacet(filter),
-      mutator
-    ).pipe(map((entities) => entities.map(({ id, count }) => ({ id, count }))));
-  }
-  private _fetchTreeNodes$(
-    filter: string,
-    params: ISolrCollectionParams & ISolrQueryParams,
-    facets: { [facet: string]: ITermsFacetParam },
-    mutator?: (bucketValues: IFacetBucket[]) => IFilterNode[]
-  ): Observable<IFilterNode[]> {
-    return this._fetchDataService
-      .fetchFacets$<unknown & { id: string }>(params, facets)
+    return this._filterService
+      .fetchTreeNodes$(
+        [filter],
+        toSearchMetadata(q, fq, metadata),
+        [toFilterFacet(filter)],
+        mutator
+      )
       .pipe(
-        map((facets) => {
-          const filterFacets = facets[filter] as ITermsFacetResponse;
-
-          return mutator
-            ? mutator(filterFacets?.buckets || [])
-            : facetToFlatNodes(filterFacets?.buckets, filter);
-        }),
-        map(
-          (nodes) =>
-            nodes.map(
-              // eslint-disable-next-line @typescript-eslint/no-unused-vars
-              ({ isSelected: _, ...other }) => other
-            ) as IFilterNode[]
-        )
+        map((entities) => entities.map(({ id, count }) => ({ id, count })))
       );
   }
 }

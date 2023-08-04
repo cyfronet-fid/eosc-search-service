@@ -35,7 +35,7 @@ export class FilterRangeService {
     };
 
     return this._fetchDataService
-      .fetchFacets$(searchMetadata, facetParams)
+      .fetchFacets$(searchMetadata, [facetParams])
       .pipe(
         map(
           (facetParams) =>

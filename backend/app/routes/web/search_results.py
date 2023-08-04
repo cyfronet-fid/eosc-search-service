@@ -23,7 +23,7 @@ SortUi = Literal["dmr", "dlr", "mp", "r", "default"]
 
 
 # pylint: disable=too-many-arguments, too-many-locals
-@router.post("/search-results", name="web:post-search")
+@router.post("/search-results", name="web:post-search-results")
 async def search_post(
     request_session: Request,
     collection: str = Query(..., description="Collection"),
