@@ -1,14 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { IResult } from '@collections/repositories/types';
+import {
+  ICollectionSearchMetadata,
+  IResult,
+} from '@collections/repositories/types';
 import { GuidelinesService } from './guidelines.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { guidelinesAdapter } from '@collections/data/guidelines/adapter.data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { NEVER, Observable, catchError, from, map, switchMap } from 'rxjs';
+import {
+  NEVER,
+  Observable,
+  catchError,
+  combineLatest,
+  from,
+  map,
+  switchMap,
+  take,
+} from 'rxjs';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
 import { IService } from '../../collections/data/services/service.model';
 import { ConfigService } from '../../services/config.service';
+import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 
 @UntilDestroy()
 @Component({
@@ -27,10 +40,13 @@ export class GuidelineDetailPageComponent implements OnInit {
 
   marketplaceUrl: string = ConfigService.config?.marketplace_url;
 
+  provider = '';
+
   constructor(
     private guidelinesService: GuidelinesService,
     private route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _searchMetadataRepository: SearchMetadataRepository
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +68,10 @@ export class GuidelineDetailPageComponent implements OnInit {
           item as Partial<IGuideline> & { id: string }
         );
 
+        this.get().subscribe(
+          (res) => (this.provider = res[0].results[0].title)
+        );
+
         this.guidelinesService
           .getFromProviderById$(this.interoperabilityGuidelineItem.id ?? 0)
           .subscribe((data) => {
@@ -59,6 +79,26 @@ export class GuidelineDetailPageComponent implements OnInit {
             this.relatedServicesList = [...arr];
           });
       });
+  }
+
+  get() {
+    const collections: ICollectionSearchMetadata[] = [
+      this._searchMetadataRepository.get('guideline'),
+    ];
+
+    collections[0].facets['title'].limit = -1;
+    collections[0].params['qf'] = 'title^100 description^10 tag_list_tg^10';
+    collections[0].params['collection'] = 'provider';
+
+    return combineLatest(
+      this.guidelinesService.getProviderNameByPid$(
+        `pid:${this.interoperabilityGuidelineItem?.provider}`,
+        collections
+      )
+    ).pipe(
+      map((responses) => responses.filter(({ results }) => results.length > 0)),
+      untilDestroyed(this)
+    );
   }
 
   toggleTab(id: string) {
