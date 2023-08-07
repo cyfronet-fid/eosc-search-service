@@ -11,6 +11,7 @@ import { deserializeAll } from '@collections/filters-serializers/filters-seriali
 import { Router } from '@angular/router';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { TransformArrayDescriptionPipe } from '../../pipe/interoperability-guidelines-filter.pipe';
+import { RECOMMENDATIONS_TOOLTIP_TEXT } from '@collections/data/config';
 
 @UntilDestroy()
 @Component({
@@ -21,6 +22,7 @@ import { TransformArrayDescriptionPipe } from '../../pipe/interoperability-guide
 export class RecommendationsComponent implements OnInit {
   recommendations: IResult[] = [];
   highlightsreal: { [field: string]: string[] | undefined } = {};
+  tooltipText: string = RECOMMENDATIONS_TOOLTIP_TEXT;
 
   constructor(
     private _customRoute: CustomRoute,

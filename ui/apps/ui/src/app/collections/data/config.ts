@@ -21,6 +21,15 @@ export const SDG_TOOLTIP_TEXT =
   ' They address the global challenges we face, including poverty, inequality, ' +
   'climate change, environmental degradation, peace, and justice.';
 
+export const RECOMMENDATIONS_TOOLTIP_TEXT =
+  'The recommendations on this portal are customized ' +
+  'for you. Our algorithm analyzes your activity, ' +
+  'preferences, interactions, and browsing history to ' +
+  'understand your interests and provide suggestions ' +
+  'that are relevant to you. By engaging with the ' +
+  'platform, you will discover more personalized ' +
+  'recommendations that align with your preferences.';
+
 // Source: http://country.io/data/
 export const COUNTRY_CODE_TO_NAME: Record<string, string> = {
   BD: 'Bangladesh',
