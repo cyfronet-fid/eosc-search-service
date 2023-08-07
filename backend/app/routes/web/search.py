@@ -9,8 +9,8 @@ from pydantic.typing import Literal
 from requests import Response
 
 from app.routes.web.recommendation import sort_by_relevance
-from app.solr.operations import get, search_dep, search_advanced_dep
 from app.schemas.search_request import SearchRequest
+from app.solr.operations import get, search_advanced_dep, search_dep
 
 from ..util import DEFAULT_SORT
 
@@ -78,8 +78,9 @@ async def search_post(
 
 
 # pylint: disable=too-many-arguments
-@router.post("/search-results-adv", name="web:post-search")
-async def search_post_adv(
+@router.post("/search-results-advanced", name="web:post-search")
+async def search_post_advanced(
+    request_session: Request,
     collection: str = Query(..., description="Collection"),
     q: str = Query(..., description="Free-form query string"),
     qf: str = Query(..., description="Query fields"),
@@ -88,13 +89,7 @@ async def search_post_adv(
         description="Filter query",
         example=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
-    sort_ui: str = Literal[
-        "dmr",
-        "dlr",
-        "mp",
-        "r",
-        "default",
-    ],
+    sort_ui: SortUi = "default",
     sort: list[str] = Query(
         [], description="Solr sort", example=["description asc", "name desc"]
     ),
@@ -133,7 +128,7 @@ async def search_post_adv(
         if "all_collection" in collection or "bundle" in collection:
             await extend_results_with_bundles(client, res_json, collection)
 
-    out = await create_output(res_json, collection, sort_ui)
+    out = await create_output(request_session, res_json, collection, sort_ui)
     return out
 
 

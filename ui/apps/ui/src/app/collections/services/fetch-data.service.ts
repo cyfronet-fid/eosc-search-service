@@ -55,7 +55,7 @@ export class FetchDataService {
 
   fetchResultsAdv$<T extends { id: string }>(
     params: ISolrCollectionParams & ISolrQueryParams,
-    facets: { [field: string]: IFacetParam },
+    facets: { [field: string]: ITermsFacetParam | IStatFacetParam },
     adapter: adapterType
   ): Observable<ISearchResults<IResult>> {
     this._paginationRepository.setLoading(true);

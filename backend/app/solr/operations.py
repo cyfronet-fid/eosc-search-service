@@ -158,7 +158,7 @@ async def search_advanced(
         request_body["facet"] = {k: v.dict() for k, v in facets.items()}
 
     return await client.post(
-        f"{SOLR_URL}{collection}/select",
+        f"{settings.SOLR_URL}{collection}/select",
         json=request_body,
     )
 
