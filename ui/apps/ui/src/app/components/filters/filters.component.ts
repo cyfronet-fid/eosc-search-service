@@ -66,7 +66,7 @@ export class FiltersComponent {
   );
 
   constructor(
-    private _filtersConfigsRepository: FiltersConfigsRepository,
+    private _filtersConfigsRepository: FiltersConfigsRepository, // If needed
     private _route: ActivatedRoute
   ) {}
 }

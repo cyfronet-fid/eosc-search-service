@@ -8,6 +8,13 @@ import { toArray } from '@collections/filters-serializers/utils';
 import { serializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { DEFAULT_SORT } from '@components/sort-by-functionality/sort-value.type';
+import { toSearchMetadata } from '@components/filters/utils';
+import { toFilterFacet } from '@components/filters/utils';
+import {
+  ICollectionSearchMetadata,
+  ITermsFacetParam,
+} from '@collections/repositories/types';
+import { FilterService } from '@components/filters/filters.service';
 
 const DEFAULT_PARAMS = {
   collection: null,
@@ -55,7 +62,10 @@ export class CustomRoute {
       distinctUntilChanged(isEqual)
     );
 
-  constructor(private _filtersConfigsRepository: FiltersConfigsRepository) {}
+  constructor(
+    private _filtersConfigsRepository: FiltersConfigsRepository,
+    private _filterService: FilterService
+  ) {}
 
   // SYNC
   fqMap() {
@@ -94,7 +104,32 @@ export class CustomRoute {
       fq: toArray(parsedQueryParams['fq']),
       q: (parsedQueryParams['q'] as string | undefined) ?? '*',
     }));
+
+    this._filterService.clearCache();
+    const metadata = this._filterService.searchMetadataRepository.get(
+      collection
+    ) as ICollectionSearchMetadata;
+
+    const filtersConfig = this._filtersConfigsRepository.get(
+      this.collection()
+    ).filters;
+    const filtersBatch: string[] = [];
+    const facetsBatch: { [facet: string]: ITermsFacetParam }[] = [];
+
+    filtersConfig.forEach((filterConfig) => {
+      const filter = filterConfig.filter;
+      const facetParams = toFilterFacet(filter);
+      filtersBatch.push(filter);
+      facetsBatch.push({ [filter]: facetParams[filter] });
+    });
+
+    this._filterService.fetchTreeNodes$(
+      filtersBatch,
+      toSearchMetadata('*', [], metadata),
+      facetsBatch
+    );
   }
+
   setCollection(collection: string | null) {
     return this._store$.update((state) => ({
       ...state,
