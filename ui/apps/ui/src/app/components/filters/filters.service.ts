@@ -11,16 +11,14 @@ import {
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 import { Observable, map, merge, shareReplay } from 'rxjs';
 import { facetToFlatNodes } from '@components/filters/utils';
-import { CustomRoute } from '@collections/services/custom-route.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class FilterService {
   private cache: { [key: string]: Observable<IFilterNode[]> } = {};
 
   constructor(
     private _fetchDataService: FetchDataService,
-    private _searchMetadataRepository: SearchMetadataRepository,
-    private _customRoute: CustomRoute
+    private _searchMetadataRepository: SearchMetadataRepository
   ) {}
 
   fetchTreeNodes$(
@@ -50,6 +48,7 @@ export class FilterService {
         }),
         map(
           (nodes) =>
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             nodes.map(({ isSelected: _, ...other }) => other) as IFilterNode[]
         )
       );
@@ -80,9 +79,5 @@ export class FilterService {
 
   get searchMetadataRepository(): SearchMetadataRepository {
     return this._searchMetadataRepository;
-  }
-
-  get customRoute(): CustomRoute {
-    return this._customRoute;
   }
 }

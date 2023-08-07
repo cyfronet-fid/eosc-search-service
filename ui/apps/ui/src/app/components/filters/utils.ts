@@ -2,6 +2,7 @@ import {
   ICollectionSearchMetadata,
   IFacetBucket,
   IFilterNode,
+  ITermsFacetParam,
   IUIFilterTreeNode,
 } from '@collections/repositories/types';
 import { queryChanger } from '@collections/filters-serializers/utils';
@@ -91,4 +92,14 @@ export const toSearchMetadata = (
   rows: 0,
   sort: [],
   ...metadata.params,
+});
+
+export const toFilterFacet = (
+  filter: string
+): { [field: string]: ITermsFacetParam } => ({
+  [filter]: {
+    field: filter,
+    type: 'terms',
+    limit: -1,
+  },
 });

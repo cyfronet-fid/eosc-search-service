@@ -8,7 +8,7 @@ import {
 import { toSearchMetadata } from '../utils';
 import { Observable, map } from 'rxjs';
 import { paramType } from '@collections/services/custom-route.type';
-import { toFilterFacet } from '@components/filters/filter-multiselect/utils';
+import { toFilterFacet } from '@components/filters/utils';
 import { FilterService } from '@components/filters/filters.service';
 
 @Injectable()
