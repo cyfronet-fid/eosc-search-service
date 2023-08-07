@@ -1,8 +1,7 @@
 # pylint: disable=missing-module-docstring,missing-function-docstring,redefined-outer-name
-import json
 import os
 import unittest.mock
-from unittest.mock import ANY, AsyncMock, Mock, create_autospec
+from unittest.mock import ANY, AsyncMock
 
 import pytest
 from fastapi import FastAPI
@@ -11,11 +10,11 @@ from starlette.status import (
     HTTP_200_OK,
     HTTP_404_NOT_FOUND,
     HTTP_422_UNPROCESSABLE_ENTITY,
+    HTTP_500_INTERNAL_SERVER_ERROR,
 )
 
-from app.config import SOLR_URL
-from app.schemas.search_request import TermsFacet
-from app.solr.operations import search, search_dep
+from app.schemas.search_request import StatFacet, TermsFacet
+from app.settings import settings
 
 
 @pytest.mark.asyncio
@@ -109,7 +108,8 @@ async def test_passes_all_facets(
                     "sort": "name desc",
                     "mincount": 5,
                     "missing": False,
-                }
+                },
+                "max_bar": {"expression": "max(bar)"},
             }
         },
     )
@@ -133,7 +133,8 @@ async def test_passes_all_facets(
                 sort="name desc",
                 mincount=5,
                 missing=False,
-            )
+            ),
+            "max_bar": StatFacet(expression="max(bar)"),
         },
     )
 
@@ -192,7 +193,7 @@ async def test_integration_400(app: FastAPI, client: AsyncClient) -> None:
 
 @pytest.mark.asyncio
 @pytest.mark.integration
-@unittest.mock.patch("app.config.SOLR_URL", "http://localhost:8994/solr/")
+@unittest.mock.patch("app.settings.settings.SOLR_URL", "http://localhost:8994/solr/")
 async def test_integration_500(app: FastAPI, client: AsyncClient) -> None:
     res = await client.post(
         app.url_path_for("apis:post-search"),
@@ -203,16 +204,15 @@ async def test_integration_500(app: FastAPI, client: AsyncClient) -> None:
         },
         json={},
     )
-    # This is a temporary fixup for this test. Need to change!
-    assert res.status_code == HTTP_404_NOT_FOUND
-    assert res.json() == {"detail": "Not Found"}
+
+    assert res.status_code == HTTP_500_INTERNAL_SERVER_ERROR
+    assert res.json() == {"detail": "Try again later"}
 
 
 @pytest.fixture
 def setup_solr_collection(collection: str) -> None:
     config_name = "all_collection_16-06-2023"
-    solr_url = SOLR_URL.replace("/solr/", "")
-
+    solr_url = settings.SOLR_URL.replace("/solr/", "")
     os.system(
         f"../solr/create-collection.sh --name {collection}"
         f" --config-name {config_name} --solr-url {solr_url}"
@@ -229,28 +229,6 @@ async def index_solr_docs(setup_solr_collection: None, collection: str) -> None:
     request_body = f"[{','.join(lines)}]"
     async with AsyncClient() as client:
         await client.post(
-            f"{SOLR_URL}{collection}/update/json/docs?commit=true",
+            f"{settings.SOLR_URL}{collection}/update/json/docs?commit=true",
             content=request_body,
         )
-
-
-@pytest.fixture
-def mock_post_search(app: FastAPI) -> AsyncMock:
-    mock_search = get_mock("test_search.post.response.json")
-
-    app.dependency_overrides[search_dep] = lambda: mock_search
-    yield mock_search
-    del app.dependency_overrides[search_dep]
-
-
-def get_mock(file: str) -> AsyncMock:
-    mock_json = json.loads(read_file_contents(file))
-    mock_return = Mock()
-    mock_return.is_error = False
-    mock_return.json = Mock(return_value=mock_json)
-    return create_autospec(search, return_value=mock_return)
-
-
-def read_file_contents(file: str):
-    with open(f"{os.path.dirname(__file__)}/{file}", "r", encoding="utf-8") as f:
-        return f.read()

@@ -4,7 +4,7 @@ Logger customized configuration required to display information
 
 from pydantic import BaseModel
 
-from app.config import LOG_LEVEL
+from app.settings import settings
 
 
 class LogConfig(BaseModel):
@@ -12,7 +12,7 @@ class LogConfig(BaseModel):
 
     LOGGER_NAME: str = "ess"
     LOG_FORMAT: str = "%(levelprefix)s | %(asctime)s | %(message)s"
-    LOG_LEVEL: str = LOG_LEVEL
+    LOG_LEVEL: str = settings.LOG_LEVEL
 
     # Logging config
     version = 1

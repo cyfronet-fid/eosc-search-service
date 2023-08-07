@@ -65,7 +65,6 @@ import {
     >
       <ess-collections-navigation></ess-collections-navigation>
     </div>
-
     <div class="container--xxl">
       <div class="dashboard" style="position: relative">
         <div class="row" id="dashboard__main">
@@ -82,11 +81,12 @@ import {
             ></ess-filters>
           </div>
 
-          <div class="col-sm-9 col-12 center-column">
+          <div class="col-sm-7 col-12 center-column">
             <ess-page-header
               [resultsCount]="response?.numFound ?? 0"
-              [sortByOptionOff]="
-                (response?.results ?? [])[0]?.sortByOptionOff ?? false
+              [isSortByRelevanceCollectionScopeOff]="
+                (response?.results ?? [])[0]
+                  ?.isSortByRelevanceCollectionScopeOff ?? false
               "
             ></ess-page-header>
             <ess-active-filters></ess-active-filters>
@@ -94,6 +94,10 @@ import {
             <ess-results-with-pagination
               [response]="response"
             ></ess-results-with-pagination>
+          </div>
+          <div class="col-sm-2 col-12 right-column">
+            <h5>Browse also</h5>
+            <ess-right-menu></ess-right-menu>
           </div>
           <!-- <div
             class="col-sm-2 col-12 right-column"

@@ -31,25 +31,60 @@ import { IOffer } from '@collections/data/bundles/bundle.model';
         [q]="q$ | async"
         (activeFilter)="setActiveFilter($event.filter, $event.value)"
       ></ess-colored-tags>
+      <div style="display: flex;">
+        <div
+          style="display: flex;"
+          *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
+        >
+          <div class="provider-box">
+            <div class="provider-offer-pic">
+              <img src="assets/provider.svg" />
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column;">
+            <ess-url-title
+              [ngClass]="{ padding_for_provider: type.value === 'provider' }"
+              [title]="title"
+              [highlight]="highlightsreal['title'] ?? []"
+              [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
+            >
+            </ess-url-title>
+            <ess-url-title
+              *ngIf="type.value === 'provider'"
+              [ngClass]="{ sub_title: type.value === 'provider' }"
+              [title]="abbreviation"
+              [highlight]="highlightsreal['abbreviation'] ?? []"
+              [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
+              style="margin-bottom: -10px;"
+            >
+            </ess-url-title>
+          </div>
+        </div>
 
-      <ess-url-title
-        [title]="title"
-        [highlight]="highlightsreal['title'] ?? []"
-        [url]="
-          type.value === 'bundle'
-            ? redirectService.internalUrl(
-                validUrl,
-                id,
-                type.value,
-                offers[0]?.main_offer_id
-                  ? '#offer-' + offers[0].main_offer_id.toString().substring(2)
-                  : ''
-              )
-            : redirectService.internalUrl(validUrl, id, type.value, '')
-        "
-      >
-      </ess-url-title>
-
+        <ng-template #defaultTypeValueTemplate>
+          <div style="display: flex; flex-direction: column;">
+            <ess-url-title
+              [ngClass]="{ padding_for_provider: type.value === 'provider' }"
+              [title]="title"
+              [highlight]="highlightsreal['title'] ?? []"
+              [url]="
+                type.value === 'bundle'
+                  ? redirectService.internalUrl(
+                      validUrl,
+                      id,
+                      type.value,
+                      offers[0]?.main_offer_id
+                        ? '#offer-' +
+                            offers[0].main_offer_id.toString().substring(2)
+                        : ''
+                    )
+                  : redirectService.internalUrl(validUrl, id, type.value, '')
+              "
+            >
+            </ess-url-title>
+          </div>
+        </ng-template>
+      </div>
       <div class="usage">
         <span
           *ngIf="accessRight !== undefined"
@@ -70,13 +105,21 @@ import { IOffer } from '@collections/data/bundles/bundle.model';
           }}</ng-container></span
         >
         <span
-          *ngIf="date !== null && type.value !== 'bundle'"
+          *ngIf="
+            date !== null &&
+            type.value !== 'bundle' &&
+            type.value !== 'provider'
+          "
           class="statistic text-muted"
           ><img src="/assets/usage-date.svg" />
           <ng-container i18n>{{ date }}</ng-container></span
         >
         <span
-          *ngIf="type !== null && type.value !== 'bundle'"
+          *ngIf="
+            type !== null &&
+            type.value !== 'bundle' &&
+            type.value !== 'provider'
+          "
           class="statistic text-muted"
           ><img src="/assets/usage-type.svg" />
           <ng-container i18n>Type: {{ type.label }}</ng-container></span
@@ -106,31 +149,35 @@ import { IOffer } from '@collections/data/bundles/bundle.model';
         [description]="description"
         [highlights]="highlightsreal['description'] ?? []"
       ></ess-description>
-      <div class="bundle-box" *ngIf="type.value === 'bundle'">
-        <div
-          *ngFor="let offer of offers"
-          class="bundle-item align-items-stretch"
-        >
-          <ng-container *ngIf="offer">
-            <div class="card">
-              <div class="card-body d-flex flex-row">
-                <div class="bundle-offer-pic p-2">
-                  <img src="assets/bundle_service.svg" />
-                </div>
-                <div class="bundle-offer-desc p-2">
-                  <h4 class="card-title">
-                    {{ offer.title }}
-                  </h4>
-                  <div class="provided-by">
-                    Service {{ offer.service?.title }}
+      <div>
+        <div>
+          <div class="bundle-box" *ngIf="type.value === 'bundle'">
+            <div
+              *ngFor="let offer of offers"
+              class="bundle-item align-items-stretch"
+            >
+              <ng-container *ngIf="offer">
+                <div class="card">
+                  <div class="card-body d-flex flex-row">
+                    <div class="bundle-offer-pic p-2">
+                      <img src="assets/bundle_service.svg" />
+                    </div>
+                    <div class="bundle-offer-desc p-2">
+                      <h4 class="card-title">
+                        {{ offer.title }}
+                      </h4>
+                      <div class="provided-by">
+                        Service {{ offer.service?.title }}
+                      </div>
+                      <div class="provided-by">
+                        Provided by {{ offer.service?.resource_organisation }}
+                      </div>
+                    </div>
                   </div>
-                  <div class="provided-by">
-                    Provided by {{ offer.service?.resource_organisation }}
-                  </div>
                 </div>
-              </div>
+              </ng-container>
             </div>
-          </ng-container>
+          </div>
         </div>
       </div>
     </div>
@@ -202,6 +249,14 @@ import { IOffer } from '@collections/data/bundles/bundle.model';
       .bundle_container {
         padding: 20px 48px 48px 25px !important;
       }
+
+      .padding_for_provider {
+        display: flex;
+        align-items: center;
+        padding-left: 24px;
+        font-size: 14px;
+        color: red;
+      }
     `,
   ],
 })
@@ -214,8 +269,9 @@ export class ResultComponent implements OnInit {
   @Input() id!: string;
   @Input() date?: string;
 
-  @Input()
-  description!: string;
+  @Input() description!: string;
+
+  @Input() abbreviation!: string;
 
   @Input() title!: string;
 

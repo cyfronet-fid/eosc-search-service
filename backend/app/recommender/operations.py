@@ -1,8 +1,8 @@
 """Operations on Recommender Service"""
 from httpx import AsyncClient, Response
 
-from app.config import RS_URL
 from app.schemas.recommend_request import RecommendRequest
+from app.settings import settings
 
 
 async def recommendations(
@@ -39,7 +39,7 @@ async def recommendations(
             "fq": fq,
         },
     }
-    return await client.post(f"{RS_URL}recommendations", json=payload)
+    return await client.post(f"{settings.RS_URL}recommendations", json=payload)
 
 
 def doc_to_candidate(doc):

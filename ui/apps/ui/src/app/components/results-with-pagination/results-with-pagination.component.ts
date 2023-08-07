@@ -38,24 +38,54 @@ import { Router } from '@angular/router';
         $any(results$ | async)?.length > 0 && (isLoading$ | async) === false
       "
     >
-      <ess-result
-        class="results"
+      <ess-pagination
+        [paginationData]="$any(paginationData$ | async)"
+        [loading]="(isLoading$ | async) ?? false"
+        (activePageChange)="pageNr$.next($event)"
+      ></ess-pagination>
+      <ng-container
         *ngFor="let result of results$ | async; trackBy: trackByResultId"
-        [id]="result.id"
-        [title]="result.title"
-        [description]="result.description"
-        [type]="result.type"
-        [url]="result.url"
-        [tags]="result.tags"
-        [coloredTags]="result.coloredTags ?? []"
-        [secondaryTags]="result.secondaryTags ?? []"
-        [views]="result.views"
-        [downloads]="result.downloads"
-        [accessRight]="result.accessRight"
-        [date]="result.date"
-        [highlights]="highlights[result.id] ?? {}"
-        [offers]="result.offers ?? []"
-      ></ess-result>
+      >
+        <ess-result
+          *ngIf="
+            result.type.value.toString().includes('provider');
+            else defaultResultTemplate
+          "
+          class="results"
+          [id]="result.id"
+          [title]="result.title"
+          [tags]="result.tags"
+          [coloredTags]="result.coloredTags ?? []"
+          [secondaryTags]="result.secondaryTags ?? []"
+          [views]="result.views"
+          [description]="result.description | transformArrayDescriptionPipe"
+          [abbreviation]="result.abbreviation ?? ''"
+          [type]="result.type"
+          [date]="result.date"
+          [highlights]="highlights[result.id] ?? {}"
+          [url]="result.url"
+        ></ess-result>
+        <ng-template #defaultResultTemplate>
+          <ess-result
+            class="results"
+            [id]="result.id"
+            [title]="result.title"
+            [description]="result.description | transformArrayDescriptionPipe"
+            [type]="result.type"
+            [url]="result.url"
+            [tags]="result.tags"
+            [coloredTags]="result.coloredTags ?? []"
+            [secondaryTags]="result.secondaryTags ?? []"
+            [views]="result.views"
+            [downloads]="result.downloads"
+            [accessRight]="result.accessRight"
+            [date]="result.date"
+            [highlights]="highlights[result.id] ?? {}"
+            [offers]="result.offers ?? []"
+          ></ess-result>
+        </ng-template>
+      </ng-container>
+
       <ess-pagination
         [paginationData]="$any(paginationData$ | async)"
         [loading]="(isLoading$ | async) ?? false"

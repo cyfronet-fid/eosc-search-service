@@ -17,3 +17,10 @@ export class InteroperabilityGuidelinesTransformDatePipe
     return moment(value).format('YYYY-MM-DD');
   }
 }
+
+@Pipe({ name: 'transformArrayDescriptionPipe' })
+export class TransformArrayDescriptionPipe implements PipeTransform {
+  transform(value: string | string[]): string {
+    return typeof value === 'string' ? value : value.join('');
+  }
+}

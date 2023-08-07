@@ -25,8 +25,7 @@ import { toNavigationLink } from './utils';
             standard: (st$ | async),
             tags: (tg$ | async)
           }"
-          >{{ link.label }}</a
-        >
+          >{{ link.label }}</a>
       </div>
     </div>
   `,

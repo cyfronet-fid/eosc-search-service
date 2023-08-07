@@ -34,7 +34,10 @@ import { Router } from '@angular/router';
       </div>
     </div> --->
       <ess-sort-by-functionality
-        [sortByOptionOff]="sortByOptionOff"
+        [isSortByRelevanceCollectionScopeOff]="
+          isSortByRelevanceCollectionScopeOff
+        "
+        [type]="type"
       ></ess-sort-by-functionality>
     </div>
   `,
@@ -57,7 +60,10 @@ export class PageHeaderComponent {
   sortByPermitted!: string[];
 
   @Input()
-  sortByOptionOff!: boolean;
+  type!: string;
+
+  @Input()
+  isSortByRelevanceCollectionScopeOff!: boolean;
 
   activeNavConfig$ = this._navConfigsRepository.activeEntity$;
 

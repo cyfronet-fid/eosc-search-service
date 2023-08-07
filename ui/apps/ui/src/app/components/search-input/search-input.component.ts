@@ -602,9 +602,9 @@ export class SearchInputComponent implements OnInit {
           )
         )
       )
-      .subscribe(
-        (suggestedResults) => (this.suggestedResults = suggestedResults)
-      );
+      .subscribe((suggestedResults) => {
+        this.suggestedResults = suggestedResults;
+      });
     this.collectionFc.valueChanges
       .pipe(untilDestroyed(this))
       .subscribe((navConfig) =>

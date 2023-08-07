@@ -4,20 +4,18 @@ import { FetchDataService } from '@collections/services/fetch-data.service';
 import {
   ICollectionSearchMetadata,
   IFacetBucket,
-  IFacetParam,
   IFilterNode,
   ISolrCollectionParams,
   ISolrQueryParams,
+  ITermsFacetParam,
+  ITermsFacetResponse,
 } from '@collections/repositories/types';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
-import { facetToFlatNodes } from '../utils';
+import { facetToFlatNodes, toSearchMetadata } from '../utils';
 import { Observable, map } from 'rxjs';
 import { paramType } from '@collections/services/custom-route.type';
 import { CustomRoute } from '@collections/services/custom-route.service';
-import {
-  toFilterFacet,
-  toSearchMetadata,
-} from '@components/filters/filter-multiselect/utils';
+import { toFilterFacet } from '@components/filters/filter-multiselect/utils';
 
 @Injectable()
 export class FilterMultiselectService {
@@ -225,17 +223,19 @@ export class FilterMultiselectService {
   private _fetchTreeNodes$(
     filter: string,
     params: ISolrCollectionParams & ISolrQueryParams,
-    facets: { [facet: string]: IFacetParam },
+    facets: { [facet: string]: ITermsFacetParam },
     mutator?: (bucketValues: IFacetBucket[]) => IFilterNode[]
   ): Observable<IFilterNode[]> {
     return this._fetchDataService
       .fetchFacets$<unknown & { id: string }>(params, facets)
       .pipe(
-        map((facets) =>
-          mutator
-            ? mutator(facets[filter]?.buckets || [])
-            : facetToFlatNodes(facets[filter]?.buckets, filter)
-        ),
+        map((facets) => {
+          const filterFacets = facets[filter] as ITermsFacetResponse;
+
+          return mutator
+            ? mutator(filterFacets?.buckets || [])
+            : facetToFlatNodes(filterFacets?.buckets, filter);
+        }),
         map(
           (nodes) =>
             nodes.map(

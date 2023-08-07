@@ -279,7 +279,7 @@ h3,
 }
 
 .dashboard .center-column {
-  padding: 0 0 0 20px;
+  padding: 0 20px 0 20px;
 }
 
 .dashboard .right-column {
@@ -394,7 +394,12 @@ h6 {
 }
 
 .tag {
-  font-size: 12px;
+  font-size: 11px;
+  margin-left: -3px;
+}
+
+.tag:first-child, .tag:nth-child(2) {
+  margin-left: 0px;
 }
 
 #description {
@@ -440,6 +445,46 @@ h6 {
 
       b {
         font-weight: 600;
+      }
+    }
+  }
+
+  .padding_for_provider h6 {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
+    line-height: 1.36;
+    margin-bottom: 0;
+
+    a {
+      font-weight: 600;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.36;
+      margin-bottom: 0;
+
+      b {
+        font-weight: 600;
+      }
+    }
+  }
+
+  .sub_title h6 {
+    color: #858990;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    padding-left: 24px;
+
+    a {
+      font-weight: 400;
+      font-size: 14px;
+      color: #858990;
+      line-height: 1.36;
+      margin-bottom: 0;
+
+      b {
+        font-weight: 400;
       }
     }
   }
@@ -969,6 +1014,24 @@ h6 {
       margin-bottom: 25px;
     }
   }
+}
+
+#ngb-tooltip-0 {
+  width: 200px !important;
+}
+
+#tooltipIcon #ngb-tooltip-0.tooltip .tooltip-inner {
+  max-width: 365px !important;
+  width: 365px !important;
+  padding: 15px;
+  text-align: left;
+}
+
+#tooltipIcon #ngb-tooltip-1.tooltip .tooltip-inner {
+  max-width: 300px !important;
+  width: 300px !important;
+  padding: 15px;
+  text-align: left;
 }
 
 @media (max-width: 576px) {

@@ -2,7 +2,7 @@
 /**
  * This file is riddled with @ts-ignore directives,
  * as it uses auto generated file ./base which is not well
- * formatted or well behaved
+ * formatted or well-behaved
  */
 
 import { sharedEnvironment } from './environment.generated';

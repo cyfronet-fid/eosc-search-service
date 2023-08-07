@@ -10,6 +10,8 @@ import { toArray } from '@collections/filters-serializers/utils';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { Router } from '@angular/router';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
+import { TransformArrayDescriptionPipe } from '../../pipe/interoperability-guidelines-filter.pipe';
+import { RECOMMENDATIONS_TOOLTIP_TEXT } from '@collections/data/config';
 
 @UntilDestroy()
 @Component({
@@ -20,6 +22,7 @@ import { FiltersConfigsRepository } from '@collections/repositories/filters-conf
 export class RecommendationsComponent implements OnInit {
   recommendations: IResult[] = [];
   highlightsreal: { [field: string]: string[] | undefined } = {};
+  tooltipText: string = RECOMMENDATIONS_TOOLTIP_TEXT;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -34,7 +37,7 @@ export class RecommendationsComponent implements OnInit {
       .pipe(
         untilDestroyed(this),
         switchMap((panelId) => {
-          if (panelId === 'guideline') {
+          if (panelId === 'guideline' || panelId === 'provider') {
             return of([]);
           }
           return this._recommendationsService
@@ -47,7 +50,14 @@ export class RecommendationsComponent implements OnInit {
           (this.recommendations = recommendations.map((recommended) => ({
             ...recommended,
             title: truncate(recommended.title, { length: 80 }),
-            description: truncate(recommended.description, { length: 400 }),
+            description: truncate(
+              new TransformArrayDescriptionPipe().transform(
+                recommended.description
+              ),
+              {
+                length: 400,
+              }
+            ),
           })))
       );
   }

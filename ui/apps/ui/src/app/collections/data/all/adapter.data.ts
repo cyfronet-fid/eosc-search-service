@@ -25,11 +25,18 @@ import {
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
 import { IBundle } from '@collections/data/bundles/bundle.model';
+import { IProvider } from '@collections/data/providers/provider.model';
 
 const urlAdapter = (
   type: string,
   data: Partial<
-    IOpenAIREResult & IDataSource & IService & ITraining & IGuideline & IBundle
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
   >
 ) => {
   switch (type) {
@@ -50,6 +57,8 @@ const urlAdapter = (
       return '/guidelines/' + data.id;
     case 'bundle':
       return `${ConfigService.config?.marketplace_url}/services/${data.service_id}`;
+    case 'provider':
+      return `${ConfigService.config?.marketplace_url}/providers/${data?.pid}`;
     default:
       return '';
   }
@@ -71,12 +80,13 @@ export const allCollectionsAdapter: IAdapter = {
         IDataSource &
         IService &
         IGuideline &
-        IBundle
+        IBundle &
+        IProvider
     > & {
       id: string;
     }
   ): IResult => ({
-    sortByOptionOff: true,
+    isSortByRelevanceCollectionScopeOff: true,
     id: data.id,
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',

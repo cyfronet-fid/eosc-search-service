@@ -14,4 +14,6 @@ export const DICTIONARY_TYPE_FOR_PIPE = {
   TRAINING_DOMAIN: 'training_domain',
   GUIDELINE_PROVIDER: 'provider',
   BUNDLE: 'bundle',
+  TYPE_SCIENTIFIC_DOMAINS: 'scientific_domains',
+  TYPE_GENERAL: 'type_general',
 };

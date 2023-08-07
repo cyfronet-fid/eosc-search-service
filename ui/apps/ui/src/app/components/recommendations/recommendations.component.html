@@ -1,7 +1,23 @@
+
 <ng-container *ngIf="recommendations.length > 0">
   <div class="column" style="padding: 5px 20px 0 10px; display: flex; justify-content: space-between;">
     <div class="container results col-md-12">
-      <h2 style="padding-top: 24px;">Resources selected for you</h2>
+      <div class="row">
+        <div class="col-md-auto d-flex p-0">
+          <h2 style="padding-top: 24px;">Resources selected for you</h2>
+          <div id="tooltipIcon" style="padding-top: 25px; margin-left: 10px">
+            <img
+              src="assets/tooltip_prompt.svg"
+              placement="bottom"
+              [ngbTooltip]="tooltipText"
+              alt="Tooltip prompt icon"
+              class="tooltip-prompt-icon"
+              width="19"
+            />
+          </div>
+    </div>
+
+    </div>
       <div class="row mb-4 ml-0 mr-0" style="display: flex; justify-content: center;">
         <div
           *ngFor="let recommendation of recommendations"
@@ -77,7 +93,7 @@
           </ess-secondary-tags>
           <ess-description
             [buttonOff]="true"
-            [description]="recommendation.description"
+            [description]="recommendation.description | transformArrayDescriptionPipe"
             [highlights]="highlightsreal['description'] ?? []"
           ></ess-description>
         </div>

@@ -11,7 +11,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response, StreamingResponse
 
-from app.config import LOG_LEVEL
+from app.settings import settings
 from app.utils.logger import logger
 
 
@@ -31,7 +31,7 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
     ) -> Response:
         # REQUEST
         uuid = uuid4()
-        if LOG_LEVEL == logging.getLevelName(logging.DEBUG):
+        if settings.LOG_LEVEL == logging.getLevelName(logging.DEBUG):
             referer = request.headers["referer"] if "referer" in request.headers else ""
             logger.debug(
                 (
@@ -47,7 +47,7 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
 
         # RESPONSE
         response = await call_next(request)
-        if LOG_LEVEL == logging.getLevelName(logging.DEBUG):
+        if settings.LOG_LEVEL == logging.getLevelName(logging.DEBUG):
             response_body = [section async for section in response.body_iterator]
             response.body_iterator = iterate_in_threadpool(iter(response_body))
 

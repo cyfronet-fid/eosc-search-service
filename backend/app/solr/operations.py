@@ -1,8 +1,8 @@
 """Operations on Solr"""
 from httpx import AsyncClient, Response
 
-from app.config import SOLR_URL
-from app.schemas.search_request import TermsFacet
+from app.schemas.search_request import StatFacet, TermsFacet
+from app.settings import settings
 
 
 async def search(
@@ -15,7 +15,7 @@ async def search(
     sort: list[str],
     rows: int,
     cursor: str = "*",
-    facets: dict[str, TermsFacet] = None,
+    facets: dict[str, TermsFacet | StatFacet] = None,
 ) -> Response:
     # pylint: disable=line-too-long
     """
@@ -75,10 +75,12 @@ async def search(
     }
 
     if facets is not None and len(facets) > 0:
-        request_body["facet"] = {k: v.dict() for k, v in facets.items()}
+        request_body["facet"] = {
+            k: v.serialize_to_solr_format() for k, v in facets.items()
+        }
 
     return await client.post(
-        f"{SOLR_URL}{collection}/select",
+        f"{settings.SOLR_URL}{collection}/select",
         json=request_body,
     )
 
@@ -168,7 +170,7 @@ async def get(
 ) -> Response:
     """Get item from defined collection based on ID"""
     return await client.get(
-        f"{SOLR_URL}{collection}/get?id={item_id}",
+        f"{settings.SOLR_URL}{collection}/get?id={item_id}",
     )
 
 
@@ -178,7 +180,7 @@ async def get_item_by_pid(
     item_pid: str,
 ) -> Response:
     """Get item from defined collection based on PID"""
-    url = f"{SOLR_URL}{collection}/query?q=pid:{item_pid}"
+    url = f"{settings.SOLR_URL}{collection}/query?q=pid:{item_pid}"
     return await client.get(url)
 
 
