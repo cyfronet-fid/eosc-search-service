@@ -9,7 +9,7 @@ import {
   ITermsFacetResponse,
 } from '@collections/repositories/types';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
-import { Observable, map, merge } from 'rxjs';
+import { Observable, map, merge, shareReplay } from 'rxjs';
 import { facetToFlatNodes } from '@components/filters/utils';
 import { CustomRoute } from '@collections/services/custom-route.service';
 
@@ -36,9 +36,9 @@ export class FilterService {
 
     const observables: Observable<IFilterNode[]>[] = [];
 
-    const fetchedFacets = this._fetchDataService.fetchFacets$<
-      unknown & { id: string }
-    >(params, facets);
+    const fetchedFacets = this._fetchDataService
+      .fetchFacets$<unknown & { id: string }>(params, facets)
+      .pipe(shareReplay(1));
 
     filters.forEach((filter) => {
       const observable = fetchedFacets.pipe(
@@ -50,7 +50,6 @@ export class FilterService {
         }),
         map(
           (nodes) =>
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             nodes.map(({ isSelected: _, ...other }) => other) as IFilterNode[]
         )
       );

@@ -5,7 +5,6 @@ from json import JSONDecodeError
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from httpx import AsyncClient, TransportError
-from pydantic.typing import Literal
 from requests import Response
 
 from app.schemas.search_request import SearchRequest, StatFacet, TermsFacet
@@ -16,8 +15,6 @@ from ..util import DEFAULT_SORT
 router = APIRouter()
 
 logger = logging.getLogger(__name__)
-
-SortUi = Literal["dmr", "dlr", "mp", "r", "default"]
 
 
 # pylint: disable=too-many-arguments
@@ -45,6 +42,9 @@ async def search_filters(
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
     """
     results = {}
+
+    if request.facets is None:
+        raise HTTPException(status_code=500)
 
     coroutines = [
         _search(collection, q, qf, fq, rows, cursor, {key: value}, search)
