@@ -145,6 +145,7 @@ $palette-gray-80: rgba($palette-gray-100, 0.8);
   margin-left: 24px;
 }
 
+
 @media (max-width: 768px) {
   .service-info-box {
     width: 100%;
@@ -156,10 +157,5 @@ $palette-gray-80: rgba($palette-gray-100, 0.8);
 
   .results #container:not(:first-child) {
     margin-left: 0;
-  }
-
-  .tooltip-prompt-icon {
-    margin: 11px 10px 0 10px;
-    width: 1.12em;
   }
 }
