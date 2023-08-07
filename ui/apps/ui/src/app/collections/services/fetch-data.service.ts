@@ -21,6 +21,7 @@ import { PaginationRepository } from '@components/results-with-pagination/pagina
 })
 export class FetchDataService {
   _url = `/${environment.backendApiPath}/${environment.search.apiPath}`;
+  _urladv = `/${environment.backendApiPath}/${environment.search.apiPathAdv}`;
 
   constructor(
     private _http: HttpClient,
@@ -36,6 +37,31 @@ export class FetchDataService {
     return this._http
       .post<ISearchResults<T>>(
         this._url,
+        { facets },
+        { params: params as never }
+      )
+      .pipe(
+        catchError(() => of(_EMPTY_RESPONSE)),
+        tap(() => this._paginationRepository.setLoading(false)),
+        map((response: ISearchResults<T>) => ({
+          results: response.results.map((result) => adapter(result)),
+          numFound: response.numFound,
+          nextCursorMark: response.nextCursorMark,
+          facets: response.facets,
+          highlighting: response.highlighting,
+        }))
+      );
+  }
+
+  fetchResultsAdv$<T extends { id: string }>(
+    params: ISolrCollectionParams & ISolrQueryParams,
+    facets: { [field: string]: ITermsFacetParam | IStatFacetParam },
+    adapter: adapterType
+  ): Observable<ISearchResults<IResult>> {
+    this._paginationRepository.setLoading(true);
+    return this._http
+      .post<ISearchResults<T>>(
+        this._urladv,
         { facets },
         { params: params as never }
       )

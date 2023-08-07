@@ -212,6 +212,7 @@ export class FilterMultiselectComponent implements OnInit {
       this._customRoute
         .fqWithExcludedFilter$(this.filter)
         .pipe(untilDestroyed(this)),
+      this._customRoute.tags$.pipe(untilDestroyed(this)),
       this._customRoute.q$.pipe(untilDestroyed(this))
     )
       .pipe(
@@ -248,6 +249,10 @@ export class FilterMultiselectComponent implements OnInit {
       this._filterMultiselectService
         ._fetchAllValues$(
           this.filter,
+          {
+            ...this._customRoute.params(),
+            fq: this._customRoute.fqWithExcludedFilter(this.filter),
+          },
           this._customRoute.params()['collection'] as string,
           this.onValuesFetch
         )
