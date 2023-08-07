@@ -10,7 +10,7 @@ from requests import Response
 
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.web import SearchRequest
-from app.solr.operations import get, search_dep, searchadv_dep
+from app.solr.operations import get, search_dep, search_advanced_dep
 
 from ..util import DEFAULT_SORT
 
@@ -104,7 +104,7 @@ async def search_post_adv(
     rows: int = Query(10, description="Row count", gte=3, le=100),
     cursor: str = Query("*", description="Cursor"),
     request: SearchRequest = Body(..., description="Request body"),
-    search=Depends(searchadv_dep),
+    search=Depends(search_advanced_dep),
 ):
     """
     Do a search against the specified collection.
@@ -115,7 +115,6 @@ async def search_post_adv(
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
     """
     final_solr_sorting = await define_sorting(sort_ui, sort)
-    print("advanced search triggered")
     async with AsyncClient() as client:
         response = await handle_search_errors(
             search(

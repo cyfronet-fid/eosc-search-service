@@ -83,7 +83,7 @@ async def search(
     )
 
 
-async def searchadv(
+async def search_advanced(
     client: AsyncClient,
     collection: str,
     *,
@@ -187,9 +187,9 @@ def search_dep():
     return search
 
 
-def searchadv_dep():
+def search_advanced_dep():
     """FastAPI search method dependency"""
-    return searchadv
+    return search_advanced
 
 
 def get_dep():
