@@ -95,7 +95,7 @@ async def search_advanced(
     sort: list[str],
     rows: int,
     cursor: str = "*",
-    facets: dict[str, TermsFacet] = None,
+    facets: dict[str, TermsFacet] | None,
 ) -> Response:
     # pylint: disable=line-too-long
     """
