@@ -6,7 +6,6 @@ export const excludedSoftwareFilters: IExcludedFiltersConfig = {
   excluded: [
     'fos',
     'unified_categories',
-    'publication_date',
     'document_type',
     'resource_organisation',
   ],
