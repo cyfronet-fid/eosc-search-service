@@ -174,3 +174,11 @@ export interface IInteroperabilityRecord {
   catalogueId: string;
   interoperabilityRecordIds: string;
 }
+
+export interface ICreator {
+  authorName: string;
+  authorType: string;
+  authorNameId: string;
+  authorAffiliations: string;
+  authorAffiliationsId: string;
+}
