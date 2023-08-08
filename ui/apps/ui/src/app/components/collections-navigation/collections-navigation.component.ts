@@ -9,20 +9,23 @@ import { toNavigationLink } from './utils';
   template: `
     <div class="container--xxl navigation">
       <div id="sub-nav">
-        <ng-container *ngFor="let link of navigationLinks">
-          <a
-            class="nav-btn {{ link.label }}"
-            [routerLink]="link.routerLink"
-            [routerLinkActiveOptions]="{
-              queryParams: 'ignored',
-              paths: 'exact',
-              matrixParams: 'ignored',
-              fragment: 'ignored'
-            }"
-            routerLinkActive="active"
-            [queryParams]="{ q: (q$ | async) }"
-            >{{ link.label }}</a
-          ></ng-container
+        <a
+          class="nav-btn {{ link.label }}"
+          *ngFor="let link of navigationLinks"
+          [routerLink]="link.routerLink"
+          [routerLinkActiveOptions]="{
+            queryParams: 'ignored',
+            paths: 'exact',
+            matrixParams: 'ignored',
+            fragment: 'ignored'
+          }"
+          routerLinkActive="active"
+          [queryParams]="{
+            q: (q$ | async),
+            standard: (st$ | async),
+            tags: (tg$ | async)
+          }"
+          >{{ link.label }}</a
         >
       </div>
     </div>
@@ -32,6 +35,8 @@ export class CollectionsNavigationComponent implements OnInit {
   public navigationLinks: INavigationLink[] = [];
   public showCollections = false;
   public q$ = this._customRoute.q$;
+  public st$ = this._customRoute.standard$;
+  public tg$ = this._customRoute.tags$;
 
   constructor(
     private _customRoute: CustomRoute,

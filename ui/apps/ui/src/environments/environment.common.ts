@@ -18,6 +18,7 @@ export const commonEnvironment = {
   search: {
     apiResultsPath: 'search-results',
     apiFiltersPath: 'search-filters',
+    apiResultsAdvPath: 'search-results-advanced',
   },
 
   /*

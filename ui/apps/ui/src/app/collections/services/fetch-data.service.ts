@@ -27,6 +27,7 @@ import { FacetsResponse } from '@components/search-input/type';
 export class FetchDataService {
   _urlResults = `/${environment.backendApiPath}/${environment.search.apiResultsPath}`;
   _urlFilters = `/${environment.backendApiPath}/${environment.search.apiFiltersPath}`;
+  _urlResultsAdv = `/${environment.backendApiPath}/${environment.search.apiResultsAdvPath}`;
 
   constructor(
     private _http: HttpClient,
@@ -42,6 +43,31 @@ export class FetchDataService {
     return this._http
       .post<ISearchResults<T>>(
         this._urlResults,
+        { facets },
+        { params: params as never }
+      )
+      .pipe(
+        catchError(() => of(_EMPTY_RESPONSE)),
+        tap(() => this._paginationRepository.setLoading(false)),
+        map((response: ISearchResults<T>) => ({
+          results: response.results.map((result) => adapter(result)),
+          numFound: response.numFound,
+          nextCursorMark: response.nextCursorMark,
+          facets: response.facets,
+          highlighting: response.highlighting,
+        }))
+      );
+  }
+
+  fetchResultsAdv$<T extends { id: string }>(
+    params: ISolrCollectionParams & ISolrQueryParams,
+    facets: { [field: string]: ITermsFacetParam | IStatFacetParam },
+    adapter: adapterType
+  ): Observable<ISearchResults<IResult>> {
+    this._paginationRepository.setLoading(true);
+    return this._http
+      .post<ISearchResults<T>>(
+        this._urlResultsAdv,
         { facets },
         { params: params as never }
       )

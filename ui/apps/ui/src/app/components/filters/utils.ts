@@ -79,6 +79,7 @@ export const flatNodesToTree = (
 
   return Object.values(fullMap)
     .filter(({ level }) => level === 0)
+    .filter(({ count }) => count !== '0')
     .sort(customSort ?? defaultSort);
 };
 export const toSearchMetadata = (

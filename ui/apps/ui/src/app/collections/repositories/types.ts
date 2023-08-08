@@ -18,6 +18,7 @@ export interface IResult {
   accessRight?: string;
   views?: number;
   downloads?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   offers?: any[];
   isSortByRelevanceCollectionScopeOff?: boolean;
 }
@@ -89,6 +90,11 @@ export interface ICollectionNavConfig {
     url?: string;
   }[];
 }
+
+export interface ICollectionTagsConfig {
+  name: string;
+}
+
 export interface IAdapter {
   id: string;
   adapter: adapterType;
@@ -167,4 +173,12 @@ export interface IInteroperabilityRecord {
   resourceId: string;
   catalogueId: string;
   interoperabilityRecordIds: string;
+}
+
+export interface ICreator {
+  authorName: string;
+  authorType: string;
+  authorNameId: string;
+  authorAffiliations: string;
+  authorAffiliationsId: string;
 }

@@ -5,21 +5,21 @@
 
 .ig-about-wrapper {
   margin: 24px 0 0 0;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   border-radius: 4px;
 }
 
 .ig-details-wrapper {
   /* min-height: 478px; */
   margin: 0 0 24px 0;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   border-radius: 4px;
 }
 
 .ig-provider-information-wrapper {
   /* height: 478px; */
   margin: 0 0 24px 0;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   border-radius: 4px;
 }
 
@@ -33,11 +33,12 @@
   height: inherit;
   display: flex;
   flex-direction: row;
+  padding: 24px 24px 24px 48px;
 }
 
 .header {
   height: 54px;
-  background: #F4F4F5;
+  background: #f4f4f5;
   border-radius: 0px 0px 4px 4px;
 }
 
@@ -54,7 +55,7 @@
 .footer {
   margin-top: -54px;
   height: 54px;
-  background: #F4F4F5;
+  background: #f4f4f5;
   border-radius: 0px 0px 4px 4px;
 }
 
@@ -79,6 +80,7 @@
   font-size: 22px;
   line-height: 26px;
   color: #000000;
+  padding-left: 64px;
 }
 
 .ig-about-subtitle {
@@ -117,15 +119,15 @@
 }
 
 .left-column {
-  padding: 24px 0 0 48px;
+  /*padding: 24px 0 0 48px;*/
 }
 
 .column {
-  padding: 24px 24px 24px 0;
+  /*padding: 24px 24px 24px 0;*/
 }
 
 .right-column {
-  padding: 24px 24px 0 0;
+  /*padding: 24px 24px 0 0;*/
 }
 
 .related-services-header {
@@ -140,13 +142,13 @@
   font-size: 1.3em;
   font-weight: 600;
   color: #3d4db6;
-  text-decoration : none;
+  text-decoration: none;
   line-height: 1.2;
   text-align: left;
 }
 
 .related-services-desc {
-  font-size: .875rem;
+  font-size: 0.875rem;
   font-weight: 300;
   line-height: 1.5;
   color: #233d4c;
@@ -154,14 +156,14 @@
 }
 
 .related-services-down {
-  font-size: .75rem;
+  font-size: 0.75rem;
   font-weight: 300;
   color: #233d4c;
   line-height: 1.5;
 }
 
 .related-services-up {
-  font-size: .75rem;
+  font-size: 0.75rem;
   font-weight: 300;
   color: #233d4c;
   line-height: 1.5;
@@ -176,26 +178,26 @@
 .service-box {
   margin: 24px;
   padding: 12px 12px 0 12px;
-  background-color: #F4F4F5;
+  background-color: #f4f4f5;
   min-width: 360px;
   max-width: 360px;
 }
 
 .info-box-service {
   display: flex;
-  border-top: 1px solid #FFFFFF;
+  border-top: 1px solid #ffffff;
   justify-content: space-between;
   padding-top: 12px;
 }
 
 .creator:before {
-  content: "";
+  content: '';
   display: inline-block;
   width: 10px;
   height: 10px;
   margin-right: 5px;
   border-radius: 15px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
 }
 
 .left20 {
@@ -209,7 +211,7 @@
 }
 
 .creator-container div {
-  width: 40%;
+  width: 33%;
   margin-bottom: 15px;
 }
 
@@ -237,6 +239,12 @@
 
 .uri-box {
   width: 40%;
-  margin: 0 15px 0 15px;
 }
 
+.creator {
+  padding-left: 24px;
+}
+
+.creator:first-child {
+  padding-left: 0;
+}
