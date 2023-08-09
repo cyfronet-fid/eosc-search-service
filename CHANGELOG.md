@@ -1,5 +1,44 @@
 # Changelog
 
+## [2.9.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.8.0...v2.9.0) (2023-08-09)
+
+
+### Features
+
+* [[#532](https://github.com/cyfronet-fid/eosc-search-service/issues/532)] Add dynamic fetching of max range ([14bd8ea](https://github.com/cyfronet-fid/eosc-search-service/commit/14bd8ea17e0d72f96404b5345044465993bf8b29))
+* [[#532](https://github.com/cyfronet-fid/eosc-search-service/issues/532)] Add the ability to call SOLR with stat facets ([94b44e2](https://github.com/cyfronet-fid/eosc-search-service/commit/94b44e2111627f89fcbe95c339f28c2eef6f4939))
+* [[#599](https://github.com/cyfronet-fid/eosc-search-service/issues/599)] Separate date range filters for calendar-based and year-based values ([3374178](https://github.com/cyfronet-fid/eosc-search-service/commit/3374178e51947f0fda76fc87fc005333aacb9d83))
+* [[#634](https://github.com/cyfronet-fid/eosc-search-service/issues/634)] Improve naming in the 'country' filter ([ded1918](https://github.com/cyfronet-fid/eosc-search-service/commit/ded1918fbe75f9b37242b7c0cc99f5337b1b9f0a))
+* [[#679](https://github.com/cyfronet-fid/eosc-search-service/issues/679)] Add pagination at the top of the page ([43a2e32](https://github.com/cyfronet-fid/eosc-search-service/commit/43a2e3263e4d047730df9da9552d100975d8fe45))
+* [[#690](https://github.com/cyfronet-fid/eosc-search-service/issues/690)] sort by relevance prod off, beta on ([4057724](https://github.com/cyfronet-fid/eosc-search-service/commit/405772417d933bb3fba0e8a647f26ebac0e8c34a))
+* [[#726](https://github.com/cyfronet-fid/eosc-search-service/issues/726), [#727](https://github.com/cyfronet-fid/eosc-search-service/issues/727)] add term vectors and direct_url ([cc14cec](https://github.com/cyfronet-fid/eosc-search-service/commit/cc14cec48ea9ce3b65ddbcef36e322f8986d3d35))
+* [[#760](https://github.com/cyfronet-fid/eosc-search-service/issues/760)] serialize creators for ig ([37fd1cd](https://github.com/cyfronet-fid/eosc-search-service/commit/37fd1cd5f7e86128665737f75941c2e2b9c509b8))
+* [#515](https://github.com/cyfronet-fid/eosc-search-service/issues/515) add provider to ss ([d99a32d](https://github.com/cyfronet-fid/eosc-search-service/commit/d99a32d3e06e1c4610d6708f4cfa5c8a5d268843))
+* [#712](https://github.com/cyfronet-fid/eosc-search-service/issues/712) hide fields ([1fe3d4a](https://github.com/cyfronet-fid/eosc-search-service/commit/1fe3d4a90deac630f7da994d4f230c7ff156be0b))
+* [#736](https://github.com/cyfronet-fid/eosc-search-service/issues/736) - add tooltip for recommendations ([9a1c6f7](https://github.com/cyfronet-fid/eosc-search-service/commit/9a1c6f7c7ae542c90260deba786ca19c80b72683))
+* [#736](https://github.com/cyfronet-fid/eosc-search-service/issues/736) - styling ([368898a](https://github.com/cyfronet-fid/eosc-search-service/commit/368898ae1d755ff78f6d9aa1a670b85b7e798029))
+* [#737](https://github.com/cyfronet-fid/eosc-search-service/issues/737) fix the scientific domain view ([b3b177b](https://github.com/cyfronet-fid/eosc-search-service/commit/b3b177b1068c772623a7c2c8a273003beb93e2b0))
+* [#740](https://github.com/cyfronet-fid/eosc-search-service/issues/740) - endpoint to add favourites RP ([fd51a51](https://github.com/cyfronet-fid/eosc-search-service/commit/fd51a5119434b25b1a9fe31e850b7aa735449d8c))
+* advanced search [#632](https://github.com/cyfronet-fid/eosc-search-service/issues/632) ([1643677](https://github.com/cyfronet-fid/eosc-search-service/commit/164367766b5920563f97d58e405be273ba3d9795))
+* advanced search [#632](https://github.com/cyfronet-fid/eosc-search-service/issues/632) ([8959c3c](https://github.com/cyfronet-fid/eosc-search-service/commit/8959c3c71ae6c0558546bdd33255c46b6216bff2))
+* advanced search [#632](https://github.com/cyfronet-fid/eosc-search-service/issues/632) ([951f498](https://github.com/cyfronet-fid/eosc-search-service/commit/951f498bd3612469287ae3397f62d4642a306afd))
+* advanced search [#632](https://github.com/cyfronet-fid/eosc-search-service/issues/632) ([d607ec9](https://github.com/cyfronet-fid/eosc-search-service/commit/d607ec963da63bcc0b09f5ae13a8f0198790ccf6))
+* advanced search [#632](https://github.com/cyfronet-fid/eosc-search-service/issues/632) ([eca521d](https://github.com/cyfronet-fid/eosc-search-service/commit/eca521d962b503fb474e6ddf94527fee6bdb2f4f))
+* advanced search [#632](https://github.com/cyfronet-fid/eosc-search-service/issues/632) merged ([813f1bc](https://github.com/cyfronet-fid/eosc-search-service/commit/813f1bce68cc50d2340e7c9b0b27eb42f306a9c1))
+* advanced search [#632](https://github.com/cyfronet-fid/eosc-search-service/issues/632) merged ([f4d6ec0](https://github.com/cyfronet-fid/eosc-search-service/commit/f4d6ec0b73c9976904bf02e867c9c84ce78ee997))
+* direct link added ([f1442e5](https://github.com/cyfronet-fid/eosc-search-service/commit/f1442e55c1bec9c4cbe0042aaaa584383741913c))
+
+
+### Bug Fixes
+
+* [[#169](https://github.com/cyfronet-fid/eosc-search-service/issues/169)] Tighten fuzzy search in filter search ([9562602](https://github.com/cyfronet-fid/eosc-search-service/commit/9562602a3f3281186272cb0e79f4783a642c144e))
+* [[#651](https://github.com/cyfronet-fid/eosc-search-service/issues/651)] Multiselect 'show all' button doesn't show all data ([4328e5e](https://github.com/cyfronet-fid/eosc-search-service/commit/4328e5e562a8ef7cd334e2201c170b7adc833a7f))
+* [[#687](https://github.com/cyfronet-fid/eosc-search-service/issues/687)] Make source_id different from unique_id ([71991cd](https://github.com/cyfronet-fid/eosc-search-service/commit/71991cdaacfe2fcf31eef446574322a55b664d62))
+* [[#696](https://github.com/cyfronet-fid/eosc-search-service/issues/696)] aai_uid in sort by relevance ([8bd1fdc](https://github.com/cyfronet-fid/eosc-search-service/commit/8bd1fdc16ba292c8e082037c7438a4ea968a6d30))
+* [[#730](https://github.com/cyfronet-fid/eosc-search-service/issues/730)] solr schema 13.07 ([9b65ba9](https://github.com/cyfronet-fid/eosc-search-service/commit/9b65ba9c8e3d8589d024246380cd1c5dd1330d76))
+* [[#752](https://github.com/cyfronet-fid/eosc-search-service/issues/752)] sort by relevance on/off via variable ([01c3592](https://github.com/cyfronet-fid/eosc-search-service/commit/01c3592c3c84b33a212da72eb98a94e93db5245f))
+* solr schema ([038b8e3](https://github.com/cyfronet-fid/eosc-search-service/commit/038b8e311b54fbb9fbac5c53e834f15f1db1b8a9))
+
 ## [2.8.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.7.0...v2.8.0) (2023-07-03)
 
 
