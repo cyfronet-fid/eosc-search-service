@@ -461,7 +461,7 @@
   <field name="author_given_names" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_names" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="author_names_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
-  <field name="author_names_tg" type="text_general" uninvertible="true" docValues="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="author_names_tg" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="author_pids" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="author_types" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="best_access_right" type="string" required="false"/>
@@ -478,15 +478,19 @@
   <field name="contactperson" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="content_type" type="strings" required="false"/>
   <field name="country" type="strings" required="false"/>
+  <field name="creators" type="text_general" uninvertible="true" docValues="false" multiValued="false" indexed="true" stored="true"/>
   <field name="datasource_classification" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="dedicated_for" type="strings" required="false"/>
-  <field name="description" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="delete" type="text_general"/>
+  <field name="description" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
+  <field name="direct_url" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="document_type" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="documentation_url" type="strings" required="false"/>
   <field name="doi" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="domain" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="duration" type="plong" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="eosc_guideline_type" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="eosc_if" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_integration_options" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_provider" type="strings" required="false"/>
   <field name="eosc_related_standards" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -500,11 +504,11 @@
   <field name="helpdesk_email" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="helpdesk_url" type="text_general" sortMissingLast="true" required="false"/>
   <field name="horizontal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
-  <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
+  <field name="id" type="string" termPositions="true" termVectors="true" termOffsets="true" required="true" useDocValuesAsStored="true"/>
   <field name="internal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="jurisdiction" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="keywords" type="strings" required="false"/>
-  <field name="keywords_tg" type="text_general" uninvertible="true" docValues="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="keywords_tg" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="langauge" type="text_general"/>
   <field name="language" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="last_update" type="pdate" sortMissingLast="true" required="false"/>
@@ -556,6 +560,9 @@
   <field name="research_product_access_policies" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_product_licensing_urls" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_product_metadata_access_policies" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="research_product_metadata_license_urls" type="text_general"/>
+  <field name="research_product_metadata_license_urls.name" type="text_general"/>
+  <field name="research_product_metadata_license_urls.url" type="text_general"/>
   <field name="resource_geographic_locations" type="strings" required="false"/>
   <field name="resource_level_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="resource_organisation" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
@@ -580,12 +587,12 @@
   <field name="subtitle" type="text_general" sortMissingLast="true" required="false"/>
   <field name="synchronized_at" type="pdate" sortMissingLast="true" required="false"/>
   <field name="tag_list" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="tag_list_tg" type="text_general" uninvertible="true" docValues="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="tag_list_tg" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="tagline" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="target_group" type="strings" required="false"/>
   <field name="terms_of_use_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="thematic" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
-  <field name="title" type="text_general" docValues="false" indexed="true" stored="true"/>
+  <field name="title" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="tool" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="training_information_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="trl" type="text_general" docValues="false" indexed="true" stored="true"/>
@@ -680,4 +687,8 @@
   <copyField source="providerId" dest="providerId_str" maxChars="256"/>
   <copyField source="relatedStandards.relatedStandardURI" dest="relatedStandards.relatedStandardURI_str" maxChars="256"/>
   <copyField source="relatedStandards.relatedStandardIdentifier" dest="relatedStandards.relatedStandardIdentifier_str" maxChars="256"/>
+  <copyField source="delete" dest="delete_str" maxChars="256"/>
+  <copyField source="research_product_metadata_license_urls.name" dest="research_product_metadata_license_urls.name_str" maxChars="256"/>
+  <copyField source="research_product_metadata_license_urls.url" dest="research_product_metadata_license_urls.url_str" maxChars="256"/>
+  <copyField source="research_product_metadata_license_urls" dest="research_product_metadata_license_urls_str" maxChars="256"/>
 </schema>

@@ -21,11 +21,13 @@ import {
 } from '@collections/filters-serializers/range.deserializer';
 import { isEqual } from 'lodash-es';
 import { toRangeTimeFormat } from '@collections/filters-serializers/range.serializer';
+import { FilterRangeService } from '@components/filters/filter-range/filter-range.service';
+import { DEFAULT_MAX_DURATION } from '@components/filters/filter-range/utils';
 
 @UntilDestroy()
 @Component({
   selector: 'ess-filter-range',
-  template: ` <div class="filter">
+  template: ` <div class="filter" *ngIf="newMax$ | async as newMax">
     <ess-filter-label
       [label]="label"
       [filter]="filter"
@@ -36,10 +38,10 @@ import { toRangeTimeFormat } from '@collections/filters-serializers/range.serial
     <div *ngIf="isExpanded">
       <nz-slider
         nzRange
-        [nzMarks]="marks"
+        [nzMarks]="calculateMarks(newMax)"
         [nzTipFormatter]="formatTooltip"
-        [nzMin]="min"
-        [nzMax]="max"
+        [nzMin]="0"
+        [nzMax]="newMax"
         [nzStep]="step"
         [ngModel]="range$.value"
         (ngModelChange)="range$.next($event)"
@@ -53,6 +55,7 @@ import { toRangeTimeFormat } from '@collections/filters-serializers/range.serial
       }
     `,
   ],
+  providers: [FilterRangeService],
 })
 export class FilterRangeComponent implements OnInit {
   @Input()
@@ -67,78 +70,76 @@ export class FilterRangeComponent implements OnInit {
   @Input()
   tooltipText!: string;
 
-  min = 0;
-  max = 40 * 60 * 60;
   step = 60;
 
-  range$ = new BehaviorSubject<[number, number]>([this.min, this.max]);
+  newMax$ = this._filterRangeService._fetchMaxDuration();
 
-  marks: NzMarks = {
-    0: '0h',
-    [this.max]: `+${Math.floor(moment.duration(this.max * 1000).asHours())}h`,
-  };
+  range$ = new BehaviorSubject<[number, number]>([0, DEFAULT_MAX_DURATION]);
 
   constructor(
     private _customRoute: CustomRoute,
     private _router: Router,
-    private _filtersConfigsRepository: FiltersConfigsRepository
+    private _filtersConfigsRepository: FiltersConfigsRepository,
+    private _filterRangeService: FilterRangeService
   ) {}
 
   ngOnInit(): void {
-    this.range$
-      .pipe(
-        untilDestroyed(this),
-        skip(1),
-        distinctUntilChanged(),
-        debounceTime(1000),
-        switchMap(([start, end]) => {
-          const fqMap = this._customRoute.fqMap();
-          fqMap[this.filter] = [
-            start === this.min ? null : start,
-            end >= this.max ? null : end,
-          ];
-          const filtersConfigs = this._filtersConfigsRepository.get(
-            this._customRoute.collection()
-          ).filters;
-          return this._router.navigate([], {
-            queryParams: {
-              fq: deserializeAll(fqMap, filtersConfigs),
-            },
-            queryParamsHandling: 'merge',
-          });
-        }),
-        untilDestroyed(this)
-      )
-      .subscribe();
+    this.newMax$.subscribe((max) => {
+      this.range$
+        .pipe(
+          untilDestroyed(this),
+          skip(1),
+          distinctUntilChanged(),
+          debounceTime(1000),
+          switchMap(([start, end]) => {
+            const fqMap = this._customRoute.fqMap();
+            fqMap[this.filter] = [
+              start === 0 ? null : start,
+              end >= max ? null : end,
+            ];
+            const filtersConfigs = this._filtersConfigsRepository.get(
+              this._customRoute.collection()
+            ).filters;
+            return this._router.navigate([], {
+              queryParams: {
+                fq: deserializeAll(fqMap, filtersConfigs),
+              },
+              queryParamsHandling: 'merge',
+            });
+          }),
+          untilDestroyed(this)
+        )
+        .subscribe();
 
-    this._customRoute.fqMap$
-      .pipe(
-        untilDestroyed(this),
-        map((fqMap) => fqMap[this.filter] as string | undefined),
-        tap((range: string | undefined) => {
-          if (!range && isEqual([this.min, this.max], this.range$.value)) {
-            return;
-          }
+      this._customRoute.fqMap$
+        .pipe(
+          untilDestroyed(this),
+          map((fqMap) => fqMap[this.filter] as string | undefined),
+          tap((range: string | undefined) => {
+            if (!range && isEqual([0, max], this.range$.value)) {
+              return;
+            }
 
-          if (!range) {
-            this.range$.next([this.min, this.max]);
-            return;
-          }
+            if (!range) {
+              this.range$.next([0, max]);
+              return;
+            }
 
-          const [start, end] = range.split(` ${RANGE_SPLIT_SIGN} `);
+            const [start, end] = range.split(` ${RANGE_SPLIT_SIGN} `);
 
-          const parsedStart =
-            start === EMPTY_RANGE_SIGN ? 0 : moment.duration(start).asSeconds();
-          const parsedEnd =
-            end === EMPTY_RANGE_SIGN
-              ? this.max
-              : moment.duration(end).asSeconds();
-          if (!isEqual([parsedStart, parsedEnd], this.range$.value)) {
-            this.range$.next([parsedStart, parsedEnd]);
-          }
-        })
-      )
-      .subscribe();
+            const parsedStart =
+              start === EMPTY_RANGE_SIGN
+                ? 0
+                : moment.duration(start).asSeconds();
+            const parsedEnd =
+              end === EMPTY_RANGE_SIGN ? max : moment.duration(end).asSeconds();
+            if (!isEqual([parsedStart, parsedEnd], this.range$.value)) {
+              this.range$.next([parsedStart, parsedEnd]);
+            }
+          })
+        )
+        .subscribe();
+    });
   }
 
   formatTooltip(seconds: number): string {
@@ -147,5 +148,12 @@ export class FilterRangeComponent implements OnInit {
 
   isExpandedChanged(newExpanded: boolean) {
     this.isExpanded = newExpanded;
+  }
+
+  calculateMarks(max: number): NzMarks {
+    return {
+      0: '0h',
+      [max]: `+${Math.floor(moment.duration(max * 1000).asHours())}h`,
+    };
   }
 }

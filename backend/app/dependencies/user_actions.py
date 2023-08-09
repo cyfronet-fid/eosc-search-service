@@ -2,21 +2,15 @@
 import datetime
 import json
 import logging
+import uuid
 from typing import Optional, Union
 from urllib.parse import urlparse
 
 import stomp
 from stomp.exception import ConnectFailedException
 
-from app.config import (
-    STOMP_HOST,
-    STOMP_LOGIN,
-    STOMP_PASS,
-    STOMP_PORT,
-    STOMP_SSL,
-    STOMP_USER_ACTIONS_TOPIC,
-)
 from app.schemas.session_data import SessionData
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -96,7 +90,9 @@ class UserActionClient:
             "client_id": "search_service",
             "timestamp": datetime.datetime.utcnow().isoformat(),
             "source": {
-                "visit_id": session_uuid,
+                # We can generate the source here safely since the
+                # search service is always the root of the UA tree
+                "visit_id": str(uuid.uuid4()),
                 # "search/data", "search/publications", "search/software",
                 # "search/services", "search/trainings", - user dashboard - "dashboard"
                 "page_id": page_id,
@@ -130,12 +126,12 @@ def user_actions_client() -> UserActionClient | None:
     """User actions databus client dependency"""
 
     client = UserActionClient(
-        STOMP_HOST,
-        STOMP_PORT,
-        STOMP_LOGIN,
-        STOMP_PASS,
-        STOMP_USER_ACTIONS_TOPIC,
-        STOMP_SSL,
+        settings.STOMP_HOST,
+        settings.STOMP_PORT,
+        settings.STOMP_LOGIN,
+        settings.STOMP_PASS,
+        settings.STOMP_USER_ACTIONS_TOPIC,
+        settings.STOMP_SSL,
     )
     try:
         client.connect()

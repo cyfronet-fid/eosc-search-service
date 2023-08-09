@@ -1,30 +1,12 @@
-import { queryChanger } from '@collections/filters-serializers/utils';
-import {
-  ICollectionSearchMetadata,
-  IFacetParam,
-  IFilterNode,
-} from '@collections/repositories/types';
+import { IFilterNode, ITermsFacetParam } from '@collections/repositories/types';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import Fuse from 'fuse.js';
 
-export const toSearchMetadata = (
-  q: string,
-  fq: string[],
-  metadata: ICollectionSearchMetadata
-) => ({
-  q: queryChanger(q),
-  fq,
-  cursor: '*',
-  rows: 0,
-  sort: [],
-  ...metadata.params,
-});
-
 export const toFilterFacet = (
   filter: string
-): { [field: string]: IFacetParam } => ({
+): { [field: string]: ITermsFacetParam } => ({
   [filter]: {
     field: filter,
     type: 'terms',
@@ -40,6 +22,7 @@ export const search = (query: string | null, entities: IFilterNode[]) => {
   return new Fuse(entities, {
     keys: ['name'],
     shouldSort: false,
+    threshold: 0.2,
   })
     .search(query)
     .map(({ item }) => item);

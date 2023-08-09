@@ -1,9 +1,3 @@
-import { trainingsNavConfig } from './trainings/nav-config.data';
-import { guidelinesNavConfig } from './guidelines/nav-config.data';
-import { trainingsAdapter } from './trainings/adapter.data';
-import { guidelinesAdapter } from './guidelines/adapter.data';
-import { trainingsSearchMetadata } from './trainings/search-metadata.data';
-import { guidelinesSearchMetadata } from './guidelines/search-metadata.data';
 import {
   IAdapter,
   ICollectionNavConfig,
@@ -11,6 +5,15 @@ import {
   IExcludedFiltersConfig,
   IFiltersConfig,
 } from '../repositories/types';
+import { trainingsNavConfig } from './trainings/nav-config.data';
+import { guidelinesNavConfig } from './guidelines/nav-config.data';
+import { providersNavConfig } from '@collections/data/providers/nav-config.data';
+import { trainingsAdapter } from './trainings/adapter.data';
+import { guidelinesAdapter } from './guidelines/adapter.data';
+import { trainingsSearchMetadata } from './trainings/search-metadata.data';
+import { guidelinesSearchMetadata } from './guidelines/search-metadata.data';
+import { providersSearchMetadata } from './providers/search-metadata.data';
+
 import { allCollectionsAdapter } from './all/adapter.data';
 import { publicationsAdapter } from './publications/adapter.data';
 import { datasetsAdapter } from './datasets/adapter.data';
@@ -23,6 +26,7 @@ import { softwareFilters } from './software/filters.data';
 import { dataSourcesFilters } from './data-sources/filters.data';
 import { trainingsFilters } from './trainings/filters.data';
 import { guidelinesFilters } from './guidelines/filters.data';
+import { providersAdapter } from '@collections/data/providers/adapter.data';
 import {
   URL_PARAM_NAME as ALL_COLLECTIONS_URL_PARAM_NAME,
   allCollectionsNavConfig,
@@ -39,6 +43,7 @@ import { dataSourcesSearchMetadata } from './data-sources/search-metadata.data';
 import { servicesAdapter } from '@collections/data/services/adapter.data';
 import { servicesFilters } from '@collections/data/services/filters.data';
 import { servicesSearchMetadata } from '@collections/data/services/search-metadata.data';
+import { providersFilters } from '@collections/data/providers/filters.data';
 
 import { validateCollections } from '@collections/data/validators';
 import { servicesNavConfig } from '@collections/data/services/nav-config.data';
@@ -60,6 +65,7 @@ import { excludedTrainingsFilters } from '@collections/data/trainings/excluded.d
 import { excludedOtherResourcesProductsFilters } from '@collections/data/other-resources-products/excluded.data';
 import { excludedGuidelinesFilters } from '@collections/data/guidelines/excluded.data';
 import { excludedBundlesFilters } from '@collections/data/bundles/excluded.data';
+import { excludedProvidersFilters } from '@collections/data/providers/excluded.data';
 
 export const DEFAULT_COLLECTION_ID = ALL_COLLECTIONS_URL_PARAM_NAME;
 export const ADAPTERS: IAdapter[] = [
@@ -73,6 +79,7 @@ export const ADAPTERS: IAdapter[] = [
   guidelinesAdapter,
   bundlesAdapter,
   otherResourcesProductsAdapter,
+  providersAdapter,
 ];
 export const FILTERS: IFiltersConfig[] = [
   allCollectionsFilters,
@@ -85,6 +92,7 @@ export const FILTERS: IFiltersConfig[] = [
   guidelinesFilters,
   bundlesFilters,
   otherResourcesProductsFilters,
+  providersFilters,
 ];
 
 // Excluded filters according to adjustments in
@@ -100,6 +108,7 @@ export const EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
   excludedGuidelinesFilters,
   excludedBundlesFilters,
   excludedOtherResourcesProductsFilters,
+  excludedProvidersFilters,
 ];
 
 export const NAV_CONFIGS: ICollectionNavConfig[] = [
@@ -113,6 +122,7 @@ export const NAV_CONFIGS: ICollectionNavConfig[] = [
   guidelinesNavConfig,
   bundlesNavConfig,
   othersResourcesProductsNavConfig,
+  providersNavConfig,
 ];
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   allCollectionsSearchMetadata,
@@ -125,6 +135,7 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   guidelinesSearchMetadata,
   bundlesSearchMetadata,
   otherResourcesProductsSearchMetadata,
+  providersSearchMetadata,
 ];
 
 validateCollections(

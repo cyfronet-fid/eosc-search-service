@@ -6,20 +6,21 @@ export interface IValueWithLabel {
 export interface IResult {
   id: string;
   title: string;
-  description: string;
+  abbreviation?: string;
+  description: string | string[];
   type: IValueWithLabel;
   collection: string;
   url: string;
   tags: ITag[];
-
   date?: string;
   coloredTags?: IColoredTag[];
   secondaryTags?: ISecondaryTag[];
   accessRight?: string;
   views?: number;
   downloads?: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   offers?: any[];
-  sortByOptionOff: boolean;
+  isSortByRelevanceCollectionScopeOff?: boolean;
 }
 
 export interface ISecondaryTag {
@@ -55,7 +56,7 @@ export interface ISolrQueryParams {
 
 export interface ISearchResults<T extends { id: string }> {
   results: T[];
-  facets: { [field: string]: IFacetResponse };
+  facets: { [field: string]: ITermsFacetResponse | IStatFacetResponse };
   nextCursorMark: string;
   numFound: number;
   highlighting: {
@@ -63,7 +64,7 @@ export interface ISearchResults<T extends { id: string }> {
   };
 }
 
-export interface IFacetParam {
+export interface ITermsFacetParam {
   type: 'terms';
   offset?: number;
   limit?: number;
@@ -74,16 +75,26 @@ export interface IFacetParam {
   [facet: string]: string | number | undefined;
 }
 
+export interface IStatFacetParam {
+  expression: string;
+}
+
 export interface ICollectionNavConfig {
   id: string;
   title: string;
   urlParam: string;
+  rightMenu: boolean;
 
   breadcrumbs: {
     label: string;
     url?: string;
   }[];
 }
+
+export interface ICollectionTagsConfig {
+  name: string;
+}
+
 export interface IAdapter {
   id: string;
   adapter: adapterType;
@@ -97,7 +108,13 @@ export interface IFilterConfig {
   id: string;
   filter: string;
   label: string;
-  type: 'multiselect' | 'select' | 'date' | 'tag' | 'range';
+  type:
+    | 'multiselect'
+    | 'select'
+    | 'date-year'
+    | 'date-calendar'
+    | 'tag'
+    | 'range';
   defaultCollapsed: boolean;
   tooltipText: string;
 
@@ -111,7 +128,7 @@ export interface IExcludedFiltersConfig {
 
 export interface ICollectionSearchMetadata {
   id: string;
-  facets: { [field: string]: IFacetParam };
+  facets: { [field: string]: ITermsFacetParam };
   params: ISolrCollectionParams;
 }
 
@@ -128,9 +145,11 @@ export interface IFacetBucket {
   count: number;
 }
 
-export interface IFacetResponse {
+export interface ITermsFacetResponse {
   buckets: IFacetBucket[];
 }
+
+export type IStatFacetResponse = number;
 
 export interface IUIFilterTreeNode extends IFilterNode {
   children?: IUIFilterTreeNode[];
@@ -154,4 +173,12 @@ export interface IInteroperabilityRecord {
   resourceId: string;
   catalogueId: string;
   interoperabilityRecordIds: string;
+}
+
+export interface ICreator {
+  authorName: string;
+  authorType: string;
+  authorNameId: string;
+  authorAffiliations: string;
+  authorAffiliationsId: string;
 }

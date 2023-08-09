@@ -7,14 +7,14 @@ from fastapi import FastAPI
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from app.config import DATABASE_URI
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
 
 def create_session_local() -> sessionmaker:
     """Just creates a new session_local"""
-    engine = create_engine(DATABASE_URI, future=True, echo=True)
+    engine = create_engine(settings.DATABASE_URI, future=True, echo=True)
     return sessionmaker(engine)
 
 

@@ -11,14 +11,7 @@ from pytest_lazyfixture import lazy_fixture
 from starlette.status import HTTP_303_SEE_OTHER
 from stomp.utils import Frame
 
-from app.config import (
-    STOMP_CLIENT_NAME,
-    STOMP_HOST,
-    STOMP_LOGIN,
-    STOMP_PASS,
-    STOMP_PORT,
-    STOMP_USER_ACTIONS_TOPIC,
-)
+from app.settings import settings
 from tests.utils import UserSession
 
 Seconds = float
@@ -107,11 +100,13 @@ async def test_redirects_does_not_set_cookie_for_authorized_user(
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_sends_user_action_after_response(app: FastAPI, client_: AsyncClient):
-    conn = stomp.Connection(host_and_ports=[(STOMP_HOST, STOMP_PORT)])
+    conn = stomp.Connection(host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)])
     listener = MockListener()
     conn.set_listener("test_listener", listener)
-    conn.connect(STOMP_LOGIN, STOMP_PASS, wait=True)
-    conn.subscribe(STOMP_USER_ACTIONS_TOPIC, STOMP_CLIENT_NAME, ack="auto")
+    conn.connect(settings.STOMP_LOGIN, settings.STOMP_PASS, wait=True)
+    conn.subscribe(
+        settings.STOMP_USER_ACTIONS_TOPIC, settings.STOMP_CLIENT_NAME, ack="auto"
+    )
 
     await call_navigate_api(app, client_)
 
@@ -138,11 +133,13 @@ async def test_sends_user_action_after_response(app: FastAPI, client_: AsyncClie
 async def test_sends_aai_uid_in_user_action_for_signed_in_user(
     app: FastAPI, auth_client: AsyncClient, user_session: UserSession
 ):
-    conn = stomp.Connection(host_and_ports=[(STOMP_HOST, STOMP_PORT)])
+    conn = stomp.Connection(host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)])
     listener = MockListener()
     conn.set_listener("test_listener", listener)
-    conn.connect(STOMP_LOGIN, STOMP_PASS, wait=True)
-    conn.subscribe(STOMP_USER_ACTIONS_TOPIC, STOMP_CLIENT_NAME, ack="auto")
+    conn.connect(settings.STOMP_LOGIN, settings.STOMP_PASS, wait=True)
+    conn.subscribe(
+        settings.STOMP_USER_ACTIONS_TOPIC, settings.STOMP_CLIENT_NAME, ack="auto"
+    )
 
     await call_navigate_api(app, auth_client)
 

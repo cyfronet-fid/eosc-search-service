@@ -99,7 +99,8 @@ export const deserialize = (
         .filter(filter)
         .values(values as [number, number] | string)
         .deserialize();
-    case 'date':
+    case 'date-year':
+    case 'date-calendar':
       return new DateDeserializer()
         .filter(filter)
         .values(values as dateRangeType)
@@ -132,7 +133,8 @@ export const serialize = (
     case 'select':
     case 'range':
       return new RangeSerializer(fq);
-    case 'date':
+    case 'date-year':
+    case 'date-calendar':
       return new DateSerializer(fq);
     case 'multiselect':
       return new MultiselectSerializer(fq);

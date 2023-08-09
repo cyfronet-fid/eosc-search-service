@@ -3,14 +3,14 @@ import itertools
 import logging
 from json import JSONDecodeError
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 from httpx import AsyncClient, TransportError
 from pydantic.typing import Literal
 from requests import Response
 
 from app.routes.web.recommendation import sort_by_relevance
-from app.schemas.web import SearchRequest
-from app.solr.operations import get, search_dep
+from app.schemas.search_request import SearchRequest
+from app.solr.operations import get, search_advanced_dep, search_dep
 
 from ..util import DEFAULT_SORT
 
@@ -22,9 +22,10 @@ logger = logging.getLogger(__name__)
 SortUi = Literal["dmr", "dlr", "mp", "r", "default"]
 
 
-# pylint: disable=too-many-arguments
+# pylint: disable=too-many-arguments, too-many-locals
 @router.post("/search-results", name="web:post-search")
 async def search_post(
+    request_session: Request,
     collection: str = Query(..., description="Collection"),
     q: str = Query(..., description="Free-form query string"),
     qf: str = Query(..., description="Query fields"),
@@ -72,12 +73,68 @@ async def search_post(
         # Extent the results with bundles
         if "all_collection" in collection or "bundle" in collection:
             await extend_results_with_bundles(client, res_json, collection)
-
-    out = await create_output(res_json, collection, sort_ui)
+    out = await create_output(request_session, res_json, collection, sort_ui)
     return out
 
 
-async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:
+# pylint: disable=too-many-arguments
+@router.post("/search-results-advanced", name="web:post-search")
+async def search_post_advanced(
+    request_session: Request,
+    collection: str = Query(..., description="Collection"),
+    q: str = Query(..., description="Free-form query string"),
+    qf: str = Query(..., description="Query fields"),
+    fq: list[str] = Query(
+        [],
+        description="Filter query",
+        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+    ),
+    sort_ui: SortUi = "default",
+    sort: list[str] = Query(
+        [], description="Solr sort", example=["description asc", "name desc"]
+    ),
+    rows: int = Query(10, description="Row count", gte=3, le=100),
+    cursor: str = Query("*", description="Cursor"),
+    request: SearchRequest = Body(..., description="Request body"),
+    search=Depends(search_advanced_dep),
+):
+    """
+    Do a search against the specified collection.
+
+    The q, qf, fq, sort params correspond to
+    https://solr.apache.org/guide/8_11/query-syntax-and-parsing.html.
+    Paging is cursor-based, see
+    https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
+    """
+    final_solr_sorting = await define_sorting(sort_ui, sort)
+    async with AsyncClient() as client:
+        response = await handle_search_errors(
+            search(
+                client,
+                collection,
+                q=q,
+                qf=qf,
+                fq=fq,
+                sort=final_solr_sorting,
+                rows=rows,
+                cursor=cursor,
+                facets=request.facets,
+            )
+        )
+
+        res_json = response.json()
+
+        # Extent the results with bundles
+        if "all_collection" in collection or "bundle" in collection:
+            await extend_results_with_bundles(client, res_json, collection)
+
+    out = await create_output(request_session, res_json, collection, sort_ui)
+    return out
+
+
+async def create_output(
+    request_session: Request, res_json: dict, collection: str, sort_ui: str
+) -> dict:
     """Create an output"""
     out = {
         "numFound": res_json["response"]["numFound"],
@@ -88,7 +145,7 @@ async def create_output(res_json: dict, collection: str, sort_ui: str) -> dict:
         # Sort by relevance
         collection = await parse_col_name(collection)
         rel_sorted_items = await sort_by_relevance(
-            collection, res_json["response"]["docs"]
+            request_session, collection, res_json["response"]["docs"]
         )
         out["results"] = rel_sorted_items["recommendations"]
         out["numFound"] = len(out["results"])
@@ -120,8 +177,8 @@ async def parse_col_name(collection: str) -> str | None:
         return "software"
     if "service" in collection:
         return "service"
-    if "data-source" in collection:
-        return "data-source"
+    if "data_source" in collection:
+        return "data_source"
     if "training" in collection:
         return "training"
     if "guideline" in collection:
@@ -130,6 +187,8 @@ async def parse_col_name(collection: str) -> str | None:
         return "bundle"
     if "other" in collection:
         return "other"
+    if "provider" in collection:
+        return "provider"
     return None
 
 

@@ -7,7 +7,6 @@ from async_lru import alru_cache
 from httpx import AsyncClient
 from starlette.status import HTTP_200_OK
 
-from app.config import RECOMMENDER_ENDPOINT
 from app.recommender.router_utils.common import (
     RecommendationPanelId,
     RecommenderError,
@@ -15,6 +14,7 @@ from app.recommender.router_utils.common import (
     _get_panel,
 )
 from app.schemas.session_data import SessionData
+from app.settings import settings
 from app.solr.operations import get, search
 
 
@@ -36,7 +36,7 @@ async def get_recommended_uuids(
             request_body["aai_uid"] = session.aai_id
 
         response = await client.post(
-            RECOMMENDER_ENDPOINT,
+            settings.RECOMMENDER_ENDPOINT,
             json=request_body,
         )
 
@@ -76,7 +76,7 @@ async def get_recommended_items(client: AsyncClient, uuids: list[str]):
 # pylint: disable=unused-argument
 @alru_cache(maxsize=512)
 async def get_fixed_recommendations(
-    session_id: str | None, panel_id: RecommendationPanelId, count: int = 3
+    panel_id: RecommendationPanelId, count: int = 3
 ) -> list[str]:
     rows = 100
     if panel_id == "data-source":

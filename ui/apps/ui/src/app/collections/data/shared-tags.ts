@@ -52,3 +52,10 @@ export const toAccessRightColoredTag = (
     ? 'tag-light-green'
     : 'tag-light-coral',
 });
+export const toScientificDomainsColoredTag = (
+  value: string[] | undefined
+): IColoredTag => ({
+  values: toValueWithLabel(value || []),
+  filter: 'scientific_domains',
+  colorClassName: 'tag-light-green',
+});

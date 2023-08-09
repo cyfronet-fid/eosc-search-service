@@ -17,7 +17,7 @@ export const otherResourcesProductsAdapter: IAdapter = {
   adapter: (
     openAIREResult: Partial<IOpenAIREResult> & { id: string }
   ): IResult => ({
-    sortByOptionOff: false,
+    isSortByRelevanceCollectionScopeOff: false,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
@@ -47,7 +47,7 @@ export const otherResourcesProductsAdapter: IAdapter = {
     ],
     tags: [
       {
-        label: 'Author names',
+        label: 'Author name',
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
       },

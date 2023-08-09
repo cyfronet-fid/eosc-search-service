@@ -39,9 +39,10 @@ export class UrlTitleComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['highlight'] || changes['title']) {
       const highlights = stripHighlightedFromHtml(this.highlight);
+      const highlights_s = [...new Set(highlights)];
       this.highlightedTitle = attachHighlightsToTxt(
         stripHtml(this.title).result,
-        highlights
+        highlights_s
       );
     }
   }

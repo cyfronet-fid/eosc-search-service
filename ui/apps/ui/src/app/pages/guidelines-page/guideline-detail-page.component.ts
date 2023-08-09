@@ -5,7 +5,10 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { guidelinesAdapter } from '@collections/data/guidelines/adapter.data';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { NEVER, Observable, catchError, from, map, switchMap } from 'rxjs';
-import { IGuideline } from '@collections/data/guidelines/guideline.model';
+import {
+  ICreators,
+  IGuideline,
+} from '@collections/data/guidelines/guideline.model';
 import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
 import { IService } from '../../collections/data/services/service.model';
 import { ConfigService } from '../../services/config.service';
@@ -20,7 +23,7 @@ export class GuidelineDetailPageComponent implements OnInit {
   guideline?: IResult;
   interoperabilityGuidelineItem?: IGuideline;
   currentTab = 'about';
-  services$: Observable<IService[]> | undefined; //           .subscribe((result) => (this.relatedServicesList = result))
+  services$: Observable<IService[]> | undefined;
 
   type = DICTIONARY_TYPE_FOR_PIPE;
   relatedServicesList: IService[] = [];
@@ -32,6 +35,10 @@ export class GuidelineDetailPageComponent implements OnInit {
     private route: ActivatedRoute,
     private _router: Router
   ) {}
+
+  parseCreators(jsonDeserialized: string | undefined): Partial<ICreators>[] {
+    return jsonDeserialized ? JSON.parse(jsonDeserialized) : [];
+  }
 
   ngOnInit(): void {
     this.route.params
@@ -48,6 +55,7 @@ export class GuidelineDetailPageComponent implements OnInit {
       )
       .subscribe((item) => {
         this.interoperabilityGuidelineItem = { ...item } as IGuideline;
+
         this.guideline = guidelinesAdapter.adapter(
           item as Partial<IGuideline> & { id: string }
         );
@@ -66,6 +74,6 @@ export class GuidelineDetailPageComponent implements OnInit {
   }
 
   getValue(value: string[] | undefined, index: number) {
-    return value && value.length ? value[index] : '-';
+    return value && value.length ? value[index] : '';
   }
 }

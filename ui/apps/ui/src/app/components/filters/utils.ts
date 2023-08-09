@@ -1,8 +1,10 @@
 import {
+  ICollectionSearchMetadata,
   IFacetBucket,
   IFilterNode,
   IUIFilterTreeNode,
 } from '@collections/repositories/types';
+import { queryChanger } from '@collections/filters-serializers/utils';
 
 export const TREE_SPLIT_CHAR = '>';
 export const facetToFlatNodes = (
@@ -76,5 +78,18 @@ export const flatNodesToTree = (
 
   return Object.values(fullMap)
     .filter(({ level }) => level === 0)
+    .filter(({ count }) => count !== '0')
     .sort(customSort ?? defaultSort);
 };
+export const toSearchMetadata = (
+  q: string,
+  fq: string[],
+  metadata: ICollectionSearchMetadata
+) => ({
+  q: queryChanger(q),
+  fq,
+  cursor: '*',
+  rows: 0,
+  sort: [],
+  ...metadata.params,
+});

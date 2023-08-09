@@ -20,7 +20,7 @@ import { ConfigService } from '../../../services/config.service';
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (service: Partial<IService> & { id: string }): IResult => ({
-    sortByOptionOff: false,
+    isSortByRelevanceCollectionScopeOff: false,
     id: service.id,
     // basic information
     title: service.title?.join(' ') || '',

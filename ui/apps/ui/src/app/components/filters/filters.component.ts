@@ -23,14 +23,22 @@ import { IFiltersConfig } from '@collections/repositories/types';
             [onValuesFetch]="filterConfig.onFacetsFetch"
             [customSort]="filterConfig.customSort"
           ></ess-filter-multiselect>
-          <ess-filter-date
-            *ngSwitchCase="'date'"
+          <ess-filter-date-year
+            *ngSwitchCase="'date-year'"
             [label]="filterConfig.label"
             [filter]="filterConfig.filter"
             [tooltipText]="filterConfig.tooltipText"
             [isExpanded]="!filterConfig.defaultCollapsed"
           >
-          </ess-filter-date>
+          </ess-filter-date-year>
+          <ess-filter-date-calendar
+            *ngSwitchCase="'date-calendar'"
+            [label]="filterConfig.label"
+            [filter]="filterConfig.filter"
+            [tooltipText]="filterConfig.tooltipText"
+            [isExpanded]="!filterConfig.defaultCollapsed"
+          >
+          </ess-filter-date-calendar>
         </ng-container>
         <ng-container [ngSwitch]="filterConfig.type">
           <ess-filter-range

@@ -29,6 +29,10 @@ h2 {
   background: #3d4db6;
 }
 
+.anticon {
+  vertical-align: 0 !important;
+}
+
 .heading {
   background: #3d4db6;
   padding: 35px 0 45px;
@@ -57,6 +61,14 @@ h2 {
 }
 
 .search-box .input-group {
+  justify-content: center;
+}
+
+.search-box-adv {
+  margin: 46px 0 25px 0;
+}
+
+.search-box-adv .input-group {
   justify-content: center;
 }
 
@@ -94,10 +106,42 @@ h2 {
   border-radius: 0 8px 8px 0;
 }
 
-.search-box .input-group {
+.search-box .btn-primary i {
+  color: #3d4db6;
+  font-size: 22px;
 }
 
-.search-box .btn-primary i {
+.search-box-adv input {
+  height: 40px;
+  width: 810px;
+  border: none;
+  border-radius: 8px;
+  padding-left: 17px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.search-box-adv select {
+  border: none;
+}
+
+.search-box-adv select:focus {
+  border: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.search-box-adv .btn-primary {
+  height: 40px;
+  background: #fff;
+  padding: 0 20px 0 10px;
+  border: none;
+  border-radius: 0 8px 8px 0;
+}
+
+.search-box-adv .btn-primary i {
   color: #3d4db6;
   font-size: 22px;
 }
@@ -290,6 +334,14 @@ h2 {
   }
 
   .search-box .btn-primary {
+    padding-left: 10px;
+    padding-right: 15px;
+  }
+  .search-box-adv {
+    margin: 46px 0 30px 0;
+  }
+
+  .search-box-adv .btn-primary {
     padding-left: 10px;
     padding-right: 15px;
   }

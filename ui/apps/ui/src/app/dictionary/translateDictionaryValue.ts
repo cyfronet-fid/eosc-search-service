@@ -17,6 +17,12 @@ function cleanGuidelineProvider(str: string): string {
   return newValue;
 }
 
+function cleanValueTypeForProvider(valueType: string): string {
+  const index = valueType.indexOf('>');
+  const newValueStr = valueType.substring(index + 1);
+  return newValueStr;
+}
+
 export function translateDictionaryValue(
   type: string | string[],
   value: string | string[]
@@ -29,7 +35,7 @@ export function translateDictionaryValue(
         value
       );
       break;
-    case 'type_general':
+    case DICTIONARY_TYPE_FOR_PIPE.TYPE_GENERAL:
       return (
         interoperabilityGuidelinesResourceTypeGeneralDictionary[valueType] ||
         value
@@ -78,6 +84,9 @@ export function translateDictionaryValue(
       break;
     case DICTIONARY_TYPE_FOR_PIPE.BUNDLE:
       return valueType === 'bundles' ? 'bundle' : value;
+      break;
+    case DICTIONARY_TYPE_FOR_PIPE.TYPE_SCIENTIFIC_DOMAINS:
+      return cleanValueTypeForProvider(value.toString());
       break;
     default:
       return value;
