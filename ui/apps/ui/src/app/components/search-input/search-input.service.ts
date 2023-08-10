@@ -7,7 +7,7 @@ import {
   ICollectionSearchMetadata,
   adapterType,
 } from '@collections/repositories/types';
-import { toSuggestedResults } from './utils';
+import { toSuggestedResults, toSuggestedResultsAdv } from './utils';
 import { URL_PARAM_NAME } from '@collections/data/all/nav-config.data';
 import {
   queryChanger,
@@ -31,17 +31,10 @@ export class SearchInputService {
       return of([]);
     }
 
-    const collections: ICollectionSearchMetadata[] =
-      collectionName === 'all'
-        ? this._searchMetadataRepository
-            .getAll()
-            .filter(({ id }) => id !== URL_PARAM_NAME)
-        : [this._searchMetadataRepository.get(collectionName)];
+    const collection: ICollectionSearchMetadata =
+      this._searchMetadataRepository.get(collectionName);
 
-    return combineLatest(this._suggestedResultsBy$(q, collections)).pipe(
-      map((responses) => responses.filter(({ results }) => results.length > 0)),
-      map((responses) => responses.map(toSuggestedResults))
-    );
+    return this._suggestedResultsBy$(q, collection);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -61,27 +54,48 @@ export class SearchInputService {
       this._suggestedResultsByAdv$(q, collections, tags)
     ).pipe(
       map((responses) => responses.filter(({ results }) => results.length > 0)),
-      map((responses) => responses.map(toSuggestedResults))
+      map((responses) => responses.map(toSuggestedResultsAdv))
     );
   }
 
-  _suggestedResultsBy$(q: string, collections: ICollectionSearchMetadata[]) {
+  _suggestedResultsBy$(q: string, collection: ICollectionSearchMetadata) {
     q = queryChanger(q);
-    return collections.map((metadata) => {
-      const searchMetadata = {
-        q,
-        fq: [],
-        rows: MAX_COLLECTION_RESULTS,
-        cursor: '*',
-        sort: [],
-        ...metadata.params,
-      };
-      const adapter = this._adaptersRepository.get(metadata.id)
-        ?.adapter as adapterType;
-      return this._fetchDataService
-        .fetchResults$(searchMetadata, metadata.facets, adapter)
-        .pipe(map((results) => ({ ...results, link: metadata.id })));
-    });
+    const searchMetadata = {
+      q,
+      fq: [],
+      rows: MAX_COLLECTION_RESULTS,
+      cursor: '*',
+      sort: [],
+      ...collection.params,
+    };
+
+    return this._fetchDataService.fetchSuggestions$(searchMetadata).pipe(
+      map((response) =>
+        Object.entries(response)
+          .map((response_item) => {
+            const [collection, results] = response_item;
+            return {
+              collection: collection,
+              results: results,
+            };
+          })
+          .filter((response_item) => response_item.results.length > 0)
+      ),
+      map((response) =>
+        response.map((response_item) => {
+          const collection: ICollectionSearchMetadata =
+            this._searchMetadataRepository.get(
+              response_item.collection === 'data_source'
+                ? 'data-source'
+                : response_item.collection
+            );
+          const adapter = this._adaptersRepository.get(collection.id)
+            ?.adapter as adapterType;
+
+          return toSuggestedResults(response_item, adapter);
+        })
+      )
+    );
   }
 
   generatePermutations(words: string[]): string[] {

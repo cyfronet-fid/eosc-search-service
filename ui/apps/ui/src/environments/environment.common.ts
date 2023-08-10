@@ -17,6 +17,7 @@ export const commonEnvironment = {
   recommendationsApiPath: 'recommendations',
   search: {
     apiPath: 'search-results',
+    suggestionsPath: 'search-suggestions',
     apiPathAdv: 'search-results-advanced',
   },
 

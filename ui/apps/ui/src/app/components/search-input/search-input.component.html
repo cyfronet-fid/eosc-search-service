@@ -1,0 +1,258 @@
+<div id="container">
+  <div *ngIf="standardSearch" class="search-box">
+    <form>
+      <div class="input-group" style="padding-bottom: 5px;">
+        <div class="phase-box">
+          <input
+            #inputQuery
+            type="text"
+            class="form-control"
+            autocomplete="off"
+            i18n-placeholder
+            placeholder="Search in catalogs"
+            (focus)="formControl.value ? (focused = true) : null"
+            (keydown.enter)="
+              updateQueryParams(formControl.value || '*', $event)
+            "
+            [formControl]="formControl"
+          />
+          <button
+            *ngIf="
+              (formControl.value && formControl.value.trim() !== '') ||
+              (hasSetQuery$ | async)
+            "
+            id="btn--clear-query"
+            type="button"
+            class="btn btn-secondary"
+            (click)="clearQuery()"
+          >
+            Clear <span>&cross;</span>
+          </button>
+        </div>
+        <select
+          class="form-select"
+          (click)="focused = false"
+          [formControl]="collectionFc"
+        >
+          <option
+            *ngFor="let navConfig of searchCollections"
+            [ngValue]="navConfig"
+          >
+            {{ navConfig.title }}
+          </option>
+        </select>
+        <div class="input-group-btn">
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="updateQueryParams(formControl.value || '*')"
+          >
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+      <span
+        *ngIf="!isLanding()"
+        class="adv-search-text-btn"
+        (click)="standardSearch = false"
+        >Show Advanced Search</span
+      >
+    </form>
+
+    <div
+      class="list-group suggestions"
+      *ngIf="suggestedResults.length > 0 && focused"
+    >
+      <ng-container *ngFor="let group of suggestedResults">
+        <div class="list-group-item">
+          <span class="group">{{ getLabel(group.label) }}</span>
+          &nbsp;<a
+            [routerLink]="['/search', group.link]"
+            [queryParams]="{ q: formControl.value }"
+            >see all</a
+          >
+        </div>
+        <a
+          *ngFor="let result of group.results"
+          [attr.href]="
+            redirectService.internalUrl(
+              result.url,
+              result.id,
+              result.type.value,
+              ''
+            )
+          "
+          class="list-group-item list-group-item-action result"
+          >{{ result.title }}</a
+        >
+      </ng-container>
+    </div>
+  </div>
+  <div *ngIf="!standardSearch" class="search-box-adv">
+    <form>
+      <div class="input-group" style="margin-bottom: 5px;">
+        <select
+          class="form-select"
+          style="margin-left: 0px;"
+          (click)="focused = false"
+          [formControl]="collectionFc"
+        >
+          <option
+            *ngFor="let navConfig of searchCollections"
+            [ngValue]="navConfig"
+          >
+            {{ navConfig.title }}
+          </option>
+        </select>
+        <div class="phase-box">
+          <input
+            #inputQueryAdv
+            type="text"
+            class="form-control3"
+            autocomplete="off"
+            i18n-placeholder
+            placeholder="Search in catalogs"
+            (focus)="formControl.value ? (focused = true) : null"
+            (keydown.enter)="
+              updateQueryParamsAdv(formControl.value || '*', $event)
+            "
+            [formControl]="formControl"
+          />
+          <button
+            *ngIf="
+              (formControl.value && formControl.value.trim() !== '') ||
+              (hasSetQuery$ | async)
+            "
+            id="btn--clear-query"
+            type="button"
+            class="btn btn-secondary"
+            (click)="clearQuery()"
+          >
+            Clear <span>&cross;</span>
+          </button>
+        </div>
+        <div class="input-group-btn">
+          <button
+            class="btn btn-primary"
+            type="button"
+            (click)="updateQueryParamsAdv(formControl.value || '*')"
+          >
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+      </div>
+      <div
+        *ngIf="tags.length !== 0"
+        class="mb-2"
+        style="margin-left:-45px;"
+      >
+        <span class="adv-search-text-tag" *ngFor="let elem of tags">
+          <nz-tag nzMode="closeable" (nzOnClose)="remove(elem)">{{
+            elem
+          }}</nz-tag>
+        </span>
+      </div>
+
+      <span class="adv-search-text">Narrow your search</span>
+      <div class="input-group" style="margin-bottom: 5px; margin-top:5px;">
+        <select
+          class="form-select"
+          style="margin-left: 0px;"
+          (click)="focused = false"
+          [formControl]="collectionFcAdvForm"
+        >
+          <option
+            *ngFor="let navConfig of collectionFcAdv"
+            [ngValue]="navConfig"
+          >
+            {{ navConfig.name }}
+          </option>
+        </select>
+        <div class="phase-box">
+          <input
+            #inputQueryAdv2
+            type="text"
+            class="form-control2"
+            autocomplete="off"
+            i18n-placeholder
+            placeholder="Narrow by: author, in author, exact phrase, in title, none of"
+            (keydown.enter)="
+              add({
+                value: formControlAdv.value,
+                input: formControlAdv,
+                narrowed: collectionFcAdvForm.value.name
+              })
+            "
+            [formControl]="formControlAdv"
+          />
+          <button
+            *ngIf="
+              formControlAdv.value && formControlAdv.value.trim() !== ''
+            "
+            id="btn--clear-query"
+            type="button"
+            class="btn btn-secondary"
+            (click)="clearQueryAdv()"
+          >
+            Clear <span>&cross;</span>
+          </button>
+        </div>
+        <div class="input-group-btn">
+          <button
+            class="btn btn-enter"
+            type="button"
+            (click)="
+              add({
+                value: formControlAdv.value,
+                input: formControlAdv,
+                narrowed: collectionFcAdvForm.value.name
+              })
+            "
+          >
+            Add
+          </button>
+        </div>
+      </div>
+      <span
+        class="adv-search-text-btn"
+        (click)="
+          standardSearch = true;
+          tags = [];
+          clearQueryAdv();
+          updateQueryParamsAdv(this.formControl.value || '*')
+        "
+        >Hide and Clear Advanced Search</span
+      >
+    </form>
+
+    <div
+      class="list-group suggestions"
+      *ngIf="suggestedResults.length > 0 && focused"
+    >
+      <ng-container *ngFor="let group of suggestedResults">
+        <div class="list-group-item">
+          <span class="group">{{ getLabel(group.label) }}</span>
+          &nbsp;<a
+            [routerLink]="['/search', group.link]"
+            [queryParams]="{ q: formControl.value }"
+            >see all</a
+          >
+        </div>
+        <a
+          *ngFor="let result of group.results"
+          [attr.href]="
+            redirectService.internalUrl(
+              result.url,
+              result.id,
+              result.type.value,
+              ''
+            )
+          "
+          class="list-group-item list-group-item-action result"
+          >{{ result.title }}</a
+        >
+      </ng-container>
+    </div>
+  </div>
+</div>
+<div class="backdrop" *ngIf="focused" (click)="focused = false"></div>

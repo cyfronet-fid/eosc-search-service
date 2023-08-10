@@ -54,6 +54,11 @@ export interface ISolrQueryParams {
   cursor: string;
 }
 
+export interface ISolrSuggestionQueryParams {
+  q: string;
+  fq: string[];
+}
+
 export interface ISearchResults<T extends { id: string }> {
   results: T[];
   facets: { [field: string]: ITermsFacetResponse | IStatFacetResponse };

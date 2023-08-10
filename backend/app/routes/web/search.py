@@ -8,11 +8,12 @@ from httpx import AsyncClient, TransportError
 from pydantic.typing import Literal
 from requests import Response
 
+from app.routes.utils import parse_col_name
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.search_request import SearchRequest
 from app.solr.operations import get, search_advanced_dep, search_dep
 
-from ..util import DEFAULT_SORT
+from ..utils import DEFAULT_SORT
 
 router = APIRouter()
 
@@ -161,35 +162,6 @@ async def create_output(
         out["highlighting"] = res_json["highlighting"]
 
     return out
-
-
-# pylint: disable=too-many-return-statements
-async def parse_col_name(collection: str) -> str | None:
-    """Parse collection name for sort by relevance"""
-    # Handle prefixes
-    if "all" in collection:
-        return "all"
-    if "publication" in collection:
-        return "publication"
-    if "dataset" in collection:
-        return "dataset"
-    if "software" in collection:
-        return "software"
-    if "service" in collection:
-        return "service"
-    if "data_source" in collection:
-        return "data_source"
-    if "training" in collection:
-        return "training"
-    if "guideline" in collection:
-        return "guideline"
-    if "bundle" in collection:
-        return "bundle"
-    if "other" in collection:
-        return "other"
-    if "provider" in collection:
-        return "provider"
-    return None
 
 
 async def handle_search_errors(search_coroutine) -> Response:

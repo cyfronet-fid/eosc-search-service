@@ -6,6 +6,7 @@ import {
   ISearchResults,
   ISolrCollectionParams,
   ISolrQueryParams,
+  ISolrSuggestionQueryParams,
   IStatFacetParam,
   IStatFacetResponse,
   ITermsFacetParam,
@@ -13,14 +14,19 @@ import {
   adapterType,
 } from '../repositories/types';
 import { environment } from '@environment/environment';
-import { _EMPTY_RESPONSE } from '../repositories/initial-states';
+import {
+  _EMPTY_RESPONSE,
+  _EMPTY_SUGGESTIONS_RESPONSE,
+} from '../repositories/initial-states';
 import { PaginationRepository } from '@components/results-with-pagination/pagination.repository';
+import { SuggestionResponse } from '@components/search-input/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FetchDataService {
-  _url = `/${environment.backendApiPath}/${environment.search.apiPath}`;
+  _search_url = `/${environment.backendApiPath}/${environment.search.apiPath}`;
+  _suggestions_url = `/${environment.backendApiPath}/${environment.search.suggestionsPath}`;
   _urladv = `/${environment.backendApiPath}/${environment.search.apiPathAdv}`;
 
   constructor(
@@ -36,7 +42,7 @@ export class FetchDataService {
     this._paginationRepository.setLoading(true);
     return this._http
       .post<ISearchResults<T>>(
-        this._url,
+        this._search_url,
         { facets },
         { params: params as never }
       )
@@ -78,13 +84,30 @@ export class FetchDataService {
       );
   }
 
+  fetchSuggestions$(
+    params: ISolrCollectionParams & ISolrSuggestionQueryParams
+  ): Observable<SuggestionResponse> {
+    this._paginationRepository.setLoading(true);
+    return this._http
+      .post<SuggestionResponse>(
+        this._suggestions_url,
+        {},
+        { params: params as never }
+      )
+      .pipe(
+        catchError(() => of(_EMPTY_SUGGESTIONS_RESPONSE)),
+
+        tap(() => this._paginationRepository.setLoading(false))
+      );
+  }
+
   fetchFacets$<T extends { id: string }>(
     params: ISolrCollectionParams & ISolrQueryParams,
     facets: { [field: string]: ITermsFacetParam | IStatFacetParam }
   ): Observable<{ [field: string]: ITermsFacetResponse | IStatFacetResponse }> {
     return this._http
       .post<ISearchResults<T>>(
-        this._url,
+        this._search_url,
         { facets },
         { params: params as never }
       )
