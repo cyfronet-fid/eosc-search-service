@@ -1,4 +1,5 @@
 import { ISearchResults } from './types';
+import { SuggestionResponse } from '@components/search-input/types';
 
 export const _EMPTY_RESPONSE = {
   results: [],
@@ -6,3 +7,5 @@ export const _EMPTY_RESPONSE = {
   facets: [],
   nextCursorMark: '',
 } as unknown as ISearchResults<never & { id: string }>;
+
+export const _EMPTY_SUGGESTIONS_RESPONSE: SuggestionResponse = {};

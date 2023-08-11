@@ -1,0 +1,138 @@
+.backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: black;
+  opacity: 0;
+  z-index: 10;
+}
+.form-control2 {
+  width: 683px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.form-control3 {
+  width: 565px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.suggestions .group {
+  text-transform: uppercase;
+  color: #6c757d;
+}
+.suggestions .result {
+  padding-left: 40px;
+}
+.suggestions a.result {
+  color: #3987be;
+}
+.btn-enter {
+  color: #ffffff;
+  height: 40px;
+  background: #040f80;
+  padding: 0 20px 0 20px;
+  border: none;
+  border-radius: 0 8px 8px 0;
+}
+.btn-enter:hover {
+  color: #ffffff;
+  height: 40px;
+  background: #040f80a1;
+  padding: 0 20px 0 20px;
+  border: none;
+  border-radius: 0 8px 8px 0;
+}
+
+#container {
+  z-index: 11;
+  position: relative;
+}
+#search {
+  width: calc(100% - 120px);
+  border: solid 1px rgba(0, 0, 0, 0.1);
+  border-radius: 25px 0 0 25px;
+  padding-left: 20px;
+}
+#search:focus {
+  border: solid 1px rgba(0, 0, 0, 0.1);
+}
+#btn--search {
+  border-radius: 0 25px 25px 0;
+  width: 120px;
+  background-color: #3987be;
+}
+#btn--clear-query {
+  position: absolute;
+  top: 7px;
+  right: 0;
+  font-size: 12px;
+  border-radius: 50px;
+  margin-right: 7px;
+  padding: 4px 14px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: none;
+}
+#search,
+#btn--search {
+  float: left;
+  height: 40px;
+}
+
+.form-select {
+  flex-grow: 0;
+  flex-basis: 150px;
+  width: auto;
+  min-width: auto;
+}
+.form-select-adv {
+  flex-grow: 0;
+  flex-basis: 150px;
+  width: auto;
+  min-width: auto;
+}
+
+.input-group {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.adv-search-text-btn {
+  color: #ffffff;
+  font-size: 12px;
+  font-family: Inter;
+  margin-left: -40px;
+  cursor: pointer;
+}
+.adv-search-text {
+  color: #ffffff;
+  font-size: 12px;
+  font-family: Inter;
+  margin-left: -40px;
+}
+
+.adv-search-text-tag {
+  color: #ffffff;
+  font-size: 12px;
+  font-family: Inter;
+  margin-left: 0px;
+}
+
+@media (max-width: 992px) {
+  .adv-search-text-btn {
+    color: #ffffff;
+    font-size: 12px;
+    font-family: Inter;
+    margin-left: 40px;
+    cursor: pointer;
+  }
+  .adv-search-text {
+    color: #ffffff;
+    font-size: 12px;
+    font-family: Inter;
+    margin-left: 40px;
+  }
+}

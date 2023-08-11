@@ -8,7 +8,7 @@ from httpx import AsyncClient, TransportError
 from app.schemas.search_request import SearchRequest
 from app.solr.operations import search_dep
 
-from .util import DEFAULT_SORT, internal_api_router
+from .utils import DEFAULT_SORT, internal_api_router
 
 
 # pylint: disable=too-many-arguments
