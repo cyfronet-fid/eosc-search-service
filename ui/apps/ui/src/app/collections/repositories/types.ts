@@ -1,3 +1,5 @@
+import { entitiesPropsFactory } from '@ngneat/elf-entities';
+
 export interface IValueWithLabel {
   label: string;
   value: string;
@@ -116,10 +118,15 @@ export interface IAdapter {
   adapter: adapterType;
 }
 export type adapterType = <T>(item: Partial<T> & { id: string }) => IResult;
+
+export interface FiltersStoreConfig {
+  loading: boolean;
+}
 export interface IFiltersConfig {
   id: string;
   filters: IFilterConfig[];
 }
+
 export interface IFilterConfig {
   id: string;
   filter: string;
@@ -137,6 +144,15 @@ export interface IFilterConfig {
   onFacetsFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[]; // !!! only for multiselect !!!
   customSort?: (a: IFilterNode, b: IFilterNode) => number;
 }
+
+export const { filterUIEntitiesRef, withFilterUIEntities } =
+  entitiesPropsFactory('filterUI');
+
+export interface IFilterConfigUI {
+  id: string;
+  options: IFilterNode[];
+}
+
 export interface IExcludedFiltersConfig {
   id: string;
   excluded: string[];
@@ -178,7 +194,7 @@ export interface IFilterNode {
   value: string;
   filter: string;
   count: string;
-  isSelected: boolean;
+  isSelected: boolean | undefined;
   level: number;
   expandable?: boolean; // calculated based on children
   parent?: string;

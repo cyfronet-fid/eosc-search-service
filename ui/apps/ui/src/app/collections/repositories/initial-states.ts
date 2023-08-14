@@ -1,5 +1,8 @@
 import { ISearchResults } from './types';
-import { SuggestionResponse } from '@components/search-input/types';
+import {
+  FacetsResponse,
+  SuggestionResponse,
+} from '@components/search-input/types';
 import { BibliographyRecord, Citation } from '@components/bibliography/types';
 
 export const _EMPTY_RESPONSE = {
@@ -9,6 +12,8 @@ export const _EMPTY_RESPONSE = {
   nextCursorMark: '',
   isError: true,
 } as unknown as ISearchResults<never & { id: string }>;
+
+export const _EMPTY_FACETS_RESPONSE: FacetsResponse = {};
 
 export const _EMPTY_SUGGESTIONS_RESPONSE: SuggestionResponse = {};
 export const _EMPTY_EXPORT_RESPONSE: BibliographyRecord = {

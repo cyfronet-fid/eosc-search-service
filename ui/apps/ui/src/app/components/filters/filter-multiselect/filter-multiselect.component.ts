@@ -1,83 +1,74 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { FilterMultiselectService } from './filter-multiselect.service';
-import { FilterMultiselectRepository } from './filter-multiselect.repository';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  skip,
-  switchMap,
-  tap,
-} from 'rxjs';
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { debounceTime } from 'rxjs';
 import { UntypedFormControl } from '@angular/forms';
 import { CustomRoute } from '@collections/services/custom-route.service';
-import { combineLatest } from 'rxjs';
 import { Router } from '@angular/router';
-import { toArray } from '@collections/filters-serializers/utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import {
   deserializeAll,
   removeFilterValue,
   serializeAll,
 } from '@collections/filters-serializers/filters-serializers.utils';
-import { isEqual, keyBy } from 'lodash-es';
-import _ from 'lodash';
 import {
-  IFacetBucket,
   IFilterConfig,
   IFilterNode,
   IUIFilterTreeNode,
 } from '@collections/repositories/types';
 import { IFqMap } from '@collections/services/custom-route.type';
 
+const DEFAULT_RESULTS_SIZE = 10;
+
 @UntilDestroy()
 @Component({
   selector: 'ess-filter-multiselect',
   template: `
-    <div class="filter" *ngIf="hasEntities$ | async">
+    <div class="filter" *ngIf="options.length > 0">
       <ess-filter-label
         [label]="label"
         [filter]="filter"
-        [isExpanded]="isExpanded"
+        [isExpanded]="shouldExpand"
         [showClearButton]="anyActive"
         [tooltipText]="tooltipText"
         (isExpandedChanged)="isExpandedChanged($event)"
       ></ess-filter-label>
 
       <input
-        *ngIf="hasShowMore$ | async"
+        *ngIf="hasShowMore"
         [attr.placeholder]="'Search in ' + label.toLowerCase() + '...'"
         class="query-input form-control form-control-sm"
         [formControl]="queryFc"
-        (keyup)="isExpanded = isExpanded || queryFc.value.length > 0"
       />
 
-      <div *ngIf="isExpanded">
+      <div *ngIf="shouldExpand">
         <ess-first-n-values
           *ngIf="!showMore; else showAll"
-          [allEntities]="(allEntities$ | async) ?? []"
+          [allEntities]="options"
           [query]="query"
-          [customSort]="customSort"
           (toggleActive)="toggleActive($event)"
         ></ess-first-n-values>
         <ng-template #showAll>
           <ess-show-all
             *ngIf="showMore"
-            [allEntities]="(allEntities$ | async) ?? []"
+            [allEntities]="options"
             [query]="query"
-            [customSort]="customSort"
             (toggleActive)="toggleActive($event)"
           ></ess-show-all>
         </ng-template>
-        <span *ngIf="hasShowMore$ | async" (click)="showMore = !showMore">
+        <span *ngIf="hasShowMore" (click)="showMore = !showMore">
           <a href="javascript:void(0)" class="show-more">{{
             showMore ? 'show less' : 'show more'
           }}</a>
         </span>
       </div>
 
-      <ng-container *ngIf="isLoading$ | async">
+      <ng-container *ngIf="isLoading">
         <div class="mask">
           <nz-spin nzSimple></nz-spin>
         </div>
@@ -109,13 +100,16 @@ import { IFqMap } from '@collections/services/custom-route.type';
       }
     `,
   ],
-  providers: [FilterMultiselectService, FilterMultiselectRepository],
 })
-export class FilterMultiselectComponent implements OnInit {
-  @ViewChild('content', { static: false }) content?: unknown;
-
+export class FilterMultiselectComponent implements OnInit, OnChanges {
   @Input()
   isExpanded!: boolean;
+
+  get shouldExpand(): boolean {
+    return (
+      this.isExpanded || this.options.find((op) => op.isSelected) !== undefined
+    );
+  }
 
   @Input()
   label!: string;
@@ -127,19 +121,12 @@ export class FilterMultiselectComponent implements OnInit {
   tooltipText!: string;
 
   @Input()
-  onValuesFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[];
+  options: IFilterNode[] = [];
 
   @Input()
-  customSort?: (a: IFilterNode, b: IFilterNode) => number;
-
-  isLoading$ = this._filterMultiselectService.isLoading$;
-  entitiesCount$ = this._filterMultiselectService.entitiesCount$;
-  hasEntities$ = this._filterMultiselectService.hasEntities$;
-
-  allEntities$ = this._filterMultiselectService.allEntities$;
+  isLoading = false;
 
   showMore = false;
-  hasShowMore$ = this._filterMultiselectService.hasShowMore$;
 
   queryFc = new UntypedFormControl('');
   query: string | null = null;
@@ -149,15 +136,19 @@ export class FilterMultiselectComponent implements OnInit {
   constructor(
     private _customRoute: CustomRoute,
     private _router: Router,
-    private _filtersConfigsRepository: FiltersConfigsRepository,
-    private _filterMultiselectService: FilterMultiselectService
+    private _filtersConfigsRepository: FiltersConfigsRepository
   ) {}
 
   ngOnInit() {
-    this._initFilterValues();
-    this._recalculateOnChanges();
-    this._setActiveIds();
+    // this._initFilterValues();
+    // this._recalculateOnChanges();
     this._updateSearchQuery();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['options'] != null) {
+      this.anyActive = this.options.find((op) => op.isSelected) !== undefined;
+    }
   }
 
   async toggleActive(changes: [IUIFilterTreeNode, boolean][]) {
@@ -192,102 +183,6 @@ export class FilterMultiselectComponent implements OnInit {
     });
   }
 
-  _setActiveIds() {
-    this._customRoute.fqMap$
-      .pipe(
-        untilDestroyed(this),
-        skip(1),
-        map((fqMap) => toArray(fqMap[this.filter])),
-        distinctUntilChanged(isEqual)
-      )
-      .subscribe((activeIds) => {
-        const activeIdsArr = toArray(activeIds);
-        this.anyActive = activeIdsArr.length > 0;
-        this._filterMultiselectService.setActiveIds(activeIdsArr);
-      });
-  }
-
-  _recalculateOnChanges() {
-    combineLatest(
-      this._customRoute
-        .fqWithExcludedFilter$(this.filter)
-        .pipe(untilDestroyed(this)),
-      this._customRoute.tags$.pipe(untilDestroyed(this)),
-      this._customRoute.q$.pipe(untilDestroyed(this))
-    )
-      .pipe(
-        untilDestroyed(this),
-        skip(1),
-        tap(() => {
-          this._filterMultiselectService.setLoading(true);
-        }),
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        map(([fq, _]) => fq),
-        switchMap((fq) =>
-          this._filterMultiselectService
-            ._fetchCounts$(
-              this.filter,
-              {
-                ...this._customRoute.params(),
-                fq,
-              },
-              this.onValuesFetch
-            )
-            .pipe(untilDestroyed(this))
-        )
-      )
-      .subscribe((entities) => {
-        this._filterMultiselectService.updateEntitiesCounts(
-          entities as IFilterNode[]
-        );
-        this._filterMultiselectService.setLoading(false);
-      });
-  }
-  _initFilterValues() {
-    this._filterMultiselectService.setLoading(true);
-    combineLatest(
-      this._filterMultiselectService
-        ._fetchAllValues$(
-          this.filter,
-          {
-            ...this._customRoute.params(),
-            fq: this._customRoute.fqWithExcludedFilter(this.filter),
-          },
-          this._customRoute.params()['collection'] as string,
-          this.onValuesFetch
-        )
-        .pipe(untilDestroyed(this)),
-      this._filterMultiselectService
-        ._fetchCounts$(
-          this.filter,
-          {
-            ...this._customRoute.params(),
-            fq: this._customRoute.fqWithExcludedFilter(this.filter),
-          },
-          this.onValuesFetch
-        )
-        .pipe(untilDestroyed(this))
-    )
-      .pipe(
-        untilDestroyed(this),
-        map(
-          ([allValues, counts]) =>
-            _(allValues)
-              .keyBy('id')
-              .merge(keyBy(counts, 'id'))
-              .values()
-              .value() as IFilterNode[]
-        )
-      )
-      .subscribe((entities) => {
-        const activeIds = toArray(this._customRoute.fqMap()[this.filter]);
-        this.anyActive = activeIds.length > 0;
-        this._filterMultiselectService.setEntities(entities);
-        this._filterMultiselectService.setActiveIds(activeIds);
-        this._filterMultiselectService.setLoading(false);
-      });
-  }
-
   _updateSearchQuery() {
     this.queryFc.valueChanges
       .pipe(untilDestroyed(this), debounceTime(500))
@@ -315,5 +210,12 @@ export class FilterMultiselectComponent implements OnInit {
 
   isExpandedChanged(newExpanded: boolean) {
     this.isExpanded = newExpanded;
+  }
+
+  get hasShowMore(): boolean {
+    return (
+      this.options.filter(({ level }) => level === 0).length >
+      DEFAULT_RESULTS_SIZE
+    );
   }
 }

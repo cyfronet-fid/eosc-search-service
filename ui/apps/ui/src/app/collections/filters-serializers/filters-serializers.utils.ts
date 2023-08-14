@@ -90,7 +90,7 @@ export const deserialize = (
     return undefined;
   }
 
-  switch (filterConfig.type) {
+  switch (filterConfig?.type) {
     case 'tag':
       return new TagDeserializer()
         .filter(filter)
@@ -115,7 +115,7 @@ export const deserialize = (
         .deserialize();
     default:
       throw Error(
-        `Filter deserializer isn't defined for: ${filterConfig.type}!`
+        `Filter deserializer isn't defined for: ${filterConfig?.type} (${filter})!`
       );
   }
 };
