@@ -2,6 +2,7 @@ import {
   ICollectionSearchMetadata,
   IFacetBucket,
   IFilterNode,
+  ITermsFacetParam,
   IUIFilterTreeNode,
 } from '@collections/repositories/types';
 import { queryChanger } from '@collections/filters-serializers/utils';
@@ -34,10 +35,7 @@ export function* toAllLevels(value: string) {
   }
 }
 
-export const flatNodesToTree = (
-  nodes: IFilterNode[],
-  customSort?: (a: IFilterNode, b: IFilterNode) => number
-): IUIFilterTreeNode[] => {
+export const flatNodesToTree = (nodes: IFilterNode[]): IUIFilterTreeNode[] => {
   const allLvlsPermutations = facetToFlatNodes(
     [
       ...new Set(
@@ -74,12 +72,9 @@ export const flatNodesToTree = (
     ];
   }
 
-  const defaultSort = (a: IFilterNode, b: IFilterNode) => +b.count - +a.count;
-
   return Object.values(fullMap)
     .filter(({ level }) => level === 0)
-    .filter(({ count }) => count !== '0')
-    .sort(customSort ?? defaultSort);
+    .filter(({ count }) => count !== '0');
 };
 export const toSearchMetadata = (
   q: string,
@@ -94,4 +89,14 @@ export const toSearchMetadata = (
   rows: 0,
   sort: [],
   ...metadata.params,
+});
+
+export const toFilterFacet = (
+  filter: string
+): { [field: string]: ITermsFacetParam } => ({
+  [filter]: {
+    field: filter,
+    type: 'terms',
+    limit: -1,
+  },
 });

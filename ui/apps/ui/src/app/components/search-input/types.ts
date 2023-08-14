@@ -1,4 +1,4 @@
-import { IResult } from '@collections/repositories/types';
+import { IFacetBucket, IResult } from '@collections/repositories/types';
 
 // incoming
 export interface ISuggestionResponseResults<T extends { id: string }> {
@@ -20,3 +20,4 @@ export interface ISuggestedResults {
 }
 
 export type SuggestionResponse = { [collection: string]: IResult[] };
+export type FacetsResponse = { [field: string]: IFacetBucket[] };

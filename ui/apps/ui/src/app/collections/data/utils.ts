@@ -54,6 +54,15 @@ export const parseStatistics = (data: any): Partial<IResult> => {
 export const alphanumericFilterSort = (a: IFilterNode, b: IFilterNode) =>
   a.value.localeCompare(b.value);
 
+// default sort type, but it is unused as solr returns correct ordering
+export const countFilterSort = (a: IFilterNode, b: IFilterNode) => {
+  const ordering = +b.count - +a.count;
+  if (ordering === 0) {
+    return a.value.localeCompare(b.value);
+  }
+  return ordering;
+};
+
 export const convertCountryCodeToName = (
   bucketValues: IFacetBucket[]
 ): IFilterNode[] =>

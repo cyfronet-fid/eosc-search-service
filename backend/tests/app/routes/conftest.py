@@ -29,6 +29,17 @@ def mock_post_search(app: FastAPI) -> AsyncMock:
     del app.dependency_overrides[search_dep]
 
 
+@pytest.fixture
+def mock_post_search_filters(app: FastAPI) -> AsyncMock:
+    mock_search = get_mocked_search_response_content(
+        "test_search_filters.post.response.json"
+    )
+
+    app.dependency_overrides[search_dep] = lambda: mock_search
+    yield mock_search
+    del app.dependency_overrides[search_dep]
+
+
 def get_mocked_search_response_content(file: str) -> AsyncMock:
     mock_json = read_file_as_json(file)
     mock_return = Mock()

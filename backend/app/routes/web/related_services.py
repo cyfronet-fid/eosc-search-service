@@ -1,7 +1,6 @@
 """Endpoint: get related services to certain interoperability guideline"""
 import logging
 
-import httpx
 from fastapi import APIRouter, HTTPException
 from httpx import ReadTimeout
 
@@ -12,6 +11,7 @@ from app.dependencies.related_services import (
 )
 from app.generic.models.bad_request import BadRequest
 from app.recommender.router_utils.common import SolrRetrieveError
+from app.utils.http_client import make_async_http_client
 
 router = APIRouter()
 
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 async def get_related_services(guideline_id: str):
     """Get related services for interoperability guideline"""
     try:
-        async with httpx.AsyncClient() as client:
+        async with make_async_http_client() as client:
             try:
                 pids = await get_related_services_pids(client, guideline_id)
                 items = await get_whole_related_services(client, pids)
