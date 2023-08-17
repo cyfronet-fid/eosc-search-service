@@ -3,7 +3,6 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { ITraining } from '@collections/data/trainings/training.model';
-import moment from 'moment';
 import {
   toArray,
   toValueWithLabel,
@@ -16,6 +15,7 @@ import {
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
+import { formatPublicationDate } from '@collections/data/utils';
 
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -24,9 +24,7 @@ export const trainingsAdapter: IAdapter = {
     id: uuidv4(),
     title: training['title']?.join(' ') || '',
     description: training['description']?.join(' ') || '',
-    date: training['publication_date']
-      ? moment(training['publication_date']).format('DD MMMM YYYY')
-      : '',
+    date: formatPublicationDate(training['publication_date']),
     type: {
       label: training['type'] || '',
       value: training['type'] || '',

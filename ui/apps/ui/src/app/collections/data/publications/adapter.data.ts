@@ -2,7 +2,6 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { IOpenAIREResult } from '../openair.model';
 import { COLLECTION } from './search-metadata.data';
-import moment from 'moment';
 import {
   toArray,
   toValueWithLabel,
@@ -16,6 +15,7 @@ import {
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
+import { formatPublicationDate } from '@collections/data/utils';
 
 export const publicationsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -26,9 +26,7 @@ export const publicationsAdapter: IAdapter = {
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
-    date: openAIREResult['publication_date']
-      ? moment(openAIREResult['publication_date']).format('DD MMMM YYYY')
-      : '',
+    date: formatPublicationDate(openAIREResult['publication_date']),
     url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,

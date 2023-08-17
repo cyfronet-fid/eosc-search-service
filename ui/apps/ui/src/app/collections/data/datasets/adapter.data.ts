@@ -15,6 +15,7 @@ import {
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
+import { formatPublicationDate } from '@collections/data/utils';
 
 export const datasetsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -25,6 +26,7 @@ export const datasetsAdapter: IAdapter = {
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
+    date: formatPublicationDate(openAIREResult['publication_date']),
     url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
