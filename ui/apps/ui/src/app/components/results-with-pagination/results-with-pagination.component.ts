@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, TrackByFunction } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  TrackByFunction,
+} from '@angular/core';
 import { PaginationService } from './pagination.service';
 import { BehaviorSubject, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
@@ -93,6 +99,7 @@ import { Router } from '@angular/router';
       ></ess-pagination>
     </ng-container>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [],
 })
 export class ResultsWithPaginationComponent implements OnInit {

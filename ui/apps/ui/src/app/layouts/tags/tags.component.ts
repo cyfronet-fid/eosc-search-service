@@ -7,12 +7,21 @@ import {
   SimpleChanges,
   TrackByFunction,
 } from '@angular/core';
-import { ITag, IValueWithLabel } from '@collections/repositories/types';
+import {
+  ICollectionSearchMetadata,
+  ITag,
+  IValueWithLabel,
+} from '@collections/repositories/types';
 import { combineHighlightsWith } from './utils';
 import { ViewportScroller } from '@angular/common';
 import { translateDictionaryValue } from '../../dictionary/translateDictionaryValue';
 import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
+import { Subscription, combineLatest, map } from 'rxjs';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { GuidelinesService } from '@pages/guidelines-page/guidelines.service';
+import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
 
+@UntilDestroy()
 @Component({
   selector: 'ess-tags',
   template: ` <div id="tags">
@@ -30,7 +39,11 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
             ><a
               href="javascript:void(0)"
               (click)="setActiveFilter(tag.filter, singleValue.value)"
-              [innerHTML]="singleValue.label | filterPipe: tag.filter"
+              [innerHTML]="
+                tag.filter === 'provider'
+                  ? getTag(singleValue.label)
+                  : (singleValue.label | filterPipe: tag.filter)
+              "
             ></a
             >&nbsp;&nbsp;</span
           >
@@ -66,6 +79,10 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
 export class TagsComponent implements OnChanges {
   parsedTags: ITag[] = [];
 
+  provider = '-';
+
+  observable: Subscription = new Subscription();
+
   @Input()
   tags: ITag[] = [];
 
@@ -77,12 +94,38 @@ export class TagsComponent implements OnChanges {
   trackByLabel: TrackByFunction<ITag> = (index: number, entity: ITag) =>
     entity.label;
 
-  constructor(private viewPortScroller: ViewportScroller) {}
+  constructor(
+    private viewPortScroller: ViewportScroller,
+    private guidelinesService: GuidelinesService,
+    private _searchMetadataRepository: SearchMetadataRepository
+  ) {}
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tags'] || changes['highlights']) {
       this.parsedTags = combineHighlightsWith(this.tags, this.highlights);
     }
+  }
+
+  getTag(pid: string): string {
+    this.get(pid).subscribe((res) => (this.provider = res[0].results[0].title));
+    return this.provider;
+  }
+
+  get(pid: string) {
+    const collections: ICollectionSearchMetadata[] = [
+      this._searchMetadataRepository.get('guideline'),
+    ];
+
+    collections[0].facets['title'].limit = -1;
+    collections[0].params['qf'] = 'title^100 description^10 tag_list_tg^10';
+    collections[0].params['collection'] = 'provider';
+
+    return combineLatest(
+      this.guidelinesService.getProviderNameByPid$(`pid:${pid}`, collections)
+    ).pipe(
+      map((responses) => responses.filter(({ results }) => results.length > 0)),
+      untilDestroyed(this)
+    );
   }
 
   setActiveFilter(filter: string, value: string): void {
