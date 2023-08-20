@@ -54,7 +54,7 @@ async def test_suggestions_one_collection(
         fq=[],
         sort=["score desc", "id asc"],
         rows=3,
-        exact='false'
+        exact="false",
     )
 
 
