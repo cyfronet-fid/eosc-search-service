@@ -33,6 +33,7 @@ async def search_suggestions(
         description="Filter query",
         example=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
+    exact: str = Query(..., description="Exact match"),
     results_per_collection: int = Query(
         3, description="Row count per collection", gte=3, lt=10
     ),
@@ -60,7 +61,7 @@ async def search_suggestions(
     collections = all_collection if "all_collection" in collection else (collection,)
     gathered_result = await asyncio.gather(
         *[
-            _search(col, q, qf, fq, results_per_collection, search)
+            _search(col, q, qf, exact, fq, results_per_collection, search)
             for col in collections
         ]
     )
@@ -72,6 +73,7 @@ async def _search(
     collection: str = Query(..., description="Collection"),
     q: str = Query(..., description="Free-form query string"),
     qf: str = Query(..., description="Query fields"),
+    exact: str = Query(..., description="Exact match"),
     fq: list[str] = Query(
         [],
         description="Filter query",
@@ -97,6 +99,7 @@ async def _search(
                 fq=fq,
                 sort=DEFAULT_SORT,
                 rows=results_per_collection,
+                exact=exact,
             )
         )
 

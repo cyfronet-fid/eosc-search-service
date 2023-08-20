@@ -47,13 +47,6 @@ export interface ISolrCollectionParams {
   collection: string;
 }
 
-export interface ISolrQueryParams {
-  q: string;
-  fq: string[];
-  sort: string[];
-  cursor: string;
-}
-
 export interface ISolrSuggestionQueryParams {
   q: string;
   fq: string[];
@@ -139,6 +132,7 @@ export interface ICollectionSearchMetadata {
 
 export interface ISolrQueryParams {
   q: string;
+  exact: string;
   fq: string[];
   sort: string[];
   rows: number;

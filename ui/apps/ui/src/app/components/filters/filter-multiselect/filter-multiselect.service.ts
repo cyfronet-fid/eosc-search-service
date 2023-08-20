@@ -116,6 +116,9 @@ export class FilterMultiselectService {
         if (tag.startsWith('in title:')) {
           filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
         }
+        if (tag.startsWith('keyword:')) {
+          filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        }
       }
     } else {
       const tag: string = tags;
@@ -165,6 +168,9 @@ export class FilterMultiselectService {
       if (tag.startsWith('in title:')) {
         filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
       }
+      if (tag.startsWith('keyword:')) {
+        filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      }
     }
 
     return filters;
@@ -180,11 +186,12 @@ export class FilterMultiselectService {
       collection
     ) as ICollectionSearchMetadata;
     const tags = routerParams['tags'] as string[] | string;
+    const exact = routerParams['exact'] as string;
 
     const filters = this.getFiltersFromTags(tags);
     return this._fetchTreeNodes$(
       filter,
-      toSearchMetadata('*', filters, metadata),
+      toSearchMetadata('*', exact, filters, metadata),
       toFilterFacet(filter),
       mutator
     ).pipe(
@@ -209,13 +216,14 @@ export class FilterMultiselectService {
     const q = routerParams['q'] as string;
     const fq = routerParams['fq'] as string[];
     const tags = routerParams['tags'] as string[] | string;
+    const exact = routerParams['exact'] as string;
 
     const filters = this.getFiltersFromTags(tags);
     const fq_m = fq.concat(filters);
 
     return this._fetchTreeNodes$(
       filter,
-      toSearchMetadata(q, fq_m, metadata),
+      toSearchMetadata(q, exact, fq_m, metadata),
       toFilterFacet(filter),
       mutator
     ).pipe(map((entities) => entities.map(({ id, count }) => ({ id, count }))));

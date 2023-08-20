@@ -26,7 +26,7 @@ export class SearchInputService {
     private _fetchDataService: FetchDataService
   ) {}
 
-  currentSuggestions(q: string, collectionName: string) {
+  currentSuggestions(q: string, collectionName: string, exact: string) {
     if (q === '*' || q === '') {
       return of([]);
     }
@@ -34,11 +34,16 @@ export class SearchInputService {
     const collection: ICollectionSearchMetadata =
       this._searchMetadataRepository.get(collectionName);
 
-    return this._suggestedResultsBy$(q, collection);
+    return this._suggestedResultsBy$(q, collection, exact);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  currentSuggestionsAdv(q: string, collectionName: string, tags: string[]) {
+  currentSuggestionsAdv(
+    q: string,
+    collectionName: string,
+    tags: string[],
+    exact: string
+  ) {
     if ((q === '*' || q === '') && tags.length === 0) {
       return of([]);
     }
@@ -51,18 +56,24 @@ export class SearchInputService {
         : [this._searchMetadataRepository.get(collectionName)];
 
     return combineLatest(
-      this._suggestedResultsByAdv$(q, collections, tags)
+      this._suggestedResultsByAdv$(q, collections, tags, exact)
     ).pipe(
       map((responses) => responses.filter(({ results }) => results.length > 0)),
       map((responses) => responses.map(toSuggestedResultsAdv))
     );
   }
 
-  _suggestedResultsBy$(q: string, collection: ICollectionSearchMetadata) {
-    q = queryChanger(q);
+  _suggestedResultsBy$(
+    q: string,
+    collection: ICollectionSearchMetadata,
+    exact: string
+  ) {
+    q = queryChanger(q, exact === 'true');
+
     const searchMetadata = {
       q,
       fq: [],
+      exact: exact,
       rows: MAX_COLLECTION_RESULTS,
       cursor: '*',
       sort: [],
@@ -121,9 +132,10 @@ export class SearchInputService {
     q: string,
     collections: ICollectionSearchMetadata[],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    tags: string[]
+    tags: string[],
+    exact: string
   ) {
-    q = queryChangerAdv(q);
+    q = queryChangerAdv(q, exact === 'true');
     const filters: string[] = [];
 
     for (const tag of tags) {
@@ -173,12 +185,16 @@ export class SearchInputService {
       if (tag.startsWith('in title:')) {
         filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
       }
+      if (tag.startsWith('keyword:')) {
+        filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      }
     }
 
     return collections.map((metadata) => {
       const searchMetadata = {
         q: q,
         fq: filters,
+        exact: exact,
         rows: MAX_COLLECTION_RESULTS,
         cursor: '*',
         sort: [],

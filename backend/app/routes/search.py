@@ -12,6 +12,7 @@ from .utils import DEFAULT_SORT, internal_api_router
 
 
 # pylint: disable=too-many-arguments
+# pylint: disable-msg=too-many-locals
 @internal_api_router.post("/search", name="apis:post-search")
 async def search_post(
     collection: str = Query(..., description="Collection"),
@@ -22,6 +23,7 @@ async def search_post(
         description="Filter query",
         example=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
+    exact: str = Query(..., description="Exact match"),
     sort: list[str] = Query(
         [], description="Sort order", example=["description asc", "name desc"]
     ),
@@ -51,6 +53,7 @@ async def search_post(
                 fq=fq,
                 sort=sort + DEFAULT_SORT,
                 rows=rows,
+                exact=exact,
                 cursor=cursor,
                 facets=request.facets,
             )

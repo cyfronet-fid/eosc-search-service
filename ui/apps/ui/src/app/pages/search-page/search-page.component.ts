@@ -204,7 +204,12 @@ export class SearchPageComponent implements OnInit {
               rows: MAX_COLLECTION_RESULTS,
               ...routerParams,
               ...metadata.params,
-              q: queryChanger(routerParams.q),
+              exact:
+                routerParams.exact.toString() === 'true' ? 'true' : 'false',
+              q: queryChanger(
+                routerParams.q,
+                routerParams.exact.toString() === 'true'
+              ),
             };
 
             return this._fetchDataService
@@ -272,6 +277,11 @@ export class SearchPageComponent implements OnInit {
                 if (tag.startsWith('in title:')) {
                   filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
                 }
+                if (tag.startsWith('keyword:')) {
+                  filters.push(
+                    'keywords_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                  );
+                }
               }
             } else {
               const tag: string = routerParams.tags;
@@ -331,6 +341,11 @@ export class SearchPageComponent implements OnInit {
               if (tag.startsWith('in title:')) {
                 filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
               }
+              if (tag.startsWith('keyword:')) {
+                filters.push(
+                  'keywords_tg:"' + tag.split(':', 2)[1].trim() + '"'
+                );
+              }
             }
 
             const fq_m = filters.concat(fq_o);
@@ -339,7 +354,12 @@ export class SearchPageComponent implements OnInit {
               rows: MAX_COLLECTION_RESULTS,
               ...routerParams,
               ...metadata.params,
-              q: queryChangerAdv(routerParams.q),
+              exact:
+                routerParams.exact.toString() === 'true' ? 'true' : 'false',
+              q: queryChangerAdv(
+                routerParams.q,
+                routerParams.exact.toString() === 'true'
+              ),
               fq: fq_m,
             };
             return this._fetchDataService

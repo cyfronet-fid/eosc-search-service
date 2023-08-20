@@ -17,6 +17,7 @@ export interface ICustomRouteProps {
   cursor: string;
   sort: string[];
   standard: string;
+  exact: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tags: string[];
   [param: string]: paramType;

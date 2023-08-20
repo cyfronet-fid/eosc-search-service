@@ -1,162 +1,159 @@
 <div
-id="container"
-[ngClass]="type.value === 'bundle' ? 'bundle_container' : 'nobundle'"
+  id="container"
+  [ngClass]="type.value === 'bundle' ? 'bundle_container' : 'nobundle'"
 >
-<ess-colored-tags
-  [type]="type"
-  [tags]="coloredTags"
-  [q]="q$ | async"
-  (activeFilter)="setActiveFilter($event.filter, $event.value)"
-></ess-colored-tags>
-<div style="display: flex;">
-  <div
-    style="display: flex;"
-    *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
-  >
-    <div class="provider-box">
-      <div class="provider-offer-pic">
-        <img src="assets/provider.svg" />
+  <ess-colored-tags
+    [type]="type"
+    [tags]="coloredTags"
+    [q]="q$ | async"
+    (activeFilter)="setActiveFilter($event.filter, $event.value)"
+  ></ess-colored-tags>
+  <div style="display: flex">
+    <div
+      style="display: flex"
+      *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
+    >
+      <div class="provider-box">
+        <div class="provider-offer-pic">
+          <img src="assets/provider.svg" />
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column">
+        <ess-url-title
+          [ngClass]="{ padding_for_provider: type.value === 'provider' }"
+          [title]="title"
+          [highlight]="highlightsreal['title'] ?? []"
+          [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
+        >
+        </ess-url-title>
+        <ess-url-title
+          *ngIf="type.value === 'provider'"
+          [ngClass]="{ sub_title: type.value === 'provider' }"
+          [title]="abbreviation"
+          [highlight]="highlightsreal['abbreviation'] ?? []"
+          [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
+          style="margin-bottom: -10px"
+        >
+        </ess-url-title>
       </div>
     </div>
-    <div style="display: flex; flex-direction: column;">
-      <ess-url-title
-        [ngClass]="{ padding_for_provider: type.value === 'provider' }"
-        [title]="title"
-        [highlight]="highlightsreal['title'] ?? []"
-        [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
-      >
-      </ess-url-title>
-      <ess-url-title
-        *ngIf="type.value === 'provider'"
-        [ngClass]="{ sub_title: type.value === 'provider' }"
-        [title]="abbreviation"
-        [highlight]="highlightsreal['abbreviation'] ?? []"
-        [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
-        style="margin-bottom: -10px;"
-      >
-      </ess-url-title>
-    </div>
+
+    <ng-template #defaultTypeValueTemplate>
+      <div style="display: flex; flex-direction: column">
+        <ess-url-title
+          [ngClass]="{ padding_for_provider: type.value === 'provider' }"
+          [title]="title"
+          [highlight]="highlightsreal['title'] ?? []"
+          [url]="
+            type.value === 'bundle'
+              ? redirectService.internalUrl(
+                  validUrl,
+                  id,
+                  type.value,
+                  offers[0]?.main_offer_id
+                    ? '#offer-' +
+                        offers[0].main_offer_id.toString().substring(2)
+                    : ''
+                )
+              : redirectService.internalUrl(validUrl, id, type.value, '')
+          "
+        >
+        </ess-url-title>
+      </div>
+    </ng-template>
   </div>
-
-  <ng-template #defaultTypeValueTemplate>
-    <div style="display: flex; flex-direction: column;">
-      <ess-url-title
-        [ngClass]="{ padding_for_provider: type.value === 'provider' }"
-        [title]="title"
-        [highlight]="highlightsreal['title'] ?? []"
-        [url]="
-          type.value === 'bundle'
-            ? redirectService.internalUrl(
-                validUrl,
-                id,
-                type.value,
-                offers[0]?.main_offer_id
-                  ? '#offer-' +
-                      offers[0].main_offer_id.toString().substring(2)
-                  : ''
-              )
-            : redirectService.internalUrl(validUrl, id, type.value, '')
+  <div class="usage">
+    <span
+      *ngIf="accessRight !== undefined"
+      [ngClass]="{
+        statistic: true,
+        'open-access': accessRight?.toLowerCase() === 'open access',
+        'other-access': accessRight?.toLowerCase() !== 'open access'
+      }"
+      ><img
+        [src]="
+          accessRight?.toLowerCase() === 'open access'
+            ? '/assets/usage-access.svg'
+            : '/assets/restricted access.svg'
         "
-      >
-      </ess-url-title>
-    </div>
-  </ng-template>
-</div>
-<div class="usage">
-  <span
-    *ngIf="accessRight !== undefined"
-    [ngClass]="{
-      statistic: true,
-      'open-access': accessRight?.toLowerCase() === 'open access',
-      'other-access': accessRight?.toLowerCase() !== 'open access'
-    }"
-    ><img
-      [src]="
-        accessRight?.toLowerCase() === 'open access'
-          ? '/assets/usage-access.svg'
-          : '/assets/restricted access.svg'
+      />
+      <ng-container i18n>{{
+        accessRight | filterPipe: 'access_right'
+      }}</ng-container></span
+    >
+    <span
+      *ngIf="
+        date !== undefined &&
+        date !== '' &&
+        type.value !== 'bundle' &&
+        type.value !== 'provider'
       "
-    />
-    <ng-container i18n>{{
-      accessRight | filterPipe: 'access_right'
-    }}</ng-container></span
+      class="statistic text-muted"
+      ><img src="/assets/usage-date.svg" />
+      <ng-container i18n>{{ date }}</ng-container></span
+    >
+    <span
+      *ngIf="
+        type !== null && type.value !== 'bundle' && type.value !== 'provider'
+      "
+      class="statistic text-muted"
+      ><img src="/assets/usage-type.svg" />
+      <ng-container i18n>Type: {{ type.label }}</ng-container></span
+    >
+    <span *ngIf="downloads !== undefined" class="statistic text-muted"
+      ><img src="/assets/usage-downloads.svg" />
+      <ng-container i18n>{{ downloads }} Downloads</ng-container></span
+    >
+    <span *ngIf="views !== undefined" class="statistic text-muted"
+      ><img src="/assets/usage-views.svg" />
+      <ng-container i18n>{{ views }} Views</ng-container></span
+    >
+  </div>
+  <ess-tags
+    [tags]="tags"
+    [highlights]="highlightsreal"
+    (activeFilter)="setActiveFilter($event.filter, $event.value)"
   >
-  <span
-    *ngIf="
-      date !== undefined &&
-      date !== '' &&
-      type.value !== 'bundle' &&
-      type.value !== 'provider'
-    "
-    class="statistic text-muted"
-    ><img src="/assets/usage-date.svg" />
-    <ng-container i18n>{{ date }}</ng-container></span
+  </ess-tags>
+  <ess-secondary-tags
+    [highlights]="highlightsreal"
+    [tags]="secondaryTags"
+    (activeFilter)="setActiveFilter($event.filter, $event.value)"
   >
-  <span
-    *ngIf="
-      type !== null &&
-      type.value !== 'bundle' &&
-      type.value !== 'provider'
-    "
-    class="statistic text-muted"
-    ><img src="/assets/usage-type.svg" />
-    <ng-container i18n>Type: {{ type.label }}</ng-container></span
-  >
-  <span *ngIf="downloads !== undefined" class="statistic text-muted"
-    ><img src="/assets/usage-downloads.svg" />
-    <ng-container i18n>{{ downloads }} Downloads</ng-container></span
-  >
-  <span *ngIf="views !== undefined" class="statistic text-muted"
-    ><img src="/assets/usage-views.svg" />
-    <ng-container i18n>{{ views }} Views</ng-container></span
-  >
-
-</div>
-<ess-tags
-  [tags]="tags"
-  [highlights]="highlightsreal"
-  (activeFilter)="setActiveFilter($event.filter, $event.value)"
->
-</ess-tags>
-<ess-secondary-tags
-  [highlights]="highlightsreal"
-  [tags]="secondaryTags"
-  (activeFilter)="setActiveFilter($event.filter, $event.value)"
->
-</ess-secondary-tags>
-<ess-description
-  [description]="description"
-  [highlights]="highlightsreal['description'] ?? []"
-></ess-description>
-<div>
+  </ess-secondary-tags>
+  <ess-description
+    [description]="description"
+    [highlights]="highlightsreal['description'] ?? []"
+  ></ess-description>
   <div>
-    <div class="bundle-box" *ngIf="type.value === 'bundle'">
-      <div
-        *ngFor="let offer of offers"
-        class="bundle-item align-items-stretch"
-      >
-        <ng-container *ngIf="offer">
-          <div class="card">
-            <div class="card-body d-flex flex-row">
-              <div class="bundle-offer-pic p-2">
-                <img src="assets/bundle_service.svg" />
-              </div>
-              <div class="bundle-offer-desc p-2">
-                <h4 class="card-title">
-                  {{ offer.title }}
-                </h4>
-                <div class="provided-by">
-                  Service {{ offer.service?.title }}
+    <div>
+      <div class="bundle-box" *ngIf="type.value === 'bundle'">
+        <div
+          *ngFor="let offer of offers"
+          class="bundle-item align-items-stretch"
+        >
+          <ng-container *ngIf="offer">
+            <div class="card">
+              <div class="card-body d-flex flex-row">
+                <div class="bundle-offer-pic p-2">
+                  <img src="assets/bundle_service.svg" />
                 </div>
-                <div class="provided-by">
-                  Provided by {{ offer.service?.resource_organisation }}
+                <div class="bundle-offer-desc p-2">
+                  <h4 class="card-title">
+                    {{ offer.title }}
+                  </h4>
+                  <div class="provided-by">
+                    Service {{ offer.service?.title }}
+                  </div>
+                  <div class="provided-by">
+                    Provided by {{ offer.service?.resource_organisation }}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </ng-container>
+          </ng-container>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>

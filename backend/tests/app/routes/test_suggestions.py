@@ -41,6 +41,7 @@ async def test_suggestions_one_collection(
             "q": "bar",
             "collection": "publication",
             "qf": "bar baz",
+            "exact": "false",
         },
         json={},
     )
@@ -66,6 +67,7 @@ async def test_suggestions_dispatch_collections(
             "q": "bar",
             "collection": "all_collection",
             "qf": "bar baz",
+            "exact": "false",
         },
         json={},
     )
@@ -95,6 +97,7 @@ async def test_rows_limit(
             "q": "bar",
             "collection": "publication",
             "qf": "bar baz",
+            "exact": "false",
             "results_per_collection": results_per_collection,
         },
         json={},

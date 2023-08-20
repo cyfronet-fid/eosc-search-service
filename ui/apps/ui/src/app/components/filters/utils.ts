@@ -83,10 +83,12 @@ export const flatNodesToTree = (
 };
 export const toSearchMetadata = (
   q: string,
+  exact: string,
   fq: string[],
   metadata: ICollectionSearchMetadata
 ) => ({
-  q: queryChanger(q),
+  q: queryChanger(q, exact === 'true'),
+  exact: exact,
   fq,
   cursor: '*',
   rows: 0,

@@ -53,6 +53,7 @@ export class SearchInputComponent implements OnInit {
   @ViewChild('inputQueryAdv', { static: true }) inputQueryAdv!: ElementRef;
   @ViewChild('inputQueryAdv2', { static: true }) inputQueryAdv2!: ElementRef;
 
+  exactmatch = false;
   visible = true;
   selectable = true;
   removable = true;
@@ -65,6 +66,7 @@ export class SearchInputComponent implements OnInit {
     { name: 'author' },
     { name: 'exact' },
     { name: 'in title' },
+    { name: 'keyword' },
     { name: 'none of' },
   ];
 
@@ -167,6 +169,11 @@ export class SearchInputComponent implements OnInit {
       this.standardSearch = std === 'true';
     }
 
+    const exact = this._route.snapshot.queryParamMap.get('exact');
+    if (exact) {
+      this.exactmatch = exact === 'true';
+    }
+
     const tgs = this._route.snapshot.queryParamMap.getAll('tags');
     if (typeof tgs === 'string') {
       this.tags.push(tgs);
@@ -195,10 +202,19 @@ export class SearchInputComponent implements OnInit {
           iif(
             () => this.standardSearch,
             this._searchInputService
-              .currentSuggestions(q, collection.id)
+              .currentSuggestions(
+                q,
+                collection.id,
+                this.exactmatch.toString().toLowerCase()
+              )
               .pipe(untilDestroyed(this)),
             this._searchInputService
-              .currentSuggestionsAdv(q, collection.id, this.tags)
+              .currentSuggestionsAdv(
+                q,
+                collection.id,
+                this.tags,
+                this.exactmatch.toString().toLowerCase()
+              )
               .pipe(untilDestroyed(this))
           )
         )
@@ -211,6 +227,11 @@ export class SearchInputComponent implements OnInit {
       .subscribe((navConfig) =>
         this.setCollection(this.formControl.value, navConfig)
       );
+  }
+
+  onCheckboxChange() {
+    this.exactmatch = !this.exactmatch;
+    this.updateQueryParamsAdv(this.formControl.value || '*');
   }
 
   isLanding() {
@@ -232,6 +253,7 @@ export class SearchInputComponent implements OnInit {
         q: sanitizeQuery(q) ?? '*',
         tags: this.tags,
         standard: this.standardSearch.toString(),
+        exact: this.exactmatch.toString().toLowerCase(),
       },
       queryParamsHandling: 'merge',
     });
@@ -252,6 +274,7 @@ export class SearchInputComponent implements OnInit {
         q: sanitizeQuery(q) ?? '*',
         tags: this.tags,
         standard: this.standardSearch.toString(),
+        exact: this.exactmatch.toString().toLowerCase(),
       },
       queryParamsHandling: 'merge',
     });
@@ -276,6 +299,7 @@ export class SearchInputComponent implements OnInit {
         q: sanitizeQuery(q) ?? '*',
         tags: this.tags,
         standard: this.standardSearch.toString(),
+        exact: this.exactmatch.toString().toLowerCase(),
       },
     });
   }

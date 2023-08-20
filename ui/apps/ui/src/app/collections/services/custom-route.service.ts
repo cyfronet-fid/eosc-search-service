@@ -17,6 +17,7 @@ const DEFAULT_PARAMS = {
   cursor: '*',
   sort: [],
   standard: 'true',
+  exact: 'false',
   tags: [],
 };
 
@@ -42,6 +43,7 @@ export class CustomRoute {
   readonly standard$ = this._store$.pipe(select(({ standard }) => standard));
   readonly sort_ui$ = this._store$.pipe(select(({ sort_ui }) => sort_ui));
   readonly tags$ = this._store$.pipe(select(({ tags }) => tags));
+  readonly exact$ = this._store$.pipe(select(({ exact }) => exact));
   readonly fqMap$ = this._store$.pipe(
     select(({ fq }) =>
       serializeAll(
@@ -97,6 +99,7 @@ export class CustomRoute {
       collection: collection,
       fq: toArray(parsedQueryParams['fq']),
       q: (parsedQueryParams['q'] as string | undefined) ?? '*',
+      exact: (parsedQueryParams['exact'] as string | undefined) ?? 'false',
     }));
   }
   setCollection(collection: string | null) {

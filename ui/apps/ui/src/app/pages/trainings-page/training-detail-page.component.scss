@@ -5,21 +5,21 @@
 .ig-details-wrapper {
   min-height: 478px;
   margin: 0 0 64px 0;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   border-radius: 4px;
 }
 
 .ig-provider-information-wrapper {
   height: 478px;
   margin: 0 0 64px 0;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   border-radius: 4px;
 }
 
 .about {
   display: flex;
   flex-direction: column;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   border-radius: 4px;
 }
 
@@ -40,7 +40,7 @@
 
 .header {
   height: 54px;
-  background: #F4F4F5;
+  background: #f4f4f5;
   border-radius: 0px 0px 4px 4px;
 }
 
@@ -56,7 +56,7 @@
 
 .footer {
   height: 54px;
-  background: #F4F4F5;
+  background: #f4f4f5;
   border-radius: 0px 0px 4px 4px;
 }
 
@@ -142,12 +142,12 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  color: #404DB1;
+  color: #404db1;
   padding-right: 12px;
 }
 
 .urls-container a span {
-  color: #F7CF46;
+  color: #f7cf46;
 }
 
 .button {
@@ -155,13 +155,13 @@
   height: 40px;
   text-align: center;
   line-height: 2.4;
-  background: #040F81;
+  background: #040f81;
   border-radius: 90px;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .button-off {
@@ -199,7 +199,7 @@
   align-items: flex-end;
   margin-bottom: 24px;
   min-height: 53px;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
 }
 
 .li-container ul {
@@ -207,7 +207,7 @@
 }
 
 li::marker {
-  color: #F7CF46;
+  color: #f7cf46;
 }
 
 h4 {
@@ -245,13 +245,13 @@ h6 {
   margin-right: 6px;
   width: 235px;
   height: 24px;
-  background: #F1F1F1;
+  background: #f1f1f1;
   border-radius: 4px;
 }
 
 .details-box {
   margin-bottom: 24px;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
 }
 
 .details-header {
@@ -267,7 +267,7 @@ h6 {
 .category-box {
   width: 84px;
   height: 84px;
-  border: 1px solid #D8D8D8;
+  border: 1px solid #d8d8d8;
   margin-bottom: 24px;
   display: flex;
   flex-direction: column;
@@ -287,7 +287,7 @@ h6 {
 .category-name {
   padding-top: 8px;
   width: 100%;
-  font-size: .5em;
+  font-size: 0.5em;
   line-height: 11px;
   text-align: center;
 }
@@ -315,7 +315,7 @@ h6 {
 }
 
 .sub-headline-color {
-  color: #3D4DB6;
+  color: #3d4db6;
   text-transform: uppercase;
 }
 
@@ -327,7 +327,7 @@ h6 {
   display: flex;
 }
 
-.category-icon.ico img{
+.category-icon.ico img {
   width: 60%;
 }
 

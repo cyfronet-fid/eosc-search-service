@@ -23,7 +23,8 @@ import { toNavigationLink } from './utils';
           [queryParams]="{
             q: (q$ | async),
             standard: (st$ | async),
-            tags: (tg$ | async)
+            tags: (tg$ | async),
+            exact: (ex$ | async)
           }"
           >{{ link.label }}</a
         >
@@ -37,6 +38,7 @@ export class CollectionsNavigationComponent implements OnInit {
   public q$ = this._customRoute.q$;
   public st$ = this._customRoute.standard$;
   public tg$ = this._customRoute.tags$;
+  public ex$ = this._customRoute.exact$;
 
   constructor(
     private _customRoute: CustomRoute,

@@ -37,6 +37,7 @@ async def test_post(
             "q": "bar",
             "collection": "foo",
             "qf": "bar baz",
+            "exact": "false",
         },
         json={},
     )
@@ -47,6 +48,7 @@ async def test_post(
         "foo",
         q="bar",
         qf="bar baz",
+        exact="false",
         fq=[],
         sort=["score desc", "id asc"],
         rows=10,
@@ -65,6 +67,7 @@ async def test_passes_all_query_params(
             "q": "bar",
             "collection": "foo",
             "qf": "bar baz",
+            "exact": "false",
             "fq": ['foo:"bar"'],
             "sort": ["fizz asc"],
             "rows": 42,
@@ -79,6 +82,7 @@ async def test_passes_all_query_params(
         "foo",
         q="bar",
         qf="bar baz",
+        exact="false",
         fq=['foo:"bar"'],
         sort=["fizz asc", "score desc", "id asc"],
         rows=42,
@@ -97,6 +101,7 @@ async def test_passes_all_facets(
             "q": "bar",
             "collection": "foo",
             "qf": "bar baz",
+            "exact": "false",
         },
         json={
             "facets": {
@@ -120,6 +125,7 @@ async def test_passes_all_facets(
         "foo",
         q="bar",
         qf="bar baz",
+        exact="false",
         fq=[],
         sort=["score desc", "id asc"],
         rows=10,
@@ -152,6 +158,7 @@ async def test_integration(
             "q": "model",
             "collection": collection,
             "qf": "title description subject",
+            "exact": "false",
         },
         json={
             "facets": {
@@ -183,6 +190,7 @@ async def test_integration_400(app: FastAPI, client: AsyncClient) -> None:
             "q": "*",
             "collection": "test_collection",
             "qf": "title description subject",
+            "exact": "false",
         },
         json={},
     )
@@ -201,6 +209,7 @@ async def test_integration_500(app: FastAPI, client: AsyncClient) -> None:
             "q": "*",
             "collection": "test_collection",
             "qf": "title description subject",
+            "exact": "false",
         },
         json={},
     )
