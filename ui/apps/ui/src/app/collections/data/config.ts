@@ -285,3 +285,4 @@ export const COUNTRY_CODE_TO_NAME: Record<string, string> = {
   QA: 'Qatar',
   MZ: 'Mozambique',
 };
+export const NOT_SPECIFIED_LANG = 'Not specified';

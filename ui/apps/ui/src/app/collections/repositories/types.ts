@@ -17,6 +17,8 @@ export interface IResult {
   coloredTags?: IColoredTag[];
   secondaryTags?: ISecondaryTag[];
   accessRight?: string;
+  license?: string | string[];
+  languages?: string[];
   views?: number;
   downloads?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

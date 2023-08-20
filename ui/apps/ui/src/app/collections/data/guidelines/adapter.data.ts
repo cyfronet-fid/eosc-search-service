@@ -19,6 +19,7 @@ export const guidelinesAdapter: IAdapter = {
     id: uuidv4(),
     title: guideline['title']?.join(' ') || '',
     description: guideline['description']?.join(' ') || '',
+    license: guideline['right_id'],
     date: guideline['publication_year']
       ? guideline['publication_year'].toString()
       : '',
@@ -28,13 +29,7 @@ export const guidelinesAdapter: IAdapter = {
     },
     collection: COLLECTION,
     url: '/guidelines/' + guideline.id || '',
-    coloredTags: [
-      {
-        colorClassName: 'tag-almond',
-        values: toValueWithLabel(toArray(guideline['right_id'])),
-        filter: 'right_id',
-      },
-    ],
+    coloredTags: [],
     tags: [
       {
         label: 'Provider',
