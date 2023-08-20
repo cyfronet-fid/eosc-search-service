@@ -20,7 +20,7 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toBetaTag,
   toHorizontalServiceTag,
-  toLanguageColoredTag,
+  transformLanguages,
 } from '@collections/data/shared-tags';
 import {
   parseStatistics,
@@ -121,11 +121,11 @@ export const allCollectionsAdapter: IAdapter = {
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',
     date: extractDate(data),
+    languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
     coloredTags: [
       toHorizontalServiceTag(data?.horizontal),
       toAccessRightColoredTag(data?.best_access_right),
-      toLanguageColoredTag(data?.language),
     ],
     tags:
       data.type === 'bundle'

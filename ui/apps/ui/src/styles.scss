@@ -413,8 +413,7 @@ h6 {
 
 .results #container {
   background: #fff;
-  padding: 25px 20px 20px;
-  overflow: hidden;
+  padding: 25px 20px 25px;
   border: 1px solid #d9dee2;
   border-radius: 8px;
   position: relative;
@@ -610,6 +609,7 @@ h6 {
     }
   }
 }
+
 .page-item.active {
   border: none;
 }
@@ -622,6 +622,24 @@ h6 {
   display: inline;
   float: left;
   margin-right: 12px;
+}
+
+#languageDropdown {
+  font-size: 11px;
+  padding-left: 5px;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.language-dropdown {
+  .dropdown-menu {
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 170px;
+    line-height: 22px;
+  }
 }
 
 @media (min-width: 1920px) {

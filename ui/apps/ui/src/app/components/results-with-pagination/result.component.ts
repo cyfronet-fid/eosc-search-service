@@ -17,6 +17,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IService } from '@collections/data/services/service.model';
 import { IOffer } from '@collections/data/bundles/bundle.model';
+import isArray from 'lodash-es/isArray';
 
 @Component({
   selector: 'ess-result',
@@ -56,6 +57,12 @@ export class ResultComponent implements OnInit {
 
   @Input()
   coloredTags: IColoredTag[] = [];
+
+  @Input()
+  languages: string[] = [];
+
+  @Input()
+  license?: string | string[];
 
   @Input()
   downloads?: number;
@@ -230,5 +237,9 @@ export class ResultComponent implements OnInit {
       },
       filtersConfigs
     );
+  }
+
+  _formatLicense(license: string | string[]) {
+    return isArray(license) ? license.join(', ') : license;
   }
 }

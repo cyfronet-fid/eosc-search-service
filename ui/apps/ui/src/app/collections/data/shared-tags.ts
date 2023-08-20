@@ -4,6 +4,7 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import { IColoredTag } from '@collections/repositories/types';
+import { NOT_SPECIFIED_LANG } from '@collections/data/config';
 
 export const toBetaTag = (isBeta: undefined | string): IColoredTag => ({
   colorClassName: 'tag-beta',
@@ -33,16 +34,14 @@ export const toHorizontalServiceTag = (
       ]
     : [],
 });
-export const toLanguageColoredTag = (
+
+export const transformLanguages = (
   values: string | string[] | undefined
-): IColoredTag => ({
-  colorClassName: 'tag-peach',
-  filter: 'language',
-  values: toArray(values).map((alphaCode) => ({
-    label: getName(alphaCode.toLowerCase(), 'en') ?? alphaCode,
-    value: alphaCode,
-  })),
-});
+): string[] =>
+  toArray(values)
+    .map((alphaCode) => getName(alphaCode.toLowerCase(), 'en') ?? alphaCode)
+    .filter((language) => language !== NOT_SPECIFIED_LANG);
+
 export const toAccessRightColoredTag = (
   value: string | undefined
 ): IColoredTag => ({

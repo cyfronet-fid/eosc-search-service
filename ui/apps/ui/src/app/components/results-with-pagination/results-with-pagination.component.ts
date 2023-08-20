@@ -3,7 +3,11 @@ import { PaginationService } from './pagination.service';
 import { BehaviorSubject, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { IResult, ISearchResults } from '@collections/repositories/types';
+import {
+  IColoredTag,
+  IResult,
+  ISearchResults,
+} from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { paramType } from '@collections/services/custom-route.type';
 import { Router } from '@angular/router';

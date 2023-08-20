@@ -4,6 +4,7 @@ import { ResultsWithPaginationComponent } from './results-with-pagination.compon
 import { PaginationComponent } from './pagination.component';
 import { ResultComponent } from './result.component';
 import { RouterModule } from '@angular/router';
+import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { ColoredTagsModule } from '../../layouts/colored-tags/colored-tags.module';
@@ -30,6 +31,7 @@ import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperabilit
     SecondaryTagsModule,
     DescriptionModule,
     InteroperabilityGuidelinesPipeModule,
+    NgbDropdownModule,
   ],
   exports: [ResultsWithPaginationComponent],
 })
