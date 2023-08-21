@@ -1,74 +1,90 @@
-
 :host {
-    display: block;
-  }
+  display: block;
+}
 
-  .usage > .statistic {
-    font-size: 11px;
-    margin-right: 15px;
-    display: inline-block;
-    line-height: 17px;
-    height: 17px;
-    vertical-align: middle;
-  }
+.product-type-bar {
+  display: flex;
+  gap: 10px;
+}
 
-  .usage > .statistic img {
-    margin-right: 5px;
-    max-height: 17px;
-    width: auto;
-    vertical-align: middle;
-  }
+.product-type-bar > .product-type-details {
+  background: #edf4ff;
+  color: #040f81;
+  padding: 5px 10px;
 
-  .bundle-box {
-    margin-top: 24px;
-  }
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
 
-  /* z serwisu */
-  .bundle-box .bundle-item {
-    border-left: 4px solid #84caff;
-  }
+.usage > .statistic {
+  font-size: 11px;
+  margin-right: 15px;
+  display: inline-block;
+  line-height: 17px;
+  height: 17px;
+  vertical-align: middle;
+}
 
-  .bundle-box .bundle-item:first-child .card {
-    border-top: 1px solid #dfe2e4;
-  }
+.usage > .statistic img {
+  margin-right: 5px;
+  max-height: 17px;
+  width: auto;
+  vertical-align: middle;
+}
 
-  .bundle-box .bundle-item .card {
-    background: none;
-    border-radius: 0;
-    border: none;
-    border-bottom: 2px dashed #dfe2e4;
-  }
+.bundle-box {
+  margin-top: 24px;
+}
 
-  .bundle-box .bundle-item:nth-last-child .card {
-    background: none;
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid #dfe2e4 !important;
-  }
+/* z serwisu */
+.bundle-box .bundle-item {
+  border-left: 4px solid #84caff;
+}
 
-  .card-title {
-    margin-bottom: 0.25rem;
-    font-size: 12px;
-    padding: 0;
-    font-weight: 600;
-    line-height: 1.2;
-  }
+.bundle-box .bundle-item:first-child .card {
+  border-top: 1px solid #dfe2e4;
+}
 
-  .provided-by {
-    margin-bottom: 0.25rem;
-    font-size: 12px;
-    padding: 0;
-    line-height: 1.2;
-  }
+.bundle-box .bundle-item .card {
+  background: none;
+  border-radius: 0;
+  border: none;
+  border-bottom: 2px dashed #dfe2e4;
+}
 
-  .bundle_container {
-    padding: 20px 48px 48px 25px !important;
-  }
+.bundle-box .bundle-item:nth-last-child .card {
+  background: none;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #dfe2e4 !important;
+}
 
-  .padding_for_provider {
-    display: flex;
-    align-items: center;
-    padding-left: 24px;
-    font-size: 14px;
-    color: red;
-  }
+.card-title {
+  margin-bottom: 0.25rem;
+  font-size: 12px;
+  padding: 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.provided-by {
+  margin-bottom: 0.25rem;
+  font-size: 12px;
+  padding: 0;
+  line-height: 1.2;
+}
+
+.bundle_container {
+  padding: 20px 48px 48px 25px !important;
+}
+
+.padding_for_provider {
+  display: flex;
+  align-items: center;
+  padding-left: 24px;
+  font-size: 14px;
+  color: red;
+}
