@@ -7,7 +7,6 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
-  toAccessRightColoredTag,
   toHorizontalServiceTag,
   transformLanguages,
 } from '@collections/data/shared-tags';
@@ -35,10 +34,7 @@ export const servicesAdapter: IAdapter = {
       ? `${ConfigService.config?.marketplace_url}/services/${service.pid}`
       : '',
     collection: COLLECTION,
-    coloredTags: [
-      toHorizontalServiceTag(service?.horizontal),
-      toAccessRightColoredTag(service?.best_access_right),
-    ],
+    coloredTags: [toHorizontalServiceTag(service?.horizontal)],
     tags: [
       {
         label: 'Scientific domain',

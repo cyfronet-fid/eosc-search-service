@@ -6,10 +6,7 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import {
-  toAccessRightColoredTag,
-  transformLanguages,
-} from '@collections/data/shared-tags';
+import { transformLanguages } from '@collections/data/shared-tags';
 import {
   constructDoiTag,
   formatPublicationDate,
@@ -29,12 +26,13 @@ export const publicationsAdapter: IAdapter = {
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
     date: formatPublicationDate(openAIREResult['publication_date']),
+    documentType: openAIREResult?.document_type,
     languages: transformLanguages(openAIREResult?.language),
     license: openAIREResult?.license,
     url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
-    coloredTags: [toAccessRightColoredTag(openAIREResult?.best_access_right)],
+    coloredTags: [],
     tags: [
       {
         label: 'Author name',
@@ -45,13 +43,6 @@ export const publicationsAdapter: IAdapter = {
         label: 'Publisher',
         values: toValueWithLabel(toArray(openAIREResult?.publisher)),
         filter: 'publisher',
-      },
-      {
-        label: 'Document type',
-        values: toValueWithLabel([
-          ...new Set(toArray(openAIREResult?.document_type)),
-        ]),
-        filter: 'document_type',
       },
       {
         label: 'Identifier',

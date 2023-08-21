@@ -9,6 +9,7 @@ export interface IResult {
   title: string;
   abbreviation?: string;
   description: string | string[];
+  documentType?: string[];
   type: IValueWithLabel;
   collection: string;
   url: string;
@@ -16,7 +17,7 @@ export interface IResult {
   date?: string;
   coloredTags?: IColoredTag[];
   secondaryTags?: ISecondaryTag[];
-  accessRight?: string;
+  accessRight?: AccessRight;
   license?: string | string[];
   languages?: string[];
   views?: number;
@@ -195,3 +196,11 @@ export interface ICreator {
   authorAffiliations: string;
   authorAffiliationsId: string;
 }
+
+export type AccessRight =
+  | 'open access'
+  | 'restricted'
+  | 'embargo'
+  | 'closed'
+  | 'other'
+  | 'order required';

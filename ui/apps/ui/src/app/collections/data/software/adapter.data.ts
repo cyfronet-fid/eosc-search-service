@@ -6,10 +6,7 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import {
-  toAccessRightColoredTag,
-  transformLanguages,
-} from '@collections/data/shared-tags';
+import { transformLanguages } from '@collections/data/shared-tags';
 import {
   constructDoiTag,
   parseStatistics,
@@ -34,7 +31,7 @@ export const softwareAdapter: IAdapter = {
     url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
-    coloredTags: [toAccessRightColoredTag(openAIREResult?.best_access_right)],
+    coloredTags: [],
     tags: [
       {
         label: 'Author name',

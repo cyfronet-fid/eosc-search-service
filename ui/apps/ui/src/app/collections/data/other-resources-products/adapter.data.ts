@@ -25,23 +25,14 @@ export const otherResourcesProductsAdapter: IAdapter = {
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
+    documentType: openAIREResult?.document_type,
     languages: transformLanguages(openAIREResult?.language),
     date: formatPublicationDate(openAIREResult['publication_date']),
     license: openAIREResult?.license,
     url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
-    coloredTags: [
-      {
-        values: toValueWithLabel(toArray(openAIREResult?.best_access_right)),
-        filter: 'best_access_right',
-        colorClassName: (openAIREResult?.best_access_right || '').match(
-          /open(.access)?/gi
-        )
-          ? 'tag-light-green'
-          : 'tag-light-coral',
-      },
-    ],
+    coloredTags: [],
     tags: [
       {
         label: 'Author name',

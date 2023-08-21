@@ -16,7 +16,6 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
-  toAccessRightColoredTag,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toBetaTag,
   toHorizontalServiceTag,
@@ -121,13 +120,11 @@ export const allCollectionsAdapter: IAdapter = {
     id: data.id,
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',
+    documentType: data?.document_type,
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
-    coloredTags: [
-      toHorizontalServiceTag(data?.horizontal),
-      toAccessRightColoredTag(data?.best_access_right),
-    ],
+    coloredTags: [toHorizontalServiceTag(data?.horizontal)],
     tags:
       data.type === 'bundle'
         ? []
