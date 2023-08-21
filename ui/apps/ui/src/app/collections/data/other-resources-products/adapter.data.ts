@@ -21,6 +21,7 @@ export const otherResourcesProductsAdapter: IAdapter = {
     openAIREResult: Partial<IOpenAIREResult> & { id: string }
   ): IResult => ({
     isSortByRelevanceCollectionScopeOff: false,
+    isSortCollectionScopeOff: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',

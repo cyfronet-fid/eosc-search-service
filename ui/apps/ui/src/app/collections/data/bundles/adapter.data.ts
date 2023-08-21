@@ -11,6 +11,7 @@ export const bundlesAdapter: IAdapter = {
   adapter: (
     bundle: Partial<IBundle> & { id: string }
   ): IResult & { offers: IOffer[] } => ({
+    isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
     id: uuidv4(),
     title: bundle['title']?.join(' ') || '',

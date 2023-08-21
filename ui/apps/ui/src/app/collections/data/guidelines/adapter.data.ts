@@ -16,6 +16,7 @@ export const guidelinesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (guideline: Partial<IGuideline> & { id: string }): IResult => ({
     isSortByRelevanceCollectionScopeOff: true,
+    isSortCollectionScopeOff: true,
     id: uuidv4(),
     title: guideline['title']?.join(' ') || '',
     description: guideline['description']?.join(' ') || '',

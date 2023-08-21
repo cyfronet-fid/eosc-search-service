@@ -83,6 +83,9 @@ import {
 
           <div class="col-sm-7 col-12 center-column">
             <ess-page-header
+              [isSortCollectionScopeOff]="
+                (response?.results ?? [])[0]?.isSortCollectionScopeOff ?? false
+              "
               [resultsCount]="response?.numFound ?? 0"
               [isSortByRelevanceCollectionScopeOff]="
                 (response?.results ?? [])[0]
