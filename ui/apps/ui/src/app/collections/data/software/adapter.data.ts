@@ -39,6 +39,11 @@ export const softwareAdapter: IAdapter = {
         filter: 'author_names',
       },
       {
+        label: 'Publisher',
+        values: toValueWithLabel(toArray(openAIREResult?.publisher)),
+        filter: 'publisher',
+      },
+      {
         label: 'Identifier',
         values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
