@@ -11,6 +11,7 @@ import {
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
 import {
+  constructDoiTag,
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
@@ -46,8 +47,8 @@ export const datasetsAdapter: IAdapter = {
         filter: 'author_names',
       },
       {
-        label: 'DOI',
-        values: toValueWithLabel(toArray(openAIREResult?.doi)),
+        label: 'Identifier',
+        values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
       },
       {

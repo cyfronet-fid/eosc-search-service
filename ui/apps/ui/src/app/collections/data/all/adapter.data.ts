@@ -2,7 +2,10 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { COLLECTION } from './search-metadata.data';
 import { IOpenAIREResult } from '@collections/data/openair.model';
-import { formatPublicationDate } from '@collections/data/utils';
+import {
+  constructDoiTag,
+  formatPublicationDate,
+} from '@collections/data/utils';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
@@ -134,8 +137,8 @@ export const allCollectionsAdapter: IAdapter = {
               filter: 'author_names',
             },
             {
-              label: 'DOI',
-              values: toValueWithLabel(toArray(data?.doi)),
+              label: 'Identifier',
+              values: constructDoiTag(data?.doi),
               filter: 'doi',
             },
             {

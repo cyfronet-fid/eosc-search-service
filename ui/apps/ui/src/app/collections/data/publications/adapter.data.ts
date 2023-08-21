@@ -11,11 +11,12 @@ import {
   toLanguageColoredTag,
 } from '@collections/data/shared-tags';
 import {
+  constructDoiTag,
+  formatPublicationDate,
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
-import { formatPublicationDate } from '@collections/data/utils';
 
 export const publicationsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -58,8 +59,9 @@ export const publicationsAdapter: IAdapter = {
         filter: 'document_type',
       },
       {
-        label: 'DOI',
-        values: toValueWithLabel(toArray(openAIREResult?.doi)),
+        label: 'Identifier',
+        // TODO: Add HANDLE, PMID and PMD somehow
+        values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
       },
       {
