@@ -7,7 +7,11 @@ import {
   SimpleChanges,
   TrackByFunction,
 } from '@angular/core';
-import { ITag, IValueWithLabel } from '@collections/repositories/types';
+import {
+  ITag,
+  IValueWithLabel,
+  IValueWithLabelAndLink,
+} from '@collections/repositories/types';
 import { combineHighlightsWith } from './utils';
 import { ViewportScroller } from '@angular/common';
 import { translateDictionaryValue } from '../../dictionary/translateDictionaryValue';
@@ -26,14 +30,29 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
         <ng-container
           *ngFor="let singleValue of cleanDuplicatedTagLabel(tag.values)"
         >
-          <span class="tag"
-            ><a
+          <span class="tag">
+            {{ addSubTitle(singleValue.subTitle) }}
+            <a
+              *ngIf="!singleValue.externalLink"
               href="javascript:void(0)"
               (click)="setActiveFilter(tag.filter, singleValue.value)"
               [innerHTML]="singleValue.label | filterPipe: tag.filter"
-            ></a
-            >&nbsp;&nbsp;</span
-          >
+            ></a>
+            <a
+              *ngIf="
+                singleValue.externalLink && !singleValue.externalLink.broken
+              "
+              [href]="singleValue.externalLink.link"
+              [innerHTML]="singleValue.label"
+            ></a>
+            <span
+              *ngIf="
+                singleValue.externalLink && singleValue.externalLink.broken
+              "
+              [innerHTML]="singleValue.label"
+            ></span>
+            &nbsp;
+          </span>
         </ng-container>
       </div>
     </ng-container>
@@ -90,7 +109,9 @@ export class TagsComponent implements OnChanges {
     this.viewPortScroller.scrollToPosition([0, 0]);
   }
 
-  cleanDuplicatedTagLabel(array: IValueWithLabel[]): IValueWithLabel[] {
+  cleanDuplicatedTagLabel(
+    array: IValueWithLabelAndLink[]
+  ): IValueWithLabelAndLink[] {
     if (array[array.length - 1].value.indexOf('>') !== -1) {
       array.reverse();
     }
@@ -116,5 +137,9 @@ export class TagsComponent implements OnChanges {
       []
     );
     return a;
+  }
+
+  addSubTitle(subTitle?: string) {
+    return subTitle ? `${subTitle}: ` : undefined;
   }
 }

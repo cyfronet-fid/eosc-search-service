@@ -7,6 +7,7 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
+  constructDoiTag,
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
@@ -54,8 +55,8 @@ export const otherResourcesProductsAdapter: IAdapter = {
         filter: 'author_names',
       },
       {
-        label: 'DOI',
-        values: toValueWithLabel(toArray(openAIREResult?.doi)),
+        label: 'Identifier',
+        values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
       },
       {

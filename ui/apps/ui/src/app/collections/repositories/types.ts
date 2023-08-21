@@ -1,6 +1,7 @@
 export interface IValueWithLabel {
   label: string;
   value: string;
+  subTitle?: string;
 }
 
 export interface IResult {
@@ -30,9 +31,13 @@ export interface ISecondaryTag {
   type: 'url' | 'info';
 }
 
+export interface IValueWithLabelAndLink extends IValueWithLabel {
+  externalLink?: { broken: boolean; link?: string };
+}
+
 export interface ITag {
   label: string;
-  values: IValueWithLabel[];
+  values: IValueWithLabelAndLink[];
   filter: string;
 }
 
