@@ -20,6 +20,7 @@ uvicorn = "*"
 "stomp.py" = "*"
 cachetools = "*"
 async-lru = "*"
+bibtexparser = "~=1.0"
 
 [dev-packages]
 black = "*"
