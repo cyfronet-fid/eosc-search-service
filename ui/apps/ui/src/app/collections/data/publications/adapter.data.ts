@@ -26,6 +26,7 @@ export const publicationsAdapter: IAdapter = {
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
     date: formatPublicationDate(openAIREResult['publication_date']),
+    urls: openAIREResult.url,
     documentType: openAIREResult?.document_type,
     languages: transformLanguages(openAIREResult?.language),
     license: openAIREResult?.license,

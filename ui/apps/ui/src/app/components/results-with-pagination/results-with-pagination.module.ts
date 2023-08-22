@@ -13,6 +13,7 @@ import { UrlTitleModule } from '../../layouts/url-title/url-title.module';
 import { SecondaryTagsModule } from '../../layouts/secondary-tags/secondary-tags.module';
 import { DescriptionModule } from '../../layouts/description/description.module';
 import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperability-guidelines.pipe.module';
+import { UiControlsModule } from '../../layouts/ui-controls/ui-controls.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperabilit
     SecondaryTagsModule,
     DescriptionModule,
     InteroperabilityGuidelinesPipeModule,
+    UiControlsModule,
     NgbDropdownModule,
   ],
   exports: [ResultsWithPaginationComponent],

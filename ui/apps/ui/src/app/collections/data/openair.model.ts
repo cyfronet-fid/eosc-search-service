@@ -2,6 +2,7 @@ export interface IOpenAIREResult {
   id: string;
   title: string[];
   url: string[];
+  urls: string[];
   author_names: string[];
   description: string[];
   publication_date: string[];

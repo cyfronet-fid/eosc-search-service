@@ -47,6 +47,7 @@
       [date]="result.date"
       [highlights]="highlights[result.id] ?? {}"
       [url]="result.url"
+      [urls]="result.urls ?? []"
     ></ess-result>
     <ng-template #defaultResultTemplate>
       <ess-result
@@ -69,6 +70,7 @@
         [date]="result.date"
         [highlights]="highlights[result.id] ?? {}"
         [offers]="result.offers ?? []"
+        [urls]="result.urls ?? []"
       ></ess-result>
     </ng-template>
   </ng-container>

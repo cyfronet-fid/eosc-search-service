@@ -28,6 +28,7 @@ export const otherResourcesProductsAdapter: IAdapter = {
     documentType: openAIREResult?.document_type,
     languages: transformLanguages(openAIREResult?.language),
     date: formatPublicationDate(openAIREResult['publication_date']),
+    urls: openAIREResult.url,
     license: openAIREResult?.license,
     url: `${
       ConfigService.config?.eosc_explore_url

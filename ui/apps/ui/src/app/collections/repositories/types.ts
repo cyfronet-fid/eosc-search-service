@@ -13,6 +13,7 @@ export interface IResult {
   type: IValueWithLabel;
   collection: string;
   url: string;
+  urls?: string[];
   tags: ITag[];
   date?: string;
   coloredTags?: IColoredTag[];

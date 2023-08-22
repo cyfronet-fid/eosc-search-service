@@ -54,6 +54,9 @@ export class ResultComponent implements OnInit {
   type!: IValueWithLabel;
 
   @Input()
+  urls!: string[];
+
+  @Input()
   tags: ITag[] = [];
 
   @Input()
