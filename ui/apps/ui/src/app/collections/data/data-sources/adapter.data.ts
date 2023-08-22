@@ -27,6 +27,7 @@ export const getDataSourceUrl = (pid?: string) => {
 export const dataSourcesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (dataSource: Partial<IDataSource> & { id: string }): IResult => ({
+    isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
     id: dataSource.id,
     // basic information

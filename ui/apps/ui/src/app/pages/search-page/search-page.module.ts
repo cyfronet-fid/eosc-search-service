@@ -8,7 +8,6 @@ import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SearchPageComponent } from './search-page.component';
 
 import { DEFAULT_COLLECTION_ID } from '@collections/data';
 import { NavConfigResolver } from '@collections/services/nav-config-resolver.service';
@@ -21,6 +20,8 @@ import { FiltersModule } from '@components/filters/filters.module';
 import { ActiveFiltersModule } from '@components/active-filters/active-filters.module';
 import { RecommendationsModule } from '@components/recommendations/recommendations.module';
 import { RightMenuModule } from '@components/right-menu/right-menu.module';
+
+import { SearchPageComponent } from './search-page.component';
 
 @NgModule({
   declarations: [SearchPageComponent],
@@ -52,5 +53,6 @@ import { RightMenuModule } from '@components/right-menu/right-menu.module';
     RecommendationsModule,
     RightMenuModule,
   ],
+  exports: [SearchPageComponent],
 })
 export class SearchPageModule {}

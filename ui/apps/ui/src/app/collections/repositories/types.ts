@@ -24,6 +24,7 @@ export interface IResult {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   offers?: any[];
   isSortByRelevanceCollectionScopeOff?: boolean;
+  isSortCollectionScopeOff?: boolean;
 }
 
 export interface ISecondaryTag {
