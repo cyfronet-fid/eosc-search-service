@@ -8,7 +8,7 @@ export interface IOpenAIREResult {
   best_access_right: string;
   language: string[];
   type: string;
-  fos: string[];
+  scientific_domains: string[];
   keywords: string[];
   open_access: boolean;
   publisher: string;

@@ -3,5 +3,5 @@ import { IExcludedFiltersConfig } from '@collections/repositories/types';
 
 export const excludedOtherResourcesProductsFilters: IExcludedFiltersConfig = {
   id: URL_PARAM_NAME,
-  excluded: ['unified_categories', 'fos'],
+  excluded: ['unified_categories'],
 };

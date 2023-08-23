@@ -35,14 +35,14 @@ export const servicesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Scientific domain',
-        values: toValueWithLabel(toArray(service.scientific_domains)),
-        filter: 'scientific_domains',
-      },
-      {
         label: 'Organisation',
         values: toValueWithLabel(toArray(service.resource_organisation)),
         filter: 'resource_organisation',
+      },
+      {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(service.scientific_domains)),
+        filter: 'scientific_domains',
       },
     ],
     secondaryTags: [

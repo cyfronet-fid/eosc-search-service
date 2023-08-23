@@ -45,15 +45,22 @@ export const publicationsAdapter: IAdapter = {
         filter: 'publisher',
       },
       {
+        label: 'Document type',
+        values: toValueWithLabel([
+          ...new Set(toArray(openAIREResult?.document_type)),
+        ]),
+        filter: 'document_type',
+      },
+      {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
+        filter: 'scientific_domains',
+      },
+      {
         label: 'Identifier',
         // TODO: Add HANDLE, PMID and PMD somehow
         values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
-      },
-      {
-        label: 'Field of Science',
-        values: toValueWithLabel(toArray(openAIREResult?.fos)),
-        filter: 'fos',
       },
     ],
     type: {

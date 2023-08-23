@@ -40,14 +40,14 @@ export const otherResourcesProductsAdapter: IAdapter = {
         filter: 'author_names',
       },
       {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
+        filter: 'scientific_domains',
+      },
+      {
         label: 'Identifier',
         values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
-      },
-      {
-        label: 'Field of Science',
-        values: toValueWithLabel(toArray(openAIREResult?.fos)),
-        filter: 'fos',
       },
     ],
     type: {

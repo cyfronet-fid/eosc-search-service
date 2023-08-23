@@ -40,14 +40,14 @@ export const dataSourcesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Scientific domain',
-        values: toValueWithLabel(toArray(dataSource.scientific_domains)),
-        filter: 'scientific_domains',
-      },
-      {
         label: 'Organisation',
         values: toValueWithLabel(toArray(dataSource.resource_organisation)),
         filter: 'resource_organisation',
+      },
+      {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(dataSource.scientific_domains)),
+        filter: 'scientific_domains',
       },
     ],
     secondaryTags: [

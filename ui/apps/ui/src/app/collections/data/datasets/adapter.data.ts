@@ -45,14 +45,14 @@ export const datasetsAdapter: IAdapter = {
         filter: 'publisher',
       },
       {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
+        filter: 'scientific_domains',
+      },
+      {
         label: 'Identifier',
         values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
-      },
-      {
-        label: 'Field of Science',
-        values: toValueWithLabel(toArray(openAIREResult?.fos)),
-        filter: 'fos',
       },
     ],
     type: {
