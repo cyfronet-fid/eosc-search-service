@@ -44,6 +44,11 @@ export const trainingsAdapter: IAdapter = {
         values: toValueWithLabel(toArray(training['content_type'])),
         filter: 'content_type',
       },
+      {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(training?.scientific_domains)),
+        filter: 'scientific_domains',
+      },
     ],
     secondaryTags: [
       // toDownloadsStatisticsSecondaryTag(training.usage_counts_downloads),

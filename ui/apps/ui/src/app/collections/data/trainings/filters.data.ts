@@ -22,6 +22,14 @@ export const trainingsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'scientific_domains',
+      filter: 'scientific_domains',
+      label: 'Scientific Domains',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
       id: 'access_right',
       filter: 'access_right',
       label: 'Access right',

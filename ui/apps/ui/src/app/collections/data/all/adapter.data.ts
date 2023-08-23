@@ -135,9 +135,9 @@ export const allCollectionsAdapter: IAdapter = {
               filter: 'author_names',
             },
             {
-              label: 'Identifier',
-              values: constructDoiTag(data?.doi),
-              filter: 'doi',
+              label: 'Organisation',
+              values: toValueWithLabel(toArray(data?.resource_organisation)),
+              filter: 'resource_organisation',
             },
             {
               label: 'Scientific domain',
@@ -145,9 +145,9 @@ export const allCollectionsAdapter: IAdapter = {
               filter: 'scientific_domains',
             },
             {
-              label: 'Organisation',
-              values: toValueWithLabel(toArray(data?.resource_organisation)),
-              filter: 'resource_organisation',
+              label: 'Identifier',
+              values: constructDoiTag(data?.doi),
+              filter: 'doi',
             },
           ],
     type: {
