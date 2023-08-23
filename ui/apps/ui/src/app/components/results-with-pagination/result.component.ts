@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import {
   IColoredTag,
   ISecondaryTag,
@@ -17,6 +17,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IService } from '@collections/data/services/service.model';
 import { IOffer } from '@collections/data/bundles/bundle.model';
+import {
+  BibliographyExportComponent,
+  BibliographyExportContentComponent,
+} from '@components/bibliography-export/bibliography-export.component';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ess-result',
@@ -28,6 +33,9 @@ export class ResultComponent implements OnInit {
   tagsq: string[] = [];
   validUrl: string | null = null;
   highlightsreal: { [field: string]: string[] | undefined } = {};
+  closeResult = '';
+
+  @ViewChild(BibliographyExportComponent) modal!: BibliographyExportComponent;
 
   @Input() id!: string;
   @Input() date?: string;
@@ -81,7 +89,8 @@ export class ResultComponent implements OnInit {
     private _filtersConfigsRepository: FiltersConfigsRepository,
     public redirectService: RedirectService,
     private _http: HttpClient,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit() {
@@ -203,6 +212,34 @@ export class ResultComponent implements OnInit {
   get$(id: number | string): Observable<IService> {
     const endpointUrl = `/${environment.backendApiPath}/${COLLECTION}`;
     return this._http.get<IService>(`${endpointUrl}/${id}`);
+  }
+
+  openModal() {
+    // this.modal.open();
+    const modalRef = this.modalService.open(BibliographyExportContentComponent);
+    modalRef.componentInstance.name = 'World';
+
+    /* const modalRef = this.modalService.open(BibliographyExportContent, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }, (reason) => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        alert(this.closeResult);
+      }); */
+  }
+
+  /**
+   * Write code on Method
+   *
+   * @return response()
+   */
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 
   async setActiveFilter(filter: string, value: string) {

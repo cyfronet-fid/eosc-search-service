@@ -12,8 +12,6 @@ import { UrlTitleModule } from '../../layouts/url-title/url-title.module';
 import { SecondaryTagsModule } from '../../layouts/secondary-tags/secondary-tags.module';
 import { DescriptionModule } from '../../layouts/description/description.module';
 import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperability-guidelines.pipe.module';
-import { BibliographyExportContent } from '../bibliography-export/bibliography-export.component';
-
 
 @NgModule({
   declarations: [
@@ -32,7 +30,6 @@ import { BibliographyExportContent } from '../bibliography-export/bibliography-e
     SecondaryTagsModule,
     DescriptionModule,
     InteroperabilityGuidelinesPipeModule,
-    BibliographyExportContent,
   ],
   exports: [ResultsWithPaginationComponent],
 })

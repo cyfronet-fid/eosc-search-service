@@ -22,19 +22,26 @@ platformBrowserDynamic()
   })
   .catch((err) => console.error(err));
 
-
 import './polyfills';
 import { BibliographyExportComponent } from '@components/bibliography-export/bibliography-export.component';
-  
- platformBrowserDynamic()
-      .bootstrapModule(BibliographyExportComponent)
-      .then(ref => {
+
+/*platformBrowserDynamic().bootstrapModule<any>(BibliographyExportComponent).then(ref => {
+
+
+  ref.destroy();
+
         // Ensure Angular destroys itself on hot reloads.
-        if (window['ngRef']) {
+       /!* const dialog: BibliographyExportComponent = window?['ngRef'] ? window['ngRef'] as BibliographyExportComponent : {};
+
+        window.hasOwnProperty('ngRef');
+
+
+
+        if (window.['ngRef']) {
           window['ngRef'].destroy();
         }
-        window['ngRef'] = ref;
-  
+        window['ngRef'] = ref;*!/
+
         // Otherwise, log the boot error
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error(err));*/
