@@ -135,16 +135,16 @@
     (activeFilter)="setActiveFilter($event.filter, $event.value)"
   >
   </ess-tags>
+  <ess-description
+    [description]="description"
+    [highlights]="highlightsreal['description'] ?? []"
+  ></ess-description>
   <ess-secondary-tags
     [highlights]="highlightsreal"
     [tags]="secondaryTags"
     (activeFilter)="setActiveFilter($event.filter, $event.value)"
   >
   </ess-secondary-tags>
-  <ess-description
-    [description]="description"
-    [highlights]="highlightsreal['description'] ?? []"
-  ></ess-description>
   <div>
     <div>
       <div class="bundle-box" *ngIf="type.value === 'bundle'">
