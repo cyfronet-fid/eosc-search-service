@@ -24,23 +24,17 @@ platformBrowserDynamic()
 
 
 import './polyfills';
-import {HttpClientXsrfModule} from '@angular/common/http';
-import {bootstrapApplication} from '@angular/platform-browser';
 import { BibliographyExportComponent } from '@components/bibliography-export/bibliography-export.component';
-
-
-bootstrapApplication(BibliographyExportComponent, {
-  providers: [
-    HttpClientXsrfModule,
-  ],
-})
-.then(ref => {
-  // Ensure Angular destroys itself on hot reloads.
-  if (window['ngRef']) {
-    window['ngRef'].destroy();
-  }
-  window['ngRef'] = ref;
-
-  // Otherwise, log the boot error
-})
-.catch(err => console.error(err));
+  
+ platformBrowserDynamic()
+      .bootstrapModule(BibliographyExportComponent)
+      .then(ref => {
+        // Ensure Angular destroys itself on hot reloads.
+        if (window['ngRef']) {
+          window['ngRef'].destroy();
+        }
+        window['ngRef'] = ref;
+  
+        // Otherwise, log the boot error
+      })
+      .catch(err => console.error(err));

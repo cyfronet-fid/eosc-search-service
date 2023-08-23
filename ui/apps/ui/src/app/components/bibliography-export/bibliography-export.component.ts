@@ -31,7 +31,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 		</div>
 	`,
 })
-export class BibliographyExportComponent {
+export class BibliographyExportContent {
 	@Input() name: any;
 
 	constructor(public activeModal: NgbActiveModal) {}
@@ -39,11 +39,11 @@ export class BibliographyExportComponent {
 }
 
 @Component({ selector: 'ess-bibliography-export', standalone: true, templateUrl: './bibliography-export.component.html' })
-export class NgbdModalComponent {
+export class BibliographyExportComponent {
 	constructor(private modalService: NgbModal) {}
 
 	open() {
-		const modalRef = this.modalService.open(BibliographyExportComponent);
+		const modalRef = this.modalService.open(BibliographyExportContent);
 		modalRef.componentInstance.name = 'World';
 	}
 }
