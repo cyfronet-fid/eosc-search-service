@@ -1,12 +1,11 @@
 .ig-title-container {
-  padding-top: 48px;
-  padding-right: 64px;
+  padding-left: 10px
 }
 
 .ig-about-wrapper {
   margin: 24px 0 0 0;
   border: 1px solid #d8d8d8;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .ig-details-wrapper {
@@ -17,16 +16,27 @@
 }
 
 .ig-provider-information-wrapper {
-  /* height: 478px; */
+  overflow: hidden;
   margin: 0 0 24px 0;
   border: 1px solid #d8d8d8;
-  border-radius: 4px;
+  border-radius: 8px;
 }
 
 .about {
   height: inherit;
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.about-description {
+  margin-bottom: 30px;
+  color: #000;
+}
+
+.integration-description {
+  margin-bottom: 30px;
+  color: #000;
 }
 
 .details {
@@ -36,51 +46,45 @@
   padding: 24px 24px 24px 48px;
 }
 
-.header {
-  height: 54px;
-  background: #f4f4f5;
-  border-radius: 0px 0px 4px 4px;
+.ig-header {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
-.header p {
-  padding-left: 48px;
+.ig-header p {
+  padding-left: 13px;
+  margin: 0;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600;
-  font-size: 16px;
-  line-height: 54px;
-  color: #37434c;
+  font-size: 20px;
+  line-height: 22px;
+  color: #000;
 }
 
-.footer {
-  margin-top: -54px;
-  height: 54px;
-  background: #f4f4f5;
-  border-radius: 0px 0px 4px 4px;
+.ig-header img {
+  height: 32px;
+  width: auto;
 }
 
-.footer p {
-  padding-left: 48px;
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 54px;
-  color: #37434c;
+.ig-content-inner {
+  padding: 0 24px 10px;
 }
 
 .ig-logo-container {
-  padding: 48px 36px 104px 36px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  padding-left: 25px;
 }
 
 .ig-about-title {
   font-family: 'Inter';
-  font-style: normal;
   font-weight: 600;
   font-size: 22px;
   line-height: 26px;
   color: #000000;
-  padding-left: 64px;
 }
 
 .ig-about-subtitle {
@@ -89,12 +93,42 @@
   font-style: normal;
   font-weight: 500;
   font-size: 14px;
+  margin-top: 18px;
+  float: left;
+  width: 100%;
   line-height: 24px;
   color: #000000;
 }
 
-.about-description {
-  padding: 48px 48px 64px 36px;
+.ig-buttons-container .button {
+  max-width: 235px;
+  height: 40px;
+  text-align: center;
+  line-height: 2.4;
+  background: #040F81;
+  border-radius: 90px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: #fff;
+}
+
+.ig-buttons-container .button:hover {
+  background: #000;
+}
+.ig-buttons-container .button-off {
+  width: 235px;
+  background: none;
+  text-align: center;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  margin-top: 10px;
+  letter-spacing: .03em;
+  color: #828282;
+  text-transform: uppercase;
 }
 
 .section {
@@ -102,6 +136,7 @@
   font-style: normal;
   font-weight: 600;
   font-size: 14px;
+  margin-bottom: 24px;
   line-height: 24px;
   color: #000000;
 }
@@ -116,6 +151,10 @@
   color: #000000;
   display: flex;
   align-items: center;
+}
+
+.section-description a {
+  overflow-wrap: anywhere;
 }
 
 .left-column {
@@ -195,24 +234,23 @@
   display: inline-block;
   width: 10px;
   height: 10px;
-  margin-right: 5px;
+  margin-right: 10px;
   border-radius: 15px;
   background-color: #d9d9d9;
 }
 
 .left20 {
-  padding-left: 15px;
+  padding-left: 20px;
 }
 
 .creator-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
 }
 
-.creator-container div {
-  width: 33%;
-  margin-bottom: 15px;
+.creator-box p span {
+  line-height: 29px;
 }
 
 .creator-container div:nth-last-child(-n + 2) {
@@ -241,10 +279,27 @@
   width: 40%;
 }
 
-.creator {
-  padding-left: 24px;
-}
+@media (max-width: 768px) {
 
-.creator:first-child {
-  padding-left: 0;
+  .ig-logo-container {
+    padding: 20px;
+  }
+
+  .ig-about-title,
+  .ig-about-subtitle {
+    text-align: center;
+  }
+
+  .ig-buttons-container {
+    margin: 30px 0 25px 0;
+    text-align: center;
+  }
+
+  .ig-buttons-container .button {
+    margin: auto;
+  }
+  .ig-buttons-container .button-off {
+    margin: 20px auto 0;
+  }
+
 }
