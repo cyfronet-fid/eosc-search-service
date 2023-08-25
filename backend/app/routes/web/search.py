@@ -1,18 +1,22 @@
+# pylint: disable=fixme
+
 """The UI Search endpoint"""
 import itertools
 import logging
 from json import JSONDecodeError
+from typing import Optional
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
 from httpx import AsyncClient, TransportError
 from pydantic.typing import Literal
 from requests import Response
 
+from app.routes.utils import parse_col_name
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.search_request import SearchRequest
 from app.solr.operations import get, search_advanced_dep, search_dep
 
-from ..util import DEFAULT_SORT
+from ..utils import DEFAULT_SORT
 
 router = APIRouter()
 
@@ -51,7 +55,7 @@ async def search_post(
     Paging is cursor-based, see
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
     """
-    final_solr_sorting = await define_sorting(sort_ui, sort)
+    final_solr_sorting = await define_sorting(sort_ui, sort, collection)
 
     async with AsyncClient() as client:
         response = await handle_search_errors(
@@ -106,7 +110,7 @@ async def search_post_advanced(
     Paging is cursor-based, see
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
     """
-    final_solr_sorting = await define_sorting(sort_ui, sort)
+    final_solr_sorting = await define_sorting(sort_ui, sort, collection)
     async with AsyncClient() as client:
         response = await handle_search_errors(
             search(
@@ -161,35 +165,6 @@ async def create_output(
         out["highlighting"] = res_json["highlighting"]
 
     return out
-
-
-# pylint: disable=too-many-return-statements
-async def parse_col_name(collection: str) -> str | None:
-    """Parse collection name for sort by relevance"""
-    # Handle prefixes
-    if "all" in collection:
-        return "all"
-    if "publication" in collection:
-        return "publication"
-    if "dataset" in collection:
-        return "dataset"
-    if "software" in collection:
-        return "software"
-    if "service" in collection:
-        return "service"
-    if "data_source" in collection:
-        return "data_source"
-    if "training" in collection:
-        return "training"
-    if "guideline" in collection:
-        return "guideline"
-    if "bundle" in collection:
-        return "bundle"
-    if "other" in collection:
-        return "other"
-    if "provider" in collection:
-        return "provider"
-    return None
 
 
 async def handle_search_errors(search_coroutine) -> Response:
@@ -280,25 +255,36 @@ async def extend_results_with_bundles(client, res_json, collection: str):
         return
 
 
-async def define_sorting(sort_ui: str, sort: list[str]):
+async def define_sorting(
+    sort_ui: str, sort: list[str], collection: Optional[str] = None
+):
     """Retrieve proper solr sorting based on sort_ui param"""
-    match sort_ui:
-        case "dmr":
-            return ["publication_date desc"] + DEFAULT_SORT
-        case "dlr":
-            return ["publication_date asc"] + DEFAULT_SORT
-        case "mp":
-            return [
-                "usage_counts_views desc",
-                "usage_counts_downloads desc",
-            ] + DEFAULT_SORT
-        case "r":
-            # Sort by relevance the most popular resources
-            return [
-                "usage_counts_views desc",
-                "usage_counts_downloads desc",
-            ] + DEFAULT_SORT
-        case "default":
-            return DEFAULT_SORT
-        case _:
-            return sort + DEFAULT_SORT
+
+    def get_basic_sort():
+        match sort_ui:
+            case "dmr":
+                return ["publication_date desc"] + DEFAULT_SORT
+            case "dlr":
+                return ["publication_date asc"] + DEFAULT_SORT
+            case "mp":
+                return [
+                    "usage_counts_views desc",
+                    "usage_counts_downloads desc",
+                ] + DEFAULT_SORT
+            case "r":
+                # Sort by relevance the most popular resources
+                return [
+                    "usage_counts_views desc",
+                    "usage_counts_downloads desc",
+                ] + DEFAULT_SORT
+            case "default":
+                return DEFAULT_SORT
+            case _:
+                return sort + DEFAULT_SORT
+
+    # TODO: This is a workaround. Remove once bundles have been fixed.
+    # https://github.com/cyfronet-fid/eosc-search-service/issues/754
+    if "all_collection" in collection:
+        return ['if(eq(type, "bundle"), 1, 0) asc'] + get_basic_sort()
+
+    return get_basic_sort()

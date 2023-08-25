@@ -24,7 +24,6 @@ import {
   selector: 'ess-search-service-page',
   template: `
     <ess-search-bar></ess-search-bar>
-
     <div class="container d-md-none">
       <div class="row mobile-buttons">
         <div class="col-6">
@@ -40,7 +39,6 @@ import {
             <i class="bi bi-filter"></i>
           </button>
         </div>
-
         <div class="col-6">
           <button
             (click)="showCollections = !showCollections"
@@ -56,7 +54,6 @@ import {
         </div>
       </div>
     </div>
-
     <div
       [ngClass]="{
         'mobile-collections-hidden': !showCollections,
@@ -80,9 +77,11 @@ import {
               *ngIf="(response?.results ?? []).length > 0"
             ></ess-filters>
           </div>
-
           <div class="col-sm-7 col-12 center-column">
             <ess-page-header
+              [isSortCollectionScopeOff]="
+                (response?.results ?? [])[0]?.isSortCollectionScopeOff ?? false
+              "
               [resultsCount]="response?.numFound ?? 0"
               [isSortByRelevanceCollectionScopeOff]="
                 (response?.results ?? [])[0]
@@ -90,7 +89,6 @@ import {
               "
             ></ess-page-header>
             <ess-active-filters></ess-active-filters>
-
             <ess-results-with-pagination
               [response]="response"
             ></ess-results-with-pagination>

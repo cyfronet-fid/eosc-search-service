@@ -2,7 +2,10 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { COLLECTION } from './search-metadata.data';
 import { IOpenAIREResult } from '@collections/data/openair.model';
-import moment from 'moment';
+import {
+  constructDoiTag,
+  formatPublicationDate,
+} from '@collections/data/utils';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
@@ -17,7 +20,7 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toBetaTag,
   toHorizontalServiceTag,
-  toLanguageColoredTag,
+  transformLanguages,
 } from '@collections/data/shared-tags';
 import {
   parseStatistics,
@@ -71,6 +74,33 @@ const forInteroperabilityGuidelinesValueAdapter = (value: string = '') => {
     : value;
 };
 
+const extractDate = (
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (data.type) {
+    case 'interoperability guideline':
+      return data['publication_year']
+        ? data['publication_year'].toString()
+        : '';
+    case 'publication':
+    case 'software':
+    case 'dataset':
+    case 'training':
+    case 'other':
+      return formatPublicationDate(data['publication_date']);
+    default:
+      return undefined;
+  }
+};
+
 export const allCollectionsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (
@@ -86,18 +116,17 @@ export const allCollectionsAdapter: IAdapter = {
       id: string;
     }
   ): IResult => ({
+    isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
     id: data.id,
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',
-    date: data['publication_date']
-      ? moment(data['publication_date']).format('DD MMMM YYYY')
-      : '',
+    date: extractDate(data),
+    languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
     coloredTags: [
       toHorizontalServiceTag(data?.horizontal),
       toAccessRightColoredTag(data?.best_access_right),
-      toLanguageColoredTag(data?.language),
     ],
     tags:
       data.type === 'bundle'
@@ -109,8 +138,8 @@ export const allCollectionsAdapter: IAdapter = {
               filter: 'author_names',
             },
             {
-              label: 'DOI',
-              values: toValueWithLabel(toArray(data?.doi)),
+              label: 'Identifier',
+              values: constructDoiTag(data?.doi),
               filter: 'doi',
             },
             {

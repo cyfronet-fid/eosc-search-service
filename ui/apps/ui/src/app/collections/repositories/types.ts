@@ -1,6 +1,7 @@
 export interface IValueWithLabel {
   label: string;
   value: string;
+  subTitle?: string;
 }
 
 export interface IResult {
@@ -16,11 +17,14 @@ export interface IResult {
   coloredTags?: IColoredTag[];
   secondaryTags?: ISecondaryTag[];
   accessRight?: string;
+  license?: string | string[];
+  languages?: string[];
   views?: number;
   downloads?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   offers?: any[];
   isSortByRelevanceCollectionScopeOff?: boolean;
+  isSortCollectionScopeOff?: boolean;
 }
 
 export interface ISecondaryTag {
@@ -30,9 +34,13 @@ export interface ISecondaryTag {
   type: 'url' | 'info';
 }
 
+export interface IValueWithLabelAndLink extends IValueWithLabel {
+  externalLink?: { broken: boolean; link?: string };
+}
+
 export interface ITag {
   label: string;
-  values: IValueWithLabel[];
+  values: IValueWithLabelAndLink[];
   filter: string;
 }
 
@@ -52,6 +60,11 @@ export interface ISolrQueryParams {
   fq: string[];
   sort: string[];
   cursor: string;
+}
+
+export interface ISolrSuggestionQueryParams {
+  q: string;
+  fq: string[];
 }
 
 export interface ISearchResults<T extends { id: string }> {

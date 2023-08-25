@@ -1,5 +1,7 @@
 import { ITermsFacetParam } from '@collections/repositories/types';
 
+export const DATE_FORMAT = 'DD MMMM YYYY';
+
 export const DEFAULT_FACET: { [field: string]: ITermsFacetParam } = {
   title: { field: 'title', type: 'terms', limit: 0 },
 };
@@ -283,3 +285,4 @@ export const COUNTRY_CODE_TO_NAME: Record<string, string> = {
   QA: 'Qatar',
   MZ: 'Mozambique',
 };
+export const NOT_SPECIFIED_LANG = 'Not specified';

@@ -17,248 +17,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IService } from '@collections/data/services/service.model';
 import { IOffer } from '@collections/data/bundles/bundle.model';
+import isArray from 'lodash-es/isArray';
 
 @Component({
   selector: 'ess-result',
-  template: `
-    <div
-      id="container"
-      [ngClass]="type.value === 'bundle' ? 'bundle_container' : 'nobundle'"
-    >
-      <ess-colored-tags
-        [type]="type"
-        [tags]="coloredTags"
-        [q]="q$ | async"
-        (activeFilter)="setActiveFilter($event.filter, $event.value)"
-      ></ess-colored-tags>
-      <div style="display: flex;">
-        <div
-          style="display: flex;"
-          *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
-        >
-          <div class="provider-box">
-            <div class="provider-offer-pic">
-              <img src="assets/provider.svg" />
-            </div>
-          </div>
-          <div style="display: flex; flex-direction: column;">
-            <ess-url-title
-              [ngClass]="{ padding_for_provider: type.value === 'provider' }"
-              [title]="title"
-              [highlight]="highlightsreal['title'] ?? []"
-              [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
-            >
-            </ess-url-title>
-            <ess-url-title
-              *ngIf="type.value === 'provider'"
-              [ngClass]="{ sub_title: type.value === 'provider' }"
-              [title]="abbreviation"
-              [highlight]="highlightsreal['abbreviation'] ?? []"
-              [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
-              style="margin-bottom: -10px;"
-            >
-            </ess-url-title>
-          </div>
-        </div>
-
-        <ng-template #defaultTypeValueTemplate>
-          <div style="display: flex; flex-direction: column;">
-            <ess-url-title
-              [ngClass]="{ padding_for_provider: type.value === 'provider' }"
-              [title]="title"
-              [highlight]="highlightsreal['title'] ?? []"
-              [url]="
-                type.value === 'bundle'
-                  ? redirectService.internalUrl(
-                      validUrl,
-                      id,
-                      type.value,
-                      offers[0]?.main_offer_id
-                        ? '#offer-' +
-                            offers[0].main_offer_id.toString().substring(2)
-                        : ''
-                    )
-                  : redirectService.internalUrl(validUrl, id, type.value, '')
-              "
-            >
-            </ess-url-title>
-          </div>
-        </ng-template>
-      </div>
-      <div class="usage">
-        <span
-          *ngIf="accessRight !== undefined"
-          [ngClass]="{
-            statistic: true,
-            'open-access': accessRight?.toLowerCase() === 'open access',
-            'other-access': accessRight?.toLowerCase() !== 'open access'
-          }"
-          ><img
-            [src]="
-              accessRight?.toLowerCase() === 'open access'
-                ? '/assets/usage-access.svg'
-                : '/assets/restricted access.svg'
-            "
-          />
-          <ng-container i18n>{{
-            accessRight | filterPipe: 'access_right'
-          }}</ng-container></span
-        >
-        <span
-          *ngIf="
-            date !== null &&
-            type.value !== 'bundle' &&
-            type.value !== 'provider'
-          "
-          class="statistic text-muted"
-          ><img src="/assets/usage-date.svg" />
-          <ng-container i18n>{{ date }}</ng-container></span
-        >
-        <span
-          *ngIf="
-            type !== null &&
-            type.value !== 'bundle' &&
-            type.value !== 'provider'
-          "
-          class="statistic text-muted"
-          ><img src="/assets/usage-type.svg" />
-          <ng-container i18n>Type: {{ type.label }}</ng-container></span
-        >
-        <span *ngIf="downloads !== undefined" class="statistic text-muted"
-          ><img src="/assets/usage-downloads.svg" />
-          <ng-container i18n>{{ downloads }} Downloads</ng-container></span
-        >
-        <span *ngIf="views !== undefined" class="statistic text-muted"
-          ><img src="/assets/usage-views.svg" />
-          <ng-container i18n>{{ views }} Views</ng-container></span
-        >
-      </div>
-      <ess-tags
-        [tags]="tags"
-        [highlights]="highlightsreal"
-        (activeFilter)="setActiveFilter($event.filter, $event.value)"
-      >
-      </ess-tags>
-      <ess-secondary-tags
-        [highlights]="highlightsreal"
-        [tags]="secondaryTags"
-        (activeFilter)="setActiveFilter($event.filter, $event.value)"
-      >
-      </ess-secondary-tags>
-      <ess-description
-        [description]="description"
-        [highlights]="highlightsreal['description'] ?? []"
-      ></ess-description>
-      <div>
-        <div>
-          <div class="bundle-box" *ngIf="type.value === 'bundle'">
-            <div
-              *ngFor="let offer of offers"
-              class="bundle-item align-items-stretch"
-            >
-              <ng-container *ngIf="offer">
-                <div class="card">
-                  <div class="card-body d-flex flex-row">
-                    <div class="bundle-offer-pic p-2">
-                      <img src="assets/bundle_service.svg" />
-                    </div>
-                    <div class="bundle-offer-desc p-2">
-                      <h4 class="card-title">
-                        {{ offer.title }}
-                      </h4>
-                      <div class="provided-by">
-                        Service {{ offer.service?.title }}
-                      </div>
-                      <div class="provided-by">
-                        Provided by {{ offer.service?.resource_organisation }}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-container>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-
-      .usage > .statistic {
-        font-size: 11px;
-        margin-right: 15px;
-        display: inline-block;
-        line-height: 17px;
-        height: 17px;
-        vertical-align: middle;
-      }
-
-      .usage > .statistic img {
-        margin-right: 5px;
-        max-height: 17px;
-        width: auto;
-        vertical-align: middle;
-      }
-
-      .bundle-box {
-        margin-top: 24px;
-      }
-
-      /* z serwisu */
-      .bundle-box .bundle-item {
-        border-left: 4px solid #84caff;
-      }
-
-      .bundle-box .bundle-item:first-child .card {
-        border-top: 1px solid #dfe2e4;
-      }
-
-      .bundle-box .bundle-item .card {
-        background: none;
-        border-radius: 0;
-        border: none;
-        border-bottom: 2px dashed #dfe2e4;
-      }
-
-      .bundle-box .bundle-item:nth-last-child .card {
-        background: none;
-        border-radius: 0;
-        border: none;
-        border-bottom: 1px solid #dfe2e4 !important;
-      }
-
-      .card-title {
-        margin-bottom: 0.25rem;
-        font-size: 12px;
-        padding: 0;
-        font-weight: 600;
-        line-height: 1.2;
-      }
-
-      .provided-by {
-        margin-bottom: 0.25rem;
-        font-size: 12px;
-        padding: 0;
-        line-height: 1.2;
-      }
-
-      .bundle_container {
-        padding: 20px 48px 48px 25px !important;
-      }
-
-      .padding_for_provider {
-        display: flex;
-        align-items: center;
-        padding-left: 24px;
-        font-size: 14px;
-        color: red;
-      }
-    `,
-  ],
+  templateUrl: './result.component.html',
+  styleUrls: ['./result.component.scss'],
 })
 export class ResultComponent implements OnInit {
   q$ = this._customRoute.q$;
@@ -293,6 +57,12 @@ export class ResultComponent implements OnInit {
 
   @Input()
   coloredTags: IColoredTag[] = [];
+
+  @Input()
+  languages: string[] = [];
+
+  @Input()
+  license?: string | string[];
 
   @Input()
   downloads?: number;
@@ -467,5 +237,9 @@ export class ResultComponent implements OnInit {
       },
       filtersConfigs
     );
+  }
+
+  _formatLicense(license: string | string[]) {
+    return isArray(license) ? license.join(', ') : license;
   }
 }

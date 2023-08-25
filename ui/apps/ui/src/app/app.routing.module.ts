@@ -15,7 +15,7 @@ import { GuidelinesPageModule } from '@pages/guidelines-page/guidelines-page.mod
       {
         path: '',
         pathMatch: 'full',
-        loadChildren: () => LandingPageModule,
+        redirectTo: SEARCH_PAGE_PATH,
       },
       {
         path: SEARCH_PAGE_PATH,

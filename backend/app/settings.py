@@ -62,6 +62,8 @@ class GlobalSettings(BaseSettings):
     RELATED_SERVICES_ENDPOINT: AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"
     IS_SORT_BY_RELEVANCE: bool = False
 
+    NG_COLLECTIONS_PREFIX: str = "beta_"
+
     @root_validator()
     def oidc_issuer_path(cls, values):
         if values["OIDC_AAI_NEW_API"]:

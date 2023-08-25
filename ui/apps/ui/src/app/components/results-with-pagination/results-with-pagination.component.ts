@@ -3,7 +3,11 @@ import { PaginationService } from './pagination.service';
 import { BehaviorSubject, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { IResult, ISearchResults } from '@collections/repositories/types';
+import {
+  IColoredTag,
+  IResult,
+  ISearchResults,
+} from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { paramType } from '@collections/services/custom-route.type';
 import { Router } from '@angular/router';
@@ -11,88 +15,7 @@ import { Router } from '@angular/router';
 @UntilDestroy()
 @Component({
   selector: 'ess-results-with-pagination',
-  template: `
-    <ng-container *ngIf="isLoading$ | async">
-      <nz-skeleton-element
-        nzType="input"
-        [nzActive]="true"
-        style="width:200px"
-      ></nz-skeleton-element>
-      <nz-skeleton
-        *ngFor="let i of range(0, 5)"
-        [nzActive]="true"
-      ></nz-skeleton>
-      <nz-skeleton-element
-        nzType="input"
-        [nzActive]="true"
-        style="width:200px"
-      ></nz-skeleton-element>
-    </ng-container>
-    <nz-empty
-      *ngIf="
-        $any(results$ | async)?.length === 0 && (isLoading$ | async) === false
-      "
-    ></nz-empty>
-    <ng-container
-      *ngIf="
-        $any(results$ | async)?.length > 0 && (isLoading$ | async) === false
-      "
-    >
-      <ess-pagination
-        [paginationData]="$any(paginationData$ | async)"
-        [loading]="(isLoading$ | async) ?? false"
-        (activePageChange)="pageNr$.next($event)"
-      ></ess-pagination>
-      <ng-container
-        *ngFor="let result of results$ | async; trackBy: trackByResultId"
-      >
-        <ess-result
-          *ngIf="
-            result.type.value.toString().includes('provider');
-            else defaultResultTemplate
-          "
-          class="results"
-          [id]="result.id"
-          [title]="result.title"
-          [tags]="result.tags"
-          [coloredTags]="result.coloredTags ?? []"
-          [secondaryTags]="result.secondaryTags ?? []"
-          [views]="result.views"
-          [description]="result.description | transformArrayDescriptionPipe"
-          [abbreviation]="result.abbreviation ?? ''"
-          [type]="result.type"
-          [date]="result.date"
-          [highlights]="highlights[result.id] ?? {}"
-          [url]="result.url"
-        ></ess-result>
-        <ng-template #defaultResultTemplate>
-          <ess-result
-            class="results"
-            [id]="result.id"
-            [title]="result.title"
-            [description]="result.description | transformArrayDescriptionPipe"
-            [type]="result.type"
-            [url]="result.url"
-            [tags]="result.tags"
-            [coloredTags]="result.coloredTags ?? []"
-            [secondaryTags]="result.secondaryTags ?? []"
-            [views]="result.views"
-            [downloads]="result.downloads"
-            [accessRight]="result.accessRight"
-            [date]="result.date"
-            [highlights]="highlights[result.id] ?? {}"
-            [offers]="result.offers ?? []"
-          ></ess-result>
-        </ng-template>
-      </ng-container>
-
-      <ess-pagination
-        [paginationData]="$any(paginationData$ | async)"
-        [loading]="(isLoading$ | async) ?? false"
-        (activePageChange)="pageNr$.next($event)"
-      ></ess-pagination>
-    </ng-container>
-  `,
+  templateUrl: './results-with-pagination.component.html',
   styles: [],
 })
 export class ResultsWithPaginationComponent implements OnInit {

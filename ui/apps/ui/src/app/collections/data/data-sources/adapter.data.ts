@@ -9,7 +9,7 @@ import {
 import {
   toAccessRightColoredTag,
   toHorizontalServiceTag,
-  toLanguageColoredTag,
+  transformLanguages,
 } from '@collections/data/shared-tags';
 import {
   parseStatistics,
@@ -27,11 +27,13 @@ export const getDataSourceUrl = (pid?: string) => {
 export const dataSourcesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (dataSource: Partial<IDataSource> & { id: string }): IResult => ({
+    isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
     id: dataSource.id,
     // basic information
     title: dataSource.title?.join(' ') || '',
     description: dataSource.description?.join(' ') || '',
+    languages: transformLanguages(dataSource?.language),
     type: {
       label: dataSource.type || '',
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
@@ -41,7 +43,6 @@ export const dataSourcesAdapter: IAdapter = {
     coloredTags: [
       toHorizontalServiceTag(dataSource?.horizontal),
       toAccessRightColoredTag(dataSource?.best_access_right),
-      toLanguageColoredTag(dataSource?.language),
     ],
     tags: [
       {

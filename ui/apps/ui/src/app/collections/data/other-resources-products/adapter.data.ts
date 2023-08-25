@@ -7,10 +7,13 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
+  constructDoiTag,
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
+import { formatPublicationDate } from '@collections/data/utils';
+import { transformLanguages } from '@collections/data/shared-tags';
 
 export const otherResourcesProductsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -18,9 +21,13 @@ export const otherResourcesProductsAdapter: IAdapter = {
     openAIREResult: Partial<IOpenAIREResult> & { id: string }
   ): IResult => ({
     isSortByRelevanceCollectionScopeOff: false,
+    isSortCollectionScopeOff: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
+    languages: transformLanguages(openAIREResult?.language),
+    date: formatPublicationDate(openAIREResult['publication_date']),
+    license: openAIREResult?.license,
     url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
@@ -34,16 +41,6 @@ export const otherResourcesProductsAdapter: IAdapter = {
           ? 'tag-light-green'
           : 'tag-light-coral',
       },
-      {
-        colorClassName: 'tag-almond',
-        values: toValueWithLabel(toArray(openAIREResult['license'])),
-        filter: 'license',
-      },
-      {
-        colorClassName: 'tag-peach',
-        filter: 'language',
-        values: toValueWithLabel(toArray(openAIREResult?.language)),
-      },
     ],
     tags: [
       {
@@ -52,8 +49,8 @@ export const otherResourcesProductsAdapter: IAdapter = {
         filter: 'author_names',
       },
       {
-        label: 'DOI',
-        values: toValueWithLabel(toArray(openAIREResult?.doi)),
+        label: 'Identifier',
+        values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
       },
       {

@@ -6,6 +6,8 @@ from fastapi import FastAPI
 from httpx import AsyncClient
 from starlette import status
 
+from app.settings import settings
+
 SEARCH_SUGGESTION_PATH = "/api/web/search-suggestions"
 ALL_COLLECTIONS = (
     "publication",
@@ -37,7 +39,7 @@ async def test_suggestions_one_collection(
         SEARCH_SUGGESTION_PATH,
         params={
             "q": "bar",
-            "collection": "foo",
+            "collection": "publication",
             "qf": "bar baz",
         },
         json={},
@@ -45,7 +47,7 @@ async def test_suggestions_one_collection(
     assert res.status_code == status.HTTP_200_OK
     mock_post_search.assert_called_once_with(
         ANY,
-        collection="foo",
+        collection=f"{settings.NG_COLLECTIONS_PREFIX}publication",
         q="bar",
         qf="bar baz",
         fq=[],
@@ -68,7 +70,7 @@ async def test_suggestions_dispatch_collections(
         json={},
     )
     assert res.status_code == status.HTTP_200_OK
-    assert mock_post_search.call_count == 8
+    assert mock_post_search.call_count == 10
 
 
 @pytest.mark.parametrize(
@@ -91,7 +93,7 @@ async def test_rows_limit(
         SEARCH_SUGGESTION_PATH,
         params={
             "q": "bar",
-            "collection": "foo",
+            "collection": "publication",
             "qf": "bar baz",
             "results_per_collection": results_per_collection,
         },

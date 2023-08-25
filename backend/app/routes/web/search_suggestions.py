@@ -9,9 +9,10 @@ from httpx import AsyncClient, TransportError
 from pydantic.typing import Literal
 from requests import Response
 
+from app.settings import settings
 from app.solr.operations import search_dep
 
-from ..util import DEFAULT_SORT
+from ..utils import DEFAULT_SORT, parse_col_name
 
 router = APIRouter()
 
@@ -52,6 +53,8 @@ async def search_suggestions(
         "training",
         "guideline",
         "bundle",
+        "other_rp",
+        "provider",
     )
 
     collections = all_collection if "all_collection" in collection else (collection,)
@@ -80,6 +83,10 @@ async def _search(
     search=Depends(search_dep),
 ) -> Tuple[str, Dict]:
     """Performs the search in a single collection"""
+    if "provider" in collection:
+        qf = "title^100 description^10 scientific_domains^10"
+    if settings.NG_COLLECTIONS_PREFIX not in collection:
+        collection = f"{settings.NG_COLLECTIONS_PREFIX}{collection}"
     async with AsyncClient() as client:
         response = await handle_search_errors(
             search(
@@ -94,6 +101,7 @@ async def _search(
         )
 
         res_json = response.json()
+    collection = await parse_col_name(collection)
     return collection, res_json["response"]["docs"]
 
 

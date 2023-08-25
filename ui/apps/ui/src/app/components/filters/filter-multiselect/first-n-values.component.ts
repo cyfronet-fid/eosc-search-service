@@ -54,7 +54,6 @@ export class FirstNValuesComponent implements OnChanges {
         search(this.query, this.allEntities),
         this.customSort
       ).slice(0, this.displayMax);
-      console.log(this._allEntities);
     }
   }
 }

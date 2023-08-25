@@ -37,6 +37,7 @@ import { Router } from '@angular/router';
         [isSortByRelevanceCollectionScopeOff]="
           isSortByRelevanceCollectionScopeOff
         "
+        *ngIf="isSortCollectionScopeOff"
         [type]="type"
       ></ess-sort-by-functionality>
     </div>
@@ -64,6 +65,9 @@ export class PageHeaderComponent {
 
   @Input()
   isSortByRelevanceCollectionScopeOff!: boolean;
+
+  @Input()
+  isSortCollectionScopeOff!: boolean;
 
   activeNavConfig$ = this._navConfigsRepository.activeEntity$;
 

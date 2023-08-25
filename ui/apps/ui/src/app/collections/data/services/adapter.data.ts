@@ -9,7 +9,7 @@ import {
 import {
   toAccessRightColoredTag,
   toHorizontalServiceTag,
-  toLanguageColoredTag,
+  transformLanguages,
 } from '@collections/data/shared-tags';
 import {
   parseStatistics,
@@ -20,11 +20,13 @@ import { ConfigService } from '../../../services/config.service';
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (service: Partial<IService> & { id: string }): IResult => ({
+    isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
     id: service.id,
     // basic information
     title: service.title?.join(' ') || '',
     description: service.description?.join(' ') || '',
+    languages: transformLanguages(service?.language),
     type: {
       label: service.type || '',
       value: service.type || '',
@@ -36,7 +38,6 @@ export const servicesAdapter: IAdapter = {
     coloredTags: [
       toHorizontalServiceTag(service?.horizontal),
       toAccessRightColoredTag(service?.best_access_right),
-      toLanguageColoredTag(service?.language),
     ],
     tags: [
       {
