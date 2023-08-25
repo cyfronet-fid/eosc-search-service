@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.10.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.9.0...v2.10.0) (2023-08-25)
+
+
+### Features
+
+* [[#754](https://github.com/cyfronet-fid/eosc-search-service/issues/754)] Remove bundles from top of search ([2fcea31](https://github.com/cyfronet-fid/eosc-search-service/commit/2fcea319a263e3ac2037115f7f63185c4cf12a4c))
+* [[#765](https://github.com/cyfronet-fid/eosc-search-service/issues/765)] Add link and subtitle to DOI ([75615b3](https://github.com/cyfronet-fid/eosc-search-service/commit/75615b384adf8c697d0de551d50090318889cdda))
+* [[#784](https://github.com/cyfronet-fid/eosc-search-service/issues/784)] Move language/license under the result title ([a7f5b4b](https://github.com/cyfronet-fid/eosc-search-service/commit/a7f5b4b856172c3fe1c76fa3fbadf1c838b1de0c))
+* [#753](https://github.com/cyfronet-fid/eosc-search-service/issues/753) providers to main serach dropdown fixed ([b4acfe8](https://github.com/cyfronet-fid/eosc-search-service/commit/b4acfe8b4bd06eef594c17ea227c24ece9e1bc5e))
+* [#756](https://github.com/cyfronet-fid/eosc-search-service/issues/756) provider - sort collection scope off ([aa128ea](https://github.com/cyfronet-fid/eosc-search-service/commit/aa128ea55ae407f10405cbb9cd05a1bd5f3f7914))
+* [#798](https://github.com/cyfronet-fid/eosc-search-service/issues/798) guidelines css fixed ([05b4859](https://github.com/cyfronet-fid/eosc-search-service/commit/05b4859fdf8c90a04345e3c1ab79ff28b3eccddb))
+
 ## [2.9.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.8.0...v2.9.0) (2023-08-09)
 
 
