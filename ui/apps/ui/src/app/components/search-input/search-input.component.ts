@@ -53,6 +53,10 @@ export class SearchInputComponent implements OnInit {
   @ViewChild('inputQueryAdv', { static: true }) inputQueryAdv!: ElementRef;
   @ViewChild('inputQueryAdv2', { static: true }) inputQueryAdv2!: ElementRef;
 
+  radioValueAuthor = 'A';
+  radioValueExact = 'A';
+  radioValueTitle = 'A';
+  radioValueKeyword = 'A';
   exactmatch = false;
   visible = true;
   selectable = true;
@@ -87,6 +91,16 @@ export class SearchInputComponent implements OnInit {
     { nonNullable: true }
   );
 
+  withKeyword(): boolean {
+    if (
+      this.collectionFc.value.id === 'guideline' ||
+      this.collectionFc.value.id === 'bundle'
+    ) {
+      return false;
+    }
+    return true;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   add(event: { input: any; value: any; narrowed: any }): void {
     const input = event.input;
@@ -106,6 +120,8 @@ export class SearchInputComponent implements OnInit {
       } else {
         this.tags.push(narrow + ': ' + value.trim());
       }
+
+      this.tags.sort((a, b) => a.localeCompare(b));
     }
 
     // Reset the input value
@@ -124,6 +140,24 @@ export class SearchInputComponent implements OnInit {
       this.tags.splice(index, 1);
     }
     this.updateQueryParamsAdv(this.formControl.value || '*');
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  removeAll(event: unknown) {
+    this.tags.splice(0, this.tags.length);
+    this.updateQueryParamsAdv(this.formControl.value || '*');
+  }
+
+  manyElems(tag: string): boolean {
+    const filtered = this.tags.filter((el) => el.startsWith(tag));
+    if (filtered.length > 1) {
+      return true;
+    }
+    return false;
+  }
+
+  changeAuthor() {
+    //
   }
 
   // TODO: stream event - off when search is not focused and what with suggestes result set on []
@@ -292,6 +326,11 @@ export class SearchInputComponent implements OnInit {
   async setCollection(q: string, $event: ICollectionNavConfig) {
     if (!this.navigateOnCollectionChange) {
       return;
+    }
+    if (!this.withKeyword()) {
+      if (this.collectionFcAdvForm.value.name === 'keyword') {
+        this.collectionFcAdvForm.reset();
+      }
     }
 
     await this._router.navigate(['/search', $event.urlParam], {

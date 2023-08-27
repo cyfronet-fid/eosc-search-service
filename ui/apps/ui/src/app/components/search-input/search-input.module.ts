@@ -4,6 +4,7 @@ import { SearchInputComponent } from './search-input.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzTagModule } from 'ng-zorro-antd/tag';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @NgModule({
   declarations: [SearchInputComponent],
@@ -13,6 +14,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
     ReactiveFormsModule,
     NzTagModule,
     FormsModule,
+    NzRadioModule,
   ],
   exports: [SearchInputComponent],
 })
