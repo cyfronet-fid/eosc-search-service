@@ -381,12 +381,12 @@ h6 {
 
 .usage {
   border-bottom: 1px dotted #d9dee2;
-  padding-bottom: 7px;
+  padding: 7px 0;
 }
 
 #tags {
   font-weight: 400;
-  margin: 10px 0;
+  margin: 7px 0;
   line-height: 1.3;
   font-style: normal !important;
   border-bottom: 1px dotted #d9dee2;
@@ -506,7 +506,7 @@ h6 {
   .description {
     font-size: 13px;
     line-height: 23px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
     margin-top: 5px;
     color: #233d4c;
   }
@@ -560,7 +560,7 @@ h6 {
 }
 
 .tag-row {
-  margin-bottom: 13px;
+  margin-bottom: 4px;
   display: flex;
   color: #233d4c;
   flex-direction: row;
@@ -580,6 +580,7 @@ h6 {
     font-weight: 400;
     font-size: 12px;
     margin-bottom: 4px;
+    margin-left: 0;
   }
 
   a {
