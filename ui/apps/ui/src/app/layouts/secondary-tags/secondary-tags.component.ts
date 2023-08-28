@@ -13,7 +13,7 @@ import { combineHighlightsWith } from './utils';
 @Component({
   selector: 'ess-secondary-tags',
   template: `
-    <div class="usage">
+    <div class="usage secondary-tags">
       <ng-container *ngFor="let tag of parsedTags; trackBy: identityTagTrack">
         <ng-container [ngSwitch]="tag.type">
           <ng-container *ngSwitchCase="'url'">
