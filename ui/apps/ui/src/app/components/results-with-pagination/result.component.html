@@ -66,10 +66,14 @@
     <div class="product-type-details" *ngIf="type !== undefined">
       {{ _createDocumentTypeLabel(type.label, documentType) }}
     </div>
-      <img
-        *ngIf='accessRight !== undefined'
-        [src]="_getAccessIcon(accessRight!)"
-      />
+    <img
+      *ngIf="accessRight !== undefined"
+      [src]="_getAccessIcon(accessRight!)"
+    />
+    <img
+      *ngIf="horizontal !== undefined && horizontal"
+      src="/assets/horizontal-service.svg"
+    />
   </div>
   <div class="usage">
     <span
