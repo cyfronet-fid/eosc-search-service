@@ -156,8 +156,12 @@ export class SearchInputComponent implements OnInit {
     return false;
   }
 
-  changeAuthor() {
-    //
+  elemExist(tag: string): boolean {
+    const filtered = this.tags.filter((el) => el.startsWith(tag));
+    if (filtered.length > 0) {
+      return true;
+    }
+    return false;
   }
 
   // TODO: stream event - off when search is not focused and what with suggestes result set on []
@@ -215,6 +219,26 @@ export class SearchInputComponent implements OnInit {
       tgs.forEach((el) => this.tags.push(el));
     }
 
+    const rva = this._route.snapshot.queryParamMap.get('radioValueAuthor');
+    if (typeof rva === 'string') {
+      this.radioValueAuthor = rva;
+    }
+
+    const rve = this._route.snapshot.queryParamMap.get('radioValueExact');
+    if (typeof rve === 'string') {
+      this.radioValueExact = rve;
+    }
+
+    const rvt = this._route.snapshot.queryParamMap.get('radioValueTitle');
+    if (typeof rvt === 'string') {
+      this.radioValueTitle = rvt;
+    }
+
+    const rvk = this._route.snapshot.queryParamMap.get('radioValueKeyword');
+    if (typeof rvk === 'string') {
+      this.radioValueKeyword = rvk;
+    }
+
     combineLatest({
       q: this.formControl.valueChanges.pipe(
         untilDestroyed(this),
@@ -247,7 +271,11 @@ export class SearchInputComponent implements OnInit {
                 q,
                 collection.id,
                 this.tags,
-                this.exactmatch.toString().toLowerCase()
+                this.exactmatch.toString().toLowerCase(),
+                this.radioValueAuthor,
+                this.radioValueExact,
+                this.radioValueTitle,
+                this.radioValueKeyword
               )
               .pipe(untilDestroyed(this))
           )
@@ -288,6 +316,10 @@ export class SearchInputComponent implements OnInit {
         tags: this.tags,
         standard: this.standardSearch.toString(),
         exact: this.exactmatch.toString().toLowerCase(),
+        radioValueAuthor: this.radioValueAuthor,
+        radioValueExact: this.radioValueExact,
+        radioValueTitle: this.radioValueTitle,
+        radioValueKeyword: this.radioValueKeyword,
       },
       queryParamsHandling: 'merge',
     });
@@ -309,6 +341,10 @@ export class SearchInputComponent implements OnInit {
         tags: this.tags,
         standard: this.standardSearch.toString(),
         exact: this.exactmatch.toString().toLowerCase(),
+        radioValueAuthor: this.radioValueAuthor,
+        radioValueExact: this.radioValueExact,
+        radioValueTitle: this.radioValueTitle,
+        radioValueKeyword: this.radioValueKeyword,
       },
       queryParamsHandling: 'merge',
     });
@@ -339,6 +375,10 @@ export class SearchInputComponent implements OnInit {
         tags: this.tags,
         standard: this.standardSearch.toString(),
         exact: this.exactmatch.toString().toLowerCase(),
+        radioValueAuthor: this.radioValueAuthor,
+        radioValueExact: this.radioValueExact,
+        radioValueTitle: this.radioValueTitle,
+        radioValueKeyword: this.radioValueKeyword,
       },
     });
   }

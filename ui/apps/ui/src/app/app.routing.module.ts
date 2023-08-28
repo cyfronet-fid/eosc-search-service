@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { LandingPageModule } from '@pages/landing-page/landing-page.module';
 import { ErrorPageModule } from '@pages/error-page/error-page.module';
 import { SearchPageModule } from '@pages/search-page/search-page.module';

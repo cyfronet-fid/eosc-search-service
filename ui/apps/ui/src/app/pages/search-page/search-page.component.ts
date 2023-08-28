@@ -216,8 +216,19 @@ export class SearchPageComponent implements OnInit {
               .fetchResults$(searchMetadata, metadata.facets, adapter)
               .pipe(untilDestroyed(this));
           } else {
-            const filters: string[] = [];
+            let filters: string[] = [];
+
+            const authors: number[] = [];
+            const exacts: number[] = [];
+            const titles: number[] = [];
+            const keywords: number[] = [];
+            const allIndexes: number[] = [];
+
             const fq_o: string[] = routerParams.fq;
+            const radioValueAuthor: string = routerParams.radioValueAuthor;
+            const radioValueExact: string = routerParams.radioValueExact;
+            const radioValueTitle: string = routerParams.radioValueTitle;
+            const radioValueKeyword: string = routerParams.radioValueKeyword;
 
             if (Array.isArray(routerParams.tags)) {
               for (const tag of routerParams.tags) {
@@ -235,6 +246,7 @@ export class SearchPageComponent implements OnInit {
                     filters.push(
                       'author_names_tg:"' + res_permuted[0].trim() + '"'
                     );
+                    authors.push(filters.length - 1);
                   } else {
                     // We need OR case
                     let fin = '';
@@ -242,6 +254,7 @@ export class SearchPageComponent implements OnInit {
                       fin += 'author_names_tg:"' + el.trim() + '"' + ' OR ';
                     });
                     filters.push(fin.slice(0, fin.length - 4));
+                    authors.push(filters.length - 1);
                   }
                 }
                 if (tag.startsWith('exact:')) {
@@ -258,6 +271,7 @@ export class SearchPageComponent implements OnInit {
                       tag.split(':', 2)[1].trim() +
                       '"'
                   );
+                  exacts.push(filters.length - 1);
                 }
                 if (tag.startsWith('none of:')) {
                   filters.push('!title:"' + tag.split(':', 2)[1].trim() + '"');
@@ -276,11 +290,13 @@ export class SearchPageComponent implements OnInit {
                 }
                 if (tag.startsWith('in title:')) {
                   filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
+                  titles.push(filters.length - 1);
                 }
                 if (tag.startsWith('keyword:')) {
                   filters.push(
                     'keywords_tg:"' + tag.split(':', 2)[1].trim() + '"'
                   );
+                  keywords.push(filters.length - 1);
                 }
               }
             } else {
@@ -299,6 +315,7 @@ export class SearchPageComponent implements OnInit {
                   filters.push(
                     'author_names_tg:"' + res_permuted[0].trim() + '"'
                   );
+                  authors.push(filters.length - 1);
                 } else {
                   // We need OR case
                   let fin = '';
@@ -306,6 +323,7 @@ export class SearchPageComponent implements OnInit {
                     fin += 'author_names_tg:"' + el.trim() + '"' + ' OR ';
                   });
                   filters.push(fin.slice(0, fin.length - 4));
+                  authors.push(filters.length - 1);
                 }
               }
               if (tag.startsWith('exact:')) {
@@ -322,6 +340,7 @@ export class SearchPageComponent implements OnInit {
                     tag.split(':', 2)[1].trim() +
                     '"'
                 );
+                exacts.push(filters.length - 1);
               }
               if (tag.startsWith('none of:')) {
                 filters.push('!title:"' + tag.split(':', 2)[1].trim() + '"');
@@ -340,13 +359,56 @@ export class SearchPageComponent implements OnInit {
               }
               if (tag.startsWith('in title:')) {
                 filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
+                titles.push(filters.length - 1);
               }
               if (tag.startsWith('keyword:')) {
                 filters.push(
                   'keywords_tg:"' + tag.split(':', 2)[1].trim() + '"'
                 );
+                keywords.push(filters.length - 1);
               }
             }
+
+            if (radioValueAuthor === 'B') {
+              let new_aut = '';
+              for (const author of authors) {
+                new_aut += filters[author] + ' OR ';
+                allIndexes.push(author);
+              }
+              new_aut = new_aut.slice(0, new_aut.length - 4);
+              filters.push(new_aut);
+            }
+            if (radioValueExact === 'B') {
+              let new_exc = '';
+              for (const exactel of exacts) {
+                new_exc += filters[exactel] + ' OR ';
+                allIndexes.push(exactel);
+              }
+              new_exc = new_exc.slice(0, new_exc.length - 4);
+              filters.push(new_exc);
+            }
+            if (radioValueTitle === 'B') {
+              let new_title = '';
+              for (const exactit of titles) {
+                new_title += filters[exactit] + ' OR ';
+                allIndexes.push(exactit);
+              }
+              new_title = new_title.slice(0, new_title.length - 4);
+              filters.push(new_title);
+            }
+            if (radioValueKeyword === 'B') {
+              let new_keyword = '';
+              for (const keywordel of keywords) {
+                new_keyword += filters[keywordel] + ' OR ';
+                allIndexes.push(keywordel);
+              }
+              new_keyword = new_keyword.slice(0, new_keyword.length - 4);
+              filters.push(new_keyword);
+            }
+
+            filters = filters.filter(
+              (value, index) => !allIndexes.includes(index)
+            );
 
             const fq_m = filters.concat(fq_o);
 

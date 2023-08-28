@@ -24,7 +24,11 @@ import { toNavigationLink } from './utils';
             q: (q$ | async),
             standard: (st$ | async),
             tags: (tg$ | async),
-            exact: (ex$ | async)
+            exact: (ex$ | async),
+            radioValueAuthor: (radioValueAuthor$ | async),
+            radioValueExact: (radioValueExact$ | async),
+            radioValueTitle: (radioValueTitle$ | async),
+            radioValueKeyword: (radioValueKeyword$ | async)
           }"
           >{{ link.label }}</a
         >
@@ -39,6 +43,10 @@ export class CollectionsNavigationComponent implements OnInit {
   public st$ = this._customRoute.standard$;
   public tg$ = this._customRoute.tags$;
   public ex$ = this._customRoute.exact$;
+  public radioValueAuthor$ = this._customRoute.radioValueAuthor$;
+  public radioValueExact$ = this._customRoute.radioValueExact$;
+  public radioValueTitle$ = this._customRoute.radioValueTitle$;
+  public radioValueKeyword$ = this._customRoute.radioValueKeyword$;
 
   constructor(
     private _customRoute: CustomRoute,

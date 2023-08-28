@@ -236,61 +236,10 @@
       <div *ngIf="tags.length !== 0" class="mb-2" style="margin-left: -45px">
         <span class="adv-search-text-tag" *ngFor="let elem of tags">
           <nz-tag
-            *ngIf="elem.startsWith('author') && !manyElems('author')"
+            *ngIf="elem.startsWith('author')"
             nzMode="closeable"
             (nzOnClose)="remove(elem)"
-            >{{ elem }}</nz-tag
-          >
-        </span>
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('exact') && !manyElems('exact')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
-            >{{ elem }}</nz-tag
-          >
-        </span>
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('in title') && !manyElems('in title')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
-            >{{ elem }}</nz-tag
-          >
-        </span>
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('keyword') && !manyElems('keyword')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
-            >{{ elem }}</nz-tag
-          >
-        </span>
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('none')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
-            >{{ elem }}</nz-tag
-          >
-        </span>
-        <!--span class="adv-search-text-tag" style="cursor: pointer;">
-          <nz-tag (click)="removeAll($event)">Clear All</nz-tag>
-        </span-->
-
-        <br
-          *ngIf="
-            manyElems('author') ||
-            manyElems('exact') ||
-            manyElems('in title') ||
-            manyElems('keyword')
-          "
-        />
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('author') && manyElems('author')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
+            style="margin-top: 8px"
             >{{ elem }}</nz-tag
           >
         </span>
@@ -306,12 +255,13 @@
             <label nz-radio-button nzValue="B">Any</label>
           </nz-radio-group>
         </span>
-        <br *ngIf="manyElems('author')" />
+        <br *ngIf="elemExist('author')" />
         <span class="adv-search-text-tag" *ngFor="let elem of tags">
           <nz-tag
-            *ngIf="elem.startsWith('exact') && manyElems('exact')"
+            *ngIf="elem.startsWith('exact')"
             nzMode="closeable"
             (nzOnClose)="remove(elem)"
+            style="margin-top: 8px"
             >{{ elem }}</nz-tag
           >
         </span>
@@ -327,12 +277,13 @@
             <label nz-radio-button nzValue="B">Any</label>
           </nz-radio-group>
         </span>
-        <br *ngIf="manyElems('exact')" />
+        <br *ngIf="elemExist('exact')" />
         <span class="adv-search-text-tag" *ngFor="let elem of tags">
           <nz-tag
-            *ngIf="elem.startsWith('in title') && manyElems('in title')"
+            *ngIf="elem.startsWith('in title')"
             nzMode="closeable"
             (nzOnClose)="remove(elem)"
+            style="margin-top: 8px"
             >{{ elem }}</nz-tag
           >
         </span>
@@ -348,12 +299,13 @@
             <label nz-radio-button nzValue="B">Any</label>
           </nz-radio-group>
         </span>
-        <br *ngIf="manyElems('in title')" />
+        <br *ngIf="elemExist('in title')" />
         <span class="adv-search-text-tag" *ngFor="let elem of tags">
           <nz-tag
-            *ngIf="elem.startsWith('keyword') && manyElems('keyword')"
+            *ngIf="elem.startsWith('keyword')"
             nzMode="closeable"
             (nzOnClose)="remove(elem)"
+            style="margin-top: 8px"
             >{{ elem }}</nz-tag
           >
         </span>
@@ -369,9 +321,19 @@
             <label nz-radio-button nzValue="B">Any</label>
           </nz-radio-group>
         </span>
-        <br *ngIf="manyElems('keyword')" />
+        <br *ngIf="elemExist('keyword')" />
+        <span class="adv-search-text-tag" *ngFor="let elem of tags">
+          <nz-tag
+            *ngIf="elem.startsWith('none')"
+            nzMode="closeable"
+            (nzOnClose)="remove(elem)"
+            style="margin-top: 8px"
+            >{{ elem }}</nz-tag
+          >
+        </span>
+        <br *ngIf="elemExist('none')" />
         <span class="adv-search-text-tag" style="cursor: pointer">
-          <nz-tag (click)="removeAll($event)" style="margin-top: 6px"
+          <nz-tag (click)="removeAll($event)" style="margin-top: 8px"
             >Clear All</nz-tag
           >
         </span>
