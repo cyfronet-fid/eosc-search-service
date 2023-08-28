@@ -278,7 +278,14 @@
           <nz-tag (click)="removeAll($event)">Clear All</nz-tag>
         </span-->
 
-        <br *ngIf="manyElems('author')" />
+        <br
+          *ngIf="
+            manyElems('author') ||
+            manyElems('exact') ||
+            manyElems('in title') ||
+            manyElems('keyword')
+          "
+        />
         <span class="adv-search-text-tag" *ngFor="let elem of tags">
           <nz-tag
             *ngIf="elem.startsWith('author') && manyElems('author')"
