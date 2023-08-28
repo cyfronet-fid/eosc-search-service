@@ -78,6 +78,9 @@ export class ResultComponent implements OnInit {
   documentType?: string[];
 
   @Input()
+  horizontal?: boolean;
+
+  @Input()
   secondaryTags: ISecondaryTag[] = [];
 
   @Input()

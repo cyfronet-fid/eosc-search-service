@@ -26,6 +26,7 @@ export interface IResult {
   offers?: any[];
   isSortByRelevanceCollectionScopeOff?: boolean;
   isSortCollectionScopeOff?: boolean;
+  horizontal?: boolean;
 }
 
 export interface ISecondaryTag {

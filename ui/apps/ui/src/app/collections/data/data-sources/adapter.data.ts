@@ -6,10 +6,7 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import {
-  toHorizontalServiceTag,
-  transformLanguages,
-} from '@collections/data/shared-tags';
+import { transformLanguages } from '@collections/data/shared-tags';
 import {
   parseStatistics,
   toKeywordsSecondaryTag,
@@ -33,13 +30,14 @@ export const dataSourcesAdapter: IAdapter = {
     title: dataSource.title?.join(' ') || '',
     description: dataSource.description?.join(' ') || '',
     languages: transformLanguages(dataSource?.language),
+    horizontal: dataSource?.horizontal,
     type: {
       label: dataSource.type || '',
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
     url: getDataSourceUrl(dataSource.pid),
     collection: COLLECTION,
-    coloredTags: [toHorizontalServiceTag(dataSource?.horizontal)],
+    coloredTags: [],
     tags: [
       {
         label: 'Scientific domain',
