@@ -98,6 +98,8 @@ export class SecondaryTagsComponent implements OnChanges, OnInit {
     let indexShowMore = 0;
     let more = false;
 
+    console.log(this.tags[0]);
+
     const sum = this.tags[0].values.reduce(
       (previousValue, currentValue, index) => {
         if (previousValue > 268 && !more) {
