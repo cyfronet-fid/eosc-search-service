@@ -425,13 +425,63 @@ h6 {
   color: #0c2bd5 !important;
 }
 
-.results #container {
-  background: #fff;
-  padding: 10px 20px 25px;
+.results {
+  display: flex !important;
   border: 1px solid #d9dee2;
   border-radius: 8px;
-  position: relative;
   margin: 0 0 20px;
+  background: #fff;
+}
+
+.results .type-icon-holder {
+  flex: 90px 0 0;
+
+  .type-icon {
+    width: 55px;
+    height: 60px;
+    background-repeat: no-repeat;
+    margin: 25px auto;
+    background-position: top left;
+    background-size: 55px auto;
+
+    &.Service {
+      background-image:url('assets/icon-type-service.svg')
+    }
+
+    &.Software {
+      background-image:url('assets/icon-type-software.svg')
+    }
+
+    &.Source {
+      background-image:url('assets/icon-type-data-source.svg')
+    }
+
+    &.Image, &.Dataset  {
+      background-image:url('assets/icon-type-data.svg')
+    }
+
+    &.Other {
+      background-image:url('assets/icon-type-other.svg')
+    }
+
+    &.Training, &.Assessment {
+      background-image:url('assets/icon-type-training.svg')
+    }
+
+    &.literature {
+      background-image:url('assets/icon-type-publication.svg')
+    }
+
+    &.Guideline {
+      background-image:url('assets/icon-type-guidelines.svg')
+    }
+
+  }
+}
+
+.results #container {
+  padding: 10px 20px 25px 0;
+  position: relative;
 
   .usage {
     .open-access {
@@ -1082,6 +1132,17 @@ h6 {
 }
 
 @media (max-width: 576px) {
+
+  .results .type-icon-holder {
+    flex: 70px 0 0;
+
+    .type-icon {
+      width: 45px;
+      height: 55px;
+      background-size: 45px auto;
+    }
+  }
+
   .search-box {
     input {
       max-width: 185px;

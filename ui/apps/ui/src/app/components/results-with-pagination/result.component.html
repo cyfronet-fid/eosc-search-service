@@ -1,3 +1,6 @@
+<div class="type-icon-holder">
+  <div class="type-icon {{ _createDocumentTypeLabel(type.label, documentType) }}"></div>
+</div>
 <div
   id="container"
   [ngClass]="type.value === 'bundle' ? 'bundle_container' : 'nobundle'"
