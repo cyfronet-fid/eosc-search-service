@@ -260,6 +260,7 @@ export class ResultComponent implements OnInit {
         bundles: 'Service Bundle',
         training: 'Training',
         other: 'Other Research Product',
+        provider: 'Provider',
         'data source': 'Data Source',
         'interoperability guideline': 'Interoperability Guideline',
       };
