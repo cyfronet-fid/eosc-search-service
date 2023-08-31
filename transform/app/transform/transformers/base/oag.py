@@ -13,7 +13,9 @@ from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
     harvest_author_names_and_pids,
     check_type,
-    harvest_sdg_and_scientific_domains,
+    harvest_scientific_domains,
+    harvest_sdg,
+    harvest_eosc_if,
     map_best_access_right,
     create_open_access,
     map_publisher,
@@ -66,7 +68,8 @@ class OagBaseTransformer(BaseTransformer):
         create_open_access(self.harvested_properties)
         df = map_language(df, self.harvested_properties)
         harvest_author_names_and_pids(df, self.harvested_properties)
-        harvest_sdg_and_scientific_domains(df, self.harvested_properties)
+        harvest_scientific_domains(df, self.harvested_properties)
+        harvest_sdg(df, self.harvested_properties)
         harvest_funder(df, self.harvested_properties)
         harvest_url_and_document_type(df, self.harvested_properties)
         harvest_pids(df, self.harvested_properties)
