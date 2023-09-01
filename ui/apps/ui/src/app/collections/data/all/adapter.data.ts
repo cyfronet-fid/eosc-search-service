@@ -130,7 +130,7 @@ export const allCollectionsAdapter: IAdapter = {
         ? []
         : [
             {
-              label: 'Author name',
+              label: 'Author',
               values: toValueWithLabel(toArray(data?.author_names)),
               filter: 'author_names',
             },

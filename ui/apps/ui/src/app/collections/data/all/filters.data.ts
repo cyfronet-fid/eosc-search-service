@@ -69,7 +69,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'author_names',
       filter: 'author_names',
-      label: 'Author name',
+      label: 'Author',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

@@ -1,4 +1,4 @@
-<div class="type-icon-holder {{ _createDocumentTypeLabel(type.label, documentType) }}">
+<div class="type-icon-holder {{ type.label }}">
   <div class="type-icon"></div>
 </div>
 <div
@@ -16,11 +16,7 @@
       style="display: flex"
       *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
     >
-      <div class="provider-box">
-        <div class="provider-offer-pic">
-          <img src="assets/provider.svg" />
-        </div>
-      </div>
+
       <div style="display: flex; flex-direction: column">
         <ess-url-title
           [ngClass]="{ padding_for_provider: type.value === 'provider' }"

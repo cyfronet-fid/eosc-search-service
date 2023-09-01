@@ -35,7 +35,7 @@ export const publicationsAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Author name',
+        label: 'Author',
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
       },
