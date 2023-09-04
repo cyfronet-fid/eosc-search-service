@@ -79,6 +79,14 @@ export const trainingsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'license',
+      filter: 'license',
+      label: 'License',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
       id: 'duration',
       filter: 'duration',
       label: 'Duration',
