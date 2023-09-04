@@ -233,7 +233,7 @@ export class ResultComponent implements OnInit {
       this._customRoute.collection()
     ).filters;
     const fqMap = this._customRoute.fqMap();
-    if (toArray(fqMap[value]).includes(value)) {
+    if (toArray(fqMap[filter]).includes(value)) {
       return deserializeAll(fqMap, filtersConfigs);
     }
 
