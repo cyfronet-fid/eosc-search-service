@@ -30,20 +30,22 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
             *ngFor="let singleValue of cleanDuplicatedTagLabel(tag.values)"
           >
             <span class="tag">
-              {{ addSubTitle(singleValue.subTitle) }}
               <a
                 *ngIf="!singleValue.externalLink"
                 href="javascript:void(0)"
                 (click)="setActiveFilter(tag.filter, singleValue.value)"
-                [innerHTML]="singleValue.label | filterPipe: tag.filter"
-              ></a>
+              >
+                {{ addSubTitle(singleValue.subTitle) }}
+                {{ singleValue.label | filterPipe: tag.filter }}</a
+              >
               <a
                 *ngIf="
                   singleValue.externalLink && !singleValue.externalLink.broken
                 "
                 [href]="singleValue.externalLink.link"
-                [innerHTML]="singleValue.label"
-              ></a>
+                >{{ addSubTitle(singleValue.subTitle) }}
+                {{ singleValue.label }}</a
+              >
               <span
                 *ngIf="
                   singleValue.externalLink && singleValue.externalLink.broken
