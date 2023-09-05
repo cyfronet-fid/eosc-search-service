@@ -9,15 +9,21 @@
   z-index: 10;
 }
 .form-control2 {
-  width: 653px !important;
+  width: 610px !important;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
 }
 
 .form-control3 {
-  width: 565px !important;
+  width: 418px !important;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
+}
+
+.form-control4 {
+  width: 418px !important;
+  border-top-left-radius: 4px !important;
+  border-bottom-left-radius: 4px !important;
 }
 
 .suggestions .group {
@@ -116,14 +122,30 @@
   cursor: pointer;
 }
 
+.search-text-checkbox {
+  color: #ffffff;
+  font-size: 12px;
+  font-family: Inter;
+  cursor: pointer;
+  padding-left: 18px;
+}
+
 .input-checkbox {
   color: #ffffff !important;
   font-size: 12px;
   font-family: Inter;
   cursor: pointer;
-  width: 14px !important;
-  height: 14px !important;
-  margin-top: 8px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+.input-checkbox-label {
+  color: #ffffff !important;
+  font-size: 14px;
+  font-family: Inter;
+  cursor: pointer;
+  width: 130px !important;
+  padding-top: 10px !important;
 }
 
 .adv-search-text {
@@ -153,5 +175,57 @@
     font-size: 12px;
     font-family: Inter;
     margin-left: 40px;
+  }
+}
+
+.ant-tag-custom {
+  background: transparent !important;
+  color: white !important;
+  border-radius: 16px !important;
+}
+
+.ant-radio-custom {
+  background: transparent !important;
+  border-radius: 16px !important;
+}
+
+.ant-radio-custom-label {
+  background: transparent !important;
+}
+
+::ng-deep {
+  .ant-tag-close-icon {
+    color: white !important;
+    font-size: 14px !important;
+  }
+  .ant-radio-group {
+    border-radius: 16px !important;
+    padding: 3px !important;
+    border: 1px solid #0d6efd !important;
+  }
+  .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    color: white !important;
+
+    border-radius: 16px !important;
+    background: #0d6efd !important;
+    border: 1px solid #0d6efd !important;
+    font-size: 11px !important;
+  }
+
+  .ant-radio-group-small {
+    padding: 3px 5px !important;
+  }
+
+  .ant-radio-button-wrapper {
+    color: #0d6efd !important;
+    border-radius: 16px !important;
+    border: none !important;
+    font-size: 11px !important;
+  }
+  .ant-radio-button-wrapper:first-child {
+    border-left: none !important;
+  }
+  .ant-radio-button-wrapper:not(:first-child):before {
+    background-color: transparent !important;
   }
 }

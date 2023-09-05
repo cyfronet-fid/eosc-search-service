@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [SearchInputComponent],
@@ -15,6 +16,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
     NzTagModule,
     FormsModule,
     NzRadioModule,
+    NgbTooltipModule,
   ],
   exports: [SearchInputComponent],
 })

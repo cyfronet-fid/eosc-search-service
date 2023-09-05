@@ -65,6 +65,7 @@ export class SearchInputComponent implements OnInit {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   tags: string[] = [];
   focused = false;
+  tooltipText: string | undefined;
   standardSearch = true;
   collectionFcAdv = [
     { name: 'author' },
@@ -101,6 +102,17 @@ export class SearchInputComponent implements OnInit {
     return true;
   }
 
+  withAuthor(): boolean {
+    if (
+      this.collectionFc.value.id === 'data-source' ||
+      this.collectionFc.value.id === 'service' ||
+      this.collectionFc.value.id === 'guideline'
+    ) {
+      return false;
+    }
+    return true;
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   add(event: { input: any; value: any; narrowed: any }): void {
     const input = event.input;
@@ -129,16 +141,20 @@ export class SearchInputComponent implements OnInit {
       input.value = '';
     }
 
-    this.clearQueryAdv();
+    this.clearQueryAdvAdd();
     this.updateQueryParamsAdv(this.formControl.value || '*');
   }
 
   remove(tag: string): void {
-    const index = this.tags.indexOf(tag);
-
-    if (index >= 0) {
-      this.tags.splice(index, 1);
+    let i = 0;
+    while (i < this.tags.length) {
+      if (this.tags[i] === tag) {
+        this.tags.splice(i, 1);
+      } else {
+        ++i;
+      }
     }
+
     this.updateQueryParamsAdv(this.formControl.value || '*');
   }
 
@@ -181,7 +197,10 @@ export class SearchInputComponent implements OnInit {
     private _navConfigsRepository: NavConfigsRepository,
     private _route: ActivatedRoute,
     @Inject(DOCUMENT) private _document: Document
-  ) {}
+  ) {
+    this.tooltipText =
+      "Ticking this box means we won't match partially against text, you'll get whole word matches only.";
+  }
 
   ngOnInit() {
     this._customRoute.q$
@@ -289,10 +308,22 @@ export class SearchInputComponent implements OnInit {
       .subscribe((navConfig) =>
         this.setCollection(this.formControl.value, navConfig)
       );
+
+    if (!this.withAuthor()) {
+      if (this.collectionFcAdvForm.value.name === 'author') {
+        this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
+      }
+    } else {
+      this.collectionFcAdvForm.reset();
+    }
   }
 
   onCheckboxChange() {
     this.exactmatch = !this.exactmatch;
+    this.updateQueryParamsAdv(this.formControl.value || '*');
+  }
+
+  onValueChange() {
     this.updateQueryParamsAdv(this.formControl.value || '*');
   }
 
@@ -356,6 +387,14 @@ export class SearchInputComponent implements OnInit {
   }
 
   async clearQueryAdv() {
+    this.radioValueKeyword = 'A';
+    this.radioValueExact = 'A';
+    this.radioValueAuthor = 'A';
+    this.radioValueTitle = 'A';
+    this.formControlAdv.setValue('');
+  }
+
+  async clearQueryAdvAdd() {
     this.formControlAdv.setValue('');
   }
 
@@ -367,6 +406,14 @@ export class SearchInputComponent implements OnInit {
       if (this.collectionFcAdvForm.value.name === 'keyword') {
         this.collectionFcAdvForm.reset();
       }
+    }
+
+    if (!this.withAuthor()) {
+      if (this.collectionFcAdvForm.value.name === 'author') {
+        this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
+      }
+    } else {
+      this.collectionFcAdvForm.reset();
     }
 
     await this._router.navigate(['/search', $event.urlParam], {
