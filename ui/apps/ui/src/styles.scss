@@ -770,6 +770,25 @@ h6 {
   }
 }
 
+.newFeatureWrapper {
+  display: flex;
+  padding-top: 12px;
+
+  select {
+    border: none;
+    padding: 0 20px 0 10px;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #040F81 !important;
+    width: 90px;
+    line-height: 25px !important;
+
+    &:focus {
+      border: none !important;
+    }
+  }
+}
+
 .suggested .description {
   font-size: 13px;
   padding-top: 10px;
