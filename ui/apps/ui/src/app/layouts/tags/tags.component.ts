@@ -34,18 +34,23 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
                 *ngIf="!singleValue.externalLink"
                 href="javascript:void(0)"
                 (click)="setActiveFilter(tag.filter, singleValue.value)"
-              >
-                {{ addSubTitle(singleValue.subTitle) }}
-                {{ singleValue.label | filterPipe: tag.filter }}</a
-              >
+                [innerHTML]="
+                  (addSubTitle(singleValue.subTitle) ?? '') +
+                  ' ' +
+                  (singleValue.label | filterPipe: tag.filter)
+                "
+              ></a>
               <a
                 *ngIf="
                   singleValue.externalLink && !singleValue.externalLink.broken
                 "
                 [href]="singleValue.externalLink.link"
-                >{{ addSubTitle(singleValue.subTitle) }}
-                {{ singleValue.label }}</a
-              >
+                [innerHTML]="
+                  (addSubTitle(singleValue.subTitle) ?? '') +
+                  ' ' +
+                  (singleValue.label ?? '')
+                "
+              ></a>
               <span
                 *ngIf="
                   singleValue.externalLink && singleValue.externalLink.broken
