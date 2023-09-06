@@ -52,8 +52,8 @@
         </div>
         <div>
           <span class="search-text-checkbox">
-            <label class="input-checkbox-label"
-              ><input
+            <label class="input-checkbox-label">
+              <input
                 name="exact"
                 class="input-checkbox"
                 type="checkbox"
@@ -67,7 +67,7 @@
                 [ngbTooltip]="tooltipText"
                 alt="Tooltip prompt icon"
                 class="tooltip-prompt-icon"
-                style="padding-bottom: 10px"
+                style="padding-bottom: 4px"
                 width="19"
               />
             </label>
@@ -180,7 +180,7 @@
                 [ngbTooltip]="tooltipText"
                 alt="Tooltip prompt icon"
                 class="tooltip-prompt-icon"
-                style="padding-bottom: 10px"
+                style="padding-bottom: 4px"
                 width="19"
               />
             </label>
@@ -195,13 +195,13 @@
           (click)="focused = false"
           [formControl]="collectionFcAdvForm"
         >
-          <<ng-container *ngFor="let navConfig of collectionFcAdv">
+          <ng-container *ngFor="let navConfig of collectionFcAdv">
             <option
               *ngIf="
                 !withKeyword() &&
-                navConfig.name !== 'keyword' &&
+                navConfig.name !== 'Keyword' &&
                 !withAuthor() &&
-                navConfig.name !== 'author'
+                navConfig.name !== 'Author'
               "
               [ngValue]="navConfig"
             >
@@ -209,7 +209,7 @@
             </option>
             <option
               *ngIf="
-                !withAuthor() && navConfig.name !== 'author' && withKeyword()
+                !withAuthor() && navConfig.name !== 'Author' && withKeyword()
               "
               [ngValue]="navConfig"
             >
@@ -217,7 +217,7 @@
             </option>
             <option
               *ngIf="
-                !withKeyword() && navConfig.name !== 'keyword' && withAuthor()
+                !withKeyword() && navConfig.name !== 'Keyword' && withAuthor()
               "
               [ngValue]="navConfig"
             >
@@ -257,7 +257,7 @@
         </div>
         <div class="input-group-btn">
           <button
-            style="text-wrap: nowrap"
+            style="white-space: nowrap"
             class="btn btn-enter"
             type="button"
             (click)="
@@ -272,165 +272,213 @@
           </button>
         </div>
       </div>
-      <div *ngIf="tags.length !== 0" class="mb-2" style="margin-left: -45px">
-        <span
-          *ngIf="elemExist('author')"
-          class="adv-search-text-tag"
-          style="padding-right: 27px"
-        >
-          Author
-        </span>
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('author')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
-            style="margin-top: 8px; margin-bottom: 8px"
-            class="ant-tag-custom"
-            >{{ elem.split('author:')[1] }}</nz-tag
-          >
-        </span>
-        <span class="adv-search-text-tag" *ngIf="manyElems('author')">
-          <nz-radio-group
-            [(ngModel)]="radioValueAuthor"
-            [ngModelOptions]="{ standalone: true }"
-            (ngModelChange)="onValueChange()"
-            nzSize="small"
-            nzButtonStyle="solid"
-            class="ant-radio-custom"
-          >
-            <label nz-radio-button nzValue="A" class="ant-radio-custom-label"
-              >All</label
+      <div
+        *ngIf="tags.length !== 0"
+        class="mb-2"
+        style="margin-left: -45px; padding-top: 10px"
+      >
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span
+              *ngIf="elemExist('author')"
+              class="adv-search-text-tag"
+              style="padding-top: 18px"
             >
-            <label nz-radio-button nzValue="B" class="ant-radio-custom-label"
-              >Any</label
+              Author
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('author')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('author:')[1] }}</nz-tag
+              >
+            </span>
+            <span class="adv-search-text-tag" *ngIf="manyElems('author')">
+              <nz-radio-group
+                [(ngModel)]="radioValueAuthor"
+                [ngModelOptions]="{ standalone: true }"
+                (ngModelChange)="onValueChange()"
+                nzSize="small"
+                nzButtonStyle="solid"
+                class="ant-radio-custom"
+              >
+                <label
+                  nz-radio-button
+                  nzValue="A"
+                  class="ant-radio-custom-label"
+                  >All</label
+                >
+                <label
+                  nz-radio-button
+                  nzValue="B"
+                  class="ant-radio-custom-label"
+                  >Or</label
+                >
+              </nz-radio-group>
+            </span>
+          </div>
+        </div>
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span *ngIf="elemExist('exact')" class="adv-search-text-tag">
+              Exact
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('exact')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('exact:')[1] }}</nz-tag
+              >
+            </span>
+            <span class="adv-search-text-tag" *ngIf="manyElems('exact')">
+              <nz-radio-group
+                [(ngModel)]="radioValueExact"
+                (ngModelChange)="onValueChange()"
+                [ngModelOptions]="{ standalone: true }"
+                nzSize="small"
+                nzButtonStyle="solid"
+                class="ant-radio-custom"
+              >
+                <label
+                  nz-radio-button
+                  nzValue="A"
+                  class="ant-radio-custom-label"
+                  >All</label
+                >
+                <label
+                  nz-radio-button
+                  nzValue="B"
+                  class="ant-radio-custom-label"
+                  >Or</label
+                >
+              </nz-radio-group>
+            </span>
+          </div>
+        </div>
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span *ngIf="elemExist('in title')" class="adv-search-text-tag">
+              In title
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('in title')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('in title:')[1] }}</nz-tag
+              >
+            </span>
+            <span class="adv-search-text-tag" *ngIf="manyElems('in title')">
+              <nz-radio-group
+                [(ngModel)]="radioValueTitle"
+                [ngModelOptions]="{ standalone: true }"
+                (ngModelChange)="onValueChange()"
+                nzSize="small"
+                nzButtonStyle="solid"
+                class="ant-radio-custom"
+              >
+                <label
+                  nz-radio-button
+                  nzValue="A"
+                  class="ant-radio-custom-label"
+                  >All</label
+                >
+                <label
+                  nz-radio-button
+                  nzValue="B"
+                  class="ant-radio-custom-label"
+                  >Or</label
+                >
+              </nz-radio-group>
+            </span>
+          </div>
+        </div>
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span
+              *ngIf="elemExist('keyword') || elemExist('tagged')"
+              class="adv-search-text-tag"
             >
-          </nz-radio-group>
-        </span>
-        <br *ngIf="elemExist('author')" />
-        <span
-          *ngIf="elemExist('exact')"
-          class="adv-search-text-tag"
-          style="padding-right: 34px"
-        >
-          Exact
-        </span>
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('exact')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
-            style="margin-top: 8px; margin-bottom: 8px"
-            class="ant-tag-custom"
-            >{{ elem.split('exact:')[1] }}</nz-tag
-          >
-        </span>
-        <span class="adv-search-text-tag" *ngIf="manyElems('exact')">
-          <nz-radio-group
-            [(ngModel)]="radioValueExact"
-            (ngModelChange)="onValueChange()"
-            [ngModelOptions]="{ standalone: true }"
-            nzSize="small"
-            nzButtonStyle="solid"
-            class="ant-radio-custom"
-          >
-            <label nz-radio-button nzValue="A" class="ant-radio-custom-label"
-              >All</label
-            >
-            <label nz-radio-button nzValue="B" class="ant-radio-custom-label"
-              >Any</label
-            >
-          </nz-radio-group>
-        </span>
-        <br *ngIf="elemExist('exact')" />
-        <span
-          *ngIf="elemExist('in title')"
-          class="adv-search-text-tag"
-          style="padding-right: 30px"
-        >
-          In title
-        </span>
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('in title')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
-            style="margin-top: 8px; margin-bottom: 8px"
-            class="ant-tag-custom"
-            >{{ elem.split('in title:')[1] }}</nz-tag
-          >
-        </span>
-        <span class="adv-search-text-tag" *ngIf="manyElems('in title')">
-          <nz-radio-group
-            [(ngModel)]="radioValueTitle"
-            [ngModelOptions]="{ standalone: true }"
-            (ngModelChange)="onValueChange()"
-            nzSize="small"
-            nzButtonStyle="solid"
-            class="ant-radio-custom"
-          >
-            <label nz-radio-button nzValue="A" class="ant-radio-custom-label"
-              >All</label
-            >
-            <label nz-radio-button nzValue="B" class="ant-radio-custom-label"
-              >Any</label
-            >
-          </nz-radio-group>
-        </span>
-        <br *ngIf="elemExist('in title')" />
-        <span
-          *ngIf="elemExist('keyword')"
-          class="adv-search-text-tag"
-          style="padding-right: 10px"
-        >
-          Keywords
-        </span>
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('keyword')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
-            style="margin-top: 8px; margin-bottom: 8px"
-            class="ant-tag-custom"
-            >{{ elem.split('keyword:')[1] }}</nz-tag
-          >
-        </span>
-        <span class="adv-search-text-tag" *ngIf="manyElems('keyword')">
-          <nz-radio-group
-            [(ngModel)]="radioValueKeyword"
-            [ngModelOptions]="{ standalone: true }"
-            (ngModelChange)="onValueChange()"
-            nzSize="small"
-            nzButtonStyle="solid"
-            class="ant-radio-custom"
-          >
-            <label nz-radio-button nzValue="A" class="ant-radio-custom-label"
-              >All</label
-            >
-            <label nz-radio-button nzValue="B" class="ant-radio-custom-label"
-              >Any</label
-            >
-          </nz-radio-group>
-        </span>
-        <br *ngIf="elemExist('keyword')" />
-        <span
-          *ngIf="elemExist('none')"
-          class="adv-search-text-tag"
-          style="padding-right: 21px"
-        >
-          None of
-        </span>
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag
-            *ngIf="elem.startsWith('none')"
-            nzMode="closeable"
-            (nzOnClose)="remove(elem)"
-            style="margin-top: 8px"
-            class="ant-tag-custom"
-            >{{ elem.split('none of:')[1] }}</nz-tag
-          >
-        </span>
-        <br *ngIf="elemExist('none')" />
+              Keywords
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('keyword')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('keyword:')[1] }}</nz-tag
+              >
+              <nz-tag
+                *ngIf="elem.startsWith('tagged')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('tagged:')[1] }}</nz-tag
+              >
+            </span>
+            <span class="adv-search-text-tag" *ngIf="manyElems('keyword')">
+              <nz-radio-group
+                [(ngModel)]="radioValueKeyword"
+                [ngModelOptions]="{ standalone: true }"
+                (ngModelChange)="onValueChange()"
+                nzSize="small"
+                nzButtonStyle="solid"
+                class="ant-radio-custom"
+              >
+                <label
+                  nz-radio-button
+                  nzValue="A"
+                  class="ant-radio-custom-label"
+                  >All</label
+                >
+                <label
+                  nz-radio-button
+                  nzValue="B"
+                  class="ant-radio-custom-label"
+                  >Or</label
+                >
+              </nz-radio-group>
+            </span>
+          </div>
+        </div>
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span *ngIf="elemExist('none')" class="adv-search-text-tag">
+              None of
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('none')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('none of:')[1] }}</nz-tag
+              >
+            </span>
+          </div>
+        </div>
       </div>
       <span
         class="adv-search-text-btn"
@@ -453,7 +501,7 @@
           class="tooltip-prompt-icon"
           style="padding-bottom: 4px; padding-right: 2px"
           width="16"
-        />Clear All Filters
+        />Clear Advanced Search
       </span>
     </form>
 

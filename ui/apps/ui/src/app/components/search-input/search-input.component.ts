@@ -68,11 +68,11 @@ export class SearchInputComponent implements OnInit {
   tooltipText: string | undefined;
   standardSearch = true;
   collectionFcAdv = [
-    { name: 'author' },
-    { name: 'exact' },
-    { name: 'in title' },
-    { name: 'keyword' },
-    { name: 'none of' },
+    { name: 'Author' },
+    { name: 'Exact' },
+    { name: 'In title' },
+    { name: 'Keyword' },
+    { name: 'None of' },
   ];
 
   faMagnifyingGlass = faMagnifyingGlass;
@@ -117,7 +117,7 @@ export class SearchInputComponent implements OnInit {
   add(event: { input: any; value: any; narrowed: any }): void {
     const input = event.input;
     const value = event.value;
-    const narrow = event.narrowed;
+    const narrow = event.narrowed.toLowerCase();
 
     // Add our tags
     if ((value || '').trim()) {
@@ -130,7 +130,18 @@ export class SearchInputComponent implements OnInit {
           }
         });
       } else {
-        this.tags.push(narrow + ': ' + value.trim());
+        if (narrow === 'keyword') {
+          if (
+            this.collectionFc.value.id === 'data-source' ||
+            this.collectionFc.value.id === 'service'
+          ) {
+            this.tags.push('tagged' + ': ' + value.trim());
+          } else {
+            this.tags.push(narrow + ': ' + value.trim());
+          }
+        } else {
+          this.tags.push(narrow + ': ' + value.trim());
+        }
       }
 
       this.tags.sort((a, b) => a.localeCompare(b));
@@ -165,11 +176,20 @@ export class SearchInputComponent implements OnInit {
   }
 
   manyElems(tag: string): boolean {
-    const filtered = this.tags.filter((el) => el.startsWith(tag));
-    if (filtered.length > 1) {
-      return true;
+    if (tag === 'keyword') {
+      const filtered = this.tags.filter((el) => el.startsWith(tag));
+      const filtered2 = this.tags.filter((el) => el.startsWith('tagged'));
+      if (filtered.length + filtered2.length > 1) {
+        return true;
+      }
+      return false;
+    } else {
+      const filtered = this.tags.filter((el) => el.startsWith(tag));
+      if (filtered.length > 1) {
+        return true;
+      }
+      return false;
     }
-    return false;
   }
 
   elemExist(tag: string): boolean {
@@ -199,7 +219,7 @@ export class SearchInputComponent implements OnInit {
     @Inject(DOCUMENT) private _document: Document
   ) {
     this.tooltipText =
-      "Ticking this box means we won't match partially against text, you'll get whole word matches only.";
+      'Choose this for precise results. Only content with the exact phrase you entered will show up. No changes or variations.';
   }
 
   ngOnInit() {
@@ -310,7 +330,7 @@ export class SearchInputComponent implements OnInit {
       );
 
     if (!this.withAuthor()) {
-      if (this.collectionFcAdvForm.value.name === 'author') {
+      if (this.collectionFcAdvForm.value.name === 'Author') {
         this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
       }
     } else {
@@ -403,13 +423,13 @@ export class SearchInputComponent implements OnInit {
       return;
     }
     if (!this.withKeyword()) {
-      if (this.collectionFcAdvForm.value.name === 'keyword') {
+      if (this.collectionFcAdvForm.value.name === 'Keyword') {
         this.collectionFcAdvForm.reset();
       }
     }
 
     if (!this.withAuthor()) {
-      if (this.collectionFcAdvForm.value.name === 'author') {
+      if (this.collectionFcAdvForm.value.name === 'Author') {
         this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
       }
     } else {

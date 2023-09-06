@@ -136,6 +136,10 @@ export class FilterMultiselectService {
           filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
           keywords.push(filters.length - 1);
         }
+        if (tag.startsWith('tagged:')) {
+          filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+          keywords.push(filters.length - 1);
+        }
       }
     } else {
       const tag: string = tags;
@@ -191,6 +195,10 @@ export class FilterMultiselectService {
       }
       if (tag.startsWith('keyword:')) {
         filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        keywords.push(filters.length - 1);
+      }
+      if (tag.startsWith('tagged:')) {
+        filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
         keywords.push(filters.length - 1);
       }
     }
