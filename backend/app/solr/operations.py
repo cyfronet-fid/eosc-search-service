@@ -170,7 +170,7 @@ async def get(
 ) -> Response:
     """Get item from defined collection based on ID"""
     return await client.get(
-        f"{settings.SOLR_URL}{collection}/get?id={item_id}",
+        f"{settings.SOLR_URL}{collection}/select?id={item_id}",
     )
 
 
