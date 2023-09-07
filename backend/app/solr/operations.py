@@ -80,7 +80,7 @@ async def search(
         }
 
     return await client.post(
-        f"{settings.SOLR_URL}{collection}/select",
+        f"{settings.SOLR_URL}{settings.NG_COLLECTIONS_PREFIX}{collection}/select",
         json=request_body,
     )
 
@@ -158,7 +158,7 @@ async def search_advanced(
         request_body["facet"] = {k: v.dict() for k, v in facets.items()}
 
     return await client.post(
-        f"{settings.SOLR_URL}{collection}/select",
+        f"{settings.SOLR_URL}{settings.NG_COLLECTIONS_PREFIX}{collection}/select",
         json=request_body,
     )
 
@@ -170,7 +170,7 @@ async def get(
 ) -> Response:
     """Get item from defined collection based on ID"""
     return await client.get(
-        f"{settings.SOLR_URL}{collection}/get?id={item_id}",
+        f"{settings.SOLR_URL}{settings.NG_COLLECTIONS_PREFIX}{collection}/get?id={item_id}",
     )
 
 
@@ -180,7 +180,7 @@ async def get_item_by_pid(
     item_pid: str,
 ) -> Response:
     """Get item from defined collection based on PID"""
-    url = f"{settings.SOLR_URL}{collection}/query?q=pid:{item_pid}"
+    url = f"{settings.SOLR_URL}{settings.NG_COLLECTIONS_PREFIX}{collection}/query?q=pid:{item_pid}"
     return await client.get(url)
 
 

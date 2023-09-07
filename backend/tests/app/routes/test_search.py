@@ -194,6 +194,7 @@ async def test_integration_400(app: FastAPI, client: AsyncClient) -> None:
 @pytest.mark.asyncio
 @pytest.mark.integration
 @unittest.mock.patch("app.settings.settings.SOLR_URL", "http://localhost:8994/solr/")
+@unittest.mock.patch("app.settings.settings.NG_COLLECTIONS_PREFIX", "")
 async def test_integration_500(app: FastAPI, client: AsyncClient) -> None:
     res = await client.post(
         app.url_path_for("apis:post-search"),
