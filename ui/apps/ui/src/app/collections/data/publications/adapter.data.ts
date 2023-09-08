@@ -8,7 +8,7 @@ import {
 } from '@collections/filters-serializers/utils';
 import { transformLanguages } from '@collections/data/shared-tags';
 import {
-  constructDoiTag,
+  constructIdentifierTag,
   formatPublicationDate,
   parseStatistics,
   toKeywordsSecondaryTag,
@@ -38,6 +38,7 @@ export const publicationsAdapter: IAdapter = {
         label: 'Author',
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
+        showMoreThreshold: 10,
       },
       {
         label: 'Publisher',
@@ -51,9 +52,9 @@ export const publicationsAdapter: IAdapter = {
       },
       {
         label: 'Identifier',
-        // TODO: Add HANDLE, PMID and PMD somehow
-        values: constructDoiTag(openAIREResult?.doi),
+        values: constructIdentifierTag(openAIREResult?.pids),
         filter: 'doi',
+        showMoreThreshold: 4,
       },
     ],
     type: {
