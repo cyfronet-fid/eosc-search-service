@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
+  AccessRight,
   IColoredTag,
   ISecondaryTag,
   ITag,
@@ -71,7 +72,13 @@ export class ResultComponent implements OnInit {
   views?: number;
 
   @Input()
-  accessRight?: string;
+  accessRight?: AccessRight;
+
+  @Input()
+  documentType?: string[];
+
+  @Input()
+  horizontal?: boolean;
 
   @Input()
   secondaryTags: ISecondaryTag[] = [];
@@ -226,7 +233,7 @@ export class ResultComponent implements OnInit {
       this._customRoute.collection()
     ).filters;
     const fqMap = this._customRoute.fqMap();
-    if (toArray(fqMap[value]).includes(value)) {
+    if (toArray(fqMap[filter]).includes(value)) {
       return deserializeAll(fqMap, filtersConfigs);
     }
 
@@ -237,6 +244,51 @@ export class ResultComponent implements OnInit {
       },
       filtersConfigs
     );
+  }
+
+  _createDocumentTypeLabel(type: string, documentType: string[] | undefined) {
+    const removeDuplicates = (documentType: string[]): string[] => [
+      ...new Set(documentType),
+    ];
+
+    const getHumanReadableType = (type: string): string => {
+      const humanReadableDict: { [key: string]: string } = {
+        publication: 'Publication',
+        dataset: 'Data',
+        software: 'Software',
+        service: 'Service',
+        bundles: 'Service Bundle',
+        training: 'Training',
+        other: 'Other Research Product',
+        provider: 'Provider',
+        'data source': 'Data Source',
+        'interoperability guideline': 'Interoperability Guideline',
+      };
+      return type in humanReadableDict
+        ? humanReadableDict[type]
+        : humanReadableDict['other'];
+    };
+
+    return documentType && documentType.length > 0
+      ? `${getHumanReadableType(type)}: ${removeDuplicates(documentType).join(
+          ' / '
+        )}`
+      : `${getHumanReadableType(type)}`;
+  }
+
+  _getAccessIcon(accessRight: AccessRight) {
+    const iconMapping: Record<AccessRight, string> = {
+      'open access': '/assets/access-icons/open-access.svg',
+      embargo: '/assets/access-icons/embargo-access.svg',
+      closed: '/assets/access-icons/closed-access.svg',
+      'order required': '/assets/access-icons/order-required-access.svg',
+      restricted: '/assets/access-icons/restricted-access.svg',
+      other: '/assets/access-icons/other-access.svg',
+    };
+
+    return accessRight in iconMapping
+      ? iconMapping[accessRight]
+      : iconMapping['other'];
   }
 
   _formatLicense(license: string | string[]) {

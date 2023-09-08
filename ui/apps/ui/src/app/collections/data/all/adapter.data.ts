@@ -16,10 +16,8 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
-  toAccessRightColoredTag,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toBetaTag,
-  toHorizontalServiceTag,
   transformLanguages,
 } from '@collections/data/shared-tags';
 import {
@@ -121,26 +119,25 @@ export const allCollectionsAdapter: IAdapter = {
     id: data.id,
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',
+    documentType: data?.document_type,
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
-    coloredTags: [
-      toHorizontalServiceTag(data?.horizontal),
-      toAccessRightColoredTag(data?.best_access_right),
-    ],
+    horizontal: data?.horizontal,
+    coloredTags: [],
     tags:
       data.type === 'bundle'
         ? []
         : [
             {
-              label: 'Author name',
+              label: 'Author',
               values: toValueWithLabel(toArray(data?.author_names)),
               filter: 'author_names',
             },
             {
-              label: 'Identifier',
-              values: constructDoiTag(data?.doi),
-              filter: 'doi',
+              label: 'Organisation',
+              values: toValueWithLabel(toArray(data?.resource_organisation)),
+              filter: 'resource_organisation',
             },
             {
               label: 'Scientific domain',
@@ -148,9 +145,9 @@ export const allCollectionsAdapter: IAdapter = {
               filter: 'scientific_domains',
             },
             {
-              label: 'Organisation',
-              values: toValueWithLabel(toArray(data?.resource_organisation)),
-              filter: 'resource_organisation',
+              label: 'Identifier',
+              values: constructDoiTag(data?.doi),
+              filter: 'doi',
             },
           ],
     type: {

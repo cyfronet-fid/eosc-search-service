@@ -7,10 +7,7 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import {
-  toAccessRightColoredTag,
-  transformLanguages,
-} from '@collections/data/shared-tags';
+import { transformLanguages } from '@collections/data/shared-tags';
 import {
   parseStatistics,
   toKeywordsSecondaryTag,
@@ -26,6 +23,7 @@ export const trainingsAdapter: IAdapter = {
     title: training['title']?.join(' ') || '',
     description: training['description']?.join(' ') || '',
     date: formatPublicationDate(training['publication_date']),
+    documentType: toArray(training?.resource_type),
     languages: transformLanguages(training?.language),
     license: training?.license,
     type: {
@@ -34,7 +32,7 @@ export const trainingsAdapter: IAdapter = {
     },
     collection: COLLECTION,
     url: '/trainings/' + training.id || '',
-    coloredTags: [toAccessRightColoredTag(training?.best_access_right)],
+    coloredTags: [],
     tags: [
       {
         label: 'Authors',
@@ -42,14 +40,14 @@ export const trainingsAdapter: IAdapter = {
         filter: 'author_names',
       },
       {
-        label: 'Resource type',
-        values: toValueWithLabel(toArray(training['resource_type'])),
-        filter: 'resource_type',
-      },
-      {
         label: 'Content type',
         values: toValueWithLabel(toArray(training['content_type'])),
         filter: 'content_type',
+      },
+      {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(training?.scientific_domains)),
+        filter: 'scientific_domains',
       },
     ],
     secondaryTags: [

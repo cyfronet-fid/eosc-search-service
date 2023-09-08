@@ -1,4 +1,5 @@
 import {
+  AccessRight,
   IFacetBucket,
   IFilterNode,
   IResult,
@@ -44,7 +45,9 @@ export const parseStatistics = (data: any): Partial<IResult> => {
   return {
     views: isNaN(views) ? undefined : views,
     downloads: isNaN(downloads) ? undefined : downloads,
-    accessRight: data['best_access_right'],
+    accessRight: data['best_access_right']?.toLowerCase() as
+      | AccessRight
+      | undefined,
   };
 };
 export const alphanumericFilterSort = (a: IFilterNode, b: IFilterNode) =>

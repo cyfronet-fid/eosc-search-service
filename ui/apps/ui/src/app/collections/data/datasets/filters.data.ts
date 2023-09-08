@@ -26,6 +26,14 @@ export const datasetsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'scientific_domains',
+      filter: 'scientific_domains',
+      label: 'Scientific Domains',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
       id: 'publication_date',
       filter: 'publication_date',
       label: 'Year range',
@@ -37,14 +45,6 @@ export const datasetsFilters: IFiltersConfig = {
       id: 'document_type',
       filter: 'document_type',
       label: 'Document type',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-    {
-      id: 'fos',
-      filter: 'fos',
-      label: 'Scientific domain',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -110,7 +110,7 @@ export const datasetsFilters: IFiltersConfig = {
     {
       id: 'author_names',
       filter: 'author_names',
-      label: 'Author name',
+      label: 'Author',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

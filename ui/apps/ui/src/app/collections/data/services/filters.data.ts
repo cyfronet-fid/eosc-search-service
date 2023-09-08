@@ -60,6 +60,15 @@ export const servicesFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'language',
+      filter: 'language',
+      label: 'Language',
+      type: 'multiselect',
+      defaultCollapsed: true,
+      tooltipText: '',
+      customSort: alphanumericFilterSort,
+    },
+    {
       id: 'dedicated_for',
       filter: 'dedicated_for',
       label: 'Dedicated for',
@@ -112,15 +121,6 @@ export const servicesFilters: IFiltersConfig = {
           ...node,
           name: node.name === 'true' ? 'yes' : 'no',
         })),
-    },
-    {
-      id: 'language',
-      filter: 'language',
-      label: 'Language',
-      type: 'tag',
-      defaultCollapsed: false,
-      tooltipText: '',
-      customSort: alphanumericFilterSort,
     },
     {
       id: 'tag_list',

@@ -6,10 +6,7 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import {
-  toAccessRightColoredTag,
-  transformLanguages,
-} from '@collections/data/shared-tags';
+import { transformLanguages } from '@collections/data/shared-tags';
 import {
   constructDoiTag,
   parseStatistics,
@@ -34,22 +31,27 @@ export const softwareAdapter: IAdapter = {
     url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
-    coloredTags: [toAccessRightColoredTag(openAIREResult?.best_access_right)],
+    coloredTags: [],
     tags: [
       {
-        label: 'Author name',
+        label: 'Author',
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
+      },
+      {
+        label: 'Publisher',
+        values: toValueWithLabel(toArray(openAIREResult?.publisher)),
+        filter: 'publisher',
+      },
+      {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
+        filter: 'scientific_domains',
       },
       {
         label: 'Identifier',
         values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
-      },
-      {
-        label: 'Field of Science',
-        values: toValueWithLabel(toArray(openAIREResult?.fos)),
-        filter: 'fos',
       },
     ],
     type: {

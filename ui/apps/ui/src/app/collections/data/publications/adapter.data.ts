@@ -6,10 +6,7 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import {
-  toAccessRightColoredTag,
-  transformLanguages,
-} from '@collections/data/shared-tags';
+import { transformLanguages } from '@collections/data/shared-tags';
 import {
   constructDoiTag,
   formatPublicationDate,
@@ -29,15 +26,16 @@ export const publicationsAdapter: IAdapter = {
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
     date: formatPublicationDate(openAIREResult['publication_date']),
+    documentType: openAIREResult?.document_type,
     languages: transformLanguages(openAIREResult?.language),
     license: openAIREResult?.license,
     url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
-    coloredTags: [toAccessRightColoredTag(openAIREResult?.best_access_right)],
+    coloredTags: [],
     tags: [
       {
-        label: 'Author name',
+        label: 'Author',
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
       },
@@ -54,15 +52,15 @@ export const publicationsAdapter: IAdapter = {
         filter: 'document_type',
       },
       {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
+        filter: 'scientific_domains',
+      },
+      {
         label: 'Identifier',
         // TODO: Add HANDLE, PMID and PMD somehow
         values: constructDoiTag(openAIREResult?.doi),
         filter: 'doi',
-      },
-      {
-        label: 'Field of Science',
-        values: toValueWithLabel(toArray(openAIREResult?.fos)),
-        filter: 'fos',
       },
     ],
     type: {

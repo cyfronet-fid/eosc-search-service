@@ -69,6 +69,14 @@ export const guidelinesFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'license',
+      filter: 'license',
+      label: 'License',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
       id: 'tag_list',
       filter: 'tag_list',
       label: 'Keywords',

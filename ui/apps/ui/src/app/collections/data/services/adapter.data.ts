@@ -6,11 +6,7 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import {
-  toAccessRightColoredTag,
-  toHorizontalServiceTag,
-  transformLanguages,
-} from '@collections/data/shared-tags';
+import { transformLanguages } from '@collections/data/shared-tags';
 import {
   parseStatistics,
   toKeywordsSecondaryTag,
@@ -27,6 +23,7 @@ export const servicesAdapter: IAdapter = {
     title: service.title?.join(' ') || '',
     description: service.description?.join(' ') || '',
     languages: transformLanguages(service?.language),
+    horizontal: service?.horizontal,
     type: {
       label: service.type || '',
       value: service.type || '',
@@ -35,20 +32,17 @@ export const servicesAdapter: IAdapter = {
       ? `${ConfigService.config?.marketplace_url}/services/${service.pid}`
       : '',
     collection: COLLECTION,
-    coloredTags: [
-      toHorizontalServiceTag(service?.horizontal),
-      toAccessRightColoredTag(service?.best_access_right),
-    ],
+    coloredTags: [],
     tags: [
-      {
-        label: 'Scientific domain',
-        values: toValueWithLabel(toArray(service.scientific_domains)),
-        filter: 'scientific_domains',
-      },
       {
         label: 'Organisation',
         values: toValueWithLabel(toArray(service.resource_organisation)),
         filter: 'resource_organisation',
+      },
+      {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(service.scientific_domains)),
+        filter: 'scientific_domains',
       },
     ],
     secondaryTags: [

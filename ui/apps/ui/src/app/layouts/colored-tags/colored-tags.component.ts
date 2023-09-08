@@ -4,13 +4,6 @@ import { IColoredTag, IValueWithLabel } from '@collections/repositories/types';
 @Component({
   selector: 'ess-colored-tags',
   template: `<div class="tags-box">
-    <a
-      [routerLink]="'/search/' + type.value.replace(' ', '-')"
-      [queryParams]="{ q: q }"
-    >
-      {{ type.label | filterPipe: type.value }}
-    </a>
-
     <ng-container *ngFor="let tag of tags">
       <a
         *ngFor="let value of tag.values"
