@@ -1,5 +1,27 @@
 # Changelog
 
+## [2.11.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.10.0...v2.11.0) (2023-09-08)
+
+
+### Features
+
+* [[#606](https://github.com/cyfronet-fid/eosc-search-service/issues/606)] oag scientific domains mapping ([7a28511](https://github.com/cyfronet-fid/eosc-search-service/commit/7a285115bc9d307abe7add7fb9697dc0295d8ff7))
+* [[#782](https://github.com/cyfronet-fid/eosc-search-service/issues/782), [#783](https://github.com/cyfronet-fid/eosc-search-service/issues/783)] Add product type and access right labels ([0659d15](https://github.com/cyfronet-fid/eosc-search-service/commit/0659d1588bcc71c47fd7012bc8ee76cc5fa97341))
+* [[#785](https://github.com/cyfronet-fid/eosc-search-service/issues/785)] Expand results metadata ([ac79459](https://github.com/cyfronet-fid/eosc-search-service/commit/ac7945976daea0051c1356dcd6c3e5df0c04f21f))
+* [[#802](https://github.com/cyfronet-fid/eosc-search-service/issues/802)] show scientific domain filter in all related collections ([8e0c196](https://github.com/cyfronet-fid/eosc-search-service/commit/8e0c196701c8fccba31f7634bfef985536a022c1))
+* [[#816](https://github.com/cyfronet-fid/eosc-search-service/issues/816)] Adjust horizontal service label ([ca04d80](https://github.com/cyfronet-fid/eosc-search-service/commit/ca04d805de622e3cabb24ff48c3a18d351250957))
+* [[#819](https://github.com/cyfronet-fid/eosc-search-service/issues/819)] Add language and license filters to services/igs ([11401b1](https://github.com/cyfronet-fid/eosc-search-service/commit/11401b1355c2215d48e5db17f1f855ddbff104c6))
+* pc's scientific domain assumptions satisfied ([f98c462](https://github.com/cyfronet-fid/eosc-search-service/commit/f98c4625bf0e8995bab402a297dee4f2d91bea4e))
+* **styles:** doi tag mode ([a3c7b3b](https://github.com/cyfronet-fid/eosc-search-service/commit/a3c7b3be9c4b02d208ad8aabd4f779efd2e37357))
+
+
+### Bug Fixes
+
+* [[#266](https://github.com/cyfronet-fid/eosc-search-service/issues/266)] Fix duplicated filters ([db17d4b](https://github.com/cyfronet-fid/eosc-search-service/commit/db17d4b1bab9ef8a643a0f6e7a04b3fc8f43206f))
+* [[#843](https://github.com/cyfronet-fid/eosc-search-service/issues/843)] Add provider type result label ([19d7a1f](https://github.com/cyfronet-fid/eosc-search-service/commit/19d7a1f3032505de1a9368d8746ea5f1a69c6557))
+* rs alias problem ([a310351](https://github.com/cyfronet-fid/eosc-search-service/commit/a3103515f8139549c7eea392a6b0f72fb4efdf18))
+* show tags as html instead of text in results ([2204706](https://github.com/cyfronet-fid/eosc-search-service/commit/22047069a316cb12c4906d17502cfc170bbc3bce))
+
 ## [2.10.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.9.0...v2.10.0) (2023-08-25)
 
 
