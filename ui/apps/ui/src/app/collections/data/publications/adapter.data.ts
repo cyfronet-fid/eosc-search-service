@@ -45,13 +45,6 @@ export const publicationsAdapter: IAdapter = {
         filter: 'publisher',
       },
       {
-        label: 'Document type',
-        values: toValueWithLabel([
-          ...new Set(toArray(openAIREResult?.document_type)),
-        ]),
-        filter: 'document_type',
-      },
-      {
         label: 'Scientific domain',
         values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
         filter: 'scientific_domains',
