@@ -3,7 +3,7 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import { COLLECTION } from './search-metadata.data';
 import { IOpenAIREResult } from '@collections/data/openair.model';
 import {
-  constructDoiTag,
+  constructIdentifierTag,
   formatPublicationDate,
 } from '@collections/data/utils';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
@@ -133,6 +133,7 @@ export const allCollectionsAdapter: IAdapter = {
               label: 'Author',
               values: toValueWithLabel(toArray(data?.author_names)),
               filter: 'author_names',
+              showMoreThreshold: 10,
             },
             {
               label: 'Organisation',
@@ -146,8 +147,9 @@ export const allCollectionsAdapter: IAdapter = {
             },
             {
               label: 'Identifier',
-              values: constructDoiTag(data?.doi),
+              values: constructIdentifierTag(data?.pids),
               filter: 'doi',
+              showMoreThreshold: 4,
             },
           ],
     type: {

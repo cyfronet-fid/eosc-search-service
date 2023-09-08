@@ -5,6 +5,7 @@ import {
   IResult,
   ISecondaryTag,
   IValueWithLabelAndLink,
+  Pids,
 } from '@collections/repositories/types';
 import {
   toArray,
@@ -70,21 +71,67 @@ export const formatPublicationDate = (
   return publication_date ? moment(publication_date).format('YYYY') : '';
 };
 
-export const resolveDoiLink = (rawDoi: string): string | undefined => {
+const resolveDoiLink = (rawDoi: string): string | undefined => {
   const doiRegex = new RegExp('^10\\.\\d{4,9}/[-._;()/:A-Za-z0-9]+$');
   return doiRegex.test(rawDoi) ? `https://doi.org/${rawDoi}` : undefined;
 };
 
-export const constructDoiTag = (
-  doiArr: string[] | undefined
+const resolveHandleLink = (rawHandle: string): string | undefined => {
+  const handleRegex = new RegExp('^http+$|^\\S+/\\S+$');
+  if (!handleRegex.test(rawHandle)) return undefined;
+
+  return rawHandle.startsWith('http')
+    ? rawHandle
+    : `https://hdl.handle.net/${rawHandle}`;
+};
+
+const resolvePmcLink = (rawPmc: string): string | undefined => {
+  const pmcRegex = new RegExp('^PMC\\d+$');
+
+  if (!pmcRegex.test(rawPmc)) return undefined;
+  const urlPart = rawPmc.split('PMC')[1];
+
+  return pmcRegex.test(rawPmc)
+    ? `https://europepmc.org/article/PMC/${urlPart}`
+    : undefined;
+};
+
+const resolvePmidLink = (rawPmid: string): string | undefined => {
+  const pmidRegex = new RegExp('^\\d+$');
+  return pmidRegex.test(rawPmid)
+    ? `https://pubmed.ncbi.nlm.nih.gov/${rawPmid}`
+    : undefined;
+};
+
+export const constructIdentifierTag = (
+  rawPids?: string
 ): IValueWithLabelAndLink[] => {
-  return toValueWithLabel(toArray(doiArr)).map(({ value, label }) => ({
-    value,
-    label,
-    subTitle: 'DOI',
-    externalLink: {
-      link: resolveDoiLink(value),
-      broken: !resolveDoiLink(value),
-    },
-  }));
+  const pids = rawPids ? (JSON.parse(rawPids) as Pids) : undefined;
+  if (!pids) return [];
+
+  const transformToValueWithLabelAndLink = (
+    idName: string,
+    id: string,
+    link: string | undefined
+  ): IValueWithLabelAndLink => ({
+    value: id,
+    label: id,
+    subTitle: idName,
+    externalLink: { link },
+  });
+
+  return [
+    ...pids.doi.map((id) =>
+      transformToValueWithLabelAndLink('DOI', id, resolveDoiLink(id))
+    ),
+    ...pids.pmc.map((id) =>
+      transformToValueWithLabelAndLink('PMC', id, resolvePmcLink(id))
+    ),
+    ...pids.handle.map((id) =>
+      transformToValueWithLabelAndLink('HANDLE', id, resolveHandleLink(id))
+    ),
+    ...pids.pmid.map((id) =>
+      transformToValueWithLabelAndLink('PMID', id, resolvePmidLink(id))
+    ),
+  ];
 };

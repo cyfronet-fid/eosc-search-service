@@ -27,6 +27,7 @@ export interface IResult {
   isSortByRelevanceCollectionScopeOff?: boolean;
   isSortCollectionScopeOff?: boolean;
   horizontal?: boolean;
+  pids?: Pids;
 }
 
 export interface ISecondaryTag {
@@ -37,13 +38,14 @@ export interface ISecondaryTag {
 }
 
 export interface IValueWithLabelAndLink extends IValueWithLabel {
-  externalLink?: { broken: boolean; link?: string };
+  externalLink?: { link?: string };
 }
 
 export interface ITag {
   label: string;
   values: IValueWithLabelAndLink[];
   filter: string;
+  showMoreThreshold?: number;
 }
 
 export interface IColoredTag {
@@ -205,3 +207,10 @@ export type AccessRight =
   | 'closed'
   | 'other'
   | 'order required';
+
+export interface Pids {
+  doi: string[];
+  handle: string[];
+  pmc: string[];
+  pmid: string[];
+}

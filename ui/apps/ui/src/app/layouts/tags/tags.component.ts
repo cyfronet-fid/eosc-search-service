@@ -25,10 +25,9 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
     >
       <div class="tag-row" *ngIf="tag.values.length > 0">
         <div class="tag tag-title">{{ tag.label }}:</div>
+
         <div class="tag-content">
-          <ng-container
-            *ngFor="let singleValue of cleanDuplicatedTagLabel(tag.values)"
-          >
+          <ng-container *ngFor="let singleValue of computeTagEntries(tag)">
             <span class="tag">
               <a
                 *ngIf="!singleValue.externalLink"
@@ -41,25 +40,29 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
                 "
               ></a>
               <a
-                *ngIf="
-                  singleValue.externalLink && !singleValue.externalLink.broken
+                *ngIf="singleValue.externalLink"
+                [href]="singleValue.externalLink.link ?? '#'"
+                (click)="
+                  _onClickExternalLink($event, singleValue.externalLink.link)
                 "
-                [href]="singleValue.externalLink.link"
                 [innerHTML]="
                   (addSubTitle(singleValue.subTitle) ?? '') +
                   ' ' +
                   (singleValue.label ?? '')
                 "
               ></a>
-              <span
-                *ngIf="
-                  singleValue.externalLink && singleValue.externalLink.broken
-                "
-                [innerHTML]="singleValue.label"
-              ></span>
               &nbsp;
             </span>
           </ng-container>
+          <span
+            *ngIf="
+              tag.showMoreThreshold && tag.values.length > tag.showMoreThreshold
+            "
+            class="show-more-tag"
+            (click)="toggleShowAllTags(tag.label)"
+          >
+            {{ createShowMoreLabel(tag) }}
+          </span>
         </div>
       </div>
     </ng-container>
@@ -78,11 +81,27 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
         border-radius: 0px;
         line-height: 1.2;
       }
+
+      .show-more-tag {
+        padding: 5px;
+        font-size: 12px;
+        line-height: 1;
+        font-weight: 525;
+        color: #30549f;
+        display: inline-block;
+        transition: all 0.2s ease;
+      }
+
+      .show-more-tag:hover {
+        color: #000000;
+        cursor: pointer;
+      }
     `,
   ],
 })
 export class TagsComponent implements OnChanges {
   parsedTags: ITag[] = [];
+  showMoreStatePerTag: { [tagLabel: string]: boolean } = {};
 
   @Input()
   tags: ITag[] = [];
@@ -100,6 +119,9 @@ export class TagsComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['tags'] || changes['highlights']) {
       this.parsedTags = combineHighlightsWith(this.tags, this.highlights);
+      this.showMoreStatePerTag = Object.fromEntries(
+        this.parsedTags.map((tag) => [tag.label, false])
+      );
     }
   }
 
@@ -144,5 +166,29 @@ export class TagsComponent implements OnChanges {
 
   addSubTitle(subTitle?: string) {
     return subTitle ? `${subTitle}: ` : undefined;
+  }
+
+  _onClickExternalLink(e: MouseEvent, link?: string) {
+    return link ? e : e.preventDefault();
+  }
+
+  toggleShowAllTags(tagLabel: string) {
+    this.showMoreStatePerTag[tagLabel] = !this.showMoreStatePerTag[tagLabel];
+  }
+
+  computeTagEntries(tag: ITag): IValueWithLabelAndLink[] {
+    if (this.showMoreStatePerTag[tag.label] || !tag.showMoreThreshold)
+      return this.cleanDuplicatedTagLabel(tag.values);
+
+    return this.cleanDuplicatedTagLabel(tag.values).slice(
+      0,
+      tag.showMoreThreshold
+    );
+  }
+
+  createShowMoreLabel(tag: ITag): string {
+    return this.showMoreStatePerTag[tag.label]
+      ? 'Show less'
+      : `+ ${tag.values.length - tag.showMoreThreshold!}`;
   }
 }
