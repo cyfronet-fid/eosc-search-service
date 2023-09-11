@@ -23,13 +23,17 @@ import { ConfigService } from '../../services/config.service';
       <option value="{{ option }}" *ngFor="let option of this.urls">
         {{ option }}
       </option>
-      <option value="default">Source</option>
+      <option value="default" disabled>Source</option>
     </select>
   </div>`,
   styles: [
     `
       :host {
         display: contents;
+      }
+
+      option[disabled] {
+        display: none;
       }
 
       label {
