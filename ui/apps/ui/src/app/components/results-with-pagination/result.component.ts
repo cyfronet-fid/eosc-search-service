@@ -86,12 +86,22 @@ export class ResultComponent implements OnInit {
   secondaryTags: ISecondaryTag[] = [];
 
   @Input()
+  resourceType!: string;
+
+  @Input()
   set highlights(highlights: { [field: string]: string[] | undefined }) {
     this.highlightsreal = highlights;
     return;
   }
   public hasDOIUrl = false;
   public parsedUrls: { [key: string]: string } = {};
+
+  public readonly RESOURCES_TO_SHOW_PIN_TO: string[] = [
+    'software',
+    'publication',
+    'dataset',
+    'other',
+  ];
 
   constructor(
     private _customRoute: CustomRoute,

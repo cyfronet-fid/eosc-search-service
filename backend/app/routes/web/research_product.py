@@ -4,7 +4,7 @@ import logging
 from contextlib import suppress
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from httpx import AsyncClient, HTTPError
 from pydantic import AnyUrl
 
@@ -30,6 +30,9 @@ async def get_rp_by_id(
     async with AsyncClient() as async_client:
         response = await solr_get(async_client, resource_type, rp_id)
         response = response.json()["doc"]
+
+    if response is None:
+        raise HTTPException(status_code=404, detail="Research product not found")
 
     return ResearchProductResponse(
         title=" ".join(response["title"]),

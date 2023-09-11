@@ -73,9 +73,7 @@ import {
             }"
             id="dashboard__filters"
           >
-            <ess-filters
-              *ngIf="(response?.results ?? []).length > 0"
-            ></ess-filters>
+            <ess-filters [results]="response?.results"></ess-filters>
           </div>
           <div class="col-sm-7 col-12 center-column">
             <ess-page-header

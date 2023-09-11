@@ -4,7 +4,8 @@ from typing import List, Literal, TypeAlias
 from pydantic import AnyUrl, BaseModel
 
 ResourceType: TypeAlias = Literal["publication", "dataset", "software", "other"]
-Collection: TypeAlias = Literal["publication", "dataset", "software", "other_rp"]
+# change back after prefixes are finished Literal["publication", "dataset", "software", "other_rp"]
+Collection: TypeAlias = str
 
 
 class ResearchProductResponse(BaseModel):

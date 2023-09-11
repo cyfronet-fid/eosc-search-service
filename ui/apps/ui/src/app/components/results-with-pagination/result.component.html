@@ -175,10 +175,15 @@
   </div>
   <div class="bottom-actions">
     <ess-bibliography
-    *ngIf="isResearchProduct"
-    [title]="title"
-    [hasDOIUrl]="hasDOIUrl"
-    [parsedUrls]="parsedUrls"
+      style="float: left;"
+      *ngIf="isResearchProduct"
+      [title]="title"
+      [hasDOIUrl]="hasDOIUrl"
+      [parsedUrls]="parsedUrls"
     ></ess-bibliography>
+    <ess-pin *ngIf="RESOURCES_TO_SHOW_PIN_TO.includes(type.value)"
+             [resourceType]="type.value" [resourceId]="id"
+             style="float: left;"
+    ></ess-pin>
   </div>
 </div>
