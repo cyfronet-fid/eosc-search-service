@@ -22,7 +22,9 @@ export const bundlesAdapter: IAdapter = {
       value: 'bundle',
     },
     collection: COLLECTION,
-    url: `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}`,
+    url: `${ConfigService.config?.marketplace_url}/services/${
+      bundle.service_id
+    }/bundles/${parseInt(bundle.id.substring(2))}`,
     coloredTags: [],
     tags: [],
     offers: bundle.offers ?? [],

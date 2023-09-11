@@ -12,7 +12,8 @@
     "start:external": "nx serve --proxy-config apps/ui/proxy.external.conf.json",
     "prebuild": "npm run make:requirements",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "lint:fix": "nx lint --fix && nx format --files 'apps/ui/src/**/*.{js,ts,html,scss}'"
   },
   "private": true,
   "dependencies": {
