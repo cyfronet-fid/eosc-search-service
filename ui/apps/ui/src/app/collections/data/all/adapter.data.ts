@@ -2,7 +2,10 @@ import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { COLLECTION } from './search-metadata.data';
 import { IOpenAIREResult } from '@collections/data/openair.model';
-import { formatPublicationDate } from '@collections/data/utils';
+import {
+  constructDoiTag,
+  formatPublicationDate,
+} from '@collections/data/utils';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
@@ -13,11 +16,9 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
-  toAccessRightColoredTag,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   toBetaTag,
-  toHorizontalServiceTag,
-  toLanguageColoredTag,
+  transformLanguages,
 } from '@collections/data/shared-tags';
 import {
   parseStatistics,
@@ -113,30 +114,30 @@ export const allCollectionsAdapter: IAdapter = {
       id: string;
     }
   ): IResult => ({
+    isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
     id: data.id,
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',
+    documentType: data?.document_type,
     date: extractDate(data),
+    languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
-    coloredTags: [
-      toHorizontalServiceTag(data?.horizontal),
-      toAccessRightColoredTag(data?.best_access_right),
-      toLanguageColoredTag(data?.language),
-    ],
+    horizontal: data?.horizontal,
+    coloredTags: [],
     tags:
       data.type === 'bundle'
         ? []
         : [
             {
-              label: 'Author name',
+              label: 'Author',
               values: toValueWithLabel(toArray(data?.author_names)),
               filter: 'author_names',
             },
             {
-              label: 'DOI',
-              values: toValueWithLabel(toArray(data?.doi)),
-              filter: 'doi',
+              label: 'Organisation',
+              values: toValueWithLabel(toArray(data?.resource_organisation)),
+              filter: 'resource_organisation',
             },
             {
               label: 'Scientific domain',
@@ -144,9 +145,9 @@ export const allCollectionsAdapter: IAdapter = {
               filter: 'scientific_domains',
             },
             {
-              label: 'Organisation',
-              values: toValueWithLabel(toArray(data?.resource_organisation)),
-              filter: 'resource_organisation',
+              label: 'Identifier',
+              values: constructDoiTag(data?.doi),
+              filter: 'doi',
             },
           ],
     type: {

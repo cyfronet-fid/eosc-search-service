@@ -7,11 +7,13 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
+  constructDoiTag,
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
 import { formatPublicationDate } from '@collections/data/utils';
+import { transformLanguages } from '@collections/data/shared-tags';
 
 export const otherResourcesProductsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -19,49 +21,33 @@ export const otherResourcesProductsAdapter: IAdapter = {
     openAIREResult: Partial<IOpenAIREResult> & { id: string }
   ): IResult => ({
     isSortByRelevanceCollectionScopeOff: false,
+    isSortCollectionScopeOff: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
+    documentType: openAIREResult?.document_type,
+    languages: transformLanguages(openAIREResult?.language),
     date: formatPublicationDate(openAIREResult['publication_date']),
+    license: openAIREResult?.license,
     url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
-    coloredTags: [
-      {
-        values: toValueWithLabel(toArray(openAIREResult?.best_access_right)),
-        filter: 'best_access_right',
-        colorClassName: (openAIREResult?.best_access_right || '').match(
-          /open(.access)?/gi
-        )
-          ? 'tag-light-green'
-          : 'tag-light-coral',
-      },
-      {
-        colorClassName: 'tag-almond',
-        values: toValueWithLabel(toArray(openAIREResult['license'])),
-        filter: 'license',
-      },
-      {
-        colorClassName: 'tag-peach',
-        filter: 'language',
-        values: toValueWithLabel(toArray(openAIREResult?.language)),
-      },
-    ],
+    coloredTags: [],
     tags: [
       {
-        label: 'Author name',
+        label: 'Author',
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
       },
       {
-        label: 'DOI',
-        values: toValueWithLabel(toArray(openAIREResult?.doi)),
-        filter: 'doi',
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
+        filter: 'scientific_domains',
       },
       {
-        label: 'Field of Science',
-        values: toValueWithLabel(toArray(openAIREResult?.fos)),
-        filter: 'fos',
+        label: 'Identifier',
+        values: constructDoiTag(openAIREResult?.doi),
+        filter: 'doi',
       },
     ],
     type: {

@@ -1,8 +1,10 @@
 import {
+  AccessRight,
   IFacetBucket,
   IFilterNode,
   IResult,
   ISecondaryTag,
+  IValueWithLabelAndLink,
 } from '@collections/repositories/types';
 import {
   toArray,
@@ -43,7 +45,9 @@ export const parseStatistics = (data: any): Partial<IResult> => {
   return {
     views: isNaN(views) ? undefined : views,
     downloads: isNaN(downloads) ? undefined : downloads,
-    accessRight: data['best_access_right'],
+    accessRight: data['best_access_right']?.toLowerCase() as
+      | AccessRight
+      | undefined,
   };
 };
 export const alphanumericFilterSort = (a: IFilterNode, b: IFilterNode) =>
@@ -64,4 +68,23 @@ export const formatPublicationDate = (
   publication_date: string[] | string | undefined
 ) => {
   return publication_date ? moment(publication_date).format('YYYY') : '';
+};
+
+export const resolveDoiLink = (rawDoi: string): string | undefined => {
+  const doiRegex = new RegExp('^10\\.\\d{4,9}/[-._;()/:A-Za-z0-9]+$');
+  return doiRegex.test(rawDoi) ? `https://doi.org/${rawDoi}` : undefined;
+};
+
+export const constructDoiTag = (
+  doiArr: string[] | undefined
+): IValueWithLabelAndLink[] => {
+  return toValueWithLabel(toArray(doiArr)).map(({ value, label }) => ({
+    value,
+    label,
+    subTitle: 'DOI',
+    externalLink: {
+      link: resolveDoiLink(value),
+      broken: !resolveDoiLink(value),
+    },
+  }));
 };

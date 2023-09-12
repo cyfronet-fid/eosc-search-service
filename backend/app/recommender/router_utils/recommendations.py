@@ -17,6 +17,8 @@ from app.schemas.session_data import SessionData
 from app.settings import settings
 from app.solr.operations import get, search
 
+ALL_COLLECTION = f"{settings.NG_COLLECTIONS_PREFIX}all_collection"
+
 
 async def get_recommended_uuids(
     client: AsyncClient, session: SessionData | None, panel_id: RecommendationPanelId
@@ -62,7 +64,7 @@ async def get_recommended_items(client: AsyncClient, uuids: list[str]):
     try:
         items = []
         for item_uuid in uuids:
-            response = (await get(client, "all_collection", item_uuid)).json()
+            response = (await get(client, ALL_COLLECTION, item_uuid)).json()
             item = response["doc"]
             if item is None:
                 raise SolrRetrieveError(f"No item with id={item_uuid}")
@@ -87,7 +89,7 @@ async def get_fixed_recommendations(
     async with httpx.AsyncClient() as client:
         response = await search(
             client,
-            "all_collection",
+            ALL_COLLECTION,
             q="*",
             qf="id",
             exact="false",

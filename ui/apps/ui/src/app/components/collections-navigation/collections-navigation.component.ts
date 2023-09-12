@@ -56,6 +56,7 @@ export class CollectionsNavigationComponent implements OnInit {
   ngOnInit() {
     this.navigationLinks = this._navConfigsRepository
       .getAll()
+      .filter((nav) => nav.id !== 'provider')
       .map(toNavigationLink);
   }
 }

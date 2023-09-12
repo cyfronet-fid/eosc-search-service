@@ -12,7 +12,6 @@ software_output_schema = {
     "documentation_url": "array<string>",
     "doi": "array<string>",
     "eosc_if": "array<string>",
-    "fos": "array<string>",
     "funder": "array<string>",
     "id": "string",
     "keywords": "array<string>",
@@ -25,6 +24,7 @@ software_output_schema = {
     "relations": "array<string>",
     "relations_long": "array<string>",
     "research_community": "array<string>",
+    "scientific_domains": "array<string>",
     "sdg": "array<string>",
     "source": "array<string>",
     "subtitle": "string",  # Very few records have subtitle

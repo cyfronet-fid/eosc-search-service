@@ -378,18 +378,32 @@ h3,
 h6 {
   margin-bottom: 0;
 }
+
+.usage {
+  border-bottom: 1px dotted #d9dee2;
+  padding: 7px 0;
+}
+
 #tags {
   font-weight: 400;
-  margin: 7px 0 10px;
+  margin: 7px 0;
   line-height: 1.3;
   font-style: normal !important;
+  border-bottom: 1px dotted #d9dee2;
+  padding-bottom: 2px;
 
   i {
     font-style: normal !important;
   }
 
   a {
-    color: #233d4c;
+    color: #000a64;
+    background: #d1f4ff59;
+    padding: 2px 7px;
+
+    &:hover {
+      background: #d1f4ff89;
+    }
   }
 }
 
@@ -411,14 +425,113 @@ h6 {
   color: #0c2bd5 !important;
 }
 
-.results #container {
-  background: #fff;
-  padding: 25px 20px 20px;
-  overflow: hidden;
+.results {
+  display: flex !important;
   border: 1px solid #d9dee2;
   border-radius: 8px;
-  position: relative;
   margin: 0 0 20px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.results .type-icon-holder {
+  flex: 90px 0 0;
+  border-left: 3px solid #eee;
+
+  .type-icon {
+    width: 40px;
+    height: 50px;
+    background-repeat: no-repeat;
+    margin: 25px auto;
+    background-position: top left;
+    background-size: 40px auto;
+  }
+
+  &.service {
+    border-color: #91AAD2;
+
+    .type-icon {
+      background-image: url('assets/icon-type-service.svg');
+    }
+  }
+
+  &.software {
+    border-color: #D291C0;
+
+    .type-icon {
+      background-image: url('assets/icon-type-software.svg');
+    }
+  }
+
+  &.source {
+    border-color: #91D2BB;
+
+    .type-icon {
+      background-image: url('assets/icon-type-data-source.svg');
+    }
+  }
+
+  &.dataset {
+    border-color: #91D2BB;
+
+    .type-icon {
+      background-image: url('assets/icon-type-data.svg');
+    }
+  }
+
+  &.other {
+    border-color: #FFEDAC;
+
+    .type-icon {
+      background-image: url('assets/icon-type-other.svg');
+    }
+  }
+
+  &.training {
+    border-color: #C991D2;
+
+    .type-icon {
+      background-image: url('assets/icon-type-training.svg');
+    }
+  }
+
+  &.publication {
+    border-color: #FFEDAC;
+
+    .type-icon {
+      background-image: url('assets/icon-type-publication.svg');
+    }
+  }
+
+  &.guideline {
+    border-color: #C991D2;
+
+    .type-icon {
+      background-image: url('assets/icon-type-guidelines.svg');
+    }
+  }
+
+  &.bundles {
+    border-color: #A7FEF9;
+
+    .type-icon {
+      background-image: url('assets/icon-type-bundle.svg');
+    }
+  }
+
+  &.provider {
+    border-color: #91AAD2;
+
+    .type-icon {
+      background-image: url('assets/icon-type-provider.svg');
+    }
+  }
+}
+
+.results #container {
+  padding: 10px 20px 25px 0;
+  position: relative;
+  width: 100%;
 
   .usage {
     .open-access {
@@ -475,7 +588,7 @@ h6 {
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
-    padding-left: 24px;
+    margin-bottom: 15px;
 
     a {
       font-weight: 400;
@@ -493,26 +606,20 @@ h6 {
   .description {
     font-size: 13px;
     line-height: 23px;
-    margin-bottom: 5px;
-    margin-top: 15px;
+    margin-bottom: 0;
+    margin-top: 5px;
     color: #233d4c;
   }
 
   .btn-show-more {
-    padding: 5px 10px 6px;
-    margin-right: 10px;
     font-size: 13px;
     line-height: 1.1;
     font-weight: 400;
-    margin: 15px 0 0;
-    float: right;
+    margin: 0 0 0 10px;
     color: #2255a4;
-    background: #edf4ff;
-    border-radius: 35px;
 
     &:hover {
-      color: #edf4ff;
-      background: #2255a4;
+      color: #000;
     }
   }
 }
@@ -553,15 +660,35 @@ h6 {
 }
 
 .tag-row {
-  margin-bottom: 2px;
+  margin-bottom: 4px;
+  display: flex;
   color: #233d4c;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  .tag-title {
+    flex: 0 0 120px;
+    margin-top: 3px;
+  }
+
+  .tag-content {
+  }
+
+  .tag {
+    display: inline-block;
+    font-weight: 400;
+    font-size: 12px;
+    margin-bottom: 4px;
+    margin-left: 0;
+  }
 
   a {
     color: #233d4c;
     text-decoration: none;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
 }
@@ -610,6 +737,7 @@ h6 {
     }
   }
 }
+
 .page-item.active {
   border: none;
 }
@@ -622,6 +750,30 @@ h6 {
   display: inline;
   float: left;
   margin-right: 12px;
+}
+
+#languageDropdown {
+  font-size: 11px;
+  padding-left: 5px;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.language-dropdown {
+  .dropdown-menu {
+    padding: 10px 15px;
+    font-size: 12px;
+    width: 170px;
+    line-height: 22px;
+  }
+}
+
+.suggested .description {
+  font-size: 13px;
+  padding-top: 10px;
+  line-height: 23px;
 }
 
 @media (min-width: 1920px) {
@@ -1042,6 +1194,17 @@ h6 {
 }
 
 @media (max-width: 576px) {
+
+  .results .type-icon-holder {
+    flex: 70px 0 0;
+
+    .type-icon {
+      width: 45px;
+      height: 55px;
+      background-size: 45px auto;
+    }
+  }
+
   .search-box {
     input {
       max-width: 185px;

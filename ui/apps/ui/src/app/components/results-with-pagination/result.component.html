@@ -1,3 +1,6 @@
+<div class="type-icon-holder {{ type.label }}">
+  <div class="type-icon"></div>
+</div>
 <div
   id="container"
   [ngClass]="type.value === 'bundle' ? 'bundle_container' : 'nobundle'"
@@ -13,11 +16,6 @@
       style="display: flex"
       *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
     >
-      <div class="provider-box">
-        <div class="provider-offer-pic">
-          <img src="assets/provider.svg" />
-        </div>
-      </div>
       <div style="display: flex; flex-direction: column">
         <ess-url-title
           [ngClass]="{ padding_for_provider: type.value === 'provider' }"
@@ -62,25 +60,20 @@
       </div>
     </ng-template>
   </div>
-  <div class="usage">
-    <span
+  <div class="product-type-bar">
+    <div class="product-type-details" *ngIf="type !== undefined">
+      {{ _createDocumentTypeLabel(type.label, documentType) }}
+    </div>
+    <img
       *ngIf="accessRight !== undefined"
-      [ngClass]="{
-        statistic: true,
-        'open-access': accessRight?.toLowerCase() === 'open access',
-        'other-access': accessRight?.toLowerCase() !== 'open access'
-      }"
-      ><img
-        [src]="
-          accessRight?.toLowerCase() === 'open access'
-            ? '/assets/usage-access.svg'
-            : '/assets/restricted access.svg'
-        "
-      />
-      <ng-container i18n>{{
-        accessRight | filterPipe: 'access_right'
-      }}</ng-container></span
-    >
+      [src]="_getAccessIcon(accessRight!)"
+    />
+    <img
+      *ngIf="horizontal !== undefined && horizontal"
+      src="/assets/horizontal-service.svg"
+    />
+  </div>
+  <div class="usage">
     <span
       *ngIf="
         date !== undefined &&
@@ -92,14 +85,6 @@
       ><img src="/assets/usage-date.svg" />
       <ng-container i18n>{{ date }}</ng-container></span
     >
-    <span
-      *ngIf="
-        type !== null && type.value !== 'bundle' && type.value !== 'provider'
-      "
-      class="statistic text-muted"
-      ><img src="/assets/usage-type.svg" />
-      <ng-container i18n>Type: {{ type.label }}</ng-container></span
-    >
     <span *ngIf="downloads !== undefined" class="statistic text-muted"
       ><img src="/assets/usage-downloads.svg" />
       <ng-container i18n>{{ downloads }} Downloads</ng-container></span
@@ -108,6 +93,38 @@
       ><img src="/assets/usage-views.svg" />
       <ng-container i18n>{{ views }} Views</ng-container></span
     >
+    <span *ngIf="license !== undefined" class="statistic text-muted">
+      <ng-container i18n>License: {{ _formatLicense(license!) }}</ng-container>
+    </span>
+    <ng-container *ngIf="languages.length > 0">
+      <ng-container *ngIf="languages.length === 1; else elseBlock">
+        <span class="statistic text-muted">
+          <img src="/assets/language.svg" />
+          <ng-container i18n>{{ languages[0] }}</ng-container>
+        </span>
+      </ng-container>
+      <ng-template #elseBlock>
+        <img src="/assets/language.svg" />
+        <div ngbDropdown class="d-inline-block language-dropdown">
+          <button
+            type="button"
+            class="btn statistic text-muted"
+            id="languageDropdown"
+            ngbDropdownToggle
+          >
+            <ng-container i18n> {{ languages.length }} languages</ng-container>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="languageDropdown">
+            <div
+              *ngFor="let language of languages"
+              class="statistic text-muted"
+            >
+              <ng-container i18n>{{ language }}</ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
   </div>
   <ess-tags
     [tags]="tags"
@@ -115,16 +132,16 @@
     (activeFilter)="setActiveFilter($event.filter, $event.value)"
   >
   </ess-tags>
+  <ess-description
+    [description]="description"
+    [highlights]="highlightsreal['description'] ?? []"
+  ></ess-description>
   <ess-secondary-tags
     [highlights]="highlightsreal"
     [tags]="secondaryTags"
     (activeFilter)="setActiveFilter($event.filter, $event.value)"
   >
   </ess-secondary-tags>
-  <ess-description
-    [description]="description"
-    [highlights]="highlightsreal['description'] ?? []"
-  ></ess-description>
   <div>
     <div>
       <div class="bundle-box" *ngIf="type.value === 'bundle'">

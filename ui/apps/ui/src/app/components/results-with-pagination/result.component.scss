@@ -2,6 +2,23 @@
   display: block;
 }
 
+.product-type-bar {
+  display: flex;
+  gap: 10px;
+}
+
+.product-type-bar > .product-type-details {
+  background: #edf4ff;
+  color: #040f81;
+  padding: 5px 10px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
 .usage > .statistic {
   font-size: 11px;
   margin-right: 15px;
@@ -67,7 +84,6 @@
 .padding_for_provider {
   display: flex;
   align-items: center;
-  padding-left: 24px;
   font-size: 14px;
   color: red;
 }

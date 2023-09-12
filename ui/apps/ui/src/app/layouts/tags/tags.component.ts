@@ -7,7 +7,11 @@ import {
   SimpleChanges,
   TrackByFunction,
 } from '@angular/core';
-import { ITag, IValueWithLabel } from '@collections/repositories/types';
+import {
+  ITag,
+  IValueWithLabel,
+  IValueWithLabelAndLink,
+} from '@collections/repositories/types';
 import { combineHighlightsWith } from './utils';
 import { ViewportScroller } from '@angular/common';
 import { translateDictionaryValue } from '../../dictionary/translateDictionaryValue';
@@ -20,21 +24,43 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
       *ngFor="let tag of parsedTags; let i = index; trackBy: trackByLabel"
     >
       <div class="tag-row" *ngIf="tag.values.length > 0">
-        <span class="tag tag-title"
-          ><strong>{{ tag.label }}: </strong></span
-        >
-        <ng-container
-          *ngFor="let singleValue of cleanDuplicatedTagLabel(tag.values)"
-        >
-          <span class="tag"
-            ><a
-              href="javascript:void(0)"
-              (click)="setActiveFilter(tag.filter, singleValue.value)"
-              [innerHTML]="singleValue.label | filterPipe: tag.filter"
-            ></a
-            >&nbsp;&nbsp;</span
+        <div class="tag tag-title">{{ tag.label }}:</div>
+        <div class="tag-content">
+          <ng-container
+            *ngFor="let singleValue of cleanDuplicatedTagLabel(tag.values)"
           >
-        </ng-container>
+            <span class="tag">
+              <a
+                *ngIf="!singleValue.externalLink"
+                href="javascript:void(0)"
+                (click)="setActiveFilter(tag.filter, singleValue.value)"
+                [innerHTML]="
+                  (addSubTitle(singleValue.subTitle) ?? '') +
+                  ' ' +
+                  (singleValue.label | filterPipe: tag.filter)
+                "
+              ></a>
+              <a
+                *ngIf="
+                  singleValue.externalLink && !singleValue.externalLink.broken
+                "
+                [href]="singleValue.externalLink.link"
+                [innerHTML]="
+                  (addSubTitle(singleValue.subTitle) ?? '') +
+                  ' ' +
+                  (singleValue.label ?? '')
+                "
+              ></a>
+              <span
+                *ngIf="
+                  singleValue.externalLink && singleValue.externalLink.broken
+                "
+                [innerHTML]="singleValue.label"
+              ></span>
+              &nbsp;
+            </span>
+          </ng-container>
+        </div>
       </div>
     </ng-container>
   </div>`,
@@ -43,14 +69,6 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
       ::ng-deep .highlighted {
         background-color: #e8e7ff !important;
         padding: 3px;
-      }
-
-      .tag a::after {
-        content: ',';
-        width: 0px;
-        height: 0px;
-        border-radius: 0px;
-        line-height: 1.2;
       }
 
       .tag:last-child a::after {
@@ -90,7 +108,9 @@ export class TagsComponent implements OnChanges {
     this.viewPortScroller.scrollToPosition([0, 0]);
   }
 
-  cleanDuplicatedTagLabel(array: IValueWithLabel[]): IValueWithLabel[] {
+  cleanDuplicatedTagLabel(
+    array: IValueWithLabelAndLink[]
+  ): IValueWithLabelAndLink[] {
     if (array[array.length - 1].value.indexOf('>') !== -1) {
       array.reverse();
     }
@@ -116,5 +136,13 @@ export class TagsComponent implements OnChanges {
       []
     );
     return a;
+  }
+
+  // cleanComas(array: IValueWithLabelAndLink[]): IValueWithLabelAndLink[] {
+  //   return array.map((val) => val.label.slice(-1) === ',');
+  // }
+
+  addSubTitle(subTitle?: string) {
+    return subTitle ? `${subTitle}: ` : undefined;
   }
 }

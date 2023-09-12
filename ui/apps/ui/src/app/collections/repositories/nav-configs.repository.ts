@@ -33,9 +33,7 @@ export class NavConfigsRepository {
   }
 
   getAll() {
-    return this._store$
-      .query(getAllEntities())
-      .filter((nav) => nav.id !== 'provider');
+    return this._store$.query(getAllEntities());
   }
 
   setActive(navConf: Partial<ICollectionNavConfig> & { id: string }) {

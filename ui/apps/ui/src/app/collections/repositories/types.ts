@@ -1,6 +1,7 @@
 export interface IValueWithLabel {
   label: string;
   value: string;
+  subTitle?: string;
 }
 
 export interface IResult {
@@ -8,6 +9,7 @@ export interface IResult {
   title: string;
   abbreviation?: string;
   description: string | string[];
+  documentType?: string[];
   type: IValueWithLabel;
   collection: string;
   url: string;
@@ -15,12 +17,16 @@ export interface IResult {
   date?: string;
   coloredTags?: IColoredTag[];
   secondaryTags?: ISecondaryTag[];
-  accessRight?: string;
+  accessRight?: AccessRight;
+  license?: string | string[];
+  languages?: string[];
   views?: number;
   downloads?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   offers?: any[];
   isSortByRelevanceCollectionScopeOff?: boolean;
+  isSortCollectionScopeOff?: boolean;
+  horizontal?: boolean;
 }
 
 export interface ISecondaryTag {
@@ -30,9 +36,13 @@ export interface ISecondaryTag {
   type: 'url' | 'info';
 }
 
+export interface IValueWithLabelAndLink extends IValueWithLabel {
+  externalLink?: { broken: boolean; link?: string };
+}
+
 export interface ITag {
   label: string;
-  values: IValueWithLabel[];
+  values: IValueWithLabelAndLink[];
   filter: string;
 }
 
@@ -181,3 +191,11 @@ export interface ICreator {
   authorAffiliations: string;
   authorAffiliationsId: string;
 }
+
+export type AccessRight =
+  | 'open access'
+  | 'restricted'
+  | 'embargo'
+  | 'closed'
+  | 'other'
+  | 'order required';
