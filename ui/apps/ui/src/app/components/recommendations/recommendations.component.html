@@ -1,11 +1,7 @@
 <ng-container *ngIf="recommendations.length > 0">
   <div
     class="column"
-    style="
-      padding: 5px 0 0 0;
-      display: flex;
-      justify-content: space-between;
-    "
+    style="padding: 5px 0 0 0; display: flex; justify-content: space-between"
   >
     <div class="container results-recommendations col-md-12">
       <div class="row">
@@ -13,9 +9,19 @@
           <h2 style="padding-top: 24px">Resources selected for you</h2>
           <div id="tooltipIcon" style="padding-top: 25px; margin-left: 10px">
             <img
+              *ngIf="isLogged"
               src="assets/tooltip_prompt.svg"
               placement="bottom"
               [ngbTooltip]="tooltipText"
+              alt="Tooltip prompt icon"
+              class="tooltip-prompt-icon"
+              width="19"
+            />
+            <img
+              *ngIf="!isLogged"
+              src="assets/tooltip_prompt.svg"
+              placement="bottom"
+              [ngbTooltip]="tooltipTextN"
               alt="Tooltip prompt icon"
               class="tooltip-prompt-icon"
               width="19"
