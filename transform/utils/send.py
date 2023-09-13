@@ -88,25 +88,34 @@ def send_to_solr(
     except KeyError:
         solr_col_names = env_vars[SEPARATE_COLLECTION][col_name][SOLR_COL_NAMES]
     solr_col_names = solr_col_names.split(" ")
-    req_statuses = []
+    solr_addresses = env_vars[SOLR_ADDRESS].split(" ")
+    # req_statuses = []
 
     for s_col_name in solr_col_names:
-        url = f"{env_vars[SOLR_ADDRESS]}:{env_vars[SOLR_PORT]}/solr/{s_col_name}/update/json/docs"
-        try:
-            req = requests.post(
-                url, data=open(file_to_send, "rb"), headers=req_headers, timeout=180
-            )
-            req_statuses.append(req.status_code)
-        except ReqConnectionError:
-            req_statuses.append(500)
-
-    if any((status != 200 for status in req_statuses)):
-        failed_files[col_name][SOLR].append(file)
-        for num, status in enumerate(req_statuses):
-            if status != 200:
-                logger.error(
-                    f"{col_name} - {file} failed to be sent to the Solr collection: {solr_col_names[num]}, status={status}"
+        for solr_address in solr_addresses:
+            url = f"{solr_address}:{env_vars[SOLR_PORT]}/solr/{s_col_name}/update/json/docs"
+            try:
+                req = requests.post(
+                    url, data=open(file_to_send, "rb"), headers=req_headers, timeout=180
                 )
+                # req_statuses.append(req.status_code)
+                if req.status_code != 200:
+                    logger.error(
+                        f"{col_name} - {file} failed to be sent to the Solr {solr_address}, collection: {s_col_name}, status={req.status_code}"
+                    )
+            except ReqConnectionError:
+                # req_statuses.append(500)
+                logger.error(
+                    f"{col_name} - {file} failed to be sent to the Solr {solr_address}, collection: {s_col_name}, status={500}"
+                )
+
+    # if any((status != 200 for status in req_statuses)):
+    #     failed_files[col_name][SOLR].append(file)
+    #     for num, status in enumerate(req_statuses):
+    #         if status != 200:
+    #             logger.error(
+    #                 f"{col_name} - {file} failed to be sent to the Solr collection: {solr_col_names[num]}, status={status}"
+    #             )
 
 
 def send_to_s3(
