@@ -31,9 +31,9 @@ export const RECOMMENDATIONS_TOOLTIP_TEXT_NOTLOGGED =
   'and actions on the EOSC Platform';
 
 export const RECOMMENDATIONS_TOOLTIP_TEXT_LOGGED =
-  'A recommender system suggests resources—like data sets,' +
-  'publications, software, trainings, and more.' +
-  'It looks at your past orders, views, and interactions.' +
+  'A recommender system suggests resources - like data sets, ' +
+  'publications, software, trainings, and more. ' +
+  'It looks at your past orders, views, and interactions. ' +
   'It also considers what others with similar interests ' +
   'have engaged with. The more you explore, the smarter ' +
   'the suggestions get. Your journey shapes your suggestions!';
