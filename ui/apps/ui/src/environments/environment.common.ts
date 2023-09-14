@@ -14,6 +14,7 @@ export const commonEnvironment = {
   navigationApiPath: 'navigate',
   userApiPath: 'auth/userinfo',
   recommendationsApiPath: 'recommendations',
+  feedbackApiPath: 'feedback',
   search: {
     apiPath: 'search-results',
     suggestionsPath: 'search-suggestions',
