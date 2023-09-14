@@ -1,7 +1,7 @@
 <div id="container">
   <div *ngIf="standardSearch" class="search-box">
     <form>
-      <div class="input-group" style="padding-bottom: 5px;">
+      <div class="input-group" style="padding-bottom: 5px">
         <div class="phase-box">
           <input
             #inputQuery
@@ -90,10 +90,10 @@
   </div>
   <div *ngIf="!standardSearch" class="search-box-adv">
     <form>
-      <div class="input-group" style="margin-bottom: 5px;">
+      <div class="input-group" style="margin-bottom: 5px">
         <select
           class="form-select"
-          style="margin-left: 0px;"
+          style="margin-left: 0px"
           (click)="focused = false"
           [formControl]="collectionFc"
         >
@@ -141,11 +141,7 @@
           </button>
         </div>
       </div>
-      <div
-        *ngIf="tags.length !== 0"
-        class="mb-2"
-        style="margin-left:-45px;"
-      >
+      <div *ngIf="tags.length !== 0" class="mb-2" style="margin-left: -45px">
         <span class="adv-search-text-tag" *ngFor="let elem of tags">
           <nz-tag nzMode="closeable" (nzOnClose)="remove(elem)">{{
             elem
@@ -154,10 +150,10 @@
       </div>
 
       <span class="adv-search-text">Narrow your search</span>
-      <div class="input-group" style="margin-bottom: 5px; margin-top:5px;">
+      <div class="input-group" style="margin-bottom: 5px; margin-top: 5px">
         <select
           class="form-select"
-          style="margin-left: 0px;"
+          style="margin-left: 0px"
           (click)="focused = false"
           [formControl]="collectionFcAdvForm"
         >
@@ -186,9 +182,7 @@
             [formControl]="formControlAdv"
           />
           <button
-            *ngIf="
-              formControlAdv.value && formControlAdv.value.trim() !== ''
-            "
+            *ngIf="formControlAdv.value && formControlAdv.value.trim() !== ''"
             id="btn--clear-query"
             type="button"
             class="btn btn-secondary"

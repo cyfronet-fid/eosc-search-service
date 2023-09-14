@@ -448,7 +448,7 @@ h6 {
   }
 
   &.service {
-    border-color: #91AAD2;
+    border-color: #91aad2;
 
     .type-icon {
       background-image: url('assets/icon-type-service.svg');
@@ -456,7 +456,7 @@ h6 {
   }
 
   &.software {
-    border-color: #D291C0;
+    border-color: #d291c0;
 
     .type-icon {
       background-image: url('assets/icon-type-software.svg');
@@ -464,7 +464,7 @@ h6 {
   }
 
   &.source {
-    border-color: #91D2BB;
+    border-color: #91d2bb;
 
     .type-icon {
       background-image: url('assets/icon-type-data-source.svg');
@@ -472,7 +472,7 @@ h6 {
   }
 
   &.dataset {
-    border-color: #91D2BB;
+    border-color: #91d2bb;
 
     .type-icon {
       background-image: url('assets/icon-type-data.svg');
@@ -480,7 +480,7 @@ h6 {
   }
 
   &.other {
-    border-color: #FFEDAC;
+    border-color: #ffedac;
 
     .type-icon {
       background-image: url('assets/icon-type-other.svg');
@@ -488,7 +488,7 @@ h6 {
   }
 
   &.training {
-    border-color: #C991D2;
+    border-color: #c991d2;
 
     .type-icon {
       background-image: url('assets/icon-type-training.svg');
@@ -496,7 +496,7 @@ h6 {
   }
 
   &.publication {
-    border-color: #FFEDAC;
+    border-color: #ffedac;
 
     .type-icon {
       background-image: url('assets/icon-type-publication.svg');
@@ -504,7 +504,7 @@ h6 {
   }
 
   &.guideline {
-    border-color: #C991D2;
+    border-color: #c991d2;
 
     .type-icon {
       background-image: url('assets/icon-type-guidelines.svg');
@@ -512,7 +512,7 @@ h6 {
   }
 
   &.bundles {
-    border-color: #A7FEF9;
+    border-color: #a7fef9;
 
     .type-icon {
       background-image: url('assets/icon-type-bundle.svg');
@@ -520,7 +520,7 @@ h6 {
   }
 
   &.provider {
-    border-color: #91AAD2;
+    border-color: #91aad2;
 
     .type-icon {
       background-image: url('assets/icon-type-provider.svg');
@@ -1188,7 +1188,6 @@ h6 {
 }
 
 @media (max-width: 576px) {
-
   .results .type-icon-holder {
     flex: 70px 0 0;
 

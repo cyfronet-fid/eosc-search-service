@@ -16,7 +16,6 @@
       style="display: flex"
       *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
     >
-
       <div style="display: flex; flex-direction: column">
         <ess-url-title
           [ngClass]="{ padding_for_provider: type.value === 'provider' }"
