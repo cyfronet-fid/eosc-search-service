@@ -4,6 +4,7 @@ from fastapi import APIRouter
 
 from .auth import router as auth_router
 from .configuration import router as configuration_router
+from .feedback import router as feedback_router
 from .mocks import router as mocks_router
 from .presentable import router as presentable_router
 from .recommendation import router as recommendation_router
@@ -23,4 +24,5 @@ web_api_router.include_router(recommendation_router, tags=["recommendations"])
 web_api_router.include_router(configuration_router, tags=["configuration"])
 web_api_router.include_router(related_services_router, tags=["related_services"])
 web_api_router.include_router(suggestions_router)
+web_api_router.include_router(feedback_router, tags=["feedback"])
 web_api_router.include_router(rp_router)

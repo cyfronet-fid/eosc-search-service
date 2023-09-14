@@ -59,8 +59,12 @@ class GlobalSettings(BaseSettings):
     EOSC_COMMONS_URL: AnyUrl = "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
     EOSC_COMMONS_ENV: str = "production"
     EOSC_EXPLORE_URL: AnyUrl = "https://explore.eosc-portal.eu"
+    KNOWLEDGE_HUB_URL: AnyUrl = "https://knowledge-hub.eosc-portal.eu/"
+    ZAMMAD_INSTANCE_URL: AnyUrl = "https://eosc-helpdesk.eosc-portal.eu/api/v1/tickets"
     RELATED_SERVICES_ENDPOINT: AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"
     IS_SORT_BY_RELEVANCE: bool = False
+
+    FEEDBACK_CLIENT_SECRET: str = "NO_CLIENT_SECRET"
 
     NG_COLLECTIONS_PREFIX: str = "beta_"
 
@@ -164,7 +168,6 @@ OIDC_JWT_ENCRYPT_CONFIG = dict(
 )
 OIDC_CONFIG["clients"] = {}
 OIDC_CONFIG["clients"][settings.OIDC_ISSUER] = OIDC_CLIENT_OPTIONS
-
 
 AUTH_COOKIES_CONFIG = dict(
     domain=parsed_ui_url.hostname,

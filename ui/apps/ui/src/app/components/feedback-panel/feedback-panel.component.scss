@@ -1,0 +1,60 @@
+.circle-widget {
+  position: relative;
+  display: inline-block;
+}
+
+.circle-widget .btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #1e1e1e;
+  color: white;
+  border: none;
+  padding: 0;
+}
+
+.circle-widget .question-mark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 24px;
+}
+
+.feedback-dropdown-button {
+  outline: none;
+  box-shadow: none;
+}
+
+.feedback-dropdown-button::after {
+  display: none;
+}
+
+.feedback-dropdown-menu {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  background-color: #1e1e1e;
+  width: 250px;
+}
+
+.menu-item {
+  display: block;
+  padding: 8px 16px;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu-separator {
+  height: 1px;
+  background-color: white;
+  margin: 8px 30px;
+  list-style: none;
+}
+

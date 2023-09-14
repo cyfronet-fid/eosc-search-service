@@ -23,95 +23,100 @@ import {
 @Component({
   selector: 'ess-search-service-page',
   template: `
-    <ess-search-bar></ess-search-bar>
-    <div class="container d-md-none">
-      <div class="row mobile-buttons">
-        <div class="col-6">
-          <button
-            (click)="showFilters = !showFilters"
-            class="btn btn-special mobile-show-flters"
-            type="button"
-          >
-            <ng-container *ngIf="!showFilters; else hideFiltersCaption"
-              >Show filters</ng-container
+    <div class="search-page-container">
+      <ess-search-bar></ess-search-bar>
+      <div class="container d-md-none">
+        <div class="row mobile-buttons">
+          <div class="col-6">
+            <button
+              (click)="showFilters = !showFilters"
+              class="btn btn-special mobile-show-flters"
+              type="button"
             >
-            <ng-template #hideFiltersCaption>Hide filters</ng-template>
-            <i class="bi bi-filter"></i>
-          </button>
-        </div>
-        <div class="col-6">
-          <button
-            (click)="showCollections = !showCollections"
-            class="btn btn-special mobile-show-collections"
-            type="button"
-          >
-            <ng-container *ngIf="!showCollections; else hideCollectionsCaption"
-              >All catalogs</ng-container
+              <ng-container *ngIf="!showFilters; else hideFiltersCaption"
+                >Show filters</ng-container
+              >
+              <ng-template #hideFiltersCaption>Hide filters</ng-template>
+              <i class="bi bi-filter"></i>
+            </button>
+          </div>
+          <div class="col-6">
+            <button
+              (click)="showCollections = !showCollections"
+              class="btn btn-special mobile-show-collections"
+              type="button"
             >
-            <ng-template #hideCollectionsCaption>Hide catalogs</ng-template>
-            <i class="bi bi-chevron-down"></i>
-          </button>
+              <ng-container
+                *ngIf="!showCollections; else hideCollectionsCaption"
+                >All catalogs</ng-container
+              >
+              <ng-template #hideCollectionsCaption>Hide catalogs</ng-template>
+              <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <div
-      [ngClass]="{
-        'mobile-collections-hidden': !showCollections,
-        'mobile-collections-show': showCollections
-      }"
-    >
-      <ess-collections-navigation></ess-collections-navigation>
-    </div>
-    <div class="container--xxl">
-      <div class="dashboard" style="position: relative">
-        <div class="row" id="dashboard__main">
-          <div
-            class="col-sm-3 col-12 left-column"
-            [ngClass]="{
-              'mobile-filters-hidden': !showFilters,
-              'mobile-filters-show': showFilters
-            }"
-            id="dashboard__filters"
-          >
-            <ess-filters
-              *ngIf="(response?.results ?? []).length > 0"
-            ></ess-filters>
-          </div>
-          <div class="col-sm-7 col-12 center-column">
-            <ess-page-header
-              [isSortCollectionScopeOff]="
-                (response?.results ?? [])[0]?.isSortCollectionScopeOff ?? false
+      <div
+        [ngClass]="{
+          'mobile-collections-hidden': !showCollections,
+          'mobile-collections-show': showCollections
+        }"
+      >
+        <ess-collections-navigation></ess-collections-navigation>
+      </div>
+      <div class="container--xxl">
+        <div class="dashboard" style="position: relative">
+          <div class="row" id="dashboard__main">
+            <div
+              class="col-sm-3 col-12 left-column"
+              [ngClass]="{
+                'mobile-filters-hidden': !showFilters,
+                'mobile-filters-show': showFilters
+              }"
+              id="dashboard__filters"
+            >
+              <ess-filters
+                *ngIf="(response?.results ?? []).length > 0"
+              ></ess-filters>
+            </div>
+            <div class="col-sm-7 col-12 center-column">
+              <ess-page-header
+                [isSortCollectionScopeOff]="
+                  (response?.results ?? [])[0]?.isSortCollectionScopeOff ??
+                  false
+                "
+                [resultsCount]="response?.numFound ?? 0"
+                [isSortByRelevanceCollectionScopeOff]="
+                  (response?.results ?? [])[0]
+                    ?.isSortByRelevanceCollectionScopeOff ?? false
+                "
+              ></ess-page-header>
+              <ess-active-filters></ess-active-filters>
+              <ess-results-with-pagination
+                [response]="response"
+              ></ess-results-with-pagination>
+            </div>
+            <div class="col-sm-2 col-12 right-column">
+              <h5>Browse also</h5>
+              <ess-right-menu></ess-right-menu>
+            </div>
+            <!-- <div
+              class="col-sm-2 col-12 right-column"
+              *ngIf="
+                (response?.results ?? []).length > 0 &&
+                (response?.results ?? [])[0].type.value !== 'guideline'
               "
-              [resultsCount]="response?.numFound ?? 0"
-              [isSortByRelevanceCollectionScopeOff]="
-                (response?.results ?? [])[0]
-                  ?.isSortByRelevanceCollectionScopeOff ?? false
-              "
-            ></ess-page-header>
-            <ess-active-filters></ess-active-filters>
-            <ess-results-with-pagination
-              [response]="response"
-            ></ess-results-with-pagination>
+            >
+              <h5>Suggested</h5>
+              <ess-recommendations></ess-recommendations>
+            </div> -->
           </div>
-          <div class="col-sm-2 col-12 right-column">
-            <h5>Browse also</h5>
-            <ess-right-menu></ess-right-menu>
-          </div>
-          <!-- <div
-            class="col-sm-2 col-12 right-column"
-            *ngIf="
-              (response?.results ?? []).length > 0 &&
-              (response?.results ?? [])[0].type.value !== 'guideline'
-            "
-          >
-            <h5>Suggested</h5>
-            <ess-recommendations></ess-recommendations>
-          </div> -->
         </div>
       </div>
-    </div>
-    <div class="suggested" style="background-color: #EFF1FF;">
-      <ess-recommendations></ess-recommendations>
+      <div class="suggested" style="background-color: #EFF1FF;">
+        <ess-recommendations></ess-recommendations>
+      </div>
+      <ess-feedback-panel class="feedback-panel"></ess-feedback-panel>
     </div>
   `,
   styles: [
@@ -148,6 +153,16 @@ import {
       }
       .ant-tree {
         background: none !important;
+      }
+      .search-page-container {
+        position: relative;
+      }
+
+      .feedback-panel {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
       }
     `,
   ],

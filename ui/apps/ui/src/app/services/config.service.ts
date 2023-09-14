@@ -11,6 +11,7 @@ export interface BackendConfig {
   eosc_commons_url: string;
   eosc_commons_env: string;
   eosc_explore_url: string;
+  knowledge_hub_url: string;
   is_sort_by_relevance: boolean;
 }
 
