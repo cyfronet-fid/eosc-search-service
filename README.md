@@ -25,6 +25,26 @@ Run `docker-compose up --build`.
 ## UI
 **IMPORTANT!!! UI working directory is `ui`, commands will work only in the catalog.**
 
+### Compile time environmental variables
+
+UI uses [ng-node-environment](https://github.com/kopz9999/ng-node-environment) to generate variables.
+Please consult the documentation of the package for details, but TLDR is following:
+every environmental variable prefixed by `NG_` is put into object `sharedEnvironment` in `/ui/apps/ui/src/environments/environment.generated.ts`. As for the names `NG_` prefix 
+is removed and rest of the name is converted from `UNDERSCORE_CASE` into `UnderscoreCase`.
+Example: when only variable provided is `NG_COLLECTIONS_PREFIX='beta_'` then created
+`environment.generated.ts` will look as follows:
+
+```typescript
+export const sharedEnvironment = {
+  'collectionsPrefix': 'beta_'
+}
+
+export default sharedEnvironment;
+```
+
+`sharedEnvironment` environment is included in `commonEnvironment` from `environment.common.ts`.
+`environment.generated.ts` is generated in `prestart` and `prebuild` scripts which are automatically called when running `npm start` and `npm run build`
+
 ### Install dependencies
 `npm i --force`
 
