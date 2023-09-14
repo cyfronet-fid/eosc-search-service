@@ -1,0 +1,41 @@
+<div class="circle-widget">
+  <div ngbDropdown class="d-inline-block" placement="auto">
+    <button
+      class="btn btn-primary feedback-dropdown-button"
+      id="dropdownFeedback"
+      ngbDropdownToggle
+    >
+      <span class="question-mark">?</span>
+    </button>
+    <ul
+      ngbDropdownMenu
+      aria-labelledby="dropdownFeedback"
+      class="feedback-dropdown-menu"
+    >
+      <li>
+        <a class="menu-item" id="zammad-feedback-form">Submit feedback</a
+        >
+      </li>
+      <li class="menu-separator"></li>
+      <li>
+        <a class="menu-item" id="zammad-report-bug-form">Report a bug</a>
+      </li>
+      <li class="menu-separator"></li>
+      <li>
+        <a
+          class="menu-item"
+          [href]="ConfigService.config?.marketplace_url + '/help'"
+        >FAQ</a
+        >
+      </li>
+      <li class="menu-separator"></li>
+      <li>
+        <a
+          class="menu-item"
+          [href]="ConfigService.config?.knowledge_hub_url"
+        >Knowledge Hub</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
