@@ -38,6 +38,7 @@ async def search_post(
         description="Filter query",
         example=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
+    exact: str = Query(..., description="Exact match"),
     sort_ui: SortUi = "default",
     sort: list[str] = Query(
         [], description="Solr sort", example=["description asc", "name desc"]
@@ -67,6 +68,7 @@ async def search_post(
                 fq=fq,
                 sort=final_solr_sorting,
                 rows=rows,
+                exact=exact,
                 cursor=cursor,
                 facets=request.facets,
             )
@@ -93,6 +95,7 @@ async def search_post_advanced(
         description="Filter query",
         example=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
+    exact: str = Query(..., description="Exact match"),
     sort_ui: SortUi = "default",
     sort: list[str] = Query(
         [], description="Solr sort", example=["description asc", "name desc"]
@@ -121,6 +124,7 @@ async def search_post_advanced(
                 fq=fq,
                 sort=final_solr_sorting,
                 rows=rows,
+                exact=exact,
                 cursor=cursor,
                 facets=request.facets,
             )

@@ -17,8 +17,13 @@ export interface ICustomRouteProps {
   cursor: string;
   sort: string[];
   standard: string;
+  exact: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tags: string[];
+  radioValueAuthor: string;
+  radioValueExact: string;
+  radioValueTitle: string;
+  radioValueKeyword: string;
   [param: string]: paramType;
 }
 export type filterValueType = string | unknown[];

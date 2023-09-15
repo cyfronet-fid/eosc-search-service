@@ -18,7 +18,7 @@ export const toValueWithLabel = (values: string[]): IValueWithLabel[] => {
   return values.map((value) => ({ label: value, value }));
 };
 
-export const queryChanger = (q: string): string => {
+export const queryChanger = (q: string, exact: boolean): string => {
   q = q.trim();
   if (q === '*') {
     return q;
@@ -29,26 +29,30 @@ export const queryChanger = (q: string): string => {
       const n = `${word}`.replace(REGEXP_SPECIAL_CHAR, ' ');
       const words = n.split(' ');
       words.forEach(function (el, index) {
-        if (el.length > 5) {
+        if (el.length > 5 && !exact) {
           words[index] = `${el}~1`;
         } else {
           words[index] = `${el}`;
         }
       });
       return words.join(' ');
-    } else if (word.length > 5) {
+    } else if (word.length > 5 && !exact) {
       return `${word}~1`;
     } else {
       return `${word}`.replace(REGEXP_SPECIAL_CHAR, ' ');
     }
   };
 
-  const words = q.split(' ');
-  return words.map(addFuzzySearchSign).join(' ');
+  if (!exact) {
+    const words = q.split(' ');
+    return words.map(addFuzzySearchSign).join(' ');
+  } else {
+    return '"' + addFuzzySearchSign(q) + '"';
+  }
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const queryChangerAdv = (q: string): string => {
+export const queryChangerAdv = (q: string, exact: boolean): string => {
   q = q.trim();
   if (q === '*') {
     return q;
@@ -59,20 +63,24 @@ export const queryChangerAdv = (q: string): string => {
       const n = `${word}`.replace(REGEXP_SPECIAL_CHAR, ' ');
       const words = n.split(' ');
       words.forEach(function (el, index) {
-        if (el.length > 5) {
+        if (el.length > 5 && !exact) {
           words[index] = `${el}~1`;
         } else {
           words[index] = `${el}`;
         }
       });
       return words.join(' ');
-    } else if (word.length > 5) {
+    } else if (word.length > 5 && !exact) {
       return `${word}~1`;
     } else {
       return `${word}`.replace(REGEXP_SPECIAL_CHAR, ' ');
     }
   };
 
-  const words = q.split(' ');
-  return words.map(addFuzzySearchSign).join(' ');
+  if (!exact) {
+    const words = q.split(' ');
+    return words.map(addFuzzySearchSign).join(' ');
+  } else {
+    return '"' + addFuzzySearchSign(q) + '"';
+  }
 };

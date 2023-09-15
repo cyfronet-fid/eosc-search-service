@@ -14,6 +14,7 @@ async def search(
     fq: list[str],
     sort: list[str],
     rows: int,
+    exact: str,
     cursor: str = "*",
     facets: dict[str, TermsFacet | StatFacet] = None,
 ) -> Response:
@@ -31,6 +32,11 @@ async def search(
 
     Facets support a subset of parameters from: https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
+    mm_param = "80%"
+    qs_param = "5"
+    if exact == "true":
+        mm_param = "100%"
+        qs_param = "0"
     request_body = {
         "params": {
             "defType": "edismax",
@@ -48,7 +54,7 @@ async def search(
             # when "OR" === at least 1 clause should be matched
             # when "AND" === all clauses should match
             # "q.op": "AND",
-            "mm": "80%",
+            "mm": mm_param,
             # How much lower weights fields score is taken against high weights fields score
             # 0.0 === lower weight field score is treated as high weight field score
             # 1.0 === only highest weighted fields score will be taken
@@ -56,7 +62,7 @@ async def search(
             "tie": "0.1",
             # Query phrase slop, define how far words can be in sentence
             # https://solr.apache.org/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Theqs_QueryPhraseSlop_Parameter
-            "qs": "5",
+            "qs": qs_param,
             # Highlight, default: "false"
             # https://solr.apache.org/guide/solr/latest/query-guide/highlighting.html#highlighting-in-the-query-response
             "hl": "on",
@@ -94,6 +100,7 @@ async def search_advanced(
     fq: list[str],
     sort: list[str],
     rows: int,
+    exact: str,
     cursor: str = "*",
     facets: dict[str, TermsFacet] | None,
 ) -> Response:
@@ -111,6 +118,11 @@ async def search_advanced(
 
     Facets support a subset of parameters from: https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
+    mm_param = "80%"
+    qs_param = "5"
+    if exact == "true":
+        mm_param = "100%"
+        qs_param = "0"
     request_body = {
         "params": {
             "defType": "edismax",
@@ -128,7 +140,7 @@ async def search_advanced(
             # when "OR" === at least 1 clause should be matched
             # when "AND" === all clauses should match
             # "q.op": "AND",
-            "mm": "80%",
+            "mm": mm_param,
             # How much lower weights fields score is taken against high weights fields score
             # 0.0 === lower weight field score is treated as high weight field score
             # 1.0 === only highest weighted fields score will be taken
@@ -136,7 +148,7 @@ async def search_advanced(
             "tie": "0.1",
             # Query phrase slop, define how far words can be in sentence
             # https://solr.apache.org/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Theqs_QueryPhraseSlop_Parameter
-            "qs": "5",
+            "qs": qs_param,
             # Highlight, default: "false"
             # https://solr.apache.org/guide/solr/latest/query-guide/highlighting.html#highlighting-in-the-query-response
             "hl": "on",

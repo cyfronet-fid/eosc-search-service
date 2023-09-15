@@ -196,6 +196,32 @@ export class ResultComponent implements OnInit {
           );
         }
       }
+
+      if (tag.startsWith('keyword:')) {
+        if (this.highlightsreal['keywords_tg'] === undefined) {
+          this.highlightsreal['keywords_tg'] = [];
+          this.highlightsreal['keywords_tg'].push(
+            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
+          );
+        } else {
+          this.highlightsreal['keywords_tg'].push(
+            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
+          );
+        }
+      }
+
+      if (tag.startsWith('tagged:')) {
+        if (this.highlightsreal['tag_list_tg'] === undefined) {
+          this.highlightsreal['tag_list_tg'] = [];
+          this.highlightsreal['tag_list_tg'].push(
+            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
+          );
+        } else {
+          this.highlightsreal['tag_list_tg'].push(
+            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
+          );
+        }
+      }
     }
     const highlightsreal_title = [...new Set(this.highlightsreal['title'])];
     const highlightsreal_an = [
