@@ -95,7 +95,8 @@ export class SearchInputComponent implements OnInit {
   withKeyword(): boolean {
     if (
       this.collectionFc.value.id === 'guideline' ||
-      this.collectionFc.value.id === 'bundle'
+      this.collectionFc.value.id === 'bundle' ||
+      this.collectionFc.value.id === 'provider'
     ) {
       return false;
     }
@@ -106,7 +107,9 @@ export class SearchInputComponent implements OnInit {
     if (
       this.collectionFc.value.id === 'data-source' ||
       this.collectionFc.value.id === 'service' ||
-      this.collectionFc.value.id === 'guideline'
+      this.collectionFc.value.id === 'guideline' ||
+      this.collectionFc.value.id === 'bundle' ||
+      this.collectionFc.value.id === 'provider'
     ) {
       return false;
     }
