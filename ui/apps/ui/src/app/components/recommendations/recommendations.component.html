@@ -6,12 +6,22 @@
     <div class="container results-recommendations col-md-12">
       <div class="row">
         <div class="col-md-auto d-flex p-0">
-          <h2 style="padding-top: 24px">Resources selected for you</h2>
+          <h2 style="padding-top: 24px">Recommended resources</h2>
           <div id="tooltipIcon" style="padding-top: 25px; margin-left: 10px">
             <img
+              *ngIf="isLogged"
               src="assets/tooltip_prompt.svg"
               placement="bottom"
               [ngbTooltip]="tooltipText"
+              alt="Tooltip prompt icon"
+              class="tooltip-prompt-icon"
+              width="19"
+            />
+            <img
+              *ngIf="!isLogged"
+              src="assets/tooltip_prompt.svg"
+              placement="bottom"
+              [ngbTooltip]="tooltipTextN"
               alt="Tooltip prompt icon"
               class="tooltip-prompt-icon"
               width="19"

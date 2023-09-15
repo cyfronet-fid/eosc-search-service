@@ -11,7 +11,11 @@ import { deserializeAll } from '@collections/filters-serializers/filters-seriali
 import { Router } from '@angular/router';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { TransformArrayDescriptionPipe } from '../../pipe/interoperability-guidelines-filter.pipe';
-import { RECOMMENDATIONS_TOOLTIP_TEXT } from '@collections/data/config';
+import {
+  RECOMMENDATIONS_TOOLTIP_TEXT_LOGGED,
+  RECOMMENDATIONS_TOOLTIP_TEXT_NOTLOGGED,
+} from '@collections/data/config';
+import { UserProfileService } from '../../auth/user-profile.service';
 
 @UntilDestroy()
 @Component({
@@ -22,15 +26,20 @@ import { RECOMMENDATIONS_TOOLTIP_TEXT } from '@collections/data/config';
 export class RecommendationsComponent implements OnInit {
   recommendations: IResult[] = [];
   highlightsreal: { [field: string]: string[] | undefined } = {};
-  tooltipText: string = RECOMMENDATIONS_TOOLTIP_TEXT;
+  tooltipText: string = RECOMMENDATIONS_TOOLTIP_TEXT_LOGGED;
+  tooltipTextN: string = RECOMMENDATIONS_TOOLTIP_TEXT_NOTLOGGED;
+  isLogged: boolean;
 
   constructor(
     private _customRoute: CustomRoute,
     private _router: Router,
     public redirectService: RedirectService,
     private _recommendationsService: RecommendationsService,
-    private _filtersConfigsRepository: FiltersConfigsRepository
-  ) {}
+    private _filtersConfigsRepository: FiltersConfigsRepository,
+    private _userProfileService: UserProfileService
+  ) {
+    this.isLogged = false;
+  }
 
   ngOnInit(): void {
     this._customRoute.collection$
@@ -59,6 +68,16 @@ export class RecommendationsComponent implements OnInit {
               }
             ),
           })))
+      );
+    this._userProfileService
+      .get$()
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (profile) =>
+          (this.isLogged =
+            profile.aai_id === '' || profile === null || profile === undefined
+              ? false
+              : true)
       );
   }
 
