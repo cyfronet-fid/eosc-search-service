@@ -22,11 +22,13 @@ export const datasetsAdapter: IAdapter = {
   ): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
+    isResearchProduct: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
     languages: transformLanguages(openAIREResult?.language),
     date: formatPublicationDate(openAIREResult['publication_date']),
+    urls: openAIREResult.url,
     license: openAIREResult?.license,
     documentType: openAIREResult?.document_type,
     url: `${

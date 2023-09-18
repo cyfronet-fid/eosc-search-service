@@ -33,7 +33,9 @@ export class ResultComponent implements OnInit {
 
   @Input() id!: string;
   @Input() date?: string;
+  @Input() urls: string[] = [];
 
+  @Input() isResearchProduct = false;
   @Input() description!: string;
 
   @Input() abbreviation!: string;
@@ -88,6 +90,8 @@ export class ResultComponent implements OnInit {
     this.highlightsreal = highlights;
     return;
   }
+  public hasDOIUrl = false;
+  public parsedUrls: { [key: string]: string } = {};
 
   constructor(
     private _customRoute: CustomRoute,
@@ -99,6 +103,7 @@ export class ResultComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.parseUrls();
     const tgs = this._route.snapshot.queryParamMap.getAll('tags');
     if (typeof tgs === 'string') {
       this.tagsq.push(tgs);
@@ -238,6 +243,32 @@ export class ResultComponent implements OnInit {
     this.highlightsreal['description'] = highlightsreal_desc.reverse();
     this.highlightsreal['keywords_tg'] = highlightsreal_key.reverse();
     this.highlightsreal['tag_list_tg'] = highlightsreal_tl.reverse();
+  }
+
+  parseUrls() {
+    this.urls.map((url) => {
+      const doi = this.extractDOIFromUrl(url);
+      this.parsedUrls[url] = doi;
+      if (doi !== '') {
+        this.hasDOIUrl = true;
+      }
+    });
+  }
+
+  extractDOIFromUrl(url: string) {
+    const searchTerm = 'doi.org/';
+    const index = url.search(searchTerm);
+    if (index === -1) {
+      return '';
+    } else {
+      const doi = url.slice(index + searchTerm.length);
+      const httpIndex = doi.search('http');
+      if (httpIndex > -1) {
+        return '';
+      } else {
+        return doi;
+      }
+    }
   }
 
   get$(id: number | string): Observable<IService> {

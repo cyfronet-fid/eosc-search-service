@@ -30,6 +30,10 @@ a:hover {
   width: 0;
 }
 
+.btn {
+  border-radius: 8px;
+}
+
 .btn-special {
   background: #ffffff;
   border: 1px solid #d0d5dd;
@@ -384,6 +388,48 @@ h6 {
   padding: 7px 0;
 }
 
+.bottom-actions {
+  padding-top: 15px;
+
+
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
+  }
+}
+
+.bottom-actions {
+  padding-top: 15px;
+
+
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
+  }
+}
+
+.bottom-actions {
+  padding-top: 15px;
+
+
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
+  }
+}
+
 #tags {
   font-weight: 400;
   margin: 7px 0;
@@ -735,6 +781,66 @@ h6 {
       margin-bottom: 7px;
       line-height: 14px;
     }
+  }
+}
+
+.modal.show .modal-dialog {
+  max-width: 750px;
+}
+
+.bibliography {
+  border-bottom: none;
+
+  .modal-title {
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  label {
+    padding-left: 0;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  h6 {
+    padding-left: 0;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .modal-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 13px;
+    padding-left: 0;
+  }
+
+  .modal-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      display: inline;
+      float: left;
+      margin: 0 10px 10px 0;
+
+      .btn {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .modal-info {
+    font-size: 14px;
+    padding: 0;
+  }
+
+  button {
+    width: auto;
+    float: right;
   }
 }
 
