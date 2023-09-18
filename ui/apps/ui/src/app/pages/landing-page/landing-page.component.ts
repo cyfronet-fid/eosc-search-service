@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DEFAULT_COLLECTION_ID } from '@collections/data';
 import { ConfigService } from '../../services/config.service';
-import { DEFAULT_SORT } from '@components/sort-by-functionality/sort-value.type';
+import { BEST_MATCH_SORT } from '@components/sort-by-functionality/sort-value.type';
 
 @Component({
   selector: 'ess-landing-page',
@@ -19,7 +19,7 @@ export class LandingPageComponent {
   fqBy(filterName: string, value: string) {
     return {
       q: '*',
-      sort_ui: DEFAULT_SORT,
+      sort_ui: BEST_MATCH_SORT,
       fq: [`${filterName}:"${value}"`],
     };
   }
