@@ -19,4 +19,5 @@ export interface IOpenAIREResult {
   doi: string[];
   usage_counts_views: string;
   usage_counts_downloads: string;
+  pids: string;
 }

@@ -26,7 +26,7 @@ export class SearchInputService {
     private _fetchDataService: FetchDataService
   ) {}
 
-  currentSuggestions(q: string, collectionName: string) {
+  currentSuggestions(q: string, collectionName: string, exact: string) {
     if (q === '*' || q === '') {
       return of([]);
     }
@@ -34,11 +34,20 @@ export class SearchInputService {
     const collection: ICollectionSearchMetadata =
       this._searchMetadataRepository.get(collectionName);
 
-    return this._suggestedResultsBy$(q, collection);
+    return this._suggestedResultsBy$(q, collection, exact);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  currentSuggestionsAdv(q: string, collectionName: string, tags: string[]) {
+  currentSuggestionsAdv(
+    q: string,
+    collectionName: string,
+    tags: string[],
+    exact: string,
+    radioValueAuthor: string,
+    radioValueExact: string,
+    radioValueTitle: string,
+    radioValueKeyword: string
+  ) {
     if ((q === '*' || q === '') && tags.length === 0) {
       return of([]);
     }
@@ -51,18 +60,33 @@ export class SearchInputService {
         : [this._searchMetadataRepository.get(collectionName)];
 
     return combineLatest(
-      this._suggestedResultsByAdv$(q, collections, tags)
+      this._suggestedResultsByAdv$(
+        q,
+        collections,
+        tags,
+        exact,
+        radioValueAuthor,
+        radioValueExact,
+        radioValueTitle,
+        radioValueKeyword
+      )
     ).pipe(
       map((responses) => responses.filter(({ results }) => results.length > 0)),
       map((responses) => responses.map(toSuggestedResultsAdv))
     );
   }
 
-  _suggestedResultsBy$(q: string, collection: ICollectionSearchMetadata) {
-    q = queryChanger(q);
+  _suggestedResultsBy$(
+    q: string,
+    collection: ICollectionSearchMetadata,
+    exact: string
+  ) {
+    q = queryChanger(q, exact === 'true');
+
     const searchMetadata = {
       q,
       fq: [],
+      exact: exact,
       rows: MAX_COLLECTION_RESULTS,
       cursor: '*',
       sort: [],
@@ -121,10 +145,21 @@ export class SearchInputService {
     q: string,
     collections: ICollectionSearchMetadata[],
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    tags: string[]
+    tags: string[],
+    exact: string,
+    radioValueAuthor: string,
+    radioValueExact: string,
+    radioValueTitle: string,
+    radioValueKeyword: string
   ) {
-    q = queryChangerAdv(q);
-    const filters: string[] = [];
+    q = queryChangerAdv(q, exact === 'true');
+    let filters: string[] = [];
+
+    const authors: number[] = [];
+    const exacts: number[] = [];
+    const titles: number[] = [];
+    const keywords: number[] = [];
+    const allIndexes: number[] = [];
 
     for (const tag of tags) {
       if (tag.startsWith('author:')) {
@@ -139,6 +174,7 @@ export class SearchInputService {
         const res_permuted = this.generatePermutations(query_param);
         if (res_permuted.length === 1) {
           filters.push('author_names_tg:"' + res_permuted[0].trim() + '"');
+          authors.push(filters.length - 1);
         } else {
           // We need OR case
           let fin = '';
@@ -146,6 +182,7 @@ export class SearchInputService {
             fin += 'author_names_tg:"' + el.trim() + '"' + ' OR ';
           });
           filters.push(fin.slice(0, fin.length - 4));
+          authors.push(filters.length - 1);
         }
       }
       if (tag.startsWith('exact:')) {
@@ -162,6 +199,7 @@ export class SearchInputService {
             tag.split(':', 2)[1].trim() +
             '"'
         );
+        exacts.push(filters.length - 1);
       }
       if (tag.startsWith('none of:')) {
         filters.push('!title:"' + tag.split(':', 2)[1].trim() + '"');
@@ -172,13 +210,62 @@ export class SearchInputService {
       }
       if (tag.startsWith('in title:')) {
         filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
+        titles.push(filters.length - 1);
+      }
+      if (tag.startsWith('keyword:')) {
+        filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        keywords.push(filters.length - 1);
+      }
+      if (tag.startsWith('tagged:')) {
+        filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        keywords.push(filters.length - 1);
       }
     }
+
+    if (radioValueAuthor !== 'A') {
+      let new_aut = '';
+      for (const author of authors) {
+        new_aut += filters[author] + ' OR ';
+        allIndexes.push(author);
+      }
+      new_aut = new_aut.slice(0, new_aut.length - 4);
+      filters.push(new_aut);
+    }
+    if (radioValueExact !== 'A') {
+      let new_exc = '';
+      for (const exactel of exacts) {
+        new_exc += filters[exactel] + ' OR ';
+        allIndexes.push(exactel);
+      }
+      new_exc = new_exc.slice(0, new_exc.length - 4);
+      filters.push(new_exc);
+    }
+    if (radioValueTitle !== 'A') {
+      let new_title = '';
+      for (const exactit of titles) {
+        new_title += filters[exactit] + ' OR ';
+        allIndexes.push(exactit);
+      }
+      new_title = new_title.slice(0, new_title.length - 4);
+      filters.push(new_title);
+    }
+    if (radioValueKeyword !== 'A') {
+      let new_keyword = '';
+      for (const keywordel of keywords) {
+        new_keyword += filters[keywordel] + ' OR ';
+        allIndexes.push(keywordel);
+      }
+      new_keyword = new_keyword.slice(0, new_keyword.length - 4);
+      filters.push(new_keyword);
+    }
+
+    filters = filters.filter((value, index) => !allIndexes.includes(index));
 
     return collections.map((metadata) => {
       const searchMetadata = {
         q: q,
         fq: filters,
+        exact: exact,
         rows: MAX_COLLECTION_RESULTS,
         cursor: '*',
         sort: [],

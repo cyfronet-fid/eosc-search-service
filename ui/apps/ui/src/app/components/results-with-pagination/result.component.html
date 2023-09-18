@@ -16,7 +16,6 @@
       style="display: flex"
       *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
     >
-
       <div style="display: flex; flex-direction: column">
         <ess-url-title
           [ngClass]="{ padding_for_provider: type.value === 'provider' }"
@@ -94,7 +93,6 @@
       ><img src="/assets/usage-views.svg" />
       <ng-container i18n>{{ views }} Views</ng-container></span
     >
-
     <span *ngIf="license !== undefined" class="statistic text-muted">
       <ng-container i18n>License: {{ _formatLicense(license!) }}</ng-container>
     </span>

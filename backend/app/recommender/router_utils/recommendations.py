@@ -92,6 +92,7 @@ async def get_fixed_recommendations(
             ALL_COLLECTION,
             q="*",
             qf="id",
+            exact="false",
             fq=fq,
             sort=["id desc"],
             rows=rows,

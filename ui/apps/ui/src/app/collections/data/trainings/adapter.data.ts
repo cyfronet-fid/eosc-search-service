@@ -38,6 +38,7 @@ export const trainingsAdapter: IAdapter = {
         label: 'Authors',
         values: toValueWithLabel(toArray(training['author_names'])),
         filter: 'author_names',
+        showMoreThreshold: 10,
       },
       {
         label: 'Content type',
