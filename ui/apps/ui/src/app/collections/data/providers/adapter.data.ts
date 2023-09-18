@@ -19,6 +19,7 @@ export const providersAdapter: IAdapter = {
   adapter: (provider: Partial<IProvider> & { id: string }): IResult => ({
     isSortCollectionScopeOff: false,
     isSortByRelevanceCollectionScopeOff: true,
+    isSortByPopularityCollectionScopeOff: true,
     isResearchProduct: false,
     id: uuidv4(),
     title: provider['title'] ? provider['title'].toString() : '',
