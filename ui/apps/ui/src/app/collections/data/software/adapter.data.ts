@@ -22,9 +22,11 @@ export const softwareAdapter: IAdapter = {
   ): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
+    isResearchProduct: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
+    urls: openAIREResult.url,
     languages: transformLanguages(openAIREResult?.language),
     license: openAIREResult?.license,
     date: formatPublicationDate(openAIREResult['publication_date']),

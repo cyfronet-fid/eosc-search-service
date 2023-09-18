@@ -173,4 +173,12 @@
       </div>
     </div>
   </div>
+  <div class="bottom-actions">
+    <ess-bibliography
+    *ngIf="isResearchProduct"
+    [title]="title"
+    [hasDOIUrl]="hasDOIUrl"
+    [parsedUrls]="parsedUrls"
+    ></ess-bibliography>
+  </div>
 </div>

@@ -99,6 +99,28 @@ const extractDate = (
   }
 };
 
+const setIsResearchProduct = (
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (data.type) {
+    case 'publication':
+    case 'software':
+    case 'dataset':
+    case 'other':
+      return true;
+    default:
+      return false;
+  }
+};
+
 export const allCollectionsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (
@@ -116,6 +138,7 @@ export const allCollectionsAdapter: IAdapter = {
   ): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
+    isResearchProduct: setIsResearchProduct(data),
     id: data.id,
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',
@@ -123,6 +146,7 @@ export const allCollectionsAdapter: IAdapter = {
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
+    urls: data.url,
     horizontal: data?.horizontal,
     coloredTags: [],
     tags:

@@ -19,6 +19,8 @@ export const commonEnvironment = {
     apiPath: 'search-results',
     suggestionsPath: 'search-suggestions',
     apiPathAdv: 'search-results-advanced',
+    bibExportPath: 'bibliography-export-all-formats',
+    bibCitationPath: 'bibliography-cite',
   },
 
   /*

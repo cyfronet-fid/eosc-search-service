@@ -23,6 +23,7 @@ import { environment } from '@environment/environment';
 import { ConfigService } from './services/config.service';
 import { WINDOW } from './app.providers';
 import { NgxHotjarModule, NgxHotjarRouterModule } from 'ngx-hotjar';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 registerLocaleData(en);
 
@@ -50,6 +51,7 @@ const hotjarId = (environment as unknown as { hotjarId: string })['hotjarId'];
     HttpClientModule,
     AppRoutingModule,
     MainHeaderModule,
+    NgbModule,
     ...(hotjarId == null
       ? []
       : [NgxHotjarModule.forRoot(hotjarId), NgxHotjarRouterModule]),

@@ -19,6 +19,7 @@ export const trainingsAdapter: IAdapter = {
   adapter: (training: Partial<ITraining> & { id: string }): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
+    isResearchProduct: false,
     id: uuidv4(),
     title: training['title']?.join(' ') || '',
     description: training['description']?.join(' ') || '',
