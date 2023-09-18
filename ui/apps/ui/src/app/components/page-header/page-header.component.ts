@@ -37,6 +37,9 @@ import { Router } from '@angular/router';
         [isSortByRelevanceCollectionScopeOff]="
           isSortByRelevanceCollectionScopeOff
         "
+        [isSortByPopularityCollectionScopeOff]="
+          isSortByPopularityCollectionScopeOff
+        "
         *ngIf="isSortCollectionScopeOff"
         [type]="type"
       ></ess-sort-by-functionality>
@@ -65,6 +68,9 @@ export class PageHeaderComponent {
 
   @Input()
   isSortByRelevanceCollectionScopeOff!: boolean;
+
+  @Input()
+  isSortByPopularityCollectionScopeOff!: boolean;
 
   @Input()
   isSortCollectionScopeOff!: boolean;

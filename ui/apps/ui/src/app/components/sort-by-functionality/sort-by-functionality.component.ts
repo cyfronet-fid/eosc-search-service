@@ -24,7 +24,9 @@ import { ConfigService } from '../../services/config.service';
     >
       <option value="dmr" i18n>Date - Most recent</option>
       <option value="dlr" i18n>Date – Least recent</option>
-      <option value="mp" i18n>Most popular</option>
+      <option *ngIf="!isSortByPopularityCollectionScopeOff" value="mp" i18n>
+        Most popular
+      </option>
       <option
         *ngIf="
           isSortByRelevanceInstanceScope && !isSortByRelevanceCollectionScopeOff
@@ -82,6 +84,8 @@ export class SortByFunctionalityComponent implements OnInit {
 
   @Input()
   isSortByRelevanceCollectionScopeOff!: boolean;
+  @Input()
+  isSortByPopularityCollectionScopeOff!: boolean;
 
   @Input()
   type!: string;
