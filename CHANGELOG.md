@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.12.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.11.0...v2.12.0) (2023-09-18)
+
+
+### Features
+
+* [[#765](https://github.com/cyfronet-fid/eosc-search-service/issues/765)] Add pid handling for: HANDLE, PMID and PMC ([134c110](https://github.com/cyfronet-fid/eosc-search-service/commit/134c11090dcbf410bc51446dc5c6769bac2491c4))
+* advanced search [#817](https://github.com/cyfronet-fid/eosc-search-service/issues/817) or and styling and fixes ([166cb32](https://github.com/cyfronet-fid/eosc-search-service/commit/166cb322a079ebdc679de11f5039da1c52a4c1bf))
+* advanced search [#817](https://github.com/cyfronet-fid/eosc-search-service/issues/817) or and styling and fixes ([74d683f](https://github.com/cyfronet-fid/eosc-search-service/commit/74d683f98dcc3a96d33f6465cecf194c0d2eb018))
+
+
+### Bug Fixes
+
+* Remove doc type from publications ([9cc9b75](https://github.com/cyfronet-fid/eosc-search-service/commit/9cc9b750c71a8625cb01a73d5bdcf7c93dc0cf96))
+* tooltip fixes for logged and not logged users [#811](https://github.com/cyfronet-fid/eosc-search-service/issues/811) ([94ce9b4](https://github.com/cyfronet-fid/eosc-search-service/commit/94ce9b4f5b38a09fc0f30f473d17ed1066cb9d52))
+* tooltip fixes for logged and not logged users [#811](https://github.com/cyfronet-fid/eosc-search-service/issues/811) ([987e8de](https://github.com/cyfronet-fid/eosc-search-service/commit/987e8de63b78f3f4340de324cbbde8bab4c8ba01))
+
 ## [2.11.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.10.0...v2.11.0) (2023-09-08)
 
 
