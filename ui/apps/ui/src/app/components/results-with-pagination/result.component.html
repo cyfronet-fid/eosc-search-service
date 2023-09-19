@@ -43,17 +43,7 @@
           [title]="title"
           [highlight]="highlightsreal['title'] ?? []"
           [url]="
-            type.value === 'bundle'
-              ? redirectService.internalUrl(
-                  validUrl,
-                  id,
-                  type.value,
-                  offers[0]?.main_offer_id
-                    ? '#offer-' +
-                        offers[0].main_offer_id.toString().substring(2)
-                    : ''
-                )
-              : redirectService.internalUrl(validUrl, id, type.value, '')
+            redirectUrl
           "
         >
         </ess-url-title>
@@ -185,5 +175,7 @@
              [resourceType]="type.value" [resourceId]="id"
              style="float: left;"
     ></ess-pin>
+    <ess-pin-static *ngIf="MP_RESOURCES_TO_SHOW_PIN_TO.includes(type.value) && (validUrl !== null)"
+      [url]="redirectUrl ?? ''" style="float: left;"></ess-pin-static>
   </div>
 </div>

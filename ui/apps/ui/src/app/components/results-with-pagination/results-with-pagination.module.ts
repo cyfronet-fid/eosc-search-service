@@ -15,6 +15,7 @@ import { DescriptionModule } from '../../layouts/description/description.module'
 import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperability-guidelines.pipe.module';
 import { BibliographyModule } from '@components/bibliography/bibliography.module';
 import { PinComponent } from '@components/results-with-pagination/result-ui-controls/pin.component';
+import { PinStaticComponent } from '@components/results-with-pagination/result-ui-controls/pin-static.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { PinComponent } from '@components/results-with-pagination/result-ui-cont
     PaginationComponent,
     ResultComponent,
     PinComponent,
+    PinStaticComponent,
   ],
   imports: [
     CommonModule,
