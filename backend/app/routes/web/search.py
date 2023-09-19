@@ -1,5 +1,3 @@
-# pylint: disable=fixme
-
 """The UI Search endpoint"""
 import itertools
 import logging
@@ -228,6 +226,7 @@ async def extend_results_with_bundles(client, res_json):
         return
 
 
+# pylint: disable=too-many-return-statements, fixme
 async def define_sorting(
     sort_ui: SortUi, sort: list[str], collection: Optional[str] = None
 ):
