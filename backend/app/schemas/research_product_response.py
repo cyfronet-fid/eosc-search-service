@@ -1,11 +1,9 @@
 """Models used by web.research_product.py"""
-from typing import List, Literal, TypeAlias
+from typing import List
 
 from pydantic import AnyUrl, BaseModel
 
-ResourceType: TypeAlias = Literal["publication", "dataset", "software", "other"]
-# change back after prefixes are finished Literal["publication", "dataset", "software", "other_rp"]
-Collection: TypeAlias = str
+from app.consts import ResearchProductCollection
 
 
 class ResearchProductResponse(BaseModel):
@@ -14,4 +12,4 @@ class ResearchProductResponse(BaseModel):
     title: str
     links: List[AnyUrl]
     author: List[str]
-    type: ResourceType
+    type: ResearchProductCollection

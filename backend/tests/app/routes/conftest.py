@@ -32,8 +32,8 @@ def mock_post_search(app: FastAPI) -> AsyncMock:
 def get_mocked_search_response_content(file: str) -> AsyncMock:
     mock_json = read_file_as_json(file)
     mock_return = Mock()
-    mock_return.is_error = False
-    mock_return.json = Mock(return_value=mock_json)
+    mock_return.collection = "publication"
+    mock_return.data = mock_json
     return create_autospec(search, return_value=mock_return)
 
 

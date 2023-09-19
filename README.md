@@ -49,13 +49,13 @@ export default sharedEnvironment;
 `npm i --force`
 
 ### Run
-**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with `NG_COLLECTIONS_PREFIX` env variable.**
+**IMPORTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/backend` with `COLLECTIONS_PREFIX` env variable.**
 
 `npm start`
 
 ### Build
 Build artifacts can be found in `ui/dist/apps/ui`.
-**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with `NG_COLLECTIONS_PREFIX` env variable.**
+**IMPORTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/backend` with `COLLECTIONS_PREFIX` env variable.**
 
 `npm build`
 
@@ -164,8 +164,8 @@ See docker-compose.yml for components.
 - `ESS_STOMP_SSL`
   > Use SSL when connecting to STOMP queue (for user actions). Default: `0`
   > Example: `1` or `0`
-- `NG_COLLECTIONS_PREFIX`, by default `''`
-  > Example: NG_COLLECTIONS_PREFIX=prod_
+- `COLLECTIONS_PREFIX`, by default `''`
+  > Example: COLLECTIONS_PREFIX=prod_
   > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.
 - `NG_GOOGLE_ANALYTICS_ID`, by default `null`
   > Google Analytics measurement-id
