@@ -1,0 +1,20 @@
+:host {
+  display: block;
+  margin-top: 4px;
+}
+
+.pin-icon {
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-image: url('../../../../assets/pin-icon.svg');
+}
+
+.pin-icon-text {
+  color: #040f81;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
