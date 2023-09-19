@@ -3,34 +3,27 @@
 """The UI Search endpoint"""
 import itertools
 import logging
-from json import JSONDecodeError
 from typing import Optional
 
-from fastapi import APIRouter, Body, Depends, HTTPException, Query, Request
-from httpx import AsyncClient, TransportError
-from pydantic.typing import Literal
-from requests import Response
+from fastapi import APIRouter, Body, Depends, Query, Request
+from httpx import AsyncClient
 
-from app.routes.utils import parse_col_name
+from app.consts import DEFAULT_SORT, SORT_UI_TO_SORT_MAP, SortUi
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.search_request import SearchRequest
+from app.schemas.solr_response import Collection
 from app.solr.operations import get, search_advanced_dep, search_dep
-
-from ..utils import DEFAULT_SORT
 
 router = APIRouter()
 
 logger = logging.getLogger(__name__)
 
 
-SortUi = Literal["dmr", "dlr", "mp", "r", "default"]
-
-
 # pylint: disable=too-many-arguments, too-many-locals
 @router.post("/search-results", name="web:post-search")
 async def search_post(
     request_session: Request,
-    collection: str = Query(..., description="Collection"),
+    collection: Collection = Query(..., description="Collection"),
     q: str = Query(..., description="Free-form query string"),
     qf: str = Query(..., description="Query fields"),
     fq: list[str] = Query(
@@ -59,26 +52,24 @@ async def search_post(
     final_solr_sorting = await define_sorting(sort_ui, sort, collection)
 
     async with AsyncClient() as client:
-        response = await handle_search_errors(
-            search(
-                client,
-                collection,
-                q=q,
-                qf=qf,
-                fq=fq,
-                sort=final_solr_sorting,
-                rows=rows,
-                exact=exact,
-                cursor=cursor,
-                facets=request.facets,
-            )
+        response = await search(
+            client,
+            collection,
+            q=q,
+            qf=qf,
+            fq=fq,
+            sort=final_solr_sorting,
+            rows=rows,
+            exact=exact,
+            cursor=cursor,
+            facets=request.facets,
         )
-
-        res_json = response.json()
+        res_json = response.data
 
         # Extent the results with bundles
-        if "all_collection" in collection or "bundle" in collection:
-            await extend_results_with_bundles(client, res_json, collection)
+        if collection in [Collection.ALL_COLLECTION, Collection.BUNDLE]:
+            await extend_results_with_bundles(client, res_json)
+    collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
     return out
 
@@ -115,33 +106,31 @@ async def search_post_advanced(
     """
     final_solr_sorting = await define_sorting(sort_ui, sort, collection)
     async with AsyncClient() as client:
-        response = await handle_search_errors(
-            search(
-                client,
-                collection,
-                q=q,
-                qf=qf,
-                fq=fq,
-                sort=final_solr_sorting,
-                rows=rows,
-                exact=exact,
-                cursor=cursor,
-                facets=request.facets,
-            )
+        response = await search(
+            client,
+            collection,
+            q=q,
+            qf=qf,
+            fq=fq,
+            sort=final_solr_sorting,
+            rows=rows,
+            exact=exact,
+            cursor=cursor,
+            facets=request.facets,
         )
 
-        res_json = response.json()
+        res_json = response.data
 
         # Extent the results with bundles
-        if "all_collection" in collection or "bundle" in collection:
-            await extend_results_with_bundles(client, res_json, collection)
-
+        if collection in [Collection.ALL_COLLECTION, Collection.BUNDLE]:
+            await extend_results_with_bundles(client, res_json)
+    collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
     return out
 
 
 async def create_output(
-    request_session: Request, res_json: dict, collection: str, sort_ui: str
+    request_session: Request, res_json: dict, collection: Collection, sort_ui: str
 ) -> dict:
     """Create an output"""
     out = {
@@ -151,7 +140,6 @@ async def create_output(
 
     if sort_ui == "r":
         # Sort by relevance
-        collection = await parse_col_name(collection)
         rel_sorted_items = await sort_by_relevance(
             request_session, collection, res_json["response"]["docs"]
         )
@@ -171,33 +159,9 @@ async def create_output(
     return out
 
 
-async def handle_search_errors(search_coroutine) -> Response:
-    """Wrap search errors for HTTP endpoint purposes"""
-
-    try:
-        response = await search_coroutine
-    except TransportError as e:
-        raise HTTPException(status_code=500, detail="Try again later") from e
-    if response.is_error:
-        try:
-            detail = response.json()["error"]["msg"]
-        except (KeyError, JSONDecodeError):
-            detail = None
-        raise HTTPException(status_code=response.status_code, detail=detail)
-    return response
-
-
 # pylint: disable=logging-fstring-interpolation, too-many-locals, useless-suppression
-async def extend_results_with_bundles(client, res_json, collection: str):
+async def extend_results_with_bundles(client, res_json):
     """Extend bundles in search results with information about offers and services"""
-
-    async def get_col_prefix() -> str | None:
-        """Get collection prefix"""
-        if "all_collection" in collection:
-            return collection.split("all_collection")[0]
-        if "bundle" in collection:
-            return collection.split("bundle")[0]
-        return None
 
     bundle_results = list(
         filter(lambda doc: doc["type"] == "bundle", res_json["response"]["docs"])
@@ -219,8 +183,7 @@ async def extend_results_with_bundles(client, res_json, collection: str):
             offers = {}
             offer_results = []
             for offer_id in offer_ids:
-                offer_col_name = await get_col_prefix() + "offer"
-                response = (await get(client, offer_col_name, offer_id)).json()
+                response = (await get(client, Collection.OFFER, offer_id)).json()
                 item = response["doc"]
                 if item is None:
                     logger.warning(f"No offer with id={offer_id}")
@@ -236,8 +199,7 @@ async def extend_results_with_bundles(client, res_json, collection: str):
             services = {}
             service_results = []
             for service_id in services_ids:
-                service_col_name = await get_col_prefix() + "service"
-                response = (await get(client, service_col_name, service_id)).json()
+                response = (await get(client, Collection.SERVICE, service_id)).json()
                 item = response["doc"]
                 if item is None:
                     logger.warning(f"No service with id={service_id}")
@@ -260,35 +222,20 @@ async def extend_results_with_bundles(client, res_json, collection: str):
 
 
 async def define_sorting(
-    sort_ui: str, sort: list[str], collection: Optional[str] = None
+    sort_ui: SortUi, sort: list[str], collection: Optional[str] = None
 ):
     """Retrieve proper solr sorting based on sort_ui param"""
 
-    def get_basic_sort():
-        match sort_ui:
-            case "dmr":
-                return ["publication_date desc"] + DEFAULT_SORT
-            case "dlr":
-                return ["publication_date asc"] + DEFAULT_SORT
-            case "mp":
-                return [
-                    "usage_counts_views desc",
-                    "usage_counts_downloads desc",
-                ] + DEFAULT_SORT
-            case "r":
-                # Sort by relevance the most popular resources
-                return [
-                    "usage_counts_views desc",
-                    "usage_counts_downloads desc",
-                ] + DEFAULT_SORT
-            case "default":
-                return DEFAULT_SORT
-            case _:
-                return sort + DEFAULT_SORT
+    additional_sorts = SORT_UI_TO_SORT_MAP.get(sort_ui)
+    final_sorting = (
+        sort + DEFAULT_SORT
+        if additional_sorts is None
+        else additional_sorts + DEFAULT_SORT
+    )
 
     # TODO: This is a workaround. Remove once bundles have been fixed.
     # https://github.com/cyfronet-fid/eosc-search-service/issues/754
-    if "all_collection" in collection:
-        return ['if(eq(type, "bundle"), 1, 0) asc'] + get_basic_sort()
+    if Collection.ALL_COLLECTION in collection:
+        return ['if(eq(type, "bundle"), 1, 0) asc'] + final_sorting
 
-    return get_basic_sort()
+    return final_sorting

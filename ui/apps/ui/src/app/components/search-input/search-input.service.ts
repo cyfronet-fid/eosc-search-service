@@ -53,7 +53,7 @@ export class SearchInputService {
     }
 
     const collections: ICollectionSearchMetadata[] =
-      collectionName === 'all'
+      collectionName === 'all_collection'
         ? this._searchMetadataRepository
             .getAll()
             .filter(({ id }) => id !== URL_PARAM_NAME)
@@ -108,11 +108,7 @@ export class SearchInputService {
       map((response) =>
         response.map((response_item) => {
           const collection: ICollectionSearchMetadata =
-            this._searchMetadataRepository.get(
-              response_item.collection === 'data_source'
-                ? 'data-source'
-                : response_item.collection
-            );
+            this._searchMetadataRepository.get(response_item.collection);
           const adapter = this._adaptersRepository.get(collection.id)
             ?.adapter as adapterType;
 

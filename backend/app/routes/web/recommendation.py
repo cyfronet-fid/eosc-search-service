@@ -7,9 +7,9 @@ import httpx
 from fastapi import APIRouter, HTTPException, Request
 from httpx import ReadTimeout
 
+from app.consts import Collection
 from app.generic.models.bad_request import BadRequest
 from app.recommender.router_utils.common import (
-    RecommendationPanelId,
     RecommenderError,
     SolrRetrieveError,
     get_session,
@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
     "/recommendations",
     responses={200: {"model": dict}, 500: {"model": BadRequest}},
 )
-async def get_recommendations(panel_id: RecommendationPanelId, request: Request):
+async def get_recommendations(panel_id: Collection, request: Request):
     if settings.SHOW_RECOMMENDATIONS is False:
         return []
     session, _ = await get_session(request)
@@ -64,7 +64,7 @@ async def get_recommendations(panel_id: RecommendationPanelId, request: Request)
 
 async def sort_by_relevance(
     request: Request,
-    panel_id: RecommendationPanelId,
+    panel_id: Collection,
     documents: list,
 ):
     session, _ = await get_session(request)

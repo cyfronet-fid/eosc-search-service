@@ -9,7 +9,6 @@ import { sharedEnvironment } from './environment.generated';
 
 export const commonEnvironment = {
   // @ts-ignore
-  collectionsPrefix: '',
   ...sharedEnvironment,
   backendApiPath: 'api/web',
   navigationApiPath: 'navigate',
