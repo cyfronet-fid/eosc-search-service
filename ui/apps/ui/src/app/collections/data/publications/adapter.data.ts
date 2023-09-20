@@ -8,7 +8,7 @@ import {
 } from '@collections/filters-serializers/utils';
 import { transformLanguages } from '@collections/data/shared-tags';
 import {
-  constructDoiTag,
+  constructIdentifierTag,
   formatPublicationDate,
   parseStatistics,
   toKeywordsSecondaryTag,
@@ -22,9 +22,11 @@ export const publicationsAdapter: IAdapter = {
   ): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
+    isResearchProduct: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
+    urls: openAIREResult.url,
     date: formatPublicationDate(openAIREResult['publication_date']),
     urls: openAIREResult.url,
     documentType: openAIREResult?.document_type,
@@ -39,6 +41,7 @@ export const publicationsAdapter: IAdapter = {
         label: 'Author',
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
+        showMoreThreshold: 10,
       },
       {
         label: 'Publisher',
@@ -46,15 +49,15 @@ export const publicationsAdapter: IAdapter = {
         filter: 'publisher',
       },
       {
-        label: 'Identifier',
-        // TODO: Add HANDLE, PMID and PMD somehow
-        values: constructDoiTag(openAIREResult?.doi),
-        filter: 'doi',
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
+        filter: 'scientific_domains',
       },
       {
-        label: 'Field of Science',
-        values: toValueWithLabel(toArray(openAIREResult?.fos)),
-        filter: 'fos',
+        label: 'Identifier',
+        values: constructIdentifierTag(openAIREResult?.pids),
+        filter: 'doi',
+        showMoreThreshold: 4,
       },
     ],
     type: {

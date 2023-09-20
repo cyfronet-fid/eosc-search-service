@@ -9,7 +9,6 @@ import { sharedEnvironment } from './environment.generated';
 
 export const commonEnvironment = {
   // @ts-ignore
-  collectionsPrefix: '',
   ...sharedEnvironment,
   backendApiPath: 'api/web',
   navigationApiPath: 'navigate',
@@ -19,6 +18,8 @@ export const commonEnvironment = {
     apiPath: 'search-results',
     suggestionsPath: 'search-suggestions',
     apiPathAdv: 'search-results-advanced',
+    bibExportPath: 'bibliography-export-all-formats',
+    bibCitationPath: 'bibliography-cite',
   },
 
   /*

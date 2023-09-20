@@ -5,11 +5,7 @@ import uuid
 import httpx
 from httpx import AsyncClient
 
-from app.recommender.router_utils.common import (
-    RecommendationPanelId,
-    RecommenderError,
-    _get_panel,
-)
+from app.recommender.router_utils.common import Collection, RecommenderError, _get_panel
 from app.schemas.session_data import SessionData
 from app.settings import settings
 
@@ -47,7 +43,7 @@ async def parse_candidates(documents: list) -> [dict, list[dict]]:
 async def perform_sort_by_relevance(
     client: AsyncClient,
     session: SessionData | None,
-    panel_id: RecommendationPanelId,
+    panel_id: Collection,
     candidates_ids: dict,
 ):
     try:

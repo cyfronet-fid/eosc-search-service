@@ -1,12 +1,12 @@
 <div id="container">
   <div *ngIf="standardSearch" class="search-box">
     <form>
-      <div class="input-group" style="padding-bottom: 5px;">
+      <div class="input-group" style="padding-bottom: 5px">
         <div class="phase-box">
           <input
             #inputQuery
             type="text"
-            class="form-control"
+            class="form-control4"
             autocomplete="off"
             i18n-placeholder
             placeholder="Search in catalogs"
@@ -50,6 +50,29 @@
             <i class="bi bi-search"></i>
           </button>
         </div>
+        <div>
+          <span class="search-text-checkbox">
+            <label class="input-checkbox-label">
+              <input
+                name="exact"
+                class="input-checkbox"
+                type="checkbox"
+                [checked]="exactmatch"
+                (change)="onCheckboxChange()"
+              />
+              Exact match
+              <img
+                src="assets/help-circle.svg"
+                placement="bottom"
+                [ngbTooltip]="tooltipText"
+                alt="Tooltip prompt icon"
+                class="tooltip-prompt-icon"
+                style="padding-bottom: 4px"
+                width="19"
+              />
+            </label>
+          </span>
+        </div>
       </div>
       <span
         *ngIf="!isLanding()"
@@ -90,10 +113,10 @@
   </div>
   <div *ngIf="!standardSearch" class="search-box-adv">
     <form>
-      <div class="input-group" style="margin-bottom: 5px;">
+      <div class="input-group" style="margin-bottom: 5px">
         <select
           class="form-select"
-          style="margin-left: 0px;"
+          style="margin-left: 0px"
           (click)="focused = false"
           [formControl]="collectionFc"
         >
@@ -140,33 +163,70 @@
             <i class="bi bi-search"></i>
           </button>
         </div>
-      </div>
-      <div
-        *ngIf="tags.length !== 0"
-        class="mb-2"
-        style="margin-left:-45px;"
-      >
-        <span class="adv-search-text-tag" *ngFor="let elem of tags">
-          <nz-tag nzMode="closeable" (nzOnClose)="remove(elem)">{{
-            elem
-          }}</nz-tag>
-        </span>
+        <div>
+          <span class="search-text-checkbox">
+            <label class="input-checkbox-label"
+              ><input
+                name="exact"
+                class="input-checkbox"
+                type="checkbox"
+                [checked]="exactmatch"
+                (change)="onCheckboxChange()"
+              />
+              Exact match
+              <img
+                src="assets/help-circle.svg"
+                placement="bottom"
+                [ngbTooltip]="tooltipText"
+                alt="Tooltip prompt icon"
+                class="tooltip-prompt-icon"
+                style="padding-bottom: 4px"
+                width="19"
+              />
+            </label>
+          </span>
+        </div>
       </div>
 
-      <span class="adv-search-text">Narrow your search</span>
-      <div class="input-group" style="margin-bottom: 5px; margin-top:5px;">
+      <div class="input-group" style="margin-bottom: 5px; margin-top: 15px">
         <select
           class="form-select"
-          style="margin-left: 0px;"
+          style="margin-left: 0px; min-width: 111px"
           (click)="focused = false"
           [formControl]="collectionFcAdvForm"
         >
-          <option
-            *ngFor="let navConfig of collectionFcAdv"
-            [ngValue]="navConfig"
-          >
-            {{ navConfig.name }}
-          </option>
+          <ng-container *ngFor="let navConfig of collectionFcAdv">
+            <option
+              *ngIf="
+                !withKeyword() &&
+                navConfig.name !== 'Keyword' &&
+                !withAuthor() &&
+                navConfig.name !== 'Author'
+              "
+              [ngValue]="navConfig"
+            >
+              <span> {{ navConfig.name }} </span>
+            </option>
+            <option
+              *ngIf="
+                !withAuthor() && navConfig.name !== 'Author' && withKeyword()
+              "
+              [ngValue]="navConfig"
+            >
+              <span> {{ navConfig.name }} </span>
+            </option>
+            <option
+              *ngIf="
+                !withKeyword() && navConfig.name !== 'Keyword' && withAuthor()
+              "
+              [ngValue]="navConfig"
+            >
+              <span> {{ navConfig.name }} </span>
+            </option>
+            <option *ngIf="withKeyword() && withAuthor()" [ngValue]="navConfig">
+              <span> {{ navConfig.name }} </span>
+            </option>
+          </ng-container>
         </select>
         <div class="phase-box">
           <input
@@ -175,7 +235,7 @@
             class="form-control2"
             autocomplete="off"
             i18n-placeholder
-            placeholder="Narrow by: author, in author, exact phrase, in title, none of"
+            placeholder="Narrow by: author, title, keywords, exact, none of"
             (keydown.enter)="
               add({
                 value: formControlAdv.value,
@@ -186,9 +246,7 @@
             [formControl]="formControlAdv"
           />
           <button
-            *ngIf="
-              formControlAdv.value && formControlAdv.value.trim() !== ''
-            "
+            *ngIf="formControlAdv.value && formControlAdv.value.trim() !== ''"
             id="btn--clear-query"
             type="button"
             class="btn btn-secondary"
@@ -199,6 +257,7 @@
         </div>
         <div class="input-group-btn">
           <button
+            style="white-space: nowrap"
             class="btn btn-enter"
             type="button"
             (click)="
@@ -209,8 +268,216 @@
               })
             "
           >
-            Add
+            Narrow down
           </button>
+        </div>
+      </div>
+      <div
+        *ngIf="tags.length !== 0"
+        class="mb-2"
+        style="margin-left: -45px; padding-top: 10px"
+      >
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span
+              *ngIf="elemExist('author')"
+              class="adv-search-text-tag"
+              style="padding-top: 18px"
+            >
+              Author
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('author')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('author:')[1] }}</nz-tag
+              >
+            </span>
+            <span class="adv-search-text-tag" *ngIf="manyElems('author')">
+              <nz-radio-group
+                [(ngModel)]="radioValueAuthor"
+                [ngModelOptions]="{ standalone: true }"
+                (ngModelChange)="onValueChange()"
+                nzSize="small"
+                nzButtonStyle="solid"
+                class="ant-radio-custom"
+              >
+                <label
+                  nz-radio-button
+                  nzValue="A"
+                  class="ant-radio-custom-label"
+                  >And</label
+                >
+                <label
+                  nz-radio-button
+                  nzValue="B"
+                  class="ant-radio-custom-label"
+                  >Or</label
+                >
+              </nz-radio-group>
+            </span>
+          </div>
+        </div>
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span *ngIf="elemExist('exact')" class="adv-search-text-tag">
+              Exact
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('exact')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('exact:')[1] }}</nz-tag
+              >
+            </span>
+            <span class="adv-search-text-tag" *ngIf="manyElems('exact')">
+              <nz-radio-group
+                [(ngModel)]="radioValueExact"
+                (ngModelChange)="onValueChange()"
+                [ngModelOptions]="{ standalone: true }"
+                nzSize="small"
+                nzButtonStyle="solid"
+                class="ant-radio-custom"
+              >
+                <label
+                  nz-radio-button
+                  nzValue="A"
+                  class="ant-radio-custom-label"
+                  >And</label
+                >
+                <label
+                  nz-radio-button
+                  nzValue="B"
+                  class="ant-radio-custom-label"
+                  >Or</label
+                >
+              </nz-radio-group>
+            </span>
+          </div>
+        </div>
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span *ngIf="elemExist('in title')" class="adv-search-text-tag">
+              In title
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('in title')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('in title:')[1] }}</nz-tag
+              >
+            </span>
+            <span class="adv-search-text-tag" *ngIf="manyElems('in title')">
+              <nz-radio-group
+                [(ngModel)]="radioValueTitle"
+                [ngModelOptions]="{ standalone: true }"
+                (ngModelChange)="onValueChange()"
+                nzSize="small"
+                nzButtonStyle="solid"
+                class="ant-radio-custom"
+              >
+                <label
+                  nz-radio-button
+                  nzValue="A"
+                  class="ant-radio-custom-label"
+                  >And</label
+                >
+                <label
+                  nz-radio-button
+                  nzValue="B"
+                  class="ant-radio-custom-label"
+                  >Or</label
+                >
+              </nz-radio-group>
+            </span>
+          </div>
+        </div>
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span
+              *ngIf="elemExist('keyword') || elemExist('tagged')"
+              class="adv-search-text-tag"
+            >
+              Keywords
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('keyword')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('keyword:')[1] }}</nz-tag
+              >
+              <nz-tag
+                *ngIf="elem.startsWith('tagged')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px; margin-bottom: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('tagged:')[1] }}</nz-tag
+              >
+            </span>
+            <span class="adv-search-text-tag" *ngIf="manyElems('keyword')">
+              <nz-radio-group
+                [(ngModel)]="radioValueKeyword"
+                [ngModelOptions]="{ standalone: true }"
+                (ngModelChange)="onValueChange()"
+                nzSize="small"
+                nzButtonStyle="solid"
+                class="ant-radio-custom"
+              >
+                <label
+                  nz-radio-button
+                  nzValue="A"
+                  class="ant-radio-custom-label"
+                  >And</label
+                >
+                <label
+                  nz-radio-button
+                  nzValue="B"
+                  class="ant-radio-custom-label"
+                  >Or</label
+                >
+              </nz-radio-group>
+            </span>
+          </div>
+        </div>
+        <div class="row gx-1 gy-1 py-0">
+          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+            <span *ngIf="elemExist('none')" class="adv-search-text-tag">
+              None of
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('none')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px"
+                class="ant-tag-custom"
+                >{{ elem.split('none of:')[1] }}</nz-tag
+              >
+            </span>
+          </div>
         </div>
       </div>
       <span
@@ -221,8 +488,21 @@
           clearQueryAdv();
           updateQueryParamsAdv(this.formControl.value || '*')
         "
-        >Hide and Clear Advanced Search</span
+        ><- Go back to Basic Search</span
       >
+      <span
+        *ngIf="tags.length !== 0"
+        class="adv-search-text-tag"
+        style="cursor: pointer; color: #0d6efd; padding-left: 20px"
+        (click)="removeAll($event)"
+      >
+        <img
+          src="assets/trashed.svg"
+          class="tooltip-prompt-icon"
+          style="padding-bottom: 4px; padding-right: 2px"
+          width="16"
+        />Clear Advanced Search
+      </span>
     </form>
 
     <div

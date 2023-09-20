@@ -4,12 +4,13 @@ from json import JSONDecodeError
 from fastapi import Body, Depends, HTTPException, Query
 from httpx import AsyncClient, TransportError
 
+from app.consts import DEFAULT_SORT
 from app.recommender.operations import recommendations
+from app.routes.router import internal_api_router
 from app.settings import settings
 from app.solr.operations import search_dep
 
 from ..schemas.recommend_request import RecommendRequest
-from .utils import DEFAULT_SORT, internal_api_router
 
 
 # pylint: disable=too-many-arguments
@@ -45,29 +46,21 @@ async def recommend_post(
     https://solr.apache.org/guide/8_11/query-syntax-and-parsing.html.
     """
     async with AsyncClient() as client:
+        solr_response = await search(
+            client,
+            collection,
+            q=q,
+            qf=qf,
+            fq=fq,
+            sort=sort + DEFAULT_SORT,
+            rows=settings.RS_ROWS,
+            cursor="*",
+        )
         try:
-            solr_response = await search(
-                client,
-                collection,
-                q=q,
-                qf=qf,
-                fq=fq,
-                sort=sort + DEFAULT_SORT,
-                rows=settings.RS_ROWS,
-                cursor="*",
-            )
-            if solr_response.is_error:
-                try:
-                    detail = solr_response.json()["error"]["msg"]
-                except (KeyError, JSONDecodeError):
-                    detail = None
-                raise HTTPException(
-                    status_code=solr_response.status_code, detail=detail
-                )
             rs_response = await recommendations(
                 client,
                 collection,
-                solr_response.json()["response"]["docs"],
+                solr_response.data["response"]["docs"],
                 context=request,
                 q=q,
                 qf=qf,

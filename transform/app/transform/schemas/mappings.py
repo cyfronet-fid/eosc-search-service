@@ -1,3 +1,4 @@
+# TODO refactor and move all of below to dedicated mapping folder
 """Define mappings"""
 
 # Values are mapped to the keys

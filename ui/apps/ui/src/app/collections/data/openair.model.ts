@@ -4,12 +4,13 @@ export interface IOpenAIREResult {
   url: string[];
   urls: string[];
   author_names: string[];
+  urls: string[];
   description: string[];
   publication_date: string[];
   best_access_right: string;
   language: string[];
   type: string;
-  fos: string[];
+  scientific_domains: string[];
   keywords: string[];
   open_access: boolean;
   publisher: string;
@@ -20,4 +21,6 @@ export interface IOpenAIREResult {
   doi: string[];
   usage_counts_views: string;
   usage_counts_downloads: string;
+  isResearchProduct: boolean;
+  pids: string;
 }

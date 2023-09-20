@@ -17,7 +17,12 @@ const DEFAULT_PARAMS = {
   cursor: '*',
   sort: [],
   standard: 'true',
+  exact: 'false',
   tags: [],
+  radioValueAuthor: 'A',
+  radioValueExact: 'A',
+  radioValueTitle: 'A',
+  radioValueKeyword: 'A',
 };
 
 @Injectable({
@@ -42,6 +47,20 @@ export class CustomRoute {
   readonly standard$ = this._store$.pipe(select(({ standard }) => standard));
   readonly sort_ui$ = this._store$.pipe(select(({ sort_ui }) => sort_ui));
   readonly tags$ = this._store$.pipe(select(({ tags }) => tags));
+  readonly exact$ = this._store$.pipe(select(({ exact }) => exact));
+  readonly radioValueAuthor$ = this._store$.pipe(
+    select(({ radioValueAuthor }) => radioValueAuthor)
+  );
+  readonly radioValueExact$ = this._store$.pipe(
+    select(({ radioValueExact }) => radioValueExact)
+  );
+  readonly radioValueTitle$ = this._store$.pipe(
+    select(({ radioValueTitle }) => radioValueTitle)
+  );
+  readonly radioValueKeyword$ = this._store$.pipe(
+    select(({ radioValueKeyword }) => radioValueKeyword)
+  );
+
   readonly fqMap$ = this._store$.pipe(
     select(({ fq }) =>
       serializeAll(
@@ -97,6 +116,15 @@ export class CustomRoute {
       collection: collection,
       fq: toArray(parsedQueryParams['fq']),
       q: (parsedQueryParams['q'] as string | undefined) ?? '*',
+      exact: (parsedQueryParams['exact'] as string | undefined) ?? 'false',
+      radioValueAuthor:
+        (parsedQueryParams['radioValueAuthor'] as string | undefined) ?? 'A',
+      radioValueExact:
+        (parsedQueryParams['radioValueExact'] as string | undefined) ?? 'A',
+      radioValueTitle:
+        (parsedQueryParams['radioValueTitle'] as string | undefined) ?? 'A',
+      radioValueKeyword:
+        (parsedQueryParams['radioValueKeyword'] as string | undefined) ?? 'A',
     }));
   }
   setCollection(collection: string | null) {

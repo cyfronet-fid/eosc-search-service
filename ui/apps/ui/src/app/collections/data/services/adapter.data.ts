@@ -18,6 +18,7 @@ export const servicesAdapter: IAdapter = {
   adapter: (service: Partial<IService> & { id: string }): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
+    isResearchProduct: false,
     id: service.id,
     // basic information
     title: service.title?.join(' ') || '',
@@ -35,14 +36,14 @@ export const servicesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Scientific domain',
-        values: toValueWithLabel(toArray(service.scientific_domains)),
-        filter: 'scientific_domains',
-      },
-      {
         label: 'Organisation',
         values: toValueWithLabel(toArray(service.resource_organisation)),
         filter: 'resource_organisation',
+      },
+      {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(service.scientific_domains)),
+        filter: 'scientific_domains',
       },
     ],
     secondaryTags: [

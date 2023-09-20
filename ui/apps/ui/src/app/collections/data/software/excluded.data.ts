@@ -3,10 +3,5 @@ import { IExcludedFiltersConfig } from '@collections/repositories/types';
 
 export const excludedSoftwareFilters: IExcludedFiltersConfig = {
   id: URL_PARAM_NAME,
-  excluded: [
-    'fos',
-    'unified_categories',
-    'document_type',
-    'resource_organisation',
-  ],
+  excluded: ['unified_categories', 'document_type', 'resource_organisation'],
 };

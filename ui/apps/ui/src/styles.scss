@@ -30,6 +30,10 @@ a:hover {
   width: 0;
 }
 
+.btn {
+  border-radius: 8px;
+}
+
 .btn-special {
   background: #ffffff;
   border: 1px solid #d0d5dd;
@@ -384,6 +388,48 @@ h6 {
   padding: 7px 0;
 }
 
+.bottom-actions {
+  padding-top: 15px;
+
+
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
+  }
+}
+
+.bottom-actions {
+  padding-top: 15px;
+
+
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
+  }
+}
+
+.bottom-actions {
+  padding-top: 15px;
+
+
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
+  }
+}
+
 #tags {
   font-weight: 400;
   margin: 7px 0;
@@ -448,7 +494,7 @@ h6 {
   }
 
   &.service {
-    border-color: #91AAD2;
+    border-color: #91aad2;
 
     .type-icon {
       background-image: url('assets/icon-type-service.svg');
@@ -456,7 +502,7 @@ h6 {
   }
 
   &.software {
-    border-color: #D291C0;
+    border-color: #d291c0;
 
     .type-icon {
       background-image: url('assets/icon-type-software.svg');
@@ -464,7 +510,7 @@ h6 {
   }
 
   &.source {
-    border-color: #91D2BB;
+    border-color: #91d2bb;
 
     .type-icon {
       background-image: url('assets/icon-type-data-source.svg');
@@ -472,7 +518,7 @@ h6 {
   }
 
   &.dataset {
-    border-color: #91D2BB;
+    border-color: #91d2bb;
 
     .type-icon {
       background-image: url('assets/icon-type-data.svg');
@@ -480,7 +526,7 @@ h6 {
   }
 
   &.other {
-    border-color: #FFEDAC;
+    border-color: #ffedac;
 
     .type-icon {
       background-image: url('assets/icon-type-other.svg');
@@ -488,7 +534,7 @@ h6 {
   }
 
   &.training {
-    border-color: #C991D2;
+    border-color: #c991d2;
 
     .type-icon {
       background-image: url('assets/icon-type-training.svg');
@@ -496,7 +542,7 @@ h6 {
   }
 
   &.publication {
-    border-color: #FFEDAC;
+    border-color: #ffedac;
 
     .type-icon {
       background-image: url('assets/icon-type-publication.svg');
@@ -504,7 +550,7 @@ h6 {
   }
 
   &.guideline {
-    border-color: #C991D2;
+    border-color: #c991d2;
 
     .type-icon {
       background-image: url('assets/icon-type-guidelines.svg');
@@ -512,7 +558,7 @@ h6 {
   }
 
   &.bundles {
-    border-color: #A7FEF9;
+    border-color: #a7fef9;
 
     .type-icon {
       background-image: url('assets/icon-type-bundle.svg');
@@ -520,7 +566,7 @@ h6 {
   }
 
   &.provider {
-    border-color: #91AAD2;
+    border-color: #91aad2;
 
     .type-icon {
       background-image: url('assets/icon-type-provider.svg');
@@ -738,6 +784,66 @@ h6 {
   }
 }
 
+.modal.show .modal-dialog {
+  max-width: 750px;
+}
+
+.bibliography {
+  border-bottom: none;
+
+  .modal-title {
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  label {
+    padding-left: 0;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  h6 {
+    padding-left: 0;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .modal-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 13px;
+    padding-left: 0;
+  }
+
+  .modal-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      display: inline;
+      float: left;
+      margin: 0 10px 10px 0;
+
+      .btn {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .modal-info {
+    font-size: 14px;
+    padding: 0;
+  }
+
+  button {
+    width: auto;
+    float: right;
+  }
+}
+
 .page-item.active {
   border: none;
 }
@@ -930,6 +1036,12 @@ h6 {
     }
 
     .input-group-btn {
+      width: 100%;
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .exact {
       width: 100%;
       margin-top: 15px;
       text-align: center;
@@ -1207,7 +1319,6 @@ h6 {
 }
 
 @media (max-width: 576px) {
-
   .results .type-icon-holder {
     flex: 70px 0 0;
 

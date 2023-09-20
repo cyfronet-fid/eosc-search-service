@@ -10,7 +10,10 @@ export class RecommendationsRepository {
     {
       name: 'recommendations',
     },
-    withProps<RecommendationStateProps>({ panelId: 'all', status: 'pending' }),
+    withProps<RecommendationStateProps>({
+      panelId: 'all_collection',
+      status: 'pending',
+    }),
     withEntities<IResult>()
   );
 

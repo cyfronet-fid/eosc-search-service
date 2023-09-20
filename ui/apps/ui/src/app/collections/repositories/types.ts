@@ -12,6 +12,7 @@ export interface IResult {
   documentType?: string[];
   type: IValueWithLabel;
   collection: string;
+  urls?: string[];
   url: string;
   urls?: string[];
   tags: ITag[];
@@ -27,7 +28,9 @@ export interface IResult {
   offers?: any[];
   isSortByRelevanceCollectionScopeOff?: boolean;
   isSortCollectionScopeOff?: boolean;
+  isResearchProduct: boolean;
   horizontal?: boolean;
+  pids?: Pids;
 }
 
 export interface ISecondaryTag {
@@ -38,13 +41,14 @@ export interface ISecondaryTag {
 }
 
 export interface IValueWithLabelAndLink extends IValueWithLabel {
-  externalLink?: { broken: boolean; link?: string };
+  externalLink?: { link?: string };
 }
 
 export interface ITag {
   label: string;
   values: IValueWithLabelAndLink[];
   filter: string;
+  showMoreThreshold?: number;
 }
 
 export interface IColoredTag {
@@ -56,13 +60,6 @@ export interface IColoredTag {
 export interface ISolrCollectionParams {
   qf: string;
   collection: string;
-}
-
-export interface ISolrQueryParams {
-  q: string;
-  fq: string[];
-  sort: string[];
-  cursor: string;
 }
 
 export interface ISolrSuggestionQueryParams {
@@ -150,6 +147,7 @@ export interface ICollectionSearchMetadata {
 
 export interface ISolrQueryParams {
   q: string;
+  exact: string;
   fq: string[];
   sort: string[];
   rows: number;
@@ -206,3 +204,10 @@ export type AccessRight =
   | 'closed'
   | 'other'
   | 'order required';
+
+export interface Pids {
+  doi: string[];
+  handle: string[];
+  pmc: string[];
+  pmid: string[];
+}

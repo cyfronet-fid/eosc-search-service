@@ -36,9 +36,9 @@ export const allCollectionsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'fos',
-      filter: 'fos',
-      label: 'Scientific discipline',
+      id: 'scientific_domains',
+      filter: 'scientific_domains',
+      label: 'Scientific Domains',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',

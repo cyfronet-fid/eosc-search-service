@@ -25,6 +25,7 @@ export const dataSourcesAdapter: IAdapter = {
   adapter: (dataSource: Partial<IDataSource> & { id: string }): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
+    isResearchProduct: false,
     id: dataSource.id,
     // basic information
     title: dataSource.title?.join(' ') || '',
@@ -40,14 +41,14 @@ export const dataSourcesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Scientific domain',
-        values: toValueWithLabel(toArray(dataSource.scientific_domains)),
-        filter: 'scientific_domains',
-      },
-      {
         label: 'Organisation',
         values: toValueWithLabel(toArray(dataSource.resource_organisation)),
         filter: 'resource_organisation',
+      },
+      {
+        label: 'Scientific domain',
+        values: toValueWithLabel(toArray(dataSource.scientific_domains)),
+        filter: 'scientific_domains',
       },
     ],
     secondaryTags: [
