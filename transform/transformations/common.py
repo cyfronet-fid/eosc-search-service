@@ -6,7 +6,7 @@ from itertools import chain
 from logging import getLogger
 import json
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import col, to_date, when, lit
+from pyspark.sql.functions import col, to_date, when, lit, concat_ws
 from pyspark.sql.utils import AnalysisException
 from schemas.properties_name import (
     AUTHOR,
@@ -16,6 +16,7 @@ from schemas.properties_name import (
     COUNTRY,
     DOCUMENT_TYPE,
     FUNDER,
+    EXPORTATION,
     OPEN_ACCESS,
     RESEARCH_COMMUNITY,
     TYPE,
@@ -146,7 +147,7 @@ def harvest_scientific_domains(df: DataFrame, harvested_properties: dict) -> Non
         return actual_p, expected_p
 
     def adjust_scientific_domain(
-        sd_list: list[str], actual_p: defaultdict, expected_p: defaultdict
+            sd_list: list[str], actual_p: defaultdict, expected_p: defaultdict
     ) -> None:
         """Adjust scientific domains. There is a need to apply the same logic as PC does.
         Unfortunately, we cannot enforce anything during onboarding process as they do,
@@ -187,18 +188,18 @@ def harvest_scientific_domains(df: DataFrame, harvested_properties: dict) -> Non
             for act_parent, act_num_of_parents in actual_p.items():
                 if exp_parent == act_parent:
                     if (
-                        exp_num_of_parents == act_num_of_parents
+                            exp_num_of_parents == act_num_of_parents
                     ):  # Case 1) - happy path - no action needed.
                         break
                     elif (
-                        act_num_of_parents > exp_num_of_parents
+                            act_num_of_parents > exp_num_of_parents
                     ):  # Case 2) - delete excessive parents
                         difference = act_num_of_parents - exp_num_of_parents
                         remove_n_occurrences(sd_list, exp_parent, difference)
                         actual_p[act_parent] -= difference
                         break
                     elif (
-                        act_num_of_parents < exp_num_of_parents
+                            act_num_of_parents < exp_num_of_parents
                     ):  # Case 3) - add additional parents
                         difference = exp_num_of_parents - act_num_of_parents
                         sd_list.extend([exp_parent] * difference)
@@ -303,7 +304,7 @@ def harvest_sdg(df: DataFrame, harvested_properties: dict) -> None:
 
 
 def map_best_access_right(
-    df: DataFrame, harvested_properties: dict, col_name: str
+        df: DataFrame, harvested_properties: dict, col_name: str
 ) -> DataFrame:
     """Harvest best_access_right and map standardize its value"""
     if col_name.lower() in {"dataset", "publication", "software", "other"}:
@@ -488,6 +489,30 @@ def harvest_research_community(df: DataFrame, harvested_properties: dict) -> Non
 
     harvested_properties[RESEARCH_COMMUNITY] = rc_column
 
+def extract_pids(pid_list):
+    """
+    Extract PID information from a list of PIDs and return it as a dictionary.
+
+    Args:
+        pid_list (list): List of PIDs.
+
+    Returns:
+        dict: Dictionary containing PID information categorized by scheme.
+    """
+    pids_row = {
+        "arXiv": [],
+        "doi": [],
+        "handle": [],
+        "pdb": [],
+        "pmc": [],
+        "pmid": [],
+        "w3id": [],
+    }
+
+    for pid in pid_list:
+        pids_row[pid["scheme"]].append(pid["value"])
+
+    return pids_row
 
 def harvest_pids(df: DataFrame, harvested_properties: dict) -> None:
     """Harvest DOI from OAG resources"""
@@ -496,18 +521,9 @@ def harvest_pids(df: DataFrame, harvested_properties: dict) -> None:
 
     for pids_list in pids_raw_column:
         pids = pids_list[PID] or []
-        pids_row = {
-            "arXiv": [],
-            "doi": [],
-            "handle": [],
-            "pdb": [],
-            "pmc": [],
-            "pmid": [],
-            "w3id": [],
-        }
-        for pid in pids:
-            pids_row[pid["scheme"]].append(pid["value"])
+        pids_row = extract_pids(pids)
         pids_column.append(json.dumps(pids_row))
+
     harvested_properties[PIDS] = pids_column
 
     # Add only DOI for backwards compatibility
@@ -624,8 +640,75 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
     return df
 
 
+def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
+    """
+    Harvest exportation information from instances within the DataFrame
+
+    Args:
+        df (DataFrame): Input DataFrame containing instance information.
+        harvested_properties (dict): Dictionary to store harvested properties.
+
+    Assumptions:
+        - Only the first 10 versions of each instance are harvested; subsequent versions are skipped
+          (approx. 0.2% of data is skipped).
+
+    For each instance:
+    - Extracted Fields:
+        - URL: URL of the instance.
+        - Type: Type of the instance.
+        - Publication Year: Year of publication from the publication date.
+        - License: License information.
+        - PIDs: Persistent identifiers associated with the instance.
+        - Hosted By: The entity hosting the instance.
+
+    The extracted information is structured into a list of dictionaries for each instance and stored in
+    'harvested_properties[EXPORTATION]'.
+
+    Note:
+    - 'i' is used to limit harvesting to the first 10 versions of each instance.
+
+    """
+    instances_list = df.select(INSTANCE).collect()
+    exportation_column = []
+
+    for instances in instances_list:
+
+        if instances[INSTANCE]:
+            exportation_row = []
+
+            for i, instance in enumerate(instances[INSTANCE]):
+                if i >= 9:
+                    break
+                else:
+                    url = instance[URL] if instance[URL] else None
+                    exportation_type = instance["type"] if instance["type"] else None
+                    publication_year = instance["publicationdate"][0:4] if instance["publicationdate"] else None
+                    instance_license = instance["license"] if instance["license"] else None
+
+                    pids = instance["pid"] or []
+                    pids_row = extract_pids(pids)
+
+                    datasource = instance["hostedby"]["value"] if instance["hostedby"] else None
+
+                    exportation_instance = {
+                        "url": url,
+                        "document_type": exportation_type,
+                        "publication_year": publication_year,
+                        "license": instance_license,
+                        "pids": pids_row,
+                        "hostedby": datasource
+                    }
+
+                    exportation_row.append(exportation_instance)
+
+            exportation_column.append(exportation_row)
+        else:
+            exportation_column.append([])
+
+    harvested_properties[EXPORTATION] = exportation_column
+
 def remove_commas(
-    df: DataFrame, col_name: str, harvested_properties: dict
+        df: DataFrame, col_name: str, harvested_properties: dict
 ) -> DataFrame:
     """Remove commas from a column values"""
     column_with_commas = df.select(col_name).collect()

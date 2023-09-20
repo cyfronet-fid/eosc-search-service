@@ -11,6 +11,7 @@ publication_output_schema = {
     "document_type": "array<string>",
     "doi": "array<string>",
     "eosc_if": "array<string>",
+    "exportation": "string",
     "funder": "array<string>",
     "id": "string",
     "keywords": "array<string>",
