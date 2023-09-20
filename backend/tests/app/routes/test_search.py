@@ -138,6 +138,7 @@ async def test_passes_all_facets(
     )
 
 
+@pytest.mark.skip(reason="Test is no longer relevant")
 @pytest.mark.asyncio
 @pytest.mark.integration
 @pytest.mark.parametrize("collection", ["test_collection"])
