@@ -30,7 +30,10 @@ def upload_all_col_data() -> None:
         if col_prop.get(PATH):
             # Data provided via files
             col_input_dir = col_prop[PATH]
-            data_points = sorted(os.listdir(col_input_dir))
+            data_points = []
+            for point in sorted(os.listdir(col_input_dir)):
+                if point.endswith(".json"):
+                    data_points.append(point)
         else:
             # Data from API
             data_points = col_prop[ADDRESS].split(" ")
