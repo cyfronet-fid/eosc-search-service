@@ -50,6 +50,7 @@ class PanelId(str, Enum):
     SERVICES = "services"
     TRAININGS = "trainings"
     SOFTWARE = "software"
+    BUNDLE = "bundle"
 
 
 # Mapping Solr collection names to recommender names [panel_id]
@@ -62,6 +63,7 @@ COLLECTION_TO_PANEL_ID_MAP = {
     Collection.SERVICE: PanelId.SERVICES,
     Collection.TRAINING: PanelId.TRAININGS,
     Collection.SOFTWARE: PanelId.SOFTWARE,
+    Collection.BUNDLE: PanelId.BUNDLE,
 }
 
 PANEL_ID_OPTIONS = [
@@ -71,6 +73,7 @@ PANEL_ID_OPTIONS = [
     PanelId.TRAININGS,
     PanelId.OTHER_RESEARCH_PRODUCT,
     PanelId.SERVICES,
+    PanelId.BUNDLE,
 ]
 
 PROVIDER_QF = "title^100 description^10 scientific_domains^10"
