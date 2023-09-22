@@ -3,6 +3,7 @@
 """The UI Search endpoint"""
 import itertools
 import logging
+from contextlib import suppress
 from typing import Optional
 
 from fastapi import APIRouter, Body, Depends, Query, Request
@@ -12,6 +13,7 @@ from app.consts import DEFAULT_SORT, SORT_UI_TO_SORT_MAP, SortUi
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.search_request import SearchRequest
 from app.schemas.solr_response import Collection
+from app.solr.error_handling import SolrDocumentNotFoundError
 from app.solr.operations import get, search_advanced_dep, search_dep
 
 router = APIRouter()
@@ -183,12 +185,13 @@ async def extend_results_with_bundles(client, res_json):
             offers = {}
             offer_results = []
             for offer_id in offer_ids:
-                response = (await get(client, Collection.OFFER, offer_id)).json()
-                item = response["doc"]
-                if item is None:
-                    logger.warning(f"No offer with id={offer_id}")
-                    continue
-                offer_results.append(item)
+                with suppress(SolrDocumentNotFoundError):
+                    response = (await get(client, Collection.OFFER, offer_id)).json()
+                    item = response["doc"]
+                    if item is None:
+                        logger.warning(f"No offer with id={offer_id}")
+                        continue
+                    offer_results.append(item)
 
             services_ids: set[int] = set()
 
@@ -199,13 +202,15 @@ async def extend_results_with_bundles(client, res_json):
             services = {}
             service_results = []
             for service_id in services_ids:
-                response = (await get(client, Collection.SERVICE, service_id)).json()
-                item = response["doc"]
-                if item is None:
-                    logger.warning(f"No service with id={service_id}")
-                    continue
-                service_results.append(item)
-
+                with suppress(SolrDocumentNotFoundError):
+                    response = (
+                        await get(client, Collection.SERVICE, service_id)
+                    ).json()
+                    item = response["doc"]
+                    if item is None:
+                        logger.warning(f"No service with id={service_id}")
+                        continue
+                    service_results.append(item)
             for service in service_results:
                 services[str(service["id"])] = service
             for offer in offer_results:

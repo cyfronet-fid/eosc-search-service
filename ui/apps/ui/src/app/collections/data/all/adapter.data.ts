@@ -44,7 +44,7 @@ const urlAdapter = (
     case 'dataset':
     case 'publication':
     case 'software':
-    case 'other_rp':
+    case 'other':
       return `${
         ConfigService.config?.eosc_explore_url
       }/search/result?id=${data?.id?.split('|')?.pop()}`;
@@ -92,7 +92,7 @@ const extractDate = (
     case 'software':
     case 'dataset':
     case 'training':
-    case 'other_rp':
+    case 'other':
       return formatPublicationDate(data['publication_date']);
     default:
       return undefined;

@@ -4,9 +4,7 @@ import uuid
 
 import httpx
 from async_lru import alru_cache
-from fastapi import HTTPException
 from httpx import AsyncClient
-from starlette.status import HTTP_200_OK
 
 from app.consts import Collection
 from app.recommender.router_utils.common import (
@@ -65,10 +63,7 @@ async def get_recommended_items(client: AsyncClient, uuids: list[str]):
         for item_uuid in uuids:
             response = (await get(client, Collection.ALL_COLLECTION, item_uuid)).json()
             item = response["doc"]
-            if item is None:
-                raise SolrRetrieveError(f"No item with id={item_uuid}")
             items.append(item)
-
         return items
     except httpx.ConnectError as e:
         raise SolrRetrieveError("Connection Error") from e
@@ -85,21 +80,17 @@ async def get_fixed_recommendations(
     if collection == Collection.ALL_COLLECTION:
         collection = "publication"
     fq = [f'type:("{collection}")']
-    try:
-        async with httpx.AsyncClient() as client:
-            response = await search(
-                client,
-                Collection.ALL_COLLECTION,
-                q="*",
-                qf="id",
-                fq=fq,
-                sort=["id desc"],
-                rows=rows,
-            )
-        if response.status_code != HTTP_200_OK:
-            return []
-    except HTTPException:
-        return []
+    async with httpx.AsyncClient() as client:
+        response = await search(
+            client,
+            Collection.ALL_COLLECTION,
+            q="*",
+            qf="id",
+            fq=fq,
+            sort=["id desc"],
+            rows=rows,
+            exact="false",
+        )
     docs: list = response.data["response"]["docs"]
     if len(docs) == 0:
         return []

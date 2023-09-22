@@ -25,6 +25,7 @@ from app.recommender.router_utils.sort_by_relevance import (
     sort_docs,
 )
 from app.settings import settings
+from app.solr.error_handling import SolrDocumentNotFoundError
 
 router = APIRouter()
 
@@ -39,14 +40,13 @@ async def get_recommendations(panel_id: Collection, request: Request):
     if settings.SHOW_RECOMMENDATIONS is False:
         return []
     session, _ = await get_session(request)
-
     try:
         async with httpx.AsyncClient() as client:
             try:
                 uuids = await get_recommended_uuids(client, session, panel_id)
                 items = await get_recommended_items(client, uuids)
                 return {"recommendations": items, "isRand": False}
-            except (RecommenderError, SolrRetrieveError, ReadTimeout) as error:
+            except (RecommenderError, ReadTimeout, SolrDocumentNotFoundError) as error:
                 uuids = await get_fixed_recommendations(panel_id)
                 items = await get_recommended_items(client, uuids)
                 return {
