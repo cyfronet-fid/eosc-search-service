@@ -44,11 +44,6 @@ export const bundlesAdapter: IAdapter = {
         values: toValueWithLabel(toArray(bundle.scientific_domains)),
         filter: 'scientific_domains',
       },
-      {
-        label: 'Research steps',
-        values: toValueWithLabel(toArray(bundle.unified_categories)),
-        filter: 'unified_categories',
-      },
     ],
     offers: bundle.offers ?? [],
     ...parseStatistics(bundle),
