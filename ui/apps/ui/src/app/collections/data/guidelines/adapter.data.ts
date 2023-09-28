@@ -22,6 +22,7 @@ export const guidelinesAdapter: IAdapter = {
     title: guideline['title']?.join(' ') || '',
     description: guideline['description']?.join(' ') || '',
     license: guideline['right_id'],
+    providerName: guideline['provider_name'],
     date: guideline['publication_year']
       ? guideline['publication_year'].toString()
       : '',
