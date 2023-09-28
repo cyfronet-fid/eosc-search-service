@@ -448,6 +448,13 @@ h6 {
   .border-right {
     border-right: 1px solid #D9D9D9;
     margin: 4px 10px 0 0;
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
   }
 }
 
@@ -1450,7 +1457,6 @@ h6 {
     }
   }
 }
-
 
 .zammad-form-group {
   border-radius: 20px;
