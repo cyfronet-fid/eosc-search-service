@@ -4,21 +4,19 @@
     <div class="container-xxl mb-5">
       <div *ngIf="myTraining !== undefined">
         <div class="ig-about-wrapper">
-          <div class="about">
-            <div class="about-content">
-              <div class="headline-container row">
-                <div class="ig-logo-container col-md-4 col-12">
-                  <img [src]="'./assets/training.png'" alt="" />
-                </div>
-                <div class="about-content-title col-md-5 col-12">
-                  <p class="ig-about-title" i18n>{{ myTraining?.title ?? '-' }}</p>
-                  <p class="ig-about-subtitle" i18n>
-                    Resource organization: <span class="sub-headline-color">{{ myTraining?.resource_organisation_name ?? '-' }}</span><br>
-                    Provided by: <span class="sub-headline-color">{{ providersNames ?? '-' }}</span>
-                  </p>
-                </div>
-
-                <div class="button-container col-md-3 col-12">
+          <div class="container-xxl">
+            <div class="about row">
+              <div class="ig-logo-container col-md-2 col-12">
+                <img [src]="'./assets/training.png'" alt="" />
+              </div>
+              <div class="ig-title-container about-content-title col-md-7 col-12" >
+                <p class="ig-about-title" i18n>{{ myTraining?.title ?? '-' }}</p>
+                <p class="ig-about-subtitle" i18n>
+                  Resource organization: <span class="sub-headline-color">{{ myTraining?.resource_organisation_name ?? '-' }}</span><br>
+                  Provided by: <span class="sub-headline-color">{{ providersNames ?? '-' }}</span>
+                </p>
+              </div>
+              <div class="ig-buttons-container col-md-3 col-12">
                   <a href="{{myTraining?.url ?? ''}}">
                     <div class="button" i18n>
                       Access training
@@ -27,125 +25,162 @@
                   <div class="button-off" i18n>
                     {{ myTraining?.best_access_right ?? '-' | filterPipe: type.TRAINING_ACCESS_TYPE }}
                   </div>
-                </div>
               </div>
-
             </div>
           </div>
-          <div class="details row">
-            <div class="column-left col-md-9 col-12">
-              <p>{{ myTraining?.description ?? '-'}}</p>
+        </div>
+
+        <div class="ig-middle-wrapper mt-4">
+          <div class="row">
+            <div class="ig-left-col-desc col-md-9 col-12">
               <div class="details-box">
-                <div class="details-box-container">
-                  <div class="svg-box">
-                    <div class="category-icon">
-                      <span class="helper"></span>
-                      <img [src]="'./assets/light.svg'" alt="">
-                    </div>
-                  </div>
-                  <p class="details-header" i18n>Basic Details</p>
+                <div class="ig-header">
+                  <img [src]="'./assets/about.svg'" alt="About" />
+                  <p>About</p>
                 </div>
-                <div class="column-container">
-                  <div class="col-6">
-                    <p class="section" i18n>Version Date<br><span class="section-description">{{ myTraining?.publication_date ?? '-' | transformDatePipe }}</span></p>
-                    <p class="section" i18n>License<br><span class="section-description">{{ myTraining?.license ?? '-'}}</span></p>
-                    <p class="section" i18n>Resource URL type<br><span class="section-description">{{ myTraining?.url_type ?? '-' | filterPipe: 'url_type'  }}</span></p>
-                  </div>
-                  <div class="col-6">
-                    <p class="section" i18n>Authors<br>
-                      <ng-container *ngFor="let author of myTraining.author_names; let i = index;">
-                        <span class="section-description">{{ author }}</span>{{ i === ((myTraining?.author_names?.length ?? 0)-1) ? '' : ','}}
-                      </ng-container>
-                    </p>
-                  </div>
+                <div class="ig-content-inner">
+                  <p>{{ myTraining?.description ?? '-' }}</p>
                 </div>
               </div>
 
               <div class="details-box">
-                <div class="details-box-container">
-                  <div class="svg-box">
-                    <div class="category-icon">
+                <div class="ig-header">
+                  <img [src]="'./assets/target.svg'" alt="Learning Details" />
+                  <p>Learning Details</p>
+                </div>
+
+                <div class="ig-content-inner row">
+                  <div class="col-6">
+                    <p class="section" i18n>
+                      Expertise Level<br /><span class="section-description">{{
+                        myTraining?.level_of_expertise ?? '-'
+                      }}</span>
+                    </p>
+                    <p class="section" i18n>
+                      Qualification<br /><span class="section-description">{{
+                        myTraining?.qualification ?? '-'
+                          | filterPipe: type.TRAINING_QUALIFICATIONS
+                      }}</span>
+                    </p>
+                    <p class="section" i18n>
+                      Content Resource Type<br />
+                      <ng-container
+                        *ngFor="let resource of myTraining.content_type"
+                      >
+                        <span class="section-description">{{ resource }}</span
+                        ><br />
+                      </ng-container>
+                    </p>
+                  </div>
+                  <div class="col-6">
+                    <p class="section" i18n>
+                      Duration<br /><span class="section-description">{{
+                        myTraining?.duration ?? '-'
+                      }}</span>
+                    </p>
+                    <p class="section" i18n>
+                      Learning Resource Type<br />
+                      <ng-container
+                        *ngFor="let resource of myTraining.resource_type"
+                      >
+                        <span class="section-description">{{ resource }}</span
+                        ><br />
+                      </ng-container>
+                    </p>
+                    <p class="section" i18n>
+                      Learning Outcome(s)<br />
+                      <ng-container
+                        *ngFor="let learn of myTraining.learning_outcomes"
+                      >
+                        <span class="section-description">{{ learn }}</span
+                        ><br />
+                      </ng-container>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="keywords-container">
+                <p>
+                  Keywords:
+                  <ng-container *ngFor="let key of myTraining.keywords">
+                    <a
+                      [routerLink]="['/search/all']"
+                      [queryParams]="keywordQueryParam(key)"
+                      ><span class="key">{{ key }}</span></a
+                    >
+                  </ng-container>
+                </p>
+              </div>
+            </div>
+            <div class="ig-right-col-desc col-md-3 col-12">
+              <div class="details-box">
+                <div class="ig-header">
+                  <img [src]="'./assets/light.svg'" alt="Basic Details" />
+                  <p>Basic Details</p>
+                </div>
+                <div class="ig-content-inner">
+                  <p class="section" i18n>
+                    Version Date<br /><span class="section-description">{{
+                      myTraining?.publication_date ?? '-' | transformDatePipe
+                    }}</span>
+                  </p>
+                  <p class="section" i18n>
+                    License<br /><span class="section-description">{{
+                      myTraining?.license ?? '-'
+                    }}</span>
+                  </p>
+                  <p class="section" i18n>
+                    Resource URL type<br /><span class="section-description">{{
+                      myTraining?.url_type ?? '-' | filterPipe: 'url_type'
+                    }}</span>
+                  </p>
+                  <p class="section" i18n>
+                    Authors<br />
+                    <ng-container
+                      *ngFor="
+                        let author of myTraining.author_names;
+                        let i = index
+                      "
+                    >
+                      <span class="section-description">{{ author }}</span
+                      >{{
+                        i === (myTraining?.author_names?.length ?? 0) - 1
+                          ? ''
+                          : ','
+                      }}
+                    </ng-container>
+                  </p>
+                  <p class="section mb-2" i18n>Scientific Categorisation</p>
+                  <div class="category-box">
+                    <div class="category-icon ico">
                       <span class="helper"></span>
-                      <img [src]="'./assets/target.svg'" alt="">
+                      <img [src]="'./assets/' + getIcon() + '.png'" alt="" />
+                    </div>
+                    <div class="category-name" i18n>
+                      {{ getCategory() }}
                     </div>
                   </div>
-                  <p class="details-header" i18n>Learning Details</p>
-                </div>
-                <div  class="column-container">
-                  <div class="col-6">
-                    <p class="section" i18n>Expertise Level<br><span class="section-description">{{ myTraining?.level_of_expertise ?? '-' }}</span></p>
-                    <p class="section" i18n>Qualification<br><span class="section-description">{{ myTraining?.qualification ?? '-' | filterPipe: type.TRAINING_QUALIFICATIONS }}</span></p>
-                    <p class="section" i18n>Content Resource Type<br>
-                      <ng-container *ngFor="let resource of myTraining.content_type">
-                        <span class="section-description">{{  resource }}</span><br>
-                      </ng-container>
-                    </p>
-                  </div>
-                  <div class="col-6">
-                    <p class="section" i18n>Duration<br><span class="section-description">{{  myTraining?.duration ?? '-' }}</span></p>
-                    <p class="section" i18n>Learning Resource Type<br>
-                      <ng-container *ngFor="let resource of myTraining.resource_type">
-                        <span class="section-description">{{ resource }}</span><br>
-                      </ng-container>
-                    </p>
-                    <p class="section" i18n>Learning Outcome(s)<br>
-                      <ng-container *ngFor="let learn of myTraining.learning_outcomes">
-                        <span class="section-description">{{ learn }}</span><br>
-                      </ng-container>
-                    </p>
-                  </div>
+
+                  <p class="section mb-2" i18n>Language</p>
+                  <ul class="details-list">
+                    <ng-container *ngFor="let language of myTraining.language">
+                      <li>{{ language }}</li>
+                    </ng-container>
+                  </ul>
+
+                  <p class="section mb-2" i18n>Target group</p>
+                  <ul class="details-list">
+                    <ng-container
+                      *ngFor="let target of myTraining.target_group"
+                    >
+                      <li>
+                        {{ target | filterPipe: type.TRAINING_TARGET_GROUP }}
+                      </li>
+                    </ng-container>
+                  </ul>
                 </div>
               </div>
             </div>
-            <div class="column-right col-md-3 col-12">
-             <h6 i18n>SCIENTIC CATEGORISATION</h6>
-              <div class="category-box">
-                <div class="category-icon ico">
-                  <span class="helper"></span>
-                  <img [src]="'./assets/' + getIcon() + '.png'" alt="">
-                </div>
-                <div class="category-name" i18n>
-                  {{ getCategory() }}
-                </div>
-              </div>
-              <div class="li-container">
-                <ul>
-                  <ng-container *ngFor="let domain of myTraining.scientific_domains; let i = index">
-                    <li *ngIf="(i === 1)">{{ getSubstring(domain) | filterPipe: type.TRAINING_DOMAIN }}</li>
-                  </ng-container>
-                </ul>
-              </div>
-              <h6 i18n>LANGUAGE</h6>
-              <div class="li-container">
-                <ul>
-                  <ng-container *ngFor="let language of myTraining.language">
-                    <li>{{ language }}</li>
-                  </ng-container>
-                </ul>
-              </div>
-              <h6 i18n>TARGET USERS</h6>
-              <div class="li-container">
-                <ul>
-                  <ng-container *ngFor="let target of myTraining.target_group">
-                    <li>{{ target | filterPipe: type.TRAINING_TARGET_GROUP }}</li>
-                  </ng-container>
-                </ul>
-              </div>
-              <h6 i18n>GEOGRAPHICAL AVAIABILITY</h6>
-              <div class="li-container">
-                <ul>
-                  <ng-container *ngFor="let availabe of myTraining.geographical_availabilities">
-                    <li>{{  availabe }}</li>
-                  </ng-container>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class="keywords-container">
-            <p>Keywords:
-              <ng-container *ngFor="let key of myTraining.keywords">
-                <a [routerLink]="['/search/all']" [queryParams]="keywordQueryParam(key)"><span class="key">{{ key }}</span></a>
-              </ng-container>
           </div>
         </div>
       </div>
