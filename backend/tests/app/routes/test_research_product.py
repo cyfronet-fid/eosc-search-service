@@ -25,11 +25,12 @@ async def test_get_rp_by_id_success(
     )
     response = await client.get(url=url)
     expected_result = ResearchProductResponse(
-        title="Ricki Lake Weight Loss Journey",
+        title="CO2 en afvalbeleid. Resultaten monitoring 1991/1992  en knelpunten",
         links=links,
-        author=["Ricki Lake"],
+        author=["Oh KMM", "Joosten JM", "Martens WG"],
         type="publication",
     )
+
     assert response.status_code == status.HTTP_200_OK
     assert response.json() == expected_result.dict()
 

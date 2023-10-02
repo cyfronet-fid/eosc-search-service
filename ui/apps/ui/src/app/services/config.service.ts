@@ -11,6 +11,7 @@ export interface BackendConfig {
   eosc_commons_url: string;
   eosc_commons_env: string;
   eosc_explore_url: string;
+  knowledge_hub_url: string;
   is_sort_by_relevance: boolean;
 }
 
@@ -48,6 +49,11 @@ export class ConfigService {
       switchMap((config) =>
         forkJoin([
           this._loadAsset(
+            `https://eosc-helpdesk.eosc-portal.eu/assets/form/form.js`,
+            'javascript',
+            'zammad_form_script'
+          ),
+          this._loadAsset(
             `${config.eosc_commons_url}index.${config.eosc_commons_env}.min.js`,
             'javascript'
           ),
@@ -72,7 +78,8 @@ export class ConfigService {
 
   private _loadAsset(
     src: string,
-    type: 'stylesheet' | 'javascript'
+    type: 'stylesheet' | 'javascript',
+    id?: string
   ): Observable<HTMLLinkElement | HTMLScriptElement> {
     return new Observable<HTMLLinkElement | HTMLScriptElement>((observer) => {
       let asset: HTMLScriptElement | HTMLLinkElement;
@@ -81,12 +88,18 @@ export class ConfigService {
         const link: HTMLLinkElement = this._document.createElement('link');
         link.rel = 'stylesheet';
         link.href = src;
+        if (id !== undefined) {
+          link.id = id;
+        }
         asset = link;
       } else if (type === 'javascript') {
         const script: HTMLScriptElement =
           this._document.createElement('script');
         script.type = 'text/javascript';
         script.src = src;
+        if (id !== undefined) {
+          script.id = id;
+        }
         asset = script;
       } else {
         throw new Error(`Invalid asset type (${type})`);

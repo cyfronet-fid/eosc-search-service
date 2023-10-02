@@ -2,7 +2,7 @@
 import asyncio
 import logging
 from contextlib import suppress
-from typing import List, Optional
+from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
 from httpx import AsyncClient, HTTPError
@@ -30,8 +30,7 @@ async def get_rp_by_id(
     """
     async with AsyncClient() as async_client:
         response = await solr_get(async_client, resource_type, rp_id)
-        response = response.json()["doc"]
-
+        response = response["doc"]
     if response is None:
         raise HTTPException(status_code=404, detail="Research product not found")
 
@@ -43,7 +42,7 @@ async def get_rp_by_id(
     )
 
 
-async def _validate_urls(urls: List[AnyUrl]) -> List[Optional[AnyUrl]]:
+async def _validate_urls(urls: list[AnyUrl]) -> list[Optional[AnyUrl]]:
     """Runs a validation for every url for the product and returns
     only the valid ones.
     """
