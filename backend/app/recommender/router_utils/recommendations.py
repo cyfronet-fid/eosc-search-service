@@ -61,9 +61,8 @@ async def get_recommended_items(client: AsyncClient, uuids: list[str]):
     try:
         items = []
         for item_uuid in uuids:
-            response = (await get(client, Collection.ALL_COLLECTION, item_uuid)).json()
-            item = response["doc"]
-            items.append(item)
+            item = await get(client, Collection.ALL_COLLECTION, item_uuid)
+            items.append(item["doc"])
         return items
     except httpx.ConnectError as e:
         raise SolrRetrieveError("Connection Error") from e

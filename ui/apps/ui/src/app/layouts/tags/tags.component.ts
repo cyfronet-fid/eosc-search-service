@@ -19,54 +19,7 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
 
 @Component({
   selector: 'ess-tags',
-  template: ` <div id="tags">
-    <ng-container
-      *ngFor="let tag of parsedTags; let i = index; trackBy: trackByLabel"
-    >
-      <div class="tag-row" *ngIf="tag.values.length > 0">
-        <div class="tag tag-title">{{ tag.label }}:</div>
-
-        <div class="tag-content">
-          <ng-container *ngFor="let singleValue of computeTagEntries(tag)">
-            <span class="tag">
-              <a
-                *ngIf="!singleValue.externalLink"
-                href="javascript:void(0)"
-                (click)="setActiveFilter(tag.filter, singleValue.value)"
-                [innerHTML]="
-                  (addSubTitle(singleValue.subTitle) ?? '') +
-                  ' ' +
-                  (singleValue.label | filterPipe: tag.filter)
-                "
-              ></a>
-              <a
-                *ngIf="singleValue.externalLink"
-                [href]="singleValue.externalLink.link ?? '#'"
-                (click)="
-                  _onClickExternalLink($event, singleValue.externalLink.link)
-                "
-                [innerHTML]="
-                  (addSubTitle(singleValue.subTitle) ?? '') +
-                  ' ' +
-                  (singleValue.label ?? '')
-                "
-              ></a>
-              &nbsp;
-            </span>
-          </ng-container>
-          <span
-            *ngIf="
-              tag.showMoreThreshold && tag.values.length > tag.showMoreThreshold
-            "
-            class="show-more-tag"
-            (click)="toggleShowAllTags(tag.label)"
-          >
-            {{ createShowMoreLabel(tag) }}
-          </span>
-        </div>
-      </div>
-    </ng-container>
-  </div>`,
+  templateUrl: './tags.component.html',
   styles: [
     `
       ::ng-deep .highlighted {
@@ -105,6 +58,8 @@ export class TagsComponent implements OnChanges {
 
   @Input()
   tags: ITag[] = [];
+  @Input()
+  providerName?: string = '';
 
   @Input()
   highlights: { [field: string]: string[] | undefined } = {};

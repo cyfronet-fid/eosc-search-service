@@ -1,4 +1,8 @@
+#  pylint: disable=too-many-locals
+
 """Operations on Solr"""
+from typing import Dict
+
 from httpx import AsyncClient, Response
 
 from app.schemas.search_request import StatFacet, TermsFacet
@@ -9,6 +13,7 @@ from .error_handling import (
     handle_solr_detail_response_errors,
     handle_solr_list_response_errors,
 )
+from .utils import map_detail_provider, map_list_providers
 
 
 async def search(
@@ -97,8 +102,16 @@ async def search(
             json=request_body,
         )
     )
-
-    return SolrResponse(collection=collection, data=response.json())
+    data = response.json()
+    if len(data["response"]["docs"]) and collection in [
+        Collection.ALL_COLLECTION,
+        Collection.GUIDELINE,
+        Collection.TRAINING,
+    ]:
+        data["response"]["docs"] = await map_list_providers(
+            client=client, docs=data["response"]["docs"]
+        )
+    return SolrResponse(collection=collection, data=data)
 
 
 async def search_advanced(
@@ -186,19 +199,37 @@ async def search_advanced(
             json=request_body,
         )
     )
+    data = response.json()
+    if len(data["response"]["docs"]) and collection in [
+        Collection.ALL_COLLECTION,
+        Collection.GUIDELINE,
+        Collection.TRAINING,
+    ]:
+        data["response"]["docs"] = await map_list_providers(
+            client=client, docs=data["response"]["docs"]
+        )
 
-    return SolrResponse(collection=collection, data=response.json())
+    return SolrResponse(collection=collection, data=data)
 
 
 async def get(
     client: AsyncClient,
     collection: Collection,
     item_id: int | str,
-) -> Response:
+) -> Dict:
     """Get item from defined collection based on ID"""
     solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
     url = f"{settings.SOLR_URL}{solr_collection}/get?id={item_id}"
-    return await handle_solr_detail_response_errors(client.get(url))
+    response = await handle_solr_detail_response_errors(client.get(url))
+    response = response.json()
+    if collection in [
+        Collection.ALL_COLLECTION,
+        Collection.GUIDELINE,
+        Collection.TRAINING,
+    ]:
+        response["doc"] = await map_detail_provider(client=client, doc=response["doc"])
+
+    return response
 
 
 async def get_item_by_pid(

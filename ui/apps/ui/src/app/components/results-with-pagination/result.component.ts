@@ -43,6 +43,7 @@ export class ResultComponent implements OnInit {
   @Input() title!: string;
 
   @Input() offers: IOffer[] = [];
+  @Input() providerName?: string;
 
   @Input()
   set url(url: string) {

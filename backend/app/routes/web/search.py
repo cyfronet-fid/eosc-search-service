@@ -186,7 +186,7 @@ async def extend_results_with_bundles(client, res_json):
             offer_results = []
             for offer_id in offer_ids:
                 with suppress(SolrDocumentNotFoundError):
-                    response = (await get(client, Collection.OFFER, offer_id)).json()
+                    response = await get(client, Collection.OFFER, offer_id)
                     item = response["doc"]
                     if item is None:
                         logger.warning(f"No offer with id={offer_id}")
@@ -203,9 +203,7 @@ async def extend_results_with_bundles(client, res_json):
             service_results = []
             for service_id in services_ids:
                 with suppress(SolrDocumentNotFoundError):
-                    response = (
-                        await get(client, Collection.SERVICE, service_id)
-                    ).json()
+                    response = await get(client, Collection.SERVICE, service_id)
                     item = response["doc"]
                     if item is None:
                         logger.warning(f"No service with id={service_id}")

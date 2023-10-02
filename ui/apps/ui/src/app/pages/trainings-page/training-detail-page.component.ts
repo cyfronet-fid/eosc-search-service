@@ -30,6 +30,7 @@ export class TrainingDetailPageComponent implements OnInit {
   isArray = isArray;
   myTraining?: ITraining;
   type = DICTIONARY_TYPE_FOR_PIPE;
+  providersNames = '-';
 
   constructor(
     private trainingsService: TrainingsService,
@@ -49,6 +50,9 @@ export class TrainingDetailPageComponent implements OnInit {
       .get$(id)
       .pipe(untilDestroyed(this))
       .subscribe((item) => {
+        if (item['providers_names'] != undefined) {
+          this.providersNames = item['providers_names']?.join(', ');
+        }
         this.myTraining = { ...item } as ITraining;
         this.training = trainingsAdapter.adapter(item);
         this.originUrl = this.myTraining.url ? this.myTraining.url[0] : '';
