@@ -119,6 +119,7 @@
       [tags]="tags"
       [highlights]="highlightsreal"
       (activeFilter)="setActiveFilter($event.filter, $event.value)"
+      [providerName]="providerName"
     >
     </ess-tags>
     <div style="border-bottom: 1px dotted #d9dee2; padding: 3px 0"></div>
@@ -139,7 +140,6 @@
       [tags]="tags"
       [highlights]="highlightsreal"
       (activeFilter)="setActiveFilter($event.filter, $event.value)"
-      [providerName]="providerName"
     >
     </ess-tags>
   </ng-template>
