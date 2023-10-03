@@ -13,7 +13,7 @@ import { RedirectService } from '@collections/services/redirect.service';
 @Component({
   selector: 'ess-pin',
   template: `
-    <a style="display: flex;" [attr.href]="pinUrl">
+    <a style="display: flex;" [attr.href]="pinUrl" target="_blank">
       <span class="pin-icon"></span>
       <span class="pin-icon-text">Pin to the Marketplace Project</span>
     </a>
