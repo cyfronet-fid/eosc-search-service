@@ -46,7 +46,11 @@ export class RecommendationsComponent implements OnInit {
       .pipe(
         untilDestroyed(this),
         switchMap((panelId) => {
-          if (panelId === 'guideline' || panelId === 'provider') {
+          if (
+            panelId === 'guideline' ||
+            panelId === 'provider' ||
+            panelId === 'bundle'
+          ) {
             return of([]);
           }
           return this._recommendationsService
