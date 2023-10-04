@@ -67,6 +67,8 @@ data_source_output_schema = {
     "unified_categories": "array<string>",
     "updated_at": "date",
     "upstream_id": "bigint",
+    "usage_counts_downloads": "bigint",
+    "usage_counts_views": "bigint",
     "use_cases_urls": "array<string>",
     "version": "string",
     "version_control": "boolean",
