@@ -49,7 +49,12 @@ class BundleTransformer(BaseTransformer):
     @staticmethod
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast columns"""
-        df = df.withColumn("description", split(col("description"), ","))
+        df = (
+            df.withColumn("description", split(col("description"), ","))
+            .withColumn("publication_date", col("publication_date").cast("date"))
+            .withColumn("updated_at", col("updated_at").cast("date"))
+        )
+
         return df
 
     @property
