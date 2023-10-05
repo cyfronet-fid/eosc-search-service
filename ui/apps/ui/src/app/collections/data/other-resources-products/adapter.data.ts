@@ -7,7 +7,7 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
-  constructDoiTag,
+  constructIdentifierTag,
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
@@ -22,9 +22,11 @@ export const otherResourcesProductsAdapter: IAdapter = {
   ): IResult => ({
     isSortByRelevanceCollectionScopeOff: false,
     isSortCollectionScopeOff: true,
+    isResearchProduct: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
+    urls: openAIREResult.url,
     documentType: openAIREResult?.document_type,
     languages: transformLanguages(openAIREResult?.language),
     date: formatPublicationDate(openAIREResult['publication_date']),
@@ -38,6 +40,7 @@ export const otherResourcesProductsAdapter: IAdapter = {
         label: 'Author',
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
+        showMoreThreshold: 10,
       },
       {
         label: 'Scientific domain',
@@ -46,8 +49,9 @@ export const otherResourcesProductsAdapter: IAdapter = {
       },
       {
         label: 'Identifier',
-        values: constructDoiTag(openAIREResult?.doi),
+        values: constructIdentifierTag(openAIREResult?.pids),
         filter: 'doi',
+        showMoreThreshold: 4,
       },
     ],
     type: {

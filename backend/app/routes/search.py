@@ -1,14 +1,13 @@
 """The Search endpoint"""
 
-from json import JSONDecodeError
+from fastapi import Body, Depends, Query
+from httpx import AsyncClient
 
-from fastapi import Body, Depends, HTTPException, Query
-from httpx import AsyncClient, TransportError
-
+from app.consts import DEFAULT_SORT
 from app.schemas.search_request import SearchRequest
 from app.solr.operations import search_dep
 
-from .utils import DEFAULT_SORT, internal_api_router
+from .router import internal_api_router
 
 
 # pylint: disable=too-many-arguments
@@ -22,6 +21,7 @@ async def search_post(
         description="Filter query",
         example=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
+    exact: str = Query(..., description="Exact match"),
     sort: list[str] = Query(
         [], description="Sort order", example=["description asc", "name desc"]
     ),
@@ -42,27 +42,19 @@ async def search_post(
     https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
     async with AsyncClient() as client:
-        try:
-            response = await search(
-                client,
-                collection,
-                q=q,
-                qf=qf,
-                fq=fq,
-                sort=sort + DEFAULT_SORT,
-                rows=rows,
-                cursor=cursor,
-                facets=request.facets,
-            )
-        except TransportError as e:
-            raise HTTPException(status_code=500, detail="Try again later") from e
-    if response.is_error:
-        try:
-            detail = response.json()["error"]["msg"]
-        except (KeyError, JSONDecodeError):
-            detail = None
-        raise HTTPException(status_code=response.status_code, detail=detail)
-    res_json = response.json()
+        response = await search(
+            client,
+            collection,
+            q=q,
+            qf=qf,
+            fq=fq,
+            sort=sort + DEFAULT_SORT,
+            rows=rows,
+            exact=exact,
+            cursor=cursor,
+            facets=request.facets,
+        )
+    res_json = response.data
     out = {
         "results": res_json["response"]["docs"],
         "nextCursorMark": res_json["nextCursorMark"],

@@ -1,5 +1,5 @@
 .ig-title-container {
-  padding-left: 10px
+  padding-left: 10px;
 }
 
 .ig-about-wrapper {
@@ -20,6 +20,17 @@
   margin: 0 0 24px 0;
   border: 1px solid #d8d8d8;
   border-radius: 8px;
+}
+
+.guideline-detail-container {
+  position: relative;
+}
+
+.feedback-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
 .about {
@@ -105,7 +116,7 @@
   height: 40px;
   text-align: center;
   line-height: 2.4;
-  background: #040F81;
+  background: #040f81;
   border-radius: 90px;
   font-family: Inter;
   font-style: normal;
@@ -126,7 +137,7 @@
   font-weight: 400;
   font-size: 12px;
   margin-top: 10px;
-  letter-spacing: .03em;
+  letter-spacing: 0.03em;
   color: #828282;
   text-transform: uppercase;
 }
@@ -280,7 +291,6 @@
 }
 
 @media (max-width: 768px) {
-
   .ig-logo-container {
     padding: 20px;
   }
@@ -301,5 +311,4 @@
   .ig-buttons-container .button-off {
     margin: 20px auto 0;
   }
-
 }

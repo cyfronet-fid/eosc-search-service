@@ -16,7 +16,6 @@
       style="display: flex"
       *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
     >
-
       <div style="display: flex; flex-direction: column">
         <ess-url-title
           [ngClass]="{ padding_for_provider: type.value === 'provider' }"
@@ -43,19 +42,7 @@
           [ngClass]="{ padding_for_provider: type.value === 'provider' }"
           [title]="title"
           [highlight]="highlightsreal['title'] ?? []"
-          [url]="
-            type.value === 'bundle'
-              ? redirectService.internalUrl(
-                  validUrl,
-                  id,
-                  type.value,
-                  offers[0]?.main_offer_id
-                    ? '#offer-' +
-                        offers[0].main_offer_id.toString().substring(2)
-                    : ''
-                )
-              : redirectService.internalUrl(validUrl, id, type.value, '')
-          "
+          [url]="redirectUrl"
         >
         </ess-url-title>
       </div>
@@ -74,7 +61,7 @@
       src="/assets/horizontal-service.svg"
     />
   </div>
-  <div class="usage">
+  <div *ngIf="type.value !== 'bundle'" class="usage">
     <span
       *ngIf="
         date !== undefined &&
@@ -94,7 +81,6 @@
       ><img src="/assets/usage-views.svg" />
       <ng-container i18n>{{ views }} Views</ng-container></span
     >
-
     <span *ngIf="license !== undefined" class="statistic text-muted">
       <ng-container i18n>License: {{ _formatLicense(license!) }}</ng-container>
     </span>
@@ -128,17 +114,38 @@
       </ng-template>
     </ng-container>
   </div>
-  <ess-tags
-    [tags]="tags"
-    [highlights]="highlightsreal"
-    (activeFilter)="setActiveFilter($event.filter, $event.value)"
-  >
-  </ess-tags>
-  <ess-description
-    [description]="description"
-    [highlights]="highlightsreal['description'] ?? []"
-  ></ess-description>
+  <div *ngIf="type.value !== 'bundle'; else bundleBlock">
+    <ess-tags
+      [tags]="tags"
+      [highlights]="highlightsreal"
+      (activeFilter)="setActiveFilter($event.filter, $event.value)"
+      [providerName]="providerName"
+    >
+    </ess-tags>
+    <div style="border-bottom: 1px dotted #d9dee2; padding: 3px 0"></div>
+
+    <ess-description
+      [description]="description"
+      [highlights]="highlightsreal['description'] ?? []"
+    ></ess-description>
+  </div>
+  <ng-template #bundleBlock>
+    <ess-description
+      [description]="description"
+      [highlights]="highlightsreal['description'] ?? []"
+    ></ess-description>
+    <div style="border-bottom: 1px dotted #d9dee2; padding: 3px 0"></div>
+
+    <ess-tags
+      [tags]="tags"
+      [highlights]="highlightsreal"
+      (activeFilter)="setActiveFilter($event.filter, $event.value)"
+    >
+    </ess-tags>
+  </ng-template>
+
   <ess-secondary-tags
+    *ngIf="type.value !== 'bundle'"
     [highlights]="highlightsreal"
     [tags]="secondaryTags"
     (activeFilter)="setActiveFilter($event.filter, $event.value)"
@@ -174,5 +181,27 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="bottom-actions">
+    <ess-bibliography
+      style="float: left"
+      *ngIf="isResearchProduct"
+      [title]="title"
+      [hasDOIUrl]="hasDOIUrl"
+      [parsedUrls]="parsedUrls"
+    ></ess-bibliography>
+    <ess-pin
+      *ngIf="RESOURCES_TO_SHOW_PIN_TO.includes(type.value)"
+      [resourceType]="type.value"
+      [resourceId]="id"
+      style="float: left"
+    ></ess-pin>
+    <ess-pin-static
+      *ngIf="
+        MP_RESOURCES_TO_SHOW_PIN_TO.includes(type.value) && validUrl !== null
+      "
+      [url]="redirectUrl ?? ''"
+      style="float: left"
+    ></ess-pin-static>
   </div>
 </div>

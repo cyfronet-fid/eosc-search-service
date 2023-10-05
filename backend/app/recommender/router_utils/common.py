@@ -1,25 +1,11 @@
 import random
 import re
-from typing import Literal
 
 from fastapi import HTTPException
 from starlette.requests import Request
 
+from app.consts import COLLECTION_TO_PANEL_ID_MAP, PANEL_ID_OPTIONS, Collection, PanelId
 from app.utils.cookie_validators import backend, cookie
-
-RecommendationPanelId = Literal[
-    "all",
-    "publication",
-    "dataset",
-    "software",
-    "other",
-    "training",
-    "service",
-    "data-source",
-    "bundle",
-    "guideline",
-]
-RE_INT = re.compile("^[0-9]+$")
 
 
 class RecommendationHttpError(Exception):
@@ -56,41 +42,10 @@ class SolrRetrieveError(RecommendationHttpError):
         return self.__repr__()
 
 
-def _get_panel(panel_id: RecommendationPanelId, sort_by_relevance: bool = False) -> str:
-    panel_id_options = [
-        "publications",
-        "datasets",
-        "software",
-        "trainings",
-        "other_research_product",
-        "services",
-    ]
-
-    if not sort_by_relevance and panel_id == "all":
-        return random.choice(panel_id_options)
-
-    match panel_id:
-        case "publication":
-            return "publications"
-        case "dataset":
-            return "datasets"
-        case "other":
-            return "other_research_product"
-        case "training":
-            return "trainings"
-        case "service":
-            return "services"
-        case "data-source":
-            return "data-sources"
-        case "bundle":
-            return "bundles"
-        case "guideline":
-            return "guidelines"
-        case "provider":
-            return "providers"
-
-        case _:
-            return panel_id
+def _get_panel(collection: Collection, sort_by_relevance: bool = False) -> PanelId:
+    if not sort_by_relevance and collection == Collection.ALL_COLLECTION:
+        return random.choice(PANEL_ID_OPTIONS)
+    return COLLECTION_TO_PANEL_ID_MAP[collection]
 
 
 async def get_session(request: Request):

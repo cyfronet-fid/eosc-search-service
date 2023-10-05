@@ -8,7 +8,7 @@ import {
 } from '@collections/filters-serializers/utils';
 import { transformLanguages } from '@collections/data/shared-tags';
 import {
-  constructDoiTag,
+  constructIdentifierTag,
   formatPublicationDate,
   parseStatistics,
   toKeywordsSecondaryTag,
@@ -22,9 +22,11 @@ export const publicationsAdapter: IAdapter = {
   ): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
+    isResearchProduct: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
+    urls: openAIREResult.url,
     date: formatPublicationDate(openAIREResult['publication_date']),
     documentType: openAIREResult?.document_type,
     languages: transformLanguages(openAIREResult?.language),
@@ -38,18 +40,12 @@ export const publicationsAdapter: IAdapter = {
         label: 'Author',
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
+        showMoreThreshold: 10,
       },
       {
         label: 'Publisher',
         values: toValueWithLabel(toArray(openAIREResult?.publisher)),
         filter: 'publisher',
-      },
-      {
-        label: 'Document type',
-        values: toValueWithLabel([
-          ...new Set(toArray(openAIREResult?.document_type)),
-        ]),
-        filter: 'document_type',
       },
       {
         label: 'Scientific domain',
@@ -58,9 +54,9 @@ export const publicationsAdapter: IAdapter = {
       },
       {
         label: 'Identifier',
-        // TODO: Add HANDLE, PMID and PMD somehow
-        values: constructDoiTag(openAIREResult?.doi),
+        values: constructIdentifierTag(openAIREResult?.pids),
         filter: 'doi',
+        showMoreThreshold: 4,
       },
     ],
     type: {

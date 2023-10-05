@@ -19,6 +19,7 @@ export const trainingsAdapter: IAdapter = {
   adapter: (training: Partial<ITraining> & { id: string }): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
+    isResearchProduct: false,
     id: uuidv4(),
     title: training['title']?.join(' ') || '',
     description: training['description']?.join(' ') || '',
@@ -38,6 +39,7 @@ export const trainingsAdapter: IAdapter = {
         label: 'Authors',
         values: toValueWithLabel(toArray(training['author_names'])),
         filter: 'author_names',
+        showMoreThreshold: 10,
       },
       {
         label: 'Content type',

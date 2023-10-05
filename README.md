@@ -25,17 +25,37 @@ Run `docker-compose up --build`.
 ## UI
 **IMPORTANT!!! UI working directory is `ui`, commands will work only in the catalog.**
 
+### Compile time environmental variables
+
+UI uses [ng-node-environment](https://github.com/kopz9999/ng-node-environment) to generate variables.
+Please consult the documentation of the package for details, but TLDR is following:
+every environmental variable prefixed by `NG_` is put into object `sharedEnvironment` in `/ui/apps/ui/src/environments/environment.generated.ts`. As for the names `NG_` prefix 
+is removed and rest of the name is converted from `UNDERSCORE_CASE` into `UnderscoreCase`.
+Example: when only variable provided is `NG_COLLECTIONS_PREFIX='beta_'` then created
+`environment.generated.ts` will look as follows:
+
+```typescript
+export const sharedEnvironment = {
+  'collectionsPrefix': 'beta_'
+}
+
+export default sharedEnvironment;
+```
+
+`sharedEnvironment` environment is included in `commonEnvironment` from `environment.common.ts`.
+`environment.generated.ts` is generated in `prestart` and `prebuild` scripts which are automatically called when running `npm start` and `npm run build`
+
 ### Install dependencies
 `npm i --force`
 
 ### Run
-**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with `NG_COLLECTIONS_PREFIX` env variable.**
+**IMPORTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/backend` with `COLLECTIONS_PREFIX` env variable.**
 
 `npm start`
 
 ### Build
 Build artifacts can be found in `ui/dist/apps/ui`.
-**IMOPRTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/ui` with `NG_COLLECTIONS_PREFIX` env variable.**
+**IMPORTANT!!! To change collections prefix copy `<root>/.env` file to `<root>/backend` with `COLLECTIONS_PREFIX` env variable.**
 
 `npm build`
 
@@ -144,8 +164,8 @@ See docker-compose.yml for components.
 - `ESS_STOMP_SSL`
   > Use SSL when connecting to STOMP queue (for user actions). Default: `0`
   > Example: `1` or `0`
-- `NG_COLLECTIONS_PREFIX`, by default `''`
-  > Example: NG_COLLECTIONS_PREFIX=prod_
+- `COLLECTIONS_PREFIX`, by default `''`
+  > Example: COLLECTIONS_PREFIX=prod_
   > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.
 - `NG_GOOGLE_ANALYTICS_ID`, by default `null`
   > Google Analytics measurement-id

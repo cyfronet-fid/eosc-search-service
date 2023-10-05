@@ -3,6 +3,7 @@ export interface IOpenAIREResult {
   title: string[];
   url: string[];
   author_names: string[];
+  urls: string[];
   description: string[];
   publication_date: string[];
   best_access_right: string;
@@ -19,4 +20,6 @@ export interface IOpenAIREResult {
   doi: string[];
   usage_counts_views: string;
   usage_counts_downloads: string;
+  isResearchProduct: boolean;
+  pids: string;
 }

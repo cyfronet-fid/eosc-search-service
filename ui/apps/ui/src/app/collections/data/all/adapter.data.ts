@@ -3,7 +3,7 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import { COLLECTION } from './search-metadata.data';
 import { IOpenAIREResult } from '@collections/data/openair.model';
 import {
-  constructDoiTag,
+  constructIdentifierTag,
   formatPublicationDate,
 } from '@collections/data/utils';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
@@ -99,6 +99,28 @@ const extractDate = (
   }
 };
 
+const setIsResearchProduct = (
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (data.type) {
+    case 'publication':
+    case 'software':
+    case 'dataset':
+    case 'other':
+      return true;
+    default:
+      return false;
+  }
+};
+
 export const allCollectionsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (
@@ -116,6 +138,7 @@ export const allCollectionsAdapter: IAdapter = {
   ): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
+    isResearchProduct: setIsResearchProduct(data),
     id: data.id,
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',
@@ -123,6 +146,7 @@ export const allCollectionsAdapter: IAdapter = {
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
+    urls: data.url,
     horizontal: data?.horizontal,
     coloredTags: [],
     tags:
@@ -133,6 +157,7 @@ export const allCollectionsAdapter: IAdapter = {
               label: 'Author',
               values: toValueWithLabel(toArray(data?.author_names)),
               filter: 'author_names',
+              showMoreThreshold: 10,
             },
             {
               label: 'Organisation',
@@ -146,8 +171,9 @@ export const allCollectionsAdapter: IAdapter = {
             },
             {
               label: 'Identifier',
-              values: constructDoiTag(data?.doi),
+              values: constructIdentifierTag(data?.pids),
               filter: 'doi',
+              showMoreThreshold: 4,
             },
           ],
     type: {

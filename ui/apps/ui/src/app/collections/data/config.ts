@@ -23,14 +23,30 @@ export const SDG_TOOLTIP_TEXT =
   ' They address the global challenges we face, including poverty, inequality, ' +
   'climate change, environmental degradation, peace, and justice.';
 
-export const RECOMMENDATIONS_TOOLTIP_TEXT =
-  'The recommendations on this portal are customized ' +
-  'for you. Our algorithm analyzes your activity, ' +
-  'preferences, interactions, and browsing history to ' +
-  'understand your interests and provide suggestions ' +
-  'that are relevant to you. By engaging with the ' +
-  'platform, you will discover more personalized ' +
-  'recommendations that align with your preferences.';
+export const RECOMMENDATIONS_TOOLTIP_TEXT_NOTLOGGED =
+  'Not Logged In? Discover Trending Picks: Recommended ' +
+  "resources reflect what's popular among other users " +
+  'right now. Log in to access personalized suggestions ' +
+  'curated just for you, influenced by your interests ' +
+  'and actions on the EOSC Platform';
+
+export const RECOMMENDATIONS_TOOLTIP_TEXT_LOGGED =
+  'A recommender system suggests resources - like data sets, ' +
+  'publications, software, trainings, and more. ' +
+  'It looks at your past orders, views, and interactions. ' +
+  'It also considers what others with similar interests ' +
+  'have engaged with. The more you explore, the smarter ' +
+  'the suggestions get. Your journey shapes your suggestions!';
+
+export const CITATIONS_NOT_AVAILABLE_TOOLTIP_TEXT =
+  'Due to the lack of data, bibliography record’s generation is not possible. ' +
+  'Please check the other sources of this file ' +
+  'or a source website to check if the link is valid.';
+
+export const BIBLIOGRAPHY_TOOLTIP_TEXT =
+  ' If some links or buttons are not active, it means that this source ' +
+  'does not provide us with the required information to generate the required format. ' +
+  'Please also check other sources If possible.';
 
 // Source: http://country.io/data/
 export const COUNTRY_CODE_TO_NAME: Record<string, string> = {

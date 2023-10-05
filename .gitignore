@@ -252,6 +252,7 @@ dmypy.json
 
 # IDE
 .idea
+.vscode/
 
 tmp
 .DS_Store
