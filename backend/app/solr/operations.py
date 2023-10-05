@@ -96,8 +96,8 @@ async def search(
         request_body["facet"] = {
             k: v.serialize_to_solr_format() for k, v in facets.items()
         }
-    
-    if ('title'  in request_body["facet"]):
+
+    if "title" in request_body["facet"]:
         request_body["facet"] = None
 
     response = await handle_solr_list_response_errors(
@@ -197,7 +197,7 @@ async def search_advanced(
     if facets is not None and len(facets) > 0:
         request_body["facet"] = {k: v.dict() for k, v in facets.items()}
 
-    if ('title'  in request_body["facet"]):
+    if "title" in request_body["facet"]:
         request_body["facet"] = None
 
     response = await handle_solr_list_response_errors(
