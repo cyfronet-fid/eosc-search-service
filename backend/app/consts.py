@@ -38,6 +38,8 @@ ResearchProductCollection: TypeAlias = Literal[
     Collection.PUBLICATION, Collection.DATASET, Collection.SOFTWARE, Collection.OTHER_RP
 ]
 
+ResearchProductType: TypeAlias = Literal["publication", "dataset", "software", "other"]
+
 
 class PanelId(str, Enum):
     """Recommender collection names"""

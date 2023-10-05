@@ -62,17 +62,11 @@ export class PinComponent implements OnChanges {
       this._customRoute.collection()
     );
     if (changes['resourceId'] || changes['resourceType']) {
-      this.pinUrl =
-        this._redirectService.internalUrl(
-          `${
-            this._configService.get().marketplace_url
-          }/research_products/new?resource_id=${encodeURIComponent(
-            this.resourceId
-          )}&resource_type=${encodeURIComponent(params.collection)}`,
-          this.resourceId,
-          this.resourceType,
-          ''
-        ) ?? '';
+      this.pinUrl = `${
+        this._configService.get().marketplace_url
+      }/research_products/new?resource_id=${encodeURIComponent(
+        this.resourceId
+      )}&resource_type=${encodeURIComponent(params.collection)}`;
     }
   }
 }
