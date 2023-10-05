@@ -53,7 +53,11 @@ async def search_post(
     """
     final_solr_sorting = await define_sorting(sort_ui, sort, collection)
 
-    async with AsyncClient() as client:
+    if request.facets is not None and len(request.facets) > 0:
+        if "title" in request.facets:
+            request.facets = None
+
+    async with AsyncClient(timeout=10.0) as client:
         response = await search(
             client,
             collection,
@@ -107,7 +111,7 @@ async def search_post_advanced(
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
     """
     final_solr_sorting = await define_sorting(sort_ui, sort, collection)
-    async with AsyncClient() as client:
+    async with AsyncClient(timeout=10.0) as client:
         response = await search(
             client,
             collection,
