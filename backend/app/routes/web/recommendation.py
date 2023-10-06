@@ -41,7 +41,7 @@ async def get_recommendations(panel_id: Collection, request: Request):
         return []
     session, _ = await get_session(request)
     try:
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             try:
                 uuids = await get_recommended_uuids(client, session, panel_id)
                 items = await get_recommended_items(client, uuids)
@@ -70,7 +70,7 @@ async def sort_by_relevance(
     session, _ = await get_session(request)
 
     try:
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             try:
                 candidates_ids = await parse_candidates(documents)
                 uuids = await perform_sort_by_relevance(

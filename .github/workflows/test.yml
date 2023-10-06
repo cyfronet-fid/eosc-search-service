@@ -47,7 +47,7 @@ jobs:
       run: pipenv sync --dev
       working-directory: ./backend
     - name: Wait for SOLR
-      run: timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:8993/solr/)" != "200" ]]; do sleep 5; done' || false
+      run: timeout 500 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:8993/solr/)" != "200" ]]; do sleep 5; done' || false
     - name: Run tests
       run: ENVIRONMENT=test pipenv run pytest -m "integration"
       working-directory: ./backend
