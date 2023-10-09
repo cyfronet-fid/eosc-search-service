@@ -6,7 +6,7 @@ import { CustomRoute } from '@collections/services/custom-route.service';
 import { sanitizeQuery } from '@components/search-input/query.sanitizer';
 import { filter, switchMap } from 'rxjs';
 import {
-  BEST_MATCH_SORT,
+  DEFAULT_SORT,
   isSortOption,
   sortType,
 } from '@components/sort-by-functionality/sort-value.type';
@@ -36,7 +36,7 @@ import { ConfigService } from '../../services/config.service';
       >
         Relevance
       </option>
-      <option value="bm" i18n>Best match</option>
+      <option value="default" i18n>Best match</option>
     </select>
   </div>`,
   styles: [
@@ -91,7 +91,7 @@ export class SortByFunctionalityComponent implements OnInit {
   type!: string;
 
   public selectedSortOptionControl: FormControl<sortType> =
-    new FormControl<sortType>(BEST_MATCH_SORT, { nonNullable: true });
+    new FormControl<sortType>(DEFAULT_SORT, { nonNullable: true });
 
   constructor(private _customRoute: CustomRoute, private _router: Router) {}
 
@@ -103,7 +103,7 @@ export class SortByFunctionalityComponent implements OnInit {
       )
       .subscribe((sort_ui) => {
         this.selectedSortOptionControl.setValue(
-          isSortOption(sort_ui) ? sort_ui : BEST_MATCH_SORT,
+          isSortOption(sort_ui) ? sort_ui : DEFAULT_SORT,
           { emitEvent: false }
         );
       });
@@ -118,7 +118,7 @@ export class SortByFunctionalityComponent implements OnInit {
   async updateQueryParams(sortOption: sortType) {
     await this._router.navigate([], {
       queryParams: {
-        sort_ui: sanitizeQuery(sortOption) ?? BEST_MATCH_SORT,
+        sort_ui: sanitizeQuery(sortOption) ?? DEFAULT_SORT,
       },
       queryParamsHandling: 'merge',
     });

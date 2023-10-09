@@ -32,7 +32,7 @@ export const dataSourcesAdapter: IAdapter = {
   adapter: (dataSource: Partial<IDataSource> & { id: string }): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
-    isSortByPopularityCollectionScopeOff: true,
+    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: false,
     id: dataSource.id,
     // basic information

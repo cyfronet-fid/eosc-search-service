@@ -231,6 +231,12 @@ async def define_sorting(
     sort_ui: SortUi, sort: list[str], collection: Optional[str] = None
 ):
     """Retrieve proper solr sorting based on sort_ui param"""
+    # Guidelines should be sorted by publication_year in terms of date
+    if Collection.GUIDELINE in collection:
+        if sort_ui == "dmr":
+            return ["publication_year desc"] + DEFAULT_SORT
+        if sort_ui == "dlr":
+            return ["publication_year asc"] + DEFAULT_SORT
 
     additional_sorts = SORT_UI_TO_SORT_MAP.get(sort_ui)
     final_sorting = (
