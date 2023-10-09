@@ -7,12 +7,12 @@ import { queryParamsMapFrom } from '@collections/services/custom-route.utils';
 import { toArray } from '@collections/filters-serializers/utils';
 import { serializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
-import { BEST_MATCH_SORT } from '@components/sort-by-functionality/sort-value.type';
+import { DEFAULT_SORT } from '@components/sort-by-functionality/sort-value.type';
 
 const DEFAULT_PARAMS = {
   collection: null,
   q: '*',
-  sort_ui: BEST_MATCH_SORT,
+  sort_ui: DEFAULT_SORT,
   fq: [],
   cursor: '*',
   sort: [],

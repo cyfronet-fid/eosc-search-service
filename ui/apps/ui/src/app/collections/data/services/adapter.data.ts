@@ -18,7 +18,7 @@ export const servicesAdapter: IAdapter = {
   adapter: (service: Partial<IService> & { id: string }): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
-    isSortByPopularityCollectionScopeOff: true,
+    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: false,
     id: service.id,
     // basic information
