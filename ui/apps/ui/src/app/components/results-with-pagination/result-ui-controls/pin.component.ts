@@ -58,15 +58,14 @@ export class PinComponent implements OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    const { params } = this._searchMetadataRepository.get(
-      this._customRoute.collection()
-    );
     if (changes['resourceId'] || changes['resourceType']) {
+      const type =
+        this.resourceType === 'other' ? 'other_rp' : this.resourceType;
       this.pinUrl = `${
         this._configService.get().marketplace_url
       }/research_products/new?resource_id=${encodeURIComponent(
         this.resourceId
-      )}&resource_type=${encodeURIComponent(params.collection)}`;
+      )}&resource_type=${encodeURIComponent(type)}`;
     }
   }
 }

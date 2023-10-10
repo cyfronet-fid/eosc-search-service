@@ -1,7 +1,7 @@
 """Endpoint for adding a research product to favourites"""
 import asyncio
 import logging
-from contextlib import suppress
+from ssl import SSLError
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -54,8 +54,12 @@ async def _validate_url(url: AnyUrl) -> Optional[AnyUrl]:
     """Performs a request to check a link's validity"""
     response = None
     async with AsyncClient() as async_client:
-        with suppress(HTTPError):
+        try:
             response = await async_client.get(url, follow_redirects=True)
-    if not response or response.is_client_error:
+        except HTTPError:
+            return None
+        except SSLError:
+            pass
+    if response and response.is_client_error:
         return None
     return url
