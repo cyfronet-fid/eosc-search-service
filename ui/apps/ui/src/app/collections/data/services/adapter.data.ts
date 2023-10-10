@@ -32,6 +32,9 @@ export const servicesAdapter: IAdapter = {
     url: service.pid
       ? `${ConfigService.config?.marketplace_url}/services/${service.pid}`
       : '',
+    orderUrl: service.pid
+      ? `${ConfigService.config?.marketplace_url}/services/${service.pid}/offers`
+      : '',
     collection: COLLECTION,
     coloredTags: [],
     tags: [

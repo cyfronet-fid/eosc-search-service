@@ -32,6 +32,7 @@ export interface IBundle {
   description: string[];
   helpdesk_url: string[];
   id: string;
+  iid: number[];
   main_offer_id: number;
   offer_ids: number[];
   providers: string[];
