@@ -31,6 +31,7 @@ export interface IResult {
   horizontal?: boolean;
   pids?: Pids;
   providerName?: string;
+  orderUrl?: string;
 }
 
 export interface ISecondaryTag {

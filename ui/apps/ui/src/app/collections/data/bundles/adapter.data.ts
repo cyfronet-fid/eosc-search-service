@@ -10,6 +10,15 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 
+function getBundleUrl(bundle: Partial<IBundle> & { id: string }): string {
+  if (bundle.iid != null && bundle.iid.length === 1) {
+    return `${ConfigService.config?.marketplace_url}/services/${
+      bundle.service_id
+    }/bundles/${bundle.iid![0]}`;
+  }
+  return `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}`;
+}
+
 export const bundlesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (
@@ -26,7 +35,8 @@ export const bundlesAdapter: IAdapter = {
       value: 'bundle',
     },
     collection: COLLECTION,
-    url: `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}`,
+    url: getBundleUrl(bundle),
+    orderUrl: `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}/offers`,
     coloredTags: [],
     tags: [
       {

@@ -10,7 +10,10 @@ import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { IService } from '@collections/data/services/service.model';
-import { getDataSourceUrl } from '@collections/data/data-sources/adapter.data';
+import {
+  getDataSourceOrderUrl,
+  getDataSourceUrl,
+} from '@collections/data/data-sources/adapter.data';
 import {
   toArray,
   toValueWithLabel,
@@ -62,6 +65,32 @@ const urlAdapter = (
       return `${ConfigService.config?.marketplace_url}/providers/${data?.pid}`;
     default:
       return '';
+  }
+};
+
+const orderUrlAdapter = (
+  type: string,
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (type) {
+    case 'data source':
+      return getDataSourceOrderUrl(data?.pid);
+    case 'service':
+      return data.pid
+        ? `${ConfigService.config?.marketplace_url}/services/${data.pid}/offers`
+        : undefined;
+    case 'bundle':
+      return `${ConfigService.config?.marketplace_url}/services/${data.service_id}/offers`;
+    default:
+      return undefined;
   }
 };
 
@@ -146,6 +175,7 @@ export const allCollectionsAdapter: IAdapter = {
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
+    orderUrl: orderUrlAdapter(data.type || '', data),
     urls: data.url,
     horizontal: data?.horizontal,
     coloredTags: [],

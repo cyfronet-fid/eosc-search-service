@@ -53,6 +53,8 @@ export class ResultComponent implements OnInit {
     }
   }
 
+  @Input() orderUrl?: string;
+
   get redirectUrl(): string | null {
     if (this.validUrl == null || this.validUrl === '') {
       return null;
@@ -69,6 +71,28 @@ export class ResultComponent implements OnInit {
     }
     return this.redirectService.internalUrl(
       this.validUrl,
+      this.id,
+      this.type.value,
+      ''
+    );
+  }
+
+  get redirectOrderUrl(): string | null {
+    if (this.orderUrl == null || this.orderUrl === '') {
+      return null;
+    }
+    if (this.type.value === 'bundle') {
+      this.redirectService.internalUrl(
+        this.orderUrl,
+        this.id,
+        this.type.value,
+        this.offers[0]?.main_offer_id
+          ? '#offer-' + this.offers[0].main_offer_id.toString().substring(2)
+          : ''
+      );
+    }
+    return this.redirectService.internalUrl(
+      this.orderUrl,
       this.id,
       this.type.value,
       ''
