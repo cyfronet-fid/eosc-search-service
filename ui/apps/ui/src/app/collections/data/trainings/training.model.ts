@@ -23,6 +23,8 @@ export interface ITraining {
   author_names_tg: string[];
   catalogue: string;
   resource_organisation?: string;
+  resource_organisation_name?: string;
+  providers_names?: string[];
   url?: string[];
   url_type?: string;
   learning_outcomes?: string[];

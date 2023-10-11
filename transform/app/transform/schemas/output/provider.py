@@ -23,6 +23,7 @@ provider_output_schema = {
     "participating_countries": "array<string>",
     "pid": "string",
     "postal_code": "string",
+    "publication_date": "date",
     "region": "string",
     "scientific_domains": "array<string>",
     "slug": "string",
@@ -33,5 +34,8 @@ provider_output_schema = {
     "tag_list_tg": "array<string>",
     "title": "string",
     "type": "string",
+    "updated_at": "date",
+    "usage_counts_downloads": "bigint",
+    "usage_counts_views": "bigint",
     "webpage_url": "array<string>",
 }

@@ -2,12 +2,17 @@ import { Injectable } from '@angular/core';
 import { environment } from '@environment/environment';
 import { Router } from '@angular/router';
 import { CustomRoute } from '@collections/services/custom-route.service';
+import { ConfigService } from '../../services/config.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RedirectService {
-  constructor(private _router: Router, private _customRoute: CustomRoute) {}
+  constructor(
+    private _router: Router,
+    private _customRoute: CustomRoute,
+    private _configService: ConfigService
+  ) {}
 
   internalUrl(
     externalUrl: string | null,

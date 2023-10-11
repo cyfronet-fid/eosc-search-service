@@ -47,6 +47,10 @@
       [date]="result.date"
       [highlights]="highlights[result.id] ?? {}"
       [url]="result.url"
+      [orderUrl]="result.orderUrl"
+      [urls]="result.urls ?? []"
+      [isResearchProduct]="result.isResearchProduct"
+      [resourceType]="result.collection"
     ></ess-result>
     <ng-template #defaultResultTemplate>
       <ess-result
@@ -56,6 +60,8 @@
         [description]="result.description | transformArrayDescriptionPipe"
         [type]="result.type"
         [url]="result.url"
+        [orderUrl]="result.orderUrl"
+        [urls]="result.urls ?? []"
         [tags]="result.tags"
         [horizontal]="result.horizontal"
         [documentType]="result.documentType"
@@ -69,6 +75,8 @@
         [date]="result.date"
         [highlights]="highlights[result.id] ?? {}"
         [offers]="result.offers ?? []"
+        [isResearchProduct]="result.isResearchProduct"
+        [providerName]="result.providerName"
       ></ess-result>
     </ng-template>
   </ng-container>

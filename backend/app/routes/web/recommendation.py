@@ -7,9 +7,9 @@ import httpx
 from fastapi import APIRouter, HTTPException, Request
 from httpx import ReadTimeout
 
+from app.consts import Collection
 from app.generic.models.bad_request import BadRequest
 from app.recommender.router_utils.common import (
-    RecommendationPanelId,
     RecommenderError,
     SolrRetrieveError,
     get_session,
@@ -25,6 +25,7 @@ from app.recommender.router_utils.sort_by_relevance import (
     sort_docs,
 )
 from app.settings import settings
+from app.solr.error_handling import SolrDocumentNotFoundError
 
 router = APIRouter()
 
@@ -35,18 +36,17 @@ logger = logging.getLogger(__name__)
     "/recommendations",
     responses={200: {"model": dict}, 500: {"model": BadRequest}},
 )
-async def get_recommendations(panel_id: RecommendationPanelId, request: Request):
+async def get_recommendations(panel_id: Collection, request: Request):
     if settings.SHOW_RECOMMENDATIONS is False:
         return []
     session, _ = await get_session(request)
-
     try:
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             try:
                 uuids = await get_recommended_uuids(client, session, panel_id)
                 items = await get_recommended_items(client, uuids)
                 return {"recommendations": items, "isRand": False}
-            except (RecommenderError, SolrRetrieveError, ReadTimeout) as error:
+            except (RecommenderError, ReadTimeout, SolrDocumentNotFoundError) as error:
                 uuids = await get_fixed_recommendations(panel_id)
                 items = await get_recommended_items(client, uuids)
                 return {
@@ -64,13 +64,13 @@ async def get_recommendations(panel_id: RecommendationPanelId, request: Request)
 
 async def sort_by_relevance(
     request: Request,
-    panel_id: RecommendationPanelId,
+    panel_id: Collection,
     documents: list,
 ):
     session, _ = await get_session(request)
 
     try:
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=None) as client:
             try:
                 candidates_ids = await parse_candidates(documents)
                 uuids = await perform_sort_by_relevance(

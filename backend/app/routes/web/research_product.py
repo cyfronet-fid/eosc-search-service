@@ -1,14 +1,15 @@
 """Endpoint for adding a research product to favourites"""
 import asyncio
 import logging
-from contextlib import suppress
-from typing import List, Optional
+from ssl import SSLError
+from typing import Optional
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from httpx import AsyncClient, HTTPError
 from pydantic import AnyUrl
 
-from app.schemas.research_product_response import Collection, ResearchProductResponse
+from app.consts import ResearchProductCollection
+from app.schemas.research_product_response import ResearchProductResponse
 from app.solr.operations import get_dep
 
 router = APIRouter()
@@ -18,8 +19,8 @@ logger = logging.getLogger(__name__)
 
 @router.get("/research-product/{resource_type}/{rp_id}")
 async def get_rp_by_id(
-    resource_type: Collection, rp_id: str, solr_get=Depends(get_dep)
-) -> ResearchProductResponse:
+    resource_type: ResearchProductCollection, rp_id: str, solr_get=Depends(get_dep)
+) -> Optional[ResearchProductResponse]:
     """
     Main function responsible for getting details for a given Solr document.
     Args:
@@ -29,7 +30,9 @@ async def get_rp_by_id(
     """
     async with AsyncClient() as async_client:
         response = await solr_get(async_client, resource_type, rp_id)
-        response = response.json()["doc"]
+        response = response["doc"]
+    if response is None:
+        raise HTTPException(status_code=404, detail="Research product not found")
 
     return ResearchProductResponse(
         title=" ".join(response["title"]),
@@ -39,7 +42,7 @@ async def get_rp_by_id(
     )
 
 
-async def _validate_urls(urls: List[AnyUrl]) -> List[Optional[AnyUrl]]:
+async def _validate_urls(urls: list[AnyUrl]) -> list[Optional[AnyUrl]]:
     """Runs a validation for every url for the product and returns
     only the valid ones.
     """
@@ -51,8 +54,12 @@ async def _validate_url(url: AnyUrl) -> Optional[AnyUrl]:
     """Performs a request to check a link's validity"""
     response = None
     async with AsyncClient() as async_client:
-        with suppress(HTTPError):
+        try:
             response = await async_client.get(url, follow_redirects=True)
-    if not response or response.is_client_error:
+        except HTTPError:
+            return None
+        except SSLError:
+            pass
+    if response and response.is_client_error:
         return None
     return url

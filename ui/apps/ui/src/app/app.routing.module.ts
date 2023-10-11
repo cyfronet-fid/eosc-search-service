@@ -17,6 +17,11 @@ import { GuidelinesPageModule } from '@pages/guidelines-page/guidelines-page.mod
         redirectTo: SEARCH_PAGE_PATH,
       },
       {
+        path: `${SEARCH_PAGE_PATH}/all`,
+        pathMatch: 'full',
+        redirectTo: `${SEARCH_PAGE_PATH}/all_collection`,
+      },
+      {
         path: SEARCH_PAGE_PATH,
         loadChildren: () => SearchPageModule,
       },

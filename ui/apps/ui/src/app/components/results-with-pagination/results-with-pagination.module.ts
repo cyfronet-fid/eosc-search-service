@@ -13,12 +13,17 @@ import { UrlTitleModule } from '../../layouts/url-title/url-title.module';
 import { SecondaryTagsModule } from '../../layouts/secondary-tags/secondary-tags.module';
 import { DescriptionModule } from '../../layouts/description/description.module';
 import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperability-guidelines.pipe.module';
+import { BibliographyModule } from '@components/bibliography/bibliography.module';
+import { PinComponent } from '@components/results-with-pagination/result-ui-controls/pin.component';
+import { PinStaticComponent } from '@components/results-with-pagination/result-ui-controls/pin-static.component';
 
 @NgModule({
   declarations: [
     ResultsWithPaginationComponent,
     PaginationComponent,
     ResultComponent,
+    PinComponent,
+    PinStaticComponent,
   ],
   imports: [
     CommonModule,
@@ -32,6 +37,7 @@ import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperabilit
     DescriptionModule,
     InteroperabilityGuidelinesPipeModule,
     NgbDropdownModule,
+    BibliographyModule,
   ],
   exports: [ResultsWithPaginationComponent],
 })

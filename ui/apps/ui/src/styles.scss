@@ -30,6 +30,10 @@ a:hover {
   width: 0;
 }
 
+.btn {
+  border-radius: 8px;
+}
+
 .btn-special {
   background: #ffffff;
   border: 1px solid #d0d5dd;
@@ -384,12 +388,50 @@ h6 {
   padding: 7px 0;
 }
 
+.bottom-actions {
+  padding-top: 15px;
+
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
+  }
+}
+
+.bottom-actions {
+  padding-top: 15px;
+
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
+  }
+}
+
+.bottom-actions {
+  padding-top: 15px;
+
+  .link-cite {
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 25px;
+    background: url('assets/icon-cite.svg') no-repeat 0 2px;
+    padding-left: 20px;
+    background-size: 15px auto;
+  }
+}
+
 #tags {
   font-weight: 400;
   margin: 7px 0;
   line-height: 1.3;
   font-style: normal !important;
-  border-bottom: 1px dotted #d9dee2;
   padding-bottom: 2px;
 
   i {
@@ -439,12 +481,12 @@ h6 {
   border-left: 3px solid #eee;
 
   .type-icon {
-    width: 40px;
+    width: 45px;
     height: 50px;
     background-repeat: no-repeat;
     margin: 25px auto;
     background-position: top left;
-    background-size: 40px auto;
+    background-size: 45px auto;
   }
 
   &.service {
@@ -512,7 +554,7 @@ h6 {
   }
 
   &.bundles {
-    border-color: #a7fef9;
+    border-color: #b3a7fe;
 
     .type-icon {
       background-image: url('assets/icon-type-bundle.svg');
@@ -529,9 +571,9 @@ h6 {
 }
 
 .results #container {
-  padding: 10px 20px 25px 0;
+  padding: 10px 0 25px 0;
   position: relative;
-  width: 100%;
+  max-width: 85%;
 
   .usage {
     .open-access {
@@ -559,6 +601,7 @@ h6 {
 
       b {
         font-weight: 600;
+        word-break: break-word;
       }
     }
   }
@@ -609,6 +652,11 @@ h6 {
     margin-bottom: 0;
     margin-top: 5px;
     color: #233d4c;
+
+    span {
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
   }
 
   .btn-show-more {
@@ -735,6 +783,66 @@ h6 {
       margin-bottom: 7px;
       line-height: 14px;
     }
+  }
+}
+
+.modal.show .modal-dialog {
+  max-width: 750px;
+}
+
+.bibliography {
+  border-bottom: none;
+
+  .modal-title {
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  label {
+    padding-left: 0;
+    padding-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  h6 {
+    padding-left: 0;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .modal-subtitle {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 13px;
+    padding-left: 0;
+  }
+
+  .modal-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    li {
+      display: inline;
+      float: left;
+      margin: 0 10px 10px 0;
+
+      .btn {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .modal-info {
+    font-size: 14px;
+    padding: 0;
+  }
+
+  button {
+    width: auto;
+    float: right;
   }
 }
 
@@ -1173,6 +1281,10 @@ h6 {
       margin-bottom: 25px;
     }
   }
+
+  .tag-row .tag-title {
+    flex: 0 0 60px;
+  }
 }
 
 #ngb-tooltip-0 {
@@ -1214,4 +1326,110 @@ h6 {
       max-width: 185px;
     }
   }
+}
+
+
+.zammad-form-group {
+  border-radius: 20px;
+}
+
+.zammad-form {
+  width: 100%;
+}
+
+.zammad-form h1,
+.zammad-form h2 {
+  margin-top: 0;
+}
+
+.zammad-form-group {
+  margin-bottom: 15px;
+}
+
+.zammad-form-control {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.zammad-form .zammad-form-checkbox {
+  margin-right: 4px;
+}
+
+.zammad-form h2 {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.zammad-form label {
+  font-size: 16px;
+  color: black;
+}
+
+.zammad-form-group--has-error .zammad-form-control {
+  border-color: #a94442;
+}
+
+.zammad-form-group--has-error label {
+  color: #a94442;
+}
+
+.zammad-form-thankyou {
+  text-align: center;
+}
+
+.zammad-form-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  z-index: 999;
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.zammad-form-modal::before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -0.25em;
+}
+
+.zammad-form-modal-backdrop {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  background-color: gray;
+}
+
+.zammad-form-modal-body {
+  text-align: left;
+  background: white;
+  border-radius: 15px;
+  padding: 24px 24px 22px;
+  width: 90%;
+  max-width: 26em;
+  margin: 20px auto;
+  box-sizing: border-box;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+  color: #949494;
+}
+
+.zammad-form .label {
+  font-size: 12px;
+}
+
+.zammad-form .btn {
+  background-color: #1e1e1e;
+  width: 100%;
+  color: white;
 }

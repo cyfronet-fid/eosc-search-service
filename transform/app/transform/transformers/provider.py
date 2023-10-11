@@ -63,6 +63,8 @@ class ProviderTransformer(BaseTransformer):
             .withColumn("webpage_url", split(col("webpage_url"), ","))
             .withColumn("country", split(col("country"), ","))
             .withColumn("id", col("id").cast(StringType()))
+            .withColumn("publication_date", col("publication_date").cast("date"))
+            .withColumn("updated_at", col("updated_at").cast("date"))
         )
 
         return df

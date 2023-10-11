@@ -20,11 +20,19 @@ export const getDataSourceUrl = (pid?: string) => {
   return `${ConfigService.config?.marketplace_url}/services/${pid}`;
 };
 
+export const getDataSourceOrderUrl = (pid?: string) => {
+  if (!pid) {
+    pid = '';
+  }
+  return `${ConfigService.config?.marketplace_url}/services/${pid}/offers`;
+};
+
 export const dataSourcesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (dataSource: Partial<IDataSource> & { id: string }): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
+    isResearchProduct: false,
     id: dataSource.id,
     // basic information
     title: dataSource.title?.join(' ') || '',
@@ -36,6 +44,7 @@ export const dataSourcesAdapter: IAdapter = {
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
     url: getDataSourceUrl(dataSource.pid),
+    orderUrl: getDataSourceOrderUrl(dataSource.pid),
     collection: COLLECTION,
     coloredTags: [],
     tags: [

@@ -125,7 +125,6 @@ class MarketplaceBaseTransformer(BaseTransformer):
     def cols_to_rename(self) -> dict[str, str]:
         """Columns to rename. Keys are mapped to the values"""
         return {
-            "created_at": "publication_date",
             "order_type": "best_access_right",
             "language_availability": "language",
             "name": "title",

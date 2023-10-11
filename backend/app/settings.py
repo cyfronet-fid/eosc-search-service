@@ -1,4 +1,4 @@
-# pylint: disable=use-dict-literal, line-too-long, missing-class-docstring, missing-function-docstring, no-self-argument
+# pylint: disable=use-dict-literal, line-too-long, missing-class-docstring, missing-function-docstring, no-self-argument too-few-public-methods
 """
     IMPORTANT!!! We're using environment variables served from system instead of
     keeping them in file due security risks.
@@ -59,10 +59,11 @@ class GlobalSettings(BaseSettings):
     EOSC_COMMONS_URL: AnyUrl = "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
     EOSC_COMMONS_ENV: str = "production"
     EOSC_EXPLORE_URL: AnyUrl = "https://explore.eosc-portal.eu"
+    KNOWLEDGE_HUB_URL: AnyUrl = "https://knowledge-hub.eosc-portal.eu/"
     RELATED_SERVICES_ENDPOINT: AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"
     IS_SORT_BY_RELEVANCE: bool = False
 
-    NG_COLLECTIONS_PREFIX: str = "beta_"
+    COLLECTIONS_PREFIX: str = ""
 
     @root_validator()
     def oidc_issuer_path(cls, values):
@@ -84,6 +85,11 @@ class TestSettings(GlobalSettings):
     DATABASE_URI: PostgresDsn = (
         "postgresql+psycopg2://ess_test:ess_test@localhost:5452/ess_test"
     )
+    SOLR_URL: AnyUrl = "http://localhost:8993/solr/"
+    COLLECTIONS_PREFIX = "test_"
+
+    class Config:
+        env_prefix = "TEST_"
 
 
 class ProductionSettings(GlobalSettings):
@@ -164,7 +170,6 @@ OIDC_JWT_ENCRYPT_CONFIG = dict(
 )
 OIDC_CONFIG["clients"] = {}
 OIDC_CONFIG["clients"][settings.OIDC_ISSUER] = OIDC_CLIENT_OPTIONS
-
 
 AUTH_COOKIES_CONFIG = dict(
     domain=parsed_ui_url.hostname,

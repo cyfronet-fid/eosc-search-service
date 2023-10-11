@@ -18,6 +18,7 @@ export const servicesAdapter: IAdapter = {
   adapter: (service: Partial<IService> & { id: string }): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
+    isResearchProduct: false,
     id: service.id,
     // basic information
     title: service.title?.join(' ') || '',
@@ -30,6 +31,9 @@ export const servicesAdapter: IAdapter = {
     },
     url: service.pid
       ? `${ConfigService.config?.marketplace_url}/services/${service.pid}`
+      : '',
+    orderUrl: service.pid
+      ? `${ConfigService.config?.marketplace_url}/services/${service.pid}/offers`
       : '',
     collection: COLLECTION,
     coloredTags: [],

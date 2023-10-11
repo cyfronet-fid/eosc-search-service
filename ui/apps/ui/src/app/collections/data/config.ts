@@ -38,6 +38,16 @@ export const RECOMMENDATIONS_TOOLTIP_TEXT_LOGGED =
   'have engaged with. The more you explore, the smarter ' +
   'the suggestions get. Your journey shapes your suggestions!';
 
+export const CITATIONS_NOT_AVAILABLE_TOOLTIP_TEXT =
+  'Due to the lack of data, bibliography record’s generation is not possible. ' +
+  'Please check the other sources of this file ' +
+  'or a source website to check if the link is valid.';
+
+export const BIBLIOGRAPHY_TOOLTIP_TEXT =
+  ' If some links or buttons are not active, it means that this source ' +
+  'does not provide us with the required information to generate the required format. ' +
+  'Please also check other sources If possible.';
+
 // Source: http://country.io/data/
 export const COUNTRY_CODE_TO_NAME: Record<string, string> = {
   BD: 'Bangladesh',

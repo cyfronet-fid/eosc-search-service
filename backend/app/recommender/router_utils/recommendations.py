@@ -5,10 +5,9 @@ import uuid
 import httpx
 from async_lru import alru_cache
 from httpx import AsyncClient
-from starlette.status import HTTP_200_OK
 
+from app.consts import Collection
 from app.recommender.router_utils.common import (
-    RecommendationPanelId,
     RecommenderError,
     SolrRetrieveError,
     _get_panel,
@@ -17,19 +16,17 @@ from app.schemas.session_data import SessionData
 from app.settings import settings
 from app.solr.operations import get, search
 
-ALL_COLLECTION = f"{settings.NG_COLLECTIONS_PREFIX}all_collection"
-
 
 async def get_recommended_uuids(
-    client: AsyncClient, session: SessionData | None, panel_id: RecommendationPanelId
+    client: AsyncClient, session: SessionData | None, collection: Collection
 ):
     try:
         request_body = {
             "unique_id": session.session_uuid if session else str(uuid.uuid4()),
             "timestamp": datetime.datetime.utcnow().isoformat()[:-3] + "Z",
             "visit_id": str(uuid.uuid4()),
-            "page_id": "/search/" + panel_id,
-            "panel_id": _get_panel(panel_id),
+            "page_id": "/search/" + collection,
+            "panel_id": _get_panel(collection),
             "candidates": {},
             "search_data": {},
         }
@@ -64,12 +61,8 @@ async def get_recommended_items(client: AsyncClient, uuids: list[str]):
     try:
         items = []
         for item_uuid in uuids:
-            response = (await get(client, ALL_COLLECTION, item_uuid)).json()
-            item = response["doc"]
-            if item is None:
-                raise SolrRetrieveError(f"No item with id={item_uuid}")
-            items.append(item)
-
+            item = await get(client, Collection.ALL_COLLECTION, item_uuid)
+            items.append(item["doc"])
         return items
     except httpx.ConnectError as e:
         raise SolrRetrieveError("Connection Error") from e
@@ -78,28 +71,26 @@ async def get_recommended_items(client: AsyncClient, uuids: list[str]):
 # pylint: disable=unused-argument
 @alru_cache(maxsize=512)
 async def get_fixed_recommendations(
-    panel_id: RecommendationPanelId, count: int = 3
+    collection: Collection, count: int = 3
 ) -> list[str]:
     rows = 100
-    if panel_id == "data-source":
-        panel_id = "data source"
-    if panel_id == "all":
-        panel_id = "publication"
-    fq = [f'type:("{panel_id}")']
+    if collection == Collection.DATA_SOURCE:
+        collection = "data source"
+    if collection == Collection.ALL_COLLECTION:
+        collection = "publication"
+    fq = [f'type:("{collection}")']
     async with httpx.AsyncClient() as client:
         response = await search(
             client,
-            ALL_COLLECTION,
+            Collection.ALL_COLLECTION,
             q="*",
             qf="id",
-            exact="false",
             fq=fq,
             sort=["id desc"],
             rows=rows,
+            exact="false",
         )
-    if response.status_code != HTTP_200_OK:
-        return []
-    docs: list = response.json()["response"]["docs"]
+    docs: list = response.data["response"]["docs"]
     if len(docs) == 0:
         return []
 

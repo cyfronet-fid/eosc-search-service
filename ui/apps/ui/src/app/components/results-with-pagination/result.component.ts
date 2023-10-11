@@ -33,7 +33,9 @@ export class ResultComponent implements OnInit {
 
   @Input() id!: string;
   @Input() date?: string;
+  @Input() urls: string[] = [];
 
+  @Input() isResearchProduct = false;
   @Input() description!: string;
 
   @Input() abbreviation!: string;
@@ -41,6 +43,7 @@ export class ResultComponent implements OnInit {
   @Input() title!: string;
 
   @Input() offers: IOffer[] = [];
+  @Input() providerName?: string;
 
   @Input()
   set url(url: string) {
@@ -48,6 +51,52 @@ export class ResultComponent implements OnInit {
       this.validUrl = url;
       return;
     }
+  }
+
+  @Input() orderUrl?: string;
+
+  get redirectUrl(): string | null {
+    if (this.validUrl == null || this.validUrl === '') {
+      return null;
+    }
+    if (this.type.value === 'bundle') {
+      this.redirectService.internalUrl(
+        this.validUrl,
+        this.id,
+        this.type.value,
+        this.offers[0]?.main_offer_id
+          ? '#offer-' + this.offers[0].main_offer_id.toString().substring(2)
+          : ''
+      );
+    }
+    return this.redirectService.internalUrl(
+      this.validUrl,
+      this.id,
+      this.type.value,
+      ''
+    );
+  }
+
+  get redirectOrderUrl(): string | null {
+    if (this.orderUrl == null || this.orderUrl === '') {
+      return null;
+    }
+    if (this.type.value === 'bundle') {
+      this.redirectService.internalUrl(
+        this.orderUrl,
+        this.id,
+        this.type.value,
+        this.offers[0]?.main_offer_id
+          ? '#offer-' + this.offers[0].main_offer_id.toString().substring(2)
+          : ''
+      );
+    }
+    return this.redirectService.internalUrl(
+      this.orderUrl,
+      this.id,
+      this.type.value,
+      ''
+    );
   }
 
   @Input()
@@ -84,10 +133,28 @@ export class ResultComponent implements OnInit {
   secondaryTags: ISecondaryTag[] = [];
 
   @Input()
+  resourceType!: string;
+
+  @Input()
   set highlights(highlights: { [field: string]: string[] | undefined }) {
     this.highlightsreal = highlights;
     return;
   }
+  public hasDOIUrl = false;
+  public parsedUrls: { [key: string]: string } = {};
+
+  public readonly RESOURCES_TO_SHOW_PIN_TO: string[] = [
+    'software',
+    'publication',
+    'dataset',
+    'other',
+  ];
+
+  public readonly MP_RESOURCES_TO_SHOW_PIN_TO: string[] = [
+    'data-source',
+    'service',
+    'bundle',
+  ];
 
   constructor(
     private _customRoute: CustomRoute,
@@ -99,6 +166,7 @@ export class ResultComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.parseUrls();
     const tgs = this._route.snapshot.queryParamMap.getAll('tags');
     if (typeof tgs === 'string') {
       this.tagsq.push(tgs);
@@ -238,6 +306,32 @@ export class ResultComponent implements OnInit {
     this.highlightsreal['description'] = highlightsreal_desc.reverse();
     this.highlightsreal['keywords_tg'] = highlightsreal_key.reverse();
     this.highlightsreal['tag_list_tg'] = highlightsreal_tl.reverse();
+  }
+
+  parseUrls() {
+    this.urls.map((url) => {
+      const doi = this.extractDOIFromUrl(url);
+      this.parsedUrls[url] = doi;
+      if (doi !== '') {
+        this.hasDOIUrl = true;
+      }
+    });
+  }
+
+  extractDOIFromUrl(url: string) {
+    const searchTerm = 'doi.org/';
+    const index = url.search(searchTerm);
+    if (index === -1) {
+      return '';
+    } else {
+      const doi = url.slice(index + searchTerm.length);
+      const httpIndex = doi.search('http');
+      if (httpIndex > -1) {
+        return '';
+      } else {
+        return doi;
+      }
+    }
   }
 
   get$(id: number | string): Observable<IService> {

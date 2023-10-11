@@ -10,7 +10,10 @@ import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { IService } from '@collections/data/services/service.model';
-import { getDataSourceUrl } from '@collections/data/data-sources/adapter.data';
+import {
+  getDataSourceOrderUrl,
+  getDataSourceUrl,
+} from '@collections/data/data-sources/adapter.data';
 import {
   toArray,
   toValueWithLabel,
@@ -65,6 +68,32 @@ const urlAdapter = (
   }
 };
 
+const orderUrlAdapter = (
+  type: string,
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (type) {
+    case 'data source':
+      return getDataSourceOrderUrl(data?.pid);
+    case 'service':
+      return data.pid
+        ? `${ConfigService.config?.marketplace_url}/services/${data.pid}/offers`
+        : undefined;
+    case 'bundle':
+      return `${ConfigService.config?.marketplace_url}/services/${data.service_id}/offers`;
+    default:
+      return undefined;
+  }
+};
+
 const forInteroperabilityGuidelinesValueAdapter = (value: string = '') => {
   const valueToLowerCase = value.toLowerCase();
   return valueToLowerCase.indexOf('interoperability') !== -1
@@ -99,6 +128,28 @@ const extractDate = (
   }
 };
 
+const setIsResearchProduct = (
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (data.type) {
+    case 'publication':
+    case 'software':
+    case 'dataset':
+    case 'other':
+      return true;
+    default:
+      return false;
+  }
+};
+
 export const allCollectionsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (
@@ -116,6 +167,7 @@ export const allCollectionsAdapter: IAdapter = {
   ): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: true,
+    isResearchProduct: setIsResearchProduct(data),
     id: data.id,
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',
@@ -123,6 +175,8 @@ export const allCollectionsAdapter: IAdapter = {
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
+    orderUrl: orderUrlAdapter(data.type || '', data),
+    urls: data.url,
     horizontal: data?.horizontal,
     coloredTags: [],
     tags:

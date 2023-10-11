@@ -12,6 +12,7 @@ export interface IResult {
   documentType?: string[];
   type: IValueWithLabel;
   collection: string;
+  urls?: string[];
   url: string;
   tags: ITag[];
   date?: string;
@@ -26,8 +27,11 @@ export interface IResult {
   offers?: any[];
   isSortByRelevanceCollectionScopeOff?: boolean;
   isSortCollectionScopeOff?: boolean;
+  isResearchProduct: boolean;
   horizontal?: boolean;
   pids?: Pids;
+  providerName?: string;
+  orderUrl?: string;
 }
 
 export interface ISecondaryTag {

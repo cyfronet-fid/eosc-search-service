@@ -105,7 +105,7 @@ export class SearchInputComponent implements OnInit {
 
   withAuthor(): boolean {
     if (
-      this.collectionFc.value.id === 'data-source' ||
+      this.collectionFc.value.id === 'data_source' ||
       this.collectionFc.value.id === 'service' ||
       this.collectionFc.value.id === 'guideline' ||
       this.collectionFc.value.id === 'bundle' ||
@@ -135,7 +135,7 @@ export class SearchInputComponent implements OnInit {
       } else {
         if (narrow === 'keyword') {
           if (
-            this.collectionFc.value.id === 'data-source' ||
+            this.collectionFc.value.id === 'data_source' ||
             this.collectionFc.value.id === 'service'
           ) {
             this.tags.push('tagged' + ': ' + value.trim());
