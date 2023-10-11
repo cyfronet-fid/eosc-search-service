@@ -1,5 +1,40 @@
 # Changelog
 
+## [2.13.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.12.0...v2.13.0) (2023-10-11)
+
+
+### Features
+
+* [[#844](https://github.com/cyfronet-fid/eosc-search-service/issues/844), [#845](https://github.com/cyfronet-fid/eosc-search-service/issues/845)] Pin RP to project, bundle link, no filter ([901ce93](https://github.com/cyfronet-fid/eosc-search-service/commit/901ce9317ccf158558bfcbe4d49c9746f725258e))
+* [[#847](https://github.com/cyfronet-fid/eosc-search-service/issues/847)] Adjust bundle result to latest design ([d7a0d76](https://github.com/cyfronet-fid/eosc-search-service/commit/d7a0d768c3409b9172fe7d5ac6b8603e13a599e0))
+* [[#911](https://github.com/cyfronet-fid/eosc-search-service/issues/911)] click pin to mp opens in new tab ([56f1664](https://github.com/cyfronet-fid/eosc-search-service/commit/56f1664bd4d9e1e5674e066199caa65699447c3b))
+* [[#926](https://github.com/cyfronet-fid/eosc-search-service/issues/926)] adjust solr schema in the code ([068d3d3](https://github.com/cyfronet-fid/eosc-search-service/commit/068d3d3d8ead94e41448c6e1d743f9794d203cad))
+* [[#932](https://github.com/cyfronet-fid/eosc-search-service/issues/932), [#845](https://github.com/cyfronet-fid/eosc-search-service/issues/845)] change pin to access, change links ([41af111](https://github.com/cyfronet-fid/eosc-search-service/commit/41af1117c742ea26781d85b1bd97d6b38e0fe770))
+* [#732](https://github.com/cyfronet-fid/eosc-search-service/issues/732) feedback mechanism ([509dea2](https://github.com/cyfronet-fid/eosc-search-service/commit/509dea260d931b579550380aa418c4b7519c4c37))
+* add citations and export functionality ([784955f](https://github.com/cyfronet-fid/eosc-search-service/commit/784955fe50143a64bfe28e4590cc6fdf238cd4cc))
+* map providers ([2fd24d2](https://github.com/cyfronet-fid/eosc-search-service/commit/2fd24d23ab885cd0866b418ca428054927ccc9bd))
+
+
+### Bug Fixes
+
+* added exact, fixed bundles ([cea9aec](https://github.com/cyfronet-fid/eosc-search-service/commit/cea9aec20d90612f14cfc7a5d222de933a05e64a))
+* collection name in path, openssl error ([46c9d8c](https://github.com/cyfronet-fid/eosc-search-service/commit/46c9d8c690be5dfd6f9d5a3d015edf031a276834))
+* deleted ui version ([521b564](https://github.com/cyfronet-fid/eosc-search-service/commit/521b564c88f23e1f493301a994dc315dd58b1cb3))
+* exclude bundles from recommendations ([b79b1ce](https://github.com/cyfronet-fid/eosc-search-service/commit/b79b1cee20d8ff0bb93363f52cddba182bd7fa40))
+* fix pin to project link ([573360b](https://github.com/cyfronet-fid/eosc-search-service/commit/573360b74a67b532a91d873255d37d6ea2c4d907))
+* long strings in title and description ([a10bb5e](https://github.com/cyfronet-fid/eosc-search-service/commit/a10bb5e0d87120a8e57e3f2f9737fc4c10f5e053))
+* move providerName to the proper block ([c47c1a1](https://github.com/cyfronet-fid/eosc-search-service/commit/c47c1a1decd088660b25a295e999c5fae5b17330))
+* no data ([c1d402d](https://github.com/cyfronet-fid/eosc-search-service/commit/c1d402de6eca2f85d629e9564fb84e8f709ad6e2))
+* no data fix for solr ([e052a09](https://github.com/cyfronet-fid/eosc-search-service/commit/e052a09b8f238f43086ea9f1d80bc29a960c77d8))
+* no data fix for solr ([3846dff](https://github.com/cyfronet-fid/eosc-search-service/commit/3846dff93e1da7960c3075da5bf908f3229b81f7))
+* no data fix for solr ([c9c67aa](https://github.com/cyfronet-fid/eosc-search-service/commit/c9c67aa5742cd5710ff70ce529275a2ec6db3177))
+* no data fix for solr ([fbe050b](https://github.com/cyfronet-fid/eosc-search-service/commit/fbe050b008da6339aa388781430a40f8d0217129))
+* no data fix for solr ([59c334e](https://github.com/cyfronet-fid/eosc-search-service/commit/59c334e3efdf724dca9f153f6596f187f2de614d))
+* pin padding, bundle icon and color, tag list mod ([4fcc945](https://github.com/cyfronet-fid/eosc-search-service/commit/4fcc945a3b436f2c0fd664f1f1b1a86e8f2fc272))
+* pin padding, bundle icon, tag list mod ([fcceb95](https://github.com/cyfronet-fid/eosc-search-service/commit/fcceb95b9ae2fbc80362ad22c69b8605063fade4))
+* revert bundle url ([e89b680](https://github.com/cyfronet-fid/eosc-search-service/commit/e89b680389bc83bc02b89d9f3c1b3e916d1768eb))
+* unify prefix handling, refactor solr functions ([3e7b9dd](https://github.com/cyfronet-fid/eosc-search-service/commit/3e7b9dd5392da9e15a13b383da67952541ddce98))
+
 ## [2.12.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.11.0...v2.12.0) (2023-09-18)
 
 
