@@ -12,7 +12,7 @@ software_output_schema = {
     "documentation_url": "array<string>",
     "doi": "array<string>",
     "eosc_if": "array<string>",
-    "exportation": "string",
+    "exportation": "array<string>",
     "funder": "array<string>",
     "id": "string",
     "keywords": "array<string>",
