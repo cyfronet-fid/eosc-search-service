@@ -54,17 +54,6 @@ def upload_all_col_data() -> None:
                     df_trans = trans.all_col_trans_map[col_name](df)
                 else:
                     # Transform using Spark
-                    # from pprint import pprint
-                    # affiliation = df.select("affiliation").collect()
-                    # projects = df.select("projects").collect()
-                    # for af, proj in zip(affiliation, projects):
-                    #     if af["affiliation"] and proj["projects"]:
-                    #         print("Affiliation")
-                    #         pprint(af["affiliation"])
-                    #         print("projects")
-                    #         pprint(proj["projects"])
-                    #         print("\n")
-
                     df_trans = trans.all_col_trans_map[col_name](spark)(df)
             except (ValueError, AssertionError, KeyError):
                 print_errors(
@@ -75,7 +64,7 @@ def upload_all_col_data() -> None:
             # Check the consistency of transformation
             # if col_name != GUIDELINE:
             #     try:
-            #         check_schema_after_trans(df_trans, col_prop[OUTPUT_SCHEMA])
+            #         check_schema_after_trans(df_trans, col_prop[OUTPUT_SCHEMA], collection=col_name)
             #     except AssertionError:
             #         print_errors(
             #             "consistency_fail", failed_files, col_name, data_point, logger

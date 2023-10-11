@@ -6,6 +6,7 @@ offer_output_schema = {
     "id": "string",
     "internal": "boolean",
     "open_access": "boolean",
+    "popularity": "int",
     "service_id": "bigint",
     "status": "string",
     "title": "string",
