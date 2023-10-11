@@ -11,6 +11,7 @@ python-dotenv = "*"
 requests = "*"
 pandas = "*"
 pycountry = "*"
+pyspark-stubs = "==3.0.0.post3"
 
 [dev-packages]
 pytest = "*"
