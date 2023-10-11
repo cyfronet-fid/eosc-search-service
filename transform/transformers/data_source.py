@@ -5,6 +5,7 @@ from pyspark.sql.types import (
     StringType,
     BooleanType,
     ArrayType,
+    IntegerType,
 )
 from transformers.base.marketplace import (
     MarketplaceBaseTransformer,
@@ -16,6 +17,7 @@ from schemas.properties_name import (
     PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES,
     BEST_ACCESS_RIGHT,
     OPEN_ACCESS,
+    POPULARITY,
 )
 
 
@@ -47,6 +49,7 @@ class DataSourceTransformer(MarketplaceBaseTransformer):
                         ArrayType(ArrayType(StringType())),
                         True,
                     ),
+                    StructField(POPULARITY, IntegerType(), True),
                 ]
             )
         )

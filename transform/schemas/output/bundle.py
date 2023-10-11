@@ -10,6 +10,7 @@ bundle_output_schema = {
     "id": "string",
     "main_offer_id": "string",
     "offer_ids": "array<int>",
+    "popularity": "int",
     "providers": "array<string>",
     "related_training": "boolean",
     "resource_organisation": "string",
