@@ -8,6 +8,7 @@ from pyspark.sql.types import (
     StringType,
     ArrayType,
     BooleanType,
+    IntegerType
 )
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
@@ -27,6 +28,7 @@ from app.transform.utils.common import (
     harvest_research_community,
     harvest_pids,
     harvest_relations,
+    harvest_popularity,
     transform_date,
     create_unified_categories,
     simplify_indicators,
@@ -77,6 +79,7 @@ class OagBaseTransformer(BaseTransformer):
         harvest_research_community(df, self.harvested_properties)
         harvest_relations(df, self.harvested_properties)
         harvest_eosc_if(df, self.harvested_properties)
+        harvest_popularity(df, self.harvested_properties)
         create_unified_categories(df, self.harvested_properties)
         harvest_exportation(df, self.harvested_properties)
 
@@ -100,6 +103,7 @@ class OagBaseTransformer(BaseTransformer):
                     StructField(LANGUAGE, ArrayType(StringType()), True),
                     StructField(OPEN_ACCESS, BooleanType(), True),
                     StructField(PIDS, StringType(), True),
+                    StructField(POPULARITY, IntegerType(), True),
                     StructField(RELATIONS, ArrayType(StringType()), True),
                     StructField(RELATIONS_LONG, ArrayType(StringType()), True),
                     StructField(RESEARCH_COMMUNITY, ArrayType(StringType()), True),

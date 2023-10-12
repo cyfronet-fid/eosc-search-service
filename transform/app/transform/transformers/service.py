@@ -4,6 +4,7 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     BooleanType,
+    IntegerType
 )
 from app.transform.transformers.base.marketplace import (
     MarketplaceBaseTransformer,
@@ -13,6 +14,7 @@ from app.transform.utils.utils import sort_schema
 from app.transform.schemas.properties_name import (
     BEST_ACCESS_RIGHT,
     OPEN_ACCESS,
+    POPULARITY
 )
 
 SERVICE_IDS_INCREMENTOR = 0
@@ -36,6 +38,7 @@ class ServiceTransformer(MarketplaceBaseTransformer):
                 [
                     StructField(BEST_ACCESS_RIGHT, StringType(), True),
                     StructField(OPEN_ACCESS, BooleanType(), True),
+                    StructField(POPULARITY, IntegerType(), True),
                 ]
             )
         )

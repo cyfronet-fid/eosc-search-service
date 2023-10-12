@@ -18,6 +18,7 @@ dataset_output_schema = {
     "keywords_tg": "array<string>",
     "language": "array<string>",
     "open_access": "boolean",
+    "popularity": "bigint",
     "publication_date": "date",
     "publisher": "string",
     "relations": "array<string>",

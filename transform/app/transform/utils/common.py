@@ -59,6 +59,7 @@ from app.transform.schemas.properties_name import (
     EOSC_IF,
     PIDS,
     SCIENTIFIC_DOMAINS,
+    POPULARITY
 )
 from app.transform.utils.utils import extract_digits_and_trim
 
@@ -580,6 +581,22 @@ def harvest_eosc_if(df: DataFrame, harvested_properties: dict):
             eosc_if_col.append([])
 
     harvested_properties[EOSC_IF] = eosc_if_col
+
+
+def harvest_popularity(df: DataFrame, harvested_properties: dict):
+    """Harvest popularity as a sum of usage_counts_views and usage_counts_downloads"""
+    views_collection = df.select("usage_counts_views").collect()
+    downloads_collection = df.select("usage_counts_downloads").collect()
+    popularity_col = []
+
+    for views, downloads in zip(
+        chain.from_iterable(views_collection), chain.from_iterable(downloads_collection)
+    ):
+        views = views or 0
+        downloads = downloads or 0
+        popularity_col.append(int(views) + int(downloads))
+
+    harvested_properties[POPULARITY] = popularity_col
 
 
 def transform_date(df: DataFrame, col_name: str, date_format: str) -> DataFrame:
