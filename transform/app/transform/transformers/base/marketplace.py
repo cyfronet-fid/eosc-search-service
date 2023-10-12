@@ -16,7 +16,7 @@ from app.transform.schemas.properties_name import (
     TYPE,
     URL,
 )
-from app.transform.utils.common import map_best_access_right, create_open_access
+from app.transform.utils.common import map_best_access_right, create_open_access, harvest_popularity
 
 SERVICE_TYPE = "service"
 DATA_SOURCE_TYPE = "data source"
@@ -56,6 +56,7 @@ class MarketplaceBaseTransformer(BaseTransformer):
         which will be later on merged with the main dataframe"""
         df = map_best_access_right(df, self.harvested_properties, self.type)
         create_open_access(self.harvested_properties)
+        harvest_popularity(df, self.harvested_properties)
         if self.type == DATA_SOURCE_TYPE:
             df = self.harvest_persistent_id_systems(df)
 

@@ -7,9 +7,10 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     BooleanType,
+    IntegerType
 )
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.utils.common import map_best_access_right, create_open_access
+from app.transform.utils.common import map_best_access_right, create_open_access, harvest_popularity
 from app.transform.utils.utils import sort_schema
 from app.transform.schemas.properties_name import *
 
@@ -43,6 +44,7 @@ class OfferTransformer(BaseTransformer):
         which will be later on merged with the main dataframe"""
         df = map_best_access_right(df, self.harvested_properties, self.type)
         create_open_access(self.harvested_properties)
+        harvest_popularity(df, self.harvested_properties)
 
         return df
 
@@ -64,6 +66,7 @@ class OfferTransformer(BaseTransformer):
                 [
                     StructField(BEST_ACCESS_RIGHT, StringType(), True),
                     StructField(OPEN_ACCESS, BooleanType(), True),
+                    StructField(POPULARITY, IntegerType(), True),
                 ]
             )
         )

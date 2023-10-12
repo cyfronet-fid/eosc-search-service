@@ -2,10 +2,12 @@
 """Transform Marketplace's resources"""
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import split, lit, col
-from pyspark.sql.types import StringType
+from pyspark.sql.types import StringType, StructType, StructField, IntegerType
 from pyspark.errors.exceptions.captured import AnalysisException
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.schemas.properties_name import ID, TYPE, URL
+from app.transform.schemas.properties_name import ID, TYPE, URL, POPULARITY
+from app.transform.utils.common import harvest_popularity
+from app.transform.utils.utils import sort_schema
 
 PROVIDER_TYPE = "provider"
 PROVIDER_IDS_INCREMENTOR = 100_000
@@ -37,6 +39,8 @@ class ProviderTransformer(BaseTransformer):
         """Harvest properties that requires more complex transformations
         Basically from those harvested properties there will be created another dataframe
         which will be later on merged with the main dataframe"""
+        harvest_popularity(df, self.harvested_properties)
+        return df
 
     @staticmethod
     def simplify_urls(df: DataFrame) -> DataFrame:
@@ -51,9 +55,15 @@ class ProviderTransformer(BaseTransformer):
         return df
 
     @property
-    def harvested_schema(self) -> None:
+    def harvested_schema(self) -> StructType:
         """Schema of harvested properties"""
-        return None
+        return sort_schema(
+            StructType(
+                [
+                    StructField(POPULARITY, IntegerType(), True),
+                ]
+            )
+        )
 
     @staticmethod
     def cast_columns(df: DataFrame) -> DataFrame:
