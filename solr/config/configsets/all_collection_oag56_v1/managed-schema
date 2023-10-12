@@ -286,7 +286,7 @@
       <filter class="solr.LowerCaseFilterFactory"/>
     </analyzer>
   </fieldType>
-  <fieldType name="text_general_exportation" class="solr.TextField" omitNorms="true" indexed="false" stored="true" uninvertible="false" docValues="false"/>
+  <fieldType name="text_general_not_indexed" class="solr.TextField" omitNorms="true" indexed="false" stored="true" uninvertible="false" docValues="false"/>
   <fieldType name="text_general_rev" class="solr.TextField" positionIncrementGap="100">
     <analyzer type="index">
       <tokenizer class="solr.StandardTokenizerFactory"/>
@@ -466,7 +466,6 @@
   <field name="author_pids" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="author_types" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="best_access_right" type="string" required="false"/>
-  <field name="bestaccessright" type="text_general"/>
   <field name="bundle_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="capabilities_of_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="catalogue" type="string" required="false"/>
@@ -496,7 +495,7 @@
   <field name="eosc_integration_options" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_provider" type="strings" required="false"/>
   <field name="eosc_related_standards" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
-  <field name="exportation" type="text_general_exportation" tokenized="false" multiValued="true" required="false"/>
+  <field name="exportation" type="text_general_not_indexed" tokenized="false" multiValued="true" required="false"/>
   <field name="format" type="strings" required="false"/>
   <field name="fos" type="strings" required="false"/>
   <field name="funder" type="strings" required="false" useDocValuesAsStored="true"/>
@@ -509,7 +508,6 @@
   <field name="horizontal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="id" type="string" termPositions="true" termVectors="true" termOffsets="true" required="true" useDocValuesAsStored="true"/>
   <field name="internal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
-  <field name="journal" type="text_general"/>
   <field name="jurisdiction" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="keywords" type="strings" required="false"/>
   <field name="keywords_tg" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
@@ -548,7 +546,6 @@
   <field name="providers" type="strings" required="false"/>
   <field name="publication_date" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="publication_year" type="pint" uninvertible="true" docValues="true" indexed="true" stored="true"/>
-  <field name="published" type="pdates"/>
   <field name="publisher" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="qualification" type="strings" required="false"/>
   <field name="rating" type="pdouble" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
@@ -587,7 +584,6 @@
   <field name="standards" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="status" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="status_monitoring_url" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="subject" type="text_general"/>
   <field name="submission_policy_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="subtitle" type="text_general" sortMissingLast="true" required="false"/>
   <field name="synchronized_at" type="pdate" sortMissingLast="true" required="false"/>
@@ -694,7 +690,4 @@
   <copyField source="relatedStandards.relatedStandardIdentifier" dest="relatedStandards.relatedStandardIdentifier_str" maxChars="256"/>
   <copyField source="delete" dest="delete_str" maxChars="256"/>
   <copyField source="research_product_metadata_license_urls" dest="research_product_metadata_license_urls_str" maxChars="256"/>
-  <copyField source="bestaccessright" dest="bestaccessright_str" maxChars="256"/>
-  <copyField source="subject" dest="subject_str" maxChars="256"/>
-  <copyField source="journal" dest="journal_str" maxChars="256"/>
 </schema>

@@ -667,48 +667,49 @@ def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
     'harvested_properties[EXPORTATION]'.
 
     Note:
-    - 'i' is used to limit harvesting to the first 10 versions of each instance.
+    - 'instance_idx' is used to limit harvesting to the first 10 versions of each instance.
 
     """
     instances_list = df.select(INSTANCE).collect()
     exportation_column = []
+    instances_limit = 10
 
     for instances in instances_list:
         if instances[INSTANCE]:
             exportation_row = []
 
-            for i, instance in enumerate(instances[INSTANCE]):
-                if i >= 9:
+            for instance_idx, instance in enumerate(instances[INSTANCE], start=1):
+                if instance_idx > instances_limit:
                     break
-                else:
-                    url = instance[URL] if instance[URL] else None
-                    exportation_type = instance["type"] if instance["type"] else None
-                    publication_year = (
-                        instance["publicationdate"][0:4]
-                        if instance["publicationdate"]
-                        else None
-                    )
-                    instance_license = (
-                        instance["license"] if instance["license"] else None
-                    )
 
-                    pids = instance["pid"] or []
-                    pids_row = extract_pids(pids)
+                url = instance[URL] if instance[URL] else None
+                exportation_type = instance["type"] if instance["type"] else None
+                publication_year = (
+                    instance["publicationdate"][0:4]
+                    if instance["publicationdate"]
+                    else None
+                )
+                instance_license = (
+                    instance["license"] if instance["license"] else None
+                )
 
-                    datasource = (
-                        instance["hostedby"]["value"] if instance["hostedby"] else None
-                    )
+                pids = instance["pid"] or []
+                pids_row = extract_pids(pids)
 
-                    exportation_instance = {
-                        "url": url,
-                        "document_type": exportation_type,
-                        "publication_year": publication_year,
-                        "license": instance_license,
-                        "pids": pids_row,
-                        "hostedby": datasource,
-                    }
+                datasource = (
+                    instance["hostedby"]["value"] if instance["hostedby"] else None
+                )
 
-                    exportation_row.append(exportation_instance)
+                exportation_instance = {
+                    "url": url,
+                    "document_type": exportation_type,
+                    "publication_year": publication_year,
+                    "license": instance_license,
+                    "pids": pids_row,
+                    "hostedby": datasource,
+                }
+
+                exportation_row.append(exportation_instance)
 
             exportation_column.append(exportation_row)
         else:
