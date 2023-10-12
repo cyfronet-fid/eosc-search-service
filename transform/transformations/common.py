@@ -689,9 +689,7 @@ def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
                     if instance["publicationdate"]
                     else None
                 )
-                instance_license = (
-                    instance["license"] if instance["license"] else None
-                )
+                instance_license = instance["license"] if instance["license"] else None
 
                 pids = instance["pid"] or []
                 pids_row = extract_pids(pids)
