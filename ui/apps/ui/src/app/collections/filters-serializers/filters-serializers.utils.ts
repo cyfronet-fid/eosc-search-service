@@ -86,6 +86,9 @@ export const deserialize = (
   if (isArray(config)) {
     filterConfig = config.find(({ id }) => id === filter) as IFilterConfig;
   }
+  if (filterConfig == null) {
+    return undefined;
+  }
 
   switch (filterConfig.type) {
     case 'tag':
