@@ -5,6 +5,7 @@ from fastapi import APIRouter
 from .auth import router as auth_router
 from .bibliography import router as bibliography_router
 from .configuration import router as configuration_router
+from .filters import router as catalogue_router
 from .mocks import router as mocks_router
 from .presentable import router as presentable_router
 from .recommendation import router as recommendation_router
@@ -26,3 +27,4 @@ web_api_router.include_router(related_services_router, tags=["related_services"]
 web_api_router.include_router(suggestions_router)
 web_api_router.include_router(rp_router)
 web_api_router.include_router(bibliography_router)
+web_api_router.include_router(catalogue_router)

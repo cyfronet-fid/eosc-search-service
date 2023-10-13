@@ -3,6 +3,13 @@ from enum import Enum
 from typing import Literal, TypeAlias
 
 
+class FilterField(str, Enum):
+    """Available filter field names"""
+
+    CATALOGUE = "catalogue"
+    TYPE = "type"
+
+
 class Collection(str, Enum):
     """Collection names in Solr"""
 
@@ -39,6 +46,14 @@ ResearchProductCollection: TypeAlias = Literal[
 ]
 
 ResearchProductType: TypeAlias = Literal["publication", "dataset", "software", "other"]
+
+
+RESEARCH_PRODUCT_TYPES_LIST: list[ResearchProductType] = [
+    "publication",
+    "dataset",
+    "software",
+    "other",
+]
 
 
 class PanelId(str, Enum):
@@ -80,9 +95,15 @@ PANEL_ID_OPTIONS = [
 
 PROVIDER_QF = "title^100 description^10 scientific_domains^10"
 
+DEFAULT_QF = (
+    "title^100 author_names_tg^120 description^10 keywords_tg^10 tag_list_tg^10"
+)
+
 SortUi: TypeAlias = Literal["dmr", "dlr", "mp", "r", "default", ""]
 
 DEFAULT_SORT = ["score desc", "id asc"]
+
+DEFAULT_CATALOGUE_NAME = "EOSC"
 
 SORT_UI_TO_SORT_MAP = {
     "default": [],

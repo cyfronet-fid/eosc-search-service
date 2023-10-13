@@ -24,7 +24,7 @@ class TermsFacet(BaseModel, _ISolrSerializable):
     It includes selected fields from https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
 
-    type: Literal["terms"]
+    type: Literal["terms"] = "terms"
     field: str
     offset: Optional[int]
     limit: Optional[int]
