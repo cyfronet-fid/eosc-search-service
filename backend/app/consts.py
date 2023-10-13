@@ -88,6 +88,6 @@ SORT_UI_TO_SORT_MAP = {
     "default": [],
     "dmr": ["publication_date desc"],
     "dlr": ["publication_date asc"],
-    "mp": ["usage_counts_views desc", "usage_counts_downloads desc"],
-    "r": ["usage_counts_views desc", "usage_counts_downloads desc"],
+    "mp": ["popularity desc"],
+    "r": ["popularity desc"],
 }
