@@ -78,6 +78,7 @@ class OagBaseTransformer(BaseTransformer):
         harvest_relations(df, self.harvested_properties)
         harvest_eosc_if(df, self.harvested_properties)
         create_unified_categories(df, self.harvested_properties)
+        harvest_exportation(df, self.harvested_properties)
 
         return df
 
@@ -94,6 +95,7 @@ class OagBaseTransformer(BaseTransformer):
                     StructField(DOCUMENT_TYPE, ArrayType(StringType()), True),
                     StructField(DOI, ArrayType(StringType()), True),
                     StructField(EOSC_IF, ArrayType(StringType()), True),
+                    StructField(EXPORTATION, ArrayType(StringType()), True),
                     StructField(FUNDER, ArrayType(StringType()), True),
                     StructField(LANGUAGE, ArrayType(StringType()), True),
                     StructField(OPEN_ACCESS, BooleanType(), True),
