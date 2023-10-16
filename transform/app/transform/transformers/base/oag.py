@@ -8,7 +8,7 @@ from pyspark.sql.types import (
     StringType,
     ArrayType,
     BooleanType,
-    IntegerType
+    IntegerType,
 )
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (

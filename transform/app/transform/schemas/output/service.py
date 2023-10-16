@@ -35,7 +35,7 @@ service_output_schema = {
     "phase": "string",
     "pid": "string",
     "platforms": "array<string>",
-    "popularity": "bigint",
+    "popularity": "int",
     "pricing_url": "string",
     "privacy_policy_url": "string",
     "providers": "array<string>",

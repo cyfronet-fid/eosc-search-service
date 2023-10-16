@@ -11,7 +11,7 @@ bundle_output_schema = {
     "iid": "int",
     "main_offer_id": "string",
     "offer_ids": "array<int>",
-    "popularity": "bigint",
+    "popularity": "int",
     "providers": "array<string>",
     "publication_date": "date",
     "related_training": "boolean",

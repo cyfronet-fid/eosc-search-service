@@ -59,7 +59,7 @@ from app.transform.schemas.properties_name import (
     EOSC_IF,
     PIDS,
     SCIENTIFIC_DOMAINS,
-    POPULARITY
+    POPULARITY,
 )
 from app.transform.utils.utils import extract_digits_and_trim
 

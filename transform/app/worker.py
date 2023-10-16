@@ -1,7 +1,9 @@
+# pylint: disable=invalid-name, logging-fstring-interpolation
+"""Celery worker. Responsibilities: get, transform, upload data"""
 import os
 import json
-from celery import Celery
 import logging
+from celery import Celery
 import app.transform.transformers as trans
 from app.transform.utils.loader import (
     ALL_COLLECTION,
@@ -47,7 +49,9 @@ def transform_batch(type_: str, data: dict | list[dict]) -> None:
         df_trans = transformer(spark)(df)
         try:
             check_schema_after_trans(
-                df_trans, env_vars[ALL_COLLECTION][type_][OUTPUT_SCHEMA]
+                df_trans,
+                env_vars[ALL_COLLECTION][type_][OUTPUT_SCHEMA],
+                collection=type_,
             )
         except AssertionError:
             logger.error(
