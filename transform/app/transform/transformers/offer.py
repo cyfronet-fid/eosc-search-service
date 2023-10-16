@@ -7,10 +7,14 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     BooleanType,
-    IntegerType
+    IntegerType,
 )
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.utils.common import map_best_access_right, create_open_access, harvest_popularity
+from app.transform.utils.common import (
+    map_best_access_right,
+    create_open_access,
+    harvest_popularity,
+)
 from app.transform.utils.utils import sort_schema
 from app.transform.schemas.properties_name import *
 

@@ -5,7 +5,7 @@ from pyspark.sql.types import (
     StringType,
     BooleanType,
     ArrayType,
-    IntegerType
+    IntegerType,
 )
 from app.transform.transformers.base.marketplace import (
     MarketplaceBaseTransformer,
@@ -17,7 +17,7 @@ from app.transform.schemas.properties_name import (
     PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES,
     BEST_ACCESS_RIGHT,
     OPEN_ACCESS,
-    POPULARITY
+    POPULARITY,
 )
 
 DATA_SOURCE_IDS_INCREMENTOR = 10_000_000

@@ -1,3 +1,4 @@
+# pylint: disable=line-too-long
 """Scientific domains mapping regarding OAG resources"""
 
 # Left side: OAG categories. Right side: MP categories. Keys are mapped into values. Sorted by the values.

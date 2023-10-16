@@ -16,7 +16,11 @@ from app.transform.schemas.properties_name import (
     TYPE,
     URL,
 )
-from app.transform.utils.common import map_best_access_right, create_open_access, harvest_popularity
+from app.transform.utils.common import (
+    map_best_access_right,
+    create_open_access,
+    harvest_popularity,
+)
 
 SERVICE_TYPE = "service"
 DATA_SOURCE_TYPE = "data source"

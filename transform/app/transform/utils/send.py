@@ -87,16 +87,14 @@ def send_json_string_to_solr(
         try:
             req = requests.post(url, data=data, headers=req_headers, timeout=180)
             if req.status_code == 200:
-                logger.info(
-                    f"Solr update was successful. Collection name={col_name}, status={req.status_code}"
-                )
+                logger.info(f"{req.status_code} - {col_name}. Update was successful.")
             else:
                 logger.error(
-                    f"Solr update has failed. Collection name={col_name}, status={req.status_code}"
+                    f"{req.status_code} - {col_name}. Update failed. Data has failed to be sent to Solr. Details: {req.json()}"
                 )
         except ReqConnectionError as e:
             logger.error(
-                f"Solr update has failed. Collection name={col_name}, error={e}"
+                f"503 - {col_name}. Update failed. Solr is not reachable. Full error={e}"
             )
 
 
