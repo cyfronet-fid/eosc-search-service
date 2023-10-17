@@ -16,6 +16,7 @@ from schemas.properties_name import (
     COUNTRY,
     DOCUMENT_TYPE,
     FUNDER,
+    EXPORTATION,
     OPEN_ACCESS,
     RESEARCH_COMMUNITY,
     TYPE,
@@ -229,8 +230,8 @@ def harvest_scientific_domains(df: DataFrame, harvested_properties: dict) -> Non
             final_expected_parents_ctx,
         ) = count_scientific_domain(sd_row)
         if not (
-                final_actual_parents_ctx == actual_parents_ctx
-                and final_expected_parents_ctx == expected_parents_ctx
+            final_actual_parents_ctx == actual_parents_ctx
+            and final_expected_parents_ctx == expected_parents_ctx
         ):
             error_stats = {
                 "Final row": sd_row,
@@ -489,6 +490,32 @@ def harvest_research_community(df: DataFrame, harvested_properties: dict) -> Non
     harvested_properties[RESEARCH_COMMUNITY] = rc_column
 
 
+def extract_pids(pid_list):
+    """
+    Extract PID information from a list of PIDs and return it as a dictionary.
+
+    Args:
+        pid_list (list): List of PIDs.
+
+    Returns:
+        dict: Dictionary containing PID information categorized by scheme.
+    """
+    pids_row = {
+        "arXiv": [],
+        "doi": [],
+        "handle": [],
+        "pdb": [],
+        "pmc": [],
+        "pmid": [],
+        "w3id": [],
+    }
+
+    for pid in pid_list:
+        pids_row[pid["scheme"]].append(pid["value"])
+
+    return pids_row
+
+
 def harvest_pids(df: DataFrame, harvested_properties: dict) -> None:
     """Harvest DOI from OAG resources"""
     pids_raw_column = df.select(PID).collect()
@@ -496,18 +523,9 @@ def harvest_pids(df: DataFrame, harvested_properties: dict) -> None:
 
     for pids_list in pids_raw_column:
         pids = pids_list[PID] or []
-        pids_row = {
-            "arXiv": [],
-            "doi": [],
-            "handle": [],
-            "pdb": [],
-            "pmc": [],
-            "pmid": [],
-            "w3id": [],
-        }
-        for pid in pids:
-            pids_row[pid["scheme"]].append(pid["value"])
+        pids_row = extract_pids(pids)
         pids_column.append(json.dumps(pids_row))
+
     harvested_properties[PIDS] = pids_column
 
     # Add only DOI for backwards compatibility
@@ -622,6 +640,80 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
         df = df.withColumn(TAG_LIST_TG, col(TAG_LIST))
 
     return df
+
+
+def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
+    """
+    Harvest exportation information from instances within the DataFrame
+
+    Args:
+        df (DataFrame): Input DataFrame containing instance information.
+        harvested_properties (dict): Dictionary to store harvested properties.
+
+    Assumptions:
+        - Only the first 10 versions of each instance are harvested; subsequent versions are skipped
+          (approx. 0.2% of data is skipped).
+
+    For each instance:
+    - Extracted Fields:
+        - URL: URL of the instance.
+        - Type: Type of the instance.
+        - Publication Year: Year of publication from the publication date.
+        - License: License information.
+        - PIDs: Persistent identifiers associated with the instance.
+        - Hosted By: The entity hosting the instance.
+
+    The extracted information is structured into a list of dictionaries for each instance and stored in
+    'harvested_properties[EXPORTATION]'.
+
+    Note:
+    - 'instance_idx' is used to limit harvesting to the first 10 versions of each instance.
+
+    """
+    instances_list = df.select(INSTANCE).collect()
+    exportation_column = []
+    instances_limit = 10
+
+    for instances in instances_list:
+        if instances[INSTANCE]:
+            exportation_row = []
+
+            for instance_idx, instance in enumerate(instances[INSTANCE]):
+                if instance_idx >= instances_limit:
+                    break
+
+                url = instance[URL] if instance[URL] else None
+                exportation_type = instance["type"] if instance["type"] else None
+                publication_year = (
+                    instance["publicationdate"][0:4]
+                    if instance["publicationdate"]
+                    else None
+                )
+                instance_license = instance["license"] if instance["license"] else None
+
+                pids = instance["pid"] or []
+                pids_row = extract_pids(pids)
+
+                datasource = (
+                    instance["hostedby"]["value"] if instance["hostedby"] else None
+                )
+
+                exportation_instance = {
+                    "url": url,
+                    "document_type": exportation_type,
+                    "publication_year": publication_year,
+                    "license": instance_license,
+                    "pids": pids_row,
+                    "hostedby": datasource,
+                }
+
+                exportation_row.append(exportation_instance)
+
+            exportation_column.append(exportation_row)
+        else:
+            exportation_column.append([])
+
+    harvested_properties[EXPORTATION] = exportation_column
 
 
 def remove_commas(
