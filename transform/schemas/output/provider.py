@@ -23,6 +23,7 @@ provider_output_schema = {
     "participating_countries": "array<string>",
     "pid": "string",
     "postal_code": "string",
+    "popularity": "int",
     "region": "string",
     "scientific_domains": "array<array<string>>",
     "slug": "string",

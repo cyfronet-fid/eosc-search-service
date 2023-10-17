@@ -75,7 +75,7 @@ def upload_all_col_data() -> None:
             # Check the consistency of transformation
             # if col_name != GUIDELINE:
             #     try:
-            #         check_schema_after_trans(df_trans, col_prop[OUTPUT_SCHEMA])
+            #         check_schema_after_trans(df_trans, col_prop[OUTPUT_SCHEMA], collection=col_name)
             #     except AssertionError:
             #         print_errors(
             #             "consistency_fail", failed_files, col_name, data_point, logger

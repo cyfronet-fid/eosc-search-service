@@ -44,6 +44,7 @@ TARGET_GROUP = "target_group"
 PUBLICATION_DATE = "publication_date"
 EOSC_IF = "eosc_if"
 PIDS = "pids"
+POPULARITY = "popularity"
 
 # Text general
 AUTHOR_NAMES_TG = "author_names_tg"

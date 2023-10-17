@@ -6,10 +6,10 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
     split,
 )
-from pyspark.sql.types import StringType
+from pyspark.sql.types import StringType, StructType, StructField, IntegerType
 from transformations.common import *
 from transformers.base.base import BaseTransformer
-from schemas.properties_name import ID
+from schemas.properties_name import ID, POPULARITY
 from utils.loader import (
     SEPARATE_COLLECTION,
     PATH,
@@ -29,6 +29,7 @@ from conf.logger import Log4J
 from utils.validate import (
     check_schema_after_trans,
 )
+from utils.utils import sort_schema
 
 
 PROVIDER_TYPE = "provider"
@@ -60,6 +61,8 @@ class ProviderTransformer(BaseTransformer):
         """Harvest properties that requires more complex transformations
         Basically from those harvested properties there will be created another dataframe
         which will be later on merged with the main dataframe"""
+        harvest_popularity(df, self.harvested_properties)
+        return df
 
     @staticmethod
     def simplify_urls(df: DataFrame) -> DataFrame:
@@ -71,9 +74,15 @@ class ProviderTransformer(BaseTransformer):
         return df
 
     @property
-    def harvested_schema(self) -> None:
+    def harvested_schema(self) -> StructType:
         """Schema of harvested properties"""
-        return None
+        return sort_schema(
+            StructType(
+                [
+                    StructField(POPULARITY, IntegerType(), True),
+                ]
+            )
+        )
 
     @staticmethod
     def cast_columns(df: DataFrame) -> DataFrame:
@@ -125,7 +134,7 @@ def upload_providers(env_vars: dict, spark: SparkSession, logger: Log4J) -> None
             continue
 
         try:
-            check_schema_after_trans(df_trans, provider_output_schema)
+            check_schema_after_trans(df_trans, provider_output_schema, collection="Provider")
         except AssertionError:
             print_errors("consistency_fail", failed_files, PROVIDER, file, logger)
             continue

@@ -25,7 +25,7 @@ access_rights_mapping = {
         "free access ",
         "tr_access_right-open_access",
     ),
-    RESTRICTED: ("RESTRICTED",),
+    RESTRICTED: ("RESTRICTED", "tr_access_right-restricted_access"),
     ORDER_REQUIRED: ("order_required",),
     LOGIN_REQUIRED: ("login required",),
     LOGIN_REQUIRED_ON: (
