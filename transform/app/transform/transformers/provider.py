@@ -3,7 +3,7 @@
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import split, lit, col
 from pyspark.sql.types import StringType, StructType, StructField, IntegerType
-from pyspark.errors.exceptions.captured import AnalysisException
+from pyspark.sql.utils import AnalysisException
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.schemas.properties_name import ID, TYPE, URL, POPULARITY
 from app.transform.utils.common import harvest_popularity
