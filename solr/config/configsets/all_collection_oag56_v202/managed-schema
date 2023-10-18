@@ -494,7 +494,7 @@
   <field name="eosc_integration_options" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_provider" type="strings" required="false"/>
   <field name="eosc_related_standards" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
-  <field name="exportation" type="text_general" tokenized="false" large="true" indexed="false" uninvertible="false" multiValued="false" required="false"/>
+  <field name="exportation" type="text_general" tokenized="false" uninvertible="false" indexed="false" required="false"/>
   <field name="format" type="strings" required="false"/>
   <field name="fos" type="strings" required="false"/>
   <field name="funder" type="strings" required="false" useDocValuesAsStored="true"/>
