@@ -19,7 +19,7 @@ import { PageHeaderModule } from '@components/page-header/page-header.module';
 import { FiltersModule } from '@components/filters/filters.module';
 import { ActiveFiltersModule } from '@components/active-filters/active-filters.module';
 import { RecommendationsModule } from '@components/recommendations/recommendations.module';
-import { RightMenuModule } from '@components/right-menu/right-menu.module';
+
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FeedbackPanelModule } from '@components/feedback-panel/feedback-panel.module';
 
@@ -54,7 +54,6 @@ import { SearchPageComponent } from './search-page.component';
     FiltersModule,
     ActiveFiltersModule,
     RecommendationsModule,
-    RightMenuModule,
     FeedbackPanelModule,
   ],
   exports: [SearchPageComponent],

@@ -1,7 +1,7 @@
 <div id="container">
-  <div *ngIf="standardSearch" class="search-box">
+  <div *ngIf="standardSearch" class="search-box" [ngClass]="{ providers: isProviderCollection }">
     <form>
-      <div class="input-group" style="padding-bottom: 5px">
+      <div class="input-group" style="padding-bottom: 10px">
         <div class="phase-box">
           <input
             #inputQuery
@@ -30,6 +30,8 @@
           </button>
         </div>
         <select
+          *ngIf="!this.isProviderCollection"
+
           class="form-select"
           (click)="focused = false"
           [formControl]="collectionFc"
@@ -78,7 +80,7 @@
         *ngIf="!isLanding()"
         class="adv-search-text-btn"
         (click)="standardSearch = false"
-        >Show Advanced Search</span
+        >Show Advanced Search -></span
       >
     </form>
 
@@ -111,10 +113,11 @@
       </ng-container>
     </div>
   </div>
-  <div *ngIf="!standardSearch" class="search-box-adv">
+  <div *ngIf="!standardSearch" class="search-box-adv" [ngClass]="{ providers: isProviderCollection }">
     <form>
       <div class="input-group" style="margin-bottom: 5px">
         <select
+        *ngIf="!this.isProviderCollection"
           class="form-select"
           style="margin-left: 0px"
           (click)="focused = false"
