@@ -74,6 +74,7 @@ export class SearchInputComponent implements OnInit {
     { name: 'Keyword' },
     { name: 'None of' },
   ];
+  isProviderCollection = false;
 
   faMagnifyingGlass = faMagnifyingGlass;
   formControl = new UntypedFormControl();
@@ -226,6 +227,9 @@ export class SearchInputComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._customRoute.collection$.subscribe((val) => {
+      this.isProviderCollection = val === 'provider';
+    });
     this._customRoute.q$
       .pipe(
         untilDestroyed(this),

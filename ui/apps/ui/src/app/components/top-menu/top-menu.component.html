@@ -1,0 +1,62 @@
+  <ul nz-menu nzMode="horizontal" class="search-bar ant-menu-custom"  >
+    <li nz-menu-item nzSelected="{{this.selected === 'main'}}">
+      <a
+  
+      [queryParams]="{ q: '*' }"
+      [routerLink]="'/search/all_collection'"
+      [routerLinkActiveOptions]="{
+        queryParams: 'ignored',
+        paths: 'exact',
+        matrixParams: 'ignored',
+        fragment: 'ignored'
+      }"
+      routerLinkActive=""
+      [queryParams]="{
+        q: (q$ | async),
+        standard: (st$ | async),
+        tags: (tg$ | async),
+        exact: (ex$ | async),
+        radioValueAuthor: (radioValueAuthor$ | async),
+        radioValueExact: (radioValueExact$ | async),
+        radioValueTitle: (radioValueTitle$ | async),
+        radioValueKeyword: (radioValueKeyword$ | async)
+      }"
+      
+      >
+      <span class="ant-menu-item-custom">EOSC Marketplace Resources</span>
+      </a
+    >
+      
+      
+    </li>
+    <li nz-menu-item nzSelected="{{this.selected === 'provider'}}">
+      <a
+  
+      [queryParams]="{ q: '*' }"
+      [routerLink]="'/search/provider'"
+      [routerLinkActiveOptions]="{
+        queryParams: 'ignored',
+        paths: 'exact',
+        matrixParams: 'ignored',
+        fragment: 'ignored'
+      }"
+      routerLinkActive=""
+      [queryParams]="{
+        q: (q$ | async),
+        standard: (st$ | async),
+        tags: (tg$ | async),
+        exact: (ex$ | async),
+        radioValueAuthor: (radioValueAuthor$ | async),
+        radioValueExact: (radioValueExact$ | async),
+        radioValueTitle: (radioValueTitle$ | async),
+        radioValueKeyword: (radioValueKeyword$ | async)
+      }"
+      
+      >
+      <span class="ant-menu-item-custom">Providers</span>
+      </a
+    >
+    </li>
+    
+  
+  </ul>
