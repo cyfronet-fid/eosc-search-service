@@ -6,7 +6,7 @@ from itertools import chain
 from logging import getLogger
 import json
 
-from pyspark.errors import AnalysisException
+from pyspark.sql.utils import AnalysisException
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, when, to_date, lit
 

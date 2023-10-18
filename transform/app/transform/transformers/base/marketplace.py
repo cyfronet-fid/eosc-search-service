@@ -4,7 +4,7 @@ from abc import abstractmethod
 from itertools import chain
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import split, col, lit
-from pyspark.errors.exceptions.captured import AnalysisException
+from pyspark.sql.utils import AnalysisException
 from pyspark.sql.types import StringType
 from app.transform.transformers.base.base import BaseTransformer
 
