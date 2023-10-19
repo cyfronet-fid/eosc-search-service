@@ -80,6 +80,10 @@ PANEL_ID_OPTIONS = [
 
 PROVIDER_QF = "title^100 description^10 scientific_domains^10"
 
+DEFAULT_QF = (
+    "title^100 author_names_tg^120 description^10 keywords_tg^10 tag_list_tg^10"
+)
+
 SortUi: TypeAlias = Literal["dmr", "dlr", "mp", "r", "default", ""]
 
 DEFAULT_SORT = ["score desc", "id asc"]

@@ -10,7 +10,7 @@ class SolrDocumentNotFoundError(HTTPException):
     """Error raised if requested document is not found in a given Solr collection"""
 
     status_code: status = status.HTTP_404_NOT_FOUND
-    detail: str = "Requested document does not exist"
+    detail: str = "Requested document does not exist."
 
     def __init__(self):
         super().__init__(status_code=self.status_code, detail=self.detail)
@@ -20,7 +20,17 @@ class SolrCollectionNotFoundError(HTTPException):
     """Error raised if requested collection is not present in a configured Solr instance"""
 
     status_code: status = status.HTTP_404_NOT_FOUND
-    detail: str = "Possible mismatch in collection name"
+    detail: str = "Possible mismatch in collection name."
+
+    def __init__(self):
+        super().__init__(status_code=self.status_code, detail=self.detail)
+
+
+class SolrCollectionEmptyError(HTTPException):
+    """Error raised if the collection is empty"""
+
+    status_code: status = status.HTTP_404_NOT_FOUND
+    detail: str = "Collection is empty"
 
     def __init__(self):
         super().__init__(status_code=self.status_code, detail=self.detail)

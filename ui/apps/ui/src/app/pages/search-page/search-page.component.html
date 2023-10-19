@@ -1,5 +1,5 @@
 <div class="search-page-container">
-    <ess-search-bar></ess-search-bar>
+    <ess-search-bar #searchBar></ess-search-bar>
     <div class="container d-md-none">
       <div class="row mobile-buttons">
         <div class="col-6">
@@ -50,10 +50,13 @@
             }"
             id="dashboard__filters"
           >
-            <ess-filters [results]="response?.results"></ess-filters>
+            <ess-filters
+            [results]="response?.results"
+            [isError]="response?.isError"
+            ></ess-filters>
           </div>
           <div class="col-sm-7 col-12 center-column">
-            <ess-page-header
+            <ess-page-header *ngIf="!response?.isError"
               [isSortCollectionScopeOff]="
                 (response?.results ?? [])[0]?.isSortCollectionScopeOff ??
                 false
@@ -71,6 +74,7 @@
             <ess-active-filters></ess-active-filters>
             <ess-results-with-pagination
               [response]="response"
+              (clearSearchInput)="searchBar.clearInput($event)"
             ></ess-results-with-pagination>
           </div>
         </div>

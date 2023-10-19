@@ -1,6 +1,14 @@
-import { Component, Input, OnInit, TrackByFunction } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  TrackByFunction,
+} from '@angular/core';
 import { PaginationService } from './pagination.service';
-import { BehaviorSubject, skip, tap } from 'rxjs';
+import { ConfigService } from '../../services/config.service';
+import { BehaviorSubject, Observable, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { IResult, ISearchResults } from '@collections/repositories/types';
@@ -15,15 +23,23 @@ import { Router } from '@angular/router';
   styles: [],
 })
 export class ResultsWithPaginationComponent implements OnInit {
+  @Output() clearSearchInput = new EventEmitter<boolean>();
   _prevParamsWithoutCursor: { [name: string]: paramType } = {};
   highlights: {
     [id: string]: { [field: string]: string[] | undefined } | undefined;
   } = {};
+  isError = false;
+  marketplaceUrl = '';
 
   @Input()
   set response(response: ISearchResults<IResult> | null) {
     if (response === null) {
       return;
+    }
+    if (response.isError) {
+      this.isError = true;
+    } else {
+      this.isError = false;
     }
 
     if (this._shouldResetCursor()) {
@@ -68,10 +84,12 @@ export class ResultsWithPaginationComponent implements OnInit {
   constructor(
     private _paginationService: PaginationService,
     private _customRoute: CustomRoute,
-    private _router: Router
+    private _router: Router,
+    private _configService: ConfigService
   ) {}
 
   ngOnInit() {
+    this.marketplaceUrl = this._configService.get().marketplace_url;
     this.pageNr$
       .pipe(
         untilDestroyed(this),
@@ -121,5 +139,15 @@ export class ResultsWithPaginationComponent implements OnInit {
     );
     this._prevParamsWithoutCursor = paramsWithoutCursor;
     return shouldInitPagination;
+  }
+
+  async requestClearAll() {
+    this.clearSearchInput.emit(true);
+    await this._router.navigate([], {
+      queryParams: {
+        fq: [],
+        q: '*',
+      },
+    });
   }
 }

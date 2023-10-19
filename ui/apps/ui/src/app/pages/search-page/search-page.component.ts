@@ -75,6 +75,7 @@ export class SearchPageComponent implements OnInit {
   public showFilters = false;
   public showCollections = false;
   response: ISearchResults<IResult> | null = null;
+  public clearAll = false;
   isProviderCollection = false;
 
   constructor(

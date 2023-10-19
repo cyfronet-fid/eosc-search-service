@@ -60,6 +60,7 @@ export class FetchDataService {
           nextCursorMark: response.nextCursorMark,
           facets: response.facets,
           highlighting: response.highlighting,
+          isError: response.isError,
         }))
       );
   }

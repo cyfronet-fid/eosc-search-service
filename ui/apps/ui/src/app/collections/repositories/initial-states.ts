@@ -7,6 +7,7 @@ export const _EMPTY_RESPONSE = {
   numFound: 0,
   facets: [],
   nextCursorMark: '',
+  isError: true,
 } as unknown as ISearchResults<never & { id: string }>;
 
 export const _EMPTY_SUGGESTIONS_RESPONSE: SuggestionResponse = {};

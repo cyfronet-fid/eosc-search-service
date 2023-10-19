@@ -73,6 +73,7 @@ export interface ISearchResults<T extends { id: string }> {
   results: T[];
   facets: { [field: string]: ITermsFacetResponse | IStatFacetResponse };
   nextCursorMark: string;
+  isError?: boolean;
   numFound: number;
   highlighting: {
     [id: string]: { [field: string]: string[] | undefined } | undefined;

@@ -469,4 +469,10 @@ export class SearchInputComponent implements OnInit {
         return label;
     }
   }
+  clearInput($event: unknown) {
+    this.formControl.setValue('');
+    if (!this.standardSearch) {
+      this.removeAll($event);
+    }
+  }
 }
