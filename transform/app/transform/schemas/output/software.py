@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Software expected schema after transformations"""
 
 software_output_schema = {

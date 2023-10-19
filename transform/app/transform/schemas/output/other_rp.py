@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Other reseach product expected schema after transformations"""
 
 other_rp_output_schema = {

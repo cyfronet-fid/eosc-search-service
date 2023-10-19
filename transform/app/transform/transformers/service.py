@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Transform services"""
 from pyspark.sql.types import (
     StructType,

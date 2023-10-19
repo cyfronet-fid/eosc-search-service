@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Publication expected schema after transformations"""
 
 publication_output_schema = {

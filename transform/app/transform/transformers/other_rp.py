@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Transform other research products"""
 from app.transform.transformers.base.oag import OagBaseTransformer
 

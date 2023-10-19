@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Provider expected schema after transformations"""
 
 provider_output_schema = {

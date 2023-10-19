@@ -18,6 +18,7 @@ from app.transform.utils.validate import (
 )
 from app.transform.utils.send import send_json_string_to_solr
 from app.services.spark.config import apply_spark_conf
+from app.services.solr.delete import delete_data_by_type
 
 
 logger = logging.getLogger(__name__)
@@ -66,7 +67,10 @@ def transform_batch(type_: str, data: dict | list[dict]) -> None:
         )
         output = json.dumps(output_list)
 
-    send_json_string_to_solr(output, env_vars, type_)
+    delete_data_by_type(type_)  # Delete resources of that type from collections
+    send_json_string_to_solr(
+        output, env_vars, type_
+    )  # Upload data to those collections
 
     if spark:
         spark.sparkContext.stop()

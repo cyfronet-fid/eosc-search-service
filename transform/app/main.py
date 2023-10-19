@@ -11,4 +11,5 @@ templates = Jinja2Templates(directory="app/web/templates")
 
 @app.get("/")
 def home(request: Request):
+    """Home page"""
     return templates.TemplateResponse("home.html", context={"request": request})
