@@ -185,6 +185,7 @@
   <div class="bottom-actions">
     <ess-bibliography
       style="float: left"
+      class="border-right"
       *ngIf="isResearchProduct"
       [title]="title"
       [hasDOIUrl]="hasDOIUrl"
@@ -195,6 +196,7 @@
       [resourceType]="type.value"
       [resourceId]="id"
       style="float: left"
+      class="border-right"
     ></ess-pin>
     <ess-pin-static
       *ngIf="
@@ -204,5 +206,11 @@
       [url]="redirectOrderUrl"
       style="float: left"
     ></ess-pin-static>
+    <ess-sources
+      style="float: left"
+      *ngIf="isResearchProduct"
+      [title]="title"
+      [urls]="urls"
+    ></ess-sources>
   </div>
 </div>
