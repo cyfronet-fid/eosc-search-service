@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Dataset expected schema after transformations"""
 
 dataset_output_schema = {

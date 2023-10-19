@@ -1,4 +1,4 @@
-# pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
+# pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import, duplicate-code
 """Transform bundles"""
 from pyspark.sql.functions import split, col, lit
 from pyspark.sql import SparkSession, DataFrame

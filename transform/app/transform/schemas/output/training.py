@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Training expected schema after transformations"""
 
 training_output_schema = {

@@ -1,4 +1,4 @@
-# pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
+# pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import, duplicate-code
 """Transform trainings"""
 from itertools import chain
 from datetime import datetime

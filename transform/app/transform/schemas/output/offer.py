@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Offers expected schema after transformations"""
 
 offer_output_schema = {

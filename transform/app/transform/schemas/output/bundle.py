@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Bundles expected schema after transformations"""
 
 bundle_output_schema = {

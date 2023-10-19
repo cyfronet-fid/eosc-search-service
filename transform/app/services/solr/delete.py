@@ -1,7 +1,8 @@
+# pylint: disable=line-too-long, logging-fstring-interpolation
 """Delete resource based on its ID"""
-import requests
 import json
 import logging
+import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
 from app.transform.utils.loader import (
     ALL_COLLECTION,

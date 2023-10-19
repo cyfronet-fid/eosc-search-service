@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Service expected schema after transformations"""
 
 service_output_schema = {

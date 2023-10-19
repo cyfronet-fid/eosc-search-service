@@ -1,8 +1,8 @@
-import requests
+# pylint: disable=line-too-long
+"""Endpoint for full collection update"""
 from typing import Literal
 from fastapi import APIRouter
 
-from app.services.solr.delete import delete_data_by_type
 from app.transform.utils.loader import (
     load_env_vars,
     ALL_COLLECTION,
@@ -13,10 +13,10 @@ from app.transform.utils.loader import (
     BUNDLE,
     GUIDELINE,
     TRAINING,
-    MP_API_TOKEN,
     ADDRESS,
 )
 from app.worker import transform_batch
+from app.services.mp_pc.data import get_data
 
 router = APIRouter()
 
@@ -61,27 +61,13 @@ async def update_single_col(data_type: str, tasks_id: dict) -> None:
     env_vars = load_env_vars()
     data_address = env_vars[ALL_COLLECTION][data_type][ADDRESS]
 
-    try:
-        if data_type in (SERVICE, DATASOURCE, PROVIDER, OFFER, BUNDLE):
-            headers = {
-                "accept": "application/json",
-                "X-User-Token": env_vars[MP_API_TOKEN],
-            }
-            data = requests.get(
-                data_address,
-                headers=headers,
-                timeout=1000,
-            ).json()
-        else:
-            # Trainings, guidelines
-            data = requests.get(data_address, timeout=20).json()["results"]
+    data = await get_data(data_type, data_address)
 
-        if data:
-            # Clear current collection
-            delete_data_by_type(data_type)
-            # Transform & upload all resources
-            update_task = transform_batch.delay(data_type, data)
-            tasks_id[data_type] = update_task.id
-
-    except Exception as e:
-        return e
+    if data:
+        # Get data, transform data, delete current data of the same type, upload data
+        update_task = transform_batch.delay(data_type, data)
+        tasks_id[data_type] = update_task.id
+    else:
+        tasks_id[
+            data_type
+        ] = f"Retrieving data from {data_address} has failed. Please try again. Checks logs for details."
