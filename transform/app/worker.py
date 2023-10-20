@@ -71,6 +71,3 @@ def transform_batch(type_: str, data: dict | list[dict]) -> None:
     send_json_string_to_solr(
         output, env_vars, type_
     )  # Upload data to those collections
-
-    if spark:
-        spark.sparkContext.stop()
