@@ -11,9 +11,50 @@
     style="width: 200px"
   ></nz-skeleton-element>
 </ng-container>
-<nz-empty
-  *ngIf="$any(results$ | async)?.length === 0 && (isLoading$ | async) === false"
-></nz-empty>
+<ng-container *ngIf="isError">
+  <nz-empty
+      nzNotFoundImage="assets/no-data-maintenance.svg"
+      [nzNotFoundContent]="contentTpl"
+      [nzNotFoundFooter]="footerTpl"
+    >
+    <ng-template #contentTpl>
+      <span class="no-data-info">
+        <h5>No Data</h5>
+        <p>Our platform is temporarily unavailable due to routine maintenance </p>
+        <p class="light-text">Please try again later</p>
+
+      </span>
+    </ng-template>
+    <ng-template #footerTpl>
+
+      <button nz-button nzType="primary" nzShape="round" class="mt-3 bottom-space button"><a href="{{marketplaceUrl}}">Homepage</a></button>
+    </ng-template>
+
+  </nz-empty>
+</ng-container>
+<ng-container *ngIf="!isError">
+  <ng-container  *ngIf="$any(results$ | async)?.length === 0 && (isLoading$ | async) === false">
+  <nz-empty
+      nzNotFoundImage="assets/no-results-clear-filters.svg"
+      [nzNotFoundContent]="contentTpl"
+      [nzNotFoundFooter]="footerTpl"
+    >
+    <ng-template #contentTpl>
+      <span class="no-data-info">
+        <h5>No results</h5>
+        <p>It seems that we don't have what you're looking for </p>
+        <p class="light-text">Try changing your query or turning off filters</p>
+
+      </span>
+    </ng-template>
+    <ng-template #footerTpl>
+      <button nz-button nzType="primary" nzShape="round" class="mt-3 bottom-space button" (click)="this.requestClearAll()">Clear all</button>
+
+
+    </ng-template>
+
+  </nz-empty>
+</ng-container>
 <ng-container
   *ngIf="$any(results$ | async)?.length > 0 && (isLoading$ | async) === false"
 >
@@ -86,4 +127,5 @@
     [loading]="(isLoading$ | async) ?? false"
     (activePageChange)="pageNr$.next($event)"
   ></ess-pagination>
+</ng-container>
 </ng-container>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { SearchInputComponent } from '@components/search-input/search-input.component';
 
 @Component({
   selector: 'ess-search-bar',
@@ -49,4 +50,9 @@ import { Component } from '@angular/core';
     `,
   ],
 })
-export class SearchBarComponent {}
+export class SearchBarComponent {
+  @ViewChild(SearchInputComponent) searchInputComponent!: SearchInputComponent;
+  clearInput($event: unknown) {
+    this.searchInputComponent.clearInput($event);
+  }
+}

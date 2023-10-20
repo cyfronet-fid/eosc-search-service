@@ -12,9 +12,7 @@ import { IFiltersConfig } from '@collections/repositories/types';
     <section id="filters">
       <h5>Filters</h5>
       <ng-container *ngIf="isResultsEmpty; else showResultsRef">
-        <i class="text-muted text-sm" i18n
-          >No filters are available as there is no data to be filtered</i
-        >
+        <i class="text-muted text-sm" i18n>{{ emptyFiltersMessage }}</i>
       </ng-container>
       <ng-template #showResultsRef>
         <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
@@ -62,6 +60,8 @@ import { IFiltersConfig } from '@collections/repositories/types';
 })
 export class FiltersComponent {
   @Input() results?: unknown[] = undefined;
+  @Input() isError?: unknown = undefined;
+
   filtersConfigs$ = this._route.paramMap.pipe(
     filter((paramMap) => !!paramMap.get('collection')),
     map((paramMap) => {
@@ -80,6 +80,8 @@ export class FiltersComponent {
     }
     return true;
   }
+
+  public emptyFiltersMessage = '';
 
   constructor(
     private _filtersConfigsRepository: FiltersConfigsRepository,
