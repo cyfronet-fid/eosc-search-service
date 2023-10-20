@@ -480,6 +480,7 @@
   <field name="country" type="strings" required="false"/>
   <field name="creators" type="text_general" uninvertible="true" docValues="false" multiValued="false" indexed="true" stored="true"/>
   <field name="datasource_classification" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="datasource_pids" type="strings" indexed="true" stored="true"/>
   <field name="dedicated_for" type="strings" required="false"/>
   <field name="delete" type="text_general"/>
   <field name="description" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
@@ -494,7 +495,7 @@
   <field name="eosc_integration_options" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_provider" type="strings" required="false"/>
   <field name="eosc_related_standards" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
-  <field name="exportation" type="text_general" tokenized="false" large="true" indexed="false" uninvertible="false" multiValued="false" required="false"/>
+  <field name="exportation" type="text_general" tokenized="false" uninvertible="false" indexed="false" required="false"/>
   <field name="format" type="strings" required="false"/>
   <field name="fos" type="strings" required="false"/>
   <field name="funder" type="strings" required="false" useDocValuesAsStored="true"/>
