@@ -2,10 +2,12 @@
 
 """ Presentable items UI endpoint """
 import logging
+import uuid
 
 import httpx
 from fastapi import APIRouter, HTTPException, Request
 from httpx import ReadTimeout
+from starlette.responses import JSONResponse
 
 from app.consts import Collection
 from app.generic.models.bad_request import BadRequest
@@ -42,21 +44,35 @@ async def get_recommendations(panel_id: Collection, request: Request):
     session, _ = await get_session(request)
     try:
         async with httpx.AsyncClient(timeout=None) as client:
+            recommendation_visit_id = str(uuid.uuid4())
+
             try:
-                uuids = await get_recommended_uuids(client, session, panel_id)
+                uuids = await get_recommended_uuids(
+                    client, session, panel_id, recommendation_visit_id
+                )
                 items = await get_recommended_items(client, uuids)
-                return {"recommendations": items, "isRand": False}
+                resp = JSONResponse({"recommendations": items, "isRand": False})
+                # Let's store the recommendation visit id for retrieval in the user actions
+                resp.set_cookie("recommendation_visit_id", recommendation_visit_id)
+                return resp
             except (RecommenderError, ReadTimeout, SolrDocumentNotFoundError) as error:
                 uuids = await get_fixed_recommendations(panel_id)
                 items = await get_recommended_items(client, uuids)
-                return {
-                    "recommendations": items,
-                    "isRand": True,
-                    "message": (
-                        str(error)
-                        or "Solr or external recommender service read timeout"
-                    ),
-                }
+                resp = JSONResponse(
+                    {
+                        "recommendations": items,
+                        "isRand": True,
+                        "message": (
+                            str(error)
+                            or "Solr or external recommender service read timeout"
+                        ),
+                    }
+                )
+
+                # We're storing the visit id for fixed recommendations just in case as well
+                resp.set_cookie("recommendation_visit_id", recommendation_visit_id)
+                return resp
+
     except (RecommenderError, SolrRetrieveError) as e:
         logger.error("%s. %s", str(e), e.data)
         raise HTTPException(status_code=500, detail=str(e)) from e
