@@ -72,8 +72,7 @@
                 [ngbTooltip]="tooltipText"
                 alt="Tooltip prompt icon"
                 class="tooltip-prompt-icon"
-                style="padding-bottom: 4px"
-                width="19"
+                width="17"
               />
             </label>
           </span>
@@ -86,17 +85,19 @@
         >Show Advanced Search -></span
       >
       <span
-        *ngIf="!isLanding()"
-        class="adv-search-text-btn"
-        style="margin-left: 50px"
+      *ngIf="!isLanding()"
+      class="adv-search-text-btn"
+      style="margin-left: 25px;"
       >
         <img
           src="assets/asguide/asguide-icon.svg"
-          style="padding-bottom: 4px; padding-right: 2px"
+          style="padding-bottom: 4px; padding-right: 5px"
         />
-        <a routerLink="/asguide" target="_blank" style="color: white"
-          >Advanced Search Guide</a
-        >
+        <a routerLink="/asguide"
+        target="_blank"
+        style="color: white"
+        >Advanced Search Guide</a
+      >
       </span>
     </form>
 
@@ -211,7 +212,7 @@
         </div>
       </div>
 
-      <div class="input-group" style="margin-bottom: 5px; margin-top: 15px">
+      <div class="input-group" style="margin-bottom: 20px; margin-top: 15px">
         <select
           class="form-select"
           style="margin-left: 0px; min-width: 111px"
@@ -297,11 +298,10 @@
       </div>
       <div
         *ngIf="tags.length !== 0"
-        class="mb-2"
-        style="margin-left: -45px; padding-top: 10px"
+        class="mb-3"
       >
-        <div class="row gx-1 gy-1 py-0">
-          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+        <div class="row gx-1 gy-1 py-0 tags-row">
+          <div class="col-1 gx-1 gy-1 py-0">
             <span
               *ngIf="elemExist('author')"
               class="adv-search-text-tag"
@@ -346,8 +346,8 @@
             </span>
           </div>
         </div>
-        <div class="row gx-1 gy-1 py-0">
-          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+        <div class="row gx-1 gy-1 py-0 tags-row">
+          <div class="col-1 gx-1 gy-1 py-0">
             <span *ngIf="elemExist('exact')" class="adv-search-text-tag">
               Exact
             </span>
@@ -388,8 +388,8 @@
             </span>
           </div>
         </div>
-        <div class="row gx-1 gy-1 py-0">
-          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+        <div class="row gx-1 gy-1 py-0 tags-row">
+          <div class="col-1 gx-1 gy-1 py-0">
             <span *ngIf="elemExist('in title')" class="adv-search-text-tag">
               In title
             </span>
@@ -430,8 +430,8 @@
             </span>
           </div>
         </div>
-        <div class="row gx-1 gy-1 py-0">
-          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+        <div class="row gx-1 gy-1 py-0 tags-row">
+          <div class="col-1 gx-1 gy-1 py-0">
             <span
               *ngIf="elemExist('keyword') || elemExist('tagged')"
               class="adv-search-text-tag"
@@ -483,8 +483,8 @@
             </span>
           </div>
         </div>
-        <div class="row gx-1 gy-1 py-0">
-          <div class="col-1 gx-1 gy-1 py-0" style="padding-top: 4px !important">
+        <div class="row gx-1 gy-1 py-0 tags-row">
+          <div class="col-1 gx-1 gy-1 py-0">
             <span *ngIf="elemExist('none')" class="adv-search-text-tag">
               None of
             </span>
@@ -513,10 +513,14 @@
         "
         ><- Go back to Basic Search</span
       >
-      <span class="adv-search-text-btn" style="margin-left: 50px">
+      <span
+      class="adv-search-text-btn"
+      style="margin-left: 25px;"
+      >
         <img
           src="assets/asguide/asguide-icon.svg"
-          style="padding-bottom: 4px; padding-right: 2px"
+          style="padding-bottom: 4px; padding-right: 5px"
+
         />
         <a routerLink="/asguide" target="_blank" style="color: white"
           >Advanced Search Guide</a
@@ -526,14 +530,14 @@
       <span
         *ngIf="tags.length !== 0"
         class="adv-search-text-tag"
-        style="cursor: pointer; color: #0d6efd; padding-left: 20px"
+        style="cursor: pointer; padding-left: 25px"
         (click)="removeAll($event)"
       >
         <img
           src="assets/trashed.svg"
           class="tooltip-prompt-icon"
-          style="padding-bottom: 4px; padding-right: 2px"
-          width="16"
+          style="padding-bottom: 4px; padding-right: 5px"
+          width="19"
         />Clear Advanced Search
       </span>
     </form>

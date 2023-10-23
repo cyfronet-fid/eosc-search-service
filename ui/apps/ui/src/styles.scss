@@ -13,6 +13,14 @@ body {
   color: #233d4c;
 }
 
+.container-small {
+  .content {
+    width: 71%;
+    color: #000;
+    margin: auto;
+  }
+}
+
 h5 {
   font-size: 24px;
   font-weight: 600;
@@ -1648,4 +1656,50 @@ h6 {
   background-color: #1e1e1e;
   width: 100%;
   color: white;
+}
+
+.page-title {
+  color: #000;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 65px 0 25px;
+}
+
+.accordion-item {
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #E8EAEC !important;
+
+  &:first-of-type {
+    border-radius: 8px;
+
+    .accordion-button {
+      border-radius: 8px;
+    }
+  }
+
+  .accordion-button {
+    border-radius: 8px;
+
+    &:not(.collapsed) {
+      background: #fff;
+      color: #212529;
+    }
+
+    &::after {
+      background-image: url('/assets/expand-arrow-1.svg');
+    }
+  }
+}
+
+.accordion-body {
+  padding: 2rem 1.85rem 1rem;
+
+  ol, ul {
+    li {
+      margin-bottom: 14px;
+    }
+  }
 }
