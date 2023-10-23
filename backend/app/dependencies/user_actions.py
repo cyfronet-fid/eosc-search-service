@@ -47,6 +47,7 @@ class UserActionClient:
         resource_type: str,
         recommendation: bool,
         target_id: str,
+        recommendation_visit_id: Optional[str],
     ) -> None:
         """Send user data to databus. Ensure that `.connect()` method has been called before."""
 
@@ -61,6 +62,7 @@ class UserActionClient:
                 page_id,
                 recommendation,
                 target_id,
+                recommendation_visit_id,
             )
         )
 
@@ -82,17 +84,20 @@ class UserActionClient:
         page_id: str,
         recommendation: bool,
         target_id: str,
+        recommendation_visit_id: Optional[str],
     ) -> dict:
         """Create valid user action json dict"""
+
+        visit_id = (
+            recommendation_visit_id if recommendation_visit_id else str(uuid.uuid4())
+        )
 
         user_action = {
             "unique_id": session_uuid,
             "client_id": "search_service",
             "timestamp": datetime.datetime.utcnow().isoformat(),
             "source": {
-                # We can generate the source here safely since the
-                # search service is always the root of the UA tree
-                "visit_id": str(uuid.uuid4()),
+                "visit_id": visit_id,
                 # "search/data", "search/publications", "search/software",
                 # "search/services", "search/trainings", - user dashboard - "dashboard"
                 "page_id": page_id,
@@ -151,8 +156,16 @@ def send_user_action_bg_task(
     resource_type: str,
     recommendation: bool,
     target_id: str,
+    recommendation_visit_id: Optional[str],
 ):
     """Simple wrapper function which can be used 'as is' in fastapi's BackgroundTask"""
     client.send(
-        session, url, page_id, resource_id, resource_type, recommendation, target_id
+        session,
+        url,
+        page_id,
+        resource_id,
+        resource_type,
+        recommendation,
+        target_id,
+        recommendation_visit_id,
     )
