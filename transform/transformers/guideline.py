@@ -5,7 +5,7 @@ from datetime import datetime
 
 import pandas as pd
 from pandas import DataFrame
-from schemas.properties_name import (
+from schemas.properties.data import (
     DOI,
     URI,
     AUTHOR_NAMES,

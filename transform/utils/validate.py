@@ -6,7 +6,9 @@ from pyspark.sql import DataFrame
 logger = logging.getLogger(__name__)
 
 
-def check_schema_after_trans(df: DataFrame, expected_schema: dict, collection: str) -> None:
+def check_schema_after_trans(
+    df: DataFrame, expected_schema: dict, collection: str
+) -> None:
     """Check whether data schema after transformation has a desired schema"""
     columns = df.columns
     schemas = [column.dataType.simpleString() for column in df.schema.fields]

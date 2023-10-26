@@ -1,6 +1,6 @@
 # pylint: disable=undefined-variable, cyclic-import
 """Import transformations"""
-from utils.loader import (
+from schemas.properties.env import (
     DATASET,
     PUBLICATION,
     SOFTWARE,

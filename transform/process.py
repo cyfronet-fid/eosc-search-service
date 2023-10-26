@@ -4,13 +4,19 @@ import requests
 from tqdm import tqdm
 import transformers as trans
 from conf.spark import apply_spark_conf
+from schemas.properties.env import (
+    ADDRESS,
+    ALL_COLLECTION,
+    CREATE_LOCAL_DUMP,
+    GUIDELINE,
+    OUTPUT_FORMAT,
+    OUTPUT_PATH,
+    PATH,
+)
 from utils.loader import *
 from utils.utils import (
     print_results,
     print_errors,
-)
-from utils.validate import (
-    check_schema_after_trans,
 )
 from utils.save import (
     save_df,
@@ -21,7 +27,6 @@ from utils.send import (
     send_data,
     failed_files,
 )
-from transformers.provider import upload_providers
 
 
 def upload_all_col_data() -> None:
