@@ -76,6 +76,14 @@ export const softwareFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'source',
+      filter: 'source',
+      label: 'Source',
+      type: 'multiselect',
+      defaultCollapsed: true,
+      tooltipText: '',
+    },
+    {
       id: 'research_community',
       filter: 'research_community',
       label: 'Research community',

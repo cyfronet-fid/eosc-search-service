@@ -68,14 +68,6 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       customSort: alphanumericFilterSort,
     },
     {
-      id: 'source',
-      filter: 'source',
-      label: 'Publisher',
-      type: 'multiselect',
-      defaultCollapsed: true,
-      tooltipText: '',
-    },
-    {
       id: 'research_community',
       filter: 'research_community',
       label: 'Research community',
@@ -119,8 +111,16 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       id: 'publisher',
       filter: 'publisher',
       label: 'Publisher',
-      type: 'tag',
-      defaultCollapsed: false,
+      type: 'multiselect',
+      defaultCollapsed: true,
+      tooltipText: '',
+    },
+    {
+      id: 'source',
+      filter: 'source',
+      label: 'Source',
+      type: 'multiselect',
+      defaultCollapsed: true,
       tooltipText: '',
     },
     {
