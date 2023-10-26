@@ -4,6 +4,7 @@ import requests
 from tqdm import tqdm
 import transformers as trans
 from conf.spark import apply_spark_conf
+from connectors.mp_pc import data_source_pids_list
 from schemas.properties.env import (
     ADDRESS,
     ALL_COLLECTION,
@@ -84,6 +85,8 @@ def upload_all_col_data() -> None:
             )
 
             send_data(env_vars, col_name, data_point, data_num)
+
+    data_source_pids_list._instance = None
 
 
 if __name__ == "__main__":

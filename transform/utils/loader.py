@@ -43,6 +43,7 @@ def load_data(
 def load_env_vars() -> dict:
     """Retrieve .env variables"""
     env_vars = {
+        MP_API_TOKEN: os.environ.get(MP_API_TOKEN),
         OUTPUT_PATH: os.environ.get(OUTPUT_PATH, "output/"),
         INPUT_FORMAT: os.environ.get(INPUT_FORMAT, "JSON"),
         OUTPUT_FORMAT: os.environ.get(OUTPUT_FORMAT, "JSON"),
@@ -51,6 +52,8 @@ def load_env_vars() -> dict:
         CREATE_LOCAL_DUMP: os.environ.get(CREATE_LOCAL_DUMP, False).lower()
         in ("true", "1", "t"),
     }
+    if not env_vars[MP_API_TOKEN]:
+        raise ValueError("MP_API_TOKEN needs to be specified.")
 
     if not (
         env_vars[SEND_TO_SOLR] or env_vars[SEND_TO_S3] or env_vars[CREATE_LOCAL_DUMP]
@@ -91,6 +94,11 @@ def load_config(env_vars: dict) -> None:
 
 def load_vars_all_collection(solr_flag: bool) -> dict:
     """Load variables for all collection"""
+    final_mp_api = os.environ.get(
+        MP_API_ADDRESS, "https://beta.marketplace.eosc-portal.eu"
+    )
+    final_mp_api = final_mp_api + "/api/v1/ess/"
+
     collections = {
         SOFTWARE: {
             PATH: os.environ.get(SOFTWARE_PATH, "input_data/software/"),
@@ -109,19 +117,19 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
             OUTPUT_SCHEMA: other_rp_output_schema,
         },
         SERVICE: {
-            PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
+            ADDRESS: final_mp_api + "services",
             OUTPUT_SCHEMA: service_output_schema,
         },
         DATASOURCE: {
-            PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
+            ADDRESS: final_mp_api + "datasources",
             OUTPUT_SCHEMA: data_source_output_schema,
         },
         OFFER: {
-            PATH: os.environ.get(OFFER_PATH, "input_data/offer/"),
+            ADDRESS: final_mp_api + "offers",
             OUTPUT_SCHEMA: offer_output_schema,
         },
         BUNDLE: {
-            PATH: os.environ.get(BUNDLE_PATH, "input_data/bundle/"),
+            ADDRESS: final_mp_api + "bundles",
             OUTPUT_SCHEMA: bundle_output_schema,
         },
         GUIDELINE: {
