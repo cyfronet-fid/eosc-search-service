@@ -13,7 +13,7 @@ from pyspark.sql.types import (
 from transformations.common import *
 from transformers.base.base import BaseTransformer
 from utils.utils import sort_schema
-from schemas.properties_name import *
+from schemas.properties.data import *
 
 
 class OagBaseTransformer(BaseTransformer):
@@ -61,6 +61,7 @@ class OagBaseTransformer(BaseTransformer):
         harvest_popularity(df, self.harvested_properties)
         create_unified_categories(df, self.harvested_properties)
         harvest_exportation(df, self.harvested_properties)
+        harvest_data_source(df, self.harvested_properties)
 
         return df
 
@@ -74,6 +75,7 @@ class OagBaseTransformer(BaseTransformer):
                     StructField(AUTHOR_PIDS, ArrayType(ArrayType(StringType())), True),
                     StructField(BEST_ACCESS_RIGHT, StringType(), True),
                     StructField(COUNTRY, ArrayType(StringType()), True),
+                    StructField(DATA_SOURCE, ArrayType(StringType()), True),
                     StructField(DOCUMENT_TYPE, ArrayType(StringType()), True),
                     StructField(DOI, ArrayType(StringType()), True),
                     StructField(EOSC_IF, ArrayType(StringType()), True),

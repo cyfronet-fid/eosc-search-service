@@ -7,69 +7,7 @@ from dotenv import load_dotenv
 from pyspark.sql import SparkSession
 from conf.s3 import connect_to_s3
 from schemas.output import *
-
-
-DATASET = "DATASET"
-PUBLICATION = "PUBLICATION"
-SOFTWARE = "SOFTWARE"
-OTHER_RP = "OTHER_RP"
-TRAINING = "TRAINING"
-SERVICE = "SERVICE"
-DATASOURCE = "DATASOURCE"
-PROVIDER = "PROVIDER"
-GUIDELINE = "GUIDELINE"
-OFFER = "OFFER"
-BUNDLE = "BUNDLE"
-
-DATASET_PATH = "DATASET_PATH"
-PUBLICATION_PATH = "PUBLICATION_PATH"
-SOFTWARE_PATH = "SOFTWARE_PATH"
-OTHER_RP_PATH = "OTHER_RP_PATH"
-SERVICE_PATH = "SERVICE_PATH"
-DATASOURCE_PATH = "DATASOURCE_PATH"
-PROVIDER_PATH = "PROVIDER_PATH"
-OFFER_PATH = "OFFER_PATH"
-BUNDLE_PATH = "BUNDLE_PATH"
-
-GUIDELINE_ADDRESS = "GUIDELINE_ADDRESS"
-TRAINING_ADDRESS = "TRAINING_ADDRESS"
-
-INPUT_FORMAT = "INPUT_FORMAT"
-OUTPUT_FORMAT = "OUTPUT_FORMAT"
-OUTPUT_PATH = "OUTPUT_PATH"
-OUTPUT_SCHEMA = "OUTPUT_SCHEMA"
-
-SEND_TO_SOLR = "SEND_TO_SOLR"
-SOLR_ADDRESS = "SOLR_ADDRESS"
-SOLR_PORT = "SOLR_PORT"
-SOLR_DATASET_COLS = "SOLR_DATASET_COLS"
-SOLR_PUBLICATION_COLS = "SOLR_PUBLICATION_COLS"
-SOLR_SOFTWARE_COLS = "SOLR_SOFTWARE_COLS"
-SOLR_OTHER_RP_COLS = "SOLR_OTHER_RP_COLS"
-SOLR_TRAINING_COLS = "SOLR_TRAINING_COLS"
-SOLR_SERVICE_COLS = "SOLR_SERVICE_COLS"
-SOLR_DATASOURCE_COLS = "SOLR_DATASOURCE_COLS"
-SOLR_PROVIDER_COLS = "SOLR_PROVIDER_COLS"
-SOLR_GUIDELINE_COLS = "SOLR_GUIDELINE_COLS"
-SOLR_OFFER_COLS = "SOLR_OFFER_COLS"
-SOLR_BUNDLE_COLS = "SOLR_BUNDLE_COLS"
-
-SEND_TO_S3 = "SEND_TO_S3"
-S3_ACCESS_KEY = "S3_ACCESS_KEY"
-S3_SECRET_KEY = "S3_SECRET_KEY"
-S3_ENDPOINT = "S3_ENDPOINT"
-S3_BUCKET = "S3_BUCKET"
-S3_CLIENT = "S3_CLIENT"
-S3_DUMP_NAME = "S3_DUMP_NAME"
-
-CREATE_LOCAL_DUMP = "CREATE_LOCAL_DUMP"
-LOCAL_DUMP_PATH = "LOCAL_DUMP_PATH"
-
-ALL_COLLECTION = "ALL_COLLECTION"
-SEPARATE_COLLECTION = "SEPARATE_COLLECTION"
-SOLR_COL_NAMES = "SOLR_COL_NAMES"
-PATH = "PATH"
-ADDRESS = "ADDRESS"
+from schemas.properties.env import *
 
 solr_all_col_mapping = {
     SERVICE: SOLR_SERVICE_COLS,
@@ -105,6 +43,7 @@ def load_data(
 def load_env_vars() -> dict:
     """Retrieve .env variables"""
     env_vars = {
+        MP_API_TOKEN: os.environ.get(MP_API_TOKEN),
         OUTPUT_PATH: os.environ.get(OUTPUT_PATH, "output/"),
         INPUT_FORMAT: os.environ.get(INPUT_FORMAT, "JSON"),
         OUTPUT_FORMAT: os.environ.get(OUTPUT_FORMAT, "JSON"),
@@ -113,6 +52,8 @@ def load_env_vars() -> dict:
         CREATE_LOCAL_DUMP: os.environ.get(CREATE_LOCAL_DUMP, False).lower()
         in ("true", "1", "t"),
     }
+    if not env_vars[MP_API_TOKEN]:
+        raise ValueError("MP_API_TOKEN needs to be specified.")
 
     if not (
         env_vars[SEND_TO_SOLR] or env_vars[SEND_TO_S3] or env_vars[CREATE_LOCAL_DUMP]
@@ -153,6 +94,11 @@ def load_config(env_vars: dict) -> None:
 
 def load_vars_all_collection(solr_flag: bool) -> dict:
     """Load variables for all collection"""
+    final_mp_api = os.environ.get(
+        MP_API_ADDRESS, "https://beta.marketplace.eosc-portal.eu"
+    )
+    final_mp_api = final_mp_api + "/api/v1/ess/"
+
     collections = {
         SOFTWARE: {
             PATH: os.environ.get(SOFTWARE_PATH, "input_data/software/"),
@@ -171,19 +117,19 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
             OUTPUT_SCHEMA: other_rp_output_schema,
         },
         SERVICE: {
-            PATH: os.environ.get(SERVICE_PATH, "input_data/service/"),
+            ADDRESS: final_mp_api + "services",
             OUTPUT_SCHEMA: service_output_schema,
         },
         DATASOURCE: {
-            PATH: os.environ.get(DATASOURCE_PATH, "input_data/datasource/"),
+            ADDRESS: final_mp_api + "datasources",
             OUTPUT_SCHEMA: data_source_output_schema,
         },
         OFFER: {
-            PATH: os.environ.get(OFFER_PATH, "input_data/offer/"),
+            ADDRESS: final_mp_api + "offers",
             OUTPUT_SCHEMA: offer_output_schema,
         },
         BUNDLE: {
-            PATH: os.environ.get(BUNDLE_PATH, "input_data/bundle/"),
+            ADDRESS: final_mp_api + "bundles",
             OUTPUT_SCHEMA: bundle_output_schema,
         },
         GUIDELINE: {

@@ -12,7 +12,7 @@ from transformers.base.marketplace import (
     DATA_SOURCE_TYPE,
 )
 from utils.utils import sort_schema
-from schemas.properties_name import (
+from schemas.properties.data import (
     PERSIST_ID_SYS_ENTITY_TYPE,
     PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES,
     BEST_ACCESS_RIGHT,
