@@ -8,6 +8,7 @@ software_output_schema = {
     "best_access_right": "string",
     "catalogue": "string",
     "country": "array<string>",
+    "datasource_pids": "array<string>",
     "description": "array<string>",
     "direct_url": "array<string>",
     "document_type": "array<string>",
