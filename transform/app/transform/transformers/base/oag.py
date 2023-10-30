@@ -2,6 +2,7 @@
 """Transform OAG resources"""
 from abc import abstractmethod
 from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql.functions import lit
 from pyspark.sql.types import (
     StructType,
     StructField,
@@ -50,12 +51,14 @@ class OagBaseTransformer(BaseTransformer):
         super().__init__(
             desired_type, cols_to_add, cols_to_drop, self.cols_to_rename, spark
         )
+        self.catalogue_name = "eosc"
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:
         """Apply simple transformations.
         Simple in a way that there is a possibility to manipulate the main dataframe
         without a need to create another dataframe and merging"""
         check_type(df, desired_type=self.type)
+        df = df.withColumn(CATALOGUE, lit(self.catalogue_name))
         df = self.rename_cols(df)
         df = simplify_language(df)
         df = simplify_indicators(df)

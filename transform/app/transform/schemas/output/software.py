@@ -6,6 +6,7 @@ software_output_schema = {
     "author_names_tg": "array<string>",
     "author_pids": "array<array<string>>",
     "best_access_right": "string",
+    "catalogue": "string",
     "country": "array<string>",
     "description": "array<string>",
     "direct_url": "array<string>",
