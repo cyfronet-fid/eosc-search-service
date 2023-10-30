@@ -726,7 +726,7 @@ def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
                     "hostedby": instance_hostedby,
                 }
 
-                exportation_row.append(exportation_instance)
+                exportation_row.append(json.dumps(exportation_instance))
 
             exportation_column.append(exportation_row)
         else:
