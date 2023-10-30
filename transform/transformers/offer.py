@@ -12,7 +12,7 @@ from pyspark.sql.types import (
 from transformations.common import *
 from transformers.base.base import BaseTransformer
 from utils.utils import sort_schema
-from schemas.properties_name import *
+from schemas.properties.data import *
 
 OFFER_IDS_INCREMENTOR = 10_000
 

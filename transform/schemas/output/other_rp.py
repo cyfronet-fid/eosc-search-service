@@ -8,6 +8,7 @@ other_rp_output_schema = {
     "contactgroup": "array<string>",
     "contactperson": "array<string>",
     "country": "array<string>",
+    "datasource_pids": "array<string>",
     "description": "array<string>",
     "direct_url": "array<string>",
     "document_type": "array<string>",

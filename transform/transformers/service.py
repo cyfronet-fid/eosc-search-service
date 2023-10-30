@@ -11,7 +11,7 @@ from transformers.base.marketplace import (
     SERVICE_TYPE,
 )
 from utils.utils import sort_schema
-from schemas.properties_name import BEST_ACCESS_RIGHT, OPEN_ACCESS, POPULARITY
+from schemas.properties.data import BEST_ACCESS_RIGHT, OPEN_ACCESS, POPULARITY
 
 
 class ServiceTransformer(MarketplaceBaseTransformer):

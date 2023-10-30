@@ -10,7 +10,7 @@ from pyspark.sql.types import StringType
 from transformations.common import *
 from transformers.base.base import BaseTransformer
 
-from schemas.properties_name import (
+from schemas.properties.data import (
     ID,
     PERSIST_ID_SYS,
     PERSIST_ID_SYS_ENTITY_TYPE,

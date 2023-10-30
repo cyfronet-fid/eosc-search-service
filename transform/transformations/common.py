@@ -5,47 +5,51 @@ from collections import defaultdict
 from itertools import chain
 from logging import getLogger
 import json
+
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, to_date, when, lit
 from pyspark.sql.utils import AnalysisException
-from schemas.properties_name import (
+
+from schemas.properties.data import (
     AUTHOR,
     AUTHOR_NAMES,
+    AUTHOR_NAMES_TG,
     AUTHOR_PIDS,
     BEST_ACCESS_RIGHT,
     COUNTRY,
-    DOCUMENT_TYPE,
-    FUNDER,
-    EXPORTATION,
-    OPEN_ACCESS,
-    RESEARCH_COMMUNITY,
-    TYPE,
-    URL,
-    DOI,
-    PUBLISHER,
-    FOS,
-    SDG,
-    UNIFIED_CATEGORIES,
-    DOWNLOADS,
-    VIEWS,
-    SUBJECT,
-    LANGUAGE,
-    TAG_LIST_TG,
-    TAG_LIST,
-    KEYWORDS_TG,
-    KEYWORDS,
-    AUTHOR_NAMES_TG,
-    PROJECTS,
-    INSTANCE,
     CONTEXT,
+    DATA_SOURCE,
+    DOCUMENT_TYPE,
+    DOI,
+    DOWNLOADS,
+    EOSC_IF,
+    EXPORTATION,
+    FOS,
+    FUNDER,
+    INSTANCE,
+    KEYWORDS,
+    KEYWORDS_TG,
+    LANGUAGE,
+    OPEN_ACCESS,
     PID,
+    PIDS,
+    POPULARITY,
+    PROJECTS,
+    PUBLISHER,
+    RESEARCH_COMMUNITY,
     RELATIONS,
     RELATIONS_LONG,
-    EOSC_IF,
-    PIDS,
     SCIENTIFIC_DOMAINS,
-    POPULARITY,
+    SDG,
+    SUBJECT,
+    TAG_LIST,
+    TAG_LIST_TG,
+    TYPE,
+    UNIFIED_CATEGORIES,
+    URL,
+    VIEWS,
 )
+from connectors.mp_pc import data_source_pids_list
 from schemas.mappings import (
     OPEN_ACCESS_,
     access_rights_mapping,
@@ -699,29 +703,27 @@ def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
                 if instance_idx >= instances_limit:
                     break
 
-                url = instance[URL] if instance[URL] else None
-                exportation_type = instance["type"] if instance["type"] else None
-                publication_year = (
-                    instance["publicationdate"][0:4]
+                instance_url = instance[URL] or None
+                instance_type = instance["type"] or None
+                instance_publication_year = (
+                    instance["publicationdate"][:4]
                     if instance["publicationdate"]
                     else None
                 )
-                instance_license = instance["license"] if instance["license"] else None
+                instance_license = instance["license"] or None
 
                 pids = instance["pid"] or []
-                pids_row = extract_pids(pids)
+                instance_pids = extract_pids(pids)
 
-                datasource = (
-                    instance["hostedby"]["value"] if instance["hostedby"] else None
-                )
+                instance_hostedby = instance["hostedby"]["value"] or None
 
                 exportation_instance = {
-                    "url": url,
-                    "document_type": exportation_type,
-                    "publication_year": publication_year,
+                    "url": instance_url,
+                    "document_type": instance_type,
+                    "publication_year": instance_publication_year,
                     "license": instance_license,
-                    "pids": pids_row,
-                    "hostedby": datasource,
+                    "pids": instance_pids,
+                    "hostedby": instance_hostedby,
                 }
 
                 exportation_row.append(exportation_instance)
@@ -731,6 +733,45 @@ def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
             exportation_column.append([])
 
     harvested_properties[EXPORTATION] = exportation_column
+
+
+def harvest_data_source(df: DataFrame, harvested_properties: dict) -> None:
+    """
+    Harvest data source information from instances within the DataFrame
+
+    Args:
+        df (DataFrame): Input DataFrame containing instance information.
+        harvested_properties (dict): Dictionary to store harvested properties.
+
+    Assumptions:
+        This function process a DataFrame containing information about data sources.
+        It checks each data source against the EOSC Marketplace API.
+        If a data source exists in the EOSC Marketplace API, it is added to row for research product.
+
+    Returns:
+        None
+    """
+    data_source_list = data_source_pids_list()
+
+    instances_list = df.select(INSTANCE).collect()
+    data_source_column = []
+
+    for instances in instances_list:
+        if instances[INSTANCE]:
+            data_source_row_set = set()
+
+            for instance in instances[INSTANCE]:
+                eosc_ds_id = instance["eoscDsId"] or []
+
+                for ds_id in eosc_ds_id:
+                    if ds_id in data_source_list:
+                        data_source_row_set.update([ds_id])
+
+            data_source_column.append(list(data_source_row_set))
+        else:
+            data_source_column.append([])
+
+    harvested_properties[DATA_SOURCE] = data_source_column
 
 
 def remove_commas(

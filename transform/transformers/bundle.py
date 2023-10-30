@@ -12,7 +12,7 @@ from pyspark.sql.types import (
 from pyspark.sql.functions import udf
 from transformations.common import *
 from transformers.base.base import BaseTransformer
-from schemas.properties_name import *
+from schemas.properties.data import *
 from transformers.offer import OFFER_IDS_INCREMENTOR
 from utils.utils import sort_schema
 

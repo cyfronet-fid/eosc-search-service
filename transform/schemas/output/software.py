@@ -6,6 +6,7 @@ software_output_schema = {
     "author_pids": "array<array<string>>",
     "best_access_right": "string",
     "country": "array<string>",
+    "datasource_pids": "array<string>",
     "description": "array<string>",
     "direct_url": "array<string>",
     "document_type": "array<string>",

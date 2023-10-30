@@ -7,12 +7,12 @@ import pyspark
 from pyspark.sql.functions import spark_partition_id
 import pandas
 from conf.logger import Log4J
-from utils.loader import (
+from schemas.properties.env import (
+    GUIDELINE,
+    CREATE_LOCAL_DUMP,
     LOCAL_DUMP_PATH,
     ALL_COLLECTION,
     SEPARATE_COLLECTION,
-    CREATE_LOCAL_DUMP,
-    GUIDELINE,
 )
 
 py_logger = logging.getLogger(__name__)

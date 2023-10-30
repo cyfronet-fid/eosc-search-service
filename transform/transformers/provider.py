@@ -9,15 +9,17 @@ from pyspark.sql.functions import (
 from pyspark.sql.types import StringType, StructType, StructField, IntegerType
 from transformations.common import *
 from transformers.base.base import BaseTransformer
-from schemas.properties_name import ID, POPULARITY
+from schemas.properties.data import ID, POPULARITY
 from utils.loader import (
+    load_data,
+)
+from schemas.properties.env import (
+    PROVIDER,
+    OUTPUT_FORMAT,
+    OUTPUT_PATH,
+    OUTPUT_SCHEMA,
     SEPARATE_COLLECTION,
     PATH,
-    PROVIDER,
-    load_data,
-    OUTPUT_PATH,
-    OUTPUT_FORMAT,
-    OUTPUT_SCHEMA,
 )
 from utils.utils import print_errors
 from utils.send import (
@@ -134,7 +136,9 @@ def upload_providers(env_vars: dict, spark: SparkSession, logger: Log4J) -> None
             continue
 
         try:
-            check_schema_after_trans(df_trans, provider_output_schema, collection="Provider")
+            check_schema_after_trans(
+                df_trans, provider_output_schema, collection="Provider"
+            )
         except AssertionError:
             print_errors("consistency_fail", failed_files, PROVIDER, file, logger)
             continue
