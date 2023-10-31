@@ -4,12 +4,12 @@ import json
 import logging
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
-from app.transform.utils.loader import (
+from app.transform.utils.loader import load_env_vars
+from app.transform.schemas.properties.env import (
     ALL_COLLECTION,
     SOLR_ADDRESS,
     SOLR_PORT,
     SOLR_COL_NAMES,
-    load_env_vars,
 )
 from app.transform.transformers.service import SERVICE_IDS_INCREMENTOR
 from app.transform.transformers.data_source import DATA_SOURCE_IDS_INCREMENTOR

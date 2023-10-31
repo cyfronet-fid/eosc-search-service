@@ -8,7 +8,7 @@ from pyspark.sql.utils import AnalysisException
 from pyspark.sql.types import StringType
 from app.transform.transformers.base.base import BaseTransformer
 
-from app.transform.schemas.properties_name import (
+from app.transform.schemas.properties.data import (
     ID,
     PERSIST_ID_SYS,
     PERSIST_ID_SYS_ENTITY_TYPE,

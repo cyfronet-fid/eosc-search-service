@@ -23,6 +23,7 @@ from app.transform.utils.common import (
     map_publisher,
     simplify_language,
     map_language,
+    harvest_exportation,
     harvest_funder,
     harvest_url_and_document_type,
     harvest_country,
@@ -35,7 +36,7 @@ from app.transform.utils.common import (
     simplify_indicators,
 )
 from app.transform.utils.utils import sort_schema
-from app.transform.schemas.properties_name import *
+from app.transform.schemas.properties.data import *
 
 
 class OagBaseTransformer(BaseTransformer):

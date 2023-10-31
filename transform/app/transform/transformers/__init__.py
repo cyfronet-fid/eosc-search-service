@@ -1,17 +1,17 @@
 # pylint: disable=undefined-variable, cyclic-import
 """Import transformations"""
-from app.transform.utils.loader import (
+from ..schemas.properties.env import (
     DATASET,
-    PUBLICATION,
-    SOFTWARE,
     OTHER_RP,
-    TRAINING,
-    SERVICE,
-    DATASOURCE,
-    GUIDELINE,
-    OFFER,
+    PUBLICATION,
     BUNDLE,
+    GUIDELINE,
+    DATASOURCE,
+    OFFER,
     PROVIDER,
+    SERVICE,
+    SOFTWARE,
+    TRAINING,
 )
 from .dataset import DatasetTransformer
 from .publication import PublicationTransformer

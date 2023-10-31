@@ -2,14 +2,14 @@
 """Retrieve data from the APIs of both the Marketplace and the Provider Component"""
 from logging import getLogger
 import requests
-from app.transform.utils.loader import (
-    load_env_vars,
-    SERVICE,
-    DATASOURCE,
-    PROVIDER,
-    OFFER,
+from app.transform.utils.loader import load_env_vars
+from app.transform.schemas.properties.env import (
     BUNDLE,
+    DATASOURCE,
     MP_API_TOKEN,
+    OFFER,
+    PROVIDER,
+    SERVICE,
 )
 
 logger = getLogger(__name__)

@@ -3,17 +3,17 @@
 from typing import Literal
 from fastapi import APIRouter
 
-from app.transform.utils.loader import (
-    load_env_vars,
-    ALL_COLLECTION,
-    SERVICE,
-    DATASOURCE,
-    PROVIDER,
-    OFFER,
-    BUNDLE,
-    GUIDELINE,
-    TRAINING,
+from app.transform.utils.loader import load_env_vars
+from app.transform.schemas.properties.env import (
     ADDRESS,
+    ALL_COLLECTION,
+    BUNDLE,
+    DATASOURCE,
+    GUIDELINE,
+    OFFER,
+    PROVIDER,
+    SERVICE,
+    TRAINING,
 )
 from app.worker import transform_batch
 from app.services.mp_pc.data import get_data

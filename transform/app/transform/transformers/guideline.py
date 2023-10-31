@@ -6,7 +6,7 @@ import json
 
 import pandas as pd
 from pandas import DataFrame
-from app.transform.schemas.properties_name import (
+from app.transform.schemas.properties.data import (
     DOI,
     URI,
     AUTHOR_NAMES,

@@ -6,33 +6,32 @@ import logging
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
 from botocore.exceptions import ClientError, EndpointConnectionError
-from app.transform.utils.loader import (
+from app.transform.schemas.properties.env import (
     ALL_COLLECTION,
     OUTPUT_PATH,
-    SOLR_ADDRESS,
+    OUTPUT_FORMAT,
     SOLR_PORT,
-    SOLR_COL_NAMES,
+    SOLR_ADDRESS,
     SEND_TO_SOLR,
+    SOLR_COL_NAMES,
     SEND_TO_S3,
-    S3_DUMP_NAME,
-    S3_CLIENT,
     S3_BUCKET,
+    S3_CLIENT,
+    S3_DUMP_NAME,
     CREATE_LOCAL_DUMP,
     LOCAL_DUMP_PATH,
     DATASET,
+    OTHER_RP,
     PUBLICATION,
     SOFTWARE,
-    OTHER_RP,
-    TRAINING,
-    SERVICE,
-    DATASOURCE,
-    OUTPUT_FORMAT,
-    GUIDELINE,
-    PROVIDER,
-    OFFER,
     BUNDLE,
+    DATASOURCE,
+    GUIDELINE,
+    OFFER,
+    PROVIDER,
+    SERVICE,
+    TRAINING,
 )
-
 
 logger = logging.getLogger(__name__)
 

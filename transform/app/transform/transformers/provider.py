@@ -5,7 +5,7 @@ from pyspark.sql.functions import split, lit, col
 from pyspark.sql.types import StringType, StructType, StructField, IntegerType
 from pyspark.sql.utils import AnalysisException
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.schemas.properties_name import ID, TYPE, URL, POPULARITY
+from app.transform.schemas.properties.data import ID, TYPE, URL, POPULARITY
 from app.transform.utils.common import harvest_popularity
 from app.transform.utils.utils import sort_schema
 
