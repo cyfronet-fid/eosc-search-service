@@ -11,7 +11,7 @@ from pyspark.sql.types import (
 )
 from pyspark.sql.functions import udf
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.schemas.properties_name import *
+from app.transform.schemas.properties.data import *
 from app.transform.transformers.offer import OFFER_IDS_INCREMENTOR
 from app.transform.utils.utils import sort_schema
 from app.transform.utils.common import harvest_popularity

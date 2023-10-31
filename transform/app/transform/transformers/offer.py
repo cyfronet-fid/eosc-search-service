@@ -16,7 +16,7 @@ from app.transform.utils.common import (
     harvest_popularity,
 )
 from app.transform.utils.utils import sort_schema
-from app.transform.schemas.properties_name import *
+from app.transform.schemas.properties.data import *
 
 OFFER_IDS_INCREMENTOR = 10_000
 

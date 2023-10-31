@@ -480,6 +480,7 @@
   <field name="country" type="strings" required="false"/>
   <field name="creators" type="text_general" uninvertible="true" docValues="false" multiValued="false" indexed="true" stored="true"/>
   <field name="datasource_classification" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="datasource_pids" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="dedicated_for" type="strings" required="false"/>
   <field name="delete" type="text_general"/>
   <field name="description" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>

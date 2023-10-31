@@ -6,11 +6,13 @@ import logging
 from celery import Celery
 import app.transform.transformers as trans
 from app.transform.utils.loader import (
+    load_env_vars,
+    load_request_data,
+)
+from app.transform.schemas.properties.env import (
     ALL_COLLECTION,
     GUIDELINE,
     OUTPUT_SCHEMA,
-    load_env_vars,
-    load_request_data,
 )
 
 from app.transform.utils.validate import (

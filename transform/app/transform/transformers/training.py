@@ -23,7 +23,7 @@ from app.transform.utils.common import (
     remove_commas,
 )
 from app.transform.utils.utils import sort_schema
-from app.transform.schemas.properties_name import *
+from app.transform.schemas.properties.data import *
 
 
 class TrainingTransformer(BaseTransformer):

@@ -12,7 +12,7 @@ from app.transform.transformers.base.marketplace import (
     SERVICE_TYPE,
 )
 from app.transform.utils.utils import sort_schema
-from app.transform.schemas.properties_name import (
+from app.transform.schemas.properties.data import (
     BEST_ACCESS_RIGHT,
     OPEN_ACCESS,
     POPULARITY,
