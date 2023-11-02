@@ -1462,6 +1462,27 @@ h6 {
 }
 
 @media (max-width: 576px) {
+
+  #sub-nav a::before,
+  #sub-nav a.All::before,
+  #sub-nav a.Data.sources::before {
+    width: 30px;
+    top: 9px;
+    left: calc(50% - 15px);
+    height: 33px;
+    mask-image-size: 25px auto;
+    -webkit-mask-size: 25px auto;
+  }
+
+  #sub-nav a.active {
+    padding: 51px 12px 12px 12px;
+    margin-top: 0;
+  }
+
+  #sub-nav a.active::before {
+    top: 15px;
+  }
+
   .results .type-icon-holder {
     flex: 70px 0 0;
 
