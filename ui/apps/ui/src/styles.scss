@@ -236,7 +236,7 @@ a:hover {
 #sub-nav a {
   font-size: 14px;
   display: inline-block;
-  padding: 15px 13px 15px 38px;
+  padding: 15px 12px 15px 38px;
   color: #333;
   border: 1px solid #E2E2E2;
   border-right: none;
@@ -253,20 +253,22 @@ a:hover {
   top: 16px;
   left: 10px;
   content: '';
-  width: 20px;
+  width: 22px;
   height: 22px;
   mask-image-size: 20px auto;
   -webkit-mask-size: 20px auto;
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
+  mask-position: 50% 50%;
+  -webkit-mask-position: 50% 50%;
 }
 
 #sub-nav a.active {
-  color: #3d4db6;
-}
-
-#sub-nav a.active::before {
-  background-position: center -54px;
+  color: #fff;
+  background-color: #3d4db6;
+  border-color: #3d4db6;
+  padding: 21px 12px 15px 38px;
+  margin-top: -10px;
 }
 
 #sub-nav a.All::before {
@@ -282,7 +284,6 @@ a:hover {
 }
 
 #sub-nav a.Publications::before {
-  top: 18px;
   width: 22px;
   mask-image-size: 22px auto;
   -webkit-mask-size: 22px auto;
@@ -314,6 +315,11 @@ a:hover {
 }
 
 #sub-nav a.Data.sources::before {
+  width: 16px;
+  left: 13px;
+  height: 22px;
+  mask-image-size: 16px auto;
+  -webkit-mask-size: 16px auto;
   background-color: #000;
   -webkit-mask-image: url(assets/icon-type-data-source.svg);
   mask-image: url(assets/icon-type-data-source.svg);
@@ -341,6 +347,11 @@ a:hover {
   background-color: #000;
   -webkit-mask-image: url(assets/icon-type-other.svg);
   mask-image: url(assets/icon-type-other.svg);
+}
+
+#sub-nav a.active::before {
+  background-color: #fff !important;
+  top: 20px;
 }
 
 .nav-btn {
