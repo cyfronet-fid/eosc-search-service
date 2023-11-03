@@ -439,7 +439,10 @@ export class SearchInputComponent implements OnInit {
     }
 
     if (!this.withAuthor()) {
-      if (this.collectionFcAdvForm.value.name === 'Author') {
+      if (
+        this.collectionFcAdvForm.value.name === 'Author' ||
+        this.isProviderCollection
+      ) {
         this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
       }
     } else {
