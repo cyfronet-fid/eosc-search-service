@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { createStore, select, withProps } from '@ngneat/elf';
+import { createStore, withProps } from '@ngneat/elf';
 import { getEntity, setEntities, withEntities } from '@ngneat/elf-entities';
 import {
   FiltersStoreConfig,
   IExcludedFiltersConfig,
-  IFilterConfig,
   IFilterConfigUI,
   IFilterNode,
   IFiltersConfig,

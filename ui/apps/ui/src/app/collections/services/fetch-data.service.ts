@@ -59,7 +59,9 @@ export class FetchDataService {
       )
       .pipe(
         catchError(() => of(_EMPTY_RESPONSE)),
-        tap(() => this._paginationRepository.setLoading(false)),
+        tap(() => {
+          // this._paginationRepository.setLoading(false);
+        }),
         map((response: ISearchResults<T>) => ({
           results: response.results.map((result) => adapter(result)),
           numFound: response.numFound,
@@ -85,13 +87,16 @@ export class FetchDataService {
       )
       .pipe(
         catchError(() => of(_EMPTY_RESPONSE)),
-        tap(() => this._paginationRepository.setLoading(false)),
+        tap(() => {
+          // this._paginationRepository.setLoading(false);
+        }),
         map((response: ISearchResults<T>) => ({
           results: response.results.map((result) => adapter(result)),
           numFound: response.numFound,
           nextCursorMark: response.nextCursorMark,
           facets: response.facets,
           highlighting: response.highlighting,
+          isError: response.isError,
         }))
       );
   }
@@ -109,11 +114,13 @@ export class FetchDataService {
       .pipe(
         catchError(() => of(_EMPTY_SUGGESTIONS_RESPONSE)),
 
-        tap(() => this._paginationRepository.setLoading(false))
+        tap(() => {
+          this._paginationRepository.setLoading(false);
+        })
       );
   }
 
-  fetchFilters$<T extends { id: string }>(
+  fetchFilters$(
     params: ISolrCollectionParams & ISolrQueryParams,
     facets: { [field: string]: ITermsFacetParam | IStatFacetParam }[]
   ): Observable<{

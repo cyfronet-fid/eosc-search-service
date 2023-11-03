@@ -13,119 +13,135 @@
 </ng-container>
 <ng-container *ngIf="isError">
   <nz-empty
-      nzNotFoundImage="assets/no-data-maintenance.svg"
-      [nzNotFoundContent]="contentTpl"
-      [nzNotFoundFooter]="footerTpl"
-    >
+    nzNotFoundImage="assets/no-data-maintenance.svg"
+    [nzNotFoundContent]="contentTpl"
+    [nzNotFoundFooter]="footerTpl"
+  >
     <ng-template #contentTpl>
       <span class="no-data-info">
         <h5>No Data</h5>
-        <p>Our platform is temporarily unavailable due to routine maintenance </p>
+        <p>
+          Our platform is temporarily unavailable due to routine maintenance
+        </p>
         <p class="light-text">Please try again later</p>
-
       </span>
     </ng-template>
     <ng-template #footerTpl>
-
-      <button nz-button nzType="primary" nzShape="round" class="mt-3 bottom-space button"><a href="{{marketplaceUrl}}">Homepage</a></button>
+      <button
+        nz-button
+        nzType="primary"
+        nzShape="round"
+        class="mt-3 bottom-space button"
+      >
+        <a href="{{ marketplaceUrl }}">Homepage</a>
+      </button>
     </ng-template>
-
   </nz-empty>
 </ng-container>
 <ng-container *ngIf="!isError">
-  <ng-container  *ngIf="$any(results$ | async)?.length === 0 && (isLoading$ | async) === false">
-  <nz-empty
+  <ng-container
+    *ngIf="
+      $any(results$ | async)?.length === 0 && (isLoading$ | async) === false
+    "
+  >
+    <nz-empty
       nzNotFoundImage="assets/no-results-clear-filters.svg"
       [nzNotFoundContent]="contentTpl"
       [nzNotFoundFooter]="footerTpl"
     >
-    <ng-template #contentTpl>
-      <span class="no-data-info">
-        <h5>No results</h5>
-        <p>It seems that we don't have what you're looking for </p>
-        <p class="light-text">Try changing your query or turning off filters</p>
-
-      </span>
-    </ng-template>
-    <ng-template #footerTpl>
-      <button nz-button nzType="primary" nzShape="round" class="mt-3 bottom-space button" (click)="this.requestClearAll()">Clear all</button>
-
-
-    </ng-template>
-
-  </nz-empty>
-</ng-container>
-<ng-container
-  *ngIf="$any(results$ | async)?.length > 0 && (isLoading$ | async) === false"
->
-  <ess-pagination
-    [paginationData]="$any(paginationData$ | async)"
-    [loading]="(isLoading$ | async) ?? false"
-    (activePageChange)="pageNr$.next($event)"
-  ></ess-pagination>
+      <ng-template #contentTpl>
+        <span class="no-data-info">
+          <h5>No results</h5>
+          <p>It seems that we don't have what you're looking for</p>
+          <p class="light-text">
+            Try changing your query or turning off filters
+          </p>
+        </span>
+      </ng-template>
+      <ng-template #footerTpl>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="round"
+          class="mt-3 bottom-space button"
+          (click)="this.requestClearAll()"
+        >
+          Clear all
+        </button>
+      </ng-template>
+    </nz-empty>
+  </ng-container>
   <ng-container
-    *ngFor="let result of results$ | async; trackBy: trackByResultId"
+    *ngIf="$any(results$ | async)?.length > 0 && (isLoading$ | async) === false"
   >
-    <ess-result
-      *ngIf="
-        result.type.value.toString().includes('provider');
-        else defaultResultTemplate
-      "
-      class="results"
-      [id]="result.id"
-      [title]="result.title"
-      [tags]="result.tags"
-      [horizontal]="result.horizontal"
-      [coloredTags]="result.coloredTags ?? []"
-      [languages]="result.languages ?? []"
-      [license]="result.license"
-      [documentType]="result.documentType"
-      [secondaryTags]="result.secondaryTags ?? []"
-      [views]="result.views"
-      [description]="result.description | transformArrayDescriptionPipe"
-      [abbreviation]="result.abbreviation ?? ''"
-      [type]="result.type"
-      [date]="result.date"
-      [highlights]="highlights[result.id] ?? {}"
-      [url]="result.url"
-      [orderUrl]="result.orderUrl"
-      [urls]="result.urls ?? []"
-      [isResearchProduct]="result.isResearchProduct"
-      [resourceType]="result.collection"
-    ></ess-result>
-    <ng-template #defaultResultTemplate>
+    <ess-pagination
+      [paginationData]="$any(paginationData$ | async)"
+      [loading]="(isLoading$ | async) ?? false"
+      (activePageChange)="pageNr$.next($event)"
+    ></ess-pagination>
+    <ng-container
+      *ngFor="let result of results$ | async; trackBy: trackByResultId"
+    >
       <ess-result
+        *ngIf="
+          result.type.value.toString().includes('provider');
+          else defaultResultTemplate
+        "
         class="results"
         [id]="result.id"
         [title]="result.title"
-        [description]="result.description | transformArrayDescriptionPipe"
-        [type]="result.type"
-        [url]="result.url"
-        [orderUrl]="result.orderUrl"
-        [urls]="result.urls ?? []"
         [tags]="result.tags"
         [horizontal]="result.horizontal"
-        [documentType]="result.documentType"
         [coloredTags]="result.coloredTags ?? []"
         [languages]="result.languages ?? []"
         [license]="result.license"
+        [documentType]="result.documentType"
         [secondaryTags]="result.secondaryTags ?? []"
         [views]="result.views"
-        [downloads]="result.downloads"
-        [accessRight]="result.accessRight"
+        [description]="result.description | transformArrayDescriptionPipe"
+        [abbreviation]="result.abbreviation ?? ''"
+        [type]="result.type"
         [date]="result.date"
         [highlights]="highlights[result.id] ?? {}"
-        [offers]="result.offers ?? []"
+        [url]="result.url"
+        [orderUrl]="result.orderUrl"
+        [urls]="result.urls ?? []"
         [isResearchProduct]="result.isResearchProduct"
-        [providerName]="result.providerName"
+        [resourceType]="result.collection"
       ></ess-result>
-    </ng-template>
-  </ng-container>
+      <ng-template #defaultResultTemplate>
+        <ess-result
+          class="results"
+          [id]="result.id"
+          [title]="result.title"
+          [description]="result.description | transformArrayDescriptionPipe"
+          [type]="result.type"
+          [url]="result.url"
+          [orderUrl]="result.orderUrl"
+          [urls]="result.urls ?? []"
+          [tags]="result.tags"
+          [horizontal]="result.horizontal"
+          [documentType]="result.documentType"
+          [coloredTags]="result.coloredTags ?? []"
+          [languages]="result.languages ?? []"
+          [license]="result.license"
+          [secondaryTags]="result.secondaryTags ?? []"
+          [views]="result.views"
+          [downloads]="result.downloads"
+          [accessRight]="result.accessRight"
+          [date]="result.date"
+          [highlights]="highlights[result.id] ?? {}"
+          [offers]="result.offers ?? []"
+          [isResearchProduct]="result.isResearchProduct"
+          [providerName]="result.providerName"
+        ></ess-result>
+      </ng-template>
+    </ng-container>
 
-  <ess-pagination
-    [paginationData]="$any(paginationData$ | async)"
-    [loading]="(isLoading$ | async) ?? false"
-    (activePageChange)="pageNr$.next($event)"
-  ></ess-pagination>
-</ng-container>
+    <ess-pagination
+      [paginationData]="$any(paginationData$ | async)"
+      [loading]="(isLoading$ | async) ?? false"
+      (activePageChange)="pageNr$.next($event)"
+    ></ess-pagination>
+  </ng-container>
 </ng-container>

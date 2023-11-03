@@ -12,9 +12,7 @@ import {
 
 function getBundleUrl(bundle: Partial<IBundle> & { id: string }): string {
   if (bundle.iid != null && bundle.iid.length === 1) {
-    return `${ConfigService.config?.marketplace_url}/services/${
-      bundle.service_id
-    }/bundles/${bundle.iid![0]}`;
+    return `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}/bundles/${bundle.iid?.[0]}`;
   }
   return `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}`;
 }

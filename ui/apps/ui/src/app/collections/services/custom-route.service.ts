@@ -203,13 +203,14 @@ export class CustomRoute {
         facetsBatch
       )
       .pipe(
-        tap((nodes) =>
+        tap((nodes) => {
           this._filtersConfigsRepository.setFilterNodes(
             collection,
             nodes,
             this.fqMap()
-          )
-        )
+          );
+          this._filtersConfigsRepository.setLoading(false);
+        })
       );
   }
 

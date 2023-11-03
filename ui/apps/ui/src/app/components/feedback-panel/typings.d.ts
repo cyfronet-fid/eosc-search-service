@@ -1,3 +1,3 @@
 interface JQuery {
-  ZammadForm(options?: any): any;
+  ZammadForm(options?: unknown): unknown;
 }
