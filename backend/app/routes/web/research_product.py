@@ -33,8 +33,6 @@ async def get_rp_by_id(
     if response is None:
         raise HTTPException(status_code=404, detail="Research product not found")
     urls = []
-    response_urls = response["url"]
-    response_urls.append("google.com")
     for url in response["url"]:
         with suppress(ValidationError):
             RPUrlPath(url=url)
