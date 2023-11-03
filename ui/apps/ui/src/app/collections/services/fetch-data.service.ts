@@ -120,7 +120,8 @@ export class FetchDataService {
       );
   }
 
-  fetchFilters$(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  fetchFilters$<T extends { id: string }>(
     params: ISolrCollectionParams & ISolrQueryParams,
     facets: { [field: string]: ITermsFacetParam | IStatFacetParam }[]
   ): Observable<{
