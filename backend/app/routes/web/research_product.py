@@ -1,15 +1,14 @@
 """Endpoint for adding a research product to favourites"""
-import asyncio
 import logging
-from ssl import SSLError
+from contextlib import suppress
 from typing import Optional
 
 from fastapi import APIRouter, Depends, HTTPException
-from httpx import AsyncClient, HTTPError
-from pydantic import AnyUrl
+from httpx import AsyncClient
+from pydantic import ValidationError
 
 from app.consts import ResearchProductCollection
-from app.schemas.research_product_response import ResearchProductResponse
+from app.schemas.research_product_response import ResearchProductResponse, RPUrlPath
 from app.solr.operations import get_dep
 
 router = APIRouter()
@@ -33,33 +32,17 @@ async def get_rp_by_id(
         response = response["doc"]
     if response is None:
         raise HTTPException(status_code=404, detail="Research product not found")
+    urls = []
+    response_urls = response["url"]
+    response_urls.append("google.com")
+    for url in response["url"]:
+        with suppress(ValidationError):
+            RPUrlPath(url=url)
+            urls.append(url)
 
     return ResearchProductResponse(
         title=" ".join(response["title"]),
-        links=await _validate_urls(response["url"]),
+        links=urls,
         author=response["author_names"],
         type=response["type"],
     )
-
-
-async def _validate_urls(urls: list[AnyUrl]) -> list[Optional[AnyUrl]]:
-    """Runs a validation for every url for the product and returns
-    only the valid ones.
-    """
-    valid_urls = await asyncio.gather(*[_validate_url(url) for url in urls])
-    return list(filter(None, valid_urls))
-
-
-async def _validate_url(url: AnyUrl) -> Optional[AnyUrl]:
-    """Performs a request to check a link's validity"""
-    response = None
-    async with AsyncClient() as async_client:
-        try:
-            response = await async_client.get(url, follow_redirects=True)
-        except HTTPError:
-            return None
-        except SSLError:
-            pass
-    if response and response.is_client_error:
-        return None
-    return url
