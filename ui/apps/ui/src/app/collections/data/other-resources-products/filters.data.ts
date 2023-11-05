@@ -119,7 +119,7 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       id: 'publisher',
       filter: 'publisher',
       label: 'Publisher',
-      type: 'tag',
+      type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
     },

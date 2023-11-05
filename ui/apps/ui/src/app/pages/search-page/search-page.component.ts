@@ -137,7 +137,6 @@ export class SearchPageComponent implements OnInit {
             routerParams.standard.toString() === 'true'
               ? this._fetchStandardResults$(routerParams, metadata, adapter)
               : this._fetchAdvancedResults$(routerParams, metadata, adapter);
-
           return forkJoin({
             response: resultsRequest$,
             filters: this._customRoute.fetchFilters$(

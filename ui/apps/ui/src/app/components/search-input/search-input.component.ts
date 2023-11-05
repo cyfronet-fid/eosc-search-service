@@ -89,7 +89,7 @@ export class SearchInputComponent implements OnInit {
   );
 
   collectionFcAdvForm = new FormControl<ICollectionTagsConfig>(
-    this.collectionFcAdv[0],
+    this.collectionFcAdv[2],
     { nonNullable: true }
   );
 
@@ -375,6 +375,7 @@ export class SearchInputComponent implements OnInit {
       queryParams: {
         q: sanitizeQuery(q) ?? '*',
         tags: this.tags,
+        cursor: '*',
         standard: this.standardSearch.toString(),
         exact: this.exactmatch.toString().toLowerCase(),
         radioValueAuthor: this.radioValueAuthor,
@@ -400,6 +401,7 @@ export class SearchInputComponent implements OnInit {
       queryParams: {
         q: sanitizeQuery(q) ?? '*',
         tags: this.tags,
+        cursor: '*',
         standard: this.standardSearch.toString(),
         exact: this.exactmatch.toString().toLowerCase(),
         radioValueAuthor: this.radioValueAuthor,
