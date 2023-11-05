@@ -265,10 +265,11 @@ a:hover {
 
 #sub-nav a.active {
   color: #fff;
-  background-color: #3d4db6;
-  border-color: #3d4db6;
+  background-color: #040F81;
+  border-color: #040F81;
   padding: 21px 12px 15px 38px;
   margin-top: -10px;
+  font-weight: 600;
 }
 
 #sub-nav a.All::before {
@@ -1023,7 +1024,7 @@ h6 {
 
   #sub-nav a {
     font-size: 11px;
-    padding: 57px 0 5px;
+    padding: 70px 0 20px;
     margin: 0 10px;
     min-width: 40px;
   }
@@ -1172,16 +1173,20 @@ h6 {
     }
   }
 
+  #sub-nav {
+    border-top: 1px solid #E2E2E2;
+    padding: 0 0 5px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
   #sub-nav a {
     font-size: 10px;
     width: 33%;
-    margin: 0 0 25px;
+    margin: 0;
+    border-top: none;
   }
 
-  #sub-nav {
-    padding: 25px 0 5px;
-    flex-wrap: wrap;
-  }
 
   .dashboard .left-column {
     width: 100%;
@@ -1284,7 +1289,7 @@ h6 {
   }
 
   .search-bar .search-box {
-    margin: 25px 0 30px;
+    margin: 25px 0 10px;
     width: auto;
   }
   .search-bar .search-box-adv {
@@ -1338,6 +1343,7 @@ h6 {
 
   .mobile-show-collections {
     display: block;
+    float: right;
   }
 
   .pagination {
@@ -1362,10 +1368,6 @@ h6 {
 
   .query-input {
     margin-top: 10px;
-  }
-
-  #sub-nav {
-    margin-top: 0;
   }
 
   .logo-wrapper .top-title {
@@ -1466,16 +1468,20 @@ h6 {
   #sub-nav a::before,
   #sub-nav a.All::before,
   #sub-nav a.Data.sources::before {
-    width: 30px;
-    top: 9px;
+    width: 30px !important;
+    top: 25px !important;
     left: calc(50% - 15px);
-    height: 33px;
+    height: 33px !important;
     mask-image-size: 25px auto;
     -webkit-mask-size: 25px auto;
   }
 
+  #sub-nav a:nth-child(3n) {
+    border-right: 1px solid #E2E2E2;
+  }
+
   #sub-nav a.active {
-    padding: 51px 12px 12px 12px;
+    padding: 68px 12px 12px 12px;
     margin-top: 0;
   }
 
