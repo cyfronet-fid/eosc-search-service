@@ -905,8 +905,10 @@ h6 {
   }
 }
 
-.language-dropdown {
+.language-dropdown { 
   .dropdown-menu {
+    max-height: 200px; 
+    overflow-y: auto;
     padding: 10px 15px;
     font-size: 12px;
     width: 170px;
