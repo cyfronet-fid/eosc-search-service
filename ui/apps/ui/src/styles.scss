@@ -234,74 +234,166 @@ a:hover {
 }
 
 #sub-nav a {
-  max-width: 120px;
-  text-transform: uppercase;
-  font-size: 12px;
+  font-size: 14px;
   display: inline-block;
-  padding: 57px 0 5px;
-  margin: 0 20px;
-  min-width: 50px;
+  padding: 15px 10px 15px 34px;
   color: #333;
+  border: 1px solid #E2E2E2;
+  border-right: none;
+  margin: 0;
   position: relative;
+}
+
+#sub-nav a:last-child {
+  border-right: 1px solid #E2E2E2;
 }
 
 #sub-nav a::before {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 16px;
+  left: 8px;
   content: '';
-  width: 100%;
-  height: 58px;
-  background-repeat: no-repeat;
-  background-position: center 0;
+  width: 20px;
+  height: 22px;
+  mask-image-size: 20px auto;
+  -webkit-mask-size: 20px auto;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  mask-position: 50% 50%;
+  -webkit-mask-position: 50% 50%;
 }
 
 #sub-nav a.active {
-  color: #3d4db6;
-}
-
-#sub-nav a.active::before {
-  background-position: center -54px;
+  color: #fff;
+  background-color: #040F81;
+  border-color: #040F81;
+  padding: 21px 10px 15px 34px;
+  margin-top: -10px;
+  font-weight: 600;
 }
 
 #sub-nav a.All::before {
-  background-image: url(assets/top-icon-01.png);
+  top: 14px;
+  left: 7px;
+  width: 21px;
+  height: 26px;
+  mask-image-size: 21px auto;
+  -webkit-mask-size: 21px auto;
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-all-catalogs.svg);
+  mask-image: url(assets/icon-type-all-catalogs.svg);
 }
 
 #sub-nav a.Publications::before {
-  background-image: url(assets/top-icon-02.png);
+  width: 20px;
+  mask-image-size: 20px auto;
+  -webkit-mask-size: 20px auto;
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-publication.svg);
+  mask-image: url(assets/icon-type-publication.svg);
 }
 
 #sub-nav a.Data::before {
-  background-image: url(assets/top-icon-03.png);
+  top: 15px;
+  width: 18px;
+  mask-image-size: 18px auto;
+  -webkit-mask-size: 18px auto;
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-data.svg);
+  mask-image: url(assets/icon-type-data.svg);
 }
 
 #sub-nav a.Software::before {
-  background-image: url(assets/top-icon-04.png);
+  top: 15px;
+  mask-image-size: 20px auto;
+  -webkit-mask-size: 20px auto;
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-software.svg);
+  mask-image: url(assets/icon-type-software.svg);
 }
 
 #sub-nav a.Services::before {
-  background-image: url(assets/top-icon-05.png);
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-service.svg);
+  mask-image: url(assets/icon-type-service.svg);
 }
 
 #sub-nav a.Data.sources::before {
-  background-image: url(assets/top-icon-06.png);
+  width: 16px;
+  left: 10px;
+  height: 22px;
+  mask-image-size: 15px auto;
+  -webkit-mask-size: 15px auto;
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-data-source.svg);
+  mask-image: url(assets/icon-type-data-source.svg);
 }
 
 #sub-nav a.Trainings::before {
-  background-image: url(assets/top-icon-07.png);
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-training.svg);
+  mask-image: url(assets/icon-type-training.svg);
 }
 
 #sub-nav a.Guidelines::before {
-  background-image: url(assets/top-icon-09.png);
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-guidelines.svg);
+  mask-image: url(assets/icon-type-guidelines.svg);
+}
+
+#sub-nav a.Guidelines::after {
+  position: absolute;
+  content: '[BETA]';
+  top: 2px;
+  right: 2px;
+  color: #000;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+#sub-nav a.active.Guidelines::after {
+  color: #fff;
+  top: 4px;
+  right: 4px;
 }
 
 #sub-nav a.Bundles::before {
-  background-image: url(assets/top-icon-10.png);
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-bundle.svg);
+  mask-image: url(assets/icon-type-bundle.svg);
+}
+
+#sub-nav a.Bundles::after {
+  position: absolute;
+  content: '[BETA]';
+  top: 2px;
+  right: 2px;
+  color: #000;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+}
+
+#sub-nav a.active.Bundles::after {
+  color: #fff;
+  top: 4px;
+  right: 4px;
 }
 
 #sub-nav a.Other::before {
-  background-image: url(assets/top-icon-08.png);
+  top: 15px;
+  background-color: #000;
+  width: 18px;
+  mask-image-size: 18px auto;
+  -webkit-mask-size: 18px auto;
+  -webkit-mask-image: url(assets/icon-type-other.svg);
+  mask-image: url(assets/icon-type-other.svg);
+}
+
+#sub-nav a.active::before {
+  background-color: #fff !important;
+  top: 20px;
 }
 
 .nav-btn {
@@ -972,7 +1064,7 @@ h6 {
 
   #sub-nav a {
     font-size: 11px;
-    padding: 57px 0 5px;
+    padding: 70px 0 20px;
     margin: 0 10px;
     min-width: 40px;
   }
@@ -1119,16 +1211,20 @@ h6 {
     }
   }
 
+  #sub-nav {
+    border-top: 1px solid #E2E2E2;
+    padding: 0 0 5px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
   #sub-nav a {
     font-size: 10px;
     width: 33%;
-    margin: 0 0 25px;
+    margin: 0;
+    border-top: none;
   }
 
-  #sub-nav {
-    padding: 25px 0 5px;
-    flex-wrap: wrap;
-  }
 
   .dashboard .left-column {
     width: 100%;
@@ -1231,7 +1327,7 @@ h6 {
   }
 
   .search-bar .search-box {
-    margin: 25px 0 30px;
+    margin: 25px 0 10px;
     width: auto;
   }
   .search-bar .search-box-adv {
@@ -1285,6 +1381,7 @@ h6 {
 
   .mobile-show-collections {
     display: block;
+    float: right;
   }
 
   .pagination {
@@ -1309,10 +1406,6 @@ h6 {
 
   .query-input {
     margin-top: 10px;
-  }
-
-  #sub-nav {
-    margin-top: 0;
   }
 
   .logo-wrapper .top-title {
@@ -1409,6 +1502,31 @@ h6 {
 }
 
 @media (max-width: 576px) {
+
+  #sub-nav a::before,
+  #sub-nav a.All::before,
+  #sub-nav a.Data.sources::before {
+    width: 30px !important;
+    top: 25px !important;
+    left: calc(50% - 15px);
+    height: 33px !important;
+    mask-image-size: 25px auto;
+    -webkit-mask-size: 25px auto;
+  }
+
+  #sub-nav a:nth-child(3n) {
+    border-right: 1px solid #E2E2E2;
+  }
+
+  #sub-nav a.active {
+    padding: 68px 12px 12px 12px;
+    margin-top: 0;
+  }
+
+  #sub-nav a.active::before {
+    top: 15px;
+  }
+
   .results .type-icon-holder {
     flex: 70px 0 0;
 

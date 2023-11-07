@@ -73,12 +73,12 @@ export const ADAPTERS: IAdapter[] = [
   publicationsAdapter,
   datasetsAdapter,
   softwareAdapter,
+  otherResourcesProductsAdapter,
   servicesAdapter,
   dataSourcesAdapter,
+  bundlesAdapter,
   trainingsAdapter,
   guidelinesAdapter,
-  bundlesAdapter,
-  otherResourcesProductsAdapter,
   providersAdapter,
 ];
 export const FILTERS: IFiltersConfig[] = [
@@ -86,12 +86,12 @@ export const FILTERS: IFiltersConfig[] = [
   publicationsFilters,
   datasetsFilters,
   softwareFilters,
+  otherResourcesProductsFilters,
   servicesFilters,
   dataSourcesFilters,
+  bundlesFilters,
   trainingsFilters,
   guidelinesFilters,
-  bundlesFilters,
-  otherResourcesProductsFilters,
   providersFilters,
 ];
 
@@ -102,12 +102,12 @@ export const EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
   excludedPublicationsFilters,
   excludedDatasetsFilters,
   excludedSoftwareFilters,
+  excludedOtherResourcesProductsFilters,
   excludedServicesFilters,
   excludedDataSourcesFilters,
+  excludedBundlesFilters,
   excludedTrainingsFilters,
   excludedGuidelinesFilters,
-  excludedBundlesFilters,
-  excludedOtherResourcesProductsFilters,
   excludedProvidersFilters,
 ];
 
@@ -116,12 +116,12 @@ export const NAV_CONFIGS: ICollectionNavConfig[] = [
   publicationsNavConfig,
   datasetsNavConfig,
   softwareNavConfig,
+  othersResourcesProductsNavConfig,
   servicesNavConfig,
   dataSourcesNavConfig,
+  bundlesNavConfig,
   trainingsNavConfig,
   guidelinesNavConfig,
-  bundlesNavConfig,
-  othersResourcesProductsNavConfig,
   providersNavConfig,
 ];
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
@@ -129,12 +129,12 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   publicationsSearchMetadata,
   datasetsSearchMetadata,
   softwareSearchMetadata,
+  otherResourcesProductsSearchMetadata,
   servicesSearchMetadata,
   dataSourcesSearchMetadata,
+  bundlesSearchMetadata,
   trainingsSearchMetadata,
   guidelinesSearchMetadata,
-  bundlesSearchMetadata,
-  otherResourcesProductsSearchMetadata,
   providersSearchMetadata,
 ];
 
