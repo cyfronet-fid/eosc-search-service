@@ -76,9 +76,9 @@ export const ADAPTERS: IAdapter[] = [
   otherResourcesProductsAdapter,
   servicesAdapter,
   dataSourcesAdapter,
+  bundlesAdapter,
   trainingsAdapter,
   guidelinesAdapter,
-  bundlesAdapter,
   providersAdapter,
 ];
 export const FILTERS: IFiltersConfig[] = [
@@ -89,9 +89,9 @@ export const FILTERS: IFiltersConfig[] = [
   otherResourcesProductsFilters,
   servicesFilters,
   dataSourcesFilters,
+  bundlesFilters,
   trainingsFilters,
   guidelinesFilters,
-  bundlesFilters,
   providersFilters,
 ];
 
@@ -105,9 +105,9 @@ export const EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
   excludedOtherResourcesProductsFilters,
   excludedServicesFilters,
   excludedDataSourcesFilters,
+  excludedBundlesFilters,
   excludedTrainingsFilters,
   excludedGuidelinesFilters,
-  excludedBundlesFilters,
   excludedProvidersFilters,
 ];
 
@@ -119,9 +119,9 @@ export const NAV_CONFIGS: ICollectionNavConfig[] = [
   othersResourcesProductsNavConfig,
   servicesNavConfig,
   dataSourcesNavConfig,
+  bundlesNavConfig,
   trainingsNavConfig,
   guidelinesNavConfig,
-  bundlesNavConfig,
   providersNavConfig,
 ];
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
@@ -132,9 +132,9 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   otherResourcesProductsSearchMetadata,
   servicesSearchMetadata,
   dataSourcesSearchMetadata,
+  bundlesSearchMetadata,
   trainingsSearchMetadata,
   guidelinesSearchMetadata,
-  bundlesSearchMetadata,
   providersSearchMetadata,
 ];
 
