@@ -120,7 +120,7 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       filter: 'publisher',
       label: 'Publisher',
       type: 'multiselect',
-      defaultCollapsed: false,
+      defaultCollapsed: true,
       tooltipText: '',
     },
     {

@@ -72,9 +72,9 @@ export class FiltersConfigsRepository {
           const options = node.options.map((op) => {
             const r = {
               ...op,
-              isSelected: !!((selected[node.id] as string[]) ?? []).find(
-                (_) => _ === op.id
-              ),
+              isSelected: Array.isArray(selected[node.id])
+                ? selected[node.id].includes(op.id)
+                : false,
               name:
                 filterConfig === undefined
                   ? op.name
