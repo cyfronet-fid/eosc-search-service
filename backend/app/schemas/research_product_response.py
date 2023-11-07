@@ -17,3 +17,4 @@ class ResearchProductResponse(BaseModel):
     links: list[AnyUrl]
     author: list[str]
     type: ResearchProductType
+    best_access_right: str

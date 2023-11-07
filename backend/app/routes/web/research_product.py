@@ -43,4 +43,5 @@ async def get_rp_by_id(
         links=urls,
         author=response["author_names"],
         type=response["type"],
+        best_access_right=response["best_access_right"],
     )

@@ -29,6 +29,7 @@ async def test_get_rp_by_id_success(
         links=links,
         author=["Oh KMM", "Joosten JM", "Martens WG"],
         type="publication",
+        best_access_right="Open access",
     )
 
     assert response.status_code == status.HTTP_200_OK
