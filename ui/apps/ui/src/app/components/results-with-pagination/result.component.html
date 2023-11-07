@@ -200,7 +200,8 @@
     ></ess-pin>
     <ess-pin-static
       *ngIf="
-        MP_RESOURCES_TO_SHOW_PIN_TO.includes(type.value) && redirectOrderUrl !== null
+        MP_RESOURCES_TO_SHOW_PIN_TO.includes(type.value) &&
+        redirectOrderUrl !== null
       "
       [type]="type.value"
       [url]="redirectOrderUrl"

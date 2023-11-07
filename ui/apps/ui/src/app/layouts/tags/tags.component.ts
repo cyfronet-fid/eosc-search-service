@@ -144,6 +144,7 @@ export class TagsComponent implements OnChanges {
   createShowMoreLabel(tag: ITag): string {
     return this.showMoreStatePerTag[tag.label]
       ? 'Show less'
-      : `+ ${tag.values.length - tag.showMoreThreshold!}`;
+      : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        `+ ${tag.values.length - tag.showMoreThreshold!}`;
   }
 }

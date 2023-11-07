@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { createStore, select, withProps } from '@ngneat/elf';
+import { createStore, withProps } from '@ngneat/elf';
 import { getEntity, setEntities, withEntities } from '@ngneat/elf-entities';
 import {
   FiltersStoreConfig,
   IExcludedFiltersConfig,
-  IFilterConfig,
   IFilterConfigUI,
   IFilterNode,
   IFiltersConfig,
@@ -73,9 +72,9 @@ export class FiltersConfigsRepository {
           const options = node.options.map((op) => {
             const r = {
               ...op,
-              isSelected: !!((selected[node.id] as string[]) ?? []).find(
-                (_) => _ === op.id
-              ),
+              isSelected: Array.isArray(selected[node.id])
+                ? selected[node.id].includes(op.id)
+                : false,
               name:
                 filterConfig === undefined
                   ? op.name

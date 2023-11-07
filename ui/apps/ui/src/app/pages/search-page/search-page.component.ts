@@ -132,12 +132,11 @@ export class SearchPageComponent implements OnInit {
           ) as ICollectionSearchMetadata;
           const adapter = this._adaptersRepository.get(collection)
             ?.adapter as adapterType;
-
+          this.response = null;
           const resultsRequest$ =
             routerParams.standard.toString() === 'true'
               ? this._fetchStandardResults$(routerParams, metadata, adapter)
               : this._fetchAdvancedResults$(routerParams, metadata, adapter);
-
           return forkJoin({
             response: resultsRequest$,
             filters: this._customRoute.fetchFilters$(

@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { PaginationService } from './pagination.service';
 import { ConfigService } from '../../services/config.service';
-import { BehaviorSubject, Observable, skip, tap } from 'rxjs';
+import { BehaviorSubject, skip, tap } from 'rxjs';
 import { isEqual, omit, range } from 'lodash-es';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { IResult, ISearchResults } from '@collections/repositories/types';
@@ -43,6 +43,7 @@ export class ResultsWithPaginationComponent implements OnInit {
     }
 
     if (this._shouldResetCursor()) {
+      this._paginationService.setLoading(true);
       this._router
         .navigate([], {
           queryParams: {
@@ -50,7 +51,9 @@ export class ResultsWithPaginationComponent implements OnInit {
           },
           queryParamsHandling: 'merge',
         })
-        .then();
+        .then(() => {
+          this._paginationService.setLoading(false);
+        });
       return;
     }
 
@@ -60,14 +63,13 @@ export class ResultsWithPaginationComponent implements OnInit {
       this.highlights = response.highlighting ?? {};
       return;
     }
-
+    this._paginationService.setLoading(true);
     this._paginationService.updatePagination(
       params,
       response,
       this.pageNr$.value
     );
     this.highlights = response.highlighting ?? {};
-
     this._paginationService.setLoading(false);
   }
 
@@ -119,6 +121,7 @@ export class ResultsWithPaginationComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+    this._paginationService.setLoading(false);
   }
 
   _shouldResetCursor() {

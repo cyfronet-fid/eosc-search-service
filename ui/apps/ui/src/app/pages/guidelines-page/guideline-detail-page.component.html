@@ -13,7 +13,9 @@
                   class="img-fluid"
                 />
               </div>
-              <div class="ig-title-container about-content-title col-md-7 col-12">
+              <div
+                class="ig-title-container about-content-title col-md-7 col-12"
+              >
                 <p class="ig-about-title" i18n>
                   <ng-container
                     *ngFor="
@@ -23,20 +25,22 @@
                   >
                     {{ title ?? '' | filterPipe: type.GUIDELINE_TYPE
                     }}{{
-                    i !==
-                    (this.interoperabilityGuidelineItem?.title?.length ?? 0) - 1
-                      ? ', '
-                      : ''
+                      i !==
+                      (this.interoperabilityGuidelineItem?.title?.length ?? 0) -
+                        1
+                        ? ', '
+                        : ''
                     }}
                     <br /><span class="ig-about-subtitle" i18
-                  >{{
-                    this.interoperabilityGuidelineItem?.eosc_guideline_type ??
-                    '' | filterPipe: type.GUIDELINE_TYPE
-                    }}<br />
+                      >{{
+                        this.interoperabilityGuidelineItem
+                          ?.eosc_guideline_type ?? ''
+                          | filterPipe: type.GUIDELINE_TYPE
+                      }}<br />
                       Provider:
                       <span>{{
                         this.interoperabilityGuidelineItem?.provider_name ?? ''
-                        }}</span>
+                      }}</span>
                     </span>
                   </ng-container>
                 </p>
@@ -117,17 +121,19 @@
                             }}<br />
                             <span
                               class="section-description left20"
-                              *ngIf="creator?.author_name_type_info?.author_types"
-                            >Name Type:
+                              *ngIf="
+                                creator?.author_name_type_info?.author_types
+                              "
+                              >Name Type:
                               {{
-                              creator?.author_name_type_info?.author_types || ''
-                                | filterPipe: type.AUTHOR_TYPE
+                                creator?.author_name_type_info?.author_types ||
+                                  '' | filterPipe: type.AUTHOR_TYPE
                               }}</span
                             >
                             <span
                               class="section-description left20"
                               *ngIf="creator?.author_names_id"
-                            >Name Identifier:
+                              >Name Identifier:
                               {{ creator?.author_names_id }}</span
                             >
                             <span
@@ -135,9 +141,9 @@
                               *ngIf="
                                 creator?.author_affiliation_info?.affiliation
                               "
-                            >Affiliation:
+                              >Affiliation:
                               {{
-                              creator?.author_affiliation_info?.affiliation
+                                creator?.author_affiliation_info?.affiliation
                               }}</span
                             >
                             <span
@@ -146,7 +152,7 @@
                                 creator?.author_affiliation_info
                                   ?.affiliationIdentifier
                               "
-                            >Affiliation Identifier:
+                              >Affiliation Identifier:
                               <a
                                 href="{{
                                   creator?.author_affiliation_info
@@ -155,9 +161,9 @@
                                     : creator?.author_affiliation_info
                                         ?.affiliationIdentifier
                                 }}"
-                              >{{
-                                creator?.author_affiliation_info
-                                  ?.affiliationIdentifier
+                                >{{
+                                  creator?.author_affiliation_info
+                                    ?.affiliationIdentifier
                                 }}</a
                               ></span
                             >
@@ -185,17 +191,21 @@
                     >
                       <div>
                         <p class="section creator" i18n>
-                          Rights<br /><span class="section-description left20">{{
-                          getValue(
-                            this.interoperabilityGuidelineItem?.right_title,
-                            i
-                          )
-                          }}</span>
+                          Rights<br /><span
+                            class="section-description left20"
+                            >{{
+                              getValue(
+                                this.interoperabilityGuidelineItem?.right_title,
+                                i
+                              )
+                            }}</span
+                          >
                         </p>
                         <p class="section creator" i18n>
-                          Rights URI<br /><span class="section-description left20"
-                        ><a
-                          href="{{
+                          Rights URI<br /><span
+                            class="section-description left20"
+                            ><a
+                              href="{{
                                 getValue(
                                   this.interoperabilityGuidelineItem?.right_uri,
                                   i
@@ -207,25 +217,25 @@
                                       i
                                     )
                               }}"
-                        >{{
-                          getValue(
-                            this.interoperabilityGuidelineItem?.right_uri,
-                            i
-                          )
-                          }}</a
-                        ></span
-                        >
+                              >{{
+                                getValue(
+                                  this.interoperabilityGuidelineItem?.right_uri,
+                                  i
+                                )
+                              }}</a
+                            ></span
+                          >
                         </p>
                         <p class="section creator" i18n>
                           Rights Identifier<br /><span
-                          class="section-description left20"
-                        >{{
-                          getValue(
-                            this.interoperabilityGuidelineItem?.right_id,
-                            i
-                          )
-                          }}</span
-                        >
+                            class="section-description left20"
+                            >{{
+                              getValue(
+                                this.interoperabilityGuidelineItem?.right_id,
+                                i
+                              )
+                            }}</span
+                          >
                         </p>
                       </div>
                     </ng-container>
@@ -240,11 +250,11 @@
                     >
                       <p class="section creator mb-0" i18n>
                         Related Standard URI<br /><span
-                        class="section-description left20"
-                      ><a href="{{ uri ?? 'javascript:void(0)' }}">{{
-                        uri ?? ''
-                        }}</a></span
-                      >
+                          class="section-description left20"
+                          ><a href="{{ uri ?? 'javascript:void(0)' }}">{{
+                            uri ?? ''
+                          }}</a></span
+                        >
                       </p>
                       <p class="section left20" i18n #relatedStandardIdentifier>
                         <span class="section-description">{{
@@ -253,7 +263,7 @@
                               ?.related_standards_id,
                             i
                           )
-                          }}</span>
+                        }}</span>
                       </p>
                     </ng-container>
                   </div>
@@ -278,7 +288,10 @@
                   <div class="ig-content-inner">
                     <p class="section">
                       Resource Type:<br /><span class="section-description">{{
-                      getValue(this.interoperabilityGuidelineItem?.type_info, i)
+                        getValue(
+                          this.interoperabilityGuidelineItem?.type_info,
+                          i
+                        )
                       }}</span>
                     </p>
                     <p
@@ -286,29 +299,33 @@
                       *ngIf="this.interoperabilityGuidelineItem?.status"
                     >
                       Status<br /><span class="section-description">{{
-                      this.interoperabilityGuidelineItem?.status ?? ''
-                        | filterPipe: type.STATUS
+                        this.interoperabilityGuidelineItem?.status ?? ''
+                          | filterPipe: type.STATUS
                       }}</span>
                     </p>
                     <p
                       class="section"
-                      *ngIf="this.interoperabilityGuidelineItem?.publication_year"
+                      *ngIf="
+                        this.interoperabilityGuidelineItem?.publication_year
+                      "
                     >
                       Year of Publication<br /><span
-                      class="section-description"
-                    >{{
-                      this.interoperabilityGuidelineItem?.publication_year ??
-                      ''
-                      }}</span
-                    >
+                        class="section-description"
+                        >{{
+                          this.interoperabilityGuidelineItem
+                            ?.publication_year ?? ''
+                        }}</span
+                      >
                     </p>
                     <p
                       class="section"
-                      *ngIf="this.interoperabilityGuidelineItem?.publication_date"
+                      *ngIf="
+                        this.interoperabilityGuidelineItem?.publication_date
+                      "
                     >
                       Created<br /><span class="section-description">{{
-                      this.interoperabilityGuidelineItem?.publication_date ?? ''
-                        | transformDatePipe
+                        this.interoperabilityGuidelineItem?.publication_date ??
+                          '' | transformDatePipe
                       }}</span>
                     </p>
                     <p
@@ -316,8 +333,8 @@
                       *ngIf="this.interoperabilityGuidelineItem?.updated_at"
                     >
                       Updated<br /><span class="section-description">{{
-                      this.interoperabilityGuidelineItem?.updated_at ?? ''
-                        | transformDatePipe
+                        this.interoperabilityGuidelineItem?.updated_at ?? ''
+                          | transformDatePipe
                       }}</span>
                     </p>
                     <p
@@ -325,8 +342,8 @@
                       *ngIf="this.interoperabilityGuidelineItem?.domain"
                     >
                       Domain<br /><span class="section-description">{{
-                      this.interoperabilityGuidelineItem?.domain ?? ''
-                        | filterPipe: type.DOMAIN
+                        this.interoperabilityGuidelineItem?.domain ?? ''
+                          | filterPipe: type.DOMAIN
                       }}</span>
                     </p>
                     <p
@@ -334,11 +351,11 @@
                       *ngIf="this.interoperabilityGuidelineItem?.doi"
                     >
                       Identifier Type<br /><span class="section-description">{{
-                      this.interoperabilityGuidelineItem?.doi !== undefined
-                        ? ('ir_identifier_type-doi'
-                          | filterPipe: type.IDENTIFIER_TYPE)
-                        : ('ir_identifier_type-uri'
-                          | filterPipe: type.IDENTIFIER_TYPE)
+                        this.interoperabilityGuidelineItem?.doi !== undefined
+                          ? ('ir_identifier_type-doi'
+                            | filterPipe: type.IDENTIFIER_TYPE)
+                          : ('ir_identifier_type-uri'
+                            | filterPipe: type.IDENTIFIER_TYPE)
                       }}</span>
                     </p>
                     <p
@@ -346,21 +363,22 @@
                       *ngIf="this.interoperabilityGuidelineItem?.doi"
                     >
                       Identifier<br /><span class="section-description"
-                    ><a
-                      href="{{
-                            this.interoperabilityGuidelineItem?.doi !== undefined
+                        ><a
+                          href="{{
+                            this.interoperabilityGuidelineItem?.doi !==
+                            undefined
                               ? this.interoperabilityGuidelineItem?.doi ??
                                 'javascript:void(0)'
                               : this.interoperabilityGuidelineItem?.uri ??
                                 'javascript:void(0)'
                           }}"
-                    >{{
-                      this.interoperabilityGuidelineItem?.doi ??
-                      this.interoperabilityGuidelineItem?.uri ??
-                      ''
-                      }}</a
-                    ></span
-                    >
+                          >{{
+                            this.interoperabilityGuidelineItem?.doi ??
+                              this.interoperabilityGuidelineItem?.uri ??
+                              ''
+                          }}</a
+                        ></span
+                      >
                     </p>
                   </div>
                 </ng-container>
@@ -385,9 +403,10 @@
               "
             >
               <h5 class="related-services-title" i18n>
-                <a href="{{ this.marketplaceUrl }}/services/{{ service.pid }}">{{
-                  service.title
-                  }}</a>
+                <a
+                  href="{{ this.marketplaceUrl }}/services/{{ service.pid }}"
+                  >{{ service.title }}</a
+                >
               </h5>
               <div
                 class="logo-service-box"
@@ -405,24 +424,27 @@
               <div class="info-box-service">
                 <p class="related-services-up">
                   <strong>Organistaion:</strong><br /><span
-                  class="related-services-up"
-                >{{ service.resource_organisation }}</span
-                >
+                    class="related-services-up"
+                    >{{ service.resource_organisation }}</span
+                  >
                 </p>
                 <p class="related-services-up">
                   <strong>Dedicated for:</strong><br />
                   <ng-container
-                    *ngFor="let dedicated of service.dedicated_for; let i = index"
+                    *ngFor="
+                      let dedicated of service.dedicated_for;
+                      let i = index
+                    "
                   >
                     <span *ngIf="i < 2" class="related-services-down">{{
                       dedicated
-                      }}</span
+                    }}</span
                     >{{
-                    i === (service?.dedicated_for?.length ?? 0) - 1
-                      ? service?.dedicated_for?.length ?? 0 > 1
-                        ? '...'
-                        : ''
-                      : ', '
+                      i === (service?.dedicated_for?.length ?? 0) - 1
+                        ? service?.dedicated_for?.length ?? 0 > 1
+                          ? '...'
+                          : ''
+                        : ', '
                     }}
                   </ng-container>
                 </p>
