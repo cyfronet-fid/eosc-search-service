@@ -42,6 +42,8 @@ class TrainingTransformer(BaseTransformer):
         without a need to create another dataframe and merging"""
         df = df.withColumn(TYPE, lit(self.type))
         df = self.rename_cols(df)
+        if ALTERNATIVE_IDS in df.columns:
+            df = df.drop(ALTERNATIVE_IDS)
 
         return df
 
