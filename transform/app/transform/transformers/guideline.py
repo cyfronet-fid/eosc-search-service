@@ -12,6 +12,7 @@ from app.transform.schemas.properties.data import (
     AUTHOR_NAMES,
     AUTHOR_NAMES_TG,
     TYPE,
+    ALTERNATIVE_IDS,
 )
 
 logger = logging.getLogger(__name__)
@@ -298,6 +299,8 @@ def transform_guidelines(df: str) -> DataFrame:
     df = pd.DataFrame(df)
 
     df[TYPE] = "interoperability guideline"
+    if ALTERNATIVE_IDS in df.columns:
+        df.drop(ALTERNATIVE_IDS, axis=1, inplace=True)
     rename_cols(df)
     map_str_to_arr(df, ["title", "description"])
     ts_to_iso(df, ["publication_date", "updated_at"])
