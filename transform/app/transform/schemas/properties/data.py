@@ -1,7 +1,7 @@
 """Define properties name that are used multiple times"""
 # TODO INPUT, OUTPUT, BOTH
 
-ALTERNATIVE_IDS = "alternativeIdentifiers"
+ALTERNATIVE_IDS = "alternative_ids"
 AUTHOR = "author"
 AUTHOR_NAMES = "author_names"
 AUTHOR_PIDS = "author_pids"

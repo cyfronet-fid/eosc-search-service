@@ -1,5 +1,6 @@
 # pylint: disable=line-too-long, invalid-name, logging-fstring-interpolation, too-many-locals, duplicate-code, fixme
 """Transform interoperability guidelines"""
+from itertools import chain
 import logging
 from datetime import datetime
 import json
@@ -188,7 +189,7 @@ def harvest_authors_names(df: DataFrame) -> None:
 
     df[CREATORS] = df[CREATORS].apply(rename_creators)
     # Serialize creators
-    df[CREATORS] = df[CREATORS].apply(lambda x: json.dumps(x, indent=2))
+    df[CREATORS] = df[CREATORS].apply(lambda x: json.dumps(x))
 
 
 def map_str_to_arr(df: DataFrame, cols: list) -> None:
@@ -202,6 +203,7 @@ def rename_cols(df: DataFrame) -> None:
 
     def mapping_dict() -> dict:
         return {
+            "alternativeIdentifiers": "alternative_ids",
             "publicationYear": "publication_year",
             "catalogueId": "catalogue",
             "created": "publication_date",
@@ -294,17 +296,23 @@ def harvest_rights(df: DataFrame) -> None:
     df.drop(RIGHTS, inplace=True, axis=1)
 
 
+def serialize_alternative_ids(df: DataFrame) -> None:
+    """Serialize alternative_ids"""
+    column = df[ALTERNATIVE_IDS]
+    df[ALTERNATIVE_IDS] = [
+        json.dumps(alter_ids) for alter_ids in chain.from_iterable(column)
+    ]
+
+
 def transform_guidelines(df: str) -> DataFrame:
     """Transform guidelines"""
     df = pd.DataFrame(df)
-
     df[TYPE] = "interoperability guideline"
-    if ALTERNATIVE_IDS in df.columns:
-        df.drop(ALTERNATIVE_IDS, axis=1, inplace=True)
     rename_cols(df)
     map_str_to_arr(df, ["title", "description"])
     ts_to_iso(df, ["publication_date", "updated_at"])
 
+    serialize_alternative_ids(df)
     harvest_identifiers(df)
     harvest_authors_names(df)
     harvest_type_info(df)

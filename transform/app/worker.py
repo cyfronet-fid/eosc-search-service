@@ -41,8 +41,6 @@ def transform_batch(type_: str, data: dict | list[dict]) -> None:
         logger.error(f"No data transformer is provided for {type_}")
         return None
 
-    spark = None
-
     # Transform
     if type_ == GUIDELINE:
         df_trans = transformer(data)
