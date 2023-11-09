@@ -455,6 +455,7 @@
   <field name="access_policies_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="access_types" type="strings" required="false"/>
   <field name="activate_message" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="alternative_ids" type="text_general" tokenized="false" uninvertible="false" indexed="false" required="false"/>
   <field name="author_affiliations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_affiliations_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_family_names" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
