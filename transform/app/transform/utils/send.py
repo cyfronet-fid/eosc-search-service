@@ -32,6 +32,7 @@ from app.transform.schemas.properties.env import (
     SERVICE,
     TRAINING,
 )
+from app.services.solr.errors import SolrException
 
 logger = logging.getLogger(__name__)
 
@@ -93,10 +94,12 @@ def send_json_string_to_solr(
                 logger.error(
                     f"{req.status_code} update failed. Data type={col_name}, solr_col={s_col_name}. Data has failed to be sent to Solr. Details: {req.json()}"
                 )
+                raise SolrException(req.json())
         except ReqConnectionError as e:
             logger.error(
                 f"Connection failed {url=}. Update failed. Data type={col_name}, solr_col={s_col_name}. Solr is not reachable. Details: {e}"
             )
+            raise SolrException(e)
 
 
 def send_to_solr(
