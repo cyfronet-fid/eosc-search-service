@@ -15,6 +15,7 @@ from app.transform.schemas.properties.data import *
 from app.transform.transformers.offer import OFFER_IDS_INCREMENTOR
 from app.transform.utils.utils import sort_schema
 from app.transform.utils.common import harvest_popularity
+from app.transform.schemas.output.bundle import bundle_output_schema
 
 BUNDLE_IDS_INCREMENTOR = 1_000_000
 
@@ -25,9 +26,15 @@ class BundleTransformer(BaseTransformer):
     def __init__(self, spark: SparkSession):
         self.type = "bundle"
         self.id_increment = BUNDLE_IDS_INCREMENTOR
+        self.exp_output_schema = bundle_output_schema
 
         super().__init__(
-            self.type, self.cols_to_add, self.cols_to_drop, self.cols_to_rename, spark
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.cols_to_rename,
+            self.exp_output_schema,
+            spark,
         )
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:

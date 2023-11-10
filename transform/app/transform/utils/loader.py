@@ -2,12 +2,18 @@
 """Load data"""
 import os
 import json
+from logging import getLogger
 from datetime import date
+from pyspark.sql import DataFrame
 from dotenv import load_dotenv
 from pyspark.sql import SparkSession
 from app.services.s3.connect import connect_to_s3
 from app.transform.schemas.output import *
+from app.transform.schemas.input import *
 from app.transform.schemas.properties.env import *
+from app.transform.utils.validate import (
+    validate_schema,
+)
 
 solr_all_col_mapping = {
     SERVICE: SOLR_SERVICE_COLS,
@@ -23,6 +29,7 @@ solr_all_col_mapping = {
     PUBLICATION: SOLR_PUBLICATION_COLS,
 }
 
+logger = getLogger(__name__)
 load_dotenv()
 
 
@@ -39,9 +46,23 @@ def load_file_data(
     return spark.read.format(_format).load(data_path)
 
 
-def load_request_data(spark: SparkSession, data):
-    """Load data based on the request response"""
-    return spark.read.json(spark.sparkContext.parallelize([json.dumps(data)]))
+def load_request_data(
+    spark: SparkSession, data: dict | list[dict], input_exp_sch: dict, type_: str
+) -> DataFrame:
+    """Load input data into pyspark dataframe, validate its schema"""
+    df = spark.read.json(spark.sparkContext.parallelize([json.dumps(data)]))
+    try:  # Check raw, input schema
+        validate_schema(
+            df,
+            input_exp_sch,
+            collection=type_,
+            source="input",
+        )
+    except AssertionError:
+        logger.warning(
+            f"Schema validation of raw input data for type={type_} has failed. Input schema is different than excepted"
+        )
+    return df
 
 
 def load_env_vars() -> dict:
@@ -106,22 +127,27 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
         SERVICE: {
             ADDRESS: final_mp_api + "services",
             OUTPUT_SCHEMA: service_output_schema,
+            INPUT_SCHEMA: service_input_schema,
         },
         DATASOURCE: {
             ADDRESS: final_mp_api + "datasources",
             OUTPUT_SCHEMA: data_source_output_schema,
+            INPUT_SCHEMA: data_source_input_schema,
         },
         PROVIDER: {
             ADDRESS: final_mp_api + "providers",
             OUTPUT_SCHEMA: provider_output_schema,
+            INPUT_SCHEMA: provider_input_schema,
         },
         OFFER: {
             ADDRESS: final_mp_api + "offers",
             OUTPUT_SCHEMA: offer_output_schema,
+            INPUT_SCHEMA: offer_input_schema,
         },
         BUNDLE: {
             ADDRESS: final_mp_api + "bundles",
             OUTPUT_SCHEMA: bundle_output_schema,
+            INPUT_SCHEMA: bundle_input_schema,
         },
         GUIDELINE: {
             ADDRESS: os.environ.get(
@@ -129,6 +155,7 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
                 "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&quantity=10000",
             ),
             OUTPUT_SCHEMA: guideline_output_schema,
+            INPUT_SCHEMA: guideline_input_schema,
         },
         TRAINING: {
             ADDRESS: os.environ.get(
@@ -136,22 +163,27 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
                 "https://beta.providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&quantity=10000",
             ),
             OUTPUT_SCHEMA: training_output_schema,
+            INPUT_SCHEMA: training_input_schema,
         },
         OTHER_RP: {
             PATH: os.environ.get(OTHER_RP_PATH, "input_data/other_rp/"),
             OUTPUT_SCHEMA: other_rp_output_schema,
+            INPUT_SCHEMA: other_rp_input_schema,
         },
         SOFTWARE: {
             PATH: os.environ.get(SOFTWARE_PATH, "input_data/software/"),
             OUTPUT_SCHEMA: software_output_schema,
+            INPUT_SCHEMA: software_input_schema,
         },
         DATASET: {
             PATH: os.environ.get(DATASET_PATH, "input_data/dataset/"),
             OUTPUT_SCHEMA: dataset_output_schema,
+            INPUT_SCHEMA: dataset_input_schema,
         },
         PUBLICATION: {
             PATH: os.environ.get(PUBLICATION_PATH, "input_data/publication/"),
             OUTPUT_SCHEMA: publication_output_schema,
+            INPUT_SCHEMA: publication_input_schema,
         },
     }
     if solr_flag:

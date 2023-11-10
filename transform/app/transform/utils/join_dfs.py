@@ -51,7 +51,6 @@ def create_df(
     ), "Not all lists have the same length, creating df is not possible"
 
     rows = list(zip(*harvested_properties.values()))
-    print(harvested_properties)
     df = spark.createDataFrame(rows, schema=schema)
 
     return df

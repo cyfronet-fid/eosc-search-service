@@ -38,16 +38,16 @@ def delete_data_by_id(
             req = requests.post(url, json={"delete": id_to_delete}, timeout=180)
             if req.status_code == 200:
                 logger.info(
-                    f"Deleting resources was successful. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
+                    f"{req.status_code} deleting resources was successful. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
                 )
             else:
                 logger.error(
-                    f"Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
+                    f"{req.status_code} deleting resources has failed. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
                 )
 
         except ReqConnectionError as e:
             logger.error(
-                f"Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}. Connection error: {e}"
+                f"Connection failed {url=}. Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}. Details: {e}"
             )
 
 
@@ -68,16 +68,16 @@ def delete_data_by_type(col_name: str) -> None:
             )
             if req.status_code == 200:
                 logger.info(
-                    f"Deleting resources was successful. Data type={col_name}, solr_col={s_col_name}"
+                    f"{req.status_code} deleting resources was successful. Data type={col_name}, solr_col={s_col_name}"
                 )
             else:
                 logger.error(
-                    f"Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}"
+                    f"{req.status_code} deleting resources has failed. Data type={col_name}, solr_col={s_col_name}"
                 )
 
         except ReqConnectionError as e:
             logger.error(
-                f"Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}. Connection error: {e}"
+                f"Connection failed {url=}. Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}. Solr is not reachable. Details: {e}"
             )
 
 

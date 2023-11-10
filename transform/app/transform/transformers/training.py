@@ -25,6 +25,7 @@ from app.transform.utils.common import (
 )
 from app.transform.utils.utils import sort_schema
 from app.transform.schemas.properties.data import *
+from app.transform.schemas.output.training import training_output_schema
 
 
 class TrainingTransformer(BaseTransformer):
@@ -32,9 +33,15 @@ class TrainingTransformer(BaseTransformer):
 
     def __init__(self, spark: SparkSession):
         self.type = "training"
+        self.exp_output_schema = training_output_schema
 
         super().__init__(
-            self.type, self.cols_to_add, self.cols_to_drop, self.cols_to_rename, spark
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.cols_to_rename,
+            self.exp_output_schema,
+            spark,
         )
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:
@@ -60,6 +67,7 @@ class TrainingTransformer(BaseTransformer):
         df = self.map_sci_domains(df)
         df = self.ts_to_iso(df)
         df = self.serialize_alternative_ids(df, ALTERNATIVE_IDS)
+
         create_unified_categories(df, self.harvested_properties)
         df = remove_commas(df, "author_names", self.harvested_properties)
 
@@ -274,15 +282,21 @@ class TrainingTransformer(BaseTransformer):
     def serialize_alternative_ids(self, df: DataFrame, _col: str) -> DataFrame:
         """Serialize a single column. Define this column also in harvested_schema.
         Assumption: column is an array of values e.g. dicts"""
-        raw_prop_col = df.select(_col).collect()
-        serialized_prop_col = []
+        if _col in df.columns:
+            raw_prop_col = df.select(_col).collect()
+            serialized_prop_col = []
 
-        for rows in chain.from_iterable(raw_prop_col):
-            row_list = []
-            for row in rows:
-                row_list.append(json.dumps(row.asDict()))
-            serialized_prop_col.append(row_list)
+            for rows in chain.from_iterable(raw_prop_col):
+                row_list = []
+                for row in rows:
+                    row_list.append(json.dumps(row.asDict()))
+                serialized_prop_col.append(row_list)
 
-        self.harvested_properties[_col] = serialized_prop_col
+            self.harvested_properties[_col] = serialized_prop_col
 
-        return df.drop(_col)
+            return df.drop(_col)
+        else:
+            length = df.count()
+            empty_lists = [[] for _ in range(length)]
+            self.harvested_properties[_col] = empty_lists
+            return df

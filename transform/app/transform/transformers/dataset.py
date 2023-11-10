@@ -1,6 +1,7 @@
 # pylint: disable=duplicate-code
 """Transform datasets"""
 from app.transform.transformers.base.oag import OagBaseTransformer
+from app.transform.schemas.output.dataset import dataset_output_schema
 
 
 class DatasetTransformer(OagBaseTransformer):
@@ -8,7 +9,15 @@ class DatasetTransformer(OagBaseTransformer):
 
     def __init__(self, spark):
         self.type = "dataset"
-        super().__init__(self.type, self.cols_to_add, self.cols_to_drop, spark)
+        self.exp_output_schema = dataset_output_schema
+
+        super().__init__(
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.exp_output_schema,
+            spark,
+        )
 
     @property
     def cols_to_add(self) -> tuple[str, ...]:
