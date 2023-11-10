@@ -5,7 +5,7 @@ offer_output_schema = {
     "best_access_right": "string",
     "description": "array<string>",
     "id": "string",
-    "iid": "int",
+    "iid": "bigint",
     "internal": "boolean",
     "open_access": "boolean",
     "popularity": "int",

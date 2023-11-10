@@ -8,6 +8,7 @@ from app.transform.transformers.base.base import BaseTransformer
 from app.transform.schemas.properties.data import ID, TYPE, URL, POPULARITY
 from app.transform.utils.common import harvest_popularity
 from app.transform.utils.utils import sort_schema
+from app.transform.schemas.output.provider import provider_output_schema
 
 PROVIDER_TYPE = "provider"
 PROVIDER_IDS_INCREMENTOR = 100_000
@@ -20,8 +21,15 @@ class ProviderTransformer(BaseTransformer):
         self.type = PROVIDER_TYPE
         # Increase the range of providers IDs -> to avoid a conflicts
         self.id_increment = PROVIDER_IDS_INCREMENTOR
+        self.exp_output_schema = provider_output_schema
+
         super().__init__(
-            self.type, self.cols_to_add, self.cols_to_drop, self.cols_to_rename, spark
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.cols_to_rename,
+            self.exp_output_schema,
+            spark,
         )
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:

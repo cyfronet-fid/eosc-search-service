@@ -48,10 +48,16 @@ class OagBaseTransformer(BaseTransformer):
         desired_type: str,
         cols_to_add: tuple[str, ...] | None,
         cols_to_drop: tuple[str, ...] | None,
+        exp_output_schema: dict,
         spark: SparkSession,
     ):
         super().__init__(
-            desired_type, cols_to_add, cols_to_drop, self.cols_to_rename, spark
+            desired_type,
+            cols_to_add,
+            cols_to_drop,
+            self.cols_to_rename,
+            exp_output_schema,
+            spark,
         )
         self.catalogue_name = "eosc"
 

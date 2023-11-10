@@ -17,6 +17,7 @@ from app.transform.schemas.properties.data import (
     OPEN_ACCESS,
     POPULARITY,
 )
+from app.transform.schemas.output.service import service_output_schema
 
 SERVICE_IDS_INCREMENTOR = 0
 
@@ -27,8 +28,15 @@ class ServiceTransformer(MarketplaceBaseTransformer):
     def __init__(self, spark):
         self.type = SERVICE_TYPE
         id_increment = SERVICE_IDS_INCREMENTOR  # Do not change service ID
+        self.exp_output_schema = service_output_schema
+
         super().__init__(
-            id_increment, self.type, self.cols_to_add, self.cols_to_drop, spark
+            id_increment,
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.exp_output_schema,
+            spark,
         )
 
     @property

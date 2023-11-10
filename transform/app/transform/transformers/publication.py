@@ -1,6 +1,7 @@
 # pylint: disable=duplicate-code
 """Transform publications"""
 from app.transform.transformers.base.oag import OagBaseTransformer
+from app.transform.schemas.output.publication import publication_output_schema
 
 
 class PublicationTransformer(OagBaseTransformer):
@@ -8,7 +9,14 @@ class PublicationTransformer(OagBaseTransformer):
 
     def __init__(self, spark):
         self.type = "publication"
-        super().__init__(self.type, self.cols_to_add, self.cols_to_drop, spark)
+        self.exp_output_schema = publication_output_schema
+        super().__init__(
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.exp_output_schema,
+            spark,
+        )
 
     @property
     def cols_to_add(self) -> None:

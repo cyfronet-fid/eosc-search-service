@@ -12,11 +12,7 @@ from app.transform.utils.loader import (
 from app.transform.schemas.properties.env import (
     ALL_COLLECTION,
     GUIDELINE,
-    OUTPUT_SCHEMA,
-)
-
-from app.transform.utils.validate import (
-    check_schema_after_trans,
+    INPUT_SCHEMA,
 )
 from app.transform.utils.send import send_json_string_to_solr
 from app.services.spark.config import apply_spark_conf
@@ -34,6 +30,7 @@ celery.conf.result_backend = os.environ.get(
 @celery.task(name="transform_batch")
 def transform_batch(type_: str, data: dict | list[dict]) -> None:
     """Celery task for transforming batch data"""
+    logger.info(f"Data type={type_} data update has started")
     transformer = trans.transformers.get(type_)
     env_vars = load_env_vars()
 
@@ -42,23 +39,16 @@ def transform_batch(type_: str, data: dict | list[dict]) -> None:
         return None
 
     # Transform
-    if type_ == GUIDELINE:
+    if type_ == GUIDELINE:  # Pandas
         df_trans = transformer(data)
-    else:
+    else:  # Pyspark
         spark, _ = apply_spark_conf()
-        df = load_request_data(spark, data)
+        df = load_request_data(
+            spark, data, env_vars[ALL_COLLECTION][type_][INPUT_SCHEMA], type_
+        )
         df_trans = transformer(spark)(df)
-        try:
-            check_schema_after_trans(
-                df_trans,
-                env_vars[ALL_COLLECTION][type_][OUTPUT_SCHEMA],
-                collection=type_,
-            )
-        except AssertionError:
-            logger.error(
-                f"Schema validation after transformation failed for type={type_}"
-            )
 
+    # df -> json
     if type_ == GUIDELINE:
         output = df_trans.to_json(orient="records")
     else:
