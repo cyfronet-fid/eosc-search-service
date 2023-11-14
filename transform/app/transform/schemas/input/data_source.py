@@ -12,6 +12,7 @@ data_source_input_schema = {
     "datasource_classification": "string",
     "dedicated_for": "array<string>",
     "description": "string",
+    "eosc_if": "array<string>",
     "funding_bodies": "array<string>",
     "funding_programs": "array<string>",
     "geographical_availabilities": "array<string>",

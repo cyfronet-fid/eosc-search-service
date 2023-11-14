@@ -37,6 +37,7 @@ from app.transform.schemas.properties.data import (
     DOI,
     DOWNLOADS,
     EOSC_IF,
+    EOSC_IF_TG,
     EXPORTATION,
     FOS,
     FUNDER,
@@ -331,7 +332,7 @@ def map_best_access_right(
                 best_access_right_column.append(desired_access_t)
                 break
         else:
-            print(
+            logger.warning(
                 f"Warning unknown access right: best_access_right={access[BEST_ACCESS_RIGHT]}, collection={col_name}"
             )
             best_access_right_column.append(access[BEST_ACCESS_RIGHT])
@@ -659,7 +660,8 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
         df = df.withColumn(KEYWORDS_TG, col(KEYWORDS))
     if TAG_LIST in columns:
         df = df.withColumn(TAG_LIST_TG, col(TAG_LIST))
-
+    if EOSC_IF in columns:
+        df = df.withColumn(EOSC_IF_TG, col(EOSC_IF))
     return df
 
 
