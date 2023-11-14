@@ -1,4 +1,8 @@
-import { IFilterConfig } from '@collections/repositories/types';
+import {
+  IFilterConfig,
+  IFilterNode,
+  IUIFilterTreeNode,
+} from '@collections/repositories/types';
 import { MultiselectSerializer } from '@collections/filters-serializers/multiselect.serializer';
 import { FilterSerializer } from '@collections/filters-serializers/filter-serializer.interface';
 import { isArray } from 'lodash-es';
@@ -62,7 +66,6 @@ export const deserializeAll = (
   if (Object.keys(fqsMap).length === 0) {
     return [];
   }
-
   const fqs: string[] = [];
   for (const [filter, values] of Object.entries(fqsMap)) {
     const deserializedFilter = deserialize(filter, values, filtersConfigs);
@@ -156,4 +159,79 @@ export const removeFilterValue = (
     (currentValue) => currentValue !== value
   );
   return deserializeAll(fqMap, filtersConfigs);
+};
+
+export const removeFilterValueTree = (
+  fqMap: IFqMap,
+  filtersToRemove: [IUIFilterTreeNode, boolean][],
+  filtersConfigs: IFilterConfig[],
+  allSelected: IFilterNode[]
+): string[] => {
+  for (const toRemove of filtersToRemove) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [{ filter, value }, _] = toRemove;
+    const oldValues = toArray(fqMap[filter]).filter(
+      (currentValue) => currentValue !== value
+    );
+
+    if (value.includes('>')) {
+      if (oldValues.some((element) => element.includes('>'))) {
+        if (
+          oldValues.filter((element) => element.includes(value.split('>')[0]))
+            .length == 1
+        ) {
+          fqMap[filter] = toArray(fqMap[filter]).filter(
+            (currentValue) => currentValue !== value.split('>')[0]
+          );
+        } else {
+          // More than one hidden elem
+          // compare oldValues
+          fqMap[filter] = oldValues;
+          fqMap[filter] = toArray(fqMap[filter]).filter(
+            (currentValue) =>
+              allSelected.filter((elem) => elem.id === currentValue).length > 0
+          );
+          // Double check if that was not the last elem
+          const olderOne = toArray(fqMap[filter]);
+          if (
+            olderOne.filter((element) => element.includes(value.split('>')[0]))
+              .length == 1
+          ) {
+            fqMap[filter] = toArray(fqMap[filter]).filter(
+              (currentValue) => currentValue !== value.split('>')[0]
+            );
+          }
+        }
+      } else {
+        fqMap[filter] = [];
+      }
+    } else {
+      fqMap[filter] = toArray(fqMap[filter]).filter((currentValue) => {
+        if (currentValue.includes(value)) {
+          return false;
+        } else {
+          return true;
+        }
+      });
+    }
+  }
+
+  const deserialized = deserializeAll(fqMap, filtersConfigs);
+  return deserialized;
+};
+
+export const addFilterValue = (
+  fqMap: IFqMap,
+  allFilters: IFilterConfig[],
+  filterName: string,
+  value: string
+): string[] => {
+  if (!!fqMap[filterName] && (fqMap[filterName] as string[]).includes(value)) {
+    return deserializeAll(fqMap, allFilters);
+  }
+
+  fqMap[filterName] = fqMap[filterName]
+    ? ([...fqMap[filterName], value] as string[])
+    : [value];
+  return deserializeAll(fqMap, allFilters);
 };

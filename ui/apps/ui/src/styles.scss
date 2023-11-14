@@ -238,14 +238,14 @@ a:hover {
   display: inline-block;
   padding: 15px 10px 15px 34px;
   color: #333;
-  border: 1px solid #E2E2E2;
+  border: 1px solid #e2e2e2;
   border-right: none;
   margin: 0;
   position: relative;
 }
 
 #sub-nav a:last-child {
-  border-right: 1px solid #E2E2E2;
+  border-right: 1px solid #e2e2e2;
 }
 
 #sub-nav a::before {
@@ -265,8 +265,8 @@ a:hover {
 
 #sub-nav a.active {
   color: #fff;
-  background-color: #040F81;
-  border-color: #040F81;
+  background-color: #040f81;
+  border-color: #040f81;
   font-weight: 600;
 }
 
@@ -1210,7 +1210,7 @@ h6 {
   }
 
   #sub-nav {
-    border-top: 1px solid #E2E2E2;
+    border-top: 1px solid #e2e2e2;
     padding: 0 0 5px;
     margin-top: 20px;
     flex-wrap: wrap;
@@ -1222,7 +1222,6 @@ h6 {
     margin: 0;
     border-top: none;
   }
-
 
   .dashboard .left-column {
     width: 100%;
@@ -1500,7 +1499,6 @@ h6 {
 }
 
 @media (max-width: 576px) {
-
   #sub-nav a::before,
   #sub-nav a.All::before,
   #sub-nav a.Data.sources::before {
@@ -1513,7 +1511,7 @@ h6 {
   }
 
   #sub-nav a:nth-child(3n) {
-    border-right: 1px solid #E2E2E2;
+    border-right: 1px solid #e2e2e2;
   }
 
   #sub-nav a.active {

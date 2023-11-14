@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import {
   deserializeAll,
-  removeFilterValue,
+  removeFilterValueTree,
   serializeAll,
 } from '@collections/filters-serializers/filters-serializers.utils';
 import {
@@ -156,15 +156,16 @@ export class FilterMultiselectComponent implements OnInit, OnChanges {
       this._customRoute.collection()
     ).filters;
     let fqMap = serializeAll(this._customRoute.fq(), allFilters);
-
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const filtersToRemove = changes.filter(([_, isSelected]) => !isSelected);
-    for (const toRemove of filtersToRemove) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const [{ filter, value }, _] = toRemove;
-      const fq = removeFilterValue(fqMap, filter, value, allFilters);
-      fqMap = serializeAll(fq, allFilters);
-    }
+    const allSelected = this.options;
+    const fq = removeFilterValueTree(
+      fqMap,
+      filtersToRemove,
+      allFilters,
+      allSelected
+    );
+    fqMap = serializeAll(fq, allFilters);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const filtersToAdd = changes.filter(([_, isSelected]) => isSelected);
