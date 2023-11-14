@@ -14,6 +14,8 @@ service_output_schema = {
     "changelog": "array<string>",
     "dedicated_for": "array<string>",
     "description": "array<string>",
+    "eosc_if": "array<string>",
+    "eosc_if_tg": "array<string>",
     "funding_bodies": "array<string>",
     "funding_programs": "array<string>",
     "geographical_availabilities": "array<string>",

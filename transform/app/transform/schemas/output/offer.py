@@ -4,6 +4,8 @@
 offer_output_schema = {
     "best_access_right": "string",
     "description": "array<string>",
+    "eosc_if": "array<string>",
+    "eosc_if_tg": "array<string>",
     "id": "string",
     "iid": "bigint",
     "internal": "boolean",

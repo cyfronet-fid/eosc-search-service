@@ -6,6 +6,7 @@ bundle_input_schema = {
     "capabilities_of_goals": "array<string>",
     "contact_email": "string",
     "description": "string",
+    "eosc_if": "array<string>",
     "helpdesk_url": "string",
     "id": "bigint",
     "iid": "bigint",
