@@ -12,7 +12,11 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import { facetToFlatNodes } from '@components/filters/utils';
-import { COUNTRY_CODE_TO_NAME } from '@collections/data/config';
+import {
+  CATALOGUE_NAME_MAPPING,
+  COUNTRY_CODE_TO_NAME,
+  DATASOURCE_PID_MAPPING,
+} from '@collections/data/config';
 import moment from 'moment';
 
 export const toDownloadsStatisticsSecondaryTag = (
@@ -143,4 +147,31 @@ export const constructIdentifierTag = (
       transformToValueWithLabelAndLink('PMID', id, resolvePmidLink(id))
     ),
   ];
+};
+
+// TODO: These should be fetched dynamically from the backend
+export const transformDataSourceNames = (
+  nodes: IFilterNode[]
+): IFilterNode[] => {
+  return nodes.map((node) => ({
+    ...node,
+    name:
+      node.id in DATASOURCE_PID_MAPPING
+        ? DATASOURCE_PID_MAPPING[node.id]
+        : node.name,
+  }));
+};
+
+export const transformCatalogueNames = (
+  nodes: IFilterNode[]
+): IFilterNode[] => {
+  return nodes
+    .filter((node) => node.id !== 'eosc')
+    .map((node) => ({
+      ...node,
+      name:
+        node.id in CATALOGUE_NAME_MAPPING
+          ? CATALOGUE_NAME_MAPPING[node.id]
+          : node.name,
+    }));
 };

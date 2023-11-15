@@ -1,9 +1,13 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { SDG_TOOLTIP_TEXT } from '@collections/data/config';
+import {
+  DATASOURCE_FILTER_TOOLTIP_TEXT,
+  SDG_TOOLTIP_TEXT,
+} from '@collections/data/config';
 import {
   alphanumericFilterSort,
   convertCountryCodeToName,
+  transformDataSourceNames,
 } from '@collections/data/utils';
 
 export const otherResourcesProductsFilters: IFiltersConfig = {
@@ -138,6 +142,16 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
+    },
+    {
+      id: 'datasource_pids',
+      filter: 'datasource_pids',
+      label: 'Data Source',
+      type: 'dropdown',
+      defaultCollapsed: false,
+      tooltipText: DATASOURCE_FILTER_TOOLTIP_TEXT,
+      global: true,
+      transformNodes: transformDataSourceNames,
     },
   ],
 };

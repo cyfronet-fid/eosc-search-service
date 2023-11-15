@@ -1,7 +1,7 @@
 import { ICollectionNavConfig } from '../../repositories/types';
 
 export const URL_PARAM_NAME = 'all_collection';
-export const LABEL = 'All catalogs';
+export const LABEL = 'All Resources';
 export const allCollectionsNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,

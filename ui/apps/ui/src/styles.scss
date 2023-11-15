@@ -241,14 +241,14 @@ a:hover {
   margin: 0 0 45px;
 
   #bottom-border-wrapper {
-    border-bottom: 2px solid #040F81;
+    border-bottom: 2px solid #040f81;
   }
 }
 
 #sub-nav a {
   font-size: 14px;
   display: inline-block;
-  padding: 15px 10px 15px 34px;
+  padding: 15px 10px 15px 33px;
   color: #333;
   border: 1px solid #e2e2e2;
   border-right: none;
@@ -457,12 +457,12 @@ h3,
     font-size: 13px;
     border-radius: 20px;
     padding-right: 27px;
-    background: #EFF1FF;
-    border-color: #EFF1FF;
-    color: #040F81;
+    background: #eff1ff;
+    border-color: #eff1ff;
+    color: #040f81;
 
     .close-btn {
-      color: #040F81;
+      color: #040f81;
       font-size: 14px;
       padding: 0 10px 0 0;
       line-height: 30px;
@@ -475,7 +475,7 @@ h3,
   font-size: 13px;
 }
 #clear-all-badge {
-  color: #040F81;
+  color: #040f81;
   font-size: 13px;
   font-style: normal;
   font-weight: 600;
@@ -1009,8 +1009,8 @@ h6 {
 }
 
 .page-item.active .page-link {
-  background: #EFF1FF;
-  border-color: #EFF1FF;
+  background: #eff1ff;
+  border-color: #eff1ff;
   color: #333;
 }
 
@@ -1020,7 +1020,7 @@ h6 {
   color: #333;
   padding: 2px 7px;
   font-size: 13px;
-  border: 1px solid #F1F1F1;
+  border: 1px solid #f1f1f1;
 
   &:focus {
     background: none;
@@ -1053,7 +1053,6 @@ h6 {
 }
 
 .sort_container {
-
   label {
     width: auto !important;
     padding-right: 15px;
@@ -1610,6 +1609,89 @@ h6 {
   }
 }
 
+.multiselect-dropdown {
+  b {
+    font-weight: 400;
+  }
+}
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  border-radius: 8px;
+  border: 1px solid #d0d5dd;
+  background: #fff url(assets/expand-arrow-1.svg) no-repeat;
+  background-position: right 10px top 12px;
+  background-size: 16px auto;
+  padding: 5px 30px 5px 5px;
+  font-size: 14px;
+  margin-top: 4px;
+  font-weight: 500;
+  max-height: 40px;
+  overflow: hidden;
+  transition: none;
+}
+
+.ant-select-multiple .ant-select-selection-item {
+  margin-bottom: 8px;
+}
+
+.ant-select-multiple .ant-select-selection-search {
+  display: none;
+}
+
+.ant-select-dropdown {
+  box-shadow: none;
+  border-radius: 8px;
+  border: 1px solid #3d4db6;
+  background: #fff;
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input)
+  .ant-select-selector {
+  border: 1px solid #3d4db6;
+  background: #fff url(assets/icon-search.svg) no-repeat;
+  background-position: 95.5% 11px;
+  background-size: 16px auto;
+  box-shadow: none;
+}
+
+.ant-select-tree.ant-select-tree-block-node
+  .ant-select-tree-list-holder-inner
+  .ant-select-tree-node-content-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.multiselect-dropdown {
+  margin-right: 30px;
+}
+
+.ant-select-dropdown.ant-select-tree-dropdown {
+  top: 100%;
+  width: 240px;
+  border-radius: 0 0 8px 8px;
+  margin-top: -6px;
+  padding: 20px 12px 15px;
+}
+
+.ant-select-tree .ant-select-tree-node-content-wrapper {
+  font-size: 13px;
+  line-height: 19px;
+}
+
+.ant-select-tree .ant-select-tree-node-content-wrapper:hover {
+  background-color: #fff;
+  color: #000a64;
+}
+
+.ant-select-tree .ant-select-tree-treenode {
+  padding: 0 0 5px;
+}
+
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+  border-color: #3d4db6;
+}
+
 @media (max-width: 576px) {
   #sub-nav a::before,
   #sub-nav a.All::before,
@@ -1774,7 +1856,7 @@ h6 {
 .accordion-item {
   border-radius: 8px;
   margin-bottom: 16px;
-  border: 1px solid #E8EAEC !important;
+  border: 1px solid #e8eaec !important;
 
   &:first-of-type {
     border-radius: 8px;
@@ -1801,7 +1883,8 @@ h6 {
 .accordion-body {
   padding: 2rem 1.85rem 1rem;
 
-  ol, ul {
+  ol,
+  ul {
     li {
       margin-bottom: 14px;
     }

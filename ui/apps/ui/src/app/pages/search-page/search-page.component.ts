@@ -19,6 +19,7 @@ import {
   queryChangerAdv,
 } from '@collections/filters-serializers/utils';
 import { ICustomRouteProps } from '@collections/services/custom-route.type';
+import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 
 @UntilDestroy()
 @Component({
@@ -85,7 +86,8 @@ export class SearchPageComponent implements OnInit {
     private _route: ActivatedRoute,
     private _fetchDataService: FetchDataService,
     private _searchMetadataRepository: SearchMetadataRepository,
-    private _adaptersRepository: AdaptersRepository
+    private _adaptersRepository: AdaptersRepository,
+    private _filterConfigsRepository: FiltersConfigsRepository
   ) {}
 
   generatePermutations(words: string[]): string[] {

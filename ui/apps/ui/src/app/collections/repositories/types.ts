@@ -137,12 +137,15 @@ export interface IFilterConfig {
     | 'date-year'
     | 'date-calendar'
     | 'tag'
-    | 'range';
+    | 'range'
+    | 'dropdown';
   defaultCollapsed: boolean;
   tooltipText: string;
 
   onFacetsFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[]; // !!! only for multiselect !!!
   customSort?: (a: IFilterNode, b: IFilterNode) => number;
+  transformNodes?: (nodes: IFilterNode[]) => IFilterNode[];
+  global?: boolean;
 }
 
 export const { filterUIEntitiesRef, withFilterUIEntities } =

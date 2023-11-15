@@ -43,7 +43,7 @@
     "jquery": "3.6.0",
     "lodash-es": "^4.17.21",
     "moment": "^2.29.4",
-    "ng-zorro-antd": "^13.0.1",
+    "ng-zorro-antd": "^14.0.6",
     "ngx-google-analytics": "^14.0.1",
     "ngx-hotjar": "^11.0.0",
     "object-hash": "^3.0.0",

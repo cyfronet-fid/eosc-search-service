@@ -25,7 +25,7 @@ import { removeFilterValue } from '@collections/filters-serializers/filters-seri
       </span>
 
       <div class="badge" *ngFor="let activeFilter of activeFilters$ | async">
-        <span>{{ activeFilter.label }}: </span>
+        <span class="{{ activeFilter.label }}">{{ activeFilter.label }}: </span>
         <span>{{
           activeFilter.uiValue | filterPipe: activeFilter.filter
         }}</span>

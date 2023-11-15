@@ -7,6 +7,7 @@ import { FilterMultiselectModule } from './filter-multiselect/filter-multiselect
 import { FilterDateYearModule } from '@components/filters/filter-date/filter-date-year.module';
 import { FilterDateCalendarModule } from '@components/filters/filter-date/filter-date-calendar.module';
 import { FilterRangeModule } from '@components/filters/filter-range/filter-range.module';
+import { FilterMultiselectDropdownModule } from '@components/filters/filter-multiselect-dropdown/filter-multiselect-dropdown.module';
 
 @NgModule({
   declarations: [FiltersComponent],
@@ -18,6 +19,7 @@ import { FilterRangeModule } from '@components/filters/filter-range/filter-range
     FilterDateYearModule,
     FilterDateCalendarModule,
     FilterRangeModule,
+    FilterMultiselectDropdownModule,
   ],
   exports: [FiltersComponent],
 })

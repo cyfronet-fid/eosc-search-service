@@ -7,7 +7,10 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import { facetToFlatNodes } from '@components/filters/utils';
 
 import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
-import { alphanumericFilterSort } from '@collections/data/utils';
+import {
+  alphanumericFilterSort,
+  transformCatalogueNames,
+} from '@collections/data/utils';
 
 export const dataSourcesFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -130,6 +133,16 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
+    },
+    {
+      id: 'catalogue',
+      filter: 'catalogue',
+      label: 'Community Catalog',
+      type: 'dropdown',
+      defaultCollapsed: false,
+      tooltipText: '',
+      global: true,
+      transformNodes: transformCatalogueNames,
     },
   ],
 };
