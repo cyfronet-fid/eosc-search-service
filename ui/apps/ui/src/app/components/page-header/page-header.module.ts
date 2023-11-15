@@ -8,6 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [PageHeaderComponent, SortByFunctionalityComponent],
   imports: [CommonModule, NzBreadCrumbModule, ReactiveFormsModule],
-  exports: [PageHeaderComponent],
+  exports: [PageHeaderComponent, SortByFunctionalityComponent],
 })
 export class PageHeaderModule {}

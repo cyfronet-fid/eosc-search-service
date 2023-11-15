@@ -33,16 +33,6 @@ import { Router } from '@angular/router';
         </nz-breadcrumb>
       </div>
     </div> --->
-      <ess-sort-by-functionality
-        [isSortByRelevanceCollectionScopeOff]="
-          isSortByRelevanceCollectionScopeOff
-        "
-        [isSortByPopularityCollectionScopeOff]="
-          isSortByPopularityCollectionScopeOff
-        "
-        *ngIf="isSortCollectionScopeOff"
-        [type]="type"
-      ></ess-sort-by-functionality>
     </div>
   `,
   styles: [
@@ -59,21 +49,6 @@ import { Router } from '@angular/router';
 export class PageHeaderComponent {
   @Input()
   resultsCount!: number;
-
-  @Input()
-  sortByPermitted!: string[];
-
-  @Input()
-  type!: string;
-
-  @Input()
-  isSortByRelevanceCollectionScopeOff!: boolean;
-
-  @Input()
-  isSortByPopularityCollectionScopeOff!: boolean;
-
-  @Input()
-  isSortCollectionScopeOff!: boolean;
 
   activeNavConfig$ = this._navConfigsRepository.activeEntity$;
 
