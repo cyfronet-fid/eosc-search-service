@@ -21,7 +21,7 @@ import { removeFilterValue } from '@collections/filters-serializers/filters-seri
         style="cursor: pointer"
         (click)="clearAll()"
       >
-        Clear all filters
+        Clear filters
       </span>
 
       <div class="badge" *ngFor="let activeFilter of activeFilters$ | async">
@@ -32,7 +32,7 @@ import { removeFilterValue } from '@collections/filters-serializers/filters-seri
         <span
           class="close-btn btn-primary"
           (click)="removeFilter(activeFilter.filter, activeFilter.value)"
-          >x</span
+          >✕</span
         >
       </div>
     </section>

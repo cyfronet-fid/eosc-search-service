@@ -238,7 +238,11 @@ a:hover {
   justify-content: center;
   width: 100%;
   text-align: center;
-  padding: 0 0 45px;
+  margin: 0 0 45px;
+
+  #bottom-border-wrapper {
+    border-bottom: 2px solid #040F81;
+  }
 }
 
 #sub-nav a {
@@ -451,6 +455,18 @@ h3,
 
   .badge {
     font-size: 13px;
+    border-radius: 20px;
+    padding-right: 27px;
+    background: #EFF1FF;
+    border-color: #EFF1FF;
+    color: #040F81;
+
+    .close-btn {
+      color: #040F81;
+      font-size: 14px;
+      padding: 0 10px 0 0;
+      line-height: 30px;
+    }
   }
 }
 
@@ -459,10 +475,13 @@ h3,
   font-size: 13px;
 }
 #clear-all-badge {
+  color: #040F81;
   font-size: 13px;
-  color: #fff;
-  padding: 6px 20px;
-  margin-right: 10px;
+  font-style: normal;
+  font-weight: 600;
+  margin-right: 15px;
+  padding: 0;
+  background: none;
 }
 .badge {
   color: rgba(0, 0, 0, 0.6);
@@ -977,12 +996,97 @@ h6 {
   }
 }
 
+.pagination-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+
 .page-item.active {
   border: none;
 }
 
 .page-item.active .page-link {
-  background: #3d4db6;
+  background: #EFF1FF;
+  border-color: #EFF1FF;
+  color: #333;
+}
+
+.page-link {
+  margin: 0 8px;
+  border-radius: 8px;
+  color: #333;
+  padding: 2px 7px;
+  font-size: 13px;
+  border: 1px solid #F1F1F1;
+
+  &:focus {
+    background: none;
+    color: #000;
+    box-shadow: none;
+  }
+}
+
+.page-link:hover {
+  color: #333;
+}
+
+.page-item:first-child,
+.page-item:nth-child(2) {
+  margin-right: 7px;
+}
+
+.page-item:first-child .page-link,
+.page-item:nth-child(2) .page-link {
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 19px;
+  font-size: 14px;
+
+  &:hover {
+    background: none;
+    color: #000;
+  }
+}
+
+.sort_container {
+
+  label {
+    width: auto !important;
+    padding-right: 15px;
+  }
+
+  #sorts {
+    padding: 0;
+    border: none;
+    width: 150px;
+    font-weight: 600;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 1.35em;
+  }
+}
+
+.page-item:last-child {
+  margin-left: 8px;
+}
+
+.page-item:last-child .page-link {
+  border: none;
+  padding-left: 0;
+  padding-right: 0;
+  line-height: 19px;
+  font-size: 14px;
+
+  &:hover {
+    background: none;
+    color: #000;
+  }
 }
 
 .statistic a {

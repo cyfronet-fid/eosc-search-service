@@ -74,11 +74,21 @@
   <ng-container
     *ngIf="$any(results$ | async)?.length > 0 && (isLoading$ | async) === false"
   >
-    <ess-pagination
-      [paginationData]="$any(paginationData$ | async)"
-      [loading]="(isLoading$ | async) ?? false"
-      (activePageChange)="pageNr$.next($event)"
-    ></ess-pagination>
+    <div class="pagination-wrapper">
+      <ess-pagination
+        [paginationData]="$any(paginationData$ | async)"
+        [loading]="(isLoading$ | async) ?? false"
+        (activePageChange)="pageNr$.next($event)"
+      ></ess-pagination>
+      <ess-sort-by-functionality
+        [isSortByRelevanceCollectionScopeOff]="
+          _isSortByRelevanceCollectionScopeOff()
+        "
+        [isSortByPopularityCollectionScopeOff]="
+          _isSortByPopularityCollectionScopeOff()
+        "
+      ></ess-sort-by-functionality>
+    </div>
     <ng-container
       *ngFor="let result of results$ | async; trackBy: trackByResultId"
     >

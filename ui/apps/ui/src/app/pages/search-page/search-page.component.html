@@ -59,18 +59,7 @@
         <div class="col-sm-7 col-12 center-column">
           <ess-page-header
             *ngIf="!response?.isError"
-            [isSortCollectionScopeOff]="
-              (response?.results ?? [])[0]?.isSortCollectionScopeOff ?? false
-            "
             [resultsCount]="response?.numFound ?? 0"
-            [isSortByRelevanceCollectionScopeOff]="
-              (response?.results ?? [])[0]
-                ?.isSortByRelevanceCollectionScopeOff ?? false
-            "
-            [isSortByPopularityCollectionScopeOff]="
-              (response?.results ?? [])[0]
-                ?.isSortByPopularityCollectionScopeOff ?? false
-            "
           ></ess-page-header>
           <ess-active-filters></ess-active-filters>
           <ess-results-with-pagination

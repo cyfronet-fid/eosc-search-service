@@ -9,29 +9,31 @@ import { toNavigationLink } from './utils';
   template: `
     <div class="container--xxl navigation">
       <div id="sub-nav">
-        <a
-          class="nav-btn {{ link.label }}"
-          *ngFor="let link of navigationLinks"
-          [routerLink]="link.routerLink"
-          [routerLinkActiveOptions]="{
-            queryParams: 'ignored',
-            paths: 'exact',
-            matrixParams: 'ignored',
-            fragment: 'ignored'
-          }"
-          routerLinkActive="active"
-          [queryParams]="{
-            q: (q$ | async),
-            standard: (st$ | async),
-            tags: (tg$ | async),
-            exact: (ex$ | async),
-            radioValueAuthor: (radioValueAuthor$ | async),
-            radioValueExact: (radioValueExact$ | async),
-            radioValueTitle: (radioValueTitle$ | async),
-            radioValueKeyword: (radioValueKeyword$ | async)
-          }"
-          >{{ link.label }}</a
-        >
+        <div id="bottom-border-wrapper">
+          <a
+            class="nav-btn {{ link.label }}"
+            *ngFor="let link of navigationLinks"
+            [routerLink]="link.routerLink"
+            [routerLinkActiveOptions]="{
+              queryParams: 'ignored',
+              paths: 'exact',
+              matrixParams: 'ignored',
+              fragment: 'ignored'
+            }"
+            routerLinkActive="active"
+            [queryParams]="{
+              q: (q$ | async),
+              standard: (st$ | async),
+              tags: (tg$ | async),
+              exact: (ex$ | async),
+              radioValueAuthor: (radioValueAuthor$ | async),
+              radioValueExact: (radioValueExact$ | async),
+              radioValueTitle: (radioValueTitle$ | async),
+              radioValueKeyword: (radioValueKeyword$ | async)
+            }"
+            >{{ link.label }}</a
+          >
+        </div>
       </div>
     </div>
   `,
