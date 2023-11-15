@@ -2,19 +2,23 @@ import { createStore, select, withProps } from '@ngneat/elf';
 import { Injectable } from '@angular/core';
 import { Observable, distinctUntilChanged, filter, map, tap } from 'rxjs';
 import { isEqual } from 'lodash-es';
-import { ICustomRouteProps } from './custom-route.type';
+import { ICustomRouteProps, IFqMap } from './custom-route.type';
 import {
   getFiltersFromTags,
   queryParamsMapFrom,
 } from '@collections/services/custom-route.utils';
 import { toArray } from '@collections/filters-serializers/utils';
-import { serializeAll } from '@collections/filters-serializers/filters-serializers.utils';
+import {
+  deserializeAll,
+  serializeAll,
+} from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { DEFAULT_SORT } from '@components/sort-by-functionality/sort-value.type';
 import { toSearchMetadata } from '@components/filters/utils';
 import { toFilterFacet } from '@components/filters/utils';
 import {
   ICollectionSearchMetadata,
+  IFilterConfig,
   ITermsFacetParam,
 } from '@collections/repositories/types';
 import { FilterService } from '@components/filters/filters.service';
@@ -79,9 +83,11 @@ export class CustomRoute {
       )
     )
   );
+
   readonly params$: Observable<ICustomRouteProps> = this._store$.pipe(
     select((state) => state)
   );
+
   readonly fqWithExcludedFilter$ = (filter: string) =>
     this._store$.pipe(
       map(({ fq: fqs }) => fqs.filter((fq) => !fq.startsWith(filter))),
@@ -168,7 +174,8 @@ export class CustomRoute {
     const filtersConfig = this._filtersConfigsRepository.get(
       this.collection()
     ).filters;
-    const filtersBatch: string[] = [];
+
+    const filtersBatch: IFilterConfig[] = [];
     const facetsBatch: { [facet: string]: ITermsFacetParam }[] = [];
 
     const AVAILABLE_FILTERS_TYPES: string[] = [
@@ -176,6 +183,7 @@ export class CustomRoute {
       'date-year',
       'date-calendar',
       'range',
+      'dropdown',
     ];
 
     filtersConfig
@@ -185,7 +193,7 @@ export class CustomRoute {
       .forEach((filterConfig) => {
         const filter = filterConfig.filter;
         const facetParams = toFilterFacet(filter);
-        filtersBatch.push(filter);
+        filtersBatch.push(filterConfig);
         facetsBatch.push({ [filter]: facetParams[filter] });
       });
 
@@ -212,6 +220,24 @@ export class CustomRoute {
           this._filtersConfigsRepository.setLoading(false);
         })
       );
+  }
+
+  getGlobalFq$(collection: string): Observable<string> {
+    return this.fqMap$.pipe(
+      map((fqMap) => {
+        const globalFilterConfigs = this._filtersConfigsRepository
+          .get(collection)
+          .filters.filter((x) => x.global);
+
+        const globalFilterIds = globalFilterConfigs.map(({ id }) => id);
+
+        const globalFqMap = Object.fromEntries(
+          Object.entries(fqMap).filter(([id]) => globalFilterIds.includes(id))
+        ) as IFqMap;
+
+        return deserializeAll(globalFqMap, globalFilterConfigs).join('&');
+      })
+    );
   }
 
   setCollection(collection: string | null) {

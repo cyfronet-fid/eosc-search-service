@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FetchDataService } from '@collections/services/fetch-data.service';
 import {
+  IFilterConfig,
   IFilterNode,
   ISolrCollectionParams,
   ISolrQueryParams,
@@ -81,9 +82,10 @@ export class FilterService {
   /*
           return filters.map((filter) => {
             const filterFacets = facets[filter] as ITermsFacetResponse;
+            const nodes = facetToFlatNodes(filterFacets?.buckets ?? [], filter);
             return {
               id: filter,
-              options: facetToFlatNodes(filterFacets?.buckets ?? [], filter),
+              options: transformNodes ? transformNodes(nodes) : nodes,
             };
           });
         })
@@ -102,7 +104,7 @@ export class FilterService {
   */
 
   fetchTreeNodes$(
-    filters: string[],
+    filters: IFilterConfig[],
     params: ISolrCollectionParams & ISolrQueryParams,
     facetsParams: { [facet: string]: ITermsFacetParam }[]
   ): Observable<{ id: string; options: IFilterNode[] }[]> {
@@ -125,10 +127,15 @@ export class FilterService {
           }
 
           return filters.map((filter) => {
-            const filterFacets = fetchedFacets[filter] as ITermsFacetResponse;
+            const id = filter.filter;
+            const filterFacets = fetchedFacets[id] as ITermsFacetResponse;
+            const options = facetToFlatNodes(filterFacets?.buckets ?? [], id);
+
             return {
-              id: filter,
-              options: facetToFlatNodes(filterFacets?.buckets ?? [], filter),
+              id,
+              options: filter.transformNodes
+                ? filter.transformNodes(options)
+                : options,
             };
           });
         })

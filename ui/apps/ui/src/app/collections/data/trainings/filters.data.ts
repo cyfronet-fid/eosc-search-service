@@ -1,6 +1,9 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { alphanumericFilterSort } from '@collections/data/utils';
+import {
+  alphanumericFilterSort,
+  transformCatalogueNames,
+} from '@collections/data/utils';
 
 export const trainingsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -149,6 +152,16 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
+    },
+    {
+      id: 'catalogue',
+      filter: 'catalogue',
+      label: 'Community Catalog',
+      type: 'dropdown',
+      defaultCollapsed: false,
+      tooltipText: '',
+      global: true,
+      transformNodes: transformCatalogueNames,
     },
   ],
 };

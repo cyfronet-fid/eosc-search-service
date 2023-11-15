@@ -1,4 +1,4 @@
-import { IFilterConfig } from '@collections/repositories/types';
+import { IFilterConfig, IFilterNode } from '@collections/repositories/types';
 import { IActiveFilter } from './type';
 import { toArray } from '@collections/filters-serializers/utils';
 import { truncate } from 'lodash-es';
@@ -6,12 +6,24 @@ import { IFqMap } from '@collections/services/custom-route.type';
 import { TREE_SPLIT_CHAR } from '@components/filters/utils';
 import { interoperabilityGuidelinesTypeDictionary } from '../../dictionary/interoperabilityGuidelinesTypeDictionary';
 
+const valueToTmpFilterNode = (value: string): IFilterNode =>
+  // TODO: Remove or refactor
+  ({
+    id: value,
+    name: value,
+    value: value,
+    count: '0',
+    filter: '',
+    isSelected: false,
+    level: 0,
+  } as IFilterNode);
+
 export const mutateUiValue = (config: IFilterConfig, value: string) => {
-  if (!config.onFacetsFetch) {
+  if (!config.transformNodes) {
     return value;
   }
 
-  const transformed = config.onFacetsFetch([{ val: value, count: 0 }])[0];
+  const transformed = config.transformNodes([valueToTmpFilterNode(value)])[0];
   if (!transformed.name) {
     return value;
   }
@@ -32,16 +44,16 @@ export const toActiveFilters = (
       const nextValue = interoperabilityGuidelinesTypeDictionary[value]
         ? interoperabilityGuidelinesTypeDictionary[value]
         : value;
-      const truncatedName = truncate(
-        (nextValue + '').split(TREE_SPLIT_CHAR).pop() ?? '',
-        {
-          length: 50,
-        }
+
+      const mutatedName = mutateUiValue(
+        filterConfig,
+        (nextValue + '').split(TREE_SPLIT_CHAR).pop() ?? ''
       );
+
       activeFilters.push({
         filter,
         value,
-        uiValue: mutateUiValue(filterConfig, truncatedName),
+        uiValue: truncate(mutatedName, { length: 50 }),
         label: filterConfig.label,
       });
     }
