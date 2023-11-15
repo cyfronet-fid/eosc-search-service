@@ -1,0 +1,15 @@
+<div class="sources-box">
+  <div ngbDropdown class="d-inline-block">
+    <div ngbDropdownToggle>
+      <span class="sources-label-text">Source</span>
+    </div>
+
+    <div ngbDropdownMenu aria-labelledby="sourcesDropdown">
+      <div *ngFor="let url of urls" class="statistic">
+        <ng-container i18n>
+          <a href="{{ url }}" target="_blank">{{ url }} </a>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

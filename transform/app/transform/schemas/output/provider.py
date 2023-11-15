@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Provider expected schema after transformations"""
 
 provider_output_schema = {
@@ -22,6 +23,7 @@ provider_output_schema = {
     "networks": "array<string>",
     "participating_countries": "array<string>",
     "pid": "string",
+    "popularity": "int",
     "postal_code": "string",
     "publication_date": "date",
     "region": "string",

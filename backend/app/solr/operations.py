@@ -5,11 +5,13 @@ from typing import Dict
 
 from httpx import AsyncClient, Response
 
+from app.consts import DEFAULT_QF, PROVIDER_QF
 from app.schemas.search_request import StatFacet, TermsFacet
 from app.schemas.solr_response import Collection, SolrResponse
 from app.settings import settings
 
 from .error_handling import (
+    SolrCollectionEmptyError,
     handle_solr_detail_response_errors,
     handle_solr_list_response_errors,
 )
@@ -105,7 +107,12 @@ async def search(
             json=request_body,
         )
     )
+
     data = response.json()
+
+    if len(data["response"]["docs"]) == 0:
+        await _check_collection_sanity(client, solr_collection)
+
     if len(data["response"]["docs"]) and collection in [
         Collection.ALL_COLLECTION,
         Collection.GUIDELINE,
@@ -205,6 +212,10 @@ async def search_advanced(
         )
     )
     data = response.json()
+
+    if facets and len(data["response"]["docs"]) == 0:
+        await _check_collection_sanity(client, solr_collection)
+
     if len(data["response"]["docs"]) and collection in [
         Collection.ALL_COLLECTION,
         Collection.GUIDELINE,
@@ -215,6 +226,46 @@ async def search_advanced(
         )
 
     return SolrResponse(collection=collection, data=data)
+
+
+async def _check_collection_sanity(client, collection):
+    """
+    Helper function checking if the solr collection is not empty in case of solr data request
+    returns a response with no data.
+    """
+    qf = PROVIDER_QF if collection == Collection.PROVIDER else DEFAULT_QF
+    request_body = {
+        "params": {
+            "defType": "edismax",
+            "lowercaseOperators": "false",
+            "mm": "80%",
+            "tie": "0.1",
+            "qs": "5",
+            "hl": "on",
+            "hl.method": "fastVector",
+            "q": "*",
+            "qf": qf,
+            "pf": (
+                "title^100 author_names_tg^120 description^10 keywords_tg^10"
+                " tag_list_tg^10"
+            ),
+            "fq": [],
+            "rows": 1,
+            "cursorMark": "*",
+            "sort": "score desc, id asc",
+            "wt": "json",
+        }
+    }
+
+    response = await handle_solr_list_response_errors(
+        client.post(
+            f"{settings.SOLR_URL}{collection}/select",
+            json=request_body,
+        )
+    )
+
+    if len(response.json()["response"]["docs"]) == 0:
+        raise SolrCollectionEmptyError()
 
 
 async def get(

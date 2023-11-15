@@ -1,5 +1,5 @@
 <div class="modal-header bibliography">
-	<h4 class="modal-title">Bibliography Data</h4>
+  <h4 class="modal-title">Bibliography Data</h4>
   <div id="tooltipIcon" style="margin-left: 10px">
     <img
       src="assets/tooltip_prompt.svg"
@@ -11,71 +11,88 @@
     />
   </div>
   <button
-  *ngIf="this.showCopiedSuccessButton"
-  type="button"
-  class="btn-outline-primary"
-  [disabled]="true"
-  >Citation copied to the Clipboad!</button>
-	<button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')" style="margin-right: 0"></button>
-
+    *ngIf="this.showCopiedSuccessButton"
+    type="button"
+    class="btn-outline-primary"
+    [disabled]="true"
+  >
+    Citation copied to the Clipboad!
+  </button>
+  <button
+    type="button"
+    class="btn-close"
+    aria-label="Close"
+    (click)="activeModal.dismiss('Cross click')"
+    style="margin-right: 0"
+  ></button>
 </div>
 <div class="modal-body bibliography">
   <div class="container mb-4">
     <div class="row" *ngIf="hasDOIUrl">
       <label for="sources">Select Source</label>
       <select
-      [formControl]="selectedSource"
-      #sources
+        [formControl]="selectedSource"
+        #sources
         id="sources"
         class="form-select"
-      (change)="this.getAvailableFormats(sources.value)">
-          <option *ngFor="let url of parsedUrls | keyvalue"
-      value="{{ url.key }}"
-      [disabled]="url.value==='' ? true : false"
+        (change)="this.getAvailableFormats(sources.value)"
       >
-            <div>{{ url.key }}</div>
-          </option>
-        </select>
+        <option
+          *ngFor="let url of parsedUrls | keyvalue"
+          value="{{ url.key }}"
+          [disabled]="url.value === '' ? true : false"
+        >
+          <div>{{ url.key }}</div>
+        </option>
+      </select>
     </div>
   </div>
 
-	<ng-container *ngIf="formatsChecked">
-		<ng-container *ngIf="this.availableFormats.length > 0; else elseBlock">
+  <ng-container *ngIf="formatsChecked">
+    <ng-container *ngIf="this.availableFormats.length > 0; else elseBlock">
       <div class="container mb-4">
         <div class="row">
           <h6>Cite this Publication</h6>
           <p class="modal-subtitle">Select a citation style</p>
-           <ul class="modal-list">
-            <li *ngFor="let style of styles" >
+          <ul class="modal-list">
+            <li *ngFor="let style of styles">
               <button
                 class="btn btn-xs btn-outline-primary ml-1"
                 title="{{ style }}"
                 (click)="this.cite(style)"
-                [disabled]="this.unavailableStyles.indexOf(style) > -1 ? true : false"
-                >
-                  {{ style | stylePipe }}
+                [disabled]="
+                  this.unavailableStyles.indexOf(style) > -1 ? true : false
+                "
+              >
+                {{ style | stylePipe }}
               </button>
             </li>
-           </ul>
+          </ul>
 
-          <div *ngIf="citation" [innerHTML]="citation" class="e2e-inner-html-bound"></div>
-            <ng-container *ngIf="isLoading">
+          <div
+            *ngIf="citation"
+            [innerHTML]="citation"
+            class="e2e-inner-html-bound"
+          ></div>
+          <ng-container *ngIf="isLoading">
             <div class="mask">
               <nz-spin nzSimple></nz-spin>
             </div>
           </ng-container>
 
-          <div *ngIf="citationEmptyMessage" class="modal-info">{{ citationEmptyMessage }}</div>
+          <div *ngIf="citationEmptyMessage" class="modal-info">
+            {{ citationEmptyMessage }}
+          </div>
 
-         <button
-         [disabled]="!this.citation"
-         type="button"
-         class="btn btn-primary"
-         (click)="this.copy()"
-         style="margin-top: 10px;">
-         Copy Citation to Clipboard
-         </button>
-
+          <button
+            [disabled]="!this.citation"
+            type="button"
+            class="btn btn-primary"
+            (click)="this.copy()"
+            style="margin-top: 10px"
+          >
+            Copy Citation to Clipboard
+          </button>
         </div>
       </div>
 
@@ -83,33 +100,35 @@
         <div class="row">
           <h6>Export</h6>
           <p class="modal-subtitle">Select file format to download</p>
-           <ul class="modal-list">
-            <li *ngFor="let format of formats" >
+          <ul class="modal-list">
+            <li *ngFor="let format of formats">
               <button
                 class="btn btn-xs btn-outline-primary ml-1"
                 title="{{ format }}"
                 (click)="this.setSelectedFormat(format)"
-                [disabled]="this.availableFormats.indexOf(format) === -1 ? true : false">
-
-                <div> {{ format | formatPipe }} </div>
+                [disabled]="
+                  this.availableFormats.indexOf(format) === -1 ? true : false
+                "
+              >
+                <div>{{ format | formatPipe }}</div>
               </button>
             </li>
-           </ul>
-           <button
-           type="button"
-           [disabled]="this.selectedFormat ? false : true"
-           class="btn btn-primary"
-           (click)="this.export(selectedFormat)"
-           style="margin-top: 10px"
-           > {{ this.exportButtonText }} {{ this.selectedFormat | formatPipe }}
-         </button>
+          </ul>
+          <button
+            type="button"
+            [disabled]="this.selectedFormat ? false : true"
+            class="btn btn-primary"
+            (click)="this.export(selectedFormat)"
+            style="margin-top: 10px"
+          >
+            {{ this.exportButtonText }} {{ this.selectedFormat | formatPipe }}
+          </button>
         </div>
       </div>
-
-
-		</ng-container>
-	</ng-container>
-	<ng-template #elseBlock>Unfortunately we are unable to generate export or cite data for this publication.</ng-template>
-
-
+    </ng-container>
+  </ng-container>
+  <ng-template #elseBlock
+    >Unfortunately we are unable to generate export or cite data for this
+    publication.</ng-template
+  >
 </div>

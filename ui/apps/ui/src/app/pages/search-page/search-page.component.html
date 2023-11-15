@@ -1,0 +1,88 @@
+<div class="search-page-container">
+  <ess-search-bar #searchBar></ess-search-bar>
+  <div class="container d-md-none">
+    <div class="row mobile-buttons">
+      <div class="col-6">
+        <button
+          (click)="showFilters = !showFilters"
+          class="btn btn-special mobile-show-flters"
+          type="button"
+        >
+          <ng-container *ngIf="!showFilters; else hideFiltersCaption"
+            >Show filters</ng-container
+          >
+          <ng-template #hideFiltersCaption>Hide filters</ng-template>
+          <i class="bi bi-filter"></i>
+        </button>
+      </div>
+      <div class="col-6">
+        <button
+          (click)="showCollections = !showCollections"
+          class="btn btn-special mobile-show-collections"
+          type="button"
+        >
+          <ng-container *ngIf="!showCollections; else hideCollectionsCaption"
+            >All catalogs</ng-container
+          >
+          <ng-template #hideCollectionsCaption>Hide catalogs</ng-template>
+          <i class="bi bi-chevron-down"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    [ngClass]="{
+      'mobile-collections-hidden': !showCollections,
+      'mobile-collections-show': showCollections
+    }"
+  >
+    <ess-collections-navigation
+      *ngIf="!this.isProviderCollection"
+    ></ess-collections-navigation>
+  </div>
+  <div class="container--xxl">
+    <div class="dashboard" style="position: relative">
+      <div class="row" id="dashboard__main">
+        <div
+          class="col-sm-3 col-12 left-column"
+          [ngClass]="{
+            'mobile-filters-hidden': !showFilters,
+            'mobile-filters-show': showFilters
+          }"
+          id="dashboard__filters"
+        >
+          <ess-filters
+            [results]="response?.results"
+            [isError]="response?.isError"
+          ></ess-filters>
+        </div>
+        <div class="col-sm-7 col-12 center-column">
+          <ess-page-header
+            *ngIf="!response?.isError"
+            [isSortCollectionScopeOff]="
+              (response?.results ?? [])[0]?.isSortCollectionScopeOff ?? false
+            "
+            [resultsCount]="response?.numFound ?? 0"
+            [isSortByRelevanceCollectionScopeOff]="
+              (response?.results ?? [])[0]
+                ?.isSortByRelevanceCollectionScopeOff ?? false
+            "
+            [isSortByPopularityCollectionScopeOff]="
+              (response?.results ?? [])[0]
+                ?.isSortByPopularityCollectionScopeOff ?? false
+            "
+          ></ess-page-header>
+          <ess-active-filters></ess-active-filters>
+          <ess-results-with-pagination
+            [response]="response"
+            (clearSearchInput)="searchBar.clearInput($event)"
+          ></ess-results-with-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="suggested" style="background-color: #eff1ff">
+    <ess-recommendations></ess-recommendations>
+  </div>
+  <ess-feedback-panel class="feedback-panel"></ess-feedback-panel>
+</div>

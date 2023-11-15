@@ -1,14 +1,15 @@
+# pylint: disable=line-too-long, logging-fstring-interpolation
 """Delete resource based on its ID"""
-import requests
 import json
 import logging
+import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
-from app.transform.utils.loader import (
+from app.transform.utils.loader import load_env_vars
+from app.transform.schemas.properties.env import (
     ALL_COLLECTION,
     SOLR_ADDRESS,
     SOLR_PORT,
     SOLR_COL_NAMES,
-    load_env_vars,
 )
 from app.transform.transformers.service import SERVICE_IDS_INCREMENTOR
 from app.transform.transformers.data_source import DATA_SOURCE_IDS_INCREMENTOR
@@ -37,16 +38,16 @@ def delete_data_by_id(
             req = requests.post(url, json={"delete": id_to_delete}, timeout=180)
             if req.status_code == 200:
                 logger.info(
-                    f"Deleting resources was successful. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
+                    f"{req.status_code} deleting resources was successful. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
                 )
             else:
                 logger.error(
-                    f"Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
+                    f"{req.status_code} deleting resources has failed. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
                 )
 
         except ReqConnectionError as e:
             logger.error(
-                f"Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}. Connection error: {e}"
+                f"Connection failed {url=}. Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}. Details: {e}"
             )
 
 
@@ -67,16 +68,16 @@ def delete_data_by_type(col_name: str) -> None:
             )
             if req.status_code == 200:
                 logger.info(
-                    f"Deleting resources was successful. Data type={col_name}, solr_col={s_col_name}"
+                    f"{req.status_code} deleting resources was successful. Data type={col_name}, solr_col={s_col_name}"
                 )
             else:
                 logger.error(
-                    f"Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}"
+                    f"{req.status_code} deleting resources has failed. Data type={col_name}, solr_col={s_col_name}"
                 )
 
         except ReqConnectionError as e:
             logger.error(
-                f"Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}. Connection error: {e}"
+                f"Connection failed {url=}. Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}. Solr is not reachable. Details: {e}"
             )
 
 

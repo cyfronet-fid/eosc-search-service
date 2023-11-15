@@ -1,12 +1,21 @@
-# pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
+# pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import, duplicate-code
 """Transform bundles"""
 from pyspark.sql.functions import split, col, lit
 from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.types import StringType, ArrayType, IntegerType
+from pyspark.sql.types import (
+    StringType,
+    ArrayType,
+    IntegerType,
+    StructType,
+    StructField,
+)
 from pyspark.sql.functions import udf
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.schemas.properties_name import *
+from app.transform.schemas.properties.data import *
 from app.transform.transformers.offer import OFFER_IDS_INCREMENTOR
+from app.transform.utils.utils import sort_schema
+from app.transform.utils.common import harvest_popularity
+from app.transform.schemas.output.bundle import bundle_output_schema
 
 BUNDLE_IDS_INCREMENTOR = 1_000_000
 
@@ -17,9 +26,15 @@ class BundleTransformer(BaseTransformer):
     def __init__(self, spark: SparkSession):
         self.type = "bundle"
         self.id_increment = BUNDLE_IDS_INCREMENTOR
+        self.exp_output_schema = bundle_output_schema
 
         super().__init__(
-            self.type, self.cols_to_add, self.cols_to_drop, self.cols_to_rename, spark
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.cols_to_rename,
+            self.exp_output_schema,
+            spark,
         )
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:
@@ -44,6 +59,7 @@ class BundleTransformer(BaseTransformer):
         """Harvest oag properties that requires more complex transformations
         Basically from those harvested properties there will be created another dataframe
         which will be later on merged with the main dataframe"""
+        harvest_popularity(df, self.harvested_properties)
         return df
 
     @staticmethod
@@ -58,9 +74,15 @@ class BundleTransformer(BaseTransformer):
         return df
 
     @property
-    def harvested_schema(self) -> None:
+    def harvested_schema(self) -> StructType:
         """Schema of harvested properties"""
-        return None
+        return sort_schema(
+            StructType(
+                [
+                    StructField(POPULARITY, IntegerType(), True),
+                ]
+            )
+        )
 
     @property
     def cols_to_add(self) -> None:

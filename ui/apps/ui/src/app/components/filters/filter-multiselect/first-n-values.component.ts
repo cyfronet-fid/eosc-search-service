@@ -42,17 +42,13 @@ export class FirstNValuesComponent implements OnChanges {
   @Input()
   displayMax = 10;
 
-  @Input()
-  customSort?: (a: IFilterNode, b: IFilterNode) => number;
-
   @Output()
   toggleActive = new EventEmitter<[IUIFilterTreeNode, boolean][]>();
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['query'] || changes['allEntities'] || changes['displayMax']) {
       this._allEntities = flatNodesToTree(
-        search(this.query, this.allEntities),
-        this.customSort
+        search(this.query, this.allEntities)
       ).slice(0, this.displayMax);
     }
   }

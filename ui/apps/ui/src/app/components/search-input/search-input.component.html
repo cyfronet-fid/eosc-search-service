@@ -1,7 +1,11 @@
 <div id="container">
-  <div *ngIf="standardSearch" class="search-box">
+  <div
+    *ngIf="standardSearch"
+    class="search-box"
+    [ngClass]="{ providers: isProviderCollection }"
+  >
     <form>
-      <div class="input-group" style="padding-bottom: 5px">
+      <div class="input-group" style="padding-bottom: 10px">
         <div class="phase-box">
           <input
             #inputQuery
@@ -30,6 +34,7 @@
           </button>
         </div>
         <select
+          *ngIf="!this.isProviderCollection"
           class="form-select"
           (click)="focused = false"
           [formControl]="collectionFc"
@@ -78,8 +83,21 @@
         *ngIf="!isLanding()"
         class="adv-search-text-btn"
         (click)="standardSearch = false"
-        >Show Advanced Search</span
+        >Show Advanced Search -></span
       >
+      <span
+        *ngIf="!isLanding()"
+        class="adv-search-text-btn"
+        style="margin-left: 50px"
+      >
+        <img
+          src="assets/asguide/asguide-icon.svg"
+          style="padding-bottom: 4px; padding-right: 2px"
+        />
+        <a routerLink="/asguide" target="_blank" style="color: white"
+          >Advanced Search Guide</a
+        >
+      </span>
     </form>
 
     <div
@@ -111,10 +129,15 @@
       </ng-container>
     </div>
   </div>
-  <div *ngIf="!standardSearch" class="search-box-adv">
+  <div
+    *ngIf="!standardSearch"
+    class="search-box-adv"
+    [ngClass]="{ providers: isProviderCollection }"
+  >
     <form>
       <div class="input-group" style="margin-bottom: 5px">
         <select
+          *ngIf="!this.isProviderCollection"
           class="form-select"
           style="margin-left: 0px"
           (click)="focused = false"
@@ -490,6 +513,16 @@
         "
         ><- Go back to Basic Search</span
       >
+      <span class="adv-search-text-btn" style="margin-left: 50px">
+        <img
+          src="assets/asguide/asguide-icon.svg"
+          style="padding-bottom: 4px; padding-right: 2px"
+        />
+        <a routerLink="/asguide" target="_blank" style="color: white"
+          >Advanced Search Guide</a
+        >
+      </span>
+
       <span
         *ngIf="tags.length !== 0"
         class="adv-search-text-tag"

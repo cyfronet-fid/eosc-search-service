@@ -6,11 +6,11 @@ import logging
 import pyspark
 from pyspark.sql.functions import spark_partition_id
 import pandas
-from app.transform.utils.loader import (
-    LOCAL_DUMP_PATH,
+from app.transform.schemas.properties.env import (
     ALL_COLLECTION,
     CREATE_LOCAL_DUMP,
     GUIDELINE,
+    LOCAL_DUMP_PATH,
 )
 
 logger = logging.getLogger(__name__)

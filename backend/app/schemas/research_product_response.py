@@ -4,6 +4,12 @@ from pydantic import AnyUrl, BaseModel
 from app.consts import ResearchProductType
 
 
+class RPUrlPath(BaseModel):
+    """Model ensuring url is a valid url"""
+
+    url: AnyUrl
+
+
 class ResearchProductResponse(BaseModel):
     """Model of response for research_product endpoint"""
 
@@ -11,3 +17,4 @@ class ResearchProductResponse(BaseModel):
     links: list[AnyUrl]
     author: list[str]
     type: ResearchProductType
+    best_access_right: str

@@ -2,6 +2,7 @@ import {
   ICollectionSearchMetadata,
   IFacetBucket,
   IFilterNode,
+  ITermsFacetParam,
   IUIFilterTreeNode,
 } from '@collections/repositories/types';
 import { queryChanger } from '@collections/filters-serializers/utils';
@@ -34,52 +35,53 @@ export function* toAllLevels(value: string) {
   }
 }
 
-export const flatNodesToTree = (
-  nodes: IFilterNode[],
-  customSort?: (a: IFilterNode, b: IFilterNode) => number
-): IUIFilterTreeNode[] => {
-  const allLvlsPermutations = facetToFlatNodes(
-    [
-      ...new Set(
-        nodes
-          .filter((node) => !!node.value)
-          .map((node) => [...toAllLevels(node.value)])
-          .reduce((acc, lvls) => [...acc, ...lvls], [])
-      ),
-    ].map((val) => ({ val: val as string, count: 0 })),
-    nodes[0]?.filter
-  );
-  const allLvlsPermIdMap = allLvlsPermutations
-    .map((node) => ({
-      [node.id]: { ...node, children: [] } as IUIFilterTreeNode,
-    }))
-    .reduce((acc, node) => ({ ...acc, ...node }), {});
-  const idMap = nodes
-    .map((node) => ({
-      [node.id]: { ...node, children: [] } as IUIFilterTreeNode,
-    }))
-    .reduce((acc, node) => ({ ...acc, ...node }), {});
-  const fullMap = { ...allLvlsPermIdMap, ...idMap };
-  const allNodes = Object.values(fullMap);
+export const flatNodesToTree = (nodes: IFilterNode[]): IUIFilterTreeNode[] => {
+  if (nodes[0].filter !== 'publisher') {
+    const allLvlsPermutations = facetToFlatNodes(
+      [
+        ...new Set(
+          nodes
+            .filter((node) => !!node.value)
+            .map((node) => [...toAllLevels(node.value)])
+            .reduce((acc, lvls) => [...acc, ...lvls], [])
+        ),
+      ].map((val) => ({ val: val as string, count: 0 })),
+      nodes[0]?.filter
+    );
+    const allLvlsPermIdMap = allLvlsPermutations
+      .map((node) => ({
+        [node.id]: { ...node, children: [] } as IUIFilterTreeNode,
+      }))
+      .reduce((acc, node) => ({ ...acc, ...node }), {});
+    const idMap = nodes
+      .map((node) => ({
+        [node.id]: { ...node, children: [] } as IUIFilterTreeNode,
+      }))
+      .reduce((acc, node) => ({ ...acc, ...node }), {});
 
-  for (const node of allNodes) {
-    const parentExists = node.level > 0;
-    if (!parentExists) {
-      continue;
+    const fullMap = { ...allLvlsPermIdMap, ...idMap };
+    const allNodes = Object.values(fullMap);
+
+    for (const node of allNodes) {
+      const parentExists = node.level > 0;
+      if (!parentExists) {
+        continue;
+      }
+
+      fullMap[node.parent as string].children = [
+        ...(fullMap[node.parent as string].children as IUIFilterTreeNode[]),
+        node,
+      ];
     }
 
-    fullMap[node.parent as string].children = [
-      ...(fullMap[node.parent as string].children as IUIFilterTreeNode[]),
-      node,
-    ];
+    return Object.values(fullMap)
+      .filter(({ level }) => level === 0)
+      .filter(({ count }) => count !== '0');
+  } else {
+    return Object.values(nodes)
+      .filter(({ level }) => level === 0)
+      .filter(({ count }) => count !== '0');
   }
-
-  const defaultSort = (a: IFilterNode, b: IFilterNode) => +b.count - +a.count;
-
-  return Object.values(fullMap)
-    .filter(({ level }) => level === 0)
-    .filter(({ count }) => count !== '0')
-    .sort(customSort ?? defaultSort);
 };
 export const toSearchMetadata = (
   q: string,
@@ -94,4 +96,14 @@ export const toSearchMetadata = (
   rows: 0,
   sort: [],
   ...metadata.params,
+});
+
+export const toFilterFacet = (
+  filter: string
+): { [field: string]: ITermsFacetParam } => ({
+  [filter]: {
+    field: filter,
+    type: 'terms',
+    limit: -1,
+  },
 });

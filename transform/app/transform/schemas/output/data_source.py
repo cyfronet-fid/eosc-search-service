@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Data source expected schema after transformations"""
 
 data_source_output_schema = {
@@ -35,6 +36,7 @@ data_source_output_schema = {
     "persistent_identity_systems_entity_type_schemes": "array<array<string>>",
     "pid": "string",
     "platforms": "array<string>",
+    "popularity": "int",
     "preservation_policy_url": "string",
     "pricing_url": "string",
     "privacy_policy_url": "string",

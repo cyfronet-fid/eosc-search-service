@@ -30,14 +30,6 @@ export const trainingsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'access_right',
-      filter: 'access_right',
-      label: 'Access right',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-    {
       id: 'resource_type',
       filter: 'resource_type',
       label: 'Resource type',

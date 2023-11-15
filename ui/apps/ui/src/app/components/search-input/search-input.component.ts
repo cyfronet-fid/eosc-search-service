@@ -74,6 +74,7 @@ export class SearchInputComponent implements OnInit {
     { name: 'Keyword' },
     { name: 'None of' },
   ];
+  isProviderCollection = false;
 
   faMagnifyingGlass = faMagnifyingGlass;
   formControl = new UntypedFormControl();
@@ -88,7 +89,7 @@ export class SearchInputComponent implements OnInit {
   );
 
   collectionFcAdvForm = new FormControl<ICollectionTagsConfig>(
-    this.collectionFcAdv[0],
+    this.collectionFcAdv[2],
     { nonNullable: true }
   );
 
@@ -226,6 +227,9 @@ export class SearchInputComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._customRoute.collection$.subscribe((val) => {
+      this.isProviderCollection = val === 'provider';
+    });
     this._customRoute.q$
       .pipe(
         untilDestroyed(this),
@@ -333,7 +337,10 @@ export class SearchInputComponent implements OnInit {
       );
 
     if (!this.withAuthor()) {
-      if (this.collectionFcAdvForm.value.name === 'Author') {
+      if (
+        this.collectionFcAdvForm.value.name === 'Author' ||
+        this.isProviderCollection
+      ) {
         this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
       }
     } else {
@@ -368,6 +375,7 @@ export class SearchInputComponent implements OnInit {
       queryParams: {
         q: sanitizeQuery(q) ?? '*',
         tags: this.tags,
+        cursor: '*',
         standard: this.standardSearch.toString(),
         exact: this.exactmatch.toString().toLowerCase(),
         radioValueAuthor: this.radioValueAuthor,
@@ -393,6 +401,7 @@ export class SearchInputComponent implements OnInit {
       queryParams: {
         q: sanitizeQuery(q) ?? '*',
         tags: this.tags,
+        cursor: '*',
         standard: this.standardSearch.toString(),
         exact: this.exactmatch.toString().toLowerCase(),
         radioValueAuthor: this.radioValueAuthor,
@@ -432,7 +441,10 @@ export class SearchInputComponent implements OnInit {
     }
 
     if (!this.withAuthor()) {
-      if (this.collectionFcAdvForm.value.name === 'Author') {
+      if (
+        this.collectionFcAdvForm.value.name === 'Author' ||
+        this.isProviderCollection
+      ) {
         this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
       }
     } else {
@@ -463,6 +475,12 @@ export class SearchInputComponent implements OnInit {
         break;
       default:
         return label;
+    }
+  }
+  clearInput($event: unknown) {
+    this.formControl.setValue('');
+    if (!this.standardSearch) {
+      this.removeAll($event);
     }
   }
 }

@@ -1,13 +1,23 @@
 import { createStore, select, withProps } from '@ngneat/elf';
 import { Injectable } from '@angular/core';
-import { Observable, distinctUntilChanged, filter, map } from 'rxjs';
+import { Observable, distinctUntilChanged, filter, map, tap } from 'rxjs';
 import { isEqual } from 'lodash-es';
 import { ICustomRouteProps } from './custom-route.type';
-import { queryParamsMapFrom } from '@collections/services/custom-route.utils';
+import {
+  getFiltersFromTags,
+  queryParamsMapFrom,
+} from '@collections/services/custom-route.utils';
 import { toArray } from '@collections/filters-serializers/utils';
 import { serializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { DEFAULT_SORT } from '@components/sort-by-functionality/sort-value.type';
+import { toSearchMetadata } from '@components/filters/utils';
+import { toFilterFacet } from '@components/filters/utils';
+import {
+  ICollectionSearchMetadata,
+  ITermsFacetParam,
+} from '@collections/repositories/types';
+import { FilterService } from '@components/filters/filters.service';
 
 const DEFAULT_PARAMS = {
   collection: null,
@@ -78,7 +88,10 @@ export class CustomRoute {
       distinctUntilChanged(isEqual)
     );
 
-  constructor(private _filtersConfigsRepository: FiltersConfigsRepository) {}
+  constructor(
+    private _filtersConfigsRepository: FiltersConfigsRepository,
+    private _filterService: FilterService
+  ) {}
 
   // SYNC
   fqMap() {
@@ -108,14 +121,22 @@ export class CustomRoute {
   }
 
   // Internal state updates
-  _updateParamsBy(collection: string, currentUrl: string) {
+  _updateParamsBy(collection: string, currentUrl: string): ICustomRouteProps {
     const parsedQueryParams = queryParamsMapFrom(currentUrl);
-    this._store$.update(() => ({
+    const q = (parsedQueryParams['q'] as string | undefined) ?? '*';
+
+    if (this._store$.getValue().collection !== collection) {
+      this._filtersConfigsRepository.clear();
+    }
+
+    const fq = toArray(parsedQueryParams['fq']);
+
+    const routeProps = {
       ...DEFAULT_PARAMS,
       ...parsedQueryParams,
       collection: collection,
-      fq: toArray(parsedQueryParams['fq']),
-      q: (parsedQueryParams['q'] as string | undefined) ?? '*',
+      fq: fq,
+      q: q,
       exact: (parsedQueryParams['exact'] as string | undefined) ?? 'false',
       radioValueAuthor:
         (parsedQueryParams['radioValueAuthor'] as string | undefined) ?? 'A',
@@ -125,8 +146,74 @@ export class CustomRoute {
         (parsedQueryParams['radioValueTitle'] as string | undefined) ?? 'A',
       radioValueKeyword:
         (parsedQueryParams['radioValueKeyword'] as string | undefined) ?? 'A',
-    }));
+    };
+
+    this._store$.update(() => routeProps);
+    return routeProps;
   }
+
+  fetchFilters$(q: string, fq: string[], collection: string) {
+    const fqArray = getFiltersFromTags(
+      this._store$.getValue().tags,
+      this._store$.getValue().radioValueAuthor,
+      this._store$.getValue().radioValueExact,
+      this._store$.getValue().radioValueTitle,
+      this._store$.getValue().radioValueKeyword
+    );
+
+    const metadata = this._filterService.searchMetadataRepository.get(
+      collection
+    ) as ICollectionSearchMetadata;
+
+    const filtersConfig = this._filtersConfigsRepository.get(
+      this.collection()
+    ).filters;
+    const filtersBatch: string[] = [];
+    const facetsBatch: { [facet: string]: ITermsFacetParam }[] = [];
+
+    const AVAILABLE_FILTERS_TYPES: string[] = [
+      'multiselect',
+      'date-year',
+      'date-calendar',
+      'range',
+    ];
+
+    filtersConfig
+      .filter((filterConfig) =>
+        AVAILABLE_FILTERS_TYPES.includes(filterConfig.type)
+      )
+      .forEach((filterConfig) => {
+        const filter = filterConfig.filter;
+        const facetParams = toFilterFacet(filter);
+        filtersBatch.push(filter);
+        facetsBatch.push({ [filter]: facetParams[filter] });
+      });
+
+    this._filtersConfigsRepository.setLoading(true);
+
+    return this._filterService
+      .fetchTreeNodes$(
+        filtersBatch,
+        toSearchMetadata(
+          q,
+          this._store$.getValue().exact,
+          [...fqArray, ...fq],
+          metadata
+        ),
+        facetsBatch
+      )
+      .pipe(
+        tap((nodes) => {
+          this._filtersConfigsRepository.setFilterNodes(
+            collection,
+            nodes,
+            this.fqMap()
+          );
+          this._filtersConfigsRepository.setLoading(false);
+        })
+      );
+  }
+
   setCollection(collection: string | null) {
     return this._store$.update((state) => ({
       ...state,

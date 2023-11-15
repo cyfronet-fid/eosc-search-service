@@ -1,5 +1,7 @@
+# pylint: disable=duplicate-code
 """Transform other research products"""
 from app.transform.transformers.base.oag import OagBaseTransformer
+from app.transform.schemas.output.other_rp import other_rp_output_schema
 
 
 class OtherRPTransformer(OagBaseTransformer):
@@ -7,7 +9,15 @@ class OtherRPTransformer(OagBaseTransformer):
 
     def __init__(self, spark):
         self.type = "other"
-        super().__init__(self.type, self.cols_to_add, self.cols_to_drop, spark)
+        self.exp_output_schema = other_rp_output_schema
+
+        super().__init__(
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.exp_output_schema,
+            spark,
+        )
 
     @property
     def cols_to_add(self) -> None:

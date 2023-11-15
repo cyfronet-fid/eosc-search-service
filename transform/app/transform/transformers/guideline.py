@@ -1,20 +1,28 @@
-# pylint: disable=line-too-long, invalid-name, logging-fstring-interpolation, too-many-locals, fixme
+# pylint: disable=line-too-long, invalid-name, logging-fstring-interpolation, too-many-locals, duplicate-code, fixme
 """Transform interoperability guidelines"""
+from itertools import chain
 import logging
 from datetime import datetime
 import json
 
 import pandas as pd
 from pandas import DataFrame
-from app.transform.schemas.properties_name import (
+from app.transform.schemas.properties.data import (
     DOI,
     URI,
     AUTHOR_NAMES,
     AUTHOR_NAMES_TG,
     TYPE,
+    ALTERNATIVE_IDS,
 )
+from app.transform.schemas.output.guideline import guideline_output_schema
+from app.transform.schemas.input.guideline import guideline_input_schema
+from app.transform.utils.validate import validate_pd_schema
+
 
 logger = logging.getLogger(__name__)
+
+IG_TYPE = "interoperability guideline"
 
 IDENTIFIER_INFO = "identifierInfo"
 IDENTIFIER = "identifier"
@@ -187,7 +195,7 @@ def harvest_authors_names(df: DataFrame) -> None:
 
     df[CREATORS] = df[CREATORS].apply(rename_creators)
     # Serialize creators
-    df[CREATORS] = df[CREATORS].apply(lambda x: json.dumps(x, indent=2))
+    df[CREATORS] = df[CREATORS].apply(lambda x: json.dumps(x))
 
 
 def map_str_to_arr(df: DataFrame, cols: list) -> None:
@@ -201,6 +209,7 @@ def rename_cols(df: DataFrame) -> None:
 
     def mapping_dict() -> dict:
         return {
+            "alternativeIdentifiers": "alternative_ids",
             "publicationYear": "publication_year",
             "catalogueId": "catalogue",
             "created": "publication_date",
@@ -293,19 +302,53 @@ def harvest_rights(df: DataFrame) -> None:
     df.drop(RIGHTS, inplace=True, axis=1)
 
 
-def transform_guidelines(df: str) -> DataFrame:
-    """Transform guidelines"""
-    df = pd.DataFrame(df)
+def serialize_alternative_ids(df: DataFrame) -> None:
+    """Serialize alternative_ids"""
+    column = df[ALTERNATIVE_IDS]
+    df[ALTERNATIVE_IDS] = [
+        json.dumps(alter_ids) for alter_ids in chain.from_iterable(column)
+    ]
 
-    df[TYPE] = "interoperability guideline"
+
+def transform_guidelines(data: str) -> DataFrame:
+    """Transform guidelines"""
+    df = pd.DataFrame(data)
+
+    try:  # validate input schema
+        validate_pd_schema(df, guideline_input_schema, IG_TYPE, "input")
+    except AssertionError:
+        logger.warning(
+            f"Schema validation of raw input data for type={IG_TYPE} has failed. Input schema is different than excepted"
+        )
+
+    df[TYPE] = IG_TYPE
     rename_cols(df)
     map_str_to_arr(df, ["title", "description"])
     ts_to_iso(df, ["publication_date", "updated_at"])
+
+    if ALTERNATIVE_IDS in df.columns:
+        serialize_alternative_ids(df)
+    else:
+        del guideline_output_schema[ALTERNATIVE_IDS]
 
     harvest_identifiers(df)
     harvest_authors_names(df)
     harvest_type_info(df)
     harvest_related_standards(df)
     harvest_rights(df)
+    df = df.reindex(sorted(df.columns), axis=1)
 
-    return df.reindex(sorted(df.columns), axis=1)
+    try:  # validate output schema
+        validate_pd_schema(df, guideline_output_schema, IG_TYPE, "output")
+    except AssertionError:
+        logger.warning(
+            f"Schema validation after transformation failed for type={IG_TYPE} has failed. Output schema is different than excepted"
+        )
+
+    columns_to_get = [
+        _col for _col in guideline_output_schema.keys() if _col in df.columns
+    ]
+    # Take only those columns that are present in the expected output schema and exists in df
+    df = df[columns_to_get]
+
+    return df

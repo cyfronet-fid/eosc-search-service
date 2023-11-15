@@ -10,12 +10,15 @@ from .presentable import router as presentable_router
 from .recommendation import router as recommendation_router
 from .related_services import router as related_services_router
 from .research_product import router as rp_router
-from .search import router as search_router
+from .search_filters import router as filters_router
+from .search_results import router as results_router
 from .search_suggestions import router as suggestions_router
 from .user_actions import router as user_actions_router
 
 web_api_router = APIRouter()
-web_api_router.include_router(search_router)
+web_api_router.include_router(results_router)
+web_api_router.include_router(suggestions_router)
+web_api_router.include_router(filters_router)
 web_api_router.include_router(auth_router, prefix="/auth", tags=["auth"])
 web_api_router.include_router(mocks_router, tags=["mocks"])
 web_api_router.include_router(user_actions_router, tags=["user_actions"])

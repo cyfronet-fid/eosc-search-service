@@ -7,6 +7,7 @@ import { TrainingsPageModule } from '@pages/trainings-page/trainings-page.module
 import { AcceptableUsePolicyModule } from '@pages/acceptable-use-policy/acceptable-use-policy.module';
 import { PrivacyPolicyModule } from '@pages/privacy-policy/privacy-policy.module';
 import { GuidelinesPageModule } from '@pages/guidelines-page/guidelines-page.module';
+import { AdvSearchGuideModule } from '@pages/adv-search-guide/adv-search-guide.module';
 
 @NgModule({
   imports: [
@@ -37,6 +38,11 @@ import { GuidelinesPageModule } from '@pages/guidelines-page/guidelines-page.mod
         path: 'acceptable-use-policy',
         pathMatch: 'full',
         loadChildren: () => AcceptableUsePolicyModule,
+      },
+      {
+        path: 'asguide',
+        pathMatch: 'full',
+        loadChildren: () => AdvSearchGuideModule,
       },
       {
         path: 'privacy-policy',

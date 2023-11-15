@@ -6,33 +6,33 @@ import logging
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
 from botocore.exceptions import ClientError, EndpointConnectionError
-from app.transform.utils.loader import (
+from app.transform.schemas.properties.env import (
     ALL_COLLECTION,
     OUTPUT_PATH,
-    SOLR_ADDRESS,
+    OUTPUT_FORMAT,
     SOLR_PORT,
-    SOLR_COL_NAMES,
+    SOLR_ADDRESS,
     SEND_TO_SOLR,
+    SOLR_COL_NAMES,
     SEND_TO_S3,
-    S3_DUMP_NAME,
-    S3_CLIENT,
     S3_BUCKET,
+    S3_CLIENT,
+    S3_DUMP_NAME,
     CREATE_LOCAL_DUMP,
     LOCAL_DUMP_PATH,
     DATASET,
+    OTHER_RP,
     PUBLICATION,
     SOFTWARE,
-    OTHER_RP,
-    TRAINING,
-    SERVICE,
-    DATASOURCE,
-    OUTPUT_FORMAT,
-    GUIDELINE,
-    PROVIDER,
-    OFFER,
     BUNDLE,
+    DATASOURCE,
+    GUIDELINE,
+    OFFER,
+    PROVIDER,
+    SERVICE,
+    TRAINING,
 )
-
+from app.services.solr.errors import SolrException
 
 logger = logging.getLogger(__name__)
 
@@ -88,16 +88,18 @@ def send_json_string_to_solr(
             req = requests.post(url, data=data, headers=req_headers, timeout=180)
             if req.status_code == 200:
                 logger.info(
-                    f"Solr update was successful. Collection name={col_name}, status={req.status_code}"
+                    f"{req.status_code} update was successful. Data type={col_name}, solr_col={s_col_name}"
                 )
             else:
                 logger.error(
-                    f"Solr update has failed. Collection name={col_name}, status={req.status_code}"
+                    f"{req.status_code} update failed. Data type={col_name}, solr_col={s_col_name}. Data has failed to be sent to Solr. Details: {req.json()}"
                 )
+                raise SolrException(req.json())
         except ReqConnectionError as e:
             logger.error(
-                f"Solr update has failed. Collection name={col_name}, error={e}"
+                f"Connection failed {url=}. Update failed. Data type={col_name}, solr_col={s_col_name}. Solr is not reachable. Details: {e}"
             )
+            raise SolrException(e)
 
 
 def send_to_solr(

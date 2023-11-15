@@ -2,12 +2,14 @@
 """Transform OAG resources"""
 from abc import abstractmethod
 from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql.functions import lit
 from pyspark.sql.types import (
     StructType,
     StructField,
     StringType,
     ArrayType,
     BooleanType,
+    IntegerType,
 )
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
@@ -21,18 +23,21 @@ from app.transform.utils.common import (
     map_publisher,
     simplify_language,
     map_language,
+    harvest_exportation,
     harvest_funder,
+    harvest_data_source,
     harvest_url_and_document_type,
     harvest_country,
     harvest_research_community,
     harvest_pids,
     harvest_relations,
+    harvest_popularity,
     transform_date,
     create_unified_categories,
     simplify_indicators,
 )
 from app.transform.utils.utils import sort_schema
-from app.transform.schemas.properties_name import *
+from app.transform.schemas.properties.data import *
 
 
 class OagBaseTransformer(BaseTransformer):
@@ -43,17 +48,25 @@ class OagBaseTransformer(BaseTransformer):
         desired_type: str,
         cols_to_add: tuple[str, ...] | None,
         cols_to_drop: tuple[str, ...] | None,
+        exp_output_schema: dict,
         spark: SparkSession,
     ):
         super().__init__(
-            desired_type, cols_to_add, cols_to_drop, self.cols_to_rename, spark
+            desired_type,
+            cols_to_add,
+            cols_to_drop,
+            self.cols_to_rename,
+            exp_output_schema,
+            spark,
         )
+        self.catalogue_name = "eosc"
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:
         """Apply simple transformations.
         Simple in a way that there is a possibility to manipulate the main dataframe
         without a need to create another dataframe and merging"""
         check_type(df, desired_type=self.type)
+        df = df.withColumn(CATALOGUE, lit(self.catalogue_name))
         df = self.rename_cols(df)
         df = simplify_language(df)
         df = simplify_indicators(df)
@@ -77,7 +90,10 @@ class OagBaseTransformer(BaseTransformer):
         harvest_research_community(df, self.harvested_properties)
         harvest_relations(df, self.harvested_properties)
         harvest_eosc_if(df, self.harvested_properties)
+        harvest_popularity(df, self.harvested_properties)
         create_unified_categories(df, self.harvested_properties)
+        harvest_exportation(df, self.harvested_properties)
+        harvest_data_source(df, self.harvested_properties)
 
         return df
 
@@ -91,13 +107,16 @@ class OagBaseTransformer(BaseTransformer):
                     StructField(AUTHOR_PIDS, ArrayType(ArrayType(StringType())), True),
                     StructField(BEST_ACCESS_RIGHT, StringType(), True),
                     StructField(COUNTRY, ArrayType(StringType()), True),
+                    StructField(DATA_SOURCE, ArrayType(StringType()), True),
                     StructField(DOCUMENT_TYPE, ArrayType(StringType()), True),
                     StructField(DOI, ArrayType(StringType()), True),
                     StructField(EOSC_IF, ArrayType(StringType()), True),
+                    StructField(EXPORTATION, ArrayType(StringType()), True),
                     StructField(FUNDER, ArrayType(StringType()), True),
                     StructField(LANGUAGE, ArrayType(StringType()), True),
                     StructField(OPEN_ACCESS, BooleanType(), True),
                     StructField(PIDS, StringType(), True),
+                    StructField(POPULARITY, IntegerType(), True),
                     StructField(RELATIONS, ArrayType(StringType()), True),
                     StructField(RELATIONS_LONG, ArrayType(StringType()), True),
                     StructField(RESEARCH_COMMUNITY, ArrayType(StringType()), True),

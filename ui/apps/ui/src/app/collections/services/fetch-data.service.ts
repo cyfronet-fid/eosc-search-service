@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import {
+  IFacetBucket,
   IResult,
   ISearchResults,
   ISolrCollectionParams,
@@ -17,18 +18,23 @@ import { environment } from '@environment/environment';
 import {
   _EMPTY_CITATION_RESPONSE,
   _EMPTY_EXPORT_RESPONSE,
+  _EMPTY_FACETS_RESPONSE,
   _EMPTY_RESPONSE,
   _EMPTY_SUGGESTIONS_RESPONSE,
 } from '../repositories/initial-states';
 import { PaginationRepository } from '@components/results-with-pagination/pagination.repository';
-import { SuggestionResponse } from '@components/search-input/types';
 import { BibliographyRecord, Citation } from '@components/bibliography/types';
+import {
+  FacetsResponse,
+  SuggestionResponse,
+} from '@components/search-input/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FetchDataService {
-  _search_url = `/${environment.backendApiPath}/${environment.search.apiPath}`;
+  _urlResults = `/${environment.backendApiPath}/${environment.search.apiResultsPath}`;
+  _urlFilters = `/${environment.backendApiPath}/${environment.search.apiFiltersPath}`;
   _suggestions_url = `/${environment.backendApiPath}/${environment.search.suggestionsPath}`;
   _export_url = `/${environment.backendApiPath}/${environment.search.bibExportPath}`;
   _cite_url = `/${environment.backendApiPath}/${environment.search.bibCitationPath}`;
@@ -47,19 +53,22 @@ export class FetchDataService {
     this._paginationRepository.setLoading(true);
     return this._http
       .post<ISearchResults<T>>(
-        this._search_url,
+        this._urlResults,
         { facets },
         { params: params as never }
       )
       .pipe(
         catchError(() => of(_EMPTY_RESPONSE)),
-        tap(() => this._paginationRepository.setLoading(false)),
+        tap(() => {
+          // this._paginationRepository.setLoading(false);
+        }),
         map((response: ISearchResults<T>) => ({
           results: response.results.map((result) => adapter(result)),
           numFound: response.numFound,
           nextCursorMark: response.nextCursorMark,
           facets: response.facets,
           highlighting: response.highlighting,
+          isError: response.isError,
         }))
       );
   }
@@ -78,13 +87,16 @@ export class FetchDataService {
       )
       .pipe(
         catchError(() => of(_EMPTY_RESPONSE)),
-        tap(() => this._paginationRepository.setLoading(false)),
+        tap(() => {
+          // this._paginationRepository.setLoading(false);
+        }),
         map((response: ISearchResults<T>) => ({
           results: response.results.map((result) => adapter(result)),
           numFound: response.numFound,
           nextCursorMark: response.nextCursorMark,
           facets: response.facets,
           highlighting: response.highlighting,
+          isError: response.isError,
         }))
       );
   }
@@ -102,18 +114,54 @@ export class FetchDataService {
       .pipe(
         catchError(() => of(_EMPTY_SUGGESTIONS_RESPONSE)),
 
-        tap(() => this._paginationRepository.setLoading(false))
+        tap(() => {
+          this._paginationRepository.setLoading(false);
+        })
+      );
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  fetchFilters$<T extends { id: string }>(
+    params: ISolrCollectionParams & ISolrQueryParams,
+    facets: { [field: string]: ITermsFacetParam | IStatFacetParam }[]
+  ): Observable<{
+    [field: string]: ITermsFacetResponse | IStatFacetResponse;
+  }> {
+    const mergedFacets = facets.reduce(
+      (acc, facet) => ({ ...acc, ...facet }),
+      {}
+    );
+
+    return this._http
+      .post<FacetsResponse>(
+        this._urlFilters,
+        { facets: mergedFacets },
+        { params: params as never }
+      )
+      .pipe(
+        catchError(() => of(_EMPTY_FACETS_RESPONSE)),
+        map((results: { [field: string]: IFacetBucket[] }) => {
+          const convertedResponse: { [field: string]: ITermsFacetResponse } =
+            {};
+
+          for (const field of Object.keys(results)) {
+            convertedResponse[field] = { buckets: results[field] };
+          }
+          return convertedResponse;
+        })
       );
   }
 
   fetchFacets$<T extends { id: string }>(
     params: ISolrCollectionParams & ISolrQueryParams,
-    facets: { [field: string]: ITermsFacetParam | IStatFacetParam }
-  ): Observable<{ [field: string]: ITermsFacetResponse | IStatFacetResponse }> {
+    facets: { [field: string]: ITermsFacetParam | IStatFacetParam }[]
+  ): Observable<{
+    [field: string]: ITermsFacetResponse | IStatFacetResponse;
+  }> {
     return this._http
       .post<ISearchResults<T>>(
-        this._search_url,
-        { facets },
+        this._urlResults,
+        { facets: facets[0] },
         { params: params as never }
       )
       .pipe(

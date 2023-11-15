@@ -1,6 +1,8 @@
+# pylint: disable=duplicate-code
 """Training expected schema after transformations"""
 
 training_output_schema = {
+    "alternative_ids": "array<string>",
     "author_names": "array<string>",
     "author_names_tg": "array<string>",
     "best_access_right": "string",

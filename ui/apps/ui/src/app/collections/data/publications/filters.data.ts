@@ -71,7 +71,7 @@ export const publicationsFilters: IFiltersConfig = {
       id: 'publisher',
       filter: 'publisher',
       label: 'Publisher',
-      type: 'tag',
+      type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
     },

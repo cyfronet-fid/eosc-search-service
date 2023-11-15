@@ -1,3 +1,4 @@
+# pylint: disable-all
 # import json
 # from unittest.mock import patch
 #

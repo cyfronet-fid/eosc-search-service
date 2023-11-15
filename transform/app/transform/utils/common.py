@@ -6,10 +6,11 @@ from itertools import chain
 from logging import getLogger
 import json
 
-from pyspark.errors import AnalysisException
+from pyspark.sql.utils import AnalysisException
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, when, to_date, lit
 
+from app.services.mp_pc.data import data_source_pids_list
 from app.transform.schemas.mappings import (
     access_rights_mapping,
     OPEN_ACCESS_,
@@ -23,41 +24,44 @@ from app.transform.mappings.scientific_doamin import (
     scientific_domains_mapping,
     mp_sd_structure,
 )
-from app.transform.schemas.properties_name import (
+from app.transform.schemas.properties.data import (
     AUTHOR,
     AUTHOR_NAMES,
+    AUTHOR_NAMES_TG,
     AUTHOR_PIDS,
-    TYPE,
-    FOS,
-    SDG,
-    SUBJECT,
     BEST_ACCESS_RIGHT,
-    OPEN_ACCESS,
-    PUBLISHER,
-    LANGUAGE,
-    PROJECTS,
-    FUNDER,
-    INSTANCE,
-    URL,
-    DOCUMENT_TYPE,
     COUNTRY,
     CONTEXT,
-    RESEARCH_COMMUNITY,
-    PID,
+    DATA_SOURCE,
+    DOCUMENT_TYPE,
     DOI,
-    RELATIONS,
-    RELATIONS_LONG,
-    UNIFIED_CATEGORIES,
     DOWNLOADS,
-    VIEWS,
-    AUTHOR_NAMES_TG,
+    EOSC_IF,
+    EXPORTATION,
+    FOS,
+    FUNDER,
+    INSTANCE,
     KEYWORDS,
     KEYWORDS_TG,
+    LANGUAGE,
+    OPEN_ACCESS,
+    PID,
+    PIDS,
+    POPULARITY,
+    PROJECTS,
+    PUBLISHER,
+    RESEARCH_COMMUNITY,
+    RELATIONS,
+    RELATIONS_LONG,
+    SCIENTIFIC_DOMAINS,
+    SDG,
+    SUBJECT,
     TAG_LIST,
     TAG_LIST_TG,
-    EOSC_IF,
-    PIDS,
-    SCIENTIFIC_DOMAINS,
+    TYPE,
+    UNIFIED_CATEGORIES,
+    URL,
+    VIEWS,
 )
 from app.transform.utils.utils import extract_digits_and_trim
 
@@ -494,6 +498,30 @@ def harvest_research_community(df: DataFrame, harvested_properties: dict) -> Non
     harvested_properties[RESEARCH_COMMUNITY] = rc_column
 
 
+def extract_pids(pid_list):
+    """
+    Extract PID information from a list of PIDs and return it as a dictionary.
+    Args:
+        pid_list (list): List of PIDs.
+    Returns:
+        dict: Dictionary containing PID information categorized by scheme.
+    """
+    pids_row = {
+        "arXiv": [],
+        "doi": [],
+        "handle": [],
+        "pdb": [],
+        "pmc": [],
+        "pmid": [],
+        "w3id": [],
+    }
+
+    for pid in pid_list:
+        pids_row[pid["scheme"]].append(pid["value"])
+
+    return pids_row
+
+
 def harvest_pids(df: DataFrame, harvested_properties: dict) -> None:
     """Harvest DOI from OAG resources"""
     pids_raw_column = df.select(PID).collect()
@@ -501,17 +529,7 @@ def harvest_pids(df: DataFrame, harvested_properties: dict) -> None:
 
     for pids_list in pids_raw_column:
         pids = pids_list[PID] or []
-        pids_row = {
-            "arXiv": [],
-            "doi": [],
-            "handle": [],
-            "pdb": [],
-            "pmc": [],
-            "pmid": [],
-            "w3id": [],
-        }
-        for pid in pids:
-            pids_row[pid["scheme"]].append(pid["value"])
+        pids_row = extract_pids(pids)
         pids_column.append(json.dumps(pids_row))
     harvested_properties[PIDS] = pids_column
 
@@ -565,6 +583,22 @@ def harvest_eosc_if(df: DataFrame, harvested_properties: dict):
             eosc_if_col.append([])
 
     harvested_properties[EOSC_IF] = eosc_if_col
+
+
+def harvest_popularity(df: DataFrame, harvested_properties: dict):
+    """Harvest popularity as a sum of usage_counts_views and usage_counts_downloads"""
+    views_collection = df.select("usage_counts_views").collect()
+    downloads_collection = df.select("usage_counts_downloads").collect()
+    popularity_col = []
+
+    for views, downloads in zip(
+        chain.from_iterable(views_collection), chain.from_iterable(downloads_collection)
+    ):
+        views = views or 0
+        downloads = downloads or 0
+        popularity_col.append(int(views) + int(downloads))
+
+    harvested_properties[POPULARITY] = popularity_col
 
 
 def transform_date(df: DataFrame, col_name: str, date_format: str) -> DataFrame:
@@ -627,6 +661,111 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
         df = df.withColumn(TAG_LIST_TG, col(TAG_LIST))
 
     return df
+
+
+def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
+    """
+    Harvest exportation information from instances within the DataFrame
+    Args:
+        df (DataFrame): Input DataFrame containing instance information.
+        harvested_properties (dict): Dictionary to store harvested properties.
+    Assumptions:
+        - Only the first 10 versions of each instance are harvested; subsequent versions are skipped
+          (approx. 0.2% of data is skipped).
+    For each instance:
+    - Extracted Fields:
+        - URL: URL of the instance.
+        - Type: Type of the instance.
+        - Publication Year: Year of publication from the publication date.
+        - License: License information.
+        - PIDs: Persistent identifiers associated with the instance.
+        - Hosted By: The entity hosting the instance.
+    The extracted information is structured into a list of dictionaries for each instance and stored in
+    'harvested_properties[EXPORTATION]'.
+    Note:
+    - 'instance_idx' is used to limit harvesting to the first 10 versions of each instance.
+    """
+    instances_list = df.select(INSTANCE).collect()
+    exportation_column = []
+    instances_limit = 10
+
+    for instances in instances_list:
+        if instances[INSTANCE]:
+            exportation_row = []
+
+            for instance_idx, instance in enumerate(instances[INSTANCE]):
+                if instance_idx >= instances_limit:
+                    break
+
+                instance_url = instance[URL] or None
+                instance_exportation_type = instance["type"] or None
+                instance_publication_year = (
+                    instance["publicationdate"][0:4]
+                    if instance["publicationdate"]
+                    else None
+                )
+                instance_license = instance["license"] or None
+
+                pids = instance["pid"] or []
+                instance_pids = extract_pids(pids)
+
+                instance_hostedby = instance["hostedby"]["value"] or None
+
+                exportation_instance = {
+                    "url": instance_url,
+                    "document_type": instance_exportation_type,
+                    "publication_year": instance_publication_year,
+                    "license": instance_license,
+                    "pids": instance_pids,
+                    "hostedby": instance_hostedby,
+                }
+
+                exportation_row.append(json.dumps(exportation_instance))
+
+            exportation_column.append(exportation_row)
+        else:
+            exportation_column.append([])
+
+    harvested_properties[EXPORTATION] = exportation_column
+
+
+def harvest_data_source(df: DataFrame, harvested_properties: dict) -> None:
+    """
+    Harvest data source information from instances within the DataFrame
+
+    Args:
+        df (DataFrame): Input DataFrame containing instance information.
+        harvested_properties (dict): Dictionary to store harvested properties.
+
+    Assumptions:
+        This function process a DataFrame containing information about data sources.
+        It checks each data source against the EOSC Marketplace API.
+        If a data source exists in the EOSC Marketplace API, it is added to row for research product.
+
+    Returns:
+        None
+    """
+    data_source_list = data_source_pids_list()
+
+    instances_list = df.select(INSTANCE).collect()
+    data_source_column = []
+
+    for instances in instances_list:
+        if instances[INSTANCE]:
+            data_source_row_set = set()
+
+            for instance in instances[INSTANCE]:
+                eosc_ds_id = instance["eoscDsId"] or []
+
+                for ds_id in eosc_ds_id:
+                    if ds_id in data_source_list:
+                        data_source_row_set.update([ds_id])
+
+            data_source_column.append(list(data_source_row_set))
+        else:
+            data_source_column.append([])
+
+    harvested_properties[DATA_SOURCE] = data_source_column
 
 
 def remove_commas(

@@ -18,13 +18,16 @@ from app.solr.operations import get, search
 
 
 async def get_recommended_uuids(
-    client: AsyncClient, session: SessionData | None, collection: Collection
+    client: AsyncClient,
+    session: SessionData | None,
+    collection: Collection,
+    recommendation_visit_id: str,
 ):
     try:
         request_body = {
             "unique_id": session.session_uuid if session else str(uuid.uuid4()),
             "timestamp": datetime.datetime.utcnow().isoformat()[:-3] + "Z",
-            "visit_id": str(uuid.uuid4()),
+            "visit_id": recommendation_visit_id,
             "page_id": "/search/" + collection,
             "panel_id": _get_panel(collection),
             "candidates": {},

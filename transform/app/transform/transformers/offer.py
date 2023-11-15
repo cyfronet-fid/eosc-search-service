@@ -1,4 +1,4 @@
-# pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
+# pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import, duplicate-code
 """Transform offers"""
 from pyspark.sql.functions import split, col, lit
 from pyspark.sql import SparkSession, DataFrame
@@ -7,11 +7,17 @@ from pyspark.sql.types import (
     StructField,
     StringType,
     BooleanType,
+    IntegerType,
 )
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.utils.common import map_best_access_right, create_open_access
+from app.transform.utils.common import (
+    map_best_access_right,
+    create_open_access,
+    harvest_popularity,
+)
 from app.transform.utils.utils import sort_schema
-from app.transform.schemas.properties_name import *
+from app.transform.schemas.properties.data import *
+from app.transform.schemas.output.offer import offer_output_schema
 
 OFFER_IDS_INCREMENTOR = 10_000
 
@@ -22,9 +28,15 @@ class OfferTransformer(BaseTransformer):
     def __init__(self, spark: SparkSession):
         self.type = "offer"
         self.id_increment = OFFER_IDS_INCREMENTOR
+        self.exp_output_schema = offer_output_schema
 
         super().__init__(
-            self.type, self.cols_to_add, self.cols_to_drop, self.cols_to_rename, spark
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.cols_to_rename,
+            self.exp_output_schema,
+            spark,
         )
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:
@@ -43,6 +55,7 @@ class OfferTransformer(BaseTransformer):
         which will be later on merged with the main dataframe"""
         df = map_best_access_right(df, self.harvested_properties, self.type)
         create_open_access(self.harvested_properties)
+        harvest_popularity(df, self.harvested_properties)
 
         return df
 
@@ -64,6 +77,7 @@ class OfferTransformer(BaseTransformer):
                 [
                     StructField(BEST_ACCESS_RIGHT, StringType(), True),
                     StructField(OPEN_ACCESS, BooleanType(), True),
+                    StructField(POPULARITY, IntegerType(), True),
                 ]
             )
         )

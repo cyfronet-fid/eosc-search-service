@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring
+# pylint: disable=missing-module-docstring, too-many-locals
 import logging
 import urllib.parse
 import uuid
@@ -84,6 +84,10 @@ async def register_navigation_user_action(
         logger.debug("No mqtt client, user action not sent")
         return response
 
+    # For now, the recommendation visit id will be stored in cookies by itself,
+    # not connected to any session.
+    recommendation_visit_id = request.cookies.get("recommendation_visit_id")
+
     background_tasks.add_task(
         send_user_action_bg_task,
         client,
@@ -94,6 +98,7 @@ async def register_navigation_user_action(
         resource_type,
         recommendation,
         str(target_id),
+        recommendation_visit_id,
     )
     return response
 

@@ -1,9 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { ActivatedRoute } from '@angular/router';
-import { filter, map } from 'rxjs';
-import { IFiltersConfig } from '@collections/repositories/types';
+import { Observable, combineLatest, debounceTime, filter, map } from 'rxjs';
+import {
+  IFilterConfig,
+  IFilterConfigUI,
+  IFiltersConfig,
+  filterUIEntitiesRef,
+} from '@collections/repositories/types';
+import { selectEntities } from '@ngneat/elf-entities';
 
 @UntilDestroy()
 @Component({
@@ -12,21 +19,19 @@ import { IFiltersConfig } from '@collections/repositories/types';
     <section id="filters">
       <h5>Filters</h5>
       <ng-container *ngIf="isResultsEmpty; else showResultsRef">
-        <i class="text-muted text-sm" i18n
-          >No filters are available as there is no data to be filtered</i
-        >
+        <i class="text-muted text-sm" i18n>{{ emptyFiltersMessage }}</i>
       </ng-container>
       <ng-template #showResultsRef>
         <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
           <ng-container [ngSwitch]="filterConfig.type">
             <ess-filter-multiselect
               *ngSwitchCase="'multiselect'"
+              [isLoading]="!!(isLoading$ | async)"
               [label]="filterConfig.label"
               [filter]="filterConfig.filter"
               [isExpanded]="!filterConfig.defaultCollapsed"
               [tooltipText]="filterConfig.tooltipText"
-              [onValuesFetch]="filterConfig.onFacetsFetch"
-              [customSort]="filterConfig.customSort"
+              [options]="filterConfig.options"
             ></ess-filter-multiselect>
             <ess-filter-date-year
               *ngSwitchCase="'date-year'"
@@ -62,15 +67,39 @@ import { IFiltersConfig } from '@collections/repositories/types';
 })
 export class FiltersComponent {
   @Input() results?: unknown[] = undefined;
-  filtersConfigs$ = this._route.paramMap.pipe(
-    filter((paramMap) => !!paramMap.get('collection')),
-    map((paramMap) => {
-      const filtersConfigs = this._filtersConfigsRepository.get(
-        paramMap.get('collection')
-      ) as IFiltersConfig;
-      return filtersConfigs.filters;
-    })
-  );
+  @Input() isError?: unknown = undefined;
+
+  public emptyFiltersMessage = '';
+
+  isLoading$: Observable<boolean> = this._filtersConfigsRepository.isLoading$;
+
+  filtersConfigs$ = this.selectActiveFilters$();
+
+  selectActiveFilters$(): Observable<(IFilterConfig & IFilterConfigUI)[]> {
+    return combineLatest([
+      this._route.paramMap.pipe(
+        map((paramMap) => paramMap.get('collection')),
+        filter((collection) => !!collection)
+      ),
+      this._filtersConfigsRepository._store$.pipe(
+        selectEntities({ ref: filterUIEntitiesRef })
+      ),
+      this._filtersConfigsRepository._store$.pipe(selectEntities()),
+    ]).pipe(
+      map(([activeCollectionId, uiOptions, allEntities]: [any, any, any]) => {
+        const filterSet: IFiltersConfig | undefined =
+          allEntities[activeCollectionId];
+        if (filterSet === undefined) {
+          return [];
+        }
+        return filterSet.filters.map((filterConfig) => ({
+          ...filterConfig,
+          options: uiOptions[filterConfig.id]?.options ?? [],
+        }));
+      }),
+      debounceTime(250)
+    );
+  }
 
   public get isResultsEmpty(): boolean {
     if (this.results == null) {
@@ -82,7 +111,7 @@ export class FiltersComponent {
   }
 
   constructor(
-    private _filtersConfigsRepository: FiltersConfigsRepository,
+    private _filtersConfigsRepository: FiltersConfigsRepository, // If needed
     private _route: ActivatedRoute
   ) {}
 }

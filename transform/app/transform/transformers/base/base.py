@@ -1,11 +1,15 @@
 # pylint: disable=line-too-long, too-many-arguments), invalid-name
 """Base transformer"""
 from abc import ABC, abstractmethod
+from logging import getLogger
 from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.types import StructType
 from app.transform.utils.join_dfs import create_df, join_different_dfs
 from app.transform.utils.utils import drop_columns, add_columns, replace_empty_str
 from app.transform.utils.common import add_tg_fields
+from app.transform.utils.validate import validate_schema
+
+logger = getLogger(__name__)
 
 
 class BaseTransformer(ABC):
@@ -17,12 +21,14 @@ class BaseTransformer(ABC):
         cols_to_add: tuple[str, ...] | None,
         cols_to_drop: tuple[str, ...] | None,
         cols_to_rename: dict[str, str] | None,
+        exp_output_schema: dict,
         spark: SparkSession,
     ):
         self.type = desired_type
         self._cols_to_add = cols_to_add
         self._cols_to_drop = cols_to_drop
         self._cols_to_rename = cols_to_rename
+        self._exp_output_schema = exp_output_schema
         self.spark = spark
         self.harvested_properties = {}
 
@@ -34,6 +40,8 @@ class BaseTransformer(ABC):
 
         df = self.apply_common_trans(df)
         df = self.cast_columns(df)
+        df = self.filter_columns(df)
+        self.validate(df)
 
         return df
 
@@ -63,6 +71,29 @@ class BaseTransformer(ABC):
             df = df.withColumnRenamed(old_col_name, new_col_name)
 
         return df
+
+    def filter_columns(self, df: DataFrame) -> DataFrame:
+        """Take only those columns that are present in expected output schema
+        In that manner, if any column was added additionally it won't be included in output data
+        """
+        expected_columns = [
+            col for col in df.columns if col in self._exp_output_schema.keys()
+        ]
+        return df.select(*expected_columns)
+
+    def validate(self, df: DataFrame) -> None:
+        """Validate output schema after transformation"""
+        try:
+            validate_schema(
+                df,
+                self._exp_output_schema,
+                collection=self.type,
+                source="output",
+            )
+        except AssertionError:
+            logger.error(
+                f"Schema validation after transformation failed for type={self.type}. Output schema is different than excepted"
+            )
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.type})"

@@ -16,7 +16,9 @@ export const commonEnvironment = {
   recommendationsApiPath: 'recommendations',
   feedbackApiPath: 'feedback',
   search: {
-    apiPath: 'search-results',
+    apiResultsPath: 'search-results',
+    apiFiltersPath: 'search-filters',
+    apiResultsAdvPath: 'search-results-advanced',
     suggestionsPath: 'search-suggestions',
     apiPathAdv: 'search-results-advanced',
     bibExportPath: 'bibliography-export-all-formats',

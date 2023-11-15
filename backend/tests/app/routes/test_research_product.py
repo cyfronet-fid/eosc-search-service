@@ -13,13 +13,13 @@ RESEARCH_PRODUCT_PATH = "api/web/research-product/{type}/{rp_id}"
 
 @pytest.mark.asyncio
 async def test_get_rp_by_id_success(
-    app: FastAPI, client: AsyncClient, mock_solr_get: AsyncMock, mocker
+    app: FastAPI, client: AsyncClient, mock_solr_get: AsyncMock
 ) -> None:
     links = [
         "https://dx.doi.org/10.5281/zenodo.5491553",
         "http://dx.doi.org/10.5281/zenodo.5491554",
     ]
-    mocker.patch("app.routes.web.research_product._validate_urls", return_value=links)
+
     url = RESEARCH_PRODUCT_PATH.format(
         type="publication", rp_id="50|dedup_wf_001::553fcef019776e6a6081c436faf76c3b"
     )
@@ -29,6 +29,7 @@ async def test_get_rp_by_id_success(
         links=links,
         author=["Oh KMM", "Joosten JM", "Martens WG"],
         type="publication",
+        best_access_right="Open access",
     )
 
     assert response.status_code == status.HTTP_200_OK
@@ -58,7 +59,6 @@ async def test_get_rp_by_id_accepts_only_valid_types(
     mock_solr_get: AsyncMock,
     mocker,
 ) -> None:
-    mocker.patch("app.routes.web.research_product._validate_urls", return_value=[])
     url = RESEARCH_PRODUCT_PATH.format(
         type=collection, rp_id="50|dedup_wf_001::553fcef019776e6a6081c436faf76c3b"
     )

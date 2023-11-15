@@ -22,6 +22,7 @@ export const publicationsAdapter: IAdapter = {
   ): IResult => ({
     isSortCollectionScopeOff: true,
     isSortByRelevanceCollectionScopeOff: false,
+    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',

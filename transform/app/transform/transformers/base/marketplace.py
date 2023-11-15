@@ -4,11 +4,11 @@ from abc import abstractmethod
 from itertools import chain
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.sql.functions import split, col, lit
-from pyspark.errors.exceptions.captured import AnalysisException
+from pyspark.sql.utils import AnalysisException
 from pyspark.sql.types import StringType
 from app.transform.transformers.base.base import BaseTransformer
 
-from app.transform.schemas.properties_name import (
+from app.transform.schemas.properties.data import (
     ID,
     PERSIST_ID_SYS,
     PERSIST_ID_SYS_ENTITY_TYPE,
@@ -16,7 +16,11 @@ from app.transform.schemas.properties_name import (
     TYPE,
     URL,
 )
-from app.transform.utils.common import map_best_access_right, create_open_access
+from app.transform.utils.common import (
+    map_best_access_right,
+    create_open_access,
+    harvest_popularity,
+)
 
 SERVICE_TYPE = "service"
 DATA_SOURCE_TYPE = "data source"
@@ -31,10 +35,16 @@ class MarketplaceBaseTransformer(BaseTransformer):
         desired_type: str,
         cols_to_add: tuple[str, ...] | None,
         cols_to_drop: tuple[str, ...] | None,
+        exp_output_schema: dict,
         spark: SparkSession,
     ):
         super().__init__(
-            desired_type, cols_to_add, cols_to_drop, self.cols_to_rename, spark
+            desired_type,
+            cols_to_add,
+            cols_to_drop,
+            self.cols_to_rename,
+            exp_output_schema,
+            spark,
         )
         # Increase the range of data sources IDs -> to avoid a conflict with service IDs
         self.id_increment = id_increment
@@ -56,6 +66,7 @@ class MarketplaceBaseTransformer(BaseTransformer):
         which will be later on merged with the main dataframe"""
         df = map_best_access_right(df, self.harvested_properties, self.type)
         create_open_access(self.harvested_properties)
+        harvest_popularity(df, self.harvested_properties)
         if self.type == DATA_SOURCE_TYPE:
             df = self.harvest_persistent_id_systems(df)
 

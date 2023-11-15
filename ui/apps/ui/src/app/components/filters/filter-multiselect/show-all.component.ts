@@ -49,9 +49,6 @@ export class ShowAllComponent implements OnChanges {
   @Input()
   allEntities: IFilterNode[] = [];
 
-  @Input()
-  customSort?: (a: IFilterNode, b: IFilterNode) => number;
-
   @Output()
   toggleActive = new EventEmitter<[IUIFilterTreeNode, boolean][]>();
 
@@ -60,7 +57,7 @@ export class ShowAllComponent implements OnChanges {
       this._allEntities = search(this.query, this.allEntities);
 
       this.entities$.next(
-        flatNodesToTree(this._allEntities, this.customSort).slice(0, CHUNK_SIZE)
+        flatNodesToTree(this._allEntities).slice(0, CHUNK_SIZE)
       );
     }
   }
@@ -84,10 +81,7 @@ export class ShowAllComponent implements OnChanges {
 
     this.entities$.next([
       ...chunk,
-      ...flatNodesToTree(this._allEntities, this.customSort).slice(
-        offset,
-        offset + CHUNK_SIZE
-      ),
+      ...flatNodesToTree(this._allEntities).slice(offset, offset + CHUNK_SIZE),
     ]);
   };
 

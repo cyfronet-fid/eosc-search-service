@@ -39,6 +39,7 @@ import { RedirectService } from '@collections/services/redirect.service';
         font-style: normal;
         font-weight: 500;
         line-height: 18px;
+        margin-right: 10px;
       }
     `,
   ],

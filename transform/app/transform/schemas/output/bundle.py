@@ -1,3 +1,4 @@
+# pylint: disable=duplicate-code
 """Bundles expected schema after transformations"""
 
 bundle_output_schema = {
@@ -8,9 +9,10 @@ bundle_output_schema = {
     "description": "array<string>",
     "helpdesk_url": "string",
     "id": "string",
-    "iid": "int",
+    "iid": "bigint",
     "main_offer_id": "string",
     "offer_ids": "array<int>",
+    "popularity": "int",
     "providers": "array<string>",
     "publication_date": "date",
     "related_training": "boolean",
