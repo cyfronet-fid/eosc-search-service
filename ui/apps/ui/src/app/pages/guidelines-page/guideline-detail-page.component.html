@@ -65,41 +65,38 @@
         <div class="ig-middle-wrapper mt-4">
           <div class="row">
             <div class="ig-left-col-desc col-md-9 col-12">
-              <ng-container
-                *ngFor="
-                  let description of this.interoperabilityGuidelineItem
-                    ?.description;
-                  let i = index
-                "
-              >
-                <div class="about-description">
-                  <b>Description:</b> {{ description ?? '' }}
+              <div class="ig-provider-information-wrapper">
+                <div class="ig-header">
+                  <img [src]="'./assets/about.svg'" alt="About" />
+                  <p>About</p>
                 </div>
-              </ng-container>
-
-              <div class="integration-description">
-                <p
-                  i18n
-                  *ngIf="
+                <div class="ig-content-inner">
+                  <span [innerHTML]="this.interoperabilityGuidelineItem?.description ?? '-'"></span>
+                  <br>
+                  <div class="integration-description">
+                    <p
+                      i18n
+                      *ngIf="
                     this.interoperabilityGuidelineItem?.eosc_integration_options
                       ?.length
                   "
-                >
-                  <strong>Integration Options:</strong>
-                </p>
-                <p></p>
-                <ul class="simple-list">
-                  <li
-                    *ngFor="
+                    >
+                      <strong>Integration Options:</strong>
+                    </p>
+                    <p></p>
+                    <ul class="simple-list">
+                      <li
+                        *ngFor="
                       let option of this.interoperabilityGuidelineItem
                         ?.eosc_integration_options
                     "
-                  >
-                    {{ option ?? '' }}
-                  </li>
-                </ul>
+                      >
+                        {{ option ?? '' }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-
               <div class="ig-provider-information-wrapper">
                 <div class="ig-header">
                   <img src="assets/icon-creators.svg" alt="Creators" />

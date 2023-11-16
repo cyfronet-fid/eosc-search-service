@@ -47,7 +47,7 @@ export const guidelinesFilters: IFiltersConfig = {
     {
       id: 'domain',
       filter: 'domain',
-      label: 'Domain',
+      label: 'Scientific Domains',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
