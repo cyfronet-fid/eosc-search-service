@@ -55,8 +55,8 @@ export const trainingsFilters: IFiltersConfig = {
       customSort: alphanumericFilterSort,
     },
     {
-      id: 'eosc_provider',
-      filter: 'eosc_provider',
+      id: 'resource_organisation',
+      filter: 'resource_organisation',
       label: 'Organisation',
       type: 'multiselect',
       defaultCollapsed: false,
