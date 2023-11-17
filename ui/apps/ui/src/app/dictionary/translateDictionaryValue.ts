@@ -31,6 +31,15 @@ function formatDate(dateString: string): string {
   }
 }
 
+function formatType(typeString: string): string {
+  {
+    const new_options = typeString
+      .split(' ')
+      .map((option) => option[0].toUpperCase() + option.slice(1));
+    return new_options.join(' ');
+  }
+}
+
 export function translateDictionaryValue(
   type: string | string[],
   value: string | string[]
@@ -98,6 +107,9 @@ export function translateDictionaryValue(
       break;
     case DICTIONARY_TYPE_FOR_PIPE.TYPE_DATE:
       return formatDate(valueType);
+      break;
+    case DICTIONARY_TYPE_FOR_PIPE.TYPE_RESOURCE_TYPE:
+      return formatType(valueType);
       break;
     default:
       return value;
