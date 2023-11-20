@@ -15,7 +15,7 @@ from app.transform.schemas.properties.env import (
     SERVICE,
     TRAINING,
 )
-from app.worker import transform_batch
+from app.tasks.batch import transform_batch
 from app.services.mp_pc.data import get_data
 
 router = APIRouter()
