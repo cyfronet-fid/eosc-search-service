@@ -1,7 +1,7 @@
 """The FastAPI server"""
 
 from fastapi import FastAPI
-from app.api.routes import transform_api_router
+from app.api.routes import transform_api_router, solr_api_router
 
 
 def get_app():
@@ -13,5 +13,6 @@ def get_app():
         version="1.0.0-alpha1",
     )
     app.include_router(router=transform_api_router)
+    app.include_router(router=solr_api_router)
 
     return app

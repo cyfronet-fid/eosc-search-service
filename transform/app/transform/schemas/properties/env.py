@@ -43,6 +43,21 @@ SOLR_GUIDELINE_COLS = "SOLR_GUIDELINE_COLS"
 SOLR_OFFER_COLS = "SOLR_OFFER_COLS"
 SOLR_BUNDLE_COLS = "SOLR_BUNDLE_COLS"
 
+SOLR_COLLECTION_NAMES = [
+    "all_collection",
+    "dataset",
+    "publication",
+    "software",
+    "other_rp",
+    "training",
+    "service",
+    "data_source",
+    "guideline",
+    "offer",
+    "bundle",
+    "provider",
+]
+
 SEND_TO_S3 = "SEND_TO_S3"
 S3_ACCESS_KEY = "S3_ACCESS_KEY"
 S3_SECRET_KEY = "S3_SECRET_KEY"
