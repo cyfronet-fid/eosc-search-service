@@ -136,7 +136,7 @@ class TrainingTransformer(BaseTransformer):
             "learningResourceTypes": "resource_type",
             "qualifications": "qualification",
             "resourceOrganisation": "resource_organisation",
-            "resourceProviders": "eosc_provider",
+            "resourceProviders": "providers",
             "scientificDomains": "scientific_domains",
             "targetGroups": "target_group",
             "urlType": "url_type",

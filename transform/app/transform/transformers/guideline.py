@@ -216,7 +216,7 @@ def rename_cols(df: DataFrame) -> None:
             "updated": "updated_at",
             "eoscGuidelineType": "eosc_guideline_type",
             "eoscIntegrationOptions": "eosc_integration_options",
-            "providerId": "provider",
+            "providerId": "providers",
         }
 
     df.rename(columns=mapping_dict(), inplace=True)
@@ -324,7 +324,7 @@ def transform_guidelines(data: str) -> DataFrame:
     df[TYPE] = IG_TYPE
     rename_cols(df)
     df['catalogue'] = df['catalogues'].copy()  # TODO delete
-    map_str_to_arr(df, ["title", "description", "catalogues"])
+    map_str_to_arr(df, ["title", "description", "catalogues", "providers"])
     ts_to_iso(df, ["publication_date", "updated_at"])
 
     if ALTERNATIVE_IDS in df.columns:
