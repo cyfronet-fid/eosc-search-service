@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.15.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.14.0...v2.15.0) (2023-11-21)
+
+
+### Features
+
+* [[#1009](https://github.com/cyfronet-fid/eosc-search-service/issues/1009)] guidelines and trainings minors ([ab8b480](https://github.com/cyfronet-fid/eosc-search-service/commit/ab8b4803c587b41f1e885367e183784d593c89d5))
+
+
+### Bug Fixes
+
+* change value displayed for year range filter ([422b083](https://github.com/cyfronet-fid/eosc-search-service/commit/422b083b0ccd1333df106efaeda259ebd3d7c7d3))
+* display title case in types filter ([a23e34a](https://github.com/cyfronet-fid/eosc-search-service/commit/a23e34ae7f53e2a70e548a14a9601ea6e262363c))
+
 ## [2.14.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.13.0...v2.14.0) (2023-11-15)
 
 
