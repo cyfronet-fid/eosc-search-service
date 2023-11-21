@@ -11,6 +11,7 @@ training_output_schema = {
     "content_type": "array<string>",
     "description": "array<string>",
     "duration": "bigint",
+    "eosc_provider": "array<string>",  # TODO delete
     "geographical_availabilities": "array<string>",
     "id": "string",
     "keywords": "array<string>",

@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 @celery.task(name="transform_batch")
 def transform_batch(type_: str, data: dict | list[dict]) -> None:
     """Celery task for transforming batch data"""
-    logger.info(f"Data type={type_} data update has started")
+    logger.info(f"{type_} data update has started")
     transformer = trans.transformers.get(type_)
     env_vars = load_env_vars()
 
