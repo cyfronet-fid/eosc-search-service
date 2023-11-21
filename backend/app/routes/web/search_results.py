@@ -1,11 +1,14 @@
 """The UI Search endpoint"""
+import csv
 import itertools
 import logging
 from contextlib import suppress
-from typing import Optional
+from io import StringIO
+from typing import Iterator, Optional
 
 from fastapi import APIRouter, Body, Depends, Query, Request
 from httpx import AsyncClient
+from starlette.responses import StreamingResponse
 
 from app.consts import DEFAULT_SORT, SORT_UI_TO_SORT_MAP, SortUi
 from app.routes.web.recommendation import sort_by_relevance
@@ -17,6 +20,8 @@ from app.solr.operations import get, search_advanced_dep, search_dep
 router = APIRouter()
 
 logger = logging.getLogger(__name__)
+
+DOWNLOAD_RESULT_FIELDS = ["title", "type", "description", "best_access_right"]
 
 
 # pylint: disable=too-many-arguments, too-many-locals
@@ -36,8 +41,9 @@ async def search_post(
     sort: list[str] = Query(
         [], description="Solr sort", example=["description asc", "name desc"]
     ),
-    rows: int = Query(10, description="Row count", gte=3, le=100),
+    rows: int = Query(10, description="Row count", gte=3, le=2000),
     cursor: str = Query("*", description="Cursor"),
+    return_csv: bool = False,
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_dep),
 ):
@@ -75,7 +81,14 @@ async def search_post(
             await extend_results_with_bundles(client, res_json)
     collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
-    return out
+
+    if not return_csv:
+        return out
+
+    results = cleanup_download_results(out["results"])
+    return StreamingResponse(
+        convert_dict_to_chunked_csv(results), media_type="text/csv"
+    )
 
 
 # pylint: disable=too-many-arguments
@@ -95,8 +108,9 @@ async def search_post_advanced(
     sort: list[str] = Query(
         [], description="Solr sort", example=["description asc", "name desc"]
     ),
-    rows: int = Query(10, description="Row count", gte=3, le=100),
+    rows: int = Query(10, description="Row count", gte=3, le=2000),
     cursor: str = Query("*", description="Cursor"),
+    return_csv: bool = False,
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_advanced_dep),
 ):
@@ -130,7 +144,14 @@ async def search_post_advanced(
             await extend_results_with_bundles(client, res_json)
     collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
-    return out
+
+    if not return_csv:
+        return out
+
+    results = cleanup_download_results(out["results"])
+    return StreamingResponse(
+        convert_dict_to_chunked_csv(results), media_type="text/csv"
+    )
 
 
 async def create_output(
@@ -251,3 +272,32 @@ async def define_sorting(
         return ['if(eq(type, "bundle"), 1, 0) asc'] + final_sorting
 
     return final_sorting
+
+
+def cleanup_download_results(results: list[dict]) -> list[dict]:
+    """Filters the necessary keys from the results dict.
+    Also converts a single-member lists into a string."""
+    return [
+        {
+            k: v[0] if isinstance(v, list) else v
+            for k, v in x.items()
+            if k in DOWNLOAD_RESULT_FIELDS
+        }
+        for x in results
+    ]
+
+
+def convert_dict_to_chunked_csv(data: list[dict]) -> Iterator[str]:
+    """Yields a chunked csv, constructed from a python dict."""
+    all_keys = set().union(*(d.keys() for d in data))
+
+    csv_file = StringIO()
+    csv_writer = csv.DictWriter(csv_file, fieldnames=all_keys)
+    csv_writer.writeheader()
+    csv_writer.writerows(data)
+
+    csv_file.seek(0)
+
+    chunk_size = 1024
+    while chunk := csv_file.read(chunk_size):
+        yield chunk
