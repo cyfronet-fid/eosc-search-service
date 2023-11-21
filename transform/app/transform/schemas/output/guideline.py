@@ -20,6 +20,7 @@ guideline_output_schema = {
     "eosc_guideline_type": "str",
     "eosc_integration_options": "list",
     "id": "str",
+    "provider": "str",  # TODO delete
     "providers": "list",
     "publication_date": "str",
     "publication_year": "int",

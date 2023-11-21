@@ -10,7 +10,7 @@ from pyspark.sql.utils import AnalysisException
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, when, to_date, lit
 
-from app.services.mp_pc.data import data_source_pids_list
+from app.services.mp_pc.data import get_data_source_pids
 from app.transform.schemas.mappings import (
     access_rights_mapping,
     OPEN_ACCESS_,
@@ -747,7 +747,7 @@ def harvest_data_source(df: DataFrame, harvested_properties: dict) -> None:
     Returns:
         None
     """
-    data_source_list = data_source_pids_list()
+    data_source_list = get_data_source_pids()
 
     instances_list = df.select(INSTANCE).collect()
     data_source_column = []
