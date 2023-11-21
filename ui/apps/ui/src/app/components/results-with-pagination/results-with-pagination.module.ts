@@ -18,6 +18,7 @@ import { PinComponent } from '@components/results-with-pagination/result-ui-cont
 import { PinStaticComponent } from '@components/results-with-pagination/result-ui-controls/pin-static.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { SourcesComponent } from './result-ui-controls/sources.component';
+import { PageHeaderModule } from '@components/page-header/page-header.module';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { SourcesComponent } from './result-ui-controls/sources.component';
     NgbDropdownModule,
     BibliographyModule,
     NzButtonModule,
+    PageHeaderModule,
   ],
   exports: [ResultsWithPaginationComponent],
 })

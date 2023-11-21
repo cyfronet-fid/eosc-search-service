@@ -10,6 +10,7 @@ import { interoperabilityGuidelinesResourceTypeGeneralDictionary } from './inter
 import { interoperabilityGuidelinesAuthorTypeDictionary } from './interoperabilityGuidelinesAuthorTypeDictionary';
 import { trainingQualificationsDictionary } from './trainingQualificationsDictionary';
 import { trainingDomainDictionary } from './trainingDomainDictionary';
+import moment from 'moment';
 
 function cleanGuidelineProvider(str: string): string {
   const index = str.indexOf('.');
@@ -21,6 +22,22 @@ function cleanValueTypeForProvider(valueType: string): string {
   const index = valueType.indexOf('>');
   const newValueStr = valueType.substring(index + 1);
   return newValueStr;
+}
+
+function formatDate(dateString: string): string {
+  {
+    const [from, to] = dateString.split('to');
+    return `${from.split('t')[0]} to ${to.split('t')[0]}`;
+  }
+}
+
+function formatType(typeString: string): string {
+  {
+    const new_options = typeString
+      .split(' ')
+      .map((option) => option[0].toUpperCase() + option.slice(1));
+    return new_options.join(' ');
+  }
 }
 
 export function translateDictionaryValue(
@@ -87,6 +104,12 @@ export function translateDictionaryValue(
       break;
     case DICTIONARY_TYPE_FOR_PIPE.TYPE_SCIENTIFIC_DOMAINS:
       return cleanValueTypeForProvider(value.toString());
+      break;
+    case DICTIONARY_TYPE_FOR_PIPE.TYPE_DATE:
+      return formatDate(valueType);
+      break;
+    case DICTIONARY_TYPE_FOR_PIPE.TYPE_RESOURCE_TYPE:
+      return formatType(valueType);
       break;
     default:
       return value;

@@ -73,7 +73,10 @@ import { ConfigService } from '../../services/config.service';
       .sort_container {
         width: 18rem;
         display: flex;
+        margin-top: 5px;
         align-items: center;
+        flex-direction: row;
+        justify-content: flex-end;
       }
     `,
   ],
