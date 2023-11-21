@@ -5,15 +5,6 @@ from tqdm import tqdm
 import transformers as trans
 from conf.spark import apply_spark_conf
 from connectors.mp_pc import data_source_pids_list
-from schemas.properties.env import (
-    ADDRESS,
-    ALL_COLLECTION,
-    CREATE_LOCAL_DUMP,
-    GUIDELINE,
-    OUTPUT_FORMAT,
-    OUTPUT_PATH,
-    PATH,
-)
 from utils.loader import *
 from utils.utils import (
     print_results,
@@ -60,17 +51,6 @@ def upload_all_col_data() -> None:
                     df_trans = trans.all_col_trans_map[col_name](df)
                 else:
                     # Transform using Spark
-                    # from pprint import pprint
-                    # affiliation = df.select("affiliation").collect()
-                    # projects = df.select("projects").collect()
-                    # for af, proj in zip(affiliation, projects):
-                    #     if af["affiliation"] and proj["projects"]:
-                    #         print("Affiliation")
-                    #         pprint(af["affiliation"])
-                    #         print("projects")
-                    #         pprint(proj["projects"])
-                    #         print("\n")
-
                     df_trans = trans.all_col_trans_map[col_name](spark)(df)
             except (ValueError, AssertionError, KeyError):
                 print_errors(
