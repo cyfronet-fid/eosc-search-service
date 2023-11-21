@@ -1,0 +1,21 @@
+:host {
+    display: block;
+    margin-top: 4px;
+  }
+  
+  .share-icon {
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-image: url('../../../assets/icon-share.svg');
+  }
+      
+  .share-label {
+    color: #040f81;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px;
+    margin-right: 10px;
+  }

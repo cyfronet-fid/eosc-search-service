@@ -560,6 +560,13 @@ h6 {
 .bottom-actions {
   padding-top: 15px;
 
+  a {
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+
   .border-right {
     border-right: 1px solid #d9d9d9;
     margin: 4px 10px 0 0;
@@ -575,6 +582,34 @@ h6 {
     padding-left: 20px;
     background-size: 15px auto;
   }
+
+  .share-link {
+    float: left;
+    margin: 4px 10px 0 10px;
+    padding: 0 10px;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+
+    a {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 19px;
+      cursor: pointer;
+      color: #040f81;
+      display: flex;
+      background: url('assets/icon-share.svg') no-repeat 0 3px;
+      padding-left: 20px;
+      background-size: 12px auto;
+    }
+  }
+}
+
+.share-popover {
+  background-color: gray;
+}
+
+.share-modal-window .modal-content {
+  background-color: #fff;
 }
 
 #tags {
@@ -622,7 +657,6 @@ h6 {
   border: 1px solid #d9dee2;
   border-radius: 8px;
   margin: 0 0 20px;
-  overflow: hidden;
   background: #fff;
 }
 
@@ -856,6 +890,7 @@ h6 {
     }
   }
 }
+
 
 .tag-row {
   margin-bottom: 4px;
@@ -1653,6 +1688,41 @@ h6 {
   .search-box-adv {
     input {
       max-width: 185px;
+    }
+  }
+}
+.share-modal-window {
+  .modal-dialog {
+    max-width: 400px !important;
+
+    .share-modal {
+      padding: 1.2em 2em 2em;
+
+      .close-row {
+        justify-content: flex-end;
+      }
+
+      .share-modal-info {
+        h4 {
+          font-size: 18px;
+          text-align: center;
+          line-height: 28px;
+          font-style: normal;
+          font-weight: 600;
+        }
+      }
+
+      .share-modal-icons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 15px;
+
+        img {
+          width: 24px;
+          height: auto;
+        }
+      }
     }
   }
 }

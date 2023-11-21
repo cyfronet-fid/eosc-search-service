@@ -79,7 +79,8 @@ export class ConfigService {
   private _loadAsset(
     src: string,
     type: 'stylesheet' | 'javascript',
-    id?: string
+    id?: string,
+    async: boolean = false
   ): Observable<HTMLLinkElement | HTMLScriptElement> {
     return new Observable<HTMLLinkElement | HTMLScriptElement>((observer) => {
       let asset: HTMLScriptElement | HTMLLinkElement;
@@ -100,6 +101,7 @@ export class ConfigService {
         if (id !== undefined) {
           script.id = id;
         }
+        script.async = async;
         asset = script;
       } else {
         throw new Error(`Invalid asset type (${type})`);

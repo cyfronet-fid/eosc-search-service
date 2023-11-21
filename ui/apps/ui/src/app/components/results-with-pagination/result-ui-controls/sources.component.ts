@@ -5,6 +5,10 @@ import { Component, Input } from '@angular/core';
   templateUrl: './sources.component.html',
   styles: [
     `
+      :host {
+        display: block;
+        margin-top: 4px;
+      }
       .sources-label-text {
         color: #040f81;
         font-family: Inter;
@@ -12,6 +16,7 @@ import { Component, Input } from '@angular/core';
         font-style: normal;
         font-weight: 500;
         line-height: 18px;
+        margin-right: 10px;
       }
     `,
   ],
