@@ -2,7 +2,7 @@
 """Transform OAG resources"""
 from abc import abstractmethod
 from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import lit
+from pyspark.sql.functions import lit, year, col
 from pyspark.sql.types import (
     StructType,
     StructField,
@@ -132,6 +132,7 @@ class OagBaseTransformer(BaseTransformer):
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast certain OAG columns"""
         df = transform_date(df, "publication_date", "yyyy-MM-dd")
+        df = df.withColumn("publication_year", year(col("publication_date")))
 
         return df
 
