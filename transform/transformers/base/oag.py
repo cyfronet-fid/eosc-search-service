@@ -10,6 +10,7 @@ from pyspark.sql.types import (
     BooleanType,
     IntegerType,
 )
+from pyspark.sql.functions import year
 from transformations.common import *
 from transformers.base.base import BaseTransformer
 from utils.utils import sort_schema
@@ -102,6 +103,7 @@ class OagBaseTransformer(BaseTransformer):
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast certain OAG columns"""
         df = transform_date(df, "publication_date", "yyyy-MM-dd")
+        df = df.withColumn("publication_year", year(col("publication_date")))
 
         return df
 
