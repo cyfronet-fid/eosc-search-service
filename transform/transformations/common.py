@@ -115,7 +115,7 @@ def harvest_scientific_domains(df: DataFrame, harvested_properties: dict) -> Non
         """Map scientific domain"""
         try:
             sd_trimmed = extract_digits_and_trim(sd_raw)
-            sd_mapped = scientific_domains_mapping[sd_trimmed]
+            sd_mapped = scientific_domains_mapping[sd_trimmed.lower()]
 
             if ">" in sd_mapped:  # If a child is being added
                 if sd_mapped not in sd_list:
