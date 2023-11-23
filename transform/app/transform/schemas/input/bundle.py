@@ -3,6 +3,7 @@
 
 bundle_input_schema = {
     "bundle_goals": "array<string>",
+    "catalogues": "array<string>",
     "capabilities_of_goals": "array<string>",
     "contact_email": "string",
     "description": "string",

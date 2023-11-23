@@ -5,7 +5,7 @@ data_source_input_schema = {
     "abbreviation": "string",
     "access_modes": "array<string>",
     "access_types": "array<string>",
-    "catalogue": "string",
+    "catalogues": "array<string>",
     "categories": "array<string>",
     "certifications": "array<string>",
     "changelog": "array<string>",

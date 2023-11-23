@@ -5,7 +5,8 @@ provider_output_schema = {
     "abbreviation": "string",
     "affiliations": "array<string>",
     "areas_of_activity": "array<string>",
-    "catalogue": "string",
+    "catalogue": "string",  # TODO delete
+    "catalogues": "array<string>",
     "certifications": "array<string>",
     "city": "string",
     "country": "array<string>",

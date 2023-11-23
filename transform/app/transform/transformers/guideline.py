@@ -211,7 +211,7 @@ def rename_cols(df: DataFrame) -> None:
         return {
             "alternativeIdentifiers": "alternative_ids",
             "publicationYear": "publication_year",
-            "catalogueId": "catalogue",
+            "catalogueId": "catalogues",
             "created": "publication_date",
             "updated": "updated_at",
             "eoscGuidelineType": "eosc_guideline_type",
@@ -323,7 +323,8 @@ def transform_guidelines(data: str) -> DataFrame:
 
     df[TYPE] = IG_TYPE
     rename_cols(df)
-    map_str_to_arr(df, ["title", "description"])
+    df['catalogue'] = df['catalogues'].copy()  # TODO delete
+    map_str_to_arr(df, ["title", "description", "catalogues"])
     ts_to_iso(df, ["publication_date", "updated_at"])
 
     if ALTERNATIVE_IDS in df.columns:

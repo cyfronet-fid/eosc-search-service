@@ -7,7 +7,7 @@ service_input_schema = {
     "access_policies_url": "string",
     "access_types": "array<string>",
     "activate_message": "string",
-    "catalogue": "string",
+    "catalogues": "array<string>",
     "categories": "array<string>",
     "certifications": "array<string>",
     "changelog": "array<string>",

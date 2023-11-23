@@ -8,7 +8,8 @@ service_output_schema = {
     "access_types": "array<string>",
     "activate_message": "string",
     "best_access_right": "string",
-    "catalogue": "string",
+    "catalogue": "string",  # TODO delete
+    "catalogues": "array<string>",
     "categories": "array<string>",
     "certifications": "array<string>",
     "changelog": "array<string>",
