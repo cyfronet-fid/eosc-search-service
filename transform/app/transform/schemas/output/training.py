@@ -6,7 +6,8 @@ training_output_schema = {
     "author_names": "array<string>",
     "author_names_tg": "array<string>",
     "best_access_right": "string",
-    "catalogue": "string",
+    "catalogue": "string",  # TODO delete
+    "catalogues": "array<string>",
     "content_type": "array<string>",
     "description": "array<string>",
     "duration": "bigint",

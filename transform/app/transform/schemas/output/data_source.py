@@ -6,7 +6,8 @@ data_source_output_schema = {
     "access_modes": "array<string>",
     "access_types": "array<string>",
     "best_access_right": "string",
-    "catalogue": "string",
+    "catalogue": "string",  # TODO delete
+    "catalogues": "array<string>",
     "categories": "array<string>",
     "certifications": "array<string>",
     "changelog": "array<string>",

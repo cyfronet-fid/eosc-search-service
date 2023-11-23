@@ -52,6 +52,7 @@ class BundleTransformer(BaseTransformer):
         df = self.convert_arr_ids(
             df, columns=("offer_ids",), increment=OFFER_IDS_INCREMENTOR
         )
+        df = df.withColumn("catalogue", self.get_first_element(df["catalogues"]))  # TODO delete
 
         return df
 

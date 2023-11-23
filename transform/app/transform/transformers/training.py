@@ -50,6 +50,8 @@ class TrainingTransformer(BaseTransformer):
         without a need to create another dataframe and merging"""
         df = df.withColumn(TYPE, lit(self.type))
         df = self.rename_cols(df)
+        df = df.withColumn("catalogues", split(col("catalogues"), ","))  # TODO move to cast_columns
+        df = df.withColumn("catalogue", self.get_first_element(df["catalogues"]))  # TODO delete
 
         return df
 
@@ -73,13 +75,13 @@ class TrainingTransformer(BaseTransformer):
 
         return df
 
-    @staticmethod
-    def cast_columns(df: DataFrame) -> DataFrame:
+    def cast_columns(self, df: DataFrame) -> DataFrame:
         """Cast trainings columns"""
         df = df.withColumn("description", split(col("description"), ","))
         df = df.withColumn("url", split(col("url"), ","))
         df = df.withColumn("duration", col("duration").cast("bigint"))
         df = transform_date(df, "publication_date", "yyyy-MM-dd")
+
         return df
 
     @property
@@ -124,7 +126,7 @@ class TrainingTransformer(BaseTransformer):
             "accessRights": "best_access_right",
             "alternativeIdentifiers": "alternative_ids",
             "authors": "author_names",
-            "catalogueId": "catalogue",
+            "catalogueId": "catalogues",
             "contentResourceTypes": "content_type",
             "eoscRelatedServices": "related_services",
             "expertiseLevel": "level_of_expertise",
