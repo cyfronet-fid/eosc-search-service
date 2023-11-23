@@ -16,6 +16,7 @@ service_input_schema = {
     "eosc_if": "array<string>",
     "funding_bodies": "array<string>",
     "funding_programs": "array<string>",
+    "guidelines": "array<string>",
     "geographical_availabilities": "array<string>",
     "grant_project_names": "array<string>",
     "helpdesk_email": "string",

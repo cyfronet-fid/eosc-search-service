@@ -19,6 +19,7 @@ service_output_schema = {
     "eosc_if_tg": "array<string>",
     "funding_bodies": "array<string>",
     "funding_programs": "array<string>",
+    "guidelines": "array<string>",
     "geographical_availabilities": "array<string>",
     "grant_project_names": "array<string>",
     "helpdesk_email": "string",
