@@ -5,7 +5,8 @@ software_output_schema = {
     "author_names_tg": "array<string>",
     "author_pids": "array<array<string>>",
     "best_access_right": "string",
-    "catalogue": "string",
+    "catalogue": "string",  # TODO delete
+    "catalogues": "array<string>",
     "country": "array<string>",
     "datasource_pids": "array<string>",
     "description": "array<string>",
