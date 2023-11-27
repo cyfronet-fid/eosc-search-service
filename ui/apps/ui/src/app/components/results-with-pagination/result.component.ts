@@ -31,6 +31,7 @@ export class ResultComponent implements OnInit {
   tagsq: string[] = [];
   validUrl: string | null = null;
   highlightsreal: { [field: string]: string[] | undefined } = {};
+  logoUrl = '';
 
   @Input() id!: string;
   @Input() date?: string;
@@ -50,6 +51,7 @@ export class ResultComponent implements OnInit {
   set url(url: string) {
     if (url && url.trim() !== '') {
       this.validUrl = url;
+      this.logoUrl = `${url}/logo`;
       return;
     }
   }
@@ -317,6 +319,55 @@ export class ResultComponent implements OnInit {
     });
   }
 
+  getTypeLogoUrl(type: string): string {
+    const defaultLogoMapper: Record<string, string> = {
+      'data source': 'assets/icon-type-data-source.svg',
+      'data-source': 'assets/icon-type-data-source.svg',
+      service: 'assets/icon-type-service.svg',
+      provider: 'assets/icon-type-provider.svg',
+    };
+
+    if (this.imageExists(this.logoUrl)) {
+      return this.logoUrl;
+    } else {
+      console.log('defaultLogoMapper[type];');
+      console.log(defaultLogoMapper[type]);
+      return defaultLogoMapper[type];
+    }
+
+    return type;
+  }
+
+  imageExists(logoUrl: string): boolean {
+    const img = new Image();
+    img.src = logoUrl;
+
+    if (img.complete) {
+      return true;
+    } else {
+      img.onload = () => {
+        return true;
+      };
+      return false;
+    }
+  }
+
+  extractDOIFromUrl(url: string) {
+    const searchTerm = 'doi.org/';
+    const index = url.search(searchTerm);
+    if (index === -1) {
+      return '';
+    } else {
+      const doi = url.slice(index + searchTerm.length);
+      const httpIndex = doi.search('http');
+      if (httpIndex > -1) {
+        return '';
+      } else {
+        return doi;
+      }
+    }
+  }
+
   get$(id: number | string): Observable<IService> {
     const endpointUrl = `/${environment.backendApiPath}/${COLLECTION}`;
     return this._http.get<IService>(`${endpointUrl}/${id}`);
@@ -329,6 +380,12 @@ export class ResultComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+  }
+
+  getLogoUrl(id: string | undefined) {
+    return id
+      ? `https://marketplace.eosc-portal.eu/services/${id}/logo`
+      : 'assets/bundle_service.svg';
   }
 
   _addFilter(filter: string, value: string): string[] {
