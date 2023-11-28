@@ -20,9 +20,6 @@ export const otherResourcesProductsAdapter: IAdapter = {
   adapter: (
     openAIREResult: Partial<IOpenAIREResult> & { id: string }
   ): IResult => ({
-    isSortByRelevanceCollectionScopeOff: false,
-    isSortByPopularityCollectionScopeOff: false,
-    isSortCollectionScopeOff: true,
     isResearchProduct: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',

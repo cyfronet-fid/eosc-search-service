@@ -165,9 +165,6 @@ export const allCollectionsAdapter: IAdapter = {
       id: string;
     }
   ): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: true,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: setIsResearchProduct(data),
     id: data.id,
     title: data?.title?.join(' ') || '',
