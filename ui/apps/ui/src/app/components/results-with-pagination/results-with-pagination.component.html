@@ -80,14 +80,7 @@
         [loading]="(isLoading$ | async) ?? false"
         (activePageChange)="pageNr$.next($event)"
       ></ess-pagination>
-      <ess-sort-by-functionality
-        [isSortByRelevanceCollectionScopeOff]="
-          _isSortByRelevanceCollectionScopeOff()
-        "
-        [isSortByPopularityCollectionScopeOff]="
-          _isSortByPopularityCollectionScopeOff()
-        "
-      ></ess-sort-by-functionality>
+      <ess-sort-by-functionality></ess-sort-by-functionality>
     </div>
     <ng-container
       *ngFor="let result of results$ | async; trackBy: trackByResultId"

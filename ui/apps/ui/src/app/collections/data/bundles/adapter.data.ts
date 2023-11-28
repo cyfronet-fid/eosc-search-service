@@ -22,9 +22,6 @@ export const bundlesAdapter: IAdapter = {
   adapter: (
     bundle: Partial<IBundle> & { id: string }
   ): IResult & { offers: IOffer[] } => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: true,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: false,
     id: uuidv4(),
     title: bundle['title']?.join(' ') || '',

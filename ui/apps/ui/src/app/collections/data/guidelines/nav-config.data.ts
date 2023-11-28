@@ -18,4 +18,6 @@ export const guidelinesNavConfig: ICollectionNavConfig = {
   ],
   urlParam: URL_PARAM_NAME,
   rightMenu: false,
+  isSortByRelevanceCollectionScopeOff: true,
+  isSortByPopularityCollectionScopeOff: true,
 };

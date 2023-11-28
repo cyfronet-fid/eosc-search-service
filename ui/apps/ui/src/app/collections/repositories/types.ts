@@ -27,9 +27,6 @@ export interface IResult {
   downloads?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   offers?: any[];
-  isSortByRelevanceCollectionScopeOff?: boolean;
-  isSortByPopularityCollectionScopeOff?: boolean;
-  isSortCollectionScopeOff?: boolean;
   isResearchProduct: boolean;
   horizontal?: boolean;
   pids?: Pids;
@@ -102,6 +99,8 @@ export interface ICollectionNavConfig {
   title: string;
   urlParam: string;
   rightMenu: boolean;
+  isSortByRelevanceCollectionScopeOff?: boolean;
+  isSortByPopularityCollectionScopeOff?: boolean;
 
   breadcrumbs: {
     label: string;
