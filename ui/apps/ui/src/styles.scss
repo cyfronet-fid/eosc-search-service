@@ -1875,7 +1875,7 @@ h6 {
     }
 
     &::after {
-      background-image: url('/assets/expand-arrow-1.svg');
+      background-image: url('assets/expand-arrow-1.svg');
     }
   }
 }
@@ -1889,4 +1889,25 @@ h6 {
       margin-bottom: 14px;
     }
   }
+}
+
+.redirect-kh_box {
+  width: 100%;
+  height: 64px;
+  background-color: #F2F3F6;
+  stroke: #EDF4FF;
+  border-radius: 8px;
+  display: flex;
+  margin-bottom: 24px;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.kh_url {
+  color: #010F87;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 0;
 }
