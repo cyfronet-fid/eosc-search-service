@@ -6,6 +6,7 @@ from celery import Celery
 modules_to_include = [
     "app.tasks.batch",
     "app.tasks.create_collections",
+    "app.tasks.create_aliases",
 ]
 
 celery = Celery(__name__, include=modules_to_include)

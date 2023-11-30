@@ -314,7 +314,7 @@ def serialize_alternative_ids(df: DataFrame) -> None:
 def map_providers(df: DataFrame) -> None:
     """Map pids into names - providers column"""
     providers_mapping = get_providers_mapping()
-    df['providers'] = df['providers'].replace(providers_mapping)
+    df["providers"] = df["providers"].replace(providers_mapping)
 
 
 def transform_guidelines(data: str) -> DataFrame:
@@ -330,9 +330,9 @@ def transform_guidelines(data: str) -> DataFrame:
 
     df[TYPE] = IG_TYPE
     rename_cols(df)
-    df['catalogue'] = df['catalogues'].copy()  # TODO delete
+    df["catalogue"] = df["catalogues"].copy()  # TODO delete
     map_providers(df)
-    df['provider'] = df['providers'].copy()  # TODO delete
+    df["provider"] = df["providers"].copy()  # TODO delete
     map_str_to_arr(df, ["title", "description", "catalogues", "providers"])
     ts_to_iso(df, ["publication_date", "updated_at"])
 
