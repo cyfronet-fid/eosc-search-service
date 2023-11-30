@@ -50,8 +50,8 @@ export class TrainingDetailPageComponent implements OnInit {
       .get$(id)
       .pipe(untilDestroyed(this))
       .subscribe((item) => {
-        if (item['providers_names'] != undefined) {
-          this.providersNames = item['providers_names']?.join(', ');
+        if (item['providers'] != undefined) {
+          this.providersNames = item['providers']?.join(', ');
         }
         this.myTraining = { ...item } as ITraining;
         this.training = trainingsAdapter.adapter(item);

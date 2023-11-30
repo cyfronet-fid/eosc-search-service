@@ -23,7 +23,7 @@ export const guidelinesAdapter: IAdapter = {
     title: guideline['title']?.join(' ') || '',
     description: guideline['description']?.join(' ') || '',
     license: guideline['right_id'],
-    providerName: guideline['provider_name'],
+    providerName: guideline['providers'],
     date: guideline['publication_year']
       ? guideline['publication_year'].toString()
       : '',
@@ -36,9 +36,9 @@ export const guidelinesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Provider',
-        values: toValueWithLabel(toArray(guideline['provider'])),
-        filter: 'provider',
+        label: 'Providers',
+        values: toValueWithLabel(toArray(guideline['providers'])),
+        filter: 'providers',
       },
     ],
     secondaryTags: [
