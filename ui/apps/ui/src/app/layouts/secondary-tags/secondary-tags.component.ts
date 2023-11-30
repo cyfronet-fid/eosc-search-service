@@ -61,7 +61,7 @@ import { combineHighlightsWith } from './utils';
 
       ::ng-deep .highlighted {
         background-color: #e8e7ff !important;
-        padding: 3px;
+        padding: 0px;
       }
     `,
   ],

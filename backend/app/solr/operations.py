@@ -48,6 +48,7 @@ async def search(
     q = q.replace("(", r"").replace(")", r"")
     q = q.replace("[", r"").replace("]", r"")
     q = q.replace("=", r"")
+    q = q.replace(":", r"")
 
     mm_param = "80%"
     qs_param = "5"
@@ -159,6 +160,7 @@ async def search_advanced(
     q = q.replace("(", r"").replace(")", r"")
     q = q.replace("[", r"").replace("]", r"")
     q = q.replace("=", r"")
+    q = q.replace(":", r"")
 
     mm_param = "80%"
     qs_param = "5"
