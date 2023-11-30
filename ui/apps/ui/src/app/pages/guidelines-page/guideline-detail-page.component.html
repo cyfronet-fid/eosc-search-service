@@ -71,15 +71,19 @@
                   <p>About</p>
                 </div>
                 <div class="ig-content-inner">
-                  <span [innerHTML]="this.interoperabilityGuidelineItem?.description ?? '-'"></span>
-                  <br>
+                  <span
+                    [innerHTML]="
+                      this.interoperabilityGuidelineItem?.description ?? '-'
+                    "
+                  ></span>
+                  <br />
                   <div class="integration-description">
                     <p
                       i18n
                       *ngIf="
-                    this.interoperabilityGuidelineItem?.eosc_integration_options
-                      ?.length
-                  "
+                        this.interoperabilityGuidelineItem
+                          ?.eosc_integration_options?.length
+                      "
                     >
                       <strong>Integration Options:</strong>
                     </p>
@@ -87,9 +91,9 @@
                     <ul class="simple-list">
                       <li
                         *ngFor="
-                      let option of this.interoperabilityGuidelineItem
-                        ?.eosc_integration_options
-                    "
+                          let option of this.interoperabilityGuidelineItem
+                            ?.eosc_integration_options
+                        "
                       >
                         {{ option ?? '' }}
                       </li>

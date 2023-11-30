@@ -19,7 +19,7 @@ export const guidelinesAdapter: IAdapter = {
     isSortByPopularityCollectionScopeOff: true,
     isSortCollectionScopeOff: true,
     isResearchProduct: false,
-    id: uuidv4(),
+    id: guideline.id,
     title: guideline['title']?.join(' ') || '',
     description: guideline['description']?.join(' ') || '',
     license: guideline['right_id'],

@@ -96,7 +96,13 @@ export function constructAdvancedSearchMetadata(
         titles.push(filters.length - 1);
       }
       if (tag.startsWith('keyword:')) {
-        filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push(
+          'keywords_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '" OR tag_list_tg:"' +
+            tag.split(':', 2)[1].trim() +
+            '"'
+        );
         keywords.push(filters.length - 1);
       }
       if (tag.startsWith('tagged:')) {
@@ -157,7 +163,13 @@ export function constructAdvancedSearchMetadata(
       titles.push(filters.length - 1);
     }
     if (tag.startsWith('keyword:')) {
-      filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      filters.push(
+        'keywords_tg:"' +
+          tag.split(':', 2)[1].trim() +
+          '" OR tag_list_tg:"' +
+          tag.split(':', 2)[1].trim() +
+          '"'
+      );
       keywords.push(filters.length - 1);
     }
     if (tag.startsWith('tagged:')) {

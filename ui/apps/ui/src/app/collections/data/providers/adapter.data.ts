@@ -21,7 +21,7 @@ export const providersAdapter: IAdapter = {
     isSortByRelevanceCollectionScopeOff: true,
     isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: false,
-    id: uuidv4(),
+    id: provider.id,
     title: provider['title'] ? provider['title'].toString() : '',
     abbreviation: provider['abbreviation']
       ? provider['abbreviation'].toString()

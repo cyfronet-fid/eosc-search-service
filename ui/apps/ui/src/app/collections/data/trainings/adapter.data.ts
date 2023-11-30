@@ -21,7 +21,7 @@ export const trainingsAdapter: IAdapter = {
     isSortByRelevanceCollectionScopeOff: false,
     isSortByPopularityCollectionScopeOff: true,
     isResearchProduct: false,
-    id: uuidv4(),
+    id: training.id,
     title: training['title']?.join(' ') || '',
     description: training['description']?.join(' ') || '',
     date: formatPublicationDate(training['publication_date']),
