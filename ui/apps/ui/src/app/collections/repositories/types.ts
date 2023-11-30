@@ -33,7 +33,7 @@ export interface IResult {
   isResearchProduct: boolean;
   horizontal?: boolean;
   pids?: Pids;
-  providerName?: string;
+  providerName?: string[];
   orderUrl?: string;
 }
 

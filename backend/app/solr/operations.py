@@ -15,7 +15,6 @@ from .error_handling import (
     handle_solr_detail_response_errors,
     handle_solr_list_response_errors,
 )
-from .utils import map_detail_provider, map_list_providers
 
 
 async def search(
@@ -113,14 +112,6 @@ async def search(
     if len(data["response"]["docs"]) == 0:
         await _check_collection_sanity(client, solr_collection)
 
-    if len(data["response"]["docs"]) and collection in [
-        Collection.ALL_COLLECTION,
-        Collection.GUIDELINE,
-        Collection.TRAINING,
-    ]:
-        data["response"]["docs"] = await map_list_providers(
-            client=client, docs=data["response"]["docs"]
-        )
     return SolrResponse(collection=collection, data=data)
 
 
@@ -216,15 +207,6 @@ async def search_advanced(
     if facets and len(data["response"]["docs"]) == 0:
         await _check_collection_sanity(client, solr_collection)
 
-    if len(data["response"]["docs"]) and collection in [
-        Collection.ALL_COLLECTION,
-        Collection.GUIDELINE,
-        Collection.TRAINING,
-    ]:
-        data["response"]["docs"] = await map_list_providers(
-            client=client, docs=data["response"]["docs"]
-        )
-
     return SolrResponse(collection=collection, data=data)
 
 
@@ -278,12 +260,6 @@ async def get(
     url = f"{settings.SOLR_URL}{solr_collection}/get?id={item_id}"
     response = await handle_solr_detail_response_errors(client.get(url))
     response = response.json()
-    if collection in [
-        Collection.ALL_COLLECTION,
-        Collection.GUIDELINE,
-        Collection.TRAINING,
-    ]:
-        response["doc"] = await map_detail_provider(client=client, doc=response["doc"])
 
     return response
 
