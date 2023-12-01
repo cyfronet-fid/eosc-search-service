@@ -57,7 +57,9 @@ class MarketplaceBaseTransformer(BaseTransformer):
         df = self.rename_cols(df)
         df = self.simplify_urls(df)
         df = df.withColumn(ID, (col(ID) + self.id_increment))
-        df = df.withColumn("catalogue", self.get_first_element(df["catalogues"]))  # TODO delete
+        df = df.withColumn(
+            "catalogue", self.get_first_element(df["catalogues"])
+        )  # TODO delete
 
         return df
 

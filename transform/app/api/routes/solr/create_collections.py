@@ -21,8 +21,7 @@ async def create_solr_collections(
     provider_config: str = Query(..., description="Config name for 'provider'"),
     collection_prefix: str = Query(
         "",
-        description="Prefix for collection names. "
-        "It is recommended to use convention 'oag<dump_version>'",
+        description="Prefix for collection names. It is recommended to use convention 'oag<dump_version>'",
     ),
     date: str = Query(
         None,
@@ -38,7 +37,9 @@ async def create_solr_collections(
     date = date or datetime.now().strftime("%Y%m%d")
 
     collection_names = [
-        f"{collection_prefix}_{date}_{collection}"
+        f"{date}_{collection}"
+        if collection_prefix == ""
+        else f"{collection_prefix}_{date}_{collection}"
         for collection in SOLR_COLLECTION_NAMES
     ]
 

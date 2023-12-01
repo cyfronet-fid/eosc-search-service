@@ -54,8 +54,12 @@ class TrainingTransformer(BaseTransformer):
         without a need to create another dataframe and merging"""
         df = df.withColumn(TYPE, lit(self.type))
         df = self.rename_cols(df)
-        df = df.withColumn("catalogues", split(col("catalogues"), ","))  # TODO move to cast_columns
-        df = df.withColumn("catalogue", self.get_first_element(df["catalogues"]))  # TODO delete
+        df = df.withColumn(
+            "catalogues", split(col("catalogues"), ",")
+        )  # TODO move to cast_columns
+        df = df.withColumn(
+            "catalogue", self.get_first_element(df["catalogues"])
+        )  # TODO delete
 
         return df
 
@@ -313,6 +317,7 @@ class TrainingTransformer(BaseTransformer):
     def map_providers_and_orgs(self, df: DataFrame) -> DataFrame:
         """Map pids into names - providers and organisation columns.
         Note: organisations are providers - and they are mandatory, providers are not"""
+
         def _map(pids_list: str | list[str]) -> list[str]:
             """Map list of pids into a list of names"""
             if isinstance(pids_list, str):
