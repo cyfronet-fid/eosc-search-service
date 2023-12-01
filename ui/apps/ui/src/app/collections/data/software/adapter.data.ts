@@ -22,6 +22,7 @@ export const softwareAdapter: IAdapter = {
   ): IResult => ({
     isResearchProduct: true,
     id: openAIREResult.id,
+    exportData: openAIREResult.exportation || [],
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
     urls: openAIREResult.url,

@@ -5,9 +5,9 @@ import logging
 from fastapi import APIRouter
 from httpx import AsyncClient, HTTPError
 
+from app.consts import DOI_BASE_URL
 from app.schemas.bibliography_response import (
     CONTENT_TYPES_MAPPING,
-    DOI_BASE_URL,
     ERROR_MESSAGES_MAP,
     RETRY_ERROR_STATUS_CODES,
     BibliographyRecordErrorResponse,

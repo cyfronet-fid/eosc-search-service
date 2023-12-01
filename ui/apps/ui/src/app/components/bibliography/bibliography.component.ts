@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl } from '@angular/forms';
 import { FetchDataService } from '@collections/services/fetch-data.service';
@@ -6,6 +6,7 @@ import {
   BIBLIOGRAPHY_TOOLTIP_TEXT,
   CITATIONS_NOT_AVAILABLE_TOOLTIP_TEXT,
 } from '@collections/data/config';
+import { InstanceExportData } from '@collections/data/openair.model';
 
 @Component({
   selector: 'ess-bibliography-content',
@@ -28,9 +29,10 @@ import {
   ],
 })
 export class BibliographyModalContentComponent {
-  @Input() parsedUrls: { [key: string]: string } = {};
+  radioValue = 'A';
   @Input() formats: string[] = [];
-  @Input() hasDOIUrl = false;
+
+  @Input() exportData: InstanceExportData[] = [];
 
   public isLoading = false;
   public citationEmptyMessage = '';
@@ -41,7 +43,9 @@ export class BibliographyModalContentComponent {
   public availableFormats: string[] = [];
   public bibliographyRecords: { [key: string]: string } = {};
   public exportDropdownTitle = '';
-  public selectedSource: FormControl = new FormControl();
+  public selectedSource = '';
+  public selectedCard = -1;
+  public instanceDOI = '';
   public selectedFormat = '';
   public citation = '';
   private formatToExtensionMap: { [key: string]: string } = {
@@ -74,25 +78,28 @@ export class BibliographyModalContentComponent {
     this.bibliographyRecords = {};
     this.selectedFormat = '';
     this.citation = '';
+    this.instanceDOI = '';
   }
 
   cite(style: string) {
     this.isLoading = true;
     this.citation = '';
     this.citationEmptyMessage = '';
-    const pid = this.parsedUrls[this.selectedSource.value];
-    this._fetchDataService.fetchCitation$(pid, style).subscribe((response) => {
-      if (response.citation) {
-        this.citation = response.citation;
-      } else {
-        this.unavailableStyles.push(style);
-        this.citationEmptyMessage =
-          'Unfortunately we are unable to generate this citation format as this source ' +
-          'does not provide us with the information needed to generate the required format. ' +
-          'Please also check other sources If possible.';
-      }
-      this.isLoading = false;
-    });
+
+    this._fetchDataService
+      .fetchCitation$(this.instanceDOI, style)
+      .subscribe((response) => {
+        if (response.citation) {
+          this.citation = response.citation;
+        } else {
+          this.unavailableStyles.push(style);
+          this.citationEmptyMessage =
+            'Unfortunately we are unable to generate this citation format as this source ' +
+            'does not provide us with the information needed to generate the required format. ' +
+            'Please also check other sources If possible.';
+        }
+        this.isLoading = false;
+      });
   }
 
   copy() {
@@ -106,6 +113,11 @@ export class BibliographyModalContentComponent {
   setSelectedFormat(format: string) {
     this.selectedFormat = format;
     this.exportButtonText = 'Export';
+  }
+
+  setSelectedSource(doi: string, cardInd: number) {
+    this.selectedSource = doi;
+    this.selectedCard = cardInd;
   }
 
   export(format: string) {
@@ -126,24 +138,26 @@ export class BibliographyModalContentComponent {
     }, 0);
   }
 
-  getAvailableFormats(doi: string) {
+  getAvailableFormats() {
     this.clearVariables();
-    this.availableFormats = [];
-    this.bibliographyRecords = {};
-    this._fetchDataService.fetchExport$(doi).subscribe((response) => {
-      response.map((format) => {
-        this.availableFormats.push(format.type);
-        this.bibliographyRecords[format.type] = format.record;
+    this.instanceDOI = this.selectedSource;
+    this._fetchDataService
+      .fetchExport$(this.instanceDOI)
+      .subscribe((response) => {
+        response.map((format) => {
+          this.availableFormats.push(format.type);
+          this.bibliographyRecords[format.type] = format.record;
+        });
+        this.formatsChecked = true;
       });
-      this.formatsChecked = true;
-    });
   }
 }
 
 @Component({
   selector: 'ess-bibliography',
+  encapsulation: ViewEncapsulation.None,
   template: `
-    <ng-container *ngIf="this.hasDOIUrl; else elseBlock">
+    <ng-container *ngIf="hasDOIUrl; else elseBlock">
       <a href="javascript:void(0)" (click)="open()" class="link-cite">Cite</a>
     </ng-container>
 
@@ -164,17 +178,19 @@ export class BibliographyModalContentComponent {
 })
 export class BibliographyComponent {
   @Input() title = '';
-  @Input() parsedUrls: { [key: string]: string } = {};
   @Input() hasDOIUrl = false;
+  @Input() exportData?: Record<string, any>[] = [];
   public formats: string[] = ['bibtex', 'ris', 'json_ld'];
 
   constructor(private modalService: NgbModal) {}
   linkTooltipText: string = CITATIONS_NOT_AVAILABLE_TOOLTIP_TEXT;
 
   open() {
-    const modalRef = this.modalService.open(BibliographyModalContentComponent);
-    modalRef.componentInstance.parsedUrls = this.parsedUrls;
+    const modalRef = this.modalService.open(BibliographyModalContentComponent, {
+      modalDialogClass: 'bibliography-dialog',
+    });
     modalRef.componentInstance.formats = this.formats;
-    modalRef.componentInstance.hasDOIUrl = this.hasDOIUrl;
+
+    modalRef.componentInstance.exportData = this.exportData;
   }
 }

@@ -173,6 +173,7 @@ export const allCollectionsAdapter: IAdapter = {
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
+    exportData: data.exportation || [],
     orderUrl: orderUrlAdapter(data.type || '', data),
     urls: data.url,
     horizontal: data?.horizontal,

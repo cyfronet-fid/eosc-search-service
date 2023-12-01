@@ -27,6 +27,7 @@ export const datasetsAdapter: IAdapter = {
     languages: transformLanguages(openAIREResult?.language),
     date: formatPublicationDate(openAIREResult['publication_date']),
     urls: openAIREResult.url,
+    exportData: openAIREResult.exportation || [],
     license: openAIREResult?.license,
     documentType: openAIREResult?.document_type,
     url: `${
