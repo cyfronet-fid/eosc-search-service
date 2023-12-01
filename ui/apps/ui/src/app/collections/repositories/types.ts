@@ -7,6 +7,13 @@ export interface IValueWithLabel {
   subTitle?: string;
 }
 
+export interface IArticle {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
+}
+
 export interface IResult {
   id: string;
   title: string;

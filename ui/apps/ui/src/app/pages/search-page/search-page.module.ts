@@ -25,6 +25,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FeedbackPanelModule } from '@components/feedback-panel/feedback-panel.module';
 
 import { SearchPageComponent } from './search-page.component';
+import { ArticlesModule } from '@components/articles/articles.module';
 
 @NgModule({
   declarations: [SearchPageComponent],
@@ -57,6 +58,7 @@ import { SearchPageComponent } from './search-page.component';
     RecommendationsModule,
     DownloadResultsModule,
     FeedbackPanelModule,
+    ArticlesModule,
   ],
   exports: [SearchPageComponent],
 })
