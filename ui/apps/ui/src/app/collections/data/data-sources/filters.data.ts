@@ -1,15 +1,11 @@
-import {
-  IFacetBucket,
-  IFilterNode,
-  IFiltersConfig,
-} from '../../repositories/types';
+import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { facetToFlatNodes } from '@components/filters/utils';
 
 import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
 import {
   alphanumericFilterSort,
   transformCatalogueNames,
+  transformHorizontal,
 } from '@collections/data/utils';
 
 export const dataSourcesFilters: IFiltersConfig = {
@@ -103,14 +99,6 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
-
-      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
-        facetToFlatNodes(bucketValues, 'geographical_availabilities').map(
-          (node) => ({
-            ...node,
-            name: node.name === 'World' ? 'None' : node.name,
-          })
-        ),
     },
     {
       id: 'horizontal',
@@ -119,12 +107,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: HORIZONTAL_TOOLTIP_TEXT,
-
-      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
-        facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
-          ...node,
-          name: node.name === 'true' ? 'yes' : 'no',
-        })),
+      transformNodes: transformHorizontal,
     },
     {
       id: 'tag_list',
