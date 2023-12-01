@@ -67,17 +67,6 @@ export const countFilterSort = (a: IFilterNode, b: IFilterNode) => {
   return ordering;
 };
 
-export const convertCountryCodeToName = (
-  bucketValues: IFacetBucket[]
-): IFilterNode[] =>
-  facetToFlatNodes(bucketValues, 'country').map((node) => ({
-    ...node,
-    name:
-      node.name in COUNTRY_CODE_TO_NAME
-        ? COUNTRY_CODE_TO_NAME[node.name]
-        : node.name,
-  }));
-
 export const formatPublicationDate = (
   publication_date: string[] | string | undefined
 ) => {
@@ -174,4 +163,24 @@ export const transformCatalogueNames = (
           ? CATALOGUE_NAME_MAPPING[node.id]
           : node.name,
     }));
+};
+
+export const transformCountryNames = (nodes: IFilterNode[]): IFilterNode[] => {
+  return nodes.map((node) => ({
+    ...node,
+    name:
+      node.id in COUNTRY_CODE_TO_NAME
+        ? COUNTRY_CODE_TO_NAME[node.id]
+        : node.name,
+  }));
+};
+
+export const transformHorizontal = (nodes: IFilterNode[]): IFilterNode[] => {
+  return nodes.map((node) => {
+    console.log(node);
+    return {
+      ...node,
+      name: ['true', 'yes'].includes(node.name) ? 'yes' : 'no',
+    };
+  });
 };
