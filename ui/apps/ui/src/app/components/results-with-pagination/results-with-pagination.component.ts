@@ -153,4 +153,12 @@ export class ResultsWithPaginationComponent implements OnInit {
       },
     });
   }
+
+  getKnowledgeHubUrl(): string {
+    return this._configService.get().knowledge_hub_url;
+  }
+
+  getCollectionName(): string {
+    return this._customRoute.params()['collection'] as string;
+  }
 }
