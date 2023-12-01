@@ -38,6 +38,14 @@ ResearchProductCollection: TypeAlias = Literal[
     Collection.PUBLICATION, Collection.DATASET, Collection.SOFTWARE, Collection.OTHER_RP
 ]
 
+RP_AND_ALL_COLLECTIONS_LIST: list = [
+    Collection.PUBLICATION,
+    Collection.DATASET,
+    Collection.SOFTWARE,
+    Collection.OTHER_RP,
+    Collection.ALL_COLLECTION,
+]
+
 ResearchProductType: TypeAlias = Literal["publication", "dataset", "software", "other"]
 
 
@@ -95,3 +103,5 @@ SORT_UI_TO_SORT_MAP = {
     "mp": ["popularity desc"],
     "r": ["popularity desc"],
 }
+
+DOI_BASE_URL = "https://doi.org"

@@ -4,8 +4,6 @@ from typing import Any, Dict, Literal, Optional, TypeAlias, Union
 
 from pydantic import BaseModel
 
-DOI_BASE_URL = "http://doi.org"
-
 CitationStyle: TypeAlias = Literal[
     "apa",
     "harvard_cite_them_right",

@@ -189,7 +189,7 @@
       *ngIf="isResearchProduct"
       [title]="title"
       [hasDOIUrl]="hasDOIUrl"
-      [parsedUrls]="parsedUrls"
+      [exportData]="exportData"
     ></ess-bibliography>
     <ess-pin
       *ngIf="RESOURCES_TO_SHOW_PIN_TO.includes(type.value)"
@@ -212,6 +212,7 @@
       *ngIf="isResearchProduct"
       [title]="title"
       [urls]="urls"
+      [exportData]="exportData"
     ></ess-sources>
   </div>
 </div>

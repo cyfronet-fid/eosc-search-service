@@ -42,6 +42,10 @@ a:hover {
   border-radius: 8px;
 }
 
+.btn-primary {
+  background: #010E87;
+}
+
 .btn-special {
   background: #ffffff;
   border: 1px solid #d0d5dd;
@@ -54,6 +58,22 @@ a:hover {
 .btn-special i {
   margin-left: 8px;
   font-size: 20px;
+}
+
+.btn-outline-primary {
+  color: #010E87;
+  border-color: #010E87;
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #010E87;
+  border-color: #010E87;
+}
+
+btn-primary.disabled, .btn-primary:disabled {
+  background-color: #293683;
+  border-color: #293683;
 }
 
 .search-bar {
@@ -942,6 +962,16 @@ h6 {
 
 .bibliography {
   border-bottom: none;
+  .export-card-disabled {
+    background-color: gray;
+    width:600px;
+  }
+  .export-card-active {
+    background-color: magenta;
+  }
+  .instance-card {
+    width:600px;
+  }
 
   .modal-title {
     font-size: 26px;
@@ -961,6 +991,10 @@ h6 {
     font-weight: bold;
     margin-bottom: 10px;
   }
+
+  .cdk-overlay-container {
+    z-index: 10000 !important;
+   }
 
   .modal-subtitle {
     font-size: 14px;
@@ -1609,6 +1643,68 @@ h6 {
   }
 }
 
+.sources-dropdown-menu {
+  border-radius: 9px;
+  padding: 9px 9px 0;
+  overflow: hidden;
+
+  li {
+    border-radius: 9px;
+    overflow: hidden;
+    border: 1px solid #011098;
+    background: #fff;
+    width: 300px;
+    margin-bottom: 10px;
+    padding: 0;
+    transition: all 0s;
+
+    .ant-card {
+      border: none;
+      width: 100%;
+      background: url(assets/icon-check-empty.svg) no-repeat right 12px top 12px;
+
+      .ant-card-body {
+        padding: 12px 12px 7px;
+        color: #011098;
+        font-size: 12px;
+        line-height: 1.45;
+
+        p {
+          margin-bottom: 6px;
+          overflow: hidden;
+          position: relative;
+        }
+
+        .end-line-gradient {
+          &::after {
+            content: '';
+            width: 20px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: rgb(0,0,0);
+            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%);
+          }
+        }
+      }
+
+      &:hover {
+        background: url(assets/icon-check-checked.svg) no-repeat right 12px top 12px;
+
+        .ant-card-body {
+          .end-line-gradient {
+            &::after {
+              background: rgb(0,0,0);
+              background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(245,245,245,1) 100%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .multiselect-dropdown {
   b {
     font-weight: 400;
@@ -1842,6 +1938,162 @@ h6 {
   background-color: #1e1e1e;
   width: 100%;
   color: white;
+}
+
+.bibliography-dialog {
+
+  .modal-content {
+    border-radius: 20px;
+    padding: 30px 25px 30px;
+  }
+
+  .modal-header {
+    padding: 0 0 25px;
+
+    #tooltipIcon {
+      margin-left: 10px;
+    }
+  }
+
+  .e2e-inner-html-bound {
+    padding: 12px 15px;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    margin: 10px 0 15px;
+    font-size: 12px;
+    line-height: 23px;
+    color: #000;
+  }
+
+  .modal-body {
+    padding: 0;
+
+    .sources-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      .sources-list-item {
+        width: 49%;
+        margin-bottom: 15px;
+
+        .ant-card {
+          border-radius: 9px;
+          overflow: hidden;
+          border: 1px solid #011098;
+          background: #fff;
+          margin-bottom: 10px;
+          padding: 0;
+          transition: all 0s;
+          cursor: pointer;
+          height: 100%;
+          width: 100%;
+          background: url(assets/icon-check-empty.svg) no-repeat right 12px top 12px;
+
+          .ant-card-body {
+            padding: 12px 12px 7px;
+            color: #011098;
+            font-size: 12px;
+            line-height: 1.45;
+
+            p {
+              margin-bottom: 6px;
+              overflow: hidden;
+              position: relative;
+            }
+
+            .end-line-gradient {
+              &::after {
+                content: '';
+                width: 20px;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                right: 0;
+                background: rgb(0,0,0);
+                background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%);
+              }
+            }
+          }
+
+          &.export-card-disabled {
+            border: 1px solid #B5B9BF;
+            color: #B5B9BF !important;
+            position: relative;
+            pointer-events: none;
+            background: var(--gray-50, #F9FAFB) url(assets/icon-check-disabled.svg) no-repeat right 12px top 12px;
+
+            &::after {
+              content: 'The source cannot be cited. ';
+              position: absolute;
+              top: 11px;
+              left: 10px;
+              border-radius: 8px;
+              background: var(--gray-900, #101828);
+              color: #fff;
+              font-size: 12px;
+              padding: 12px;
+              font-weight: 600;
+              line-height: 18px;
+            }
+
+            .ant-card-body {
+              color: #B5B9BF !important;
+            }
+          }
+
+          &:hover {
+            background: url(assets/icon-check-checked.svg) no-repeat right 12px top 12px;
+
+            .ant-card-body {
+              .end-line-gradient {
+                &::after {
+                  background: rgb(0,0,0);
+                  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(245,245,245,1) 100%);
+                }
+              }
+            }
+          }
+
+          &.export-card-active {
+            background: #E7EAFB url(assets/icon-check-checked.svg) no-repeat right 12px top 12px;
+
+            .ant-card-body {
+              .end-line-gradient {
+                &::after {
+                  background: rgb(0,0,0);
+                  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(245,245,245,1) 100%);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .bibliography-button {
+    border: none;
+    padding: 0;
+    outline: none;
+    color: #010E87;
+    background: none;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    cursor: pointer;
+
+    &.button-next {
+      background: url(assets/icon-chevron-right.svg) 100% 50% no-repeat;
+      padding-right: 25px;
+    }
+
+    &.button-back {
+      background: url(assets/icon-chevron-left.svg) 0% 50% no-repeat;
+      padding-left: 25px;
+      float: left;
+    }
+  }
 }
 
 .page-title {

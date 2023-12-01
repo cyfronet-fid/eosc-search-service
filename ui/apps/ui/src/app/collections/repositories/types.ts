@@ -1,4 +1,5 @@
 import { entitiesPropsFactory } from '@ngneat/elf-entities';
+import { InstanceExportData } from '@collections/data/openair.model';
 
 export interface IValueWithLabel {
   label: string;
@@ -35,6 +36,7 @@ export interface IResult {
   pids?: Pids;
   providerName?: string[];
   orderUrl?: string;
+  exportData?: InstanceExportData[];
 }
 
 export interface ISecondaryTag {
