@@ -1062,6 +1062,11 @@ h6 {
   border: none;
 }
 
+.disabled>.page-link {
+  background-color: #fff !important;
+  color: rgba(143, 143, 143, 0.506);
+}
+
 .page-item.active .page-link {
   background: #eff1ff;
   border-color: #eff1ff;
