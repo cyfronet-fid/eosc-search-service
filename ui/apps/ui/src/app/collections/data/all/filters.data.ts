@@ -119,6 +119,14 @@ export const allCollectionsFilters: IFiltersConfig = {
       transformNodes: transformCatalogueNames,
     },
     {
+      id: 'guidelines',
+      filter: 'guidelines',
+      label: 'Interoperability guideline',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
       id: 'providers',
       filter: 'providers',
       label: 'Providers',

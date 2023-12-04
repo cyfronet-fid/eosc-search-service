@@ -22,6 +22,7 @@ from app.schemas.search_request import SearchRequest
 from app.schemas.solr_response import Collection, ExportData
 from app.solr.error_handling import SolrDocumentNotFoundError
 from app.solr.operations import get, search_advanced_dep, search_dep
+from app.utils.ig_related_services import extend_ig_with_related_services
 
 router = APIRouter()
 
@@ -82,9 +83,14 @@ async def search_post(
         )
         res_json = response.data
 
-        # Extent the results with bundles
+        # Extend results with bundles
         if collection in [Collection.ALL_COLLECTION, Collection.BUNDLE]:
             await extend_results_with_bundles(client, res_json)
+        if collection in [Collection.ALL_COLLECTION, Collection.GUIDELINE]:
+            res_json["response"]["docs"] = await extend_ig_with_related_services(
+                client, res_json["response"]["docs"]
+            )
+
     collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
 

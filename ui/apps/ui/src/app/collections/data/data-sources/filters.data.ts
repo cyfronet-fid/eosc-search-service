@@ -127,5 +127,13 @@ export const dataSourcesFilters: IFiltersConfig = {
       global: true,
       transformNodes: transformCatalogueNames,
     },
+    {
+      id: 'guidelines',
+      filter: 'guidelines',
+      label: 'Interoperability guideline',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
   ],
 };

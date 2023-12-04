@@ -10,7 +10,6 @@ import { interoperabilityGuidelinesResourceTypeGeneralDictionary } from './inter
 import { interoperabilityGuidelinesAuthorTypeDictionary } from './interoperabilityGuidelinesAuthorTypeDictionary';
 import { trainingQualificationsDictionary } from './trainingQualificationsDictionary';
 import { trainingDomainDictionary } from './trainingDomainDictionary';
-import moment from 'moment';
 
 function cleanGuidelineProvider(str: string): string {
   const index = str.indexOf('.');

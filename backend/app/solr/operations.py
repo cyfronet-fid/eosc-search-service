@@ -288,7 +288,7 @@ async def get_item_by_pid(
     """Get item from defined collection based on PID"""
     solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
     url = f"{settings.SOLR_URL}{solr_collection}/query?q=pid:{item_pid}"
-    return await handle_solr_detail_response_errors(client.get(url))
+    return await handle_solr_list_response_errors(client.get(url))
 
 
 def search_dep():

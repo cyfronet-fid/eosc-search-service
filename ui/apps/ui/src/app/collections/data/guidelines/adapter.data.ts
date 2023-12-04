@@ -5,6 +5,7 @@ import { COLLECTION } from './search-metadata.data';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import {
   toArray,
+  toRelatedService,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
@@ -21,6 +22,7 @@ export const guidelinesAdapter: IAdapter = {
     description: guideline['description']?.join(' ') || '',
     license: guideline['right_id'],
     providerName: guideline['providers'],
+    relatedServices: toRelatedService(guideline.related_services ?? []),
     date: guideline['publication_year']
       ? guideline['publication_year'].toString()
       : '',
