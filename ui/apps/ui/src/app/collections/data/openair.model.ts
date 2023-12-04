@@ -23,6 +23,7 @@ export interface IOpenAIREResult {
   isResearchProduct: boolean;
   pids: string;
   exportation: InstanceExportData[];
+  eosc_if: string[];
 }
 
 export interface InstanceExportData {

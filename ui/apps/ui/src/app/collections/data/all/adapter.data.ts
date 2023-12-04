@@ -5,6 +5,7 @@ import { IOpenAIREResult } from '@collections/data/openair.model';
 import {
   constructIdentifierTag,
   formatPublicationDate,
+  toInterPatternsSecondaryTag,
 } from '@collections/data/utils';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
@@ -217,9 +218,7 @@ export const allCollectionsAdapter: IAdapter = {
     },
     collection: COLLECTION,
     secondaryTags: [
-      // toDownloadsStatisticsSecondaryTag(data.usage_counts_downloads),
-      // toViewsStatisticsSecondaryTag(data.usage_counts_views),
-      toKeywordsSecondaryTag(data.keywords ?? [], 'keywords'),
+      toInterPatternsSecondaryTag(data.eosc_if ?? [], 'eosc_if'),
       toKeywordsSecondaryTag(data.tag_list ?? [], 'tag_list'),
     ],
     offers: data.offers ?? [],

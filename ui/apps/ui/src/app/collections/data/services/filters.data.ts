@@ -1,11 +1,9 @@
-import {
-  IFacetBucket,
-  IFilterNode,
-  IFiltersConfig,
-} from '../../repositories/types';
+import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { facetToFlatNodes } from '@components/filters/utils';
-import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
+import {
+  HORIZONTAL_TOOLTIP_TEXT,
+  INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+} from '@collections/data/config';
 import {
   alphanumericFilterSort,
   transformCatalogueNames,
@@ -51,6 +49,22 @@ export const servicesFilters: IFiltersConfig = {
       id: 'providers',
       filter: 'providers',
       label: 'Providers',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+    },
+    {
+      id: 'guidelines',
+      filter: 'guidelines',
+      label: 'Interoperability guideline',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -114,6 +128,14 @@ export const servicesFilters: IFiltersConfig = {
       transformNodes: transformHorizontal,
     },
     {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
       id: 'tag_list',
       filter: 'tag_list',
       label: 'Keywords',
@@ -121,15 +143,6 @@ export const servicesFilters: IFiltersConfig = {
       defaultCollapsed: false,
       tooltipText: '',
     },
-    {
-      id: 'guidelines',
-      filter: 'guidelines',
-      label: 'Interoperability guideline',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-
     {
       id: 'catalogue',
       filter: 'catalogue',

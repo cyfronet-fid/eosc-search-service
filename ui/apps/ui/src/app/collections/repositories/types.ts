@@ -55,7 +55,8 @@ export interface RelatedService {
 }
 
 export interface ISecondaryTag {
-  iconPath: string;
+  iconPath?: string;
+  label?: string;
   values: IValueWithLabel[];
   filter?: string;
   type: 'url' | 'info';

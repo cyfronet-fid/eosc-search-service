@@ -11,6 +11,7 @@ import {
   constructIdentifierTag,
   formatPublicationDate,
   parseStatistics,
+  toInterPatternsSecondaryTag,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
@@ -64,8 +65,7 @@ export const publicationsAdapter: IAdapter = {
     },
     collection: COLLECTION,
     secondaryTags: [
-      // toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
-      // toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
+      toInterPatternsSecondaryTag(openAIREResult.eosc_if ?? [], 'eosc_if'),
       toKeywordsSecondaryTag(openAIREResult.keywords ?? [], 'keywords'),
     ],
     ...parseStatistics(openAIREResult),

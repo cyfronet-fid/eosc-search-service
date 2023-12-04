@@ -53,6 +53,10 @@ export const BIBLIOGRAPHY_TOOLTIP_TEXT =
   'does not provide us with the required information to generate the required format. ' +
   'Please also check other sources If possible.';
 
+export const INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT =
+  'With interoperability patterns you are able to discover research products ' +
+  'along with processing tools dedicated for them.';
+
 // Source: http://country.io/data/
 export const COUNTRY_CODE_TO_NAME: Record<string, string> = {
   BD: 'Bangladesh',

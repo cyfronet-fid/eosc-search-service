@@ -1,6 +1,5 @@
 import {
   AccessRight,
-  IFacetBucket,
   IFilterNode,
   IResult,
   ISecondaryTag,
@@ -11,7 +10,6 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import { facetToFlatNodes } from '@components/filters/utils';
 import {
   CATALOGUE_NAME_MAPPING,
   COUNTRY_CODE_TO_NAME,
@@ -19,25 +17,22 @@ import {
 } from '@collections/data/config';
 import moment from 'moment';
 
-export const toDownloadsStatisticsSecondaryTag = (
-  data: string | number | null | undefined
-): ISecondaryTag => ({
-  iconPath: '/assets/usage-downloads.svg',
-  values: toValueWithLabel(toArray(data ? `${data} Downloads` : null)),
-  type: 'info',
-});
-export const toViewsStatisticsSecondaryTag = (
-  data: string | number | null | undefined
-): ISecondaryTag => ({
-  iconPath: '/assets/usage-views.svg',
-  values: toValueWithLabel(toArray(data ? `${data} Views` : null)),
-  type: 'info',
-});
 export const toKeywordsSecondaryTag = (
   data: string[] | undefined | null,
   filter: string
 ): ISecondaryTag => ({
   iconPath: '/assets/tag.svg',
+  label: 'Keywords: ',
+  values: toValueWithLabel(toArray(data)),
+  filter,
+  type: 'url',
+});
+
+export const toInterPatternsSecondaryTag = (
+  data: string[] | undefined | null,
+  filter: string
+): ISecondaryTag => ({
+  label: 'EOSC Interoperability Patterns: ',
   values: toValueWithLabel(toArray(data)),
   filter,
   type: 'url',
@@ -177,7 +172,6 @@ export const transformCountryNames = (nodes: IFilterNode[]): IFilterNode[] => {
 
 export const transformHorizontal = (nodes: IFilterNode[]): IFilterNode[] => {
   return nodes.map((node) => {
-    console.log(node);
     return {
       ...node,
       name: ['true', 'yes'].includes(node.name) ? 'yes' : 'no',
