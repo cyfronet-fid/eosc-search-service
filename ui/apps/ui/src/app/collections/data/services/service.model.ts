@@ -15,4 +15,5 @@ export interface IService {
   tagline: string;
   horizontal: boolean;
   dedicated_for: string[];
+  guidelines: string[];
 }

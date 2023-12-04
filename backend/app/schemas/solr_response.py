@@ -13,6 +13,18 @@ class SolrResponse(BaseModel):
     data: Dict
 
 
+class RelatedService(BaseModel):
+    """Model for a related service attached to an interoperability guideline"""
+
+    pid: str
+    best_access_right: str
+    title: str
+    resource_organisation: str
+    tagline: str
+    joined_categories: list
+    type: str
+
+
 class ExportData(BaseModel):
     """Model for data related to export and cite functionalities"""
 

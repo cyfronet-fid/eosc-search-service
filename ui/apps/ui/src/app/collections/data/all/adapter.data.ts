@@ -204,6 +204,11 @@ export const allCollectionsAdapter: IAdapter = {
               filter: 'doi',
               showMoreThreshold: 4,
             },
+            {
+              label: 'Interoperability guideline',
+              values: toValueWithLabel(toArray(data.guidelines)),
+              filter: 'guidelines',
+            },
           ],
     type: {
       label: data.type === 'bundle' ? 'bundles' : data.type || '',

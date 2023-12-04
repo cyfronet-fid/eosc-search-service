@@ -3,6 +3,21 @@ from enum import Enum
 from typing import Literal, TypeAlias
 
 
+class ResourceType(str, Enum):
+    """Resource type as the value of solr document `type` key"""
+
+    PUBLICATION = "publication"
+    DATASET = "dataset"
+    SOFTWARE = "software"
+    OTHER_RP = "other"
+    SERVICE = "service"
+    DATA_SOURCE = "data source"
+    BUNDLE = "bundle"
+    TRAINING = "training"
+    GUIDELINE = "interoperability guideline"
+    PROVIDER = "provider"
+
+
 class Collection(str, Enum):
     """Collection names in Solr"""
 

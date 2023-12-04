@@ -22,6 +22,7 @@ import { ShowProviderResourceComponent } from './result-ui-controls/show-provide
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { PageHeaderModule } from '@components/page-header/page-header.module';
+import { IgServicesCardModule } from '../../layouts/ig-services-card/ig-services-card.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { PageHeaderModule } from '@components/page-header/page-header.module';
     ColoredTagsModule,
     TagsModule,
     UrlTitleModule,
+    IgServicesCardModule,
     SecondaryTagsModule,
     DescriptionModule,
     InteroperabilityGuidelinesPipeModule,

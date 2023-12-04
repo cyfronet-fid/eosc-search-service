@@ -56,6 +56,11 @@ export const dataSourcesAdapter: IAdapter = {
         values: toValueWithLabel(toArray(dataSource.scientific_domains)),
         filter: 'scientific_domains',
       },
+      {
+        label: 'Interoperability guideline',
+        values: toValueWithLabel(toArray(dataSource.guidelines)),
+        filter: 'guidelines',
+      },
     ],
     secondaryTags: [
       // toDownloadsStatisticsSecondaryTag(dataSource.usage_counts_downloads),

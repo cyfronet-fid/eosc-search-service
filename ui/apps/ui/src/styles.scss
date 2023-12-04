@@ -76,6 +76,26 @@ btn-primary.disabled, .btn-primary:disabled {
   border-color: #293683;
 }
 
+.btn-extra-option {
+  border-radius: 8px;
+  background: #E6EEF7;
+  border: 1px solid #E6EEF7;
+  padding: 13px 0 13px 65px;
+  color: #010F87;
+  font-size: 14px;
+  display: block;
+  text-align: left;
+  font-weight: 700;
+
+  &.explore {
+    background: #E6EEF7 url(assets/icon-explore.svg) no-repeat 35px 50%;
+  }
+
+  &:hover {
+    border: 1px solid #010F87;
+  }
+}
+
 .search-bar {
   background: #000 url(assets/top-bar-bg.jpg) no-repeat;
   position: relative;
@@ -743,7 +763,7 @@ h6 {
 .results #container {
   padding: 10px 0 20px 0;
   position: relative;
-  max-width: 85%;
+  width: 85%;
 
   .usage {
     .open-access {

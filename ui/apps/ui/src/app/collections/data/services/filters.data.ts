@@ -121,6 +121,14 @@ export const servicesFilters: IFiltersConfig = {
       defaultCollapsed: false,
       tooltipText: '',
     },
+    {
+      id: 'guidelines',
+      filter: 'guidelines',
+      label: 'Interoperability guideline',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
 
     {
       id: 'catalogue',

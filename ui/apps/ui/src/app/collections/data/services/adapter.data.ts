@@ -46,6 +46,11 @@ export const servicesAdapter: IAdapter = {
         values: toValueWithLabel(toArray(service.scientific_domains)),
         filter: 'scientific_domains',
       },
+      {
+        label: 'Interoperability guideline',
+        values: toValueWithLabel(toArray(service.guidelines)),
+        filter: 'guidelines',
+      },
     ],
     secondaryTags: [
       // toDownloadsStatisticsSecondaryTag(service.usage_counts_downloads),

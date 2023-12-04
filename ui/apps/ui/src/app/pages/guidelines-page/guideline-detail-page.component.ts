@@ -26,9 +26,9 @@ export class GuidelineDetailPageComponent implements OnInit {
   services$: Observable<IService[]> | undefined;
 
   type = DICTIONARY_TYPE_FOR_PIPE;
-  relatedServicesList: IService[] = [];
 
   marketplaceUrl: string = ConfigService.config?.marketplace_url;
+  currentUrl: string = this._router.url;
 
   constructor(
     private guidelinesService: GuidelinesService,
@@ -59,13 +59,6 @@ export class GuidelineDetailPageComponent implements OnInit {
         this.guideline = guidelinesAdapter.adapter(
           item as Partial<IGuideline> & { id: string }
         );
-
-        this.guidelinesService
-          .getFromProviderById$(this.interoperabilityGuidelineItem.id ?? 0)
-          .subscribe((data) => {
-            const arr = data?.related_services;
-            this.relatedServicesList = [...arr];
-          });
       });
   }
 

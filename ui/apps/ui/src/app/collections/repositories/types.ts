@@ -41,6 +41,17 @@ export interface IResult {
   providerName?: string[];
   orderUrl?: string;
   exportData?: InstanceExportData[];
+  relatedServices?: RelatedService[];
+}
+
+export interface RelatedService {
+  pid: string;
+  best_access_right: AccessRight;
+  title: string;
+  resource_organisation: string;
+  tagline: string;
+  joined_categories: string[];
+  type: string;
 }
 
 export interface ISecondaryTag {

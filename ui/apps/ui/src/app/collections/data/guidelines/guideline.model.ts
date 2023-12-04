@@ -32,6 +32,7 @@ export interface IGuideline {
   uri?: string[];
   keywords?: string[];
   creators: string | '';
+  related_services: Record<string, string>[];
 }
 
 export interface ICreators {

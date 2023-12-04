@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { IService } from '@collections/data/services/service.model';
 import { IOffer } from '@collections/data/bundles/bundle.model';
 import isArray from 'lodash-es/isArray';
+import { RelatedService } from '@collections/repositories/types';
 import { InstanceExportData } from '@collections/data/openair.model';
 
 @Component({
@@ -31,7 +32,6 @@ export class ResultComponent implements OnInit {
   tagsq: string[] = [];
   validUrl: string | null = null;
   highlightsreal: { [field: string]: string[] | undefined } = {};
-
   @Input() id!: string;
   @Input() date?: string;
   @Input() urls: string[] = [];
@@ -42,6 +42,7 @@ export class ResultComponent implements OnInit {
   @Input() abbreviation!: string;
 
   @Input() title!: string;
+  @Input() relatedServices: RelatedService[] | undefined = [];
 
   @Input() offers: IOffer[] = [];
   @Input() providerName?: string[];
