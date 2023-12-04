@@ -45,6 +45,12 @@ async def search(
 
     Facets support a subset of parameters from: https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
+
+    q = q.replace("(", r"").replace(")", r"")
+    q = q.replace("[", r"").replace("]", r"")
+    q = q.replace("=", r"")
+    q = q.replace(":", r"")
+
     if collection == Collection.ALL_COLLECTION and fq and "providers" in fq[0]:
         fq = parse_providers_filters(fq)
     mm_param = "80%"
@@ -83,6 +89,7 @@ async def search(
             # https://solr.apache.org/guide/solr/latest/query-guide/highlighting.html#highlighting-in-the-query-response
             "hl": "on",
             "hl.method": "fastVector",
+            "hl.fragsize": 200,
             # Highlight fields list
             # "hl.fl": "title,author_names,description,keywords,tag_list",
             "q": q,
@@ -145,6 +152,11 @@ async def search_advanced(
 
     Facets support a subset of parameters from: https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
+    q = q.replace("(", r"").replace(")", r"")
+    q = q.replace("[", r"").replace("]", r"")
+    q = q.replace("=", r"")
+    q = q.replace(":", r"")
+
     mm_param = "80%"
     qs_param = "5"
     if exact == "true":
@@ -181,6 +193,7 @@ async def search_advanced(
             # https://solr.apache.org/guide/solr/latest/query-guide/highlighting.html#highlighting-in-the-query-response
             "hl": "on",
             "hl.method": "fastVector",
+            "hl.fragsize": 200,
             # Highlight fields list
             # "hl.fl": "title,author_names,description,keywords,tag_list",
             "q": q,

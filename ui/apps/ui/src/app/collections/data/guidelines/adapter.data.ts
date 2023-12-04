@@ -16,7 +16,7 @@ export const guidelinesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (guideline: Partial<IGuideline> & { id: string }): IResult => ({
     isResearchProduct: false,
-    id: uuidv4(),
+    id: guideline.id,
     title: guideline['title']?.join(' ') || '',
     description: guideline['description']?.join(' ') || '',
     license: guideline['right_id'],

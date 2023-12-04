@@ -85,19 +85,17 @@
         >Show Advanced Search -></span
       >
       <span
-      *ngIf="!isLanding()"
-      class="adv-search-text-btn"
-      style="margin-left: 25px;"
+        *ngIf="!isLanding()"
+        class="adv-search-text-btn"
+        style="margin-left: 25px"
       >
         <img
           src="assets/asguide/asguide-icon.svg"
           style="padding-bottom: 4px; padding-right: 5px"
         />
-        <a routerLink="/asguide"
-        target="_blank"
-        style="color: white"
-        >Advanced Search Guide</a
-      >
+        <a routerLink="/asguide" target="_blank" style="color: white"
+          >Advanced Search Guide</a
+        >
       </span>
     </form>
 
@@ -296,10 +294,7 @@
           </button>
         </div>
       </div>
-      <div
-        *ngIf="tags.length !== 0"
-        class="mb-3"
-      >
+      <div *ngIf="tags.length !== 0" class="mb-3">
         <div class="row gx-1 gy-1 py-0 tags-row">
           <div class="col-1 gx-1 gy-1 py-0">
             <span
@@ -513,14 +508,10 @@
         "
         ><- Go back to Basic Search</span
       >
-      <span
-      class="adv-search-text-btn"
-      style="margin-left: 25px;"
-      >
+      <span class="adv-search-text-btn" style="margin-left: 25px">
         <img
           src="assets/asguide/asguide-icon.svg"
           style="padding-bottom: 4px; padding-right: 5px"
-
         />
         <a routerLink="/asguide" target="_blank" style="color: white"
           >Advanced Search Guide</a

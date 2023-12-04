@@ -111,14 +111,17 @@
                   </div>
                 </div>
               </div>
-              <div class="keywords-container" *ngIf="myTraining.keywords && myTraining.keywords.length > 0">
+              <div
+                class="keywords-container"
+                *ngIf="myTraining.keywords && myTraining.keywords.length > 0"
+              >
                 <p>
                   Keywords:
                   <ng-container *ngFor="let key of myTraining.keywords">
                     <a
                       [routerLink]="['/search/all']"
                       [queryParams]="keywordQueryParam(key)"
-                    ><span class="key">{{ key }}</span></a
+                      ><span class="key">{{ key }}</span></a
                     >
                   </ng-container>
                 </p>

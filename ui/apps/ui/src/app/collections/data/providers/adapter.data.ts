@@ -19,7 +19,7 @@ export const providersAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (provider: Partial<IProvider> & { id: string }): IResult => ({
     isResearchProduct: false,
-    id: uuidv4(),
+    id: provider.id,
     title: provider['title'] ? provider['title'].toString() : '',
     abbreviation: provider['abbreviation']
       ? provider['abbreviation'].toString()
