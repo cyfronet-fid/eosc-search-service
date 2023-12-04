@@ -10,7 +10,7 @@ from pyspark.sql.types import (
     BooleanType,
     IntegerType,
 )
-from pyspark.sql.functions import year
+from pyspark.sql.functions import year, array
 from transformations.common import *
 from transformers.base.base import BaseTransformer
 from utils.utils import sort_schema
@@ -30,7 +30,6 @@ class OagBaseTransformer(BaseTransformer):
         super().__init__(
             desired_type, cols_to_add, cols_to_drop, self.cols_to_rename, spark
         )
-        self.catalogues = ["eosc"]
         self.catalogue = "eosc"  # TODO delete
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:
@@ -38,7 +37,7 @@ class OagBaseTransformer(BaseTransformer):
         Simple in a way that there is a possibility to manipulate the main dataframe
         without a need to create another dataframe and merging"""
         check_type(df, desired_type=self.type)
-        df = df.withColumn("catalogues", lit(self.catalogues))
+        df = df.withColumn("catalogues", array(lit(self.catalogue)))
         df = df.withColumn("catalogue", lit(self.catalogue))  # TODO delete
         df = self.rename_cols(df)
         df = simplify_language(df)

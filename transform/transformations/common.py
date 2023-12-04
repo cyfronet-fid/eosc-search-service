@@ -572,12 +572,14 @@ def harvest_relations(df: DataFrame, harvested_properties: dict):
 
 def harvest_eosc_if(df: DataFrame, harvested_properties: dict):
     """Harvest eoscIF from OAG resources"""
+    prefix_to_remove = "EOSC::"
+
     eosc_if_collection = df.select("eoscIF").collect()
     eosc_if_col = []
 
     for eosc_if in chain.from_iterable(eosc_if_collection):
         if eosc_if:
-            eosc_if_row = [elem["code"] for elem in eosc_if]
+            eosc_if_row = [elem["code"].lstrip(prefix_to_remove) for elem in eosc_if]
             eosc_if_col.append(eosc_if_row)
         else:
             eosc_if_col.append([])
