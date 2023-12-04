@@ -118,5 +118,21 @@ export const allCollectionsFilters: IFiltersConfig = {
       global: true,
       transformNodes: transformCatalogueNames,
     },
+    {
+      id: 'providers',
+      filter: 'providers',
+      label: 'Providers',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'resource_organisation',
+      filter: 'resource_organisation',
+      label: 'Resource Organisation',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
   ],
 };
