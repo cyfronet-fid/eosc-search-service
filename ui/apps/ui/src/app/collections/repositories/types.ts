@@ -1,9 +1,17 @@
 import { entitiesPropsFactory } from '@ngneat/elf-entities';
+import { InstanceExportData } from '@collections/data/openair.model';
 
 export interface IValueWithLabel {
   label: string;
   value: string;
   subTitle?: string;
+}
+
+export interface IArticle {
+  id: string;
+  title: string;
+  description: string;
+  url: string;
 }
 
 export interface IResult {
@@ -27,14 +35,12 @@ export interface IResult {
   downloads?: number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   offers?: any[];
-  isSortByRelevanceCollectionScopeOff?: boolean;
-  isSortByPopularityCollectionScopeOff?: boolean;
-  isSortCollectionScopeOff?: boolean;
   isResearchProduct: boolean;
   horizontal?: boolean;
   pids?: Pids;
-  providerName?: string;
+  providerName?: string[];
   orderUrl?: string;
+  exportData?: InstanceExportData[];
 }
 
 export interface ISecondaryTag {
@@ -102,6 +108,8 @@ export interface ICollectionNavConfig {
   title: string;
   urlParam: string;
   rightMenu: boolean;
+  isSortByRelevanceCollectionScopeOff?: boolean;
+  isSortByPopularityCollectionScopeOff?: boolean;
 
   breadcrumbs: {
     label: string;
@@ -142,7 +150,6 @@ export interface IFilterConfig {
   defaultCollapsed: boolean;
   tooltipText: string;
 
-  onFacetsFetch?: (bucketValues: IFacetBucket[]) => IFilterNode[]; // !!! only for multiselect !!!
   customSort?: (a: IFilterNode, b: IFilterNode) => number;
   transformNodes?: (nodes: IFilterNode[]) => IFilterNode[];
   global?: boolean;

@@ -1,10 +1,10 @@
 import { ICustomRouteProps } from '@collections/services/custom-route.type';
 import { ICollectionSearchMetadata } from '@collections/repositories/types';
-import { MAX_COLLECTION_RESULTS } from '@components/results-with-pagination/pagination.repository';
 import {
   queryChanger,
   queryChangerAdv,
 } from '@collections/filters-serializers/utils';
+import { ConfigService } from '../../services/config.service';
 
 function generatePermutations(words: string[]): string[] {
   const permutations: string[] = [];
@@ -220,7 +220,7 @@ export function constructAdvancedSearchMetadata(
   const fq_m = filters.concat(fq_o);
 
   const searchMetadata = {
-    rows: MAX_COLLECTION_RESULTS,
+    rows: getMaxResultsByPage(),
     ...routerParams,
     ...metadata.params,
     exact: routerParams.exact.toString() === 'true' ? 'true' : 'false',
@@ -238,7 +238,7 @@ export function constructStandardSearchMetadata(
   metadata: ICollectionSearchMetadata
 ) {
   const searchMetadata = {
-    rows: MAX_COLLECTION_RESULTS,
+    rows: getMaxResultsByPage(),
     ...routerParams,
     ...metadata.params,
     exact: routerParams.exact.toString() === 'true' ? 'true' : 'false',
@@ -246,3 +246,6 @@ export function constructStandardSearchMetadata(
   };
   return searchMetadata;
 }
+
+export const getMaxResultsByPage = () =>
+  ConfigService.config?.max_results_by_page ?? 250;

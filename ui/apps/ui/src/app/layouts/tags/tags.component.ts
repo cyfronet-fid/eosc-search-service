@@ -59,7 +59,7 @@ export class TagsComponent implements OnChanges {
   @Input()
   tags: ITag[] = [];
   @Input()
-  providerName?: string = '';
+  providerName?: string[] = [];
 
   @Input()
   highlights: { [field: string]: string[] | undefined } = {};

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { InstanceExportData } from '@collections/data/openair.model';
 
 @Component({
   selector: 'ess-sources',
@@ -18,4 +19,9 @@ import { Component, Input } from '@angular/core';
 })
 export class SourcesComponent {
   @Input() urls: string[] = [];
+  @Input() exportData?: InstanceExportData[] = [];
+
+  openLink(url: string) {
+    window.open(url);
+  }
 }

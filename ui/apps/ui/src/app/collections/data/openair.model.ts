@@ -22,4 +22,14 @@ export interface IOpenAIREResult {
   usage_counts_downloads: string;
   isResearchProduct: boolean;
   pids: string;
+  exportation: InstanceExportData[];
+}
+
+export interface InstanceExportData {
+  url: string;
+  documentType: string;
+  publicationYear: string;
+  license?: string;
+  hostedby: string;
+  extractedDoi?: string;
 }

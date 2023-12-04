@@ -20,14 +20,12 @@ export const otherResourcesProductsAdapter: IAdapter = {
   adapter: (
     openAIREResult: Partial<IOpenAIREResult> & { id: string }
   ): IResult => ({
-    isSortByRelevanceCollectionScopeOff: false,
-    isSortByPopularityCollectionScopeOff: false,
-    isSortCollectionScopeOff: true,
     isResearchProduct: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
     urls: openAIREResult.url,
+    exportData: openAIREResult.exportation || [],
     documentType: openAIREResult?.document_type,
     languages: transformLanguages(openAIREResult?.language),
     date: formatPublicationDate(openAIREResult['publication_date']),

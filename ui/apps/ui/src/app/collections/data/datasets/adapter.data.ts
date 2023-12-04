@@ -20,9 +20,6 @@ export const datasetsAdapter: IAdapter = {
   adapter: (
     openAIREResult: Partial<IOpenAIREResult> & { id: string }
   ): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: false,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: true,
     id: openAIREResult.id,
     title: openAIREResult?.title?.join(' ') || '',
@@ -30,6 +27,7 @@ export const datasetsAdapter: IAdapter = {
     languages: transformLanguages(openAIREResult?.language),
     date: formatPublicationDate(openAIREResult['publication_date']),
     urls: openAIREResult.url,
+    exportData: openAIREResult.exportation || [],
     license: openAIREResult?.license,
     documentType: openAIREResult?.document_type,
     url: `${

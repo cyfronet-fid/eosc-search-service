@@ -1,58 +1,117 @@
-<div class="modal-header bibliography">
-  <h4 class="modal-title">Bibliography Data</h4>
-  <div id="tooltipIcon" style="margin-left: 10px">
-    <img
-      src="assets/tooltip_prompt.svg"
-      placement="bottom"
-      [ngbTooltip]="bibliograhpyTooltipText"
-      alt="Tooltip prompt icon"
-      class="tooltip-prompt-icon"
-      width="19"
-    />
-  </div>
-  <button
-    *ngIf="this.showCopiedSuccessButton"
-    type="button"
-    class="btn-outline-primary"
-    [disabled]="true"
-  >
-    Citation copied to the Clipboad!
-  </button>
-  <button
-    type="button"
-    class="btn-close"
-    aria-label="Close"
-    (click)="activeModal.dismiss('Cross click')"
-    style="margin-right: 0"
-  ></button>
-</div>
 <div class="modal-body bibliography">
-  <div class="container mb-4">
-    <div class="row" *ngIf="hasDOIUrl">
-      <label for="sources">Select Source</label>
-      <select
-        [formControl]="selectedSource"
-        #sources
-        id="sources"
-        class="form-select"
-        (change)="this.getAvailableFormats(sources.value)"
-      >
-        <option
-          *ngFor="let url of parsedUrls | keyvalue"
-          value="{{ url.key }}"
-          [disabled]="url.value === '' ? true : false"
+
+  <div>
+    <div *ngIf="!this.instanceDOI" >
+      <div class="modal-header bibliography">
+        <h4 class="modal-title">Bibliography Data</h4>
+        <div id="tooltipIcon">
+          <img
+            src="assets/tooltip_prompt.svg"
+            placement="bottom"
+            [ngbTooltip]="bibliograhpyTooltipText"
+            alt="Tooltip prompt icon"
+            class="tooltip-prompt-icon"
+            width="19"
+          />
+        </div>
+        <button
+          *ngIf="this.showCopiedSuccessButton"
+          type="button"
+          class="btn-outline-primary"
+          [disabled]="true"
         >
-          <div>{{ url.key }}</div>
-        </option>
-      </select>
+          Citation copied to the Clipboad!
+        </button>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')"
+          style="margin-right: 0"
+        ></button>
+      </div>
+
+      <p class="mb-3">Select source</p>
+        <div class="sources-list">
+          <div *ngFor="let instance of exportData; index as i" class="sources-list-item">
+            <ng-container *ngIf="instance.extractedDoi; else noInstanceDOI">
+          <nz-card
+          [ngClass]="{'export-card-active' : i===this.selectedCard}"
+          (click)="this.setSelectedSource(instance.extractedDoi, i)">
+            <p *ngIf="instance.documentType && instance.publicationYear">{{ instance.documentType }}  . {{ instance.publicationYear }} </p>
+            <p *ngIf="instance.documentType && !instance.publicationYear">{{ instance.documentType }}  </p>
+            <p *ngIf="!instance.documentType && instance.publicationYear">Publication Year: {{ instance.publicationYear }}   </p>
+            <p *ngIf="instance.license">License: {{ instance.license }}</p>
+            <p *ngIf="instance.extractedDoi">DOI: {{instance.extractedDoi }}</p>
+            <p *ngIf="instance.hostedby ">Hosted By: {{ instance.hostedby }} </p>
+            <p>URL: {{ instance.url }}</p>
+            </nz-card>
+          </ng-container>
+
+          <ng-template #noInstanceDOI>
+            <ng-container >
+          <nz-card class="export-card-disabled">
+            <p *ngIf="instance.documentType && instance.publicationYear">{{ instance.documentType }}  . {{ instance.publicationYear }} </p>
+            <p *ngIf="instance.documentType && !instance.publicationYear">{{ instance.documentType }}   </p>
+            <p *ngIf="!instance.documentType && instance.publicationYear">Publication Year: {{ instance.publicationYear }}   </p>
+            <p *ngIf="instance.license">License: {{ instance.license }}</p>
+            <p *ngIf="instance.extractedDoi">DOI: {{instance.extractedDoi }}</p>
+            <p *ngIf="instance.hostedby ">Hosted By: {{ instance.hostedby }} </p>
+            <p>URL: {{ instance.url }}</p>
+            </nz-card>
+            </ng-container>
+          </ng-template>
+
+          </div>
+
+        </div>
+
+        <button
+            nz-button
+            nzType="primary"
+            class="bibliography-button button-next"
+            (click)="this.getAvailableFormats()"
+            [disabled]="!this.selectedSource"
+          >
+            Next
+        </button>
     </div>
   </div>
 
+
   <ng-container *ngIf="formatsChecked">
     <ng-container *ngIf="this.availableFormats.length > 0; else elseBlock">
+      <div class="modal-header bibliography">
+        <h4 class="modal-title">Export and Cite </h4>
+        <div id="tooltipIcon">
+          <img
+            src="assets/tooltip_prompt.svg"
+            placement="bottom"
+            [ngbTooltip]="bibliograhpyTooltipText"
+            alt="Tooltip prompt icon"
+            class="tooltip-prompt-icon"
+            width="19"
+          />
+        </div>
+        <button
+          *ngIf="this.showCopiedSuccessButton"
+          type="button"
+          class="btn-outline-primary"
+          [disabled]="true"
+        >
+          Citation copied to the Clipboad!
+        </button>
+        <button
+          type="button"
+          class="btn-close"
+          aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')"
+          style="margin-right: 0"
+        ></button>
+      </div>
+
       <div class="container mb-4">
         <div class="row">
-          <h6>Cite this Publication</h6>
           <p class="modal-subtitle">Select a citation style</p>
           <ul class="modal-list">
             <li *ngFor="let style of styles">
@@ -96,7 +155,7 @@
         </div>
       </div>
 
-      <div class="container mb-4">
+      <div class="container mb-4 mt-5">
         <div class="row">
           <h6>Export</h6>
           <p class="modal-subtitle">Select file format to download</p>
@@ -124,11 +183,14 @@
             {{ this.exportButtonText }} {{ this.selectedFormat | formatPipe }}
           </button>
         </div>
+
       </div>
+      <button class="bibliography-button button-back mt-3" nz-button nzType="primary" (click)="this.clearVariables()">Back to change source</button>
     </ng-container>
+
+
   </ng-container>
   <ng-template #elseBlock
-    >Unfortunately we are unable to generate export or cite data for this
-    publication.</ng-template
+    >Unfortunately we are unable to generate export or cite data, please try with other source.</ng-template
   >
 </div>

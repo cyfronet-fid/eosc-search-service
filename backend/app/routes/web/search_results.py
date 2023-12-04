@@ -1,6 +1,7 @@
 """The UI Search endpoint"""
 import csv
 import itertools
+import json
 import logging
 from contextlib import suppress
 from io import StringIO
@@ -10,10 +11,15 @@ from fastapi import APIRouter, Body, Depends, Query, Request
 from httpx import AsyncClient
 from starlette.responses import StreamingResponse
 
-from app.consts import DEFAULT_SORT, SORT_UI_TO_SORT_MAP, SortUi
+from app.consts import (
+    DEFAULT_SORT,
+    RP_AND_ALL_COLLECTIONS_LIST,
+    SORT_UI_TO_SORT_MAP,
+    SortUi,
+)
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.search_request import SearchRequest
-from app.schemas.solr_response import Collection
+from app.schemas.solr_response import Collection, ExportData
 from app.solr.error_handling import SolrDocumentNotFoundError
 from app.solr.operations import get, search_advanced_dep, search_dep
 
@@ -154,10 +160,64 @@ async def search_post_advanced(
     )
 
 
+async def _extract_doi_from_url(url_string):
+    """Function extracting doi from url"""
+    try:
+        _, doi = url_string.split("doi.org")
+    except ValueError:
+        return None
+    return doi
+
+
+async def _parse_export_data(instance):
+    """Function responsible for creating ExportData object for each instance
+    of a single document.
+    """
+    doi = None
+    instance_data = json.loads(instance)
+    urls = instance_data["url"]
+    for url in urls:
+        doi = await _extract_doi_from_url(url)
+        if doi:
+            break
+    instance_data["url"] = urls[0]
+    instance_data["hostedby"] = (
+        ""
+        if instance_data["hostedby"] == "Unknown Repository"
+        else instance_data["hostedby"]
+    )
+
+    instance = ExportData(**instance_data, extracted_doi=doi)
+
+    return instance.serialize_to_camel_case()
+
+
+async def parse_single_document(doc) -> list:
+    """Parse single document"""
+    data = []
+    with suppress(TypeError):
+        for instance in doc["exportation"]:
+            instance_export_data = await _parse_export_data(instance)
+            if instance:
+                data.append(instance_export_data)
+    doc["exportation"] = data
+    return doc
+
+
 async def create_output(
     request_session: Request, res_json: dict, collection: Collection, sort_ui: str
 ) -> dict:
     """Create an output"""
+    docs = res_json["response"]["docs"]
+
+    if docs and collection in RP_AND_ALL_COLLECTIONS_LIST:
+        parsed_docs = []
+        for doc in docs:
+            if doc.get("exportation"):
+                parsed_docs.append(await parse_single_document(doc))
+            else:
+                parsed_docs.append(doc)
+        docs = parsed_docs
     out = {
         "numFound": res_json["response"]["numFound"],
         "nextCursorMark": res_json["nextCursorMark"],
@@ -165,16 +225,14 @@ async def create_output(
 
     if sort_ui == "r":
         # Sort by relevance
-        rel_sorted_items = await sort_by_relevance(
-            request_session, collection, res_json["response"]["docs"]
-        )
+        rel_sorted_items = await sort_by_relevance(request_session, collection, docs)
         out["results"] = rel_sorted_items["recommendations"]
         out["numFound"] = len(out["results"])
         if not out["numFound"]:
             out["nextCursorMark"] = "*"
 
     else:
-        out["results"] = res_json["response"]["docs"]
+        out["results"] = docs
     if "facets" in res_json:
         out["facets"] = res_json["facets"]
 

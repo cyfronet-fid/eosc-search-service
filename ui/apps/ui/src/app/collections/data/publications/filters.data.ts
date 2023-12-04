@@ -6,7 +6,7 @@ import {
 } from '@collections/data/config';
 import {
   alphanumericFilterSort,
-  convertCountryCodeToName,
+  transformCountryNames,
   transformDataSourceNames,
 } from '@collections/data/utils';
 
@@ -60,7 +60,7 @@ export const publicationsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
-      onFacetsFetch: convertCountryCodeToName,
+      transformNodes: transformCountryNames,
     },
     {
       id: 'language',

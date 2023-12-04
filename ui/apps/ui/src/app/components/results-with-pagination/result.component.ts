@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { IService } from '@collections/data/services/service.model';
 import { IOffer } from '@collections/data/bundles/bundle.model';
 import isArray from 'lodash-es/isArray';
+import { InstanceExportData } from '@collections/data/openair.model';
 
 @Component({
   selector: 'ess-result',
@@ -43,7 +44,7 @@ export class ResultComponent implements OnInit {
   @Input() title!: string;
 
   @Input() offers: IOffer[] = [];
-  @Input() providerName?: string;
+  @Input() providerName?: string[];
 
   @Input()
   set url(url: string) {
@@ -134,6 +135,7 @@ export class ResultComponent implements OnInit {
 
   @Input()
   resourceType!: string;
+  @Input() exportData?: InstanceExportData[] = [];
 
   @Input()
   set highlights(highlights: { [field: string]: string[] | undefined }) {
@@ -141,7 +143,6 @@ export class ResultComponent implements OnInit {
     return;
   }
   public hasDOIUrl = false;
-  public parsedUrls: { [key: string]: string } = {};
 
   public readonly RESOURCES_TO_SHOW_PIN_TO: string[] = [
     'software',
@@ -166,7 +167,7 @@ export class ResultComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.parseUrls();
+    this.setHasDOIUrl();
     const tgs = this._route.snapshot.queryParamMap.getAll('tags');
     if (typeof tgs === 'string') {
       this.tagsq.push(tgs);
@@ -318,30 +319,12 @@ export class ResultComponent implements OnInit {
     this.highlightsreal['tag_list_tg'] = highlightsreal_tl.reverse();
   }
 
-  parseUrls() {
-    this.urls.map((url) => {
-      const doi = this.extractDOIFromUrl(url);
-      this.parsedUrls[url] = doi;
-      if (doi !== '') {
+  setHasDOIUrl() {
+    this.exportData?.map((instance) => {
+      if (instance.extractedDoi) {
         this.hasDOIUrl = true;
       }
     });
-  }
-
-  extractDOIFromUrl(url: string) {
-    const searchTerm = 'doi.org/';
-    const index = url.search(searchTerm);
-    if (index === -1) {
-      return '';
-    } else {
-      const doi = url.slice(index + searchTerm.length);
-      const httpIndex = doi.search('http');
-      if (httpIndex > -1) {
-        return '';
-      } else {
-        return doi;
-      }
-    }
   }
 
   get$(id: number | string): Observable<IService> {

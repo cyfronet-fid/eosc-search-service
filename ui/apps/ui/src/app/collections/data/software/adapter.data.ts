@@ -20,11 +20,9 @@ export const softwareAdapter: IAdapter = {
   adapter: (
     openAIREResult: Partial<IOpenAIREResult> & { id: string }
   ): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: false,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: true,
     id: openAIREResult.id,
+    exportData: openAIREResult.exportation || [],
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
     urls: openAIREResult.url,

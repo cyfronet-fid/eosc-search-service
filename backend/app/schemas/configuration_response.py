@@ -9,3 +9,4 @@ class ConfigurationResponse(BaseModel):
     eosc_explore_url: AnyHttpUrl
     knowledge_hub_url: AnyHttpUrl
     is_sort_by_relevance: bool
+    max_results_by_page: int

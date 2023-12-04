@@ -165,9 +165,6 @@ export const allCollectionsAdapter: IAdapter = {
       id: string;
     }
   ): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: true,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: setIsResearchProduct(data),
     id: data.id,
     title: data?.title?.join(' ') || '',
@@ -176,6 +173,7 @@ export const allCollectionsAdapter: IAdapter = {
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
+    exportData: data.exportation || [],
     orderUrl: orderUrlAdapter(data.type || '', data),
     urls: data.url,
     horizontal: data?.horizontal,

@@ -17,9 +17,6 @@ import { formatPublicationDate } from '@collections/data/utils';
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (training: Partial<ITraining> & { id: string }): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: false,
-    isSortByPopularityCollectionScopeOff: true,
     isResearchProduct: false,
     id: training.id,
     title: training['title']?.join(' ') || '',

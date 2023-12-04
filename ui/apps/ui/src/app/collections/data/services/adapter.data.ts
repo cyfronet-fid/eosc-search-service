@@ -16,9 +16,6 @@ import { ConfigService } from '../../../services/config.service';
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (service: Partial<IService> & { id: string }): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: false,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: false,
     id: service.id,
     // basic information

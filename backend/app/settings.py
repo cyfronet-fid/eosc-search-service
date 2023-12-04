@@ -62,6 +62,7 @@ class GlobalSettings(BaseSettings):
     KNOWLEDGE_HUB_URL: AnyUrl = "https://knowledge-hub.eosc-portal.eu/"
     RELATED_SERVICES_ENDPOINT: AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"
     IS_SORT_BY_RELEVANCE: bool = False
+    MAX_RESULTS_BY_PAGE: int = 250
 
     COLLECTIONS_PREFIX: str = ""
 

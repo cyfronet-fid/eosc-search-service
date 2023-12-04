@@ -144,24 +144,6 @@ export class ResultsWithPaginationComponent implements OnInit {
     return shouldInitPagination;
   }
 
-  _isSortCollectionScopeOff() {
-    return (this.response?.results ?? [])[0]?.isSortCollectionScopeOff ?? false;
-  }
-
-  _isSortByRelevanceCollectionScopeOff() {
-    return (
-      (this.response?.results ?? [])[0]?.isSortByRelevanceCollectionScopeOff ??
-      false
-    );
-  }
-
-  _isSortByPopularityCollectionScopeOff() {
-    return (
-      (this.response?.results ?? [])[0]?.isSortByPopularityCollectionScopeOff ??
-      false
-    );
-  }
-
   async requestClearAll() {
     this.clearSearchInput.emit(true);
     await this._router.navigate([], {
@@ -170,5 +152,13 @@ export class ResultsWithPaginationComponent implements OnInit {
         q: '*',
       },
     });
+  }
+
+  getKnowledgeHubUrl(): string {
+    return this._configService.get().knowledge_hub_url;
+  }
+
+  getCollectionName(): string {
+    return this._customRoute.params()['collection'] as string;
   }
 }

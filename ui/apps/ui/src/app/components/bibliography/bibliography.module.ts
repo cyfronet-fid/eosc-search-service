@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   BibliographyComponent,
   BibliographyModalContentComponent,
@@ -13,6 +13,9 @@ import {
 } from './bibliography-pipe';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @NgModule({
   declarations: [
@@ -25,9 +28,13 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
     CommonModule,
     NgbModule,
     ReactiveFormsModule,
+    FormsModule,
     NgbTooltipModule,
     NzIconModule,
     NzSpinModule,
+    NzCardModule,
+    NzDropDownModule,
+    NzRadioModule,
   ],
   exports: [
     BibliographyComponent,

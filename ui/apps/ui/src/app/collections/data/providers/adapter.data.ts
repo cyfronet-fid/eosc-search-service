@@ -9,6 +9,7 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import { ConfigService } from '../../../services/config.service';
+import { toKeywordsSecondaryTag } from '@collections/data/utils';
 
 const getDescription = (desc: string[]) => {
   return desc.join('');
@@ -17,9 +18,6 @@ const getDescription = (desc: string[]) => {
 export const providersAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (provider: Partial<IProvider> & { id: string }): IResult => ({
-    isSortCollectionScopeOff: false,
-    isSortByRelevanceCollectionScopeOff: true,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: false,
     id: provider.id,
     title: provider['title'] ? provider['title'].toString() : '',
@@ -35,11 +33,31 @@ export const providersAdapter: IAdapter = {
     },
     collection: COLLECTION,
     coloredTags: [],
+    secondaryTags: [
+      // toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
+      // toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
+      toKeywordsSecondaryTag(provider.tag_list ?? [], 'tag_list'),
+    ],
     tags: [
       {
         label: 'Scientific domain',
         values: toValueWithLabel(toArray(provider.scientific_domains)),
         filter: 'scientific_domains',
+      },
+      {
+        label: 'Legal status',
+        values: toValueWithLabel(toArray(provider.legal_status)),
+        filter: 'legal_status',
+      },
+      {
+        label: 'Areas of activity',
+        values: toValueWithLabel(toArray(provider.areas_of_activity)),
+        filter: 'areas_of_activity',
+      },
+      {
+        label: 'MERIL Scientific Categorisation',
+        values: toValueWithLabel(toArray(provider.meril_scientific_domains)),
+        filter: 'meril_scientific_domains',
       },
     ],
     url: provider.pid

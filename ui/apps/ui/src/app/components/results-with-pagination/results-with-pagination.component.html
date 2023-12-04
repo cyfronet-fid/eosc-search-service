@@ -80,15 +80,15 @@
         [loading]="(isLoading$ | async) ?? false"
         (activePageChange)="pageNr$.next($event)"
       ></ess-pagination>
-      <ess-sort-by-functionality
-        [isSortByRelevanceCollectionScopeOff]="
-          _isSortByRelevanceCollectionScopeOff()
-        "
-        [isSortByPopularityCollectionScopeOff]="
-          _isSortByPopularityCollectionScopeOff()
-        "
-      ></ess-sort-by-functionality>
+      <ess-sort-by-functionality></ess-sort-by-functionality>
     </div>
+   <ng-container  *ngIf="this.getCollectionName() === 'training'">
+    <a [href]="getKnowledgeHubUrl()">
+    <div class="redirect-kh_box">
+      <p class="kh_url">Discover EOSC Knowledge Hub -></p>
+    </div>
+    </a>
+    </ng-container>
     <ng-container
       *ngFor="let result of results$ | async; trackBy: trackByResultId"
     >
@@ -112,6 +112,7 @@
         [abbreviation]="result.abbreviation ?? ''"
         [type]="result.type"
         [date]="result.date"
+        [exportData]="result.exportData"
         [highlights]="highlights[result.id] ?? {}"
         [url]="result.url"
         [orderUrl]="result.orderUrl"
@@ -131,6 +132,7 @@
           [urls]="result.urls ?? []"
           [tags]="result.tags"
           [horizontal]="result.horizontal"
+          [exportData]="result.exportData"
           [documentType]="result.documentType"
           [coloredTags]="result.coloredTags ?? []"
           [languages]="result.languages ?? []"
@@ -143,7 +145,7 @@
           [highlights]="highlights[result.id] ?? {}"
           [offers]="result.offers ?? []"
           [isResearchProduct]="result.isResearchProduct"
-          [providerName]="result.providerName"
+          [providerName]="result.providerName ?? []"
         ></ess-result>
       </ng-template>
     </ng-container>

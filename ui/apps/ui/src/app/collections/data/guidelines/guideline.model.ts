@@ -18,7 +18,7 @@ export interface IGuideline {
   type_info?: string[];
   updated_at?: string;
   domain?: string;
-  provider?: string;
+  providers?: string[];
   provider_name?: string;
   author_affiliations?: string[];
   author_affiliations_id?: string[];
