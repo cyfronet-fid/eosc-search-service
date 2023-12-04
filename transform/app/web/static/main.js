@@ -22,7 +22,7 @@ function getStatus(taskID) {
   })
   .then(response => response.json())
   .then(res => {
-    console.log(res)
+    // console.log(res)
     const html = `
       <tr>
         <td>${taskID}</td>

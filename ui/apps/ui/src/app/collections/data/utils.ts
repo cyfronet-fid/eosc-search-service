@@ -177,7 +177,7 @@ export const transformCountryNames = (nodes: IFilterNode[]): IFilterNode[] => {
 
 export const transformHorizontal = (nodes: IFilterNode[]): IFilterNode[] => {
   return nodes.map((node) => {
-    console.log(node);
+    // console.log(node);
     return {
       ...node,
       name: ['true', 'yes'].includes(node.name) ? 'yes' : 'no',

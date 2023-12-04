@@ -330,8 +330,6 @@ export class ResultComponent implements OnInit {
     if (this.imageExists(this.logoUrl)) {
       return this.logoUrl;
     } else {
-      console.log('defaultLogoMapper[type];');
-      console.log(defaultLogoMapper[type]);
       return defaultLogoMapper[type];
     }
 
