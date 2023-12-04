@@ -1,6 +1,9 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
+import {
+  HORIZONTAL_TOOLTIP_TEXT,
+  INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+} from '@collections/data/config';
 import {
   alphanumericFilterSort,
   transformCatalogueNames,
@@ -41,6 +44,14 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+    },
+    {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
     },
     {
       id: 'language',
@@ -88,6 +99,14 @@ export const allCollectionsFilters: IFiltersConfig = {
       id: 'resource_organisation',
       filter: 'resource_organisation',
       label: 'Resource organisation',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

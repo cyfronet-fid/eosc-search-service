@@ -16,4 +16,5 @@ export interface IService {
   horizontal: boolean;
   dedicated_for: string[];
   guidelines: string[];
+  eosc_if: string[];
 }

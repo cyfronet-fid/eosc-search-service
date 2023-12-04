@@ -25,6 +25,7 @@ export interface IOffer {
   type: string;
   resource_organisation: string;
   offers: object[];
+  eosc_if: string[];
 }
 
 export interface IBundle {
@@ -47,4 +48,5 @@ export interface IBundle {
   capabilities_of_goals: string[];
   unified_categories: string[];
   offers: IOffer[];
+  eosc_if: string[];
 }

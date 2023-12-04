@@ -10,6 +10,7 @@ import {
 import { transformLanguages } from '@collections/data/shared-tags';
 import {
   parseStatistics,
+  toInterPatternsSecondaryTag,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
@@ -72,8 +73,7 @@ export const servicesAdapter: IAdapter = {
       },
     ],
     secondaryTags: [
-      // toDownloadsStatisticsSecondaryTag(service.usage_counts_downloads),
-      // toViewsStatisticsSecondaryTag(service.usage_counts_views),
+      toInterPatternsSecondaryTag(service.eosc_if ?? [], 'eosc_if'),
       toKeywordsSecondaryTag(service.tag_list ?? [], 'tag_list'),
     ],
     ...parseStatistics(service),

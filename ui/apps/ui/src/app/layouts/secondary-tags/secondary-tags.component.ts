@@ -14,11 +14,18 @@ import { combineHighlightsWith } from './utils';
   selector: 'ess-secondary-tags',
   template: `
     <div class="usage secondary-tags">
+      <!-- Create some space between description and secondary tags -->
+      <div *ngIf="checkTagsWithValues()" style="margin-bottom: 0.9rem;"></div>
       <ng-container *ngFor="let tag of parsedTags; trackBy: identityTagTrack">
         <ng-container [ngSwitch]="tag.type">
           <ng-container *ngSwitchCase="'url'">
-            <span *ngIf="tag.values.length > 0" class="statistic text-muted"
-              ><img [src]="tag.iconPath" alt="" />&nbsp;
+            <span *ngIf="tag.values.length > 0" class="statistic text-muted">
+              <ng-container *ngIf="tag.iconPath">
+                <img [src]="tag.iconPath" alt="" />
+              </ng-container>
+              <ng-container *ngIf="tag.label">
+                <span class="label-text">{{ tag.label }}</span>
+              </ng-container>
               <ng-container *ngFor="let keyword of tag.values">
                 <a
                   href="javascript:void(0)"
@@ -31,8 +38,13 @@ import { combineHighlightsWith } from './utils';
           </ng-container>
 
           <ng-container *ngSwitchCase="'info'">
-            <span *ngIf="tag.values.length > 0" class="statistic text-muted"
-              ><img [src]="tag.iconPath" alt="" />
+            <span *ngIf="tag.values.length > 0" class="statistic text-muted">
+              <ng-container *ngIf="tag.iconPath">
+                <img [src]="tag.iconPath" alt="" />
+              </ng-container>
+              <ng-container *ngIf="tag.label">
+                <span class="label-text">{{ tag.label }}</span>
+              </ng-container>
               <ng-container i18n *ngFor="let keyword of tag.values"
                 >{{ keyword }}&nbsp;&nbsp;</ng-container
               ></span
@@ -57,6 +69,13 @@ import { combineHighlightsWith } from './utils';
         float: left;
         margin-right: 10px;
         margin-top: 5px;
+      }
+
+      .label-text {
+        color: black;
+        display: inline;
+        float: left;
+        margin-right: 10px;
       }
 
       ::ng-deep .highlighted {
@@ -91,5 +110,11 @@ export class SecondaryTagsComponent implements OnChanges {
 
   setActiveFilter(filter: string, value: string): void {
     this.activeFilter.emit({ filter, value });
+  }
+
+  checkTagsWithValues(): boolean {
+    return (
+      this.parsedTags && this.parsedTags.some((tag) => tag.values.length > 0)
+    );
   }
 }

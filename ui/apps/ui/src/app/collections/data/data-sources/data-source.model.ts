@@ -14,4 +14,5 @@ export interface IDataSource {
   tag_list: string[];
   horizontal: boolean;
   guidelines: string[];
+  eosc_if: string[];
 }

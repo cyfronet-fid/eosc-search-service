@@ -9,6 +9,7 @@ import {
 import { transformLanguages } from '@collections/data/shared-tags';
 import {
   parseStatistics,
+  toInterPatternsSecondaryTag,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
@@ -57,8 +58,7 @@ export const dataSourcesAdapter: IAdapter = {
       },
     ],
     secondaryTags: [
-      // toDownloadsStatisticsSecondaryTag(dataSource.usage_counts_downloads),
-      // toViewsStatisticsSecondaryTag(dataSource.usage_counts_views),
+      toInterPatternsSecondaryTag(dataSource.eosc_if ?? [], 'eosc_if'),
       toKeywordsSecondaryTag(dataSource.tag_list ?? [], 'tag_list'),
     ],
     ...parseStatistics(dataSource),
