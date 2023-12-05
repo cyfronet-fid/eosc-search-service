@@ -2111,8 +2111,13 @@ h6 {
     &.button-next {
       background: url(assets/icon-chevron-right.svg) 100% 50% no-repeat;
       padding-right: 25px;
+      &.disabled {
+        color: #8f8f8f;
+        filter: invert(60%) sepia(1%) saturate(163%) hue-rotate(314deg) brightness(94%) contrast(87%);
     }
-
+      
+    }
+    
     &.button-back {
       background: url(assets/icon-chevron-left.svg) 0% 50% no-repeat;
       padding-left: 25px;

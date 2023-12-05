@@ -65,11 +65,11 @@
           </div>
 
         </div>
-
+        <p></p>
         <button
             nz-button
             nzType="primary"
-            class="bibliography-button button-next"
+            class="bibliography-button button-next {{ !this.selectedSource ? 'disabled' : 'active' }}"
             (click)="this.getAvailableFormats()"
             [disabled]="!this.selectedSource"
           >
