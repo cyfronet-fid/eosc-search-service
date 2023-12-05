@@ -1,6 +1,7 @@
 import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import { IService } from './service.model';
+import { IDataSource } from '../data-sources/data-source.model';
 import { COLLECTION } from './search-metadata.data';
 import {
   toArray,
@@ -13,9 +14,32 @@ import {
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
 
+export const getServiceOrderUrl = (pid?: string) => {
+  if (!pid) {
+    pid = '';
+  }
+  return `${ConfigService.config?.marketplace_url}/services/${pid}/offers`;
+};
+
+const setType = (type: string | undefined) => {
+  if (type === 'data source') {
+    return {
+      label: type,
+      value: type?.replace(/ +/gm, '-'),
+    };
+  } else {
+    return {
+      label: type || '',
+      value: type || '',
+    };
+  }
+};
+
 export const servicesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
-  adapter: (service: Partial<IService> & { id: string }): IResult => ({
+  adapter: (
+    service: Partial<IService & IDataSource> & { id: string }
+  ): IResult => ({
     isResearchProduct: false,
     id: service.id,
     // basic information
@@ -23,16 +47,11 @@ export const servicesAdapter: IAdapter = {
     description: service.description?.join(' ') || '',
     languages: transformLanguages(service?.language),
     horizontal: service?.horizontal,
-    type: {
-      label: service.type || '',
-      value: service.type || '',
-    },
+    type: setType(service.type),
     url: service.pid
       ? `${ConfigService.config?.marketplace_url}/services/${service.pid}`
       : '',
-    orderUrl: service.pid
-      ? `${ConfigService.config?.marketplace_url}/services/${service.pid}/offers`
-      : '',
+    orderUrl: getServiceOrderUrl(service.pid),
     collection: COLLECTION,
     coloredTags: [],
     tags: [
