@@ -25,7 +25,6 @@ export class RecommendationsService {
     return this._http.get<IRecommendationResponse>(url).pipe(
       catchError(() =>
         of({
-          isRand: false,
           message: 'Upssss, something gone wrong with recommendations',
           recommendations: [],
         } as IRecommendationResponse)
