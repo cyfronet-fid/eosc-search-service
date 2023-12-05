@@ -15,6 +15,7 @@ software_output_schema = {
     "documentation_url": "array<string>",
     "doi": "array<string>",
     "eosc_if": "array<string>",
+    "eosc_if_tg": "array<string>",
     "exportation": "array<string>",
     "funder": "array<string>",
     "id": "string",

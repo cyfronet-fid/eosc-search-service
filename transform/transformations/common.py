@@ -48,6 +48,7 @@ from schemas.properties.data import (
     UNIFIED_CATEGORIES,
     URL,
     VIEWS,
+    EOSC_IF_TG
 )
 from connectors.mp_pc import data_source_pids_list
 from schemas.mappings import (
@@ -661,6 +662,8 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
         df = df.withColumn(KEYWORDS_TG, col(KEYWORDS))
     if TAG_LIST in columns:
         df = df.withColumn(TAG_LIST_TG, col(TAG_LIST))
+    if EOSC_IF in columns:
+        df = df.withColumn(EOSC_IF_TG, col(EOSC_IF))
 
     return df
 

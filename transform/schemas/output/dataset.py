@@ -14,6 +14,7 @@ dataset_output_schema = {
     "document_type": "array<string>",
     "doi": "array<string>",
     "eosc_if": "array<string>",
+    "eosc_if_tg": "array<string>",
     "exportation": "array<string>",
     "funder": "array<string>",
     "id": "string",
