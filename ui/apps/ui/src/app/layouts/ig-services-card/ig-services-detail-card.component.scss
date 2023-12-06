@@ -2,7 +2,7 @@
   overflow: hidden;
 
   .btn-show-more {
-    color: #040F81;
+    color: #040f81;
     font-size: 12px;
     font-weight: 400;
     text-decoration-line: underline;
@@ -51,7 +51,7 @@
   }
 
   .service-title {
-    color: #233D4C;
+    color: #233d4c;
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 15px;
@@ -59,7 +59,7 @@
   }
 
   .service-provided-by {
-    color: #8D989C;
+    color: #8d989c;
     font-size: 12px;
     font-weight: 400;
     line-height: 18px;
@@ -69,7 +69,7 @@
   }
 
   .service-tagline {
-    color: #7C7C7C;
+    color: #7c7c7c;
     font-size: 12px;
     font-weight: 400;
     margin-bottom: 20px;
@@ -77,16 +77,16 @@
     border-bottom: 1px solid #d8d8d8;
   }
 
-  .service-categories{
+  .service-categories {
     display: block;
 
     .service-category-item {
-      background: #EDF4FF;
+      background: #edf4ff;
       margin-bottom: 0.25rem;
       display: inline-block;
       float: left;
       margin: 0 10px 10px 0;
-      color: #000A64;
+      color: #000a64;
       font-size: 11px;
       font-weight: 400;
       padding: 5px 7px 5px 7px;
@@ -96,8 +96,8 @@
 }
 
 .results .icons-holder {
-    flex: 90px 0 0;
-    border-left: 3px solid #eee;
+  flex: 90px 0 0;
+  border-left: 3px solid #eee;
 
   .logo-icon {
     width: 45px;
@@ -108,7 +108,7 @@
     background-size: 45px auto;
     border-color: #c991d2;
   }
-  .acces-right-icon{
+  .acces-right-icon {
     width: 45px;
     height: 50px;
     background-repeat: no-repeat;
@@ -117,6 +117,4 @@
     background-size: 45px auto;
     border-color: #c991d2;
   }
-
 }
-

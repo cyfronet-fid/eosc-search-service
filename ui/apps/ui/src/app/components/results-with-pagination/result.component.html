@@ -17,7 +17,6 @@
       *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
     >
       <div style="display: flex; flex-direction: column">
-       
         <ess-url-title
           [ngClass]="{ padding_for_provider: type.value === 'provider' }"
           [title]="title"
@@ -31,10 +30,9 @@
           [title]="abbreviation"
           [highlight]="highlightsreal['abbreviation'] ?? []"
           [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
-        style="margin-bottom: -10px"
-      >
-      </ess-url-title>
-        
+          style="margin-bottom: -10px"
+        >
+        </ess-url-title>
       </div>
     </div>
 
@@ -222,9 +220,7 @@
       [exportData]="exportData"
     ></ess-sources>
   </div>
-  <div *ngIf="type.value === 'provider' ">
-      <ess-providers-resources
-      [title]="title"
-      ></ess-providers-resources>
+  <div *ngIf="type.value === 'provider'">
+    <ess-providers-resources [title]="title"></ess-providers-resources>
   </div>
 </div>

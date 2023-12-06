@@ -1,5 +1,6 @@
 """Helper module to inject related services data into interoperability guileliens response"""
 import asyncio
+import copy
 import logging
 from typing import Optional
 
@@ -51,21 +52,30 @@ async def extend_ig_with_related_services(client: AsyncClient, docs: list[dict])
     """Main function responsible for extending iteroperability guideline response
     with related services data
     """
+    new_docs = []
     for doc in docs:
         if doc["type"] == ResourceType.GUIDELINE:
+            related_services_pids = []
             try:
                 related_services_pids = await _get_related_records_pids(
                     client, doc["id"]
                 )
             except RelatedServicesError:
-                return []
-            if related_services_pids:
-                doc["related_services"] = await _get_related_services(
-                    client, related_services_pids
-                )
-            else:
-                doc["related_services"] = []
-    return docs
+                print("related_service_pid error")
+                related_services_pids = []
+            finally:
+                if related_services_pids:
+                    doc["related_services"] = await _get_related_services(
+                        client, related_services_pids
+                    )
+                    print("related_service_pid set after await")
+                else:
+                    doc["related_services"] = []
+                new_docs.append(copy.deepcopy(doc))
+        else:
+            new_docs.append(copy.deepcopy(doc))
+
+    return new_docs
 
 
 async def _get_related_services(client: AsyncClient, related_services_pids: list[str]):

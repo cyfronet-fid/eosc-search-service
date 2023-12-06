@@ -273,9 +273,18 @@
             </div>
 
             <div class="ig-right-col-desc col-md-3 col-12">
-
-              <div *ngIf="this.guideline.relatedServices && this.guideline.relatedServices.length > 0" i18n>
-                <a href="{{ this.currentUrl }}#related-resources" class="btn btn-extra-option explore mb-4">Explore Related Services</a>
+              <div
+                *ngIf="
+                  this.guideline.relatedServices &&
+                  this.guideline.relatedServices.length > 0
+                "
+                i18n
+              >
+                <a
+                  href="{{ this.currentUrl }}#related-resources"
+                  class="btn btn-extra-option explore mb-4"
+                  >Explore Related Services</a
+                >
               </div>
 
               <div class="ig-provider-information-wrapper">
@@ -392,16 +401,15 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
-  <ess-ig-services-detail-card *ngIf="this.guideline"
-  id="related-resources"
-  [relatedServices]="this.guideline.relatedServices"
-  [marketplaceUrl]="this.marketplaceUrl"
-  [title]="this.guideline?.title ?? ''"
-   ></ess-ig-services-detail-card>
+  <ess-ig-services-detail-card
+    *ngIf="this.guideline"
+    id="related-resources"
+    [relatedServices]="this.guideline.relatedServices"
+    [marketplaceUrl]="this.marketplaceUrl"
+    [title]="this.guideline?.title ?? ''"
+  ></ess-ig-services-detail-card>
   <ess-feedback-panel class="feedback-panel"></ess-feedback-panel>
 </div>

@@ -43,7 +43,7 @@ a:hover {
 }
 
 .btn-primary {
-  background: #010E87;
+  background: #010e87;
 }
 
 .btn-special {
@@ -61,38 +61,39 @@ a:hover {
 }
 
 .btn-outline-primary {
-  color: #010E87;
-  border-color: #010E87;
+  color: #010e87;
+  border-color: #010e87;
 }
 
 .btn-outline-primary:hover {
   color: #fff;
-  background-color: #010E87;
-  border-color: #010E87;
+  background-color: #010e87;
+  border-color: #010e87;
 }
 
-btn-primary.disabled, .btn-primary:disabled {
+btn-primary.disabled,
+.btn-primary:disabled {
   background-color: #293683;
   border-color: #293683;
 }
 
 .btn-extra-option {
   border-radius: 8px;
-  background: #E6EEF7;
-  border: 1px solid #E6EEF7;
+  background: #e6eef7;
+  border: 1px solid #e6eef7;
   padding: 13px 0 13px 65px;
-  color: #010F87;
+  color: #010f87;
   font-size: 14px;
   display: block;
   text-align: left;
   font-weight: 700;
 
   &.explore {
-    background: #E6EEF7 url(assets/icon-explore.svg) no-repeat 35px 50%;
+    background: #e6eef7 url(assets/icon-explore.svg) no-repeat 35px 50%;
   }
 
   &:hover {
-    border: 1px solid #010F87;
+    border: 1px solid #010f87;
   }
 }
 
@@ -984,13 +985,13 @@ h6 {
   border-bottom: none;
   .export-card-disabled {
     background-color: gray;
-    width:600px;
+    width: 600px;
   }
   .export-card-active {
     background-color: magenta;
   }
   .instance-card {
-    width:600px;
+    width: 600px;
   }
 
   .modal-title {
@@ -1014,7 +1015,7 @@ h6 {
 
   .cdk-overlay-container {
     z-index: 10000 !important;
-   }
+  }
 
   .modal-subtitle {
     font-size: 14px;
@@ -1062,7 +1063,7 @@ h6 {
   border: none;
 }
 
-.disabled>.page-link {
+.disabled > .page-link {
   background-color: #fff !important;
   color: rgba(143, 143, 143, 0.506);
 }
@@ -1708,20 +1709,29 @@ h6 {
             position: absolute;
             top: 0;
             right: 0;
-            background: rgb(0,0,0);
-            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%);
+            background: rgb(0, 0, 0);
+            background: linear-gradient(
+              90deg,
+              rgba(0, 0, 0, 0) 0%,
+              rgba(255, 255, 255, 1) 100%
+            );
           }
         }
       }
 
       &:hover {
-        background: url(assets/icon-check-checked.svg) no-repeat right 12px top 12px;
+        background: url(assets/icon-check-checked.svg) no-repeat right 12px top
+          12px;
 
         .ant-card-body {
           .end-line-gradient {
             &::after {
-              background: rgb(0,0,0);
-              background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(245,245,245,1) 100%);
+              background: rgb(0, 0, 0);
+              background: linear-gradient(
+                90deg,
+                rgba(0, 0, 0, 0) 0%,
+                rgba(245, 245, 245, 1) 100%
+              );
             }
           }
         }
@@ -1966,7 +1976,6 @@ h6 {
 }
 
 .bibliography-dialog {
-
   .modal-content {
     border-radius: 20px;
     padding: 30px 25px 30px;
@@ -2013,7 +2022,8 @@ h6 {
           cursor: pointer;
           height: 100%;
           width: 100%;
-          background: url(assets/icon-check-empty.svg) no-repeat right 12px top 12px;
+          background: url(assets/icon-check-empty.svg) no-repeat right 12px top
+            12px;
 
           .ant-card-body {
             padding: 12px 12px 7px;
@@ -2035,18 +2045,23 @@ h6 {
                 position: absolute;
                 top: 0;
                 right: 0;
-                background: rgb(0,0,0);
-                background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(255,255,255,1) 100%);
+                background: rgb(0, 0, 0);
+                background: linear-gradient(
+                  90deg,
+                  rgba(0, 0, 0, 0) 0%,
+                  rgba(255, 255, 255, 1) 100%
+                );
               }
             }
           }
 
           &.export-card-disabled {
-            border: 1px solid #B5B9BF;
-            color: #B5B9BF !important;
+            border: 1px solid #b5b9bf;
+            color: #b5b9bf !important;
             position: relative;
             pointer-events: none;
-            background: var(--gray-50, #F9FAFB) url(assets/icon-check-disabled.svg) no-repeat right 12px top 12px;
+            background: var(--gray-50, #f9fafb)
+              url(assets/icon-check-disabled.svg) no-repeat right 12px top 12px;
 
             &::after {
               content: 'The source cannot be cited. ';
@@ -2063,31 +2078,41 @@ h6 {
             }
 
             .ant-card-body {
-              color: #B5B9BF !important;
+              color: #b5b9bf !important;
             }
           }
 
           &:hover {
-            background: url(assets/icon-check-checked.svg) no-repeat right 12px top 12px;
+            background: url(assets/icon-check-checked.svg) no-repeat right 12px
+              top 12px;
 
             .ant-card-body {
               .end-line-gradient {
                 &::after {
-                  background: rgb(0,0,0);
-                  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(245,245,245,1) 100%);
+                  background: rgb(0, 0, 0);
+                  background: linear-gradient(
+                    90deg,
+                    rgba(0, 0, 0, 0) 0%,
+                    rgba(245, 245, 245, 1) 100%
+                  );
                 }
               }
             }
           }
 
           &.export-card-active {
-            background: #E7EAFB url(assets/icon-check-checked.svg) no-repeat right 12px top 12px;
+            background: #e7eafb url(assets/icon-check-checked.svg) no-repeat
+              right 12px top 12px;
 
             .ant-card-body {
               .end-line-gradient {
                 &::after {
-                  background: rgb(0,0,0);
-                  background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(245,245,245,1) 100%);
+                  background: rgb(0, 0, 0);
+                  background: linear-gradient(
+                    90deg,
+                    rgba(0, 0, 0, 0) 0%,
+                    rgba(245, 245, 245, 1) 100%
+                  );
                 }
               }
             }
@@ -2101,7 +2126,7 @@ h6 {
     border: none;
     padding: 0;
     outline: none;
-    color: #010E87;
+    color: #010e87;
     background: none;
     font-size: 16px;
     font-weight: 600;
@@ -2113,11 +2138,11 @@ h6 {
       padding-right: 25px;
       &.disabled {
         color: #8f8f8f;
-        filter: invert(60%) sepia(1%) saturate(163%) hue-rotate(314deg) brightness(94%) contrast(87%);
+        filter: invert(60%) sepia(1%) saturate(163%) hue-rotate(314deg)
+          brightness(94%) contrast(87%);
+      }
     }
-      
-    }
-    
+
     &.button-back {
       background: url(assets/icon-chevron-left.svg) 0% 50% no-repeat;
       padding-left: 25px;
@@ -2176,8 +2201,8 @@ h6 {
 .redirect-kh_box {
   width: 100%;
   height: 64px;
-  background-color: #F2F3F6;
-  stroke: #EDF4FF;
+  background-color: #f2f3f6;
+  stroke: #edf4ff;
   border-radius: 8px;
   display: flex;
   margin-bottom: 24px;
@@ -2188,7 +2213,7 @@ h6 {
 }
 
 .kh_url {
-  color: #010F87;
+  color: #010f87;
   font-size: 14px;
   font-weight: bold;
   margin-bottom: 0;
