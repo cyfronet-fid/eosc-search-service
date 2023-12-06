@@ -55,7 +55,6 @@ export const attachHighlightsToTxt = (
     };
 
     strippedTxt = strippedTxt.replace(pattern, replacement);
-    console.log(strippedTxt);
   }
 
   return strippedTxt;
