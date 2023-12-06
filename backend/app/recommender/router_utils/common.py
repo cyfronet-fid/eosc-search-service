@@ -44,8 +44,8 @@ class SolrRetrieveError(RecommendationHttpError):
 
 def _get_panel(collection: Collection, sort_by_relevance: bool = False) -> PanelId:
     if not sort_by_relevance and collection == Collection.ALL_COLLECTION:
-        return random.choice(PANEL_ID_OPTIONS)
-    return COLLECTION_TO_PANEL_ID_MAP[collection]
+        return random.choice(PANEL_ID_OPTIONS).value
+    return COLLECTION_TO_PANEL_ID_MAP[collection].value
 
 
 async def get_session(request: Request):
