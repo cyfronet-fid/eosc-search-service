@@ -20,7 +20,7 @@ async def create_solr_collections(
     ),
     provider_config: str = Query(..., description="Config name for 'provider'"),
     collection_prefix: str = Query(
-        "",
+        None,
         description="Prefix for collection names. It is recommended to use convention 'oag<dump_version>'",
     ),
     date: str = Query(
@@ -38,7 +38,7 @@ async def create_solr_collections(
 
     collection_names = [
         f"{date}_{collection}"
-        if collection_prefix == ""
+        if collection_prefix is None
         else f"{collection_prefix}_{date}_{collection}"
         for collection in SOLR_COLLECTION_NAMES
     ]
@@ -49,8 +49,11 @@ async def create_solr_collections(
         validate_configset_exists(provider_config)
         validate_collections(collection_names, check_existence=True)
 
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+
+    except HTTPException as he:
+        raise HTTPException(status_code=he.status_code, detail=str(he.detail))
 
     task = create_solr_collections_task.delay(
         all_collection_config,
