@@ -58,7 +58,7 @@ async def extend_ig_with_related_services(client: AsyncClient, docs: list[dict])
                     client, doc["id"]
                 )
             except RelatedServicesError:
-                return []
+                related_services_pids = []
             if related_services_pids:
                 doc["related_services"] = await _get_related_services(
                     client, related_services_pids
