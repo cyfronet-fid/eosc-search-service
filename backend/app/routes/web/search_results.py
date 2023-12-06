@@ -93,7 +93,7 @@ async def search_post(
                     client, res_json["response"]["docs"]
                 )
                 res_json["response"]["docs"] = copy.deepcopy(new_docs)
-            except (Exception,): # pylint: disable=broad-except
+            except (Exception,):  # pylint: disable=broad-except
                 print("Something goes wrong..")
 
     collection = response.collection
