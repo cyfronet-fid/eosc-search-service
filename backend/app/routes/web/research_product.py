@@ -37,11 +37,10 @@ async def get_rp_by_id(
         with suppress(ValidationError):
             RPUrlPath(url=url)
             urls.append(url)
-
     return ResearchProductResponse(
         title=" ".join(response["title"]),
         links=urls,
-        author=response["author_names"],
+        author=response.get("author_names", []),
         type=response["type"],
         best_access_right=response["best_access_right"],
     )
