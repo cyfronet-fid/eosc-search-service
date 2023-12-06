@@ -16,7 +16,7 @@ async def create_aliases(
         description="Date string in the format 'YYYYMMDD'. Defaults to the current date if not provided.",
     ),
     collection_prefix: str = Query(
-        "",
+        None,
         description="Prefix for collection names. It is recommended to use convention 'oag<dump_version>'",
     ),
     alias_prefix: str = Query("", description="Prefix for aliases."),
@@ -28,7 +28,7 @@ async def create_aliases(
 
     aliases = (
         SOLR_COLLECTION_NAMES
-        if alias_prefix == ""
+        if alias_prefix is None
         else [f"{alias_prefix}_{collection}" for collection in SOLR_COLLECTION_NAMES]
     )
 
@@ -42,8 +42,12 @@ async def create_aliases(
     try:
         validate_date_basic_format(collection_date)
         validate_collections(collection_names, check_existence=False)
-    except ValueError as e:
-        raise HTTPException(status_code=400, detail=str(e))
+
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+
+    except HTTPException as he:
+        raise HTTPException(status_code=he.status_code, detail=str(he.detail))
 
     task = create_aliases_task.delay(aliases, collection_names)
 
