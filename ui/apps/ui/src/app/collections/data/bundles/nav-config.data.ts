@@ -18,4 +18,6 @@ export const bundlesNavConfig: ICollectionNavConfig = {
   ],
   urlParam: URL_PARAM_NAME,
   rightMenu: false,
+  isSortByRelevanceCollectionScopeOff: true,
+  isSortByPopularityCollectionScopeOff: false,
 };

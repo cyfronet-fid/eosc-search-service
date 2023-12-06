@@ -17,4 +17,5 @@ async def test_return_backend_config(app: FastAPI, client: AsyncClient) -> None:
         "eosc_explore_url": "https://explore.eosc-portal.eu",
         "knowledge_hub_url": "https://knowledge-hub.eosc-portal.eu/",
         "is_sort_by_relevance": False,
+        "max_results_by_page": 250,
     }

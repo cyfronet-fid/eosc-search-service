@@ -18,7 +18,11 @@ import { PinComponent } from '@components/results-with-pagination/result-ui-cont
 import { PinStaticComponent } from '@components/results-with-pagination/result-ui-controls/pin-static.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { SourcesComponent } from './result-ui-controls/sources.component';
+import { ShowProviderResourceComponent } from './result-ui-controls/show-provider-resources';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { PageHeaderModule } from '@components/page-header/page-header.module';
+import { IgServicesCardModule } from '../../layouts/ig-services-card/ig-services-card.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +30,7 @@ import { PageHeaderModule } from '@components/page-header/page-header.module';
     PaginationComponent,
     ResultComponent,
     PinComponent,
+    ShowProviderResourceComponent,
     PinStaticComponent,
     SourcesComponent,
   ],
@@ -37,12 +42,15 @@ import { PageHeaderModule } from '@components/page-header/page-header.module';
     ColoredTagsModule,
     TagsModule,
     UrlTitleModule,
+    IgServicesCardModule,
     SecondaryTagsModule,
     DescriptionModule,
     InteroperabilityGuidelinesPipeModule,
     NgbDropdownModule,
     BibliographyModule,
     NzButtonModule,
+    NzCardModule,
+    NzDropDownModule,
     PageHeaderModule,
   ],
   exports: [ResultsWithPaginationComponent],

@@ -1,0 +1,23 @@
+:host {
+  display: block;
+  margin-top: 4px;
+}
+
+.show-resources-icon {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  background-repeat: no-repeat;
+  background-image: url('../../../../assets/resources.svg');
+  background-position: 0 1px;
+}
+
+.show-resources-text {
+  color: #040f81;
+  margin-right: 8px;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}

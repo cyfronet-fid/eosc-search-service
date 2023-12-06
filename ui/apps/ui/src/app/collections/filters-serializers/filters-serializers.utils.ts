@@ -33,7 +33,7 @@ export const serializeAll = (
   const fqMap: { [filter: string]: string | string[] } = {};
   for (const fq of fqs) {
     const serializedFq = serialize(fq, filtersConfigs);
-    if (!serializedFq.value) {
+    if (!serializedFq || !serializedFq.value) {
       continue;
     }
 
@@ -116,6 +116,11 @@ export const deserialize = (
         .filter(filter)
         .values(values as string[])
         .deserialize();
+    case 'dropdown':
+      return new MultiselectDeserializer()
+        .filter(filter)
+        .values(values as string[])
+        .deserialize();
     default:
       throw Error(
         `Filter deserializer isn't defined for: ${filterConfig?.type} (${filter})!`
@@ -126,11 +131,15 @@ export const deserialize = (
 export const serialize = (
   fq: string,
   config: IFilterConfig[] | IFilterConfig
-): FilterSerializer<string | string[]> => {
+): FilterSerializer<string | string[]> | undefined => {
   let filterConfig: IFilterConfig[] | IFilterConfig = config as IFilterConfig;
   if (isArray(config)) {
     const filter = fq.split(':')[0];
     filterConfig = config.find(({ id }) => id === filter) as IFilterConfig;
+  }
+
+  if (!filterConfig) {
+    return;
   }
 
   switch (filterConfig.type) {
@@ -143,6 +152,8 @@ export const serialize = (
     case 'date-calendar':
       return new DateSerializer(fq);
     case 'multiselect':
+      return new MultiselectSerializer(fq);
+    case 'dropdown':
       return new MultiselectSerializer(fq);
     default:
       throw Error(`Filter serializer isn't defined for: ${filterConfig.type}!`);

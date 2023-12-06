@@ -49,7 +49,8 @@ export class RecommendationsComponent implements OnInit {
           if (
             panelId === 'guideline' ||
             panelId === 'provider' ||
-            panelId === 'bundle'
+            panelId === 'bundle' ||
+            panelId === 'data_source'
           ) {
             return of([]);
           }

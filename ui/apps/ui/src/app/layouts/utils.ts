@@ -21,11 +21,39 @@ export const attachHighlightsToTxt = (
   strippedTxt: string,
   highlightedTxt: string[]
 ): string => {
-  const size = highlightedTxt.length;
-  for (let i = 0; i < size; i++) {
-    const pattern = new RegExp('\\b(' + highlightedTxt[i] + ')\\b', 'gi');
+  const lowercasedSet = new Set<string>();
 
-    const replacement = `<span class="highlighted">${highlightedTxt[i]}</span>`;
+  const uniqueHighlightedTxt = highlightedTxt.filter((value) => {
+    const lowercasedValue = value.toLowerCase();
+    if (!lowercasedSet.has(lowercasedValue)) {
+      lowercasedSet.add(lowercasedValue);
+      return true;
+    }
+    return false;
+  });
+
+  const size = uniqueHighlightedTxt.length;
+  for (let i = 0; i < size; i++) {
+    //const pattern = new RegExp(
+    //  `(?:^|\\s|\\(|\\-|>|/)([^\\w]*` +
+    //    uniqueHighlightedTxt[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+    //    '[^\\w]*)(?:\\)|\\?|/|\\-|\\w|\\+|<|$|\\s)',
+    //  'gi'
+    //);
+    const pattern = new RegExp(
+      `(?:^|\\s|\\(|\\-|>|/)([^\\w]*` +
+        uniqueHighlightedTxt[i].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') +
+        '(?!\\s)?<?[^\\w]*)(?:\\)|\\?|/|\\-|\\w|\\+|$|\\s)',
+      'gi'
+    );
+
+    const replacement = (match: string, group: any) => {
+      if (group.endsWith('<')) {
+        group = group.slice(0, -1);
+      }
+      return match.replace(group, `<span class="highlighted">${group}</span>`);
+    };
+
     strippedTxt = strippedTxt.replace(pattern, replacement);
   }
 

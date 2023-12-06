@@ -10,7 +10,7 @@ from pyspark.sql.utils import AnalysisException
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, when, to_date, lit
 
-from app.services.mp_pc.data import data_source_pids_list
+from app.services.mp_pc.data import get_data_source_pids
 from app.transform.schemas.mappings import (
     access_rights_mapping,
     OPEN_ACCESS_,
@@ -37,6 +37,7 @@ from app.transform.schemas.properties.data import (
     DOI,
     DOWNLOADS,
     EOSC_IF,
+    EOSC_IF_TG,
     EXPORTATION,
     FOS,
     FUNDER,
@@ -118,7 +119,7 @@ def harvest_scientific_domains(df: DataFrame, harvested_properties: dict) -> Non
         """Map scientific domain"""
         try:
             sd_trimmed = extract_digits_and_trim(sd_raw)
-            sd_mapped = scientific_domains_mapping[sd_trimmed]
+            sd_mapped = scientific_domains_mapping[sd_trimmed.lower()]
 
             if ">" in sd_mapped:  # If a child is being added
                 if sd_mapped not in sd_list:
@@ -331,7 +332,7 @@ def map_best_access_right(
                 best_access_right_column.append(desired_access_t)
                 break
         else:
-            print(
+            logger.warning(
                 f"Warning unknown access right: best_access_right={access[BEST_ACCESS_RIGHT]}, collection={col_name}"
             )
             best_access_right_column.append(access[BEST_ACCESS_RIGHT])
@@ -572,12 +573,14 @@ def harvest_relations(df: DataFrame, harvested_properties: dict):
 
 def harvest_eosc_if(df: DataFrame, harvested_properties: dict):
     """Harvest eoscIF from OAG resources"""
+    prefix_to_remove = "EOSC::"
+
     eosc_if_collection = df.select("eoscIF").collect()
     eosc_if_col = []
 
     for eosc_if in chain.from_iterable(eosc_if_collection):
         if eosc_if:
-            eosc_if_row = [elem["code"] for elem in eosc_if]
+            eosc_if_row = [elem["code"].lstrip(prefix_to_remove) for elem in eosc_if]
             eosc_if_col.append(eosc_if_row)
         else:
             eosc_if_col.append([])
@@ -659,7 +662,8 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
         df = df.withColumn(KEYWORDS_TG, col(KEYWORDS))
     if TAG_LIST in columns:
         df = df.withColumn(TAG_LIST_TG, col(TAG_LIST))
-
+    if EOSC_IF in columns:
+        df = df.withColumn(EOSC_IF_TG, col(EOSC_IF))
     return df
 
 
@@ -745,7 +749,7 @@ def harvest_data_source(df: DataFrame, harvested_properties: dict) -> None:
     Returns:
         None
     """
-    data_source_list = data_source_pids_list()
+    data_source_list = get_data_source_pids()
 
     instances_list = df.select(INSTANCE).collect()
     data_source_column = []

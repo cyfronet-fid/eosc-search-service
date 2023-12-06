@@ -17,7 +17,6 @@ from app.recommender.router_utils.common import (
     get_session,
 )
 from app.recommender.router_utils.recommendations import (
-    get_fixed_recommendations,
     get_recommended_items,
     get_recommended_uuids,
 )
@@ -51,24 +50,20 @@ async def get_recommendations(panel_id: Collection, request: Request):
                     client, session, panel_id, recommendation_visit_id
                 )
                 items = await get_recommended_items(client, uuids)
-                resp = JSONResponse({"recommendations": items, "isRand": False})
+                resp = JSONResponse({"recommendations": items})
                 # Let's store the recommendation visit id for retrieval in the user actions
                 resp.set_cookie("recommendation_visit_id", recommendation_visit_id)
                 return resp
             except (RecommenderError, ReadTimeout, SolrDocumentNotFoundError) as error:
-                uuids = await get_fixed_recommendations(panel_id)
-                items = await get_recommended_items(client, uuids)
                 resp = JSONResponse(
                     {
-                        "recommendations": items,
-                        "isRand": True,
+                        "recommendations": [],
                         "message": (
                             str(error)
                             or "Solr or external recommender service read timeout"
                         ),
                     }
                 )
-
                 # We're storing the visit id for fixed recommendations just in case as well
                 resp.set_cookie("recommendation_visit_id", recommendation_visit_id)
                 return resp

@@ -18,6 +18,7 @@ from app.transform.schemas.properties.data import (
 from app.transform.schemas.output.guideline import guideline_output_schema
 from app.transform.schemas.input.guideline import guideline_input_schema
 from app.transform.utils.validate import validate_pd_schema
+from app.services.mp_pc.data import get_providers_mapping
 
 
 logger = logging.getLogger(__name__)
@@ -211,12 +212,12 @@ def rename_cols(df: DataFrame) -> None:
         return {
             "alternativeIdentifiers": "alternative_ids",
             "publicationYear": "publication_year",
-            "catalogueId": "catalogue",
+            "catalogueId": "catalogues",
             "created": "publication_date",
             "updated": "updated_at",
             "eoscGuidelineType": "eosc_guideline_type",
             "eoscIntegrationOptions": "eosc_integration_options",
-            "providerId": "provider",
+            "providerId": "providers",
         }
 
     df.rename(columns=mapping_dict(), inplace=True)
@@ -310,6 +311,12 @@ def serialize_alternative_ids(df: DataFrame) -> None:
     ]
 
 
+def map_providers(df: DataFrame) -> None:
+    """Map pids into names - providers column"""
+    providers_mapping = get_providers_mapping()
+    df["providers"] = df["providers"].replace(providers_mapping)
+
+
 def transform_guidelines(data: str) -> DataFrame:
     """Transform guidelines"""
     df = pd.DataFrame(data)
@@ -323,7 +330,10 @@ def transform_guidelines(data: str) -> DataFrame:
 
     df[TYPE] = IG_TYPE
     rename_cols(df)
-    map_str_to_arr(df, ["title", "description"])
+    df["catalogue"] = df["catalogues"].copy()  # TODO delete
+    map_providers(df)
+    df["provider"] = df["providers"].copy()  # TODO delete
+    map_str_to_arr(df, ["title", "description", "catalogues", "providers"])
     ts_to_iso(df, ["publication_date", "updated_at"])
 
     if ALTERNATIVE_IDS in df.columns:

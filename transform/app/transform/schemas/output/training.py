@@ -6,11 +6,12 @@ training_output_schema = {
     "author_names": "array<string>",
     "author_names_tg": "array<string>",
     "best_access_right": "string",
-    "catalogue": "string",
+    "catalogue": "string",  # TODO delete
+    "catalogues": "array<string>",
     "content_type": "array<string>",
     "description": "array<string>",
     "duration": "bigint",
-    "eosc_provider": "array<string>",
+    "eosc_provider": "array<string>",  # TODO delete
     "geographical_availabilities": "array<string>",
     "id": "string",
     "keywords": "array<string>",
@@ -20,6 +21,7 @@ training_output_schema = {
     "level_of_expertise": "string",
     "license": "string",
     "open_access": "boolean",
+    "providers": "array<string>",
     "publication_date": "date",
     "qualification": "array<string>",
     "related_services": "array<string>",

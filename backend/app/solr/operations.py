@@ -15,7 +15,7 @@ from .error_handling import (
     handle_solr_detail_response_errors,
     handle_solr_list_response_errors,
 )
-from .utils import map_detail_provider, map_list_providers
+from .utils import parse_providers_filters
 
 
 async def search(
@@ -45,6 +45,14 @@ async def search(
 
     Facets support a subset of parameters from: https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
+
+    q = q.replace("(", r"").replace(")", r"")
+    q = q.replace("[", r"").replace("]", r"")
+    q = q.replace("=", r"")
+    q = q.replace(":", r"")
+
+    if collection == Collection.ALL_COLLECTION and fq and "providers" in fq[0]:
+        fq = parse_providers_filters(fq)
     mm_param = "80%"
     qs_param = "5"
     if exact == "true":
@@ -81,6 +89,7 @@ async def search(
             # https://solr.apache.org/guide/solr/latest/query-guide/highlighting.html#highlighting-in-the-query-response
             "hl": "on",
             "hl.method": "fastVector",
+            "hl.fragsize": 200,
             # Highlight fields list
             # "hl.fl": "title,author_names,description,keywords,tag_list",
             "q": q,
@@ -113,14 +122,6 @@ async def search(
     if len(data["response"]["docs"]) == 0:
         await _check_collection_sanity(client, solr_collection)
 
-    if len(data["response"]["docs"]) and collection in [
-        Collection.ALL_COLLECTION,
-        Collection.GUIDELINE,
-        Collection.TRAINING,
-    ]:
-        data["response"]["docs"] = await map_list_providers(
-            client=client, docs=data["response"]["docs"]
-        )
     return SolrResponse(collection=collection, data=data)
 
 
@@ -151,6 +152,11 @@ async def search_advanced(
 
     Facets support a subset of parameters from: https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
+    q = q.replace("(", r"").replace(")", r"")
+    q = q.replace("[", r"").replace("]", r"")
+    q = q.replace("=", r"")
+    q = q.replace(":", r"")
+
     mm_param = "80%"
     qs_param = "5"
     if exact == "true":
@@ -187,6 +193,7 @@ async def search_advanced(
             # https://solr.apache.org/guide/solr/latest/query-guide/highlighting.html#highlighting-in-the-query-response
             "hl": "on",
             "hl.method": "fastVector",
+            "hl.fragsize": 200,
             # Highlight fields list
             # "hl.fl": "title,author_names,description,keywords,tag_list",
             "q": q,
@@ -215,15 +222,6 @@ async def search_advanced(
 
     if facets and len(data["response"]["docs"]) == 0:
         await _check_collection_sanity(client, solr_collection)
-
-    if len(data["response"]["docs"]) and collection in [
-        Collection.ALL_COLLECTION,
-        Collection.GUIDELINE,
-        Collection.TRAINING,
-    ]:
-        data["response"]["docs"] = await map_list_providers(
-            client=client, docs=data["response"]["docs"]
-        )
 
     return SolrResponse(collection=collection, data=data)
 
@@ -278,12 +276,6 @@ async def get(
     url = f"{settings.SOLR_URL}{solr_collection}/get?id={item_id}"
     response = await handle_solr_detail_response_errors(client.get(url))
     response = response.json()
-    if collection in [
-        Collection.ALL_COLLECTION,
-        Collection.GUIDELINE,
-        Collection.TRAINING,
-    ]:
-        response["doc"] = await map_detail_provider(client=client, doc=response["doc"])
 
     return response
 
@@ -296,7 +288,7 @@ async def get_item_by_pid(
     """Get item from defined collection based on PID"""
     solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
     url = f"{settings.SOLR_URL}{solr_collection}/query?q=pid:{item_pid}"
-    return await handle_solr_detail_response_errors(client.get(url))
+    return await handle_solr_list_response_errors(client.get(url))
 
 
 def search_dep():

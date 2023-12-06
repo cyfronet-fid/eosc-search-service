@@ -73,24 +73,32 @@ async def check_mp_auth(data: dict | list[dict]) -> None:
                 raise requests.RequestException(data["error"])
 
 
-def data_source_pids_list():
+def get_data_source_pids() -> list[str]:
     # TODO add reset pids after full oag transform
     """
-        Returns a list of data source PIDs, ensuring a singleton pattern to initialize it only once.
-    This function retrieves a list of data source PIDs from a data source and caches the result
-    to ensure that the initialization logic is executed only once. Subsequent calls to this
-    function will return the existing list of data source PIDs.
+    Returns a list of data source PIDs (used for OAG resources), using a singleton pattern.
+
+    Assumptions:
+    - get data sources pids only once at the beginning of data upload iteration (constant through whole update),
+    - reset data source pids property after completed data update (next upload should get new ones).
     Returns:
-        list: A list of data source PIDs.
-    Example:
-        data_source_pids = data_source_pids_list()
+        list[str]: A list of data source PIDs.
     """
     if (
-        not hasattr(data_source_pids_list, "_instance")
-        or data_source_pids_list._instance is None
+        not hasattr(get_data_source_pids, "_instance")
+        or get_data_source_pids._instance is None
     ):
         data_sources = asyncio.run(
             get_data(DATASOURCE, env_vars[ALL_COLLECTION][DATASOURCE][ADDRESS])
         )
-        data_source_pids_list._instance = [ds["pid"] for ds in data_sources]
-    return data_source_pids_list._instance
+        get_data_source_pids._instance = [ds["pid"] for ds in data_sources]
+    return get_data_source_pids._instance
+
+
+def get_providers_mapping() -> dict[str, str]:
+    """Get providers mapping dict, that maps pids into names."""
+    providers_raw = asyncio.run(
+        get_data(PROVIDER, env_vars[ALL_COLLECTION][PROVIDER][ADDRESS])
+    )
+
+    return {provider["pid"]: provider["name"] for provider in providers_raw}

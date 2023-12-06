@@ -144,7 +144,6 @@ async def test_passes_all_facets(
 # @pytest.mark.integration
 # @pytest.mark.parametrize("collection", ["other_rp"])
 # @pytest.mark.skip(reason="Solr security issues must be addressed")
-# # pylint: disable=unused-argument
 # async def test_integration_success(
 #     app: FastAPI, client: AsyncClient, index_solr_docs: None, collection: str
 # ) -> None:
@@ -224,7 +223,6 @@ async def test_passes_all_facets(
 #
 #
 # @pytest.fixture
-# # pylint: disable=unused-argument
 # async def index_solr_docs(setup_solr_collection: None, collection: str) -> None:
 #     with open(f"{os.path.dirname(__file__)}/records.jsonl", "r", encoding="utf-8") as f:
 #         lines = f.readlines()

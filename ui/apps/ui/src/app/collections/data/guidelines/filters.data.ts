@@ -1,5 +1,6 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
+import { transformCatalogueNames } from '@collections/data/utils';
 
 export const guidelinesFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -61,9 +62,9 @@ export const guidelinesFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'provider',
-      filter: 'provider',
-      label: 'Provider',
+      id: 'providers',
+      filter: 'providers',
+      label: 'Providers',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -83,6 +84,16 @@ export const guidelinesFilters: IFiltersConfig = {
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
+    },
+    {
+      id: 'catalogue',
+      filter: 'catalogue',
+      label: 'Community Catalog',
+      type: 'dropdown',
+      defaultCollapsed: false,
+      tooltipText: '',
+      global: true,
+      transformNodes: transformCatalogueNames,
     },
   ],
 };

@@ -2,7 +2,7 @@
 """Transform OAG resources"""
 from abc import abstractmethod
 from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import lit
+from pyspark.sql.functions import lit, year, col, array
 from pyspark.sql.types import (
     StructType,
     StructField,
@@ -59,14 +59,15 @@ class OagBaseTransformer(BaseTransformer):
             exp_output_schema,
             spark,
         )
-        self.catalogue_name = "eosc"
+        self.catalogue = "eosc"
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:
         """Apply simple transformations.
         Simple in a way that there is a possibility to manipulate the main dataframe
         without a need to create another dataframe and merging"""
         check_type(df, desired_type=self.type)
-        df = df.withColumn(CATALOGUE, lit(self.catalogue_name))
+        df = df.withColumn("catalogues", array(lit(self.catalogue)))
+        df = df.withColumn("catalogue", lit(self.catalogue))  # TODO delete
         df = self.rename_cols(df)
         df = simplify_language(df)
         df = simplify_indicators(df)
@@ -132,6 +133,7 @@ class OagBaseTransformer(BaseTransformer):
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast certain OAG columns"""
         df = transform_date(df, "publication_date", "yyyy-MM-dd")
+        df = df.withColumn("publication_year", year(col("publication_date")))
 
         return df
 

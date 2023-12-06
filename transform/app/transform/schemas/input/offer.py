@@ -3,6 +3,7 @@
 
 offer_input_schema = {
     "description": "string",
+    "eosc_if": "array<string>",
     "id": "bigint",
     "iid": "bigint",
     "internal": "boolean",

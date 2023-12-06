@@ -1,0 +1,54 @@
+<div class="container-xxl mb-5">
+  <div
+    class="related-services-box"
+    *ngIf="this.relatedServices && this.relatedServices.length > 0"
+  >
+    <h4 class="related-services-label">Services following the Guideline:</h4>
+    <div class="related-services-wrapper">
+      <div class="related-services-list mb5">
+        <ng-container *ngFor="let service of relatedServices | slice: 0:9">
+          <div
+            class="card service-card"
+            (click)="this.openService(service.pid)"
+          >
+            <div class="icons-holder" p-2>
+              <img
+                src="{{ this.setLogoUrl(service.pid, service.type) }}"
+                class="logo-icon"
+              />
+              <img
+                *ngIf="service.best_access_right !== undefined"
+                [src]="_getAccessIcon(service.best_access_right!)"
+                class="acces-right-icon"
+              />
+            </div>
+            <div class="service-title">
+              {{ service.title }}
+            </div>
+            <div class="service-provided-by">
+              {{ service.resource_organisation }}
+            </div>
+            <div class="service-tagline">
+              {{ service.tagline }}
+            </div>
+            <div class="service-categories">
+              <div
+                class="service-category-item"
+                *ngFor="let category of service.joined_categories"
+              >
+                {{ category }}
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      <p
+        *ngIf="relatedServices.length > 9"
+        class="btn-show-more"
+        (click)="this.showAll()"
+      >
+        Show All
+      </p>
+    </div>
+  </div>
+</div>

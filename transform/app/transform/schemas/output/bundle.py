@@ -3,10 +3,14 @@
 
 bundle_output_schema = {
     "bundle_goals": "array<string>",
+    "catalogue": "string",  # TODO delete
+    "catalogues": "array<string>",
     "capabilities_of_goals": "array<string>",
     "contact_email": "string",
     "dedicated_for": "array<string>",
     "description": "array<string>",
+    "eosc_if": "array<string>",
+    "eosc_if_tg": "array<string>",
     "helpdesk_url": "string",
     "id": "string",
     "iid": "bigint",

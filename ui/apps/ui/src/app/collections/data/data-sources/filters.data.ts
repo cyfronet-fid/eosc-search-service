@@ -1,13 +1,15 @@
-import {
-  IFacetBucket,
-  IFilterNode,
-  IFiltersConfig,
-} from '../../repositories/types';
+import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { facetToFlatNodes } from '@components/filters/utils';
 
-import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
-import { alphanumericFilterSort } from '@collections/data/utils';
+import {
+  HORIZONTAL_TOOLTIP_TEXT,
+  INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+} from '@collections/data/config';
+import {
+  alphanumericFilterSort,
+  transformCatalogueNames,
+  transformHorizontal,
+} from '@collections/data/utils';
 
 export const dataSourcesFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -48,6 +50,22 @@ export const dataSourcesFilters: IFiltersConfig = {
       id: 'providers',
       filter: 'providers',
       label: 'Providers',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+    },
+    {
+      id: 'guidelines',
+      filter: 'guidelines',
+      label: 'Interoperability guideline',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -100,14 +118,6 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
-
-      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
-        facetToFlatNodes(bucketValues, 'geographical_availabilities').map(
-          (node) => ({
-            ...node,
-            name: node.name === 'World' ? 'None' : node.name,
-          })
-        ),
     },
     {
       id: 'horizontal',
@@ -116,12 +126,15 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: HORIZONTAL_TOOLTIP_TEXT,
-
-      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
-        facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
-          ...node,
-          name: node.name === 'true' ? 'yes' : 'no',
-        })),
+      transformNodes: transformHorizontal,
+    },
+    {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'tag_list',
@@ -130,6 +143,16 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
+    },
+    {
+      id: 'catalogue',
+      filter: 'catalogue',
+      label: 'Community Catalog',
+      type: 'dropdown',
+      defaultCollapsed: false,
+      tooltipText: '',
+      global: true,
+      transformNodes: transformCatalogueNames,
     },
   ],
 };

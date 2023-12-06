@@ -17,11 +17,8 @@ import { formatPublicationDate } from '@collections/data/utils';
 export const trainingsAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (training: Partial<ITraining> & { id: string }): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: false,
-    isSortByPopularityCollectionScopeOff: true,
     isResearchProduct: false,
-    id: uuidv4(),
+    id: training.id,
     title: training['title']?.join(' ') || '',
     description: training['description']?.join(' ') || '',
     date: formatPublicationDate(training['publication_date']),

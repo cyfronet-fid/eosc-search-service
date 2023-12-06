@@ -18,4 +18,6 @@ export const datasetsNavConfig: ICollectionNavConfig = {
   ],
   urlParam: URL_PARAM_NAME,
   rightMenu: false,
+  isSortByRelevanceCollectionScopeOff: false,
+  isSortByPopularityCollectionScopeOff: false,
 };

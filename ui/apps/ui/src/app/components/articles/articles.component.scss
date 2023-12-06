@@ -1,0 +1,40 @@
+.column {
+  padding: 0 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.box {
+  width: 243px;
+  height: 137px;
+  background-color: #f2f3f6;
+  stroke: #edf4ff;
+  border-radius: 8px;
+}
+
+.article_title_box {
+  font-size: 20px;
+  font-weight: 400;
+  color: #2255a4;
+  padding-top: 14px;
+  padding-left: 16px;
+  margin-bottom: 0.3rem;
+}
+
+.article_desc {
+  font-size: 12px;
+  color: black;
+  padding-left: 16px;
+  line-height: normal;
+  margin-bottom: 0;
+  max-width: 160px;
+}
+
+.article_blue_arrow {
+  position: relative;
+  float: right;
+  left: -10px;
+  top: 94px;
+}

@@ -1,12 +1,14 @@
-import {
-  IFacetBucket,
-  IFilterNode,
-  IFiltersConfig,
-} from '../../repositories/types';
+import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { facetToFlatNodes } from '@components/filters/utils';
-import { HORIZONTAL_TOOLTIP_TEXT } from '@collections/data/config';
-import { alphanumericFilterSort } from '@collections/data/utils';
+import {
+  HORIZONTAL_TOOLTIP_TEXT,
+  INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+} from '@collections/data/config';
+import {
+  alphanumericFilterSort,
+  transformCatalogueNames,
+  transformHorizontal,
+} from '@collections/data/utils';
 
 export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -44,6 +46,14 @@ export const allCollectionsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+    },
+    {
       id: 'language',
       filter: 'language',
       label: 'Language',
@@ -59,12 +69,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: HORIZONTAL_TOOLTIP_TEXT,
-
-      onFacetsFetch: (bucketValues: IFacetBucket[]): IFilterNode[] =>
-        facetToFlatNodes(bucketValues, 'horizontal').map((node) => ({
-          ...node,
-          name: node.name === 'true' ? 'yes' : 'no',
-        })),
+      transformNodes: transformHorizontal,
     },
     {
       id: 'author_names',
@@ -99,6 +104,14 @@ export const allCollectionsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
       id: 'keywords',
       filter: 'keywords',
       label: 'Keywords',
@@ -110,6 +123,40 @@ export const allCollectionsFilters: IFiltersConfig = {
       id: 'tag_list',
       filter: 'tag_list',
       label: 'Keywords',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'catalogue',
+      filter: 'catalogue',
+      label: 'Community Catalog',
+      type: 'dropdown',
+      defaultCollapsed: false,
+      tooltipText: '',
+      global: true,
+      transformNodes: transformCatalogueNames,
+    },
+    {
+      id: 'guidelines',
+      filter: 'guidelines',
+      label: 'Interoperability guideline',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'providers',
+      filter: 'providers',
+      label: 'Providers',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'resource_organisation',
+      filter: 'resource_organisation',
+      label: 'Resource Organisation',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

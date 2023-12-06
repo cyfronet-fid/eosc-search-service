@@ -5,7 +5,7 @@ provider_input_schema = {
     "abbreviation": "string",
     "affiliations": "array<string>",
     "areas_of_activity": "array<string>",
-    "catalogue": "string",
+    "catalogues": "array<string>",
     "certifications": "array<string>",
     "city": "string",
     "country": "string",

@@ -69,32 +69,3 @@ async def get_recommended_items(client: AsyncClient, uuids: list[str]):
         return items
     except httpx.ConnectError as e:
         raise SolrRetrieveError("Connection Error") from e
-
-
-# pylint: disable=unused-argument
-@alru_cache(maxsize=512)
-async def get_fixed_recommendations(
-    collection: Collection, count: int = 3
-) -> list[str]:
-    rows = 100
-    if collection == Collection.DATA_SOURCE:
-        collection = "data source"
-    if collection == Collection.ALL_COLLECTION:
-        collection = "publication"
-    fq = [f'type:("{collection}")']
-    async with httpx.AsyncClient() as client:
-        response = await search(
-            client,
-            Collection.ALL_COLLECTION,
-            q="*",
-            qf="id",
-            fq=fq,
-            sort=["id desc"],
-            rows=rows,
-            exact="false",
-        )
-    docs: list = response.data["response"]["docs"]
-    if len(docs) == 0:
-        return []
-
-    return [doc["id"] for doc in random.sample(docs, k=min(count, len(docs)))]

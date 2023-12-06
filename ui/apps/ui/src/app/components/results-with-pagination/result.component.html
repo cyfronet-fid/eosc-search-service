@@ -128,6 +128,11 @@
       [description]="description"
       [highlights]="highlightsreal['description'] ?? []"
     ></ess-description>
+    <ess-ig-services-card
+      *ngIf="type.value === 'guideline'"
+      [relatedServices]="relatedServices"
+      [title]="title"
+    ></ess-ig-services-card>
   </div>
   <ng-template #bundleBlock>
     <ess-description
@@ -189,7 +194,7 @@
       *ngIf="isResearchProduct"
       [title]="title"
       [hasDOIUrl]="hasDOIUrl"
-      [parsedUrls]="parsedUrls"
+      [exportData]="exportData"
     ></ess-bibliography>
     <ess-pin
       *ngIf="RESOURCES_TO_SHOW_PIN_TO.includes(type.value)"
@@ -212,6 +217,10 @@
       *ngIf="isResearchProduct"
       [title]="title"
       [urls]="urls"
+      [exportData]="exportData"
     ></ess-sources>
+  </div>
+  <div *ngIf="type.value === 'provider'">
+    <ess-providers-resources [title]="title"></ess-providers-resources>
   </div>
 </div>

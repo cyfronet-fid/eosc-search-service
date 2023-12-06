@@ -3,6 +3,7 @@ import { CustomRoute } from '@collections/services/custom-route.service';
 import { INavigationLink } from './type';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 import { toNavigationLink } from './utils';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'ess-collections-navigation',
@@ -23,6 +24,7 @@ import { toNavigationLink } from './utils';
             routerLinkActive="active"
             [queryParams]="{
               q: (q$ | async),
+              fq: (globalFq$(link.id) | async),
               standard: (st$ | async),
               tags: (tg$ | async),
               exact: (ex$ | async),
@@ -60,5 +62,11 @@ export class CollectionsNavigationComponent implements OnInit {
       .getAll()
       .filter((nav) => nav.id !== 'provider')
       .map(toNavigationLink);
+  }
+
+  public globalFq$(collection: string): Observable<string | undefined> {
+    return this._customRoute
+      .getGlobalFq$(collection)
+      .pipe(map((params) => (params.length > 0 ? params : undefined)));
   }
 }

@@ -1,15 +1,41 @@
 <div class="sources-box">
-  <div ngbDropdown class="d-inline-block">
-    <div ngbDropdownToggle>
-      <span class="sources-label-text">Source</span>
-    </div>
-
-    <div ngbDropdownMenu aria-labelledby="sourcesDropdown">
-      <div *ngFor="let url of urls" class="statistic">
-        <ng-container i18n>
-          <a href="{{ url }}" target="_blank">{{ url }} </a>
-        </ng-container>
-      </div>
-    </div>
-  </div>
+  <a nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+    <span class="sources-label-text">Source</span>
+    <span nz-icon nzType="down"></span>
+  </a>
+  <nz-dropdown-menu class="sources-dropdown-menu" #menu="nzDropdownMenu">
+    <ul nz-menu nzSelectable class="sources-dropdown-menu">
+      <li
+        nz-menu-item
+        *ngFor="let instance of exportData"
+        (click)="this.openLink(instance.url)"
+      >
+        <nz-card class="instance-card">
+          <p *ngIf="instance.documentType && instance.publicationYear">
+            <strong
+              >{{ instance.documentType }} . {{ instance.publicationYear }}
+            </strong>
+          </p>
+          <p *ngIf="instance.documentType && !instance.publicationYear">
+            <strong>{{ instance.documentType }} </strong>
+          </p>
+          <p *ngIf="!instance.documentType && instance.publicationYear">
+            <strong>Publication Year: </strong> {{ instance.publicationYear }}
+          </p>
+          <p *ngIf="instance.license" class="end-line-gradient">
+            <strong>License:</strong> {{ instance.license }}
+          </p>
+          <p *ngIf="instance.extractedDoi">
+            <strong>DOI:</strong> {{ instance.extractedDoi }}
+          </p>
+          <p *ngIf="instance.hostedby">
+            <strong>Hosted By:</strong> {{ instance.hostedby }}
+          </p>
+          <p class="end-line-gradient">
+            <strong>URL:</strong> {{ instance.url }}
+          </p>
+        </nz-card>
+      </li>
+    </ul>
+  </nz-dropdown-menu>
 </div>

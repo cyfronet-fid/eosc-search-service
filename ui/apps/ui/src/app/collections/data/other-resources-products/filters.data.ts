@@ -1,9 +1,14 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { SDG_TOOLTIP_TEXT } from '@collections/data/config';
+import {
+  DATASOURCE_FILTER_TOOLTIP_TEXT,
+  INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+  SDG_TOOLTIP_TEXT,
+} from '@collections/data/config';
 import {
   alphanumericFilterSort,
-  convertCountryCodeToName,
+  transformCountryNames,
+  transformDataSourceNames,
 } from '@collections/data/utils';
 
 export const otherResourcesProductsFilters: IFiltersConfig = {
@@ -50,13 +55,21 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+    },
+    {
       id: 'country',
       filter: 'country',
       label: 'Country',
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
-      onFacetsFetch: convertCountryCodeToName,
+      transformNodes: transformCountryNames,
     },
     {
       id: 'language',
@@ -100,6 +113,14 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       tooltipText: SDG_TOOLTIP_TEXT,
     },
     {
+      id: 'publisher',
+      filter: 'publisher',
+      label: 'Publisher',
+      type: 'multiselect',
+      defaultCollapsed: true,
+      tooltipText: '',
+    },
+    {
       id: 'author_names',
       filter: 'author_names',
       label: 'Author',
@@ -116,17 +137,17 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'publisher',
-      filter: 'publisher',
-      label: 'Publisher',
-      type: 'multiselect',
-      defaultCollapsed: true,
-      tooltipText: '',
-    },
-    {
       id: 'doi',
       filter: 'doi',
       label: 'DOI',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
@@ -138,6 +159,16 @@ export const otherResourcesProductsFilters: IFiltersConfig = {
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
+    },
+    {
+      id: 'datasource_pids',
+      filter: 'datasource_pids',
+      label: 'Data Source',
+      type: 'dropdown',
+      defaultCollapsed: false,
+      tooltipText: DATASOURCE_FILTER_TOOLTIP_TEXT,
+      global: true,
+      transformNodes: transformDataSourceNames,
     },
   ],
 };

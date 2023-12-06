@@ -4,13 +4,14 @@ import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { sanitizeQuery } from '@components/search-input/query.sanitizer';
-import { filter, switchMap } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs';
 import {
   DEFAULT_SORT,
   isSortOption,
   sortType,
 } from '@components/sort-by-functionality/sort-value.type';
 import { ConfigService } from '../../services/config.service';
+import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
 
 @UntilDestroy()
 @Component({
@@ -24,16 +25,10 @@ import { ConfigService } from '../../services/config.service';
     >
       <option value="dmr" i18n>Date - Most recent</option>
       <option value="dlr" i18n>Date – Least recent</option>
-      <option *ngIf="!isSortByPopularityCollectionScopeOff" value="mp" i18n>
+      <option [hidden]="disableSortByPopularity$() | async" value="mp" i18n>
         Most popular
       </option>
-      <option
-        *ngIf="
-          isSortByRelevanceInstanceScope && !isSortByRelevanceCollectionScopeOff
-        "
-        value="r"
-        i18n
-      >
+      <option [hidden]="disableSortByRelevance$() | async" value="r" i18n>
         Relevance
       </option>
       <option value="default" i18n>Best match</option>
@@ -82,21 +77,18 @@ import { ConfigService } from '../../services/config.service';
   ],
 })
 export class SortByFunctionalityComponent implements OnInit {
-  isSortByRelevanceInstanceScope: boolean =
-    ConfigService.config?.is_sort_by_relevance;
-
-  @Input()
-  isSortByRelevanceCollectionScopeOff!: boolean;
-  @Input()
-  isSortByPopularityCollectionScopeOff!: boolean;
-
   @Input()
   type!: string;
 
   public selectedSortOptionControl: FormControl<sortType> =
     new FormControl<sortType>(DEFAULT_SORT, { nonNullable: true });
 
-  constructor(private _customRoute: CustomRoute, private _router: Router) {}
+  constructor(
+    private _customRoute: CustomRoute,
+    private _router: Router,
+    private _navConfigsRepository: NavConfigsRepository,
+    private _configService: ConfigService
+  ) {}
 
   ngOnInit() {
     this._customRoute.sort_ui$
@@ -125,5 +117,28 @@ export class SortByFunctionalityComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+  }
+
+  disableSortByRelevance$() {
+    return this._customRoute.collection$.pipe(
+      untilDestroyed(this),
+      map((collection) => {
+        const navConfig = this._navConfigsRepository.get(collection)!;
+        return (
+          !!navConfig?.isSortByRelevanceCollectionScopeOff ||
+          !this._configService.get().is_sort_by_relevance
+        );
+      })
+    );
+  }
+
+  disableSortByPopularity$() {
+    return this._customRoute.collection$.pipe(
+      untilDestroyed(this),
+      map((collection) => {
+        const navConfig = this._navConfigsRepository.get(collection)!;
+        return !!navConfig?.isSortByPopularityCollectionScopeOff;
+      })
+    );
   }
 }

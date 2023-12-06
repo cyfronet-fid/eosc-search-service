@@ -13,6 +13,7 @@ export interface BackendConfig {
   eosc_explore_url: string;
   knowledge_hub_url: string;
   is_sort_by_relevance: boolean;
+  max_results_by_page: number;
 }
 
 @Injectable({

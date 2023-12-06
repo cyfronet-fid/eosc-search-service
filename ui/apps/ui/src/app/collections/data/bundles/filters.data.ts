@@ -1,5 +1,7 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
+import { transformCatalogueNames } from '@collections/data/utils';
+import { INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT } from '@collections/data/config';
 
 export const bundlesFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
@@ -45,6 +47,14 @@ export const bundlesFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+    },
+    {
       id: 'language',
       filter: 'language',
       label: 'Language',
@@ -73,6 +83,24 @@ export const bundlesFilters: IFiltersConfig = {
       filter: 'unified_categories',
       label: 'Research steps',
       type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
+      id: 'catalogue',
+      filter: 'catalogue',
+      label: 'Community Catalog',
+      type: 'dropdown',
+      defaultCollapsed: false,
+      tooltipText: '',
+      global: true,
+      transformNodes: transformCatalogueNames,
+    },
+    {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability patterns',
+      type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
     },
