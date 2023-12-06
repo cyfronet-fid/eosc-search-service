@@ -1,4 +1,5 @@
 """The UI Search endpoint"""
+import copy
 import csv
 import itertools
 import json
@@ -87,9 +88,13 @@ async def search_post(
         if collection in [Collection.ALL_COLLECTION, Collection.BUNDLE]:
             await extend_results_with_bundles(client, res_json)
         if collection in [Collection.ALL_COLLECTION, Collection.GUIDELINE]:
-            res_json["response"]["docs"] = await extend_ig_with_related_services(
-                client, res_json["response"]["docs"]
-            )
+            try:
+                new_docs = await extend_ig_with_related_services(
+                    client, res_json["response"]["docs"]
+                )
+                res_json["response"]["docs"] = copy.deepcopy(new_docs)
+            except (Exception,): # pylint: disable=broad-except
+                print("Something goes wrong..")
 
     collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)

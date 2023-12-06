@@ -82,12 +82,12 @@
       ></ess-pagination>
       <ess-sort-by-functionality></ess-sort-by-functionality>
     </div>
-   <ng-container  *ngIf="this.getCollectionName() === 'training'">
-    <a [href]="getKnowledgeHubUrl()">
-    <div class="redirect-kh_box">
-      <p class="kh_url">Discover EOSC Knowledge Hub -></p>
-    </div>
-    </a>
+    <ng-container *ngIf="this.getCollectionName() === 'training'">
+      <a [href]="getKnowledgeHubUrl()">
+        <div class="redirect-kh_box">
+          <p class="kh_url">Discover EOSC Knowledge Hub -></p>
+        </div>
+      </a>
     </ng-container>
     <ng-container
       *ngFor="let result of results$ | async; trackBy: trackByResultId"

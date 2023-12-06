@@ -15,17 +15,16 @@
     position: absolute;
     bottom: 2px;
     right: 10px;
-    color: #040F81;
+    color: #040f81;
     text-decoration: underline;
   }
 }
 
 .related-services-label {
-    font-weight: 200;
-    font-size: 15px;
-    line-height: 20px;
-    margin-top: 25px;
-
+  font-weight: 200;
+  font-size: 15px;
+  line-height: 20px;
+  margin-top: 25px;
 }
 
 .service-card {
@@ -33,15 +32,16 @@
   cursor: pointer;
   margin-bottom: 0;
   border-radius: 8px;
-  border: 1px solid #D9DEE2;
+  border: 1px solid #d9dee2;
   max-width: 50%;
   min-width: 220px;
   transition: all 0.15s ease;
   background: url('/assets/arrow-right.svg') no-repeat right 5px bottom 5px;
 
   &:hover {
-    border: 1px solid #040F81;
-    background: #EDF4FF url('/assets/arrow-right.svg') no-repeat right 3px bottom 5px;
+    border: 1px solid #040f81;
+    background: #edf4ff url('/assets/arrow-right.svg') no-repeat right 3px
+      bottom 5px;
   }
 }
 
@@ -55,7 +55,7 @@
   font-weight: 400;
   font-size: 12px;
   padding: 0;
-  color: #040F81;
+  color: #040f81;
   line-height: 1.2;
 }
 
