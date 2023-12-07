@@ -2,9 +2,18 @@
   class="related-services-box"
   *ngIf="this.relatedServices && this.relatedServices.length > 0"
 >
+  <div class="show-all-container">
   <h4 class="related-services-label">Services following the Guideline:</h4>
+  <p
+    *ngIf="this.relatedServices.length > 2"
+    class="btn-show-more-services"
+    (click)="this.showAll()"
+  >
+    Show All
+  </p>
+  </div>
   <div class="related-services-list mb5">
-    <ng-container *ngFor="let service of relatedServices | slice: 0:2">
+    <ng-container *ngFor="let service of this.relatedServices | slice: 0:2">
       <div class="card service-card">
         <div class="d-flex flex-row" (click)="this.openService(service.pid)">
           <div p-2>
@@ -19,7 +28,7 @@
   </div>
   <ng-template #elseBlock>
     <div class="related-services-list mb5">
-      <ng-container *ngFor="let service of relatedServices">
+      <ng-container *ngFor="let service of this.relatedServices">
         <div class="card service-card">
           <div
             class="card-body d-flex flex-row"
@@ -37,11 +46,4 @@
       </ng-container>
     </div>
   </ng-template>
-  <p
-    *ngIf="relatedServices.length > 2"
-    class="btn-show-more-services"
-    (click)="this.showAll()"
-  >
-    Show All
-  </p>
 </div>
