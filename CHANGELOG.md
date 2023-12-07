@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.17.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.16.0...v2.17.0) (2023-12-07)
+
+
+### Features
+
+* [[#1103](https://github.com/cyfronet-fid/eosc-search-service/issues/1103)] turn off sort by rel - services, change its name ([b9e93fb](https://github.com/cyfronet-fid/eosc-search-service/commit/b9e93fbfee4c7c0026d2364371a8c848c72b0fae))
+* [[#921](https://github.com/cyfronet-fid/eosc-search-service/issues/921)] typo are a - is a fixed ([499a86b](https://github.com/cyfronet-fid/eosc-search-service/commit/499a86bf018aec5c3d43cf80fe042a077046201c))
+* add share functionality ([4f58d36](https://github.com/cyfronet-fid/eosc-search-service/commit/4f58d3699c815b602de0dfe44b66a1e91ebcdc6b))
+* add share functionality ([4df7a44](https://github.com/cyfronet-fid/eosc-search-service/commit/4df7a44fe3a481045a413901e73987deb29fee4f))
+* show all IG details fixed ([41532f4](https://github.com/cyfronet-fid/eosc-search-service/commit/41532f4b6a24362f8d8e5340aedcd8ae589f7836))
+* typo datasource replaced data source ([3917066](https://github.com/cyfronet-fid/eosc-search-service/commit/3917066f0f4a0789feeea9929d75e6ad9ae373ef))
+
+
+### Bug Fixes
+
+* [[#1095](https://github.com/cyfronet-fid/eosc-search-service/issues/1095)] panel_id recommendations request ([e10dbd3](https://github.com/cyfronet-fid/eosc-search-service/commit/e10dbd3efa901b4d37807c43b3301b1fb13af04f))
+
 ## [2.16.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.15.0...v2.16.0) (2023-12-06)
 
 
