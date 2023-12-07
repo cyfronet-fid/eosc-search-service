@@ -32,6 +32,7 @@ export class ResultComponent implements OnInit {
   tagsq: string[] = [];
   validUrl: string | null = null;
   highlightsreal: { [field: string]: string[] | undefined } = {};
+  logoUrl = '';
   @Input() id!: string;
   @Input() date?: string;
   @Input() urls: string[] = [];
@@ -51,6 +52,7 @@ export class ResultComponent implements OnInit {
   set url(url: string) {
     if (url && url.trim() !== '') {
       this.validUrl = url;
+      this.logoUrl = `${url}/logo`;
       return;
     }
   }
@@ -340,6 +342,12 @@ export class ResultComponent implements OnInit {
       },
       queryParamsHandling: 'merge',
     });
+  }
+
+  getLogoUrl(id: string | undefined) {
+    return id
+      ? `https://marketplace.eosc-portal.eu/services/${id}/logo`
+      : 'assets/bundle_service.svg';
   }
 
   _addFilter(filter: string, value: string): string[] {
