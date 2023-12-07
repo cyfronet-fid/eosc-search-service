@@ -158,7 +158,12 @@ export class BibliographyModalContentComponent {
   encapsulation: ViewEncapsulation.None,
   template: `
     <ng-container *ngIf="this.hasDOIUrl; else elseBlock">
-      <a style="display: flex;" href="javascript:void(0)" class="link-cite" (click)="open()">
+      <a
+        style="display: flex;"
+        href="javascript:void(0)"
+        class="link-cite"
+        (click)="open()"
+      >
         <span class="cite-icon"></span>
         <span class="cite-label">Cite</span>
       </a>
