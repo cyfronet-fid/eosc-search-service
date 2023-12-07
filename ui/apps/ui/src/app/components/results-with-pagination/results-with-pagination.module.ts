@@ -21,6 +21,7 @@ import { SourcesComponent } from './result-ui-controls/sources.component';
 import { ShowProviderResourceComponent } from './result-ui-controls/show-provider-resources';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { ShareModule } from '../../layouts/share/share.module';
 import { PageHeaderModule } from '@components/page-header/page-header.module';
 import { IgServicesCardModule } from '../../layouts/ig-services-card/ig-services-card.module';
 
@@ -49,6 +50,7 @@ import { IgServicesCardModule } from '../../layouts/ig-services-card/ig-services
     NgbDropdownModule,
     BibliographyModule,
     NzButtonModule,
+    ShareModule,
     NzCardModule,
     NzDropDownModule,
     PageHeaderModule,
