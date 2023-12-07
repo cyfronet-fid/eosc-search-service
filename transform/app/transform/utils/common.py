@@ -58,7 +58,6 @@ from app.transform.schemas.properties.data import (
     SDG,
     SUBJECT,
     TAG_LIST,
-    TAG_LIST_TG,
     TYPE,
     UNIFIED_CATEGORIES,
     URL,
@@ -654,18 +653,13 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
     """Add copy of certain fields for solr text_general
     strings - type used for filtering
     text_general - type used for searching"""
-    columns = df.columns
-
-    if AUTHOR_NAMES in columns:
+    if AUTHOR_NAMES in df.columns:
         df = df.withColumn(AUTHOR_NAMES_TG, col(AUTHOR_NAMES))
-    if KEYWORDS in columns:
+    if TAG_LIST in df.columns:  # MP resources
+        df = df.withColumn(KEYWORDS, col(TAG_LIST))
+    if KEYWORDS in df.columns:
         df = df.withColumn(KEYWORDS_TG, col(KEYWORDS))
-    if TAG_LIST in columns:
-        df = df.withColumn(TAG_LIST_TG, col(TAG_LIST))
-        if KEYWORDS not in columns:  # Add keywords property for MP resources
-            df = df.withColumn(KEYWORDS, col(TAG_LIST))
-
-    if EOSC_IF in columns:
+    if EOSC_IF in df.columns:
         df = df.withColumn(EOSC_IF_TG, col(EOSC_IF))
     return df
 
