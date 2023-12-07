@@ -157,8 +157,16 @@ export class BibliographyModalContentComponent {
   selector: 'ess-bibliography',
   encapsulation: ViewEncapsulation.None,
   template: `
-    <ng-container *ngIf="hasDOIUrl; else elseBlock">
-      <a href="javascript:void(0)" (click)="open()" class="link-cite">Cite</a>
+    <ng-container *ngIf="this.hasDOIUrl; else elseBlock">
+      <a
+        style="display: flex;"
+        href="javascript:void(0)"
+        class="link-cite"
+        (click)="open()"
+      >
+        <span class="cite-icon"></span>
+        <span class="cite-label">Cite</span>
+      </a>
     </ng-container>
 
     <ng-template #elseBlock>
@@ -166,15 +174,14 @@ export class BibliographyModalContentComponent {
         ngbTooltip="{{ linkTooltipText }}"
         [ngStyle]="{ width: 'fit-content' }"
       >
-        <a
-          href="javascript:void(0)"
-          class="link-cite"
-          [ngStyle]="{ pointerEvents: 'none', color: 'grey' }"
-          >Cite</a
-        >
+        <a style="display: flex;" href="javascript:void(0)">
+          <span class="cite-icon inactive"></span>
+          <span class="cite-label inactive">Cite</span>
+        </a>
       </div>
     </ng-template>
   `,
+  styleUrls: ['./bibliography.component.scss'],
 })
 export class BibliographyComponent {
   @Input() title = '';

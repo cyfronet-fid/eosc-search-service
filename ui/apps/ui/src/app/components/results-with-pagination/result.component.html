@@ -188,9 +188,21 @@
     </div>
   </div>
   <div class="bottom-actions">
+    <ess-sources
+      *ngIf="isResearchProduct"
+      class="bottom-action-link"
+      [title]="title"
+      [urls]="urls"
+      [exportData]="exportData"
+    ></ess-sources>
+    <!-- <ess-share
+      [urls]="urls"
+      [shareUrl]="validUrl"
+      [type]="type"
+      class="share-link"
+    ></ess-share> -->
     <ess-bibliography
-      style="float: left"
-      class="border-right"
+      class="bottom-action-link"
       *ngIf="isResearchProduct"
       [title]="title"
       [hasDOIUrl]="hasDOIUrl"
@@ -200,8 +212,8 @@
       *ngIf="RESOURCES_TO_SHOW_PIN_TO.includes(type.value)"
       [resourceType]="type.value"
       [resourceId]="id"
-      style="float: left"
-      class="border-right"
+      style="border-right: none !important;"
+      class="bottom-action-link"
     ></ess-pin>
     <ess-pin-static
       *ngIf="
@@ -212,13 +224,7 @@
       [url]="redirectOrderUrl"
       style="float: left"
     ></ess-pin-static>
-    <ess-sources
-      style="float: left"
-      *ngIf="isResearchProduct"
-      [title]="title"
-      [urls]="urls"
-      [exportData]="exportData"
-    ></ess-sources>
+
   </div>
   <div *ngIf="type.value === 'provider'">
     <ess-providers-resources [title]="title"></ess-providers-resources>
