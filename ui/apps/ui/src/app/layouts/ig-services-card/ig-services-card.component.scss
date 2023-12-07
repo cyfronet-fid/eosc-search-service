@@ -12,11 +12,14 @@
     font-size: 12px !important;
     margin: 0 0 0 1px !important;
     cursor: pointer;
-    position: absolute;
-    bottom: 2px;
     right: 10px;
     color: #040f81;
     text-decoration: underline;
+  }
+
+  .show-all-container {
+    display: flex;
+    justify-content: space-between;
   }
 }
 
