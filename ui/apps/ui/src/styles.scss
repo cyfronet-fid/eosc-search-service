@@ -601,9 +601,35 @@ h6 {
 .bottom-actions {
   padding-top: 15px;
 
-  .border-right {
+  .sources-box {
+    a {
+      display: flex;
+
+      &::after {
+        display: inline-block;
+        margin-left: 5px;
+        margin-top: 7px;
+        content: "";
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0;
+        border-left: 0.3em solid transparent;
+      }
+    }
+  }
+
+  .bottom-action-link {
+    float: left;
     border-right: 1px solid #d9d9d9;
-    margin: 4px 10px 0 0;
+    margin: 0 10px 0 0;
+    padding-right: 10px;
+  }
+
+  a {
+    &:focus {
+      outline: none;
+      border: none;
+    }
   }
 
   .link-cite {
@@ -611,11 +637,35 @@ h6 {
     font-weight: 500;
     line-height: 18px;
     display: flex;
-    margin-right: 10px;
-    background: url('assets/icon-cite.svg') no-repeat 0 2px;
-    padding-left: 20px;
-    background-size: 15px auto;
   }
+
+  .share-link {
+    float: left;
+    margin: 4px 10px 0 10px;
+    padding: 0 10px;
+    border-left: 1px solid #d9d9d9;
+    border-right: 1px solid #d9d9d9;
+
+    a {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 19px;
+      cursor: pointer;
+      color: #040f81;
+      display: flex;
+      background: url('assets/icon-share.svg') no-repeat 0 3px;
+      padding-left: 20px;
+      background-size: 12px auto;
+    }
+  }
+}
+
+.share-popover {
+  background-color: gray;
+}
+
+.share-modal-window .modal-content {
+  background-color: #fff;
 }
 
 #tags {
@@ -897,6 +947,7 @@ h6 {
     }
   }
 }
+
 
 .tag-row {
   margin-bottom: 4px;
@@ -1869,6 +1920,41 @@ h6 {
     }
   }
 }
+.share-modal-window {
+  .modal-dialog {
+    max-width: 400px !important;
+
+    .share-modal {
+      padding: 1.2em 2em 2em;
+
+      .close-row {
+        justify-content: flex-end;
+      }
+
+      .share-modal-info {
+        h4 {
+          font-size: 18px;
+          text-align: center;
+          line-height: 28px;
+          font-style: normal;
+          font-weight: 600;
+        }
+      }
+
+      .share-modal-icons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 15px;
+
+        img {
+          width: 24px;
+          height: auto;
+        }
+      }
+    }
+  }
+}
 
 .zammad-form-group {
   border-radius: 20px;
@@ -1976,6 +2062,11 @@ h6 {
 }
 
 .bibliography-dialog {
+
+  .btn-close {
+    box-shadow: none;
+  }
+
   .modal-content {
     border-radius: 20px;
     padding: 30px 25px 30px;

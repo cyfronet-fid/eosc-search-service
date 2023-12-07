@@ -6,6 +6,9 @@ import { InstanceExportData } from '@collections/data/openair.model';
   templateUrl: './sources.component.html',
   styles: [
     `
+      :host {
+        display: block;
+      }
       .sources-label-text {
         color: #040f81;
         font-family: Inter;

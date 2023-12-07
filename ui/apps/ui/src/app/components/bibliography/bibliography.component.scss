@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  margin-top: 4px;
+}
+
+.cite-icon {
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  margin-right: 3px;
+  background-image: url('../../../assets/icon-cite.svg');
+}
+
+.inactive {
+  filter: invert(43%) sepia(6%) saturate(106%) hue-rotate(202deg) brightness(97%) contrast(87%);
+}
+
+.cite-label {
+  color: #040f81;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}

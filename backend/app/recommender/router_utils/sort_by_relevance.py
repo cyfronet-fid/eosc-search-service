@@ -51,6 +51,7 @@ async def perform_sort_by_relevance(
             "unique_id": session.session_uuid if session else str(uuid.uuid4()),
             "timestamp": datetime.datetime.utcnow().isoformat()[:-3] + "Z",
             "visit_id": str(uuid.uuid4()),
+            "client_id": "search_service",
             "page_id": "/search/" + panel_id,
             "panel_id": _get_panel(panel_id, sort_by_relevance=True),
             "engine_version": "content_visit_sort",
