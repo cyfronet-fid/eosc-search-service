@@ -29,7 +29,7 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
         Most popular
       </option>
       <option [hidden]="disableSortByRelevance$() | async" value="r" i18n>
-        Relevance
+        Recommendation
       </option>
       <option value="default" i18n>Best match</option>
     </select>
