@@ -59,7 +59,7 @@ export const dataSourcesAdapter: IAdapter = {
     ],
     secondaryTags: [
       toInterPatternsSecondaryTag(dataSource.eosc_if ?? [], 'eosc_if'),
-      toKeywordsSecondaryTag(dataSource.tag_list ?? [], 'tag_list'),
+      toKeywordsSecondaryTag(dataSource.keywords ?? [], 'keywords'),
     ],
     ...parseStatistics(dataSource),
   }),

@@ -38,8 +38,8 @@ export const providersFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'tag_list',
-      filter: 'tag_list',
+      id: 'keywords',
+      filter: 'keywords',
       label: 'Tags',
       type: 'tag',
       defaultCollapsed: false,

@@ -36,7 +36,7 @@ export const providersAdapter: IAdapter = {
     secondaryTags: [
       // toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
       // toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
-      toKeywordsSecondaryTag(provider.tag_list ?? [], 'tag_list'),
+      toKeywordsSecondaryTag(provider.keywords ?? [], 'keywords'),
     ],
     tags: [
       {

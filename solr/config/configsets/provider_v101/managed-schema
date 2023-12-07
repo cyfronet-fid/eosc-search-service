@@ -479,8 +479,6 @@
   <field name="societal_grand_challenges" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="street_name_and_number" type="string" required="false"/>
   <field name="structure_types" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
-  <field name="tag_list" type="strings" required="false"/>
-  <field name="tag_list_tg" type="text_general" docValues="false" indexed="true" stored="true"/>
   <field name="title" type="text_general" docValues="false" indexed="true" stored="true"/>
   <field name="type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="updated_at" type="pdates"/>

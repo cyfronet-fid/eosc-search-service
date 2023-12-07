@@ -91,7 +91,7 @@ async def search(
             "hl.method": "fastVector",
             "hl.fragsize": 200,
             # Highlight fields list
-            # "hl.fl": "title,author_names,description,keywords,tag_list",
+            # "hl.fl": "title,author_names,description,keywords",
             "q": q,
             "qf": qf,
             "pf": qf,
@@ -195,7 +195,7 @@ async def search_advanced(
             "hl.method": "fastVector",
             "hl.fragsize": 200,
             # Highlight fields list
-            # "hl.fl": "title,author_names,description,keywords,tag_list",
+            # "hl.fl": "title,author_names,description,keywords",
             "q": q,
             "qf": qf,
             "pf": qf,
@@ -243,10 +243,7 @@ async def _check_collection_sanity(client, collection):
             "hl.method": "fastVector",
             "q": "*",
             "qf": qf,
-            "pf": (
-                "title^100 author_names_tg^120 description^10 keywords_tg^10"
-                " tag_list_tg^10"
-            ),
+            "pf": "title^100 author_names_tg^120 description^10 keywords_tg^10",
             "fq": [],
             "rows": 1,
             "cursorMark": "*",

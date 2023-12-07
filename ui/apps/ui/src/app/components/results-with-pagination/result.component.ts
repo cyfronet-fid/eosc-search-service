@@ -231,17 +231,6 @@ export class ResultComponent implements OnInit {
           );
         }
 
-        if (this.highlightsreal['tag_list_tg'] === undefined) {
-          this.highlightsreal['tag_list_tg'] = [];
-          this.highlightsreal['tag_list_tg'].push(
-            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
-          );
-        } else {
-          this.highlightsreal['tag_list_tg'].push(
-            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
-          );
-        }
-
         if (this.highlightsreal['title'] === undefined) {
           this.highlightsreal['title'] = [];
           this.highlightsreal['title'].push(
@@ -278,29 +267,6 @@ export class ResultComponent implements OnInit {
             '<em>' + tag.split(':', 2)[1].trim() + '</em>'
           );
         }
-        if (this.highlightsreal['tag_list_tg'] === undefined) {
-          this.highlightsreal['tag_list_tg'] = [];
-          this.highlightsreal['tag_list_tg'].push(
-            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
-          );
-        } else {
-          this.highlightsreal['tag_list_tg'].push(
-            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
-          );
-        }
-      }
-
-      if (tag.startsWith('tagged:')) {
-        if (this.highlightsreal['tag_list_tg'] === undefined) {
-          this.highlightsreal['tag_list_tg'] = [];
-          this.highlightsreal['tag_list_tg'].push(
-            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
-          );
-        } else {
-          this.highlightsreal['tag_list_tg'].push(
-            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
-          );
-        }
       }
     }
     const highlightsreal_title = [...new Set(this.highlightsreal['title'])];
@@ -311,13 +277,11 @@ export class ResultComponent implements OnInit {
       ...new Set(this.highlightsreal['description']),
     ];
     const highlightsreal_key = [...new Set(this.highlightsreal['keywords_tg'])];
-    const highlightsreal_tl = [...new Set(this.highlightsreal['tag_list_tg'])];
 
     this.highlightsreal['title'] = highlightsreal_title.reverse();
     this.highlightsreal['author_names_tg'] = highlightsreal_an.reverse();
     this.highlightsreal['description'] = highlightsreal_desc.reverse();
     this.highlightsreal['keywords_tg'] = highlightsreal_key.reverse();
-    this.highlightsreal['tag_list_tg'] = highlightsreal_tl.reverse();
   }
 
   setHasDOIUrl() {

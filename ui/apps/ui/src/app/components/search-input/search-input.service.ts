@@ -191,8 +191,6 @@ export class SearchInputService {
             tag.split(':', 2)[1].trim() +
             '" OR keywords_tg:"' +
             tag.split(':', 2)[1].trim() +
-            '" OR tag_list_tg:"' +
-            tag.split(':', 2)[1].trim() +
             '"'
         );
         exacts.push(filters.length - 1);
@@ -202,24 +200,16 @@ export class SearchInputService {
         filters.push('!author_names_tg:"' + tag.split(':', 2)[1].trim() + '"');
         filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
         filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
-        filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
       }
       if (tag.startsWith('in title:')) {
         filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
         titles.push(filters.length - 1);
       }
       if (tag.startsWith('keyword:')) {
-        filters.push(
-          'keywords_tg:"' +
-            tag.split(':', 2)[1].trim() +
-            '" OR tag_list_tg:"' +
-            tag.split(':', 2)[1].trim() +
-            '"'
-        );
+        filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
         keywords.push(filters.length - 1);
       }
       if (tag.startsWith('tagged:')) {
-        filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
         keywords.push(filters.length - 1);
       }
     }

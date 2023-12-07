@@ -136,8 +136,8 @@ export const servicesFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'tag_list',
-      filter: 'tag_list',
+      id: 'keywords',
+      filter: 'keywords',
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
