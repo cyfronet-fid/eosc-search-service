@@ -662,6 +662,9 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
         df = df.withColumn(KEYWORDS_TG, col(KEYWORDS))
     if TAG_LIST in columns:
         df = df.withColumn(TAG_LIST_TG, col(TAG_LIST))
+        if KEYWORDS not in columns:  # Add keywords property for MP resources
+            df = df.withColumn(KEYWORDS, col(TAG_LIST))
+
     if EOSC_IF in columns:
         df = df.withColumn(EOSC_IF_TG, col(EOSC_IF))
     return df

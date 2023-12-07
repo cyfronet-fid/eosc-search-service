@@ -26,6 +26,7 @@ service_output_schema = {
     "helpdesk_url": "string",
     "horizontal": "boolean",
     "id": "string",
+    "keywords": "array<string>",
     "language": "array<string>",
     "last_update": "date",
     "life_cycle_status": "string",

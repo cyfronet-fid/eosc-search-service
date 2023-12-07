@@ -15,6 +15,7 @@ provider_output_schema = {
     "esfri_type": "string",
     "hosting_legal_entity": "string",
     "id": "string",
+    "keywords": "array<string>",
     "legal_entity": "boolean",
     "legal_status": "string",
     "life_cycle_status": "string",
