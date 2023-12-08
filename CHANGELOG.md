@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.17.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.17.0...v2.17.1) (2023-12-08)
+
+
+### Bug Fixes
+
+* keywords added to all collections ([cbd6a1b](https://github.com/cyfronet-fid/eosc-search-service/commit/cbd6a1bd9e58762367c368863485c4b5c696e885))
+
 ## [2.17.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.16.0...v2.17.0) (2023-12-07)
 
 
