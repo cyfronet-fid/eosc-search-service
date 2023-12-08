@@ -61,14 +61,13 @@ async def extend_ig_with_related_services(client: AsyncClient, docs: list[dict])
                     client, doc["id"]
                 )
             except RelatedServicesError:
-                print("related_service_pid error")
+                logger.exception("Exception happened during _get_related_records_pids")
                 related_services_pids = []
             finally:
                 if related_services_pids:
                     doc["related_services"] = await _get_related_services(
                         client, related_services_pids
                     )
-                    print("related_service_pid set after await")
                 else:
                     doc["related_services"] = []
                 new_docs.append(copy.deepcopy(doc))

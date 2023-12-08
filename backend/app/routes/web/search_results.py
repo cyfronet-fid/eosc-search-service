@@ -94,7 +94,7 @@ async def search_post(
                 )
                 res_json["response"]["docs"] = copy.deepcopy(new_docs)
             except (Exception,):  # pylint: disable=broad-except
-                print("Something goes wrong..")
+                logger.exception("Exception happened during related services extension")
 
     collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
