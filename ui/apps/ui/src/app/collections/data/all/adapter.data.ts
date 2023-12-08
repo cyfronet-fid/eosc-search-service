@@ -219,7 +219,10 @@ export const allCollectionsAdapter: IAdapter = {
     collection: COLLECTION,
     secondaryTags: [
       toInterPatternsSecondaryTag(data.eosc_if ?? [], 'eosc_if'),
-      toKeywordsSecondaryTag(data.tag_list ?? [], 'tag_list'),
+      toKeywordsSecondaryTag(
+        (data.tag_list ?? []).concat(data.keywords ?? []),
+        'tag_list'
+      ),
     ],
     offers: data.offers ?? [],
     ...parseStatistics(data),
