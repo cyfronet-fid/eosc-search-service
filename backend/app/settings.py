@@ -54,6 +54,7 @@ class GlobalSettings(BaseSettings):
     STOMP_SSL: bool = Field(False, env="ESS_STOMP_SSL")
 
     SHOW_RECOMMENDATIONS: bool = True
+    SHOW_RANDOM_RECOMMENDATIONS: bool = True
     RECOMMENDER_ENDPOINT: AnyUrl = "http://localhost:8081/recommendations"
     MARKETPLACE_BASE_URL: AnyUrl = "https://marketplace.eosc-portal.eu"
     EOSC_COMMONS_URL: AnyUrl = "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
