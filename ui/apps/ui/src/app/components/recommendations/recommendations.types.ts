@@ -6,6 +6,7 @@ export interface IRecommendation {
   organisation: string;
 }
 export interface IRecommendationResponse {
+  isRand: boolean;
   message?: string;
   recommendations: IRecommendation[];
 }
