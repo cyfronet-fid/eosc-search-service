@@ -82,7 +82,7 @@ async def get_fixed_recommendations(
         collection = "data source"
     if collection == Collection.ALL_COLLECTION:
         collection = "publication"
-    fq = [f'type:("{collection}")']
+    fq = [f'type:("{collection}")', 'language:"English"']
     async with httpx.AsyncClient() as client:
         response = await search(
             client,
