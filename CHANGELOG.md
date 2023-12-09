@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.18.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.17.1...v2.18.0) (2023-12-09)
+
+
+### Features
+
+* english only ([773b523](https://github.com/cyfronet-fid/eosc-search-service/commit/773b52389ab5c4b23a23894b4e29dc962719045f))
+
+
+### Bug Fixes
+
+* random rs ([244d5b9](https://github.com/cyfronet-fid/eosc-search-service/commit/244d5b966bed41ebb49be03d66b22ff8f1fe5565))
+
 ## [2.17.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.17.0...v2.17.1) (2023-12-08)
 
 
