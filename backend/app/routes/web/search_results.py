@@ -21,6 +21,7 @@ from app.consts import (
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.search_request import SearchRequest
 from app.schemas.solr_response import Collection, ExportData
+from app.settings import settings
 from app.solr.error_handling import SolrDocumentNotFoundError
 from app.solr.operations import get, search_advanced_dep, search_dep
 from app.utils.ig_related_services import extend_ig_with_related_services
@@ -77,7 +78,7 @@ async def search_post(
             qf=qf,
             fq=fq,
             sort=final_solr_sorting,
-            rows=rows,
+            rows=settings.MAX_ITEMS_SORT_RELEVANCE if sort_ui == "r" else rows,
             exact=exact,
             cursor=cursor,
             facets=request.facets,
@@ -148,7 +149,7 @@ async def search_post_advanced(
             qf=qf,
             fq=fq,
             sort=final_solr_sorting,
-            rows=rows,
+            rows=settings.MAX_ITEMS_SORT_RELEVANCE if sort_ui == "r" else rows,
             exact=exact,
             cursor=cursor,
             facets=request.facets,
