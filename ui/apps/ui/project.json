@@ -20,6 +20,14 @@
           "node_modules/bootstrap-icons/font/bootstrap-icons.scss",
           "apps/ui/src/styles.scss"
         ],
+        "allowedCommonJsDependencies": [
+          "lodash.isplainobject",
+          "lodash.trim",
+          "lodash.without",
+          "@cospired/i18n-iso-languages",
+          "moment",
+          "jquery"
+        ],
         "scripts": []
       },
       "configurations": {

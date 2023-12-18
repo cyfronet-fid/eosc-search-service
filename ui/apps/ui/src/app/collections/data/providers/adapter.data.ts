@@ -1,6 +1,5 @@
 import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { IProvider } from '@collections/data/providers/provider.model';
 import { parseStatistics } from '@collections/data/utils';

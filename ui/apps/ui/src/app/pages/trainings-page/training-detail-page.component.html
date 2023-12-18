@@ -13,12 +13,12 @@
                 class="ig-title-container about-content-title col-md-7 col-12"
               >
                 <p class="ig-about-title" i18n>
-                  {{ myTraining?.title ?? '-' }}
+                  {{ myTraining.title ?? '-' }}
                 </p>
                 <p class="ig-about-subtitle" i18n>
                   Resource organization:
                   <span class="sub-headline-color">{{
-                    myTraining?.resource_organisation ?? '-'
+                    myTraining.resource_organisation ?? '-'
                   }}</span
                   ><br />
                   Provided by:
@@ -28,12 +28,12 @@
                 </p>
               </div>
               <div class="ig-buttons-container col-md-3 col-12">
-                <a href="{{ myTraining?.url ?? '' }}">
+                <a href="{{ myTraining.url ?? '' }}">
                   <div class="button" i18n>Access training</div>
                 </a>
                 <div class="button-off" i18n>
                   {{
-                    myTraining?.best_access_right ?? '-'
+                    myTraining.best_access_right
                       | filterPipe: type.TRAINING_ACCESS_TYPE
                   }}
                 </div>
@@ -51,7 +51,7 @@
                   <p>About</p>
                 </div>
                 <div class="ig-content-inner">
-                  <span [innerHTML]="myTraining?.description ?? '-'"></span>
+                  <span [innerHTML]="myTraining.description ?? '-'"></span>
                 </div>
               </div>
 
@@ -65,12 +65,12 @@
                   <div class="col-6">
                     <p class="section" i18n>
                       Expertise Level<br /><span class="section-description">{{
-                        myTraining?.level_of_expertise ?? '-'
+                        myTraining.level_of_expertise
                       }}</span>
                     </p>
                     <p class="section" i18n>
                       Qualification<br /><span class="section-description">{{
-                        myTraining?.qualification ?? '-'
+                        myTraining.qualification
                           | filterPipe: type.TRAINING_QUALIFICATIONS
                       }}</span>
                     </p>
@@ -87,7 +87,7 @@
                   <div class="col-6">
                     <p class="section" i18n>
                       Duration<br /><span class="section-description">{{
-                        myTraining?.duration ?? '-'
+                        myTraining.duration
                       }}</span>
                     </p>
                     <p class="section" i18n>
@@ -136,17 +136,17 @@
                 <div class="ig-content-inner">
                   <p class="section" i18n>
                     Version Date<br /><span class="section-description">{{
-                      myTraining?.publication_date ?? '-' | transformDatePipe
+                      myTraining.publication_date | transformDatePipe
                     }}</span>
                   </p>
                   <p class="section" i18n>
                     License<br /><span class="section-description">{{
-                      myTraining?.license ?? '-'
+                      myTraining.license
                     }}</span>
                   </p>
                   <p class="section" i18n>
                     Resource URL type<br /><span class="section-description">{{
-                      myTraining?.url_type ?? '-' | filterPipe: 'url_type'
+                      myTraining.url_type ?? '-' | filterPipe: 'url_type'
                     }}</span>
                   </p>
                   <p class="section" i18n>
@@ -159,7 +159,7 @@
                     >
                       <span class="section-description">{{ author }}</span
                       >{{
-                        i === (myTraining?.author_names?.length ?? 0) - 1
+                        i === (myTraining.author_names?.length ?? 0) - 1
                           ? ''
                           : ','
                       }}

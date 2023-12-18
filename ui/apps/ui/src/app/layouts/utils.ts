@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const stripHighlightedFromHtml = (
   highlights: string[] | undefined
 ): string[] => {
