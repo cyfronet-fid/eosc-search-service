@@ -12,6 +12,7 @@ from ..schemas.properties.env import (
     SERVICE,
     SOFTWARE,
     TRAINING,
+    ORGANISATION,
 )
 from .dataset import DatasetTransformer
 from .publication import PublicationTransformer
@@ -24,6 +25,7 @@ from .guideline import transform_guidelines
 from .offer import OfferTransformer
 from .bundle import BundleTransformer
 from .provider import ProviderTransformer
+from .organisation import OrganisationTransformer
 
 __all__ = ["transformers"]
 
@@ -39,4 +41,5 @@ transformers = {
     SOFTWARE: SoftwareTransformer,
     DATASET: DatasetTransformer,
     PUBLICATION: PublicationTransformer,
+    ORGANISATION: OrganisationTransformer,
 }
