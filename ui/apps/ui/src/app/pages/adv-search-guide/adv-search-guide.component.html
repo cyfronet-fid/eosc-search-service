@@ -1,185 +1,348 @@
 <ess-back-to-search-bar></ess-back-to-search-bar>
 
+<div class="container--xxl">
+  <div class="content">
+    <h1>
+      Advanced Search Guide: Navigating the EOSC Marketplace's Dynamic Search
+    </h1>
 
-<div class="container container-small">
-    <div class="content">
-        <h1 class="page-title">Advanced Search Guide: Navigating the EOSC Marketplace Dynamic Search</h1>
+    <p>
+      Welcome to the EOSC Marketplace advanced search functionality, designed to
+      help you effortlessly discover the precise research products you need from
+      our extensive repository. This guide will walk you through the
+      step-by-step process of using our advanced search, making your research
+      journey both efficient and enjoyable.
+    </p>
 
-        <p>
-          Welcome to the EOSC Marketplace advanced search functionality, designed to help you effortlessly discover the precise research products you need from our extensive repository.
-          This guide will walk you through the step-by-step process of using our advanced search, making your research journey both efficient and enjoyable.
-        </p>
-        <span class="toggle-state-button expand-button" *ngIf="this.isCollapsed" (click)="expandCollapsed(acc)" > <b> Expand All </b></span>
+    <span
+      class="toggle-state-button"
+      *ngIf="this.numberExpanded < 8"
+      (click)="accordion.expandAll()"
+    >
+      <b> Expand All </b></span
+    >
 
-        <span class="toggle-state-button hide-button" *ngIf="!this.isCollapsed"  (click)="collapseAllTabs(acc)"> <b> Hide All </b></span>
-        <ngb-accordion  (panelChange)="toggleState($event)" #acc="ngbAccordion" >
+    <span
+      class="toggle-state-button"
+      *ngIf="this.numberExpanded === 8"
+      (click)="accordion.collapseAll()"
+    >
+      <b> Hide All </b></span
+    >
+    <div ngbAccordion  (shown)="onShow()" (hidden)="onHide()" #accordion="ngbAccordion">
+      <div ngbAccordionItem="first">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton><b
+            >1. Search Techniques in the EOSC Marketplace: Basic Search,
+            Advanced Search, and Filters</b></button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <p>
+                1. The EOSC Marketplace is designed to provide a comprehensive
+                search experience. It consists of three key elements:
+              </p>
+              <p>
+                <strong>Basic Search:</strong> always positioned at the top of the
+                website, this is where you can enter your search queries.
+              </p>
+              <p>
+                <strong>Advanced Search:</strong> adjacent to the main search bar,
+                the advanced search feature allows you to refine your search using
+                specific criteria.
+              </p>
+              <strong>Standard Filters:</strong> on the left side of the website,
+              you'll find traditional filters that help you narrow down your search
+              results.<br />
+              <p>
+                2. To access the advanced search options, click on the "Show
+                Advanced Search” button. This will seamlessly open up the advanced
+                search panel just below the main search bar.
+              </p>
 
-
-            <ngb-panel>
-                <ng-template ngbPanelTitle>
-                    <span> <b>1. Search Techniques in the EOSC Marketplace: Basic Search, Advanced Search and Filters</b></span>
-                  </ng-template>
-              <ng-template ngbPanelContent>
-                <span>1. The EOSC Marketplace is designed to provide a comprehensive search experience. It consists of three key elements:</span>
-                <div class="pt-3">
-                  <ol type="a">
-                    <li><strong>Basic Search:</strong> always positioned at the top of the webpage, this is where you can enter your search queries.</li>
-                    <li><strong>Advanced Search:</strong> adjacent to the main search bar, the advanced search feature allows you to refine your search using specific criteria.</li>
-                    <li><strong>Standard Filters:</strong> on the left side of the webpage, you'll find traditional filters that help you narrow down your search results.</li>
-                  </ol>
-
-                </div>
-                <p>2. To access the advanced search options, click on the "Show Advanced Search” button. This will seamlessly open up the advanced search panel just below the main search bar.</p>
-
-                <img src="assets/asguide/show-as.png" alt="Shows Advanced Search button placement" />
-              </ng-template>
-            </ngb-panel>
-
-            <ngb-panel>
-              <ng-template ngbPanelTitle>
-                <span> <b>2. Basic & Advanced Search</b></span>
-              </ng-template>
-              <ng-template ngbPanelContent>
-                <p>1. The main upper bar is designed for a fuzzy search, dedicated to a general phrase search where the search query approximately matches the content on the webpage. Enter any relevant phrase, and our system will intelligently account for minor spelling variations or typos to provide comprehensive results.</p>
-                <p>2. Fuzzy search functionality primarily considers the description, author, title, and keywords, enhancing the search experience by capturing nuanced matches within these key parameters. The system’s flexibility allows it to recognize and include closely related terms, ensuring a more expansive and accurate retrieval of information.</p>
-                <p>3. In this main search bar, you can also tick the "Exact Match" option if you desire precise results without the need for advanced search features.<br>
-                <img src="assets/asguide/exact-match.png" alt="Shows Exact Match checkbox placement" style="margin-bottom: 25px"/></p>
-                <p>4. Below, you'll find a lower search bar, which is a component of the advanced search feature. It offers users the advantage of precision and customization, allowing them to refine their search queries with specific criteria, ensuring they find exactly what they're looking for.</p>
-
-              </ng-template>
-            </ngb-panel>
-
-            <ngb-panel>
-                <ng-template ngbPanelTitle>
-                  <span> <b>3. Adding Advanced Search Criteria</b></span>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <p>In the advanced search bar, you can enter specific search phrases that are integral to your research. These phrases will precisely guide your results toward your desired outcomes.</p>
-                    <img src="assets/asguide/as-pannel.png" alt="Shows Advanced Search pannel" style="margin-bottom: 25px;"/>
-                    <p>Within the advanced search panel, you can:</p>
-                    <ol>
-                      <li>Enter a specific search phrase.</li>
-                      <li>Choose an operator from the dropdown menu.</li>
-                      <li>Click the "Narrow down" button to incorporate your entered phrase and chosen operator into your search criteria.</li>
-                      <li>Use OR/AND switch to specify the relationship between multiple search terms.</li>
-                    </ol>
-                    <p>You can repeat this process to add multiple search phrases, mixing and matching operators as needed. This allows you to refine your search for the best possible outcomes.</p>
-
-                </ng-template>
-              </ngb-panel>
-
-              <ngb-panel>
-                <ng-template ngbPanelTitle>
-                  <span> <b>4. Applying Operators</b></span>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <strong>1. Query options</strong>
-                    <div class="p-3">
-                      <p>For each search phrase you've added, a dropdown menu will appear adjacent to it. Click on the dropdown to unveil a range of filtering options:
-                      </p>
-                      <ol type="a">
-                        <li><strong>Author: </strong> Select this option to discover content authored by specific individuals. You can even choose multiple authors if needed.</li>
-                        <li><strong>In Title: </strong> Opt for this filter to pinpoint phrases present in the titles of the research products.</li>
-                        <li><strong>Exact: </strong>Utilize this filter for precise phrase matches, ideal for specific concepts or terms.</li>
-                        <li><strong>Keyword: </strong>Use this operator to search for specific keywords focusing on those specified terms.</li>
-                        <li><strong>None Of: </strong>This option helps eliminate specific terms from your results, refining your search further.</li>
-                      </ol>
-                    </div>
-                    <strong>2. Multiple Queries</strong>
-                    <div class="p-3">
-                      <p>You can use multiple query fields simultaneously. Each query will be represented as a chip in a line, making it easy to see and manage your search criteria.
-                        For example, you can search for resources authored by "Addin Osman" with "data analysis" in the title and "machine learning" as a keyword.
-                      </p>
-                      <img src="assets/asguide/mult-queries.png" alt="Shows multiple queries example" />
-                    </div>
-
-                    <strong>3. OR/AND Switch</strong>
-                    <div class="p-3">
-                      <p>To refine your results even further, the "or/and" switch comes into play. It's located on the right side of each query line. Here's how it works:</p>
-                      <ol type="a">
-                          <li>
-                              <strong>AND:</strong> click the control on the left to require that all of your queries must be present in the search results. This helps you find highly specific matches.
-                              </li>
-                          <li>
-                              <strong>OR: </strong> click the control on the right if you want the search to include records that match any of your queries.  This broadens the search, giving you a comprehensive set of results.
-                              </li>
-                      </ol>
-                      <img src="assets/asguide/and-or.png" alt="Shows and/or switch" />
-                    </div>
-                    <strong>4. Filters</strong>
-                    <div class="p-3">
-                      <p>
-                        You can also make use of the search filters listed on the left side of the EOSC Marketplace website to narrow down your results even more.
-                        These filters can complement your advanced search criteria and provide a comprehensive search experience.
-                      </p>
-                      <img src="assets/asguide/filters.png" alt="Shows filters pannel placement" />
-                    </div>
-
-
-                </ng-template>
-              </ngb-panel>
-
-
-              <ngb-panel>
-                <ng-template ngbPanelTitle>
-                  <span> <b>5. Review and Execute  </b></span>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <p>Once you've added your search phrases and applied your desired filters, take a moment to review your advanced search criteria. A list of your search phrases along with their respective filters will be visible. If necessary, you can make adjustments by removing chosen words or phrases or adding a new one.</p>
-                    <p>When you're content with your search criteria, proceed to click the magnifying glass.</p>
-                    <p>Your search results will materialize based on the combination of your fuzzy search keywords, advanced search phrases, selected filters, and any additional search filters you've applied.</p>
-                </ng-template>
-              </ngb-panel>
-
-
-              <ngb-panel>
-                <ng-template ngbPanelTitle>
-                  <span> <b>6. Clearing Filters and Deleting Queries</b></span>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                <p>Managing your search experience in the EOSC Marketplace is made simple with two essential features:
-                  Clearing Advanced Search and Clearing Basic Filters. Learn how to utilize these options to start fresh and explore your search results with ease:</p>
+              <img
+                src="assets/asguide/show-as.png"
+                alt="Shows Advanced Search button placement"
+              />
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div ngbAccordionItem="second">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton><b>2. Basic & Advanced Search</b></button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              1. The main upper bar is designed for a fuzzy search, dedicated to a
+              general phrase search where the search query approximately matches the
+              content on the webpage. Input any relevant phrase, and our system will
+              intelligently account for minor spelling variations or typos to
+              provide comprehensive results. <br />
+              2. Fuzzy search functionality primarily considers the description,
+              author, title, and keywords, enhancing the search experience by
+              capturing nuanced matches within these key parameters. The system’s
+              flexibility allows it to recognize and include closely related terms,
+              ensuring a more expansive and accurate retrieval of information.
+              <br />
+              3. In this main search bar, you can also tick the "Exact Match" option
+              if you desire precise results without the need for advanced search
+              features. <br />
+              <img
+                src="assets/asguide/exact-match.png"
+                alt="Shows Exact Match checkbox placement"
+              />
+              4. Below, you'll find a lower search bar, which is a component of the
+              advanced search feature. It offers users the advantage of precision
+              and customization, allowing them to refine their search queries with
+              specific criteria, ensuring they find exactly what they're looking
+              for. <br />
+            </ng-template>
+          </div>
+        </div>
+      </div>
 
 
 
-                    <strong>1. Clearing Advanced Search</strong>
-                  <div class="p-3 pt-0">
-                   <p> When you use the advanced search feature to enter specific queries and want to start fresh, you can do so easily. Look for the "Clear Advanced Search" button, which is conveniently attached to the advanced search bar.
-                     Clicking this button will remove all queries and criteria you've entered into the advanced search, allowing you to begin a new search without any previous filters and operators.</p>
-                    <img src="assets/asguide/clear-as.png" alt="Shows clear button" />
-                  </div>
-                    <strong>2. Clearing Basic Filters</strong>
-                  <div class="p-3 pt-0">
-                    <p>If you've been using the traditional filters on the left side of the webpage to further refine your search and need to clear them, we've got you covered. Simply locate the "Clear All" button, which is associated with the main search.
-                      When you click this button, it will clear all filters on the left side, giving you a clean slate to explore your search results.</p>
-                        <img src="assets/asguide/clear-filters.png" alt="Shows clear filters button" />
-                  </div>
-                </ng-template>
-              </ngb-panel>
+      <div ngbAccordionItem="third">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton><b>3. Adding Advanced Search Criteria</b></button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <p>
+                In the advanced search bar, you can input specific search phrases
+                that are integral to your research. These phrases will precisely
+                guide your results toward your desired outcomes.
+              </p>
+              <img
+                src="assets/asguide/as-pannel.png"
+                alt="Shows Advanced Search pannel"
+              />
+              <p>
+                Within the advanced search panel, you can: <br />
+                1. Enter a specific search phrase. <br />
+                2. Choose an operator from the dropdown menu. <br />
+                3. Click the "Narrow down" button to incorporate your entered phrase
+                and chosen operator into your search criteria. <br />
+                4. Use OR/AND switch to specify the relationship between multiple
+                search terms. <br />
+              </p>
+              <p>
+                You can repeat this process to add multiple search phrases, mixing
+                and matching operators as needed. This allows you to refine your
+                search for the best possible outcomes.
+              </p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
 
-              <ngb-panel>
-                <ng-template ngbPanelTitle>
-                  <span> <b>7. Refining and Exploring Results</b></span>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                   <p>Peruse through the search results to discover the most relevant research products. If you wish to fine-tune your results further, you can easily return to the advanced search panel and modify your criteria.</p>
 
-                </ng-template>
-              </ngb-panel>
+      <div ngbAccordionItem="fourth">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton><b>4. Applying Operators</b></button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <strong>1. Query options</strong>
+              <p>
+                For each search phrase you've added, a dropdown menu will appear
+                adjacent to it.Click on the dropdown to unveil a range of filtering
+                options:
+              </p>
+              <p>
+                <strong>Author: </strong> Select this option to discover content
+                authored by specific individuals. You can even choose multiple
+                authors if needed.
+              </p>
+              <p>
+                <strong>In Title: </strong> Opt for this filter to pinpoint phrases
+                present in the titles of the research products.
+              </p>
+              <p>
+                <strong>Exact: </strong>Utilize this filter for precise phrase
+                matches, ideal for specific concepts or terms.
+              </p>
+              <p>
+                <strong>Keyword: </strong>Use this operator to search for specific
+                keywords focusing on those specified terms.
+              </p>
+              <p>
+                <strong>None Of: </strong>This option helps eliminate specific terms
+                from your results, refining your search further.
+              </p>
 
-              <ngb-panel>
-                <ng-template ngbPanelTitle>
-                  <span> <b>8. Ending Your Advanced Search  </b></span>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                   <p>If you're no longer interested in using the advanced search, simply click the "Go back to Basic Search" button. This will restore the default search view, allowing you to explore the EOSC Marketplace using the main search bar and basic filters.
-                     Should you encounter queries or challenges, our dedicated support team is readily available to assist you.</p>
+              <strong>2. Multiple Queries</strong>
+              <p>
+                You can use multiple query fields simultaneously. Each query will be
+                represented as a chip in a line, making it easy to see and manage
+                your search criteria. For example, you can search for resources
+                authored by "Addin Osman" with "data analysis" in the title and
+                "machine learning" as a keyword.
+              </p>
+              <img
+                src="assets/asguide/mult-queries.png"
+                alt="Shows multiple queries example"
+              />
 
-                </ng-template>
-              </ngb-panel>
+              <strong>3. OR / AND Switch</strong>
+              <p>
+                To refine your results even further, the "or/and" switch comes into
+                play. It's located on the right side of each query line. Here's how
+                it works:
+              </p>
+              <ul>
+                <li>
+                  <strong>AND:</strong> click the control on the left to require
+                  that all of your queries must be present in the search results.
+                  This helps you find highly specific matches.
+                </li>
+                <li>
+                  <strong>OR: </strong> click the control on the right if you want
+                  the search to include records that match any of your queries. This
+                  broadens the search, giving you a comprehensive set of results.
+                </li>
+              </ul>
+              <img src="assets/asguide/and-or.png" alt="Shows and/or switch" />
+              <strong>4. Filters</strong>
+              <p>
+                You can also make use of the search filters listed on the left side
+                of the EOSC Marketplace website to narrow down your results even
+                more. These filters can complement your advanced search criteria and
+                provide a comprehensive search experience.
+              </p>
+              <img
+                src="assets/asguide/filters.png"
+                alt="Shows filters pannel placement"
+              />
+            </ng-template>
+          </div>
+        </div>
+      </div>
 
-          </ngb-accordion>
 
+
+      <div ngbAccordionItem="fifth">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton><b>5.Review and Execute </b></button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <p>
+                Once you've added your search phrases and applied your desired
+                filters, take a moment to review your advanced search criteria. A
+                list of your search phrases along with their respective filters will
+                be visible. If necessary, you can make adjustments by removing
+                chosen words or phrases or adding a new one.
+              </p>
+              <p>
+                When you're content with your search criteria, proceed to click the
+                magnifying glass.
+              </p>
+              <p>
+                Your search results will materialize based on the combination of
+                your fuzzy search keywords, advanced search phrases, selected
+                filters, and any additional search filters you've applied.
+              </p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div ngbAccordionItem="sixth">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton> <b>6. Clearing filters and Deleting Queries</b></button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <p>
+                Managing your search experience in the EOSC Marketplace is made
+                simple with two essential features: Clearing Advanced Search and
+                Clearing Basic Filters. Learn how to utilize these options to start
+                fresh and explore your search results with ease:
+              </p>
+
+              <strong>1. Clearing Advanced Search:</strong>
+              <p>
+                When you use the advanced search feature to input specific queries
+                and want to start fresh, you can do so easily. Look for the "Clear
+                Advanced Search" button, which is conveniently attached to the
+                advanced search bar. Clicking this button will remove all queries
+                and criteria you've entered into the advanced search, allowing you
+                to begin a new search without any previous filters and operators.
+              </p>
+              <img src="assets/asguide/clear-as.png" alt="Shows clear button" />
+              <strong>2. Clearing Basic Filters:</strong>
+              <p>
+                If you've been using the traditional filters on the left side of the
+                website to further refine your search and need to clear them, we've
+                got you covered. Simply locate the "Clear All" button, which is
+                associated with the main search. When you click this button, it will
+                clear all filters on the left side, giving you a clean slate to
+                explore your search results.
+              </p>
+
+              <img
+                src="assets/asguide/clear-filters.png"
+                alt="Shows clear filters button"
+              />
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div ngbAccordionItem="seventh">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton> <b>7. Refining and Exploring Results </b></button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <p>
+                Peruse through the search results to unearth the most relevant
+                research products. If you wish to fine-tune your results further,
+                you can easily return to the advanced search panel and modify your
+                criteria.
+              </p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <div ngbAccordionItem="eigth">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton><b>8. Ending Your Advanced Search </b></button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <p>
+                If you're no longer interested in using the advanced search, simply
+                click the "Go back to Basic Search" button. This will restore the
+                default search view, allowing you to explore the Marketplace using
+                the main search bar and basic filters. Should you encounter queries
+                or challenges, our dedicated support team is readily available to
+                assist you.
+              </p>
+            </ng-template>
+          </div>
+        </div>
+      </div>
     </div>
-
+  </div>
 </div>

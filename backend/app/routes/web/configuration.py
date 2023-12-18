@@ -18,4 +18,5 @@ async def config():
         eosc_commons_env=settings.EOSC_COMMONS_ENV,
         knowledge_hub_url=settings.KNOWLEDGE_HUB_URL,
         is_sort_by_relevance=settings.IS_SORT_BY_RELEVANCE,
+        max_results_by_page=settings.MAX_RESULTS_BY_PAGE,
     )

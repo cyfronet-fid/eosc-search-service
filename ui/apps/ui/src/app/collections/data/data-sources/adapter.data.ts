@@ -9,9 +9,11 @@ import {
 import { transformLanguages } from '@collections/data/shared-tags';
 import {
   parseStatistics,
+  toInterPatternsSecondaryTag,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
+import { getServiceOrderUrl } from '../services/adapter.data';
 
 export const getDataSourceUrl = (pid?: string) => {
   if (!pid) {
@@ -20,19 +22,9 @@ export const getDataSourceUrl = (pid?: string) => {
   return `${ConfigService.config?.marketplace_url}/services/${pid}`;
 };
 
-export const getDataSourceOrderUrl = (pid?: string) => {
-  if (!pid) {
-    pid = '';
-  }
-  return `${ConfigService.config?.marketplace_url}/services/${pid}/offers`;
-};
-
 export const dataSourcesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (dataSource: Partial<IDataSource> & { id: string }): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: true,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: false,
     id: dataSource.id,
     // basic information
@@ -45,7 +37,7 @@ export const dataSourcesAdapter: IAdapter = {
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
     url: getDataSourceUrl(dataSource.pid),
-    orderUrl: getDataSourceOrderUrl(dataSource.pid),
+    orderUrl: getServiceOrderUrl(dataSource.pid),
     collection: COLLECTION,
     coloredTags: [],
     tags: [
@@ -59,10 +51,14 @@ export const dataSourcesAdapter: IAdapter = {
         values: toValueWithLabel(toArray(dataSource.scientific_domains)),
         filter: 'scientific_domains',
       },
+      {
+        label: 'Interoperability guideline',
+        values: toValueWithLabel(toArray(dataSource.guidelines)),
+        filter: 'guidelines',
+      },
     ],
     secondaryTags: [
-      // toDownloadsStatisticsSecondaryTag(dataSource.usage_counts_downloads),
-      // toViewsStatisticsSecondaryTag(dataSource.usage_counts_views),
+      toInterPatternsSecondaryTag(dataSource.eosc_if ?? [], 'eosc_if'),
       toKeywordsSecondaryTag(dataSource.tag_list ?? [], 'tag_list'),
     ],
     ...parseStatistics(dataSource),

@@ -22,7 +22,7 @@ img {
   &.expand-button {
     &:after {
       float: right;
-      content: "";
+      content: '';
       background-image: url('/assets/expand-arrow-1.svg');
       width: 20px;
       height: 20px;
@@ -33,7 +33,7 @@ img {
   &.hide-button {
     &:after {
       float: right;
-      content: "";
+      content: '';
       background-image: url('/assets/expand-arrow-1.svg');
       width: 20px;
       height: 20px;
@@ -43,5 +43,3 @@ img {
     }
   }
 }
-
-

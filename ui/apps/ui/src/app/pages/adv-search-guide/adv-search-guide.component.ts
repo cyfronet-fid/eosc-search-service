@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component } from '@angular/core';
-import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'ess-adv-search-guide',
@@ -8,17 +7,13 @@ import { NgbPanelChangeEvent } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./adv-search-guide.component.scss'],
 })
 export class AdvSearchGuideComponent {
-  public isCollapsed = true;
+  public numberExpanded = 0;
 
-  collapseAllTabs(acc: any) {
-    this.isCollapsed = true;
-    acc.collapseAll();
+  onShow() {
+    this.numberExpanded += 1;
   }
-  expandCollapsed(acc: any) {
-    this.isCollapsed = false;
-    acc.expandAll();
-  }
-  toggleState($event: NgbPanelChangeEvent) {
-    this.isCollapsed == $event.nextState;
+
+  onHide() {
+    this.numberExpanded -= 1;
   }
 }

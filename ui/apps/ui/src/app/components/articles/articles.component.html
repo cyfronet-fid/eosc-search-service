@@ -1,0 +1,19 @@
+<ng-container *ngIf="articles.length > 0">
+  <div class="column">
+    <ng-container *ngFor="let article of articles">
+      <a href="{{ article.url }}">
+        <div class="box">
+          <a href="{{ article.url }}" class="article_blue_arrow">
+            <img src="assets/ei_arrow-left.svg" />
+          </a>
+          <div class="article_desc_container">
+            <p class="article_title_box">
+              {{ article.title }}
+            </p>
+            <p class="article_desc" [innerHTML]="article.description"></p>
+          </div>
+        </div>
+      </a>
+    </ng-container>
+  </div>
+</ng-container>

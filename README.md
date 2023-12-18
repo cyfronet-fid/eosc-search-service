@@ -187,7 +187,8 @@ See docker-compose.yml for components.
   > base url to get related services for interoperability guidelines. Default: https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources
 - `IS_SORT_BY_RELEVANCE`
   > Boolean variable that indicates whether sort by relevance should be enabled on the instance level. Default: False.
-
+- `MAX_RESULTS_BY_PAGE`
+  > Integer specifying how many results to fetch with a single call to SOLR backend
 
 `db` envs:
 - `DB_POSTGRES_DB`

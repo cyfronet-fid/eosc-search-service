@@ -1,6 +1,7 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import, duplicate-code
 """Transform trainings"""
 from itertools import chain
+from logging import getLogger
 import json
 from datetime import datetime
 from dateutil import parser
@@ -26,6 +27,9 @@ from app.transform.utils.common import (
 from app.transform.utils.utils import sort_schema
 from app.transform.schemas.properties.data import *
 from app.transform.schemas.output.training import training_output_schema
+from app.services.mp_pc.data import get_providers_mapping
+
+logger = getLogger(__name__)
 
 
 class TrainingTransformer(BaseTransformer):
@@ -50,6 +54,12 @@ class TrainingTransformer(BaseTransformer):
         without a need to create another dataframe and merging"""
         df = df.withColumn(TYPE, lit(self.type))
         df = self.rename_cols(df)
+        df = df.withColumn(
+            "catalogues", split(col("catalogues"), ",")
+        )  # TODO move to cast_columns
+        df = df.withColumn(
+            "catalogue", self.get_first_element(df["catalogues"])
+        )  # TODO delete
 
         return df
 
@@ -67,19 +77,20 @@ class TrainingTransformer(BaseTransformer):
         df = self.map_sci_domains(df)
         df = self.ts_to_iso(df)
         df = self.serialize_alternative_ids(df, ALTERNATIVE_IDS)
+        df = self.map_providers_and_orgs(df)
 
         create_unified_categories(df, self.harvested_properties)
         df = remove_commas(df, "author_names", self.harvested_properties)
 
         return df
 
-    @staticmethod
-    def cast_columns(df: DataFrame) -> DataFrame:
+    def cast_columns(self, df: DataFrame) -> DataFrame:
         """Cast trainings columns"""
         df = df.withColumn("description", split(col("description"), ","))
         df = df.withColumn("url", split(col("url"), ","))
         df = df.withColumn("duration", col("duration").cast("bigint"))
         df = transform_date(df, "publication_date", "yyyy-MM-dd")
+
         return df
 
     @property
@@ -101,7 +112,9 @@ class TrainingTransformer(BaseTransformer):
                     ),
                     StructField(TARGET_GROUP, ArrayType(StringType()), True),
                     StructField(OPEN_ACCESS, BooleanType(), True),
+                    StructField(PROVIDERS, ArrayType(StringType()), True),
                     StructField(PUBLICATION_DATE, DateType(), True),
+                    StructField(RESOURCE_ORGANISATION, ArrayType(StringType()), True),
                     StructField(UNIFIED_CATEGORIES, ArrayType(StringType()), True),
                 ]
             )
@@ -124,7 +137,7 @@ class TrainingTransformer(BaseTransformer):
             "accessRights": "best_access_right",
             "alternativeIdentifiers": "alternative_ids",
             "authors": "author_names",
-            "catalogueId": "catalogue",
+            "catalogueId": "catalogues",
             "contentResourceTypes": "content_type",
             "eoscRelatedServices": "related_services",
             "expertiseLevel": "level_of_expertise",
@@ -134,7 +147,7 @@ class TrainingTransformer(BaseTransformer):
             "learningResourceTypes": "resource_type",
             "qualifications": "qualification",
             "resourceOrganisation": "resource_organisation",
-            "resourceProviders": "eosc_provider",
+            "resourceProviders": "providers",
             "scientificDomains": "scientific_domains",
             "targetGroups": "target_group",
             "urlType": "url_type",
@@ -300,3 +313,31 @@ class TrainingTransformer(BaseTransformer):
             empty_lists = [[] for _ in range(length)]
             self.harvested_properties[_col] = empty_lists
             return df
+
+    def map_providers_and_orgs(self, df: DataFrame) -> DataFrame:
+        """Map pids into names - providers and organisation columns.
+        Note: organisations are providers - and they are mandatory, providers are not"""
+
+        def _map(pids_list: str | list[str]) -> list[str]:
+            """Map list of pids into a list of names"""
+            if isinstance(pids_list, str):
+                pids_list = [pids_list]
+            output = []
+            for pid in pids_list:
+                if pid in providers_mapping:
+                    output.append(providers_mapping[pid])
+                else:
+                    logger.warning(f"Unknown training's {pid=}")
+                    output.append(pid)
+            return output
+
+        providers_mapping = get_providers_mapping()
+
+        for _col in (PROVIDERS, RESOURCE_ORGANISATION):
+            pids_col = df.select(_col).collect()
+            names_col = [_map(pids) for pids in chain.from_iterable(pids_col)]
+
+            self.harvested_properties[_col] = names_col
+            df = df.drop(_col)
+
+        return df

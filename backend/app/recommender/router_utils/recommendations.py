@@ -28,6 +28,7 @@ async def get_recommended_uuids(
             "unique_id": session.session_uuid if session else str(uuid.uuid4()),
             "timestamp": datetime.datetime.utcnow().isoformat()[:-3] + "Z",
             "visit_id": recommendation_visit_id,
+            "client_id": "search_service",
             "page_id": "/search/" + collection,
             "panel_id": _get_panel(collection),
             "candidates": {},
@@ -81,7 +82,7 @@ async def get_fixed_recommendations(
         collection = "data source"
     if collection == Collection.ALL_COLLECTION:
         collection = "publication"
-    fq = [f'type:("{collection}")']
+    fq = [f'type:("{collection}")', 'language:"English"']
     async with httpx.AsyncClient() as client:
         response = await search(
             client,

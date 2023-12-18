@@ -1,22 +1,35 @@
 """The UI Search endpoint"""
+import copy
+import csv
 import itertools
+import json
 import logging
 from contextlib import suppress
-from typing import Optional
+from io import StringIO
+from typing import Iterator, Optional
 
 from fastapi import APIRouter, Body, Depends, Query, Request
 from httpx import AsyncClient
+from starlette.responses import StreamingResponse
 
-from app.consts import DEFAULT_SORT, SORT_UI_TO_SORT_MAP, SortUi
+from app.consts import (
+    DEFAULT_SORT,
+    RP_AND_ALL_COLLECTIONS_LIST,
+    SORT_UI_TO_SORT_MAP,
+    SortUi,
+)
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.search_request import SearchRequest
-from app.schemas.solr_response import Collection
+from app.schemas.solr_response import Collection, ExportData
 from app.solr.error_handling import SolrDocumentNotFoundError
 from app.solr.operations import get, search_advanced_dep, search_dep
+from app.utils.ig_related_services import extend_ig_with_related_services
 
 router = APIRouter()
 
 logger = logging.getLogger(__name__)
+
+DOWNLOAD_RESULT_FIELDS = ["title", "type", "description", "best_access_right"]
 
 
 # pylint: disable=too-many-arguments, too-many-locals
@@ -36,8 +49,9 @@ async def search_post(
     sort: list[str] = Query(
         [], description="Solr sort", example=["description asc", "name desc"]
     ),
-    rows: int = Query(10, description="Row count", gte=3, le=100),
+    rows: int = Query(10, description="Row count", gte=3, le=2000),
     cursor: str = Query("*", description="Cursor"),
+    return_csv: bool = False,
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_dep),
 ):
@@ -70,12 +84,28 @@ async def search_post(
         )
         res_json = response.data
 
-        # Extent the results with bundles
+        # Extend results with bundles
         if collection in [Collection.ALL_COLLECTION, Collection.BUNDLE]:
             await extend_results_with_bundles(client, res_json)
+        if collection in [Collection.ALL_COLLECTION, Collection.GUIDELINE]:
+            try:
+                new_docs = await extend_ig_with_related_services(
+                    client, res_json["response"]["docs"]
+                )
+                res_json["response"]["docs"] = copy.deepcopy(new_docs)
+            except (Exception,):  # pylint: disable=broad-except
+                logger.exception("Exception happened during related services extension")
+
     collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
-    return out
+
+    if not return_csv:
+        return out
+
+    results = cleanup_download_results(out["results"])
+    return StreamingResponse(
+        convert_dict_to_chunked_csv(results), media_type="text/csv"
+    )
 
 
 # pylint: disable=too-many-arguments
@@ -95,8 +125,9 @@ async def search_post_advanced(
     sort: list[str] = Query(
         [], description="Solr sort", example=["description asc", "name desc"]
     ),
-    rows: int = Query(10, description="Row count", gte=3, le=100),
+    rows: int = Query(10, description="Row count", gte=3, le=2000),
     cursor: str = Query("*", description="Cursor"),
+    return_csv: bool = False,
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_advanced_dep),
 ):
@@ -130,13 +161,74 @@ async def search_post_advanced(
             await extend_results_with_bundles(client, res_json)
     collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
-    return out
+
+    if not return_csv:
+        return out
+
+    results = cleanup_download_results(out["results"])
+    return StreamingResponse(
+        convert_dict_to_chunked_csv(results), media_type="text/csv"
+    )
+
+
+async def _extract_doi_from_url(url_string):
+    """Function extracting doi from url"""
+    try:
+        _, doi = url_string.split("doi.org")
+    except ValueError:
+        return None
+    return doi
+
+
+async def _parse_export_data(instance):
+    """Function responsible for creating ExportData object for each instance
+    of a single document.
+    """
+    doi = None
+    instance_data = json.loads(instance)
+    urls = instance_data["url"]
+    for url in urls:
+        doi = await _extract_doi_from_url(url)
+        if doi:
+            break
+    instance_data["url"] = urls[0]
+    instance_data["hostedby"] = (
+        ""
+        if instance_data["hostedby"] == "Unknown Repository"
+        else instance_data["hostedby"]
+    )
+
+    instance = ExportData(**instance_data, extracted_doi=doi)
+
+    return instance.serialize_to_camel_case()
+
+
+async def parse_single_document(doc) -> list:
+    """Parse single document"""
+    data = []
+    with suppress(TypeError):
+        for instance in doc["exportation"]:
+            instance_export_data = await _parse_export_data(instance)
+            if instance:
+                data.append(instance_export_data)
+    doc["exportation"] = data
+    return doc
 
 
 async def create_output(
     request_session: Request, res_json: dict, collection: Collection, sort_ui: str
 ) -> dict:
     """Create an output"""
+    docs = res_json["response"]["docs"]
+
+    if docs and collection in RP_AND_ALL_COLLECTIONS_LIST:
+        parsed_docs = []
+        for doc in docs:
+            if doc.get("exportation"):
+                parsed_docs.append(await parse_single_document(doc))
+            else:
+                parsed_docs.append(doc)
+        docs = parsed_docs
     out = {
         "numFound": res_json["response"]["numFound"],
         "nextCursorMark": res_json["nextCursorMark"],
@@ -144,16 +236,14 @@ async def create_output(
 
     if sort_ui == "r":
         # Sort by relevance
-        rel_sorted_items = await sort_by_relevance(
-            request_session, collection, res_json["response"]["docs"]
-        )
+        rel_sorted_items = await sort_by_relevance(request_session, collection, docs)
         out["results"] = rel_sorted_items["recommendations"]
         out["numFound"] = len(out["results"])
         if not out["numFound"]:
             out["nextCursorMark"] = "*"
 
     else:
-        out["results"] = res_json["response"]["docs"]
+        out["results"] = docs
     if "facets" in res_json:
         out["facets"] = res_json["facets"]
 
@@ -251,3 +341,32 @@ async def define_sorting(
         return ['if(eq(type, "bundle"), 1, 0) asc'] + final_sorting
 
     return final_sorting
+
+
+def cleanup_download_results(results: list[dict]) -> list[dict]:
+    """Filters the necessary keys from the results dict.
+    Also converts a single-member lists into a string."""
+    return [
+        {
+            k: v[0] if isinstance(v, list) else v
+            for k, v in x.items()
+            if k in DOWNLOAD_RESULT_FIELDS
+        }
+        for x in results
+    ]
+
+
+def convert_dict_to_chunked_csv(data: list[dict]) -> Iterator[str]:
+    """Yields a chunked csv, constructed from a python dict."""
+    all_keys = set().union(*(d.keys() for d in data))
+
+    csv_file = StringIO()
+    csv_writer = csv.DictWriter(csv_file, fieldnames=all_keys)
+    csv_writer.writeheader()
+    csv_writer.writerows(data)
+
+    csv_file.seek(0)
+
+    chunk_size = 1024
+    while chunk := csv_file.read(chunk_size):
+        yield chunk

@@ -24,7 +24,7 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
     `
       ::ng-deep .highlighted {
         background-color: #e8e7ff !important;
-        padding: 3px;
+        padding: 0px;
       }
 
       .tag:last-child a::after {
@@ -59,7 +59,7 @@ export class TagsComponent implements OnChanges {
   @Input()
   tags: ITag[] = [];
   @Input()
-  providerName?: string = '';
+  providerName?: string[] = [];
 
   @Input()
   highlights: { [field: string]: string[] | undefined } = {};

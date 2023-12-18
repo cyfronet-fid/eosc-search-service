@@ -1,0 +1,71 @@
+.related-services-box {
+  margin-top: 20px;
+  position: relative;
+
+  h4 {
+    margin: 0 0 5px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .btn-show-more-services {
+    font-size: 12px !important;
+    margin: 0 0 0 1px !important;
+    cursor: pointer;
+    right: 10px;
+    color: #040f81;
+    text-decoration: underline;
+  }
+
+  .show-all-container {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.related-services-label {
+  font-weight: 200;
+  font-size: 15px;
+  line-height: 20px;
+  margin-top: 25px;
+}
+
+.service-card {
+  padding: 7px;
+  cursor: pointer;
+  margin-bottom: 0;
+  border-radius: 8px;
+  border: 1px solid #d9dee2;
+  max-width: 50%;
+  min-width: 220px;
+  transition: all 0.15s ease;
+  background: url('/assets/arrow-right.svg') no-repeat right 5px bottom 5px;
+
+  &:hover {
+    border: 1px solid #040f81;
+    background: #edf4ff url('/assets/arrow-right.svg') no-repeat right 3px
+      bottom 5px;
+  }
+}
+
+.related-services-list {
+  display: flex;
+  column-gap: 15px;
+}
+
+.service-title {
+  margin-bottom: 0.25rem;
+  font-weight: 400;
+  font-size: 12px;
+  padding: 0;
+  color: #040f81;
+  line-height: 1.2;
+}
+
+.service-provided-by {
+  margin-bottom: 0;
+  font-size: 11px;
+  padding: 0;
+  color: #333;
+  line-height: 1.2;
+}

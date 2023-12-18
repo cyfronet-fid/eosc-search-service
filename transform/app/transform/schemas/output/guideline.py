@@ -11,7 +11,8 @@ guideline_output_schema = {
     "author_names_id": "list",
     "author_names_tg": "list",
     "author_types": "list",
-    "catalogue": "str",
+    "catalogue": "string",  # TODO delete
+    "catalogues": "array<string>",
     "creators": "str",
     "description": "list",
     "doi": "list",
@@ -19,7 +20,8 @@ guideline_output_schema = {
     "eosc_guideline_type": "str",
     "eosc_integration_options": "list",
     "id": "str",
-    "provider": "str",
+    "provider": "str",  # TODO delete
+    "providers": "list",
     "publication_date": "str",
     "publication_year": "int",
     "related_standards_id": "list",

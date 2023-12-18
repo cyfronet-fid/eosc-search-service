@@ -6,6 +6,7 @@ import {
   IResult,
   ISearchResults,
   ISolrCollectionParams,
+  // ISolrFilterParams,
   ISolrQueryParams,
   ISolrSuggestionQueryParams,
   IStatFacetParam,
@@ -35,6 +36,7 @@ import {
 export class FetchDataService {
   _urlResults = `/${environment.backendApiPath}/${environment.search.apiResultsPath}`;
   _urlFilters = `/${environment.backendApiPath}/${environment.search.apiFiltersPath}`;
+  _download_url = `/${environment.backendApiPath}/${environment.search.downloadPath}`;
   _suggestions_url = `/${environment.backendApiPath}/${environment.search.suggestionsPath}`;
   _export_url = `/${environment.backendApiPath}/${environment.search.bibExportPath}`;
   _cite_url = `/${environment.backendApiPath}/${environment.search.bibCitationPath}`;
@@ -71,6 +73,21 @@ export class FetchDataService {
           isError: response.isError,
         }))
       );
+  }
+
+  downloadResults$(
+    params: ISolrCollectionParams & ISolrQueryParams,
+    advanced: boolean,
+    facets: { [field: string]: ITermsFacetParam | IStatFacetParam }
+  ): Observable<ArrayBuffer> {
+    return this._http.post<ArrayBuffer>(
+      advanced ? this._urladv : this._urlResults,
+      { facets },
+      {
+        responseType: 'text' as 'json',
+        params: { ...params, return_csv: true },
+      }
+    );
   }
 
   fetchResultsAdv$<T extends { id: string }>(

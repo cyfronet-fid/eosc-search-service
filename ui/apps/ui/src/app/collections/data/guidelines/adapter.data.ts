@@ -5,6 +5,7 @@ import { COLLECTION } from './search-metadata.data';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import {
   toArray,
+  toRelatedService,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
@@ -15,15 +16,13 @@ import {
 export const guidelinesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
   adapter: (guideline: Partial<IGuideline> & { id: string }): IResult => ({
-    isSortByRelevanceCollectionScopeOff: true,
-    isSortByPopularityCollectionScopeOff: true,
-    isSortCollectionScopeOff: true,
     isResearchProduct: false,
-    id: uuidv4(),
+    id: guideline.id,
     title: guideline['title']?.join(' ') || '',
     description: guideline['description']?.join(' ') || '',
     license: guideline['right_id'],
-    providerName: guideline['provider_name'],
+    providerName: guideline['providers'],
+    relatedServices: toRelatedService(guideline.related_services ?? []),
     date: guideline['publication_year']
       ? guideline['publication_year'].toString()
       : '',
@@ -36,9 +35,9 @@ export const guidelinesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Provider',
-        values: toValueWithLabel(toArray(guideline['provider'])),
-        filter: 'provider',
+        label: 'Providers',
+        values: toValueWithLabel(toArray(guideline['providers'])),
+        filter: 'providers',
       },
     ],
     secondaryTags: [

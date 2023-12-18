@@ -18,4 +18,6 @@ export const publicationsNavConfig: ICollectionNavConfig = {
   ],
   urlParam: URL_PARAM_NAME,
   rightMenu: false,
+  isSortByRelevanceCollectionScopeOff: false,
+  isSortByPopularityCollectionScopeOff: false,
 };

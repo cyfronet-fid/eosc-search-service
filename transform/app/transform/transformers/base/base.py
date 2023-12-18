@@ -3,7 +3,8 @@
 from abc import ABC, abstractmethod
 from logging import getLogger
 from pyspark.sql import DataFrame, SparkSession
-from pyspark.sql.types import StructType
+from pyspark.sql.functions import udf, col
+from pyspark.sql.types import StructType, StringType
 from app.transform.utils.join_dfs import create_df, join_different_dfs
 from app.transform.utils.utils import drop_columns, add_columns, replace_empty_str
 from app.transform.utils.common import add_tg_fields
@@ -59,6 +60,9 @@ class BaseTransformer(ABC):
         if self._cols_to_add:
             df = add_columns(df, self._cols_to_add)
 
+        if self.type == "training":
+            df = df.withColumn("eosc_provider", col("providers"))  # TODO delete
+
         df = add_tg_fields(df)
         df = replace_empty_str(df)
         df = df.select(sorted(df.columns))
@@ -94,6 +98,14 @@ class BaseTransformer(ABC):
             logger.error(
                 f"Schema validation after transformation failed for type={self.type}. Output schema is different than excepted"
             )
+
+    @staticmethod
+    @udf(StringType())
+    def get_first_element(arr):  # TODO delete
+        if arr:
+            return arr[0]
+        else:
+            return None
 
     def __repr__(self):
         return f"{self.__class__.__name__}({self.type})"

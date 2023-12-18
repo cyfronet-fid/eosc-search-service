@@ -5,15 +5,14 @@ import { IOpenAIREResult } from '@collections/data/openair.model';
 import {
   constructIdentifierTag,
   formatPublicationDate,
+  toInterPatternsSecondaryTag,
 } from '@collections/data/utils';
 import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { IService } from '@collections/data/services/service.model';
-import {
-  getDataSourceOrderUrl,
-  getDataSourceUrl,
-} from '@collections/data/data-sources/adapter.data';
+import { getDataSourceUrl } from '@collections/data/data-sources/adapter.data';
+import { getServiceOrderUrl } from '../services/adapter.data';
 import {
   toArray,
   toValueWithLabel,
@@ -82,7 +81,7 @@ const orderUrlAdapter = (
 ) => {
   switch (type) {
     case 'data source':
-      return getDataSourceOrderUrl(data?.pid);
+      return getServiceOrderUrl(data?.pid);
     case 'service':
       return data.pid
         ? `${ConfigService.config?.marketplace_url}/services/${data.pid}/offers`
@@ -165,9 +164,6 @@ export const allCollectionsAdapter: IAdapter = {
       id: string;
     }
   ): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: true,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: setIsResearchProduct(data),
     id: data.id,
     title: data?.title?.join(' ') || '',
@@ -176,6 +172,7 @@ export const allCollectionsAdapter: IAdapter = {
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: urlAdapter(data.type || '', data),
+    exportData: data.exportation || [],
     orderUrl: orderUrlAdapter(data.type || '', data),
     urls: data.url,
     horizontal: data?.horizontal,
@@ -206,6 +203,11 @@ export const allCollectionsAdapter: IAdapter = {
               filter: 'doi',
               showMoreThreshold: 4,
             },
+            {
+              label: 'Interoperability guideline',
+              values: toValueWithLabel(toArray(data.guidelines)),
+              filter: 'guidelines',
+            },
           ],
     type: {
       label: data.type === 'bundle' ? 'bundles' : data.type || '',
@@ -216,10 +218,11 @@ export const allCollectionsAdapter: IAdapter = {
     },
     collection: COLLECTION,
     secondaryTags: [
-      // toDownloadsStatisticsSecondaryTag(data.usage_counts_downloads),
-      // toViewsStatisticsSecondaryTag(data.usage_counts_views),
-      toKeywordsSecondaryTag(data.keywords ?? [], 'keywords'),
-      toKeywordsSecondaryTag(data.tag_list ?? [], 'tag_list'),
+      toInterPatternsSecondaryTag(data.eosc_if ?? [], 'eosc_if'),
+      toKeywordsSecondaryTag(
+        (data.tag_list ?? []).concat(data.keywords ?? []),
+        'tag_list'
+      ),
     ],
     offers: data.offers ?? [],
     ...parseStatistics(data),

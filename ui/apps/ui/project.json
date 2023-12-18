@@ -20,6 +20,14 @@
           "node_modules/bootstrap-icons/font/bootstrap-icons.scss",
           "apps/ui/src/styles.scss"
         ],
+        "allowedCommonJsDependencies": [
+          "lodash.isplainobject", 
+          "lodash.trim", 
+          "lodash.without", 
+          "@cospired/i18n-iso-languages", 
+          "moment", 
+          "jquery"
+       ],
         "scripts": []
       },
       "configurations": {
@@ -59,10 +67,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "ui:build:production"
+          "buildTarget": "ui:build:production"
         },
         "development": {
-          "browserTarget": "ui:build:development"
+          "buildTarget": "ui:build:development"
         }
       },
       "defaultConfiguration": "development",
@@ -74,7 +82,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "ui:build"
+        "buildTarget": "ui:build"
       }
     },
     "lint": {

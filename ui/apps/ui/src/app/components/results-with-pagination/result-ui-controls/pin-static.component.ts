@@ -21,7 +21,7 @@ export class PinStaticComponent {
         break;
       }
       case 'data-source': {
-        this.typeLabel = 'Datasource';
+        this.typeLabel = 'Data Source';
         break;
       }
       case 'service': {

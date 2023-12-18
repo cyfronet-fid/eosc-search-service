@@ -10,6 +10,7 @@ import { transformLanguages } from '@collections/data/shared-tags';
 import {
   constructIdentifierTag,
   parseStatistics,
+  toInterPatternsSecondaryTag,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
@@ -20,11 +21,9 @@ export const softwareAdapter: IAdapter = {
   adapter: (
     openAIREResult: Partial<IOpenAIREResult> & { id: string }
   ): IResult => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: false,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: true,
     id: openAIREResult.id,
+    exportData: openAIREResult.exportation || [],
     title: openAIREResult?.title?.join(' ') || '',
     description: openAIREResult?.description?.join(' ') || '',
     urls: openAIREResult.url,
@@ -65,8 +64,7 @@ export const softwareAdapter: IAdapter = {
     },
     collection: COLLECTION,
     secondaryTags: [
-      // toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
-      // toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
+      toInterPatternsSecondaryTag(openAIREResult.eosc_if ?? [], 'eosc_if'),
       toKeywordsSecondaryTag(openAIREResult.keywords ?? [], 'keywords'),
     ],
     ...parseStatistics(openAIREResult),

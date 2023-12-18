@@ -1,5 +1,9 @@
 import { isArray } from 'lodash-es';
-import { IValueWithLabel } from '@collections/repositories/types';
+import {
+  IValueWithLabel,
+  RelatedService,
+} from '@collections/repositories/types';
+import { AccessRight } from '@collections/repositories/types';
 
 const REGEXP_SPECIAL_CHAR = /[-/]/g;
 
@@ -16,6 +20,20 @@ export const toArray = (value: unknown): string[] => {
 };
 export const toValueWithLabel = (values: string[]): IValueWithLabel[] => {
   return values.map((value) => ({ label: value, value }));
+};
+
+export const toRelatedService = (
+  values: Record<string, any>[]
+): RelatedService[] => {
+  return values.map((value) => ({
+    pid: value['pid'],
+    best_access_right: value['best_access_right']?.toLowerCase() as AccessRight,
+    title: value['title'],
+    resource_organisation: value['resource_organisation'],
+    tagline: value['tagline'],
+    joined_categories: value['joined_categories'],
+    type: value['type'],
+  }));
 };
 
 export const queryChanger = (q: string, exact: boolean): string => {

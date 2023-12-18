@@ -455,7 +455,7 @@
   <field name="access_policies_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="access_types" type="strings" required="false"/>
   <field name="activate_message" type="string" required="false" useDocValuesAsStored="true"/>
-  <field name="alternative_ids" type="text_general" tokenized="false" uninvertible="false" indexed="false" required="false"/>
+  <field name="alternative_ids" type="text_general" uninvertible="false" docValues="false" multiValued="true" indexed="false" stored="true"/>
   <field name="author_affiliations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_affiliations_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_family_names" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -469,7 +469,7 @@
   <field name="bundle_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="capabilities_of_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="catalogue" type="string" required="false"/>
-  <field name="catalogueId" type="text_general"/>
+  <field name="catalogues" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="categories" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="certifications" type="strings" required="false"/>
   <field name="changelog" type="strings" required="false"/>
@@ -493,6 +493,7 @@
   <field name="duration" type="plong" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="eosc_guideline_type" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="eosc_if" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="eosc_if_tg" type="text_general" indexed="true" termOffsets="true" stored="true" uninvertible="true" termPositions="true" docValues="false" termVectors="true"/>
   <field name="eosc_integration_options" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_provider" type="strings" required="false"/>
   <field name="eosc_related_standards" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -504,6 +505,7 @@
   <field name="funding_programs" type="strings" required="false"/>
   <field name="geographical_availabilities" type="strings" required="false"/>
   <field name="grant_project_names" type="strings" required="false"/>
+  <field name="guidelines" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="helpdesk_email" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="helpdesk_url" type="text_general" sortMissingLast="true" required="false"/>
   <field name="horizontal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>

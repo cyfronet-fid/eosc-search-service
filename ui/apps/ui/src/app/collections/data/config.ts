@@ -11,7 +11,7 @@ export const DEFAULT_QF =
 export const PROVIDER_QF = 'title^100 description^10 scientific_domains^10';
 
 export const HORIZONTAL_TOOLTIP_TEXT =
-  'Horizontal Services’ are services potentially useful for all researchers' +
+  'Horizontal Services are services potentially useful for all researchers' +
   ', no matter their affiliation nor scientific discipline. Usually provided' +
   ' by computing centers and e-Infrastructures. They bring an additional value' +
   ' to service providers and developers, who want to enhance their services with' +
@@ -23,7 +23,7 @@ export const DATASOURCE_FILTER_TOOLTIP_TEXT =
   'discoverable and available in EOSC.';
 
 export const SDG_TOOLTIP_TEXT =
-  'The Sustainable Development Goals Are a collection of seventeen interlinked ' +
+  'The Sustainable Development Goals is a collection of seventeen interlinked ' +
   'objectives designed to achieve a better and more sustainable future for all.' +
   ' They address the global challenges we face, including poverty, inequality, ' +
   'climate change, environmental degradation, peace, and justice.';
@@ -52,6 +52,10 @@ export const BIBLIOGRAPHY_TOOLTIP_TEXT =
   ' If some links or buttons are not active, it means that this source ' +
   'does not provide us with the required information to generate the required format. ' +
   'Please also check other sources If possible.';
+
+export const INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT =
+  'With interoperability patterns you are able to discover research products ' +
+  'along with processing tools dedicated for them.';
 
 // Source: http://country.io/data/
 export const COUNTRY_CODE_TO_NAME: Record<string, string> = {

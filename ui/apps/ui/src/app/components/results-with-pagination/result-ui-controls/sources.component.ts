@@ -1,10 +1,14 @@
 import { Component, Input } from '@angular/core';
+import { InstanceExportData } from '@collections/data/openair.model';
 
 @Component({
   selector: 'ess-sources',
   templateUrl: './sources.component.html',
   styles: [
     `
+      :host {
+        display: block;
+      }
       .sources-label-text {
         color: #040f81;
         font-family: Inter;
@@ -18,4 +22,9 @@ import { Component, Input } from '@angular/core';
 })
 export class SourcesComponent {
   @Input() urls: string[] = [];
+  @Input() exportData?: InstanceExportData[] = [];
+
+  openLink(url: string) {
+    window.open(url);
+  }
 }

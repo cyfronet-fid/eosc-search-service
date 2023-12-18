@@ -13,4 +13,6 @@ export interface IDataSource {
   usage_counts_downloads: string;
   tag_list: string[];
   horizontal: boolean;
+  guidelines: string[];
+  eosc_if: string[];
 }

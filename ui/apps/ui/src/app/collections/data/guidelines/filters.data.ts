@@ -62,9 +62,9 @@ export const guidelinesFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'provider',
-      filter: 'provider',
-      label: 'Provider',
+      id: 'providers',
+      filter: 'providers',
+      label: 'Providers',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',

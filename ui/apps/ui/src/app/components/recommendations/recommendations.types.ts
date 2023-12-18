@@ -7,7 +7,7 @@ export interface IRecommendation {
 }
 export interface IRecommendationResponse {
   isRand: boolean;
-  message: string;
+  message?: string;
   recommendations: IRecommendation[];
 }
 

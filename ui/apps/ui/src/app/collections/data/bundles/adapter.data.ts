@@ -3,7 +3,11 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { IBundle, IOffer } from '@collections/data/bundles/bundle.model';
-import { parseStatistics } from '@collections/data/utils';
+import {
+  parseStatistics,
+  toInterPatternsSecondaryTag,
+  toKeywordsSecondaryTag,
+} from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
 import {
   toArray,
@@ -22,9 +26,6 @@ export const bundlesAdapter: IAdapter = {
   adapter: (
     bundle: Partial<IBundle> & { id: string }
   ): IResult & { offers: IOffer[] } => ({
-    isSortCollectionScopeOff: true,
-    isSortByRelevanceCollectionScopeOff: true,
-    isSortByPopularityCollectionScopeOff: false,
     isResearchProduct: false,
     id: uuidv4(),
     title: bundle['title']?.join(' ') || '',
@@ -55,6 +56,9 @@ export const bundlesAdapter: IAdapter = {
       },
     ],
     offers: bundle.offers ?? [],
+    secondaryTags: [
+      toInterPatternsSecondaryTag(bundle.eosc_if ?? [], 'eosc_if'),
+    ],
     ...parseStatistics(bundle),
   }),
 };

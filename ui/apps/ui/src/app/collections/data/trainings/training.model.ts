@@ -10,7 +10,7 @@ export interface ITraining {
   resource_type: string;
   content_type: string;
   URL_s: string;
-  eosc_provider: string;
+  providers: string[];
   format: string;
   level_of_expertise: string;
   target_group: string;
@@ -23,8 +23,6 @@ export interface ITraining {
   author_names_tg: string[];
   catalogue: string;
   resource_organisation?: string;
-  resource_organisation_name?: string;
-  providers_names?: string[];
   url?: string[];
   url_type?: string;
   learning_outcomes?: string[];
