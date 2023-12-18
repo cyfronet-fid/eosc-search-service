@@ -3,14 +3,14 @@
   *ngIf="this.relatedServices && this.relatedServices.length > 0"
 >
   <div class="show-all-container">
-  <h4 class="related-services-label">Services following the Guideline:</h4>
-  <p
-    *ngIf="this.relatedServices.length > 2"
-    class="btn-show-more-services"
-    (click)="this.showAll()"
-  >
-    Show All
-  </p>
+    <h4 class="related-services-label">Services following the Guideline:</h4>
+    <p
+      *ngIf="this.relatedServices.length > 2"
+      class="btn-show-more-services"
+      (click)="this.showAll()"
+    >
+      Show All
+    </p>
   </div>
   <div class="related-services-list mb5">
     <ng-container *ngFor="let service of this.relatedServices | slice: 0:2">

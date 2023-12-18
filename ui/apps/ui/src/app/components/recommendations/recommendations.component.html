@@ -65,13 +65,13 @@
               [ngClass]="{
                 statistic: true,
                 'open-access':
-                  recommendation.accessRight?.toLowerCase() === 'open access',
+                  recommendation.accessRight.toLowerCase() === 'open access',
                 'other-access':
-                  recommendation.accessRight?.toLowerCase() !== 'open access'
+                  recommendation.accessRight.toLowerCase() !== 'open access'
               }"
               ><img
                 [src]="
-                  recommendation.accessRight?.toLowerCase() === 'open access'
+                  recommendation.accessRight.toLowerCase() === 'open access'
                     ? '/assets/usage-access.svg'
                     : '/assets/restricted access.svg'
                 "

@@ -4,7 +4,6 @@ import { AccessRight } from '@collections/repositories/types';
 import { DEFAULT_COLLECTION_ID } from '@collections/data';
 import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { ConfigService } from '../../services/config.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'ess-ig-services-detail-card',

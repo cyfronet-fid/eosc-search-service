@@ -242,7 +242,7 @@
       *ngIf="RESOURCES_TO_SHOW_PIN_TO.includes(type.value)"
       [resourceType]="type.value"
       [resourceId]="id"
-      style="border-right: none !important;"
+      style="border-right: none !important"
       class="bottom-action-link"
     ></ess-pin>
     <ess-pin-static
@@ -254,7 +254,6 @@
       [url]="redirectOrderUrl"
       style="float: left"
     ></ess-pin-static>
-
   </div>
   <div *ngIf="type.value === 'provider'">
     <ess-providers-resources [title]="title"></ess-providers-resources>

@@ -1,34 +1,35 @@
-
 <div class="modal-body share-modal">
-    <div class="row close-row"><button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button></div>
-    <div class="row share-modal-icon mb-4">
-        <img [src]="'assets/share-icon.svg'"
-        width="48"
-        height="48" />
-    </div>
+  <div class="row close-row">
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="row share-modal-icon mb-4">
+    <img [src]="'assets/share-icon.svg'" width="48" height="48" />
+  </div>
 
-    <div class="row share-modal-info">
-        <h4>Share this link <br> to your network</h4>
-    </div>
+  <div class="row share-modal-info">
+    <h4>
+      Share this link <br />
+      to your network
+    </h4>
+  </div>
 
-    <div class="share-modal-icons">
-        <a
-        [href]="'https://www.facebook.com/sharer/sharer.php?u=' + this.url"
-        target="_blank"
-        >
-        <img
-        [src]="'./assets/facebook.svg'"
-        width="32"
-        height="32" >
+  <div class="share-modal-icons">
+    <a
+      [href]="'https://www.facebook.com/sharer/sharer.php?u=' + this.url"
+      target="_blank"
+    >
+      <img [src]="'./assets/facebook.svg'" width="32" height="32" />
     </a>
     <a
-        [href]="'https://www.linkedin.com/shareArticle?mini=true&url=' + this.url"
-        target="_blank"
-        >
-        <img
-        [src]="'./assets/linkedin.svg'"
-        width="32"
-        height="32" >
+      [href]="'https://www.linkedin.com/shareArticle?mini=true&url=' + this.url"
+      target="_blank"
+    >
+      <img [src]="'./assets/linkedin.svg'" width="32" height="32" />
     </a>
 
     <!-- <a
@@ -41,28 +42,24 @@
         height="32" >
     </a> -->
 
-  <a
-      [href]="'mailto:?subject=Link from EOSC Marketplace inside&body=' + this.url"
+    <a
+      [href]="
+        'mailto:?subject=Link from EOSC Marketplace inside&body=' + this.url
+      "
       target="_blank"
-      >
-      <img
-      [src]="'./assets/mail.svg'"
+    >
+      <img [src]="'./assets/mail.svg'" width="32" height="32" />
+    </a>
+
+    <img
+      [src]="'./assets/copy-icon.svg'"
       width="32"
-      height="32" >
-  </a>
-
-
-          <img [src]="'./assets/copy-icon.svg'"
-          width="32"
-          height="32"
-          ngbPopover="Link copied to the Clipboad!"
-	      triggers="manual"
-		  #p1="ngbPopover"
-          (click)="this.copyLink(p1)"
-          popoverClass="share-popover"
-          >
-
-    </div>
-
-
+      height="32"
+      ngbPopover="Link copied to the Clipboad!"
+      triggers="manual"
+      #p1="ngbPopover"
+      (click)="this.copyLink(p1)"
+      popoverClass="share-popover"
+    />
+  </div>
 </div>

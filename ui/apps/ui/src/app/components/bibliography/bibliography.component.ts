@@ -1,6 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormControl } from '@angular/forms';
 import { FetchDataService } from '@collections/services/fetch-data.service';
 import {
   BIBLIOGRAPHY_TOOLTIP_TEXT,
