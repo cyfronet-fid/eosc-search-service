@@ -33,14 +33,14 @@ async def get_rp_by_id(
     if response is None:
         raise HTTPException(status_code=404, detail="Research product not found")
     urls = []
-    for url in response["url"]:
+    for url in response.get("url", []):
         with suppress(ValidationError):
             RPUrlPath(url=url)
             urls.append(url)
     return ResearchProductResponse(
-        title=" ".join(response["title"]),
+        title=" ".join(response.get("title", "")),
         links=urls,
         author=response.get("author_names", []),
         type=response["type"],
-        best_access_right=response["best_access_right"],
+        best_access_right=response.get("best_access_right", ""),
     )
