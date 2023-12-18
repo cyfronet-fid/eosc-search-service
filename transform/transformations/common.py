@@ -5,7 +5,7 @@ from collections import defaultdict
 from itertools import chain
 from logging import getLogger
 import json
-
+from typing import Dict, List, Optional
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, to_date, when, lit
 from pyspark.sql.utils import AnalysisException
@@ -497,7 +497,7 @@ def harvest_research_community(df: DataFrame, harvested_properties: dict) -> Non
     harvested_properties[RESEARCH_COMMUNITY] = rc_column
 
 
-def extract_pids(pid_list):
+def extract_pids(pid_list: List[Optional[Dict[str, str]]]) -> Dict[str, List[str]]:
     """
     Extract PID information from a list of PIDs and return it as a dictionary.
 
