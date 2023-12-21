@@ -20,6 +20,7 @@ solr_all_col_mapping = {
     SOFTWARE: SOLR_SOFTWARE_COLS,
     DATASET: SOLR_DATASET_COLS,
     PUBLICATION: SOLR_PUBLICATION_COLS,
+    ORGANISATION: SOLR_ORGANISATION_COLS,
 }
 
 solr_sep_col_mapping = {
@@ -115,6 +116,10 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
         OTHER_RP: {
             PATH: os.environ.get(OTHER_RP_PATH, "input_data/other_rp/"),
             OUTPUT_SCHEMA: other_rp_output_schema,
+        },
+        ORGANISATION: {
+            PATH: os.environ.get(ORGANISATION_PATH, "input_data/organisation/"),
+            OUTPUT_SCHEMA: organisation_output_schema,
         },
         SERVICE: {
             ADDRESS: final_mp_api + "services",

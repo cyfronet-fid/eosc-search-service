@@ -1,6 +1,9 @@
 """Define properties name that are used multiple times"""
 # TODO INPUT, OUTPUT, BOTH
 
+ABBREVIATION = "abbreviation"
+ALTERNATIVENAMES = "alternativenames"
+ALTERNATIVE_NAMES = "alternative_names"
 AUTHOR = "author"
 AUTHOR_NAMES = "author_names"
 AUTHOR_PIDS = "author_pids"
