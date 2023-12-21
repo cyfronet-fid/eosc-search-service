@@ -10,6 +10,7 @@ from .publication import publication_input_schema
 from .service import service_input_schema
 from .software import software_input_schema
 from .training import training_input_schema
+from .organisation import organisation_input_schema
 
 __all__ = [
     "bundle_input_schema",
@@ -23,4 +24,5 @@ __all__ = [
     "service_input_schema",
     "software_input_schema",
     "training_input_schema",
+    "organisation_input_schema",
 ]

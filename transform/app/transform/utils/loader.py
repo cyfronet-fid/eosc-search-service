@@ -27,6 +27,7 @@ solr_all_col_mapping = {
     SOFTWARE: SOLR_SOFTWARE_COLS,
     DATASET: SOLR_DATASET_COLS,
     PUBLICATION: SOLR_PUBLICATION_COLS,
+    ORGANISATION: SOLR_ORGANISATION_COLS,
 }
 
 logger = getLogger(__name__)
@@ -184,6 +185,11 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
             PATH: os.environ.get(PUBLICATION_PATH, "input_data/publication/"),
             OUTPUT_SCHEMA: publication_output_schema,
             INPUT_SCHEMA: publication_input_schema,
+        },
+        ORGANISATION: {
+            PATH: os.environ.get(ORGANISATION_PATH, "input_data/organisation/"),
+            OUTPUT_SCHEMA: organisation_output_schema,
+            INPUT_SCHEMA: organisation_input_schema,
         },
     }
     if solr_flag:
