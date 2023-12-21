@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.19.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.18.0...v2.19.0) (2023-12-21)
+
+
+### Features
+
+* [[#1121](https://github.com/cyfronet-fid/eosc-search-service/issues/1121)] speed up search ([5fb5cf4](https://github.com/cyfronet-fid/eosc-search-service/commit/5fb5cf4d2203a4467d17c84cb33aa4b36d571e9c))
+
+
+### Bug Fixes
+
+* [[#1129](https://github.com/cyfronet-fid/eosc-search-service/issues/1129)] manual data source pids mapping ([c9d74d7](https://github.com/cyfronet-fid/eosc-search-service/commit/c9d74d7f9c460446aa585abc4aaba63735df3be4))
+* set empty values for lacking keys ([3a5c886](https://github.com/cyfronet-fid/eosc-search-service/commit/3a5c886bb02a59361c8d65e0f76bf8862b280dd4))
+
 ## [2.18.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.17.1...v2.18.0) (2023-12-09)
 
 
