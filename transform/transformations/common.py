@@ -48,7 +48,7 @@ from schemas.properties.data import (
     UNIFIED_CATEGORIES,
     URL,
     VIEWS,
-    EOSC_IF_TG
+    EOSC_IF_TG,
 )
 from connectors.mp_pc import data_source_pids_list
 from schemas.mappings import (
@@ -62,6 +62,7 @@ from schemas.mappings import (
 )
 from mappings.scientific_domain import scientific_domains_mapping, mp_sd_structure
 from utils.utils import extract_digits_and_trim
+from mappings.datasources_pids import datasource_pids_mapping, services_pids
 
 logger = getLogger(__name__)
 
@@ -764,13 +765,20 @@ def harvest_data_source(df: DataFrame, harvested_properties: dict) -> None:
     for instances in instances_list:
         if instances[INSTANCE]:
             data_source_row_set = set()
-
             for instance in instances[INSTANCE]:
                 eosc_ds_id = instance["eoscDsId"] or []
-
                 for ds_id in eosc_ds_id:
-                    if ds_id in data_source_list:
+                    if ds_id in data_source_list:  # Normal update
                         data_source_row_set.update([ds_id])
+                    elif (
+                        ds_id in datasource_pids_mapping.keys()
+                    ):  # Map a PID, TODO remove
+                        data_source_row_set.update([datasource_pids_mapping[ds_id]])
+                    elif ds_id in services_pids:  # TODO remove
+                        # Some PIDs belong to services - it shouldn't be the case
+                        pass
+                    else:  # TODO remove
+                        logger.warning(f"Not expected data source PID={ds_id}")
 
             data_source_column.append(list(data_source_row_set))
         else:
