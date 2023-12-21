@@ -248,4 +248,4 @@ export function constructStandardSearchMetadata(
 }
 
 export const getMaxResultsByPage = () =>
-  ConfigService.config?.max_results_by_page ?? 250;
+  ConfigService.config?.max_results_by_page ?? 50;

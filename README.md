@@ -189,6 +189,9 @@ See docker-compose.yml for components.
   > Boolean variable that indicates whether sort by relevance should be enabled on the instance level. Default: False.
 - `MAX_RESULTS_BY_PAGE`
   > Integer specifying how many results to fetch with a single call to SOLR backend
+- `MAX_ITEMS_SORT_RELEVANCE`
+  > Integer specifying the maximum number of resources sorted by relevance by the RS.
+
 
 `db` envs:
 - `DB_POSTGRES_DB`
