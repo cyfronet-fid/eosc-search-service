@@ -312,128 +312,140 @@ export const COUNTRY_CODE_TO_NAME: Record<string, string> = {
 };
 export const NOT_SPECIFIED_LANG = 'Not specified';
 export const DATASOURCE_PID_MAPPING: Record<string, string> = {
-  'eosc.arronax.e954a15eb0982edb9aa861de2cb42017': '4sf',
-  'eosc.provider_24102023_-1-_1100.dba241e212807b4664099143fea3e24e':
-    'Datasource 24.10.2023-#1-11.00',
-  'eosc.jyfl-acclab.8be8860193749bce2cbec133568ca23e': 'dt999',
-  'eosc.wenmr.d288225c333b07fc9d001da5c5392741': 'Madomsi3sobm',
-  'eosc.provider_beta_1705.adbdb437461cfdd8e20358e8d408f54b':
-    'Datasource 23.06 - from PP',
-  'eosc.provider_beta_1705.5e29728667fa11cd180926e1f0d03606':
-    'datasource 26.06',
-  'eosc.athena_rc_2.5b76240cc27a58c6f7ceef7d8c36660e': 'NARCIS',
-  'eosc.srce-2.f9c8ecf6b231c2bda88e8805e26d09ec': 'SRCE-repo',
-  'eosc.provider_beta_1705.e6709aedbf5ccdab2fb3c88d36b09f25':
-    'Datasource 26.06 - 2',
-  'eosc.scipedia.0063745e5964b19c3e9ceeb2bd6632f5': 'SpaOSP',
-  'eosc.rli.661cdfdc74561b8eb69583b8137799d2': 'Open Energy Platform',
-  'eosc.provider_212.214acf55bf932dba3d81822a7debcad0':
-    'Provider 2.12 datasource',
-  'eosc.provider_2309_3.f3515f45d785564574f116a88751750c':
-    'new datasource 24.10',
-  'eosc.astrid2.acf3f31f0a2aa9bfc63178d3213e5775': 'testdatasource1',
-  'eosc.provider_2309.cd4e09545a4effd5ff115376f47a089a': 'test d',
-  'eosc.astrid2.20d1ad0b1a5b7656f819de5c60d80abd': 'testdatasourceid',
-  'eosc.hn.02e4d980399d7142506e8aadb2b8e865': 'ISIDORE',
-  'eosc.provider_711.d79ba3019b4e3b023a68b9210a11c87b':
-    'Datasource Provider 7.11',
-  'eosc.provider_test.098f6bcd4621d373cade4e832627b4f6': 'test',
-  'eosc.provider_1205.9bc11ecf6597341bb9a3d2a2f6f3dc08': 'dataspurce 2 12.05',
-  'eosc.provider_1705.f96e94253fed6ae65d15a0616bcb8ed9': 'datasources',
-  'eosc.provider_beta_1705.0d9334ddfcd05e61981c07256aa7cff9':
-    'datasources beta 17.05',
-  'eosc.testprovider.d9354e27460c48a4aeefa411983812de': 'testDatasource',
-  'eosc.vamdc.c967f669aa354e584e6786ee1d0c823e': 'VAMDC Portal',
-  'eosc.test-pg.44d7eab1a7769bbd7d34c777d75af81b': '00-test-pg',
-  'eosc.esrf.ecc74ab09791c52aa238ee77ae988874': 'TESRFDP',
-  'eosc.elixir-uk.5126ffcc8e23f65bbbe219d36128f2c8': 'WorkflowHub',
-  'eosc.testprovider.bf8487b63c703ccc704fdf358d01fa94': 'testDatasource1',
-  'eosc.provider_beta_1705.59edaf6d8b62b249dfd27217f5f34fee':
-    'datasource 25.05.2023 ',
-  'eosc.riga_stradins_university.4ea61809e753e65a459bbe4a492c773b':
-    'RSU Dataverse',
-  'eosc.provider_10102023.1c7f4a472719f2b7fa77a92fde11cffa':
-    'Datasource 10.10.2023',
-  'eosc.provider_beta_1705.b5050d46d65ec54a68f2db78440538d1':
-    'datasource 27.06 - 2',
-  'eosc.provider_test.6fed12194c29f4abeb9ad547edfbbaa3': 'Datasource',
-  'eosc.ill.d422cba59746f39d10bdfea5c9cf8511': 'ILL Data Portal',
-  'eosc.clarin-eric.2aad8ade139792a49b130b539e1bb144':
-    'Virtual Language Observatory',
-  'eosc.provider_21082023.e4233fec64c6197e2aa498ba5335c966':
-    'datasource 21.08.2023',
-  'eosc.cessda-eric.7e17e8817404ce7a8013be373723b2be': 'CDC',
-  'eosc.provider_2309_3.605e79544a68819ce664c088aba92658': 'Test 2',
-  'eosc.tpm.d9b7ce2b314d4feb0a49f0cee0467436': 'DTS1',
-  'eosc.openaire.0a02f13310296033694acead588a773b': 'Zenodo',
-  'eosc.provider_1705.1b3d84aa49d5d78b9693d22c41004f3b': 'DATASOURCE 10.11',
-  'eosc.provider_1205.82544372c4d7f574944c451839c0b521': 'Datasource 12.05',
-  'eosc.eudat.17bb7bb8ef1af0f9bdb55a7db30cfa8a': 'B2SHARE',
-  'eosc.embl-ebi.e29a4e098afa05818957179f05d8e21d': 'ICR',
-  'eosc.psi.f1a79f572f95bc2fbea5cdc40ef4eb22': 'PSI Public Data Repository',
-  'eosc.provider_beta_1705.1ba189fb1240b5af8564107f721ad9f4':
-    'Datasource live update 24.05',
-  'eosc.psnc.6f0470e3bb9203ec3a7553f3a72a7a1f': 'ROHub',
-  'eosc.openaire.2bb8710e1870170a175110615698e677': 'OpenAIRE ScholeXplorer',
-  'eosc.gbif.14ac40283813a624bd74ae82605ded23': 'GBIF Species Occurrence Data',
-  'eosc.oxford_e-research_centre.21697de1a5b10b8eb5fad857edecf5c9':
-    'FAIRsharing',
-  'eosc.inria.5923d0f31f0acda46cf4b592972284a2': 'Software Heritage archive',
-  'eosc.vilnius-university.1ec069c1620d49d460e4cbcec0af57f6': 'MIDAS',
-  'eosc.ror-org.24ef0000cfbf3ce7f3a40ba6b87e76ce': 'ROR',
-  'eosc.uit.49e8d4cef23bda3b66dd417e6675727d': 'TROLLing',
-  'eosc.ccsd.06cdd3ff4700bb4c8e7bf22c14f23f5b': 'Episciences',
-  'eosc.lindatclariah-cz.6dc98fcb5294282acf3d92f3ab3376b2':
-    'LINDAT/CLARIAH-CZ Repository',
-  'eosc.gwdg.d6521479ffa922bbccc839606b8ec7c5': 'TextGrid Repository',
-  'eosc.sobigdata.f859d895179ba3f735df705574690948': 'SBDServicesAndProducts',
+  'eosc.000-test-pg.00-new-new': '00 New Datasource',
+  'eosc.acdh-ch.arche': 'ARCHE. A Resource Centre for the HumanitiEs',
+  'eosc.athena_rc_2.narcis': 'NARCIS',
+  'eosc.awi_bremerhaven.pangaea':
+    'PANGAEA - Data Publisher for Earth & Environmental Science',
+  'eosc.bbmri-eric.bbmri-eric_crc-cohort':
+    'BBMRI-ERIC Colorectal Cancer Cohort data set',
+  'eosc.bbmri-eric.bbmri-eric_directory':
+    'BBMRI-ERIC Directory of biobanks and their collections in the BBMRI-ERIC member states',
+  'eosc.blue-cloud.grsf': 'Global Record of Stocks and Fisheries',
+  'eosc.ccsd.episciences': 'Episciences',
+  'eosc.ceric-eric.ceric-data-portal': 'CERIC Data Portal',
+  'eosc.cern.cod': 'CERN Open Data Portal',
+  'eosc.cessda-eric.cdc': 'CESSDA Data Catalogue',
+  'eosc.clarin-eric.virtual_language_observatory':
+    'Virtual Language Observatory update',
+  'eosc.cnr_-_isti.isti_open_portal': 'ISTI Open Portal',
+  'eosc.csuc.corardr': 'CORA.Repositori de Dades de Recerca',
+  'eosc.ct3.tb8_2': 'TEST beta 8.11_2',
+  'eosc.ct3.ts_2711': 'Test Service KL_27.11_12:30',
+  'eosc.cyfronet.check-it-out': 'Cyfro Datasource',
+  'eosc.cyfronet.new_datasource_test-cyfronet_10':
+    'new datasource Test-Cyfronet #10',
+  'eosc.cyfronet.rodbuk': 'RODBUK Cracow Open Research Data Repository',
+  'eosc.dkrz.wdcc': 'WDCC World Data Center for Climate',
+  'eosc.elixir-uk.workflowhub': 'WorkflowHub',
+  'eosc.embl-ebi.icr': 'Identifiers.org Central Registry',
+  'eosc.esrf.tesrfdp':
+    'The European Synchrotron Radiation Facility Data Portal',
   'eosc.eudat.b2find': 'B2FIND',
-  'ni4os.fcub.cherry': 'CHERRY',
-  'eosc.sobigdata.e883e6d248d628c510ac687e9992830c': 'SBDLiteracy',
-  'eosc.obsparis.9e98089baaf6af32fab3154873dfdfeb': 'PADC',
-  'eosc.lindatclariah-cz.f7341ffdba1f786e5d06dede5cc4dc77':
-    'LINDAT/CLARIAH-CZ repository',
-  'eosc.cern.8025243fa3c887159fc9b3930ae147c2': 'COD',
-  'eosc.gdansk_tech.1434de11c83986b5be5592677f28d171': 'MOST',
-  'eosc.ceric-eric.e9354332fd75190b935b80c1ba30b837': 'ceric-data-portal',
-  'ni4os.sanu.dais': 'DAIS',
-  'eosc.acdh-ch.3b0149bee976d6db7eef053159e97a87': 'ARCHE',
-  'eosc.seadatanet.e95e2e16b32dda2b8f31f0aab2f23f29': 'SeaDataNet CDI OGC WFS',
-  'eosc.unibi-ub.a61d9ea844bdf43e6feabd6b14dfe3c5': 'PUB',
-  'eosc.seadatanet.a98e1dce663cd6476d20621ad05c8a38': 'SeaDataNet CDI SPARQL',
-  'eosc.seadatanet.94ecdcf3104fb6327345ccdac3eebbee': 'EDMO',
-  'eosc.seadatanet.fd95e4468241f26fdd1f80f2337528cd': 'webODV',
-  'eosc.unibi-ub.bielefeld_academic_search_engine_base': 'BASE',
-  'eosc.eudat.9168f179ffab97584bf99a2729837545': 'B2SAFE',
-  'eosc.blue-cloud.44fa8dba8ad3ed19445227940032f31c': 'GRSF',
-  'eosc.seadatanet.f1a460f9883404338586ac4ba921221a': 'SeaDataNet CDI GUI',
-  'eosc.unipd.12d35bb1f56d4b91bb4644faf76d9486': 'RDU',
-  'eosc.lapp.ef0bb7d889d0cced364444495f7a1e67': 'OSSR',
-  'eosc.bbmri-eric.8206c9aa93eb9513383218704570feb2': 'BBMRI-ERIC CRC-Cohort',
-  'eosc.seadatanet.096bb08cfb2dbaf3cee5aed4784198b0': 'EDMERP',
-  'eosc.seadatanet.7e463cd89456132d798300ce6ed91779': 'CSR',
-  'eosc.vliz.61c6dae33d794d477e6a68ed43f52eb3': 'WoRMS',
-  'eosc.cnr_-_isti.dbe89d2b83f3e29caab7923a51c1d151': 'ISTI Open Portal',
-  'eosc.csuc.135887d3dea4b6723095d13c28dd52a3': 'CORA.RDR',
-  'eosc.hits.901e9baaa76d72017ebd7dfd93436caf': 'FAIRDOMHub',
-  'eosc.lida.26c1ee137e7510fd1d7e44eb87cdb4af': 'LiDA Survey Data',
-  'eosc.seadatanet.f5196d5ced64ec82555f6397deb21e6b': 'EDMED',
-  'eosc.awi_bremerhaven.2882af227241cb956c28fe321a70dfb2': 'PANGAEA',
-  'eosc.ku_leuven.1cb0937dc41e70d8126d7b259ad470af': 'KU Leuven RDR',
-  'eosc.dkrz.9ffffb05aaf22e7f9138dca4560a8c8b': 'WDCC',
-  'ni4os.ibiss.ibiss_radar': 'IBISS_RADAR',
-  'eosc.cyfronet.b59c2171d05ed9fb9e70a86d544f42a3': 'RODBUK',
-  'eosc.seadatanet.c04c367e5f2560a2e1ba9fa8e149443c': 'EDIOS',
-  'eosc.seadatanet.f5b8d36ae496bbf86acbb7028086f454': 'SeaDataNet CDI OGC WMS',
-  'eosc.zpid.b96341f00ca4c3a314abcc07fc0084b2': 'PsychArchives',
-  'eosc.bbmri-eric.314cee7546a7489c2cc3ab79d34e2640': 'BBMRI-ERIC Directory',
-  'eosc.ku_leuven.68bf19ae7ee1bc7e3872255e96550c04': 'Lirias',
-  'ni4os.ichtm.cer': 'CER',
-  'eosc.icos_eric.25c5f3f0674fb287e05e697263e211e2': 'ICOS Carbon Portal',
-  'eosc.seadatanet.77514684f861f9bc796b15aa985a699f': 'Marine Data Viewer',
-  'eosc.obsparis.d7a94a59937dd6d762c1f1cdb9c7af89': 'VESPA query portal',
-  'eosc.fris.8f42bfccf70de38b01763b704300f882': 'FRIS',
-  'eosc.uniwersytet_opolski.19b44a96f7a776774de3939d9820d00c': 'BK UniOpole',
+  'eosc.eudat.b2safe': 'B2SAFE',
+  'eosc.eudat.b2share': 'B2SHARE',
+  'eosc.fris.fris': 'Flemish Research Information Space',
+  'eosc.gbif.gbif_species_occurrence_data': 'GBIF Species Occurrence Data',
+  'eosc.gdansk_tech.most': 'Most Wiedzy Open Research Data Catalog',
+  'eosc.gwdg.textgrid_repository': 'TextGrid Repository',
+  'eosc.hits.fairdomhub': 'FAIRDOMHub',
+  'eosc.hn.isidore': 'ISIDORE',
+  'eosc.icos_eric.data_discovery_and_access_portal':
+    'Integrated Carbon Observation System Data Portal',
+  'eosc.ill.ill_data_portal': 'ILL Data Portal',
+  'eosc.inria.software_heritage_archive': 'Software Heritage archive',
+  'eosc.ku_leuven.ku_leuven_rdr': 'KU Leuven RDR',
+  'eosc.ku_leuven.lirias':
+    'Leuven Institutional Repository and Information Archiving System(LIRIAS)',
+  'eosc.lapp.ossr': 'Open-source Scientific Software and Service Repository',
+  'eosc.lida.lida_survey_data': 'LiDA Dataverse Collection of the Survey Data',
+  'eosc.lindatclariah-cz.lindatclariah-cz_repository':
+    'LINDAT/CLARIAH-CZ Repository',
+  'eosc.lindatclariah-cz.lindatclariah-cz_repository+invalid':
+    'LINDAT/CLARIAH-CZ Repository for Language Technologies, Arts and Humanities',
+  'eosc.obsparis.padc': 'Paris Astronomical Data Centre',
+  'eosc.obsparis.vespa_query_portal':
+    'VESPA (Virtual European Solar and Planetary Access) query portal',
+  'eosc.openaire.openaire_scholexplorer': 'OpenAIRE ScholeXplorer',
+  'eosc.openaire.zenodo': 'Zenodo',
+  'eosc.oxford_e-research_centre.fairsharing': 'FAIRsharing',
+  'eosc.provider_1205.datasource_1205': 'Datasource 12.05',
+  'eosc.provider_1205.dataspurce_2_1205': 'datasource 2 12.05',
+  'eosc.provider_13112023.service_13112023': 'Service 13.11.2023',
+  'eosc.provider_17102023-1.service_18102023-1': 'service 18.10.2023-1',
+  'eosc.provider_20102023.service_25102023-1': 'Service 25.10.2023-1 update',
+  'eosc.provider_20102023.service_for_provider_20102023':
+    'Service for Provider 20.10.2023',
+  'eosc.provider_20112023.service_20112023': 'Service 20.11.2023',
+  'eosc.provider_212.provider_212_datasource': 'Provider 2.12 datasource',
+  'eosc.provider_2309.test_d': 'test d',
+  'eosc.provider_2309_3.new_datasource_2410': 'new datasource 24.10',
+  'eosc.provider_2309_3.test_2': 'Test 2',
+  'eosc.provider_23102023.service_23102023': 'Service 23.10.2023',
+  'eosc.provider_23102023.service_23102023-2': 'Service 23.10.2023-2',
+  'eosc.provider_23112023.service_23112023': 'Service 23.11.2023 update 22',
+  'eosc.provider_23112023.service_23112023_-_3':
+    'Service 23.11.2023 - 3 update 1',
+  'eosc.provider_30112023.service_30112023': 'Service 30.11.2023',
+  'eosc.provider_30112023.service_30112023_-_2': 'Service 30.11.2023 - 2',
+  'eosc.provider_7102023.service_7112023': 'Service 7.11.2023',
+  'eosc.provider_711.datasource_provider_711': 'Datasource Provider 7.11',
+  'eosc.provider_8112023-3.service_8112023': 'Service 8.11.2023 - 11:46',
+  'eosc.provider_8112023-3.service_8112023_-_1156': 'Service 8.11.2023 - 11:56',
+  'eosc.psi.psi_public_data_repository': 'PSI Public Data Repository',
+  'eosc.psnc.rohub': 'ROHub',
+  'eosc.riga_stradins_university.rsu_dataverse': 'RSU Dataverse',
+  'eosc.rli.open_energy_platform': 'Open Energy Platform',
+  'eosc.ror-org.ror': 'Research Organization Registry (ROR)',
+  'eosc.scipedia.spaosp': 'Scientific publishing and Open Science Platform',
+  'eosc.seadatanet.european_directory_of_marine_environmental_data_edmed':
+    'SeaDataNet European Directory of Marine Environmental Data (EDMED)',
+  'eosc.seadatanet.european_directory_of_marine_environmental_research_projects':
+    'SeaDataNet European Directory of Marine Environmental Research Projects (EDMERP)',
+  'eosc.seadatanet.european_directory_of_marine_organisations_edmo':
+    'SeaDataNet European Directory of Marine Organisations (EDMO)',
+  'eosc.seadatanet.european_directory_of_the_cruise_summary_reports_csr':
+    'SeaDataNet European Directory of the Cruise Summary Reports (CSR)',
+  'eosc.seadatanet.european_directory_of_the_initial_ocean-observing_systems_edios':
+    'SeaDataNet European Directory of the Initial Ocean-Observing Systems (EDIOS)',
+  'eosc.seadatanet.marine_data_viewer':
+    'Marine Data Viewer displaying in-situ measurements of essential ocean variables co-located with model and satellite products',
+  'eosc.seadatanet.seadatanet_cdi':
+    'SeaDataNet Common Data Index (CDI) user interface',
+  'eosc.seadatanet.seadatanet_cdi_ogc_wfs':
+    'SeaDataNet CDI Data Discovery & Access service: OGC WFS service for metadata features of all data sets (open and restricted)',
+  'eosc.seadatanet.seadatanet_cdi_ogc_wms':
+    'SeaDataNet CDI Data Discovery & Access service: OGC WMS service for locations of all data sets (open and restricted)',
+  'eosc.seadatanet.seadatanet_cdi_sparql':
+    'SeaDataNet CDI Data Discovery & Access service: SPARQL service for CDI metadata (open data)',
+  'eosc.seadatanet.webodv':
+    'WebODV - Online extraction, analysis and visualization of SeaDataNet and Argo data',
+  'eosc.sobigdata.sbdliteracy': 'SoBigData Literacy Catalogue',
+  'eosc.sobigdata.sbdservicesandproducts':
+    'SoBigData Services and Products Catalogue',
+  'eosc.srce-2.srce-repo': 'Digital repository of SRCE',
+  'eosc.test-pg.00-test-pg': '00TestPG',
+  'eosc.uit.trolling':
+    'The Tromsø Repository of Language and Linguistics (TROLLing)',
+  'eosc.unibi-ub.base': 'Bielefeld Academic Search Engine (BASE)',
+  'eosc.unibi-ub.pub': 'Publications at Bielefeld University',
+  'eosc.unipd.rdu': 'Research Data Unipd',
+  'eosc.uniwersytet_opolski.bk_uniopole':
+    'University of Opole Base of Knowledge',
+  'eosc.vamdc.vamdc_portal': 'VAMDC Portal',
+  'eosc.vilnius-university.tnoarda':
+    'The National Open Access Research Data Archive (MIDAS)',
+  'eosc.vliz.worms': 'World Register of Marine Species',
+  'eosc.wenmr.madomsi3sobm':
+    'MetalPDB: a database of metal-binding sites in 3D structures of biological macromolecules',
+  'eosc.zpid.psycharchives': 'PsychArchives',
+  'ni4os.fcub.cherry': 'CHERRY - CHEmistry RepositoRY',
+  'ni4os.ibiss.ibiss_radar':
+    'RADaR - Digital Repository of Archived Publications of the Institute for Biological Research',
+  'ni4os.ichtm.cer':
+    'CeR - Central Repository of the Institute of Chemistry, Technology and Metallurgy',
+  'ni4os.sanu.dais':
+    'DAIS - Digital Archive of the Serbian Academy of Sciences and Arts',
 };
 export const CATALOGUE_NAME_MAPPING: Record<string, string> = {
   eosc: 'EOSC',
