@@ -105,17 +105,13 @@ class OrganisationTransformer(BaseTransformer):
         for alternative_name_row, title_row, abbreviation_row in zip(
             alternative_names_list, title_list, abbreviation_list
         ):
-            alternative_names = [
-                name for name in alternative_name_row[ALTERNATIVENAMES] if
-                name not in [title_row[TITLE], abbreviation_row[ABBREVIATION]]
+            alternative_names = alternative_name_row[ALTERNATIVENAMES] or []
+
+            filtered_names = [
+                name for name in alternative_names if name not in [title_row[TITLE], abbreviation_row[ABBREVIATION]]
             ]
 
-            if len(alternative_names) > 0:
-                alternative_names.sort()
-            else:
-                alternative_names = None
-
-            alternative_names_column.append(alternative_names)
+            alternative_names_column.append(sorted(filtered_names) if len(filtered_names) > 0 else None)
 
         harvested_properties[ALTERNATIVE_NAMES] = alternative_names_column
 
