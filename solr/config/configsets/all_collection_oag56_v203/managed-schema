@@ -599,6 +599,7 @@
   <field name="terms_of_use_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="thematic" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="title" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
+  <field name="title_str" type="lowercase" indexed="true" stored="true"/>
   <field name="tool" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="training_information_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="trl" type="text_general" docValues="false" indexed="true" stored="true"/>
@@ -689,10 +690,10 @@
   <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
   <copyField source="langauge" dest="langauge_str" maxChars="256"/>
   <copyField source="_delete____" dest="_delete_____str" maxChars="256"/>
-  <copyField source="catalogueId" dest="catalogueId_str" maxChars="256"/>
   <copyField source="providerId" dest="providerId_str" maxChars="256"/>
   <copyField source="relatedStandards.relatedStandardURI" dest="relatedStandards.relatedStandardURI_str" maxChars="256"/>
   <copyField source="relatedStandards.relatedStandardIdentifier" dest="relatedStandards.relatedStandardIdentifier_str" maxChars="256"/>
   <copyField source="delete" dest="delete_str" maxChars="256"/>
   <copyField source="research_product_metadata_license_urls" dest="research_product_metadata_license_urls_str" maxChars="256"/>
+  <copyField source="title" dest="title_str" maxChars="25000"/>
 </schema>
