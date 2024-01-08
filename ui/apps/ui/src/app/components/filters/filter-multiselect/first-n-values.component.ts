@@ -48,7 +48,9 @@ export class FirstNValuesComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['query'] || changes['allEntities'] || changes['displayMax']) {
       this._allEntities = flatNodesToTree(
-        search(this.query, this.allEntities)
+        search(this.query, this.allEntities).sort((a, b) =>
+          a.isSelected === b.isSelected ? 0 : a.isSelected ? -1 : 1
+        )
       ).slice(0, this.displayMax);
     }
   }
