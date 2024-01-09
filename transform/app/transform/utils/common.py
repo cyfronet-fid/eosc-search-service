@@ -136,10 +136,11 @@ def harvest_scientific_domains(df: DataFrame, harvested_properties: dict) -> Non
             else:  # If a parent is being added
                 return [sd_mapped]
         except KeyError:
-            logger.warning(
-                f"Unexpected scientific domain: {sd_raw}, trimmed version: {extract_digits_and_trim(sd_raw)}"
-            )
-            return [sd_raw]
+            if sd_raw != "null":
+                logger.warning(
+                    f"Unexpected scientific domain: {sd_raw}, trimmed version: {extract_digits_and_trim(sd_raw)}"
+                )
+            return None  # Don't add unexpected scientific domain to not destroy filter's tree structure
 
     def count_scientific_domain(sd_list: list[str]) -> (defaultdict, defaultdict):
         """Count actual and expected numbers of parents in scientific domain row"""
