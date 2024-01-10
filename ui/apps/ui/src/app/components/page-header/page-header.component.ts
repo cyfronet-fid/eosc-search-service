@@ -36,7 +36,6 @@ import { selectEntities } from '@ngneat/elf-entities';
     <div id="container-lower" class="page-heading">
       <div>
         <span id="results-count" i18n>{{ resultsCount }} search results</span>
-        {{ (activeNavConfig$ | async)?.title }}
       </div>
       <ess-download-results-button></ess-download-results-button>
     </div>

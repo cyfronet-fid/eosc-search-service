@@ -27,6 +27,15 @@ import { IUIFilterTreeNode } from '@collections/repositories/types';
           [nzDisabled]="node.disabled"
           (nzClick)="leafItemSelectionToggle(node)"
         >
+          <img
+            *ngIf="
+              node.filter === 'best_access_right' &&
+              node.value === 'Open access'
+            "
+            [src]="'/assets/access-icons/open-access-padlock.svg'"
+            class="open-access-padlock"
+          />
+
           <span [class.text-secondary]="+node.count === 0">{{
             node.name | filterPipe: node.filter
           }}</span>
@@ -61,6 +70,9 @@ import { IUIFilterTreeNode } from '@collections/repositories/types';
   `,
   styles: [
     `
+      .open-access-padlock {
+        margin-right: 2px;
+      }
       .filter-count {
         color: rgba(0, 0, 0, 0.45);
       }
@@ -78,6 +90,9 @@ import { IUIFilterTreeNode } from '@collections/repositories/types';
 export class CheckboxesTreeComponent {
   @Input()
   set data(data: IUIFilterTreeNode[]) {
+    data.sort((a, b) =>
+      a.isSelected === b.isSelected ? 0 : a.isSelected ? -1 : 1
+    );
     this.dataSource.setData(data);
   }
 

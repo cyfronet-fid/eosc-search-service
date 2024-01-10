@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
       </div>
       <div *ngIf="showClearButton">
         <span (click)="resetAllActiveEntities()" class="clear-button-span">
-          <a href="javascript:void(0)" class="clear-button">clear</a>
+          <a href="javascript:void(0)" class="clear-button">Clear</a>
         </span>
       </div>
       <div class="expand-arrow">
