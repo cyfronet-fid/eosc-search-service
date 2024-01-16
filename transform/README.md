@@ -6,6 +6,8 @@ We are using .env to store user-specific constants. This file is not tracked by 
 - `PUBLICATION_PATH` - A path to publications **directory**. Default: `input_data/publication/`
 - `SOFTWARE_PATH` - A path to software **directory**. Default: `input_data/software/`
 - `OTHER_RP_PATH` - A path to other research products **directory**. Default: `input_data/orther_rp/`
+- `ORGANISATION_PATH` - A path to organisation **directory**. Default: `input_data/orgnisation/`
+- `PROJECT_PATH` - A path to project **directory**. Default: `input_data/project/`
 
 ### Data from API:
 - `MP_API_ADDRESS` - A Marketplace API address. Default: `https://beta.marketplace.eosc-portal.eu`.
@@ -29,6 +31,8 @@ We are using .env to store user-specific constants. This file is not tracked by 
   - `SOLR_PUBLICATION_COLS` - The name of the collection/collections to which publications will be sent. Example: `"all publication"`.
   - `SOLR_SOFTWARE_COLS` - The name of the collection/collections to which software will be sent. Example: `"all software"`.
   - `SOLR_OTHER_RP_COLS` - The name of the collection/collections to which other research products will be sent. Example: `"all other_rp"`.
+  - `SOLR_ORGANISATION_COLS` - The name of the collection/collections to which organisation will be sent. Example: `"organisation"`.
+  - `SOLR_PROJECT_COLS` - The name of the collection/collections to which project will be sent. Example: `"project"`.
   - `SOLR_TRAINING_COLS` - The name of the collection/collections to which trainings will be sent. Example: `"all training"`.
   - `SOLR_SERVICE_COLS` - The name of the collection/collections to which services will be sent. Example: `"all service"`.
   - `SOLR_DATASOURCE_COLS` - The name of the collection/collections to which datasources will be sent. Example: `"all datasource"`.
