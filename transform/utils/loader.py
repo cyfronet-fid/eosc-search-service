@@ -21,6 +21,7 @@ solr_all_col_mapping = {
     DATASET: SOLR_DATASET_COLS,
     PUBLICATION: SOLR_PUBLICATION_COLS,
     ORGANISATION: SOLR_ORGANISATION_COLS,
+    PROJECT: SOLR_PROJECT_COLS,
 }
 
 solr_sep_col_mapping = {
@@ -120,6 +121,10 @@ def load_vars_all_collection(solr_flag: bool) -> dict:
         ORGANISATION: {
             PATH: os.environ.get(ORGANISATION_PATH, "input_data/organisation/"),
             OUTPUT_SCHEMA: organisation_output_schema,
+        },
+        PROJECT: {
+            PATH: os.environ.get(PROJECT_PATH, "input_data/project/"),
+            OUTPUT_SCHEMA: project_output_schema,
         },
         SERVICE: {
             ADDRESS: final_mp_api + "services",

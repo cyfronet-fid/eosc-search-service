@@ -12,6 +12,7 @@ from schemas.properties.env import (
     OFFER,
     BUNDLE,
     ORGANISATION,
+    PROJECT,
 )
 from .dataset import DatasetTransformer
 from .publication import PublicationTransformer
@@ -24,6 +25,7 @@ from .guideline import transform_guidelines
 from .offer import OfferTransformer
 from .bundle import BundleTransformer
 from .organisation import OrganisationTransformer
+from .project import ProjectTransformer
 
 __all__ = ["all_col_trans_map"]
 
@@ -40,4 +42,5 @@ all_col_trans_map = {
     DATASET: DatasetTransformer,
     PUBLICATION: PublicationTransformer,
     ORGANISATION: OrganisationTransformer,
+    PROJECT: ProjectTransformer,
 }
