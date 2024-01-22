@@ -28,6 +28,7 @@ from app.transform.utils.utils import sort_schema
 from app.transform.schemas.properties.data import *
 from app.transform.schemas.output.training import training_output_schema
 from app.services.mp_pc.data import get_providers_mapping
+from app.settings import settings
 
 logger = getLogger(__name__)
 
@@ -36,7 +37,7 @@ class TrainingTransformer(BaseTransformer):
     """Transformer used to transform training resources"""
 
     def __init__(self, spark: SparkSession):
-        self.type = "training"
+        self.type = settings.TRAINING
         self.exp_output_schema = training_output_schema
 
         super().__init__(

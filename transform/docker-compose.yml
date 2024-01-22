@@ -9,7 +9,6 @@ services:
     volumes:
       - ./app:/app
     environment:
-      SOLR_URL: http://149.156.182.2:8983/solr/
       CELERY_BROKER_URL: redis://redis:6379/0
       CELERY_RESULT_BACKEND: redis://redis:6379/0
     depends_on:

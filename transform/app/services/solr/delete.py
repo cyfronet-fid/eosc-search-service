@@ -4,18 +4,7 @@ import json
 import logging
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
-from app.transform.utils.loader import load_env_vars
-from app.transform.schemas.properties.env import (
-    ALL_COLLECTION,
-    SOLR_ADDRESS,
-    SOLR_PORT,
-    SOLR_COL_NAMES,
-)
-from app.transform.transformers.service import SERVICE_IDS_INCREMENTOR
-from app.transform.transformers.data_source import DATA_SOURCE_IDS_INCREMENTOR
-from app.transform.transformers.bundle import BUNDLE_IDS_INCREMENTOR
-from app.transform.transformers.offer import OFFER_IDS_INCREMENTOR
-from app.transform.transformers.provider import PROVIDER_IDS_INCREMENTOR
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -27,13 +16,10 @@ def delete_data_by_id(
     """Delete solr resource based on its ID"""
     raw_id = data["id"]
     id_to_delete = ids_mapping(raw_id, col_name)
-
-    env_vars = load_env_vars()
-    solr_col_names = env_vars[ALL_COLLECTION][col_name][SOLR_COL_NAMES]
-    solr_col_names = solr_col_names.split(" ")
+    solr_col_names = settings.COLLECTIONS[col_name]["SOLR_COL_NAMES"]
 
     for s_col_name in solr_col_names:
-        url = f"{env_vars[SOLR_ADDRESS]}:{env_vars[SOLR_PORT]}/solr/{s_col_name}/update?commitWithin=100"
+        url = f"{settings.SOLR_URL}solr/{s_col_name}/update?commitWithin=100"
         try:
             req = requests.post(url, json={"delete": id_to_delete}, timeout=180)
             if req.status_code == 200:
@@ -55,13 +41,10 @@ def delete_data_by_type(col_name: str) -> None:
     """Delete solr resources based on their type"""
     query = {"delete": {"query": f'type:"{col_name}"'}}
     headers = {"Content-Type": "application/json"}
-
-    env_vars = load_env_vars()
-    solr_col_names = env_vars[ALL_COLLECTION][col_name][SOLR_COL_NAMES]
-    solr_col_names = solr_col_names.split(" ")
+    solr_col_names = settings.COLLECTIONS[col_name]["SOLR_COL_NAMES"]
 
     for s_col_name in solr_col_names:
-        url = f"{env_vars[SOLR_ADDRESS]}:{env_vars[SOLR_PORT]}/solr/{s_col_name}/update?commitWithin=100"
+        url = f"{settings.SOLR_URL}solr/{s_col_name}/update?commitWithin=100"
         try:
             req = requests.post(
                 url, data=json.dumps(query), headers=headers, timeout=180
@@ -85,14 +68,14 @@ def ids_mapping(id_: int | str, col_name: str) -> str:
     """Map ids"""
     match col_name:
         case "service":
-            return str(id_ + SERVICE_IDS_INCREMENTOR)
+            return str(id_ + settings.SERVICE_IDS_INCREMENTOR)
         case "data source":
-            return str(id_ + DATA_SOURCE_IDS_INCREMENTOR)
+            return str(id_ + settings.DATA_SOURCE_IDS_INCREMENTOR)
         case "provider":
-            return str(id_ + PROVIDER_IDS_INCREMENTOR)
+            return str(id_ + settings.PROVIDER_IDS_INCREMENTOR)
         case "offer":
-            return str(id_ + OFFER_IDS_INCREMENTOR)
+            return str(id_ + settings.OFFER_IDS_INCREMENTOR)
         case "bundle":
-            return str(id_ + BUNDLE_IDS_INCREMENTOR)
+            return str(id_ + settings.BUNDLE_IDS_INCREMENTOR)
         case _:
             return id_

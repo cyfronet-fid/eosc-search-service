@@ -24,13 +24,14 @@ from app.transform.transformers.base.base import BaseTransformer
 from app.transform.schemas.properties.data import *
 from app.transform.utils.join_dfs import create_df, join_different_dfs
 from app.transform.utils.utils import sort_schema
+from app.settings import settings
 
 
 class ProjectTransformer(BaseTransformer):
     """Transformer used to transform projects"""
 
     def __init__(self, spark: SparkSession):
-        self.type = "project"
+        self.type = settings.PROJECT
 
         self.logger = logging.getLogger(__name__)
 

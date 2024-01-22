@@ -10,7 +10,6 @@ from pyspark.sql.types import (
 )
 from app.transform.transformers.base.marketplace import (
     MarketplaceBaseTransformer,
-    DATA_SOURCE_TYPE,
 )
 from app.transform.utils.utils import sort_schema
 from app.transform.schemas.properties.data import (
@@ -21,16 +20,15 @@ from app.transform.schemas.properties.data import (
     POPULARITY,
 )
 from app.transform.schemas.output.data_source import data_source_output_schema
-
-DATA_SOURCE_IDS_INCREMENTOR = 10_000_000
+from app.settings import settings
 
 
 class DataSourceTransformer(MarketplaceBaseTransformer):
     """Data source transformer"""
 
     def __init__(self, spark):
-        self.type = DATA_SOURCE_TYPE
-        id_increment = DATA_SOURCE_IDS_INCREMENTOR
+        self.type = settings.DATASOURCE
+        id_increment = settings.DATA_SOURCE_IDS_INCREMENTOR
         self.exp_output_schema = data_source_output_schema
 
         super().__init__(

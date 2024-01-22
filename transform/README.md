@@ -1,53 +1,94 @@
-# Create all collection
-## ENV variables
-We are using .env to store user-specific constants. This file is not tracked by git and it needs to be present in the project directory. Details:
-### Data dump:
-- `DATASET_PATH` - A path to datasets **directory**. Default: `input_data/dataset/`
-- `PUBLICATION_PATH` - A path to publications **directory**. Default: `input_data/publication/`
-- `SOFTWARE_PATH` - A path to software **directory**. Default: `input_data/software/`
-- `OTHER_RP_PATH` - A path to other research products **directory**. Default: `input_data/orther_rp/`
-- `ORGANISATION_PATH` - A path to organisation **directory**. Default: `input_data/orgnisation/`
-- `PROJECT_PATH` - A path to project **directory**. Default: `input_data/project/`
+# EOSC Data Transform Service
+## Table of contents
+- [Introduction](#introduction) 
+- [API](#api)
+  - [Transform Endpoints](#transform-endpoints)
+  - [Solr Manipulation Endpoints](#solr-manipulation-endpoints)
+- [Deployment](#deployment)
+  - [Dependencies](#dependencies) 
+  - [ENV variables](#env-variables)
+    - [General](#general)
+    - [Services](#services)
+      - [Solr](#solr)
+      - [S3](#s3)
+    - [Sources of Data](#sources-of-data)
+      - [Local Data Dump](#local-data-dump)
+      - [Data from API](#data-from-api)
+    - [Transformation General Settings](#transformation-general-settings)
+- [Running Service](#running-service)
 
-### Data from API:
-- `MP_API_ADDRESS` - A Marketplace API address. Default: `https://beta.marketplace.eosc-portal.eu`.
-- `MP_API_TOKEN` - An authorization token for the Marketplace API.
-- `GUIDELINE_ADDRESS` - A full address to get all interoperability guidelines **endpoint**. Default: `https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&quantity=10000`
-- `TRAINING_ADDRESS` - A full address to get all trainings **endpoint**. Default: `https://beta.providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&quantity=10000`
-<br></br>
+## Introduction
 
-### Other data related params:
-- `INPUT_FORMAT` - Format of the input data files. Default: `JSON`.
-- `OUTPUT_FORMAT` - Format of the output data files. Default: `JSON`.
-- `OUTPUT_PATH` - Where the output should be locally saved? **IMPORTANT**: during each iteration the whole content of this path will be deleted! Therefore, use some empty path. Default: `output/`.
-<br></br>
+The EOSC Data Transform Service is a service that supplies the EOSC Search Service portal with data from various sources. The data is collected, transformed to meet our requirements, and then sent to external services such as Solr and Amazon S3 Cloud.
 
-### Third party services:
-- `SEND_TO_SOLR` -  A flag which indicates if data should be sent to Solr. Default `True`.
-  <br> To send data to Solr it is needed to provide also:
-  - `SOLR_ADDRESS` - Solr address. Default: `http://127.0.0.1`.
-  - `SOLR_PORT` - Solr port. Default: `8983`.
-  - `SOLR_DATASET_COLS` - The name of the collection/collections to which datasets will be sent. To specify multiple collections, pass them in `""` and separate them by a space. Example: `"all dataset"`.
-  - `SOLR_PUBLICATION_COLS` - The name of the collection/collections to which publications will be sent. Example: `"all publication"`.
-  - `SOLR_SOFTWARE_COLS` - The name of the collection/collections to which software will be sent. Example: `"all software"`.
-  - `SOLR_OTHER_RP_COLS` - The name of the collection/collections to which other research products will be sent. Example: `"all other_rp"`.
-  - `SOLR_ORGANISATION_COLS` - The name of the collection/collections to which organisation will be sent. Example: `"organisation"`.
-  - `SOLR_PROJECT_COLS` - The name of the collection/collections to which project will be sent. Example: `"project"`.
-  - `SOLR_TRAINING_COLS` - The name of the collection/collections to which trainings will be sent. Example: `"all training"`.
-  - `SOLR_SERVICE_COLS` - The name of the collection/collections to which services will be sent. Example: `"all service"`.
-  - `SOLR_DATASOURCE_COLS` - The name of the collection/collections to which datasources will be sent. Example: `"all datasource"`.
-  - `SOLR_PROVIDER_COLS` - The name of the collection/collections to which providers will be sent. Example: `"provider"`.
-  - `SOLR_GUIDELINE_COLS` - The name of the collection/collections to which interoperability guidelines will be sent. Example: `"guideline"`.
-  - `SOLR_OFFER_COLS` - The name of the collection/collections to which offers will be sent. Example: `"all offer"`.
-  - `SOLR_BUNDLE_COLS` - The name of the collection/collections to which bundles will be sent. Example: `"all bundle"`.
-<br></br>
-- `SEND_TO_S3` - A flag which indicates if data should be sent to S3. Default `False`.
+The data obtained from APIs includes` services, data sources, providers, offers, bundles, trainings, interoperability guidelines`. These data are updated in real-time, but there is also a possibility of updating all records.
+
+The data obtained from dumps includes `publications, datasets, software, other research products, organizations, and projects`. Live updates are not available, only batch updates.
+
+## API
+### Transform Endpoints
+- `/batch` - handles live update. One or more resources per request.
+- `/full` - handles update of the whole data collection.
+
+### Solr Manipulation Endpoints
+- `/create_collections` - creates all necessary Solr collections for a single data iteration.
+- `/create_aliases` - creates aliases for all collections from a single data iteration.
+- `/delete_collections` - deletes all collections from a single data iteration. 
+
+## Deployment
+1) Get Solr instance and/or Amazon S3 bucket.
+2) Adjust docker-compose.yml to your requirements.
+3) Set .env variables.
+4) Deployment is simple and easy. Type:
+```shell
+docker-compose up -d --build
+docker-compose up
+```
+### Dependencies
+- `Solr` instance (optional) **and/or** `Amazon S3 cloud` (optional). At least one of them is necessary. 
+
+### ENV variables
+We are using .env (in the root of the EOSC Transform Service) to store user-specific constants. Details:
+#### General:
+- `ENVIRONMENT`: `Literal["dev", "test", "production"] = "dev"` - Choose environment in which you want to work in.
+- `LOG_LEVEL`: `str = "info"` - Logging level.
+
+#### Services:
+##### Solr
+- `SEND_TO_SOLR`: `bool = True` -  A flag which indicates if data should be sent to Solr.
+  <br> If `SEND_TO_SOLR=True`, it is necessary to set also:
+  - `SOLR_URL`: `AnyUrl = "http://localhost:8983/solr/"` - Solr address.
+  - `SOLR_COLS_PREFIX`: `str` - The prefix of the Solr collections to which data will be sent.
+
+##### S3
+- `SEND_TO_S3`: `bool = False` - A flag which indicates if data should be sent to S3.
   <br> To send data to S3 it is needed to provide also:
-  - `S3_ACCESS_KEY` - Your S3 access key with write permissions.
-  - `S3_SECRET_KEY` - Your S3 secret key with write permissions.
-  - `S3_ENDPOINT` - S3 endpoint. Example: `https://s3.cloud.com`.
-  - `S3_BUCKET` - S3 bucket. Example: `ess-mock-dumps`.
-  <br></br>
-- `CREATE_LOCAL_DUMP` - A flag which indicates if output files should be preserved and packed into local archive. Default `False`.
-  <br> To create local dump you can also provide:
-  - `LOCAL_DUMP_PATH` - A destination path for the local dump. Default: `<current_date>_ess_dump`
+  - `S3_ACCESS_KEY`: `str = ""` - Your S3 access key with write permissions.
+  - `S3_SECRET_KEY`: `str = ""` - Your S3 secret key with write permissions.
+  - `S3_ENDPOINT`: `str = ""` - S3 endpoint. Example: `https://s3.cloud.com`.
+  - `S3_BUCKET`: `str = ""` - S3 bucket. Example: `ess-mock-dumps`.
+
+#### Sources of Data:
+##### Local Data Dump
+- `DATASET_PATH`: `str` - A path to datasets **directory**.
+- `PUBLICATION_PATH`: `str` - A path to publications **directory**.
+- `SOFTWARE_PATH`: `str` - A path to software **directory**.
+- `OTHER_RP_PATH`: `str` - A path to other research products **directory**.
+- `ORGANISATION_PATH`: `str` - A path to organisation **directory**.
+- `PROJECT_PATH`: `str` - A path to project **directory**.
+
+##### Data from API
+- `MP_API_ADDRESS`: `AnyUrl = "https://beta.marketplace.eosc-portal.eu"` - A Marketplace API address.
+- `MP_API_TOKEN`: `str` - An authorization token for the Marketplace API.
+- `GUIDELINE_ADDRESS`: `AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&suspended=false&quantity=10000"` - A full address to get all interoperability guidelines **endpoint**.
+- `TRAINING_ADDRESS`: `AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"` - A full address to get all trainings **endpoint**.
+<br></br>
+
+#### Transformation General Settings:
+- `INPUT_FORMAT`: `str = "json"` - Format of the input data files.
+- `OUTPUT_FORMAT`: `str = "json"` - Format of the output data files.
+
+## Running Service
+How to use the service? Upon successful launch of the service, the following components will be initiated:
+- `EOSC Transform Service`: by default, at http://0.0.0.0:8080 and http://0.0.0.0:8080/docs to access Swagger. It can be used to trigger actions.
+- `Flower Dashboard`: by default, at http://0.0.0.0:5555 to view current and past actions and monitor them.

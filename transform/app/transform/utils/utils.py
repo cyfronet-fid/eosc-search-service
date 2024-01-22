@@ -5,7 +5,7 @@ from pyspark.sql import DataFrame
 from pyspark.sql.functions import when, col, lit, split
 from pyspark.sql.types import StringType, StructType
 from app.services.spark.logger import Log4J
-from app.transform.utils.send import SOLR, S3, LOCAL_DUMP
+from app.transform.utils.send import SOLR, S3
 
 
 def replace_empty_str(df: DataFrame) -> DataFrame:
@@ -82,7 +82,7 @@ def print_errors(
     if error_type not in handled_errors:
         raise ValueError(f"error_type not in {handled_errors}")
 
-    for dest in (SOLR, S3, LOCAL_DUMP):
+    for dest in (SOLR, S3):
         failed_files[col_name][dest].append(file)
     logger.error(f"{col_name} - {file} - {error_type}")
     traceback.print_exc()
