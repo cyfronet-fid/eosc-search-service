@@ -12,13 +12,14 @@ from pyspark.sql.types import (
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.schemas.properties.data import *
 from app.transform.utils.utils import sort_schema
+from app.settings import settings
 
 
 class OrganisationTransformer(BaseTransformer):
     """Transformer used to transform organisations"""
 
     def __init__(self, spark: SparkSession):
-        self.type = "organisation"
+        self.type = settings.ORGANISATION
 
         super().__init__(
             self.type, self.cols_to_add, self.cols_to_drop, self.cols_to_rename, spark

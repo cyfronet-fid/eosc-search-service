@@ -1,20 +1,5 @@
 # pylint: disable=undefined-variable, cyclic-import
 """Import transformations"""
-from ..schemas.properties.env import (
-    DATASET,
-    OTHER_RP,
-    PUBLICATION,
-    BUNDLE,
-    GUIDELINE,
-    DATASOURCE,
-    OFFER,
-    PROVIDER,
-    SERVICE,
-    SOFTWARE,
-    TRAINING,
-    ORGANISATION,
-    PROJECT,
-)
 from .dataset import DatasetTransformer
 from .publication import PublicationTransformer
 from .software import SoftwareTransformer
@@ -28,21 +13,22 @@ from .bundle import BundleTransformer
 from .provider import ProviderTransformer
 from .organisation import OrganisationTransformer
 from .project import ProjectTransformer
+from app.settings import settings
 
 __all__ = ["transformers"]
 
 transformers = {
-    SERVICE: ServiceTransformer,
-    DATASOURCE: DataSourceTransformer,
-    PROVIDER: ProviderTransformer,
-    OFFER: OfferTransformer,
-    BUNDLE: BundleTransformer,
-    GUIDELINE: transform_guidelines,
-    TRAINING: TrainingTransformer,
-    OTHER_RP: OtherRPTransformer,
-    SOFTWARE: SoftwareTransformer,
-    DATASET: DatasetTransformer,
-    PUBLICATION: PublicationTransformer,
-    ORGANISATION: OrganisationTransformer,
-    PROJECT: ProjectTransformer,
+    settings.SERVICE: ServiceTransformer,
+    settings.DATASOURCE: DataSourceTransformer,
+    settings.PROVIDER: ProviderTransformer,
+    settings.OFFER: OfferTransformer,
+    settings.BUNDLE: BundleTransformer,
+    settings.GUIDELINE: transform_guidelines,
+    settings.TRAINING: TrainingTransformer,
+    settings.OTHER_RP: OtherRPTransformer,
+    settings.SOFTWARE: SoftwareTransformer,
+    settings.DATASET: DatasetTransformer,
+    settings.PUBLICATION: PublicationTransformer,
+    settings.ORGANISATION: OrganisationTransformer,
+    settings.PROJECT: ProjectTransformer,
 }

@@ -3,20 +3,9 @@
 from typing import Literal
 from fastapi import APIRouter
 
-from app.transform.utils.loader import load_env_vars
-from app.transform.schemas.properties.env import (
-    ADDRESS,
-    ALL_COLLECTION,
-    BUNDLE,
-    DATASOURCE,
-    GUIDELINE,
-    OFFER,
-    PROVIDER,
-    SERVICE,
-    TRAINING,
-)
 from app.tasks.batch import transform_batch
 from app.services.mp_pc.data import get_data
+from app.settings import settings
 
 router = APIRouter()
 
@@ -36,18 +25,26 @@ async def full_collection_update(
 ):
     """Update a single whole collection or all collections besides OAG collections"""
     tasks_id = {
-        SERVICE: None,
-        DATASOURCE: None,
-        PROVIDER: None,
-        OFFER: None,
-        BUNDLE: None,
-        GUIDELINE: None,
-        TRAINING: None,
+        settings.SERVICE: None,
+        settings.DATASOURCE: None,
+        settings.PROVIDER: None,
+        settings.OFFER: None,
+        settings.BUNDLE: None,
+        settings.GUIDELINE: None,
+        settings.TRAINING: None,
     }
 
     if data_type == "all":
         # Update all collections
-        for col in (SERVICE, DATASOURCE, PROVIDER, OFFER, BUNDLE, GUIDELINE, TRAINING):
+        for col in (
+            settings.SERVICE,
+            settings.DATASOURCE,
+            settings.PROVIDER,
+            settings.OFFER,
+            settings.BUNDLE,
+            settings.GUIDELINE,
+            settings.TRAINING,
+        ):
             await update_single_col(col, tasks_id)
     else:
         # Update single collection
@@ -58,14 +55,13 @@ async def full_collection_update(
 
 async def update_single_col(data_type: str, tasks_id: dict) -> None:
     """Update whole, single collection"""
-    env_vars = load_env_vars()
-    data_address = env_vars[ALL_COLLECTION][data_type][ADDRESS]
+    data_address = settings.COLLECTIONS[data_type]["ADDRESS"]
 
     data = await get_data(data_type, data_address)
 
     if data:
         # Get data, transform data, delete current data of the same type, upload data
-        update_task = transform_batch.delay(data_type, data)
+        update_task = transform_batch.delay(data_type, data, full_update=True)
         tasks_id[data_type] = update_task.id
     else:
         tasks_id[

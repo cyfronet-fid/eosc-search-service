@@ -2,12 +2,8 @@ import logging
 import requests
 from typing import List
 
-from app.transform.utils.loader import load_env_vars
-from app.transform.schemas.properties.env import (
-    SOLR_ADDRESS,
-    SOLR_PORT,
-)
 from app.worker import celery
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -21,11 +17,9 @@ def delete_solr_collections_task(
         "Initiating the deletion of the Solr collection for a single data iteration"
     )
 
-    env_vars = load_env_vars()
-
     for collection in collection_names:
         delete_collection_url = (
-            f"{env_vars[SOLR_ADDRESS]}:{env_vars[SOLR_PORT]}/solr/admin/"
+            f"{settings.SOLR_URL}solr/admin/"
             f"collections?action=DELETE&name={collection}"
         )
 

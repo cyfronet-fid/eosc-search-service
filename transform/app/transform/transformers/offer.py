@@ -18,16 +18,15 @@ from app.transform.utils.common import (
 from app.transform.utils.utils import sort_schema
 from app.transform.schemas.properties.data import *
 from app.transform.schemas.output.offer import offer_output_schema
-
-OFFER_IDS_INCREMENTOR = 10_000
+from app.settings import settings
 
 
 class OfferTransformer(BaseTransformer):
     """Transformer used to transform bundles"""
 
     def __init__(self, spark: SparkSession):
-        self.type = "offer"
-        self.id_increment = OFFER_IDS_INCREMENTOR
+        self.type = settings.OFFER
+        self.id_increment = settings.OFFER_IDS_INCREMENTOR
         self.exp_output_schema = offer_output_schema
 
         super().__init__(

@@ -12,20 +12,18 @@ from pyspark.sql.types import (
 from pyspark.sql.functions import udf
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.schemas.properties.data import *
-from app.transform.transformers.offer import OFFER_IDS_INCREMENTOR
 from app.transform.utils.utils import sort_schema
 from app.transform.utils.common import harvest_popularity
 from app.transform.schemas.output.bundle import bundle_output_schema
-
-BUNDLE_IDS_INCREMENTOR = 1_000_000
+from app.settings import settings
 
 
 class BundleTransformer(BaseTransformer):
     """Transformer used to transform bundles"""
 
     def __init__(self, spark: SparkSession):
-        self.type = "bundle"
-        self.id_increment = BUNDLE_IDS_INCREMENTOR
+        self.type = settings.BUNDLE
+        self.id_increment = settings.BUNDLE_IDS_INCREMENTOR
         self.exp_output_schema = bundle_output_schema
 
         super().__init__(
@@ -47,10 +45,10 @@ class BundleTransformer(BaseTransformer):
         df = self.convert_int_ids(df, columns=(ID,), increment=self.id_increment)
         # Increase offers IDs to match their increased IDs
         df = self.convert_int_ids(
-            df, columns=("main_offer_id",), increment=OFFER_IDS_INCREMENTOR
+            df, columns=("main_offer_id",), increment=settings.OFFER_IDS_INCREMENTOR
         )
         df = self.convert_arr_ids(
-            df, columns=("offer_ids",), increment=OFFER_IDS_INCREMENTOR
+            df, columns=("offer_ids",), increment=settings.OFFER_IDS_INCREMENTOR
         )
         df = df.withColumn(
             "catalogue", self.get_first_element(df["catalogues"])

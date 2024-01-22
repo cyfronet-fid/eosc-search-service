@@ -1,21 +1,13 @@
 import logging
 import requests
 from typing import List
-
-from app.transform.utils.loader import load_env_vars
-from app.transform.schemas.properties.env import (
-    SOLR_ADDRESS,
-    SOLR_PORT,
-)
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
 
 def get_solr_collections_url(path: str) -> str:
-    env_vars = load_env_vars()
-    return (
-        f"{env_vars[SOLR_ADDRESS]}:{env_vars[SOLR_PORT]}/solr/admin/collections?{path}"
-    )
+    return f"{settings.SOLR_URL}solr/admin/collections?{path}"
 
 
 def get_collection_names() -> List[str]:

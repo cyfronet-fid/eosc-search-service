@@ -2,12 +2,8 @@ import logging
 import requests
 from typing import List
 
-from app.transform.utils.loader import load_env_vars
-from app.transform.schemas.properties.env import (
-    SOLR_ADDRESS,
-    SOLR_PORT,
-)
 from app.worker import celery
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -19,14 +15,12 @@ def create_aliases_task(aliases: List[str], collection_names: List[str]) -> None
         "Initiating alias creation or switching aliases in Solr collections for a single data iteration"
     )
 
-    env_vars = load_env_vars()
-
     aliases.sort()
     collection_names.sort()
 
     for alias, collection in zip(aliases, collection_names):
         create_alias_url = (
-            f"{env_vars[SOLR_ADDRESS]}:{env_vars[SOLR_PORT]}/solr/admin/collections?action=CREATEALIAS"
+            f"{settings.SOLR_URL}solr/admin/collections?action=CREATEALIAS"
             f"&name={alias}&collections={collection}"
         )
 
