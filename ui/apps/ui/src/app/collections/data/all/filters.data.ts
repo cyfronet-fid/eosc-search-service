@@ -22,14 +22,6 @@ export const allCollectionsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'type',
-      filter: 'type',
-      label: 'Type of research product',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-    {
       id: 'best_access_right',
       filter: 'best_access_right',
       label: 'Access right',
@@ -38,9 +30,18 @@ export const allCollectionsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'type',
+      filter: 'type',
+      label: 'Type of research product',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+
+    {
       id: 'scientific_domains',
       filter: 'scientific_domains',
-      label: 'Scientific Domains',
+      label: 'Scientific domain',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -48,7 +49,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'eosc_if',
       filter: 'eosc_if',
-      label: 'Interoperability patterns',
+      label: 'Interoperability pattern',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
@@ -90,7 +91,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'scientific_domains',
       filter: 'scientific_domains',
-      label: 'Scientific Domains',
+      label: 'Scientific domain',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
@@ -106,7 +107,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'eosc_if',
       filter: 'eosc_if',
-      label: 'Interoperability patterns',
+      label: 'Interoperability pattern',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
@@ -148,7 +149,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'providers',
       filter: 'providers',
-      label: 'Providers',
+      label: 'Provider',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

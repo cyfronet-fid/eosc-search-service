@@ -8,15 +8,7 @@ export const providersFilters: IFiltersConfig = {
     {
       id: 'scientific_domains',
       filter: 'scientific_domains',
-      label: 'Scientific Domains',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-    {
-      id: 'legal_status',
-      filter: 'legal_status',
-      label: 'Legal Status',
+      label: 'Scientific domain',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -24,15 +16,24 @@ export const providersFilters: IFiltersConfig = {
     {
       id: 'areas_of_activity',
       filter: 'areas_of_activity',
-      label: 'Areas of Activity',
+      label: 'Area of activity',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
     },
     {
+      id: 'legal_status',
+      filter: 'legal_status',
+      label: 'Legal status',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+
+    {
       id: 'meril_scientific_domains',
       filter: 'meril_scientific_domains',
-      label: 'MERIL Scientific Categorisation',
+      label: 'MERIL Scientific categorisation',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
