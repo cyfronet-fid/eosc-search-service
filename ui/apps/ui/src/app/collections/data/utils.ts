@@ -174,7 +174,7 @@ export const transformHorizontal = (nodes: IFilterNode[]): IFilterNode[] => {
   return nodes.map((node) => {
     return {
       ...node,
-      name: ['true', 'yes'].includes(node.name) ? 'yes' : 'no',
+      name: ['true', 'yes'].includes(node.name) ? 'Yes' : 'No',
     };
   });
 };
