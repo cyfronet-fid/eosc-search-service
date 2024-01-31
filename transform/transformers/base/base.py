@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.types import StructType
 from utils.join_dfs import create_df, join_different_dfs
-from utils.utils import drop_columns, add_columns, replace_empty_str
+from utils.utils import drop_columns_pyspark, add_columns, replace_empty_str
 from transformations.common import add_tg_fields
 
 
@@ -40,7 +40,7 @@ class BaseTransformer(ABC):
     def apply_common_trans(self, df: DataFrame) -> DataFrame:
         """Apply common transformations"""
         if self._cols_to_drop:
-            df = drop_columns(df, self._cols_to_drop)
+            df = drop_columns_pyspark(df, self._cols_to_drop)
 
         if self.harvested_schema:
             harvested_df = create_df(

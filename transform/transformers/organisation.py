@@ -70,18 +70,18 @@ class OrganisationTransformer(BaseTransformer):
     def cols_to_drop(self) -> tuple[str, ...]:
         """Drop those columns from the dataframe"""
         return (
-            "alternativenames",
-            "country",
-            "pid",
+            ALTERNATIVENAMES,
+            COUNTRY,
+            PID,
         )
 
     @property
     def cols_to_rename(self) -> dict[str, str]:
         """Columns to rename. Keys are mapped to the values"""
         return {
-            "legalname": TITLE,
-            "legalshortname": ABBREVIATION,
-            "websiteurl": URL,
+            LEGALNAME: TITLE,
+            LEGALSHORTNAME: ABBREVIATION,
+            WEBSITEURL: URL,
         }
 
     @staticmethod

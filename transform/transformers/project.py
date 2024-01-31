@@ -168,7 +168,7 @@ class ProjectTransformer(BaseTransformer):
                         if joined_dataframe.schema[column].dataType == StringType()
                         else ((size(col(column)) > 0) & (col(column).isNotNull()))
                         if joined_dataframe.schema[column].dataType
-                           == ArrayType(StringType())
+                        == ArrayType(StringType())
                         else col(column).isNotNull()
                     ),
                     lit(1),
@@ -177,7 +177,7 @@ class ProjectTransformer(BaseTransformer):
             ]
 
         def calculate_eosc_score(
-                dataframe: DataFrame, conditions: List[when]
+            dataframe: DataFrame, conditions: List[when]
         ) -> List[int]:
             """Calculate the EOSC score and return a list of scores."""
             eosc_score_column = sum(conditions).alias(EOSC_SCORE)

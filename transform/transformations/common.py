@@ -11,6 +11,7 @@ from pyspark.sql.functions import col, to_date, when, lit
 from pyspark.sql.utils import AnalysisException
 
 from schemas.properties.data import (
+    AFFILIATION,
     AUTHOR,
     AUTHOR_NAMES,
     AUTHOR_NAMES_TG,
@@ -26,10 +27,12 @@ from schemas.properties.data import (
     EXPORTATION,
     FOS,
     FUNDER,
+    ID,
     INSTANCE,
     KEYWORDS,
     KEYWORDS_TG,
     LANGUAGE,
+    NAME,
     OPEN_ACCESS,
     PID,
     PIDS,
@@ -37,6 +40,8 @@ from schemas.properties.data import (
     PROJECTS,
     PUBLISHER,
     RESEARCH_COMMUNITY,
+    RELATED_ORGANISATION_TITLES,
+    RELATED_PROJECT_IDS,
     RELATIONS,
     RELATIONS_LONG,
     SCIENTIFIC_DOMAINS,
@@ -786,6 +791,44 @@ def harvest_data_source(df: DataFrame, harvested_properties: dict) -> None:
             data_source_column.append([])
 
     harvested_properties[DATA_SOURCE] = data_source_column
+
+
+def harvest_related_organisations(df: DataFrame, harvested_properties: dict) -> None:
+    """"""
+    organisation_list = df.select(AFFILIATION).collect()
+    related_organisation_column = []
+
+    for organisation in organisation_list:
+        if organisation[AFFILIATION]:
+            related_organisation_row = []
+            for affiliation in organisation[AFFILIATION]:
+                organisation_title = affiliation[NAME]
+                related_organisation_row.append(organisation_title)
+
+            related_organisation_column.append(related_organisation_row)
+        else:
+            related_organisation_column.append([])
+
+    harvested_properties[RELATED_ORGANISATION_TITLES] = related_organisation_column
+
+
+def harvest_project_ids(df: DataFrame, harvested_properties: dict) -> None:
+    """"""
+    project_list = df.select(PROJECTS).collect()
+    project_ids_column = []
+
+    for projects in project_list:
+        if projects[PROJECTS]:
+            project_ids_row_set = set()
+            for project in projects[PROJECTS]:
+                project_id = project[ID]
+                project_ids_row_set.update([project_id])
+
+            project_ids_column.append(list(project_ids_row_set))
+        else:
+            project_ids_column.append([])
+
+    harvested_properties[RELATED_PROJECT_IDS] = project_ids_column
 
 
 def remove_commas(

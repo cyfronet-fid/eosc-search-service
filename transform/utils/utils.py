@@ -1,11 +1,17 @@
 # pylint: disable=invalid-name, line-too-long
 """Useful functions"""
+from logging import getLogger
+import os
 import traceback
+import pandas as pd
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import when, col, lit, split
 from pyspark.sql.types import StringType, StructType
 from conf.logger import Log4J
+from typing import List
 from utils.send import SOLR, S3, LOCAL_DUMP
+
+logger = getLogger(__name__)
 
 
 def replace_empty_str(df: DataFrame) -> DataFrame:
@@ -20,7 +26,7 @@ def replace_empty_str(df: DataFrame) -> DataFrame:
     return df
 
 
-def drop_columns(df: DataFrame, col_to_drop: tuple) -> DataFrame:
+def drop_columns_pyspark(df: DataFrame, col_to_drop: tuple) -> DataFrame:
     """Drop columns from dataframe"""
     return df.drop(*col_to_drop)
 
@@ -108,3 +114,51 @@ def extract_digits_and_trim(input_str: str):
     remaining_str = input_str[index:].strip()
 
     return remaining_str
+
+
+def create_file_path_column(
+    df: pd.DataFrame, path_prefix: str, columns_to_concat: List[str]
+) -> pd.Series:
+    """
+    Creates a new column in the pandas DataFrame with concatenated file path.
+
+    Parameters:
+        df: The DataFrame to process.
+        path_prefix: The prefix path to join with elements from specified columns.
+        columns_to_concat: List of column names in df whose values will be concatenated to form the file path.
+
+    Returns:
+        A pandas Series object representing the new column with file path.
+    """
+    return df.apply(
+        lambda row: os.path.join(
+            path_prefix, *[row[_col] for _col in columns_to_concat]
+        ),
+        axis=1,
+    )
+
+
+def group_relations(
+    df: pd.DataFrame, group_by_columns: List[str], agg_column: str
+) -> pd.DataFrame:
+    """
+    Groups the DataFrame by specified columns and aggregates another column into a list.
+
+    Parameters:
+        df: The DataFrame to process.
+        group_by_columns: List of column names to group the DataFrame by.
+        agg_column: The column to aggregate into a list.
+
+    Returns:
+        A grouped and aggregated pandas DataFrame.
+    """
+    return (
+        df.groupby(group_by_columns)
+        .agg({agg_column: lambda x: x.tolist()})
+        .reset_index()
+    )
+
+
+def drop_columns_pandas(df: pd.DataFrame, columns: List[str]) -> None:
+    """Drops inplace specified columns from the DataFrame."""
+    df.drop(columns, axis=1, inplace=True)
