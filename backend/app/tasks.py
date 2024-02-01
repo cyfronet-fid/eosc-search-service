@@ -1,3 +1,4 @@
+# pylint: disable=no-member
 """The application tasks"""
 
 import logging
@@ -14,7 +15,9 @@ logger = logging.getLogger(__name__)
 
 def create_session_local() -> sessionmaker:
     """Just creates a new session_local"""
-    engine = create_engine(settings.DATABASE_URI, future=True, echo=True)
+    engine = create_engine(
+        settings.DATABASE_URI.unicode_string(), future=True, echo=True
+    )
     return sessionmaker(engine)
 
 

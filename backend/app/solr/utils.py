@@ -1,4 +1,5 @@
 """Module for helper utilities for solr operations module"""
+
 from datetime import date, timedelta
 
 STATUS_TO_DATE_RANGE_MAP = {

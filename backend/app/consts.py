@@ -1,4 +1,5 @@
 """Common routes constants"""
+
 from enum import Enum
 from typing import Literal, TypeAlias
 

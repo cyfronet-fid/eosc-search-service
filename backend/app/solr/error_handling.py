@@ -1,4 +1,5 @@
 """Solr functions error handling"""
+
 from json import JSONDecodeError
 
 from fastapi import HTTPException

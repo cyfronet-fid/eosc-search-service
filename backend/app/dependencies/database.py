@@ -1,4 +1,5 @@
 """Database-specific dependencies"""
+
 from typing import Callable, Type
 
 from fastapi import Depends

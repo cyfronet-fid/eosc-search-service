@@ -1,4 +1,5 @@
 """The UI Search endpoint"""
+
 import asyncio
 import logging
 from typing import Dict, Tuple
@@ -47,12 +48,10 @@ async def search_suggestions(
         ]
     )
 
-    gathered_result = await asyncio.gather(
-        *[
-            _search(col, q, qf, exact, fq, results_per_collection, search)
-            for col in collections
-        ]
-    )
+    gathered_result = await asyncio.gather(*[
+        _search(col, q, qf, exact, fq, results_per_collection, search)
+        for col in collections
+    ])
 
     return dict(gathered_result)
 

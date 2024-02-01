@@ -5,8 +5,8 @@ from pydantic import BaseModel
 
 
 class SessionData(BaseModel):
-    username: Optional[str]
-    aai_state: Optional[str]
-    aai_id: Optional[str]
-    rp_handler: Any
+    username: Optional[str] = None
+    aai_state: Optional[str] = None
+    aai_id: Optional[str] = None
+    rp_handler: Any = None
     session_uuid: str

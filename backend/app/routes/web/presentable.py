@@ -1,6 +1,6 @@
 # pylint: disable=missing-function-docstring
 
-""" Presentable items UI endpoint """
+"""Presentable items UI endpoint"""
 
 from fastapi import APIRouter, Depends
 from httpx import AsyncClient

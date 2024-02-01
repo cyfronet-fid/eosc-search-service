@@ -1,13 +1,9 @@
-# pylint: disable=missing-module-docstring,unused-import
+# pylint: disable=missing-module-docstring
 # coding: utf-8
 
 from __future__ import annotations
 
-import re
-from datetime import date, datetime
-from typing import Any, Dict, List, Optional
-
-from pydantic import AnyUrl, BaseModel, EmailStr, validator
+from pydantic import BaseModel
 
 
 class DumpElements(BaseModel):
