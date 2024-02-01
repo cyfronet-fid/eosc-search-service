@@ -1,4 +1,5 @@
 """Endpoint for adding a research product to favourites"""
+
 import logging
 from contextlib import suppress
 from typing import Optional

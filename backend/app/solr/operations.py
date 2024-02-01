@@ -1,4 +1,4 @@
-#  pylint: disable=too-many-locals
+#  pylint: disable=too-many-locals, too-many-arguments
 
 """Operations on Solr"""
 from typing import Dict

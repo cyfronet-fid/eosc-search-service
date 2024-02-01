@@ -1,4 +1,5 @@
 """The FastAPI bootstrap"""
+
 import uvicorn
 
 from app.server import get_app

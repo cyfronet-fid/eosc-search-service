@@ -59,7 +59,7 @@ async def register_navigation_user_action(
     url = urllib.parse.unquote(url)
 
     if url.startswith("/"):
-        url = settings.UI_BASE_URL + url
+        url = urllib.parse.urljoin(settings.UI_BASE_URL, url)
 
     target_id = uuid.uuid4()
 

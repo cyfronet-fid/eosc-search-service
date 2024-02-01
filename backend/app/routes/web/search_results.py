@@ -1,4 +1,5 @@
 """The UI Search endpoint"""
+
 import copy
 import csv
 import itertools

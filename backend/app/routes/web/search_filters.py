@@ -1,4 +1,5 @@
 """The UI Search endpoint"""
+
 import asyncio
 import logging
 from typing import Callable

@@ -1,4 +1,5 @@
 """Models used by web.bibliography.py"""
+
 from enum import Enum
 from typing import Any, Dict, Literal, Optional, TypeAlias, Union
 

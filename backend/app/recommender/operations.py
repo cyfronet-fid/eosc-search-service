@@ -1,4 +1,8 @@
+#  pylint: disable=too-many-arguments
 """Operations on Recommender Service"""
+
+from urllib.parse import urljoin
+
 from httpx import AsyncClient, Response
 
 from app.schemas.recommend_request import RecommendRequest
@@ -39,7 +43,7 @@ async def recommendations(
             "fq": fq,
         },
     }
-    return await client.post(f"{settings.RS_URL}recommendations", json=payload)
+    return await client.post(urljoin(settings.RS_URL, "/recommendations"), json=payload)
 
 
 def doc_to_candidate(doc):

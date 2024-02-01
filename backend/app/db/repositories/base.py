@@ -1,4 +1,5 @@
 """Base for repositories"""
+
 from sqlalchemy.orm import Session
 
 

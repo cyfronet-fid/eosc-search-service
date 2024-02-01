@@ -5,7 +5,7 @@ from pydantic import BaseModel
 
 
 class ResourceResponse(BaseModel):
-    imgSrc: Optional[str]
+    imgSrc: Optional[str] = None
     label: str
     rating: int
     description: str

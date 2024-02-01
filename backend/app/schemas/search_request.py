@@ -26,13 +26,13 @@ class TermsFacet(BaseModel, _ISolrSerializable):
 
     type: Literal["terms"]
     field: str
-    offset: Optional[int]
-    limit: Optional[int]
-    sort: Optional[str]
-    mincount: Optional[int]
-    missing: Optional[bool]
-    prefix: Optional[str]
-    contains: Optional[str]
+    offset: Optional[int] = None
+    limit: Optional[int] = None
+    sort: Optional[str] = None
+    mincount: Optional[int] = None
+    missing: Optional[bool] = None
+    prefix: Optional[str] = None
+    contains: Optional[str] = None
     containsIgnoreCase: Optional[str] = Field(alias="contains.ignoreCase", default=None)
 
     def serialize_to_solr_format(self) -> dict:
@@ -49,7 +49,7 @@ class StatFacet(BaseModel, _ISolrSerializable):
 class SearchRequest(BaseModel):
     """The search request specification"""
 
-    facets: Optional[dict[str, TermsFacet | StatFacet]]
+    facets: Optional[dict[str, TermsFacet | StatFacet]] = None
 
 
 class SearchResults(BaseModel):

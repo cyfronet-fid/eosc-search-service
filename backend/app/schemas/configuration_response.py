@@ -1,13 +1,15 @@
 # pylint: disable=missing-module-docstring,missing-class-docstring
-from pydantic import AnyHttpUrl, BaseModel
+from pydantic import BaseModel
+
+from app.settings import Url
 
 
 class ConfigurationResponse(BaseModel):
-    marketplace_url: AnyHttpUrl
-    eosc_commons_url: AnyHttpUrl
+    marketplace_url: Url
+    eosc_commons_url: Url
     eosc_commons_env: str
-    eosc_explore_url: AnyHttpUrl
-    knowledge_hub_url: AnyHttpUrl
+    eosc_explore_url: Url
+    knowledge_hub_url: Url
     is_sort_by_relevance: bool
     max_results_by_page: int
     max_items_sort_relevance: int

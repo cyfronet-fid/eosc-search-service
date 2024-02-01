@@ -12,6 +12,17 @@
   - [Solr collection seeding](#solr-collection-seeding)
 - [Running Recommender System locally](#running-recommender-system-locally)
 - [Deployment](#deployment)
+  - [API env variables](#api-env-variables)
+    - [General](#general)
+    - [Operational](#operational)
+    - [Services](#services)
+      - [Solr](#solr)
+      - [Recommender System](#recommender-system)
+      - [STOMP](#stomp)
+      - [OIDC](#oidc)
+      - [Other](#other)
+    - [Redirections](#redirections)
+  - [DB env variables](#db-envs)
   - [DB migration](#db-migration)
   - [DB seed](#db-seed)
   - [Solr seed](#solr-seed)
@@ -122,78 +133,58 @@ There are to be two machines:
 - (II) for solr.
 See docker-compose.yml for components.
 
-`api` envs:
-- `DATABASE_URI`
-  > Format: `postgresql+psycopg2://<db_user>:<db_password>@db:5432/<db_name>`
-- `SOLR_URL`
-  > Example: `http://solr.domain:8983/solr/`
-- `RS_URL`
-  > Example: `http://localhost:9080/`
-- `BASE_URL`
-  > URL of the backend instance, required by AAI. Need to be set before any request will be made. 
-- `SECRET_KEY`
-- `OIDC_CLIENT_ID`
-  > The service ID stored in AAI for auth purposes
-- `OIDC_CLIENT_SECRET`
-  > Private key of the service need in AAI auth process
-- `OIDC_AAI_NEW_API`
-  > A param switching between new kind of endpoints and old one (AAI changed endpoints between instances)
-- `USER_ACTIONS_QUEUE`
-  > Connection URI to databus for user actions 
-  > Format `rabbitmq://guest:guest@127.0.0.1:61613/topic/user_actions`
-- `USER_ACTIONS_QUEUE_CLIENT_ID`
-  > Client id used to identify databus (jms) client
-- `RECOMMENDER_ENDPOINT`
-  > Recommender endpoint (default http://localhost:8081/recommendations)
-- `MARKETPLACE_BASE_URL`
-  > marketplace base url (used to generate links back to MP) (default https://marketplace.eosc-portal.eu)
-- `LOG_LEVEL`
-  > Level of logging, allowed values: DEBUG, INFO, ERROR 
-- `STOMP_HOST`
-  > Example: 127.0.0.1
-- `STOMP_PORT`
-  > Example: 61613 
-- `STOMP_LOGIN`
-  > Example: guest 
-- `STOMP_PASS`
-  > Example: guest 
-- `STOMP_USER_ACTIONS_TOPIC`
-  > Example: /topic/user_actions 
-- `STOMP_CLIENT_NAME`
-  > Example: dev-client
-- `ESS_STOMP_SSL`
-  > Use SSL when connecting to STOMP queue (for user actions). Default: `0`
-  > Example: `1` or `0`
-- `COLLECTIONS_PREFIX`, by default `''`
-  > Example: COLLECTIONS_PREFIX=prod_
-  > IMPORTANT!!! Before starting or building the app copy `.env` file to `<root>/ui` folder.
-- `NG_GOOGLE_ANALYTICS_ID`, by default `null`
-  > Google Analytics measurement-id
-- `NG_HOTJAR_ID`, by default `null`
-  > Hotjar id used for tracking using hotjar
-- `EOSC_COMMONS_URL`
-  > Base URL to eosc commons
-  > Default: `https://s3.cloud.cyfronet.pl/eosc-portal-common/`
-- `EOSC_COMMONS_ENV`
-  > Environment used to load eosc commons
-  > Default: `production`
-  > Together with `EOSC_COMMONS_URL` two assets are loaded:
+### `API` env variables:
+#### General:
+- `ENVIRONMENT`: `Literal["dev", "test", "production"] = "production"` - Choose environment in which you want to work in.
+- `LOG_LEVEL`: `str = "info"` - Logging level.
+
+#### Operational:
+- `BACKEND_BASE_URL`: `Url = "http://localhost:8000/"` - your backend URL. 
+- `UI_BASE_URL`: `Url = "http://localhost:4200/"` - your UI URL.
+- `DATABASE_URI`: `PostgresDsn = "postgresql+psycopg2://ess:ess@localhost:5442/ess"` - your database URI.
+- `MAX_RESULTS_BY_PAGE`: `int = 50` - how many results to fetch with a single call to SOLR backend.
+- `SHOW_BETA_COLLECTIONS`: `bool = False` - show collections that are in beta version?
+
+#### Services:
+##### Solr
+- `SOLR_URL`: `Url = "http://localhost:8983/solr/"` - your Solr URL.
+- `COLLECTIONS_PREFIX`: `str = ""` - Specify custom prefix for solr collections. Then your specific collection with that prefix will be used.
+##### Recommender System
+- `RS_URL`: `Url = "http://localhost:9080/"` - your Recommender System URL.
+- `RECOMMENDER_ENDPOINT`: `Url = "http://localhost:8081/recommendations"` - your endpoint that returns recommendations.
+- `SHOW_RECOMMENDATIONS`: `bool = True` - Show recommendations?
+- `SHOW_RANDOM_RECOMMENDATIONS`: `bool = True` - Show random recommendations on failure? 
+- `IS_SORT_BY_RELEVANCE`: `bool = True` - Enable sort by relevance?
+- `MAX_ITEMS_SORT_RELEVANCE`: `int = 250` - Max items send to sort by relevance endpoint.
+
+##### STOMP
+- `STOMP_HOST`: `str = "127.0.0.1"` - STOMP host. 
+- `STOMP_PORT`: `int = 61613`- STOMP port.
+- `STOMP_LOGIN`: `str = "guest"` - STOMP login.
+- `STOMP_PASS`: `str = "guest"`- STOMP password.
+- `STOMP_USER_ACTIONS_TOPIC`: `str = "/topic/user_actions"` - topic to which user actions will be sent.
+- `STOMP_CLIENT_NAME`: `str = "dev-client"` - STOMP client name
+- `STOMP_SSL`: `bool = False` - enable SSL?
+
+##### OIDC
+- `OIDC_HOST`: `Url = "https://aai-demo.eosc-portal.eu"` - OIDC host.
+- `OIDC_CLIENT_ID`: `str = "NO_CLIENT_ID"` - The service ID stored in AAI for auth purposes.
+- `OIDC_CLIENT_SECRET`: `str = "NO_CLIENT_SECRET"` - Private key of the service needed in AAI auth process.
+- `OIDC_AAI_NEW_API`: `bool = False` - A param switching between new kind of endpoints and old one (AAI changed endpoints between instances)
+
+##### Other
+- `RELATED_SERVICES_ENDPOINT`: `Url = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"` - base URL to get related services for interoperability guidelines.
+
+##### Redirections
+- `MARKETPLACE_BASE_URL`: `Url = "https://marketplace.eosc-portal.eu/"` - marketplace base url (used to generate links back to MP).
+- `EOSC_COMMONS_URL`: `Url = "https://s3.cloud.cyfronet.pl/eosc-portal-common/"` - Base URL to eosc commons.
+- `EOSC_COMMONS_ENV`: `str = "production"` - Environment used to load eosc commons. Together with `EOSC_COMMONS_URL` two assets are loaded:
   > `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.js` and `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.css`
-- `EOSC_EXPLORE_URL`
-  > base url to explore - used when constructing links for publications
-  > Use when integrating with explore beta instance
-  > Default: https://explore.eosc-portal.eu
-- `RELATED_SERVICES_ENDPOINT`
-  > base url to get related services for interoperability guidelines. Default: https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources
-- `IS_SORT_BY_RELEVANCE`
-  > Boolean variable that indicates whether sort by relevance should be enabled on the instance level. Default: False.
-- `MAX_RESULTS_BY_PAGE`
-  > Integer specifying how many results to fetch with a single call to SOLR backend
-- `MAX_ITEMS_SORT_RELEVANCE`
-  > Integer specifying the maximum number of resources sorted by relevance by the RS.
 
+- `EOSC_EXPLORE_URL`: `Url = "https://explore.eosc-portal.eu/"` - base URL to OpenAire Explore - used when constructing links for publications, datasets ETC.
+- `KNOWLEDGE_HUB_URL`: `Url = "https://knowledge-hub.eosc-portal.eu/"` - base URL to Knowledge Hub.
 
-`db` envs:
+### `db` envs:
 - `DB_POSTGRES_DB`
 - `DB_POSTGRES_USER`
 - `DB_POSTGRES_PASSWORD`
