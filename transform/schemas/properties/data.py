@@ -1,8 +1,27 @@
 """Define properties name that are used multiple times"""
+import os
+
+from schemas.properties.env import (
+    ALL_COLLECTION,
+    ORGANISATION,
+    PATH,
+    PROJECT,
+    PUBLICATION,
+    DATASET,
+    SOFTWARE,
+    OTHER_RP,
+    DATA_RELATIONS,
+    RESULT_ORGANIZATION,
+    RESULT_PROJECT,
+    ORGANIZATION_PROJECT,
+)
+from utils.loader import load_env_vars
+
 # TODO INPUT, OUTPUT, BOTH
 
 ABBREVIATION = "abbreviation"
 ACRONYM = "acronym"
+AFFILIATION = "affiliation"
 ALTERNATIVENAMES = "alternativenames"
 ALTERNATIVE_NAMES = "alternative_names"
 AUTHOR = "author"
@@ -41,6 +60,8 @@ INSTANCE = "instance"
 JURISDICTION = "jurisdiction"
 KEYWORDS = "keywords"
 LANGUAGE = "language"
+LEGALNAME = "legalname"
+LEGALSHORTNAME = "legalshortname"
 LVL_OF_EXPERTISE = "level_of_expertise"
 NAME = "name"
 OPEN_ACCESS = "open_access"
@@ -57,6 +78,12 @@ POPULARITY = "popularity"
 PROJECTS = "projects"
 PUBLICATION_DATE = "publication_date"
 PUBLISHER = "publisher"
+RELATED_DATASET_IDS = "related_dataset_ids"
+RELATED_ORGANISATION_TITLES = "related_organisation_titles"
+RELATED_OTHER_IDS = "related_other_ids"
+RELATED_PROJECT_IDS = "related_project_ids"
+RELATED_PUBLICATION_IDS = "related_publication_ids"
+RELATED_SOFTWARE_IDS = "related_software_ids"
 RELATIONS = "relations"
 RELATIONS_LONG = "relations_long"
 RESEARCH_COMMUNITY = "research_community"
@@ -84,3 +111,64 @@ WEBSITEURL = "websiteurl"
 AUTHOR_NAMES_TG = "author_names_tg"
 KEYWORDS_TG = "keywords_tg"
 TAG_LIST_TG = "tag_list_tg"
+
+# RELATIONS related properties
+env_vars = load_env_vars()
+
+# HELPER COLUM NAMES
+DIRECTORY = "directory"
+FILE = "file"
+SOURCE = "source"
+SOURCE_FILE_PATH = "source_file_path"
+SOURCE_TYPE = "source_type"
+TARGET = "target"
+TARGET_FILE_PATH = "target_file_path"
+TARGET_TYPE = "target_type"
+
+# DICT KEYS
+# TODO replace all DICT KEYS with pydantic settings
+DATASET_KEY = "dataset"
+ORGANIZATION_KEY = "organization"
+OTHERRESEARCHPRODUCT_KEY = "otherresearchproduct"
+PUBLICATION_KEY = "publication"
+PROJECT_KEY = "project"
+SOFTWARE_KEY = "software"
+
+# AGGREGATED COLUMNS -> these columns are added to each other, so can not be tuples
+SELECTED_COLUMNS = [ID]
+ADDITIONAL_COLUMNS = [LEGALNAME]
+
+# PARQUET FILES
+COMBINED_PQ_FILE = "tmp/combined_data.parquet"
+ORGANIZATION_PQ = "tmp/organization.parquet"
+PROJECT_PQ = "tmp/project.parquet"
+
+# DIRECTORIES
+# TODO replace with setting
+TMP_DIRECTORY = "tmp/"
+MAIN_DATA_DIRECTORY = os.path.dirname(
+    os.path.dirname(env_vars[ALL_COLLECTION][ORGANISATION][PATH])
+)
+
+# DIRECTORIES GROUPED
+# TODO replace with setting
+DIRECTORIES_WITH_ADDITIONAL_COLUMNS = (env_vars[ALL_COLLECTION][ORGANISATION][PATH],)
+SINGLE_DIRECTORIES = (
+    env_vars[ALL_COLLECTION][ORGANISATION][PATH],
+    env_vars[ALL_COLLECTION][PROJECT][PATH],
+)
+DATA_DIRECTORIES = (
+    env_vars[ALL_COLLECTION][ORGANISATION][PATH],
+    env_vars[ALL_COLLECTION][PROJECT][PATH],
+    env_vars[ALL_COLLECTION][PUBLICATION][PATH],
+    env_vars[ALL_COLLECTION][DATASET][PATH],
+    env_vars[ALL_COLLECTION][SOFTWARE][PATH],
+    env_vars[ALL_COLLECTION][OTHER_RP][PATH],
+)
+RESULT_RELATION_DIRECTORIES = (
+    env_vars[DATA_RELATIONS][RESULT_ORGANIZATION][PATH],
+    env_vars[DATA_RELATIONS][RESULT_PROJECT][PATH],
+)
+ORGANIZATION_PROJECT_RELATION_DIRECTORIES = (
+    env_vars[DATA_RELATIONS][ORGANIZATION_PROJECT][PATH],
+)

@@ -50,3 +50,12 @@ We are using .env to store user-specific constants. This file is not tracked by 
 - `CREATE_LOCAL_DUMP` - A flag which indicates if output files should be preserved and packed into local archive. Default `False`.
   <br> To create local dump you can also provide:
   - `LOCAL_DUMP_PATH` - A destination path for the local dump. Default: `<current_date>_ess_dump`
+  <br></br>
+- `CREATE_RELATIONS` - A flag which indicates if relations should be processed. Default `False`.
+  <br> To create relations it is needed to provide also:
+  - `RESULT_ORGANIZATION_PATH` - A path to **directory** containing relations between results and organisations.
+Default:  `input/test/resultOrganization/`
+  - `RESULT_PROJECT_PATH` - A path to **directory** containing relations between results and projects.
+Default:  `input/test/resultProject/`
+  - `ORGANIZATION_PROJECT_PATH` - A path to **directory** containing relations between organisations and projects.
+Default:  `input/test/organizationProject/`

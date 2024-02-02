@@ -11,6 +11,7 @@ python-dotenv = "*"
 requests = "*"
 pandas = "*"
 pycountry = "*"
+pyarrow = "*"
 
 [dev-packages]
 pytest = "*"

@@ -49,10 +49,10 @@ def load_env_vars() -> dict:
         OUTPUT_PATH: os.environ.get(OUTPUT_PATH, "output/"),
         INPUT_FORMAT: os.environ.get(INPUT_FORMAT, "JSON"),
         OUTPUT_FORMAT: os.environ.get(OUTPUT_FORMAT, "JSON"),
-        SEND_TO_SOLR: os.environ.get(SEND_TO_SOLR, True).lower() in ("true", "1", "t"),
-        SEND_TO_S3: os.environ.get(SEND_TO_S3, False).lower() in ("true", "1", "t"),
-        CREATE_LOCAL_DUMP: os.environ.get(CREATE_LOCAL_DUMP, False).lower()
-        in ("true", "1", "t"),
+        SEND_TO_SOLR: os.environ.get(SEND_TO_SOLR, True),
+        SEND_TO_S3: os.environ.get(SEND_TO_S3, False),
+        CREATE_LOCAL_DUMP: os.environ.get(CREATE_LOCAL_DUMP, False),
+        CREATE_RELATIONS: os.environ.get(CREATE_RELATIONS, False),
     }
     if not env_vars[MP_API_TOKEN]:
         raise ValueError("MP_API_TOKEN needs to be specified.")
@@ -92,6 +92,9 @@ def load_config(env_vars: dict) -> None:
 
     if env_vars[CREATE_LOCAL_DUMP]:
         env_vars[LOCAL_DUMP_PATH] = os.environ.get(LOCAL_DUMP_PATH, current_date)
+
+    if env_vars[CREATE_RELATIONS]:
+        env_vars[DATA_RELATIONS] = load_vars_relations()
 
 
 def load_vars_all_collection(solr_flag: bool) -> dict:
@@ -175,6 +178,27 @@ def load_vars_sep_collection(solr_flag: bool) -> dict:
         load_solr_cols_name(sep_collections, solr_sep_col_mapping)
 
     return sep_collections
+
+
+def load_vars_relations() -> dict:
+    """Load variables for relations"""
+    relations = {
+        RESULT_ORGANIZATION: {
+            PATH: os.environ.get(
+                RESULT_ORGANIZATION_PATH, "input_data/resultOrganization/"
+            ),
+        },
+        RESULT_PROJECT: {
+            PATH: os.environ.get(RESULT_PROJECT_PATH, "input_data/resultProject/"),
+        },
+        ORGANIZATION_PROJECT: {
+            PATH: os.environ.get(
+                ORGANIZATION_PROJECT_PATH, "input_data/organizationProject/"
+            ),
+        },
+    }
+
+    return relations
 
 
 def load_solr_cols_name(collections: dict, solr_mapping: dict) -> None:

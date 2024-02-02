@@ -19,6 +19,7 @@ from utils.send import (
     send_data,
     failed_files,
 )
+from relations.relations import process_relations
 
 
 def upload_all_col_data() -> None:
@@ -87,6 +88,10 @@ if __name__ == "__main__":
 
     # Only separate collections
     # upload_providers(env_vars, spark, logger)
+
+    # Relations
+    if env_vars[CREATE_RELATIONS]:
+        process_relations()
 
     # All collection
     upload_all_col_data()
