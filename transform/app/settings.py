@@ -18,6 +18,7 @@ class GlobalSettings(BaseSettings):
     ENVIRONMENT: EnvironmentType = "dev"
     LOG_LEVEL: str = logging.getLevelName(logging.INFO)
     TESTING: bool = False
+    RELATIONS: dict = {}  # Set in TransformSettings
     COLLECTIONS: dict = {}  # Set in TransformSettings
 
     # Services
@@ -41,6 +42,11 @@ class GlobalSettings(BaseSettings):
     OTHER_RP_PATH: str = "input/other_rp"
     ORGANISATION_PATH: str = "input/organization"
     PROJECT_PATH: str = "input/project"
+
+    # - Relations
+    RES_ORG_REL_PATH: str = "input/resultOrganization"
+    RES_PROJ_REL_PATH: str = "input/resultProject"
+    ORG_PROJ_REL_PATH: str = "input/organizationProject"
 
     # - Marketplace
     MP_API_ADDRESS: AnyUrl = "https://beta.marketplace.eosc-portal.eu"
@@ -72,6 +78,16 @@ class GlobalSettings(BaseSettings):
     GUIDELINE: str = "interoperability guideline"
     TRAINING: str = "training"
 
+    # Relations properties
+    TMP_DIRECTORY: str = "tmp/"
+    DIRECTORIES_WITH_ADDITIONAL_COLUMNS: str = "DIRECTORIES_WITH_ADDITIONAL_COLUMNS"
+    SINGLE_DIRECTORIES: str = "SINGLE_DIRECTORIES"
+    DATA_DIRECTORIES: str = "DATA_DIRECTORIES"
+    RESULT_RELATION_DIRECTORIES: str = "RESULT_RELATION_DIRECTORIES"
+    ORGANISATION_PROJECT_RELATION_DIRECTORIES: str = (
+        "ORGANISATION_PROJECT_RELATION_DIRECTORIES"
+    )
+
     # Raw solr collection names
     SOLR_COLLECTION_NAMES: list[str] = [
         "all_collection",
@@ -100,6 +116,7 @@ class GlobalSettings(BaseSettings):
 
 class TransformSettings(GlobalSettings):
     """Transformation configuration"""
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -108,7 +125,35 @@ class TransformSettings(GlobalSettings):
                 "SEND_TO_SOLR or/and SEND_TO_S3 needs to be set to True. Otherwise, program will not have any effect"
             )
 
+        self.RELATIONS = self.get_relations_config()
+
         self.COLLECTIONS = self.get_collections_config()
+
+    def get_relations_config(self) -> dict:
+        """Get relations config"""
+
+        relations = {
+            self.DIRECTORIES_WITH_ADDITIONAL_COLUMNS: (self.ORGANISATION_PATH,),
+            self.SINGLE_DIRECTORIES: (
+                self.ORGANISATION_PATH,
+                self.PROJECT_PATH,
+            ),
+            self.DATA_DIRECTORIES: (
+                self.ORGANISATION_PATH,
+                self.PROJECT_PATH,
+                self.PUBLICATION_PATH,
+                self.DATASET_PATH,
+                self.SOFTWARE_PATH,
+                self.OTHER_RP_PATH,
+            ),
+            self.RESULT_RELATION_DIRECTORIES: (
+                self.RES_ORG_REL_PATH,
+                self.RES_PROJ_REL_PATH,
+            ),
+            self.ORGANISATION_PROJECT_RELATION_DIRECTORIES: (self.ORG_PROJ_REL_PATH,),
+        }
+
+        return relations
 
     def get_collections_config(self) -> dict:
         """Get collections config"""
@@ -201,8 +246,10 @@ class TransformSettings(GlobalSettings):
             self.OTHER_RP: (prefix + "all_collection", prefix + "other_rp"),
             self.DATASET: (prefix + "all_collection", prefix + "dataset"),
             self.PUBLICATION: (prefix + "all_collection", prefix + "publication"),
-            self.ORGANISATION: (prefix + "organization", ),  # Commas create tuples here for easy iteration later on
-            self.PROJECT: (prefix + "project", ),
+            self.ORGANISATION: (
+                prefix + "organization",
+            ),  # Commas create tuples here for easy iteration later on
+            self.PROJECT: (prefix + "project",),
             self.SERVICE: (prefix + "all_collection", prefix + "service"),
             self.DATASOURCE: (
                 prefix + "all_collection",
@@ -212,8 +259,8 @@ class TransformSettings(GlobalSettings):
             self.BUNDLE: (prefix + "all_collection", prefix + "bundle"),
             self.GUIDELINE: (prefix + "all_collection", prefix + "guideline"),
             self.TRAINING: (prefix + "all_collection", prefix + "training"),
-            self.PROVIDER: (prefix + "provider", ),
-            self.OFFER: (prefix + "offer", ),
+            self.PROVIDER: (prefix + "provider",),
+            self.OFFER: (prefix + "offer",),
         }
 
         return {
@@ -224,8 +271,12 @@ class TransformSettings(GlobalSettings):
 
 class ProductionSettings(TransformSettings):
     SOLR_URL: AnyUrl = "http://149.156.182.69:8983"
-    GUIDELINE_ADDRESS: AnyUrl = "https://providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
-    TRAINING_ADDRESS: AnyUrl = "https://providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
+    GUIDELINE_ADDRESS: AnyUrl = (
+        "https://providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
+    )
+    TRAINING_ADDRESS: AnyUrl = (
+        "https://providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
+    )
 
 
 class DevSettings(TransformSettings):

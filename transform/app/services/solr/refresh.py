@@ -15,7 +15,9 @@ def refresh_collection(
     solr_col_names = settings.COLLECTIONS[col_name]["SOLR_COL_NAMES"]
 
     for s_col_name in solr_col_names:
-        url = f"{settings.SOLR_URL}solr/admin/collections?action=RELOAD&name={s_col_name}"
+        url = (
+            f"{settings.SOLR_URL}solr/admin/collections?action=RELOAD&name={s_col_name}"
+        )
         try:
             req = requests.get(url, timeout=180)
 

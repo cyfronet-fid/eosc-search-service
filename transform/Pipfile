@@ -17,6 +17,7 @@ celery = {extras = ["redis"], version = "*"}
 flower = "*"
 pydantic = "*"
 pydantic-settings = "*"
+pyarrow = "*"
 
 [dev-packages]
 pytest = "*"
