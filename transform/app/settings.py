@@ -79,8 +79,8 @@ class GlobalSettings(BaseSettings):
         "other_rp",
         "dataset",
         "publication",
-        # "organisation"  # TODO
-        # "project"  # TODO
+        "organisation",
+        "project",
         "service",
         "data_source",
         "provider",
@@ -100,6 +100,7 @@ class GlobalSettings(BaseSettings):
 
 class TransformSettings(GlobalSettings):
     """Transformation configuration"""
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -201,8 +202,10 @@ class TransformSettings(GlobalSettings):
             self.OTHER_RP: (prefix + "all_collection", prefix + "other_rp"),
             self.DATASET: (prefix + "all_collection", prefix + "dataset"),
             self.PUBLICATION: (prefix + "all_collection", prefix + "publication"),
-            self.ORGANISATION: (prefix + "organization", ),  # Commas create tuples here for easy iteration later on
-            self.PROJECT: (prefix + "project", ),
+            self.ORGANISATION: (
+                prefix + "organization",
+            ),  # Commas create tuples here for easy iteration later on
+            self.PROJECT: (prefix + "project",),
             self.SERVICE: (prefix + "all_collection", prefix + "service"),
             self.DATASOURCE: (
                 prefix + "all_collection",
@@ -212,8 +215,8 @@ class TransformSettings(GlobalSettings):
             self.BUNDLE: (prefix + "all_collection", prefix + "bundle"),
             self.GUIDELINE: (prefix + "all_collection", prefix + "guideline"),
             self.TRAINING: (prefix + "all_collection", prefix + "training"),
-            self.PROVIDER: (prefix + "provider", ),
-            self.OFFER: (prefix + "offer", ),
+            self.PROVIDER: (prefix + "provider",),
+            self.OFFER: (prefix + "offer",),
         }
 
         return {
