@@ -83,7 +83,10 @@ def get_data_source_pids() -> list[str]:
         or get_data_source_pids._instance is None
     ):
         data_sources = asyncio.run(
-            get_data(settings.DATASOURCE, settings.COLLECTIONS[settings.DATASOURCE]["ADDRESS"])
+            get_data(
+                settings.DATASOURCE,
+                settings.COLLECTIONS[settings.DATASOURCE]["ADDRESS"],
+            )
         )
         get_data_source_pids._instance = [ds["pid"] for ds in data_sources]
     return get_data_source_pids._instance

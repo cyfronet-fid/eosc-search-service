@@ -18,6 +18,8 @@ async def create_solr_collections(
         ...,
         description="Config name for all_collection except for providers",
     ),
+    organisation_config: str = Query(..., description="Config name for 'organisation'"),
+    project_config: str = Query(..., description="Config name for 'project'"),
     provider_config: str = Query(..., description="Config name for 'provider'"),
     collection_prefix: str = Query(
         None,
@@ -46,6 +48,8 @@ async def create_solr_collections(
     try:
         validate_date_basic_format(date)
         validate_configset_exists(all_collection_config)
+        validate_configset_exists(organisation_config)
+        validate_configset_exists(project_config)
         validate_configset_exists(provider_config)
         validate_collections(collection_names, check_existence=True)
 
@@ -57,6 +61,8 @@ async def create_solr_collections(
 
     task = create_solr_collections_task.delay(
         all_collection_config,
+        organisation_config,
+        project_config,
         provider_config,
         collection_names,
         num_shards,

@@ -34,9 +34,7 @@ def transform_batch(type_: str, data: dict | list[dict], full_update=True) -> No
     else:  # Pyspark
         spark, _ = apply_spark_conf()
         input_schema = settings.COLLECTIONS[type_]["INPUT_SCHEMA"]
-        df = load_request_data(
-            spark, data, input_schema, type_
-        )
+        df = load_request_data(spark, data, input_schema, type_)
         df_trans = transformer(spark)(df)
 
     # df -> json
