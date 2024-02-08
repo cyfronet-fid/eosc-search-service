@@ -41,28 +41,29 @@
   <div style="display: flex">
     <div
       style="display: flex"
-      *ngIf="type.value === 'provider'; else defaultTypeValueTemplate"
+      *ngIf="isSpecialCollection; else defaultTypeValueTemplate"
     >
       <div style="display: flex; flex-direction: column">
         <ess-url-title
-          [ngClass]="{ padding_for_provider: type.value === 'provider' }"
+          [ngClass]="{ padding_for_provider: this.isSpecialCollection }"
           [title]="title"
           [highlight]="highlightsreal['title'] ?? []"
-          [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
+          [url]="redirectUrl"
         >
         </ess-url-title>
         <ess-url-title
-          *ngIf="type.value === 'provider'"
-          [ngClass]="{ sub_title: type.value === 'provider' }"
+          [ngClass]="{ sub_title: this.isSpecialCollection }"
           [title]="abbreviation"
           [highlight]="highlightsreal['abbreviation'] ?? []"
-          [url]="redirectService.internalUrl(validUrl, id, type.value, '')"
+          [url]="redirectUrl"
           style="margin-bottom: -10px"
         >
         </ess-url-title>
       </div>
     </div>
+   <div>
 
+   </div>
     <ng-template #defaultTypeValueTemplate>
       <div style="display: flex; flex-direction: column">
         <ess-url-title
@@ -79,6 +80,13 @@
     <div class="product-type-details" *ngIf="type !== undefined">
       {{ _createDocumentTypeLabel(type.label, documentType) }}
     </div>
+    <div class="product-type-details"  *ngIf="type.value === 'project' && this.duration">
+      {{ duration }}
+    </div>
+     <div class="product-type-details"  *ngIf="type.value === 'project'">
+      Project Code:  {{ code }}
+    </div>
+
     <img
       *ngIf="accessRight !== undefined"
       [src]="_getAccessIcon(accessRight!)"
@@ -141,6 +149,9 @@
       </ng-template>
     </ng-container>
   </div>
+
+  <div *ngIf="this.type.value === 'organisation' || 'project'" style="border-bottom: 1px dotted #d9dee2;" class="mb-3"></div>
+
   <div *ngIf="type.value !== 'bundle'; else bundleBlock">
     <ess-tags
       [tags]="tags"
@@ -149,12 +160,39 @@
       [providerName]="providerName"
     >
     </ess-tags>
-    <div style="border-bottom: 1px dotted #d9dee2; padding: 3px 0"></div>
+    <ess-organisation-result
+      *ngIf="this.type.value === 'organisation'"
+      [id]="this.id"
+      [title]="this.title"
+      [country]="this.country ?? ''"
+      [website]="this.website ?? ''"
+      [relatedPublicationNumber]="this.relatedPublicationNumber"
+      [relatedSoftwareNumber]="this.relatedSoftwareNumber"
+      [relatedDatasetNumber]="this.relatedDatasetNumber"
+      [relatedOtherNumber]="this.relatedOtherNumber"
+      [relatedProjectNumber]="this.relatedProjectNumber"
+    >
+    </ess-organisation-result>
+
+    <div *ngIf="this.type.value !== 'organisation'" style="border-bottom: 1px dotted #d9dee2; margin: 12px 0;"></div>
+
+    <ess-project-result
+    *ngIf="this.type.value === 'project'"
+    [id]="this.id"
+    [fundedUnder]="this.fundedUnder ?? ''"
+    [currency]="this.currency?? ''"
+    [cost]="this.cost ?? 0"
+    [startDate]="this.startDate ?? ''"
+    [endDate]="this.endDate ?? ''"
+    >
+    </ess-project-result>
 
     <ess-description
+    *ngIf="this.type.value !== 'organisation' && this.description"
       [description]="description"
       [highlights]="highlightsreal['description'] ?? []"
     ></ess-description>
+
     <ess-ig-services-card
       *ngIf="type.value === 'guideline'"
       [relatedServices]="relatedServices"
@@ -166,7 +204,8 @@
       [description]="description"
       [highlights]="highlightsreal['description'] ?? []"
     ></ess-description>
-    <div style="border-bottom: 1px dotted #d9dee2; padding: 3px 0"></div>
+
+    <div style="border-bottom: 1px dotted #d9dee2;"></div>
 
     <ess-tags
       [tags]="tags"
@@ -175,7 +214,6 @@
     >
     </ess-tags>
   </ng-template>
-
   <ess-secondary-tags
     *ngIf="type.value !== 'bundle'"
     [highlights]="highlightsreal"
@@ -183,6 +221,7 @@
     (activeFilter)="setActiveFilter($event.filter, $event.value)"
   >
   </ess-secondary-tags>
+ 
   <div>
     <div>
       <div class="bundle-box" *ngIf="type.value === 'bundle'">
@@ -254,8 +293,12 @@
       [url]="redirectOrderUrl"
       style="float: left"
     ></ess-pin-static>
-  </div>
-  <div *ngIf="type.value === 'provider'">
-    <ess-providers-resources [title]="title"></ess-providers-resources>
+    <div *ngIf="collection === 'provider' || collection === 'organisation'">
+      <ess-relatd-resources
+        [title]="title"
+        [collection]="collection"
+      ></ess-relatd-resources>
+    </div>
+
   </div>
 </div>

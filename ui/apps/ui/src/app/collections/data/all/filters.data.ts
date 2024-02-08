@@ -6,13 +6,21 @@ import {
 } from '@collections/data/config';
 import {
   alphanumericFilterSort,
+  transformBoolean,
   transformCatalogueNames,
-  transformHorizontal,
 } from '@collections/data/utils';
 
 export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
+    {
+      id: 'related_organisation_titles',
+      filter: 'related_organisation_titles',
+      label: 'Related organisations',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
     {
       id: 'unified_categories',
       filter: 'unified_categories',
@@ -20,6 +28,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'best_access_right',
@@ -28,6 +37,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'type',
@@ -36,6 +46,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
 
     {
@@ -45,7 +56,16 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
+    // {
+    //   id: 'related_organisation_titles',
+    //   filter: 'related_organisation_titles',
+    //   label: 'Related organisations',
+    //   type: 'multiselect',
+    //   defaultCollapsed: false,
+    //   tooltipText: '',
+    // },
     {
       id: 'eosc_if',
       filter: 'eosc_if',
@@ -53,6 +73,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+      expandArrow: true,
     },
     {
       id: 'language',
@@ -62,6 +83,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       defaultCollapsed: true,
       tooltipText: '',
       customSort: alphanumericFilterSort,
+      expandArrow: true,
     },
     {
       id: 'horizontal',
@@ -70,7 +92,8 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: HORIZONTAL_TOOLTIP_TEXT,
-      transformNodes: transformHorizontal,
+      transformNodes: transformBoolean,
+      expandArrow: true,
     },
     {
       id: 'author_names',

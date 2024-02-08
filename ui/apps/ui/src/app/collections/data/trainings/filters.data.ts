@@ -15,6 +15,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'best_access_right',
@@ -23,6 +24,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'scientific_domains',
@@ -31,6 +33,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'resource_type',
@@ -39,6 +42,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'content_type',
@@ -47,6 +51,16 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
+    },
+    {
+      id: 'target_group',
+      filter: 'target_group',
+      label: 'Target group',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'target_group',
@@ -64,6 +78,7 @@ export const trainingsFilters: IFiltersConfig = {
       defaultCollapsed: false,
       tooltipText: '',
       customSort: alphanumericFilterSort,
+      expandArrow: true,
     },
     {
       id: 'resource_organisation',
@@ -72,6 +87,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'publication_date',
@@ -80,6 +96,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'date-calendar',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'duration',
@@ -88,8 +105,8 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'range',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
-
     {
       id: 'level_of_expertise',
       filter: 'level_of_expertise',
@@ -97,6 +114,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
 
     {
@@ -106,6 +124,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
 
     {
@@ -115,6 +134,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'qualification',
@@ -123,6 +143,7 @@ export const trainingsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'author_names',

@@ -21,6 +21,8 @@ import {
   dateRangeType,
 } from '@collections/filters-serializers/date.deserializer';
 import { RangeDeserializer } from '@collections/filters-serializers/range.deserializer';
+import { DateRangeDeserializer } from './year-range.deserializer';
+import { DateRangeSerializer } from './year-range.serializer';
 
 export const serializeAll = (
   fqs: string[],
@@ -76,7 +78,6 @@ export const deserializeAll = (
       fqs.push(...toArray(deserializedFilter));
     }
   }
-
   return fqs;
 };
 
@@ -105,7 +106,13 @@ export const deserialize = (
         .filter(filter)
         .values(values as [number, number] | string)
         .deserialize();
+    case 'date-range':
+      return new DateRangeDeserializer()
+        .filter(filter)
+        .values(values as [number, number] | string)
+        .deserialize();
     case 'date-year':
+    case 'date-start-end':
     case 'date-calendar':
       return new DateDeserializer()
         .filter(filter)
@@ -117,6 +124,8 @@ export const deserialize = (
         .values(values as string[])
         .deserialize();
     case 'dropdown':
+    case 'checkbox-resource-type':
+    case 'checkbox-status':
       return new MultiselectDeserializer()
         .filter(filter)
         .values(values as string[])
@@ -148,12 +157,17 @@ export const serialize = (
     case 'select':
     case 'range':
       return new RangeSerializer(fq);
+    case 'date-range':
+      return new DateRangeSerializer(fq);
     case 'date-year':
+    case 'date-start-end':
     case 'date-calendar':
       return new DateSerializer(fq);
     case 'multiselect':
       return new MultiselectSerializer(fq);
     case 'dropdown':
+    case 'checkbox-resource-type':
+    case 'checkbox-status':
       return new MultiselectSerializer(fq);
     default:
       throw Error(`Filter serializer isn't defined for: ${filterConfig.type}!`);

@@ -21,6 +21,7 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'best_access_right',
@@ -29,6 +30,7 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'document_type',
@@ -37,6 +39,7 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'scientific_domains',
@@ -45,6 +48,7 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'eosc_if',
@@ -53,6 +57,16 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+      expandArrow: true,
+    },
+    {
+      id: 'publication_date',
+      filter: 'publication_date',
+      label: 'Year range',
+      type: 'date-year',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'publication_date',
@@ -70,6 +84,7 @@ export const softwareFilters: IFiltersConfig = {
       defaultCollapsed: true,
       tooltipText: '',
       transformNodes: transformCountryNames,
+      expandArrow: true,
     },
     {
       id: 'language',
@@ -79,6 +94,7 @@ export const softwareFilters: IFiltersConfig = {
       defaultCollapsed: true,
       tooltipText: '',
       customSort: alphanumericFilterSort,
+      expandArrow: true,
     },
     {
       id: 'publisher',
@@ -87,6 +103,7 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'research_community',
@@ -95,6 +112,7 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'funder',
@@ -103,6 +121,7 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'sdg',
@@ -111,6 +130,7 @@ export const softwareFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: SDG_TOOLTIP_TEXT,
+      expandArrow: true,
     },
     {
       id: 'author_names',

@@ -11,6 +11,11 @@ import {
 } from '@ngneat/elf-entities';
 import { ICollectionNavConfig } from './types';
 import { DEFAULT_COLLECTION_ID, NAV_CONFIGS } from '../data';
+import {
+  BETA_ONLY_COLLECTIONS,
+  SPECIAL_COLLECTIONS,
+} from '@collections/data/config';
+import { ConfigService } from '../../services/config.service';
 
 @Injectable({ providedIn: 'root' })
 export class NavConfigsRepository {
@@ -33,7 +38,20 @@ export class NavConfigsRepository {
   }
 
   getAll() {
-    return this._store$.query(getAllEntities());
+    const allCollections = this._store$.query(getAllEntities());
+    if (!ConfigService.config.show_beta_collections) {
+      return allCollections.filter(
+        (collection) => !BETA_ONLY_COLLECTIONS.includes(collection.id)
+      );
+    }
+    return allCollections;
+  }
+
+  getResourcesCollections() {
+    const allCollections = this._store$.query(getAllEntities());
+    return allCollections.filter(
+      (collection) => !SPECIAL_COLLECTIONS.includes(collection.id)
+    );
   }
 
   setActive(navConf: Partial<ICollectionNavConfig> & { id: string }) {

@@ -7,8 +7,8 @@ import {
 } from '@collections/data/config';
 import {
   alphanumericFilterSort,
+  transformBoolean,
   transformCatalogueNames,
-  transformHorizontal,
 } from '@collections/data/utils';
 
 export const dataSourcesFilters: IFiltersConfig = {
@@ -21,6 +21,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'best_access_right',
@@ -29,6 +30,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'scientific_domains',
@@ -37,6 +39,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'dedicated_for',
@@ -45,6 +48,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'categories',
@@ -53,6 +57,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'providers',
@@ -61,6 +66,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'resource_organisation',
@@ -69,6 +75,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'eosc_if',
@@ -77,6 +84,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+      expandArrow: true,
     },
     {
       id: 'guidelines',
@@ -85,6 +93,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
 
     {
@@ -95,6 +104,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       defaultCollapsed: true,
       tooltipText: '',
       customSort: alphanumericFilterSort,
+      expandArrow: true,
     },
 
     {
@@ -104,6 +114,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'rating',
@@ -112,6 +123,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'geographical_availabilities',
@@ -120,6 +132,7 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'horizontal',
@@ -128,7 +141,8 @@ export const dataSourcesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: HORIZONTAL_TOOLTIP_TEXT,
-      transformNodes: transformHorizontal,
+      transformNodes: transformBoolean,
+      expandArrow: true,
     },
     {
       id: 'eosc_if',

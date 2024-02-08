@@ -1,0 +1,43 @@
+<div id="organisations-tags">
+
+  <div *ngIf="website" class="tag-row">
+    <div class="tag tag-title">Website:</div>
+    <div class="tag-content"><a href="{{ website  }}">{{ website  }}</a></div>
+  </div>
+
+  <!-- <div *ngIf="relatedProjectNumber"> Projects / Fundings: {{ relatedProjectNumber }} entities</div> -->
+
+  <div *ngIf="relatedProjectNumber" class="tag-row">
+
+    <div class="tag tag-title">Projects / Fundings: </div>
+    <div class="tag-content">
+        <a (click)="getRedirectUrl('project')" class="d-flex">
+          <span class="show-projects-icon"></span>
+          <span class="show-resources-text small">{{ relatedProjectNumber }} entities</span>
+        </a>
+    </div>
+  </div>
+
+  <div *ngIf="hasResources" class="tag-row">
+    <div class="tag tag-title">Resources:</div>
+    <div class="tag-content d-flex">
+        <a *ngIf="relatedPublicationNumber"  style="display: flex;" (click)="getRedirectUrl('publication')" class="resources-publication">
+          <span class="show-resources-icon"></span>
+          <span class="show-resources-text small">Publications ({{ relatedPublicationNumber }})</span>
+        </a>
+        <a *ngIf="relatedSoftwareNumber"  style="display: flex;" (click)="getRedirectUrl('software')" class="resources-software">
+          <span class="show-resources-icon"></span>
+          <span class="show-resources-text small">Software ({{ relatedSoftwareNumber }})</span>
+        </a>
+        <a *ngIf="relatedDatasetNumber"  style="display: flex;" (click)="getRedirectUrl('dataset')" class="resources-data">
+          <span class="show-resources-icon"></span>
+          <span class="show-resources-text small">Data ({{ relatedDatasetNumber }})</span>
+        </a>
+        <a *ngIf="relatedOtherNumber"  style="display: flex;" (click)="getRedirectUrl('other')" class="resources-other">
+          <span class="show-resources-icon"></span>
+          <span class="show-resources-text small">Other research products ({{ relatedOtherNumber }})</span>
+        </a>
+    </div>
+  </div>
+
+</div>

@@ -50,7 +50,9 @@ export class RecommendationsComponent implements OnInit {
             panelId === 'guideline' ||
             panelId === 'provider' ||
             panelId === 'bundle' ||
-            panelId === 'data_source'
+            panelId === 'data_source' ||
+            panelId === 'organisation' ||
+            panelId === 'project'
           ) {
             return of([]);
           }

@@ -18,6 +18,7 @@ import {
   constructAdvancedSearchMetadata,
   constructStandardSearchMetadata,
 } from '@pages/search-page/utils';
+import { SPECIAL_COLLECTIONS } from '@collections/data/config';
 
 @UntilDestroy()
 @Component({
@@ -76,7 +77,7 @@ export class SearchPageComponent implements OnInit {
   public showCollections = false;
   response: ISearchResults<IResult> | null = null;
   public clearAll = false;
-  isProviderCollection = false;
+  isSpecialCollection = false;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -90,7 +91,7 @@ export class SearchPageComponent implements OnInit {
 
   ngOnInit() {
     this._customRoute.collection$.subscribe((val) => {
-      this.isProviderCollection = val === 'provider';
+      this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(val);
     });
 
     combineLatest([

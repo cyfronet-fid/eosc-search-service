@@ -18,6 +18,7 @@ import { FilterDateUtils } from '@components/filters/filter-date/date-utils';
         [isExpanded]="isExpanded"
         [tooltipText]="tooltipText"
         (isExpandedChanged)="isExpandedChanged($event)"
+        [expandArrow]="expandArrow"
       ></ess-filter-label>
 
       <div *ngIf="isExpanded">
@@ -50,6 +51,9 @@ export class FilterDateYearComponent implements OnInit {
 
   @Input()
   isExpanded!: boolean;
+
+  @Input()
+  expandArrow: boolean | undefined;
 
   @Input()
   tooltipText!: string;

@@ -39,6 +39,7 @@ const DEFAULT_RESULTS_SIZE = 10;
         [showClearButton]="anyActive"
         [tooltipText]="tooltipText"
         (isExpandedChanged)="isExpandedChanged($event)"
+        [expandArrow]="expandArrow"
       ></ess-filter-label>
 
       <input
@@ -133,6 +134,9 @@ export class FilterMultiselectComponent implements OnInit, OnChanges {
 
   @Input()
   options: IFilterNode[] = [];
+
+  @Input()
+  expandArrow: boolean | undefined;
 
   @Input()
   isLoading = false;

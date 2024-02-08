@@ -7,7 +7,7 @@ from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from httpx import AsyncClient
 from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 
-from app.consts import DEFAULT_SORT
+from app.consts import DEFAULT_SORT, Collection
 from app.schemas.search_request import SearchRequest, StatFacet, TermsFacet
 from app.solr.operations import search_dep
 from app.utils.http_client import make_async_http_client
@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 # pylint: disable=too-many-arguments,too-many-locals
 @router.post("/search-filters", name="web:post-search-filters")
 async def search_filters(
-    collection: str = Query(..., description="Collection"),
+    collection: Collection = Query(..., description="Collection"),
     q: str = Query(..., description="Free-form query string"),
     qf: str = Query(..., description="Query fields"),
     fq: list[str] = Query(
@@ -43,9 +43,14 @@ async def search_filters(
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
     """
     results = {}
-
     if request.facets is None:
         raise HTTPException(status_code=500)
+    if collection == Collection.PROJECT:
+        request.facets = parse_project_facets(request.facets)
+
+    if collection == Collection.ORGANISATION:
+        request.facets = parse_organisation_facets(request.facets)
+
     client = make_async_http_client()
     coroutines = [
         _search(collection, q, qf, fq, rows, cursor, key, value, exact, search, client)
@@ -68,7 +73,7 @@ async def search_filters(
 
 
 async def _search(
-    collection: str,
+    collection: Collection,
     q: str,
     qf: str,
     fq: list[str],
@@ -110,3 +115,19 @@ def create_output(res_json: dict) -> dict:
                 for bucket in buckets["buckets"]
             ]
     return out
+
+
+def parse_project_facets(facets):
+    """
+    Function removing 'status' facet.
+    """
+    facets.pop("project_status", None)
+    return facets
+
+
+def parse_organisation_facets(facets):
+    """
+    Function removing 'status' facet.
+    """
+    facets.pop("related_resources", None)
+    return facets

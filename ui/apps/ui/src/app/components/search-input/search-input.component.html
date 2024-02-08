@@ -2,7 +2,7 @@
   <div
     *ngIf="standardSearch"
     class="search-box"
-    [ngClass]="{ providers: isProviderCollection }"
+    [ngClass]="{ providers: isSpecialCollection }"
   >
     <form>
       <div class="input-group" style="padding-bottom: 10px">
@@ -34,14 +34,14 @@
           </button>
         </div>
         <select
-          *ngIf="!this.isProviderCollection"
+          *ngIf="!this.isSpecialCollection"
           class="form-select"
           (click)="focused = false"
           [formControl]="collectionFc"
         >
           <option
             *ngFor="let navConfig of searchCollections"
-            [ngValue]="navConfig"
+            [ngValue]="navConfig" 
           >
             {{ navConfig.title }}
           </option>
@@ -78,25 +78,27 @@
           </span>
         </div>
       </div>
+     <div *ngIf="!isOrganisationCollection && !isProjectCollection"> 
       <span
-        *ngIf="!isLanding()"
-        class="adv-search-text-btn"
-        (click)="standardSearch = false"
-        >Show Advanced Search -></span
+      *ngIf="!isLanding()"
+      class="adv-search-text-btn"
+      (click)="standardSearch = false"
+      >Show Advanced Search -></span
+    >
+    <span
+      *ngIf="!isLanding()"
+      class="adv-search-text-btn"
+      style="margin-left: 25px"
+    >
+      <img
+        src="assets/asguide/asguide-icon.svg"
+        style="padding-bottom: 4px; padding-right: 5px"
+      />
+      <a routerLink="/asguide" target="_blank" style="color: white"
+        >Advanced Search Guide</a
       >
-      <span
-        *ngIf="!isLanding()"
-        class="adv-search-text-btn"
-        style="margin-left: 25px"
-      >
-        <img
-          src="assets/asguide/asguide-icon.svg"
-          style="padding-bottom: 4px; padding-right: 5px"
-        />
-        <a routerLink="/asguide" target="_blank" style="color: white"
-          >Advanced Search Guide</a
-        >
-      </span>
+    </span>
+     </div>
     </form>
 
     <div
@@ -131,12 +133,12 @@
   <div
     *ngIf="!standardSearch"
     class="search-box-adv"
-    [ngClass]="{ providers: isProviderCollection }"
+    [ngClass]="{ providers: isSpecialCollection }"
   >
     <form>
       <div class="input-group" style="margin-bottom: 5px">
         <select
-          *ngIf="!this.isProviderCollection"
+          *ngIf="!this.isSpecialCollection"
           class="form-select"
           style="margin-left: 0px"
           (click)="focused = false"

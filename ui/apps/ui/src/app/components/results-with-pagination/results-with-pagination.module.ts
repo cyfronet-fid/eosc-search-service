@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ResultsWithPaginationComponent } from './results-with-pagination.component';
 import { PaginationComponent } from './pagination.component';
 import { ResultComponent } from './result.component';
+import { OrganisationResultComponent } from './organisation-result.component';
+import { ProjectResultComponent } from './project-result.component';
 import { RouterModule } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
@@ -18,7 +20,7 @@ import { PinComponent } from '@components/results-with-pagination/result-ui-cont
 import { PinStaticComponent } from '@components/results-with-pagination/result-ui-controls/pin-static.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { SourcesComponent } from './result-ui-controls/sources.component';
-import { ShowProviderResourceComponent } from './result-ui-controls/show-provider-resources';
+import { ShowRelatedResourceComponent } from './result-ui-controls/show-related-resources';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { ShareModule } from '../../layouts/share/share.module';
@@ -30,8 +32,10 @@ import { IgServicesCardModule } from '../../layouts/ig-services-card/ig-services
     ResultsWithPaginationComponent,
     PaginationComponent,
     ResultComponent,
+    OrganisationResultComponent,
+    ProjectResultComponent,
     PinComponent,
-    ShowProviderResourceComponent,
+    ShowRelatedResourceComponent,
     PinStaticComponent,
     SourcesComponent,
   ],

@@ -48,3 +48,20 @@ class ExportData(BaseModel):
         for part in split_key[1:]:
             camel_key += part.capitalize()
         return camel_key
+
+
+class OrganisationResponse(BaseModel):
+    """Model for a single organisation object"""
+
+    id: str
+    country: str
+    title: str
+    abbreviation: str
+    type: str
+    url: str
+    alternative_names: list[str]
+    related_publication_number: Optional[int]
+    related_dataset_number: Optional[int]
+    related_other_number: Optional[int]
+    related_project_number: Optional[int]
+    related_software_number: Optional[int]

@@ -65,6 +65,7 @@ class GlobalSettings(BaseSettings):
     IS_SORT_BY_RELEVANCE: bool = True
     MAX_RESULTS_BY_PAGE: int = 50
     MAX_ITEMS_SORT_RELEVANCE: int = 250
+    SHOW_BETA_COLLECTIONS: bool = True
 
     COLLECTIONS_PREFIX: str = ""
 

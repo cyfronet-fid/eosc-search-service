@@ -14,13 +14,14 @@ from starlette.responses import StreamingResponse
 
 from app.consts import (
     DEFAULT_SORT,
+    DEFAULT_SPECIAL_COL_SORT,
     RP_AND_ALL_COLLECTIONS_LIST,
     SORT_UI_TO_SORT_MAP,
     SortUi,
 )
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.search_request import SearchRequest
-from app.schemas.solr_response import Collection, ExportData
+from app.schemas.solr_response import Collection, ExportData, OrganisationResponse
 from app.settings import settings
 from app.solr.error_handling import SolrDocumentNotFoundError
 from app.solr.operations import get, search_advanced_dep, search_dep
@@ -204,7 +205,7 @@ async def _parse_export_data(instance):
     return instance.serialize_to_camel_case()
 
 
-async def parse_single_document(doc) -> list:
+async def parse_single_export(doc) -> list:
     """Parse single document"""
     data = []
     with suppress(TypeError):
@@ -212,8 +213,51 @@ async def parse_single_document(doc) -> list:
             instance_export_data = await _parse_export_data(instance)
             if instance:
                 data.append(instance_export_data)
-    doc["exportation"] = data
-    return doc
+    return data
+
+
+async def parse_single_organisation(doc) -> dict:
+    """Creates an output for a single document"""
+    return OrganisationResponse(
+        id=doc["id"],
+        title=doc.get("title", ""),
+        abbreviation=doc.get("abbreviation", ""),
+        country=doc.get("country", [""])[0],
+        url=doc.get("url", ""),
+        type=doc["type"],
+        alternative_names=doc.get("alternative_names", [""]),
+        related_publication_number=len(doc.get("related_publication_ids", [])),
+        related_software_number=len(doc.get("related_software_ids", [])),
+        related_dataset_number=len(doc.get("related_dataset_ids", [])),
+        related_other_number=len(doc.get("related_other_ids", [])),
+        related_project_number=len(doc.get("related_project_ids", [])),
+    ).dict()
+
+
+async def create_parsed_docs_for_export_data(docs):
+    """Injects exportation data into response"""
+    parsed_docs = []
+    for doc in docs:
+        if doc.get("exportation"):
+            doc["exportation"] = await parse_single_export(doc)
+        parsed_docs.append(doc)
+    return parsed_docs
+
+
+async def create_parsed_docs_for_organisation(docs):
+    """Creates an output for docs for organisations"""
+    parsed_docs = []
+    for doc in docs:
+        try:
+            new_doc = await parse_single_organisation(doc)
+        except (ValueError, KeyError) as err:
+            doc_id = doc.get("id", "Unknown")
+            logger.exception(
+                "Organisation %s is not conform to the schema: %s.", doc_id, err
+            )
+        else:
+            parsed_docs.append(new_doc)
+    return parsed_docs
 
 
 async def create_output(
@@ -223,13 +267,9 @@ async def create_output(
     docs = res_json["response"]["docs"]
 
     if docs and collection in RP_AND_ALL_COLLECTIONS_LIST:
-        parsed_docs = []
-        for doc in docs:
-            if doc.get("exportation"):
-                parsed_docs.append(await parse_single_document(doc))
-            else:
-                parsed_docs.append(doc)
-        docs = parsed_docs
+        docs = await create_parsed_docs_for_export_data(docs)
+    elif docs and collection == Collection.ORGANISATION:
+        docs = await create_parsed_docs_for_organisation(docs)
     out = {
         "numFound": res_json["response"]["numFound"],
         "nextCursorMark": res_json["nextCursorMark"],
@@ -328,12 +368,14 @@ async def define_sorting(
             return ["publication_year desc"] + DEFAULT_SORT
         if sort_ui == "dlr":
             return ["publication_year asc"] + DEFAULT_SORT
-
+    default_sort = (
+        DEFAULT_SPECIAL_COL_SORT if collection == Collection.PROJECT else DEFAULT_SORT
+    )
     additional_sorts = SORT_UI_TO_SORT_MAP.get(sort_ui)
     final_sorting = (
-        sort + DEFAULT_SORT
+        sort + default_sort
         if additional_sorts is None
-        else additional_sorts + DEFAULT_SORT
+        else additional_sorts + default_sort
     )
 
     # TODO: This is a workaround. Remove once bundles have been fixed.

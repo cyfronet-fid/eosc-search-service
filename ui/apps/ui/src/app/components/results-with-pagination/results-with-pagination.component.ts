@@ -15,6 +15,7 @@ import { IResult, ISearchResults } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { paramType } from '@collections/services/custom-route.type';
 import { Router } from '@angular/router';
+import { SPECIAL_COLLECTIONS } from '@collections/data/config';
 
 @UntilDestroy()
 @Component({
@@ -30,6 +31,7 @@ export class ResultsWithPaginationComponent implements OnInit {
   } = {};
   isError = false;
   marketplaceUrl = '';
+  public specialCollections = SPECIAL_COLLECTIONS;
 
   @Input()
   set response(response: ISearchResults<IResult> | null) {

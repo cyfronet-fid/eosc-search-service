@@ -12,6 +12,7 @@ export const providersFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'areas_of_activity',
@@ -20,6 +21,16 @@ export const providersFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
+    },
+    {
+      id: 'legal_status',
+      filter: 'legal_status',
+      label: 'Legal status',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'legal_status',
@@ -37,6 +48,7 @@ export const providersFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'tag_list',

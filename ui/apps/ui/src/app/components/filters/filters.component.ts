@@ -32,13 +32,56 @@ import { selectEntities } from '@ngneat/elf-entities';
               [isExpanded]="!filterConfig.defaultCollapsed"
               [tooltipText]="filterConfig.tooltipText"
               [options]="filterConfig.options"
+              [expandArrow]="filterConfig.expandArrow"
             ></ess-filter-multiselect>
+
+            <ess-filter-checkbox-resource-type
+              *ngSwitchCase="'checkbox-resource-type'"
+              [label]="filterConfig.label"
+              [filter]="filterConfig.filter"
+              [tooltipText]="filterConfig.tooltipText"
+              [isExpanded]="!filterConfig.defaultCollapsed"
+              [expandArrow]="filterConfig.expandArrow"
+            >
+            </ess-filter-checkbox-resource-type>
+
+            <ess-filter-checkbox-status
+              *ngSwitchCase="'checkbox-status'"
+              [label]="filterConfig.label"
+              [filter]="filterConfig.filter"
+              [tooltipText]="filterConfig.tooltipText"
+              [isExpanded]="!filterConfig.defaultCollapsed"
+              [expandArrow]="filterConfig.expandArrow"
+            >
+            </ess-filter-checkbox-status>
+
+            <ess-filter-date-start-end
+              *ngSwitchCase="'date-start-end'"
+              [label]="filterConfig.label"
+              [filter]="filterConfig.filter"
+              [tooltipText]="filterConfig.tooltipText"
+              [isExpanded]="!filterConfig.defaultCollapsed"
+              [expandArrow]="filterConfig.expandArrow"
+            >
+            </ess-filter-date-start-end>
+
+            <ess-filter-date-range
+              *ngSwitchCase="'date-range'"
+              [label]="filterConfig.label"
+              [filter]="filterConfig.filter"
+              [tooltipText]="filterConfig.tooltipText"
+              [isExpanded]="!filterConfig.defaultCollapsed"
+              [expandArrow]="filterConfig.expandArrow"
+            >
+            </ess-filter-date-range>
+
             <ess-filter-date-year
               *ngSwitchCase="'date-year'"
               [label]="filterConfig.label"
               [filter]="filterConfig.filter"
               [tooltipText]="filterConfig.tooltipText"
               [isExpanded]="!filterConfig.defaultCollapsed"
+              [expandArrow]="filterConfig.expandArrow"
             >
             </ess-filter-date-year>
             <ess-filter-date-calendar
@@ -47,6 +90,7 @@ import { selectEntities } from '@ngneat/elf-entities';
               [filter]="filterConfig.filter"
               [tooltipText]="filterConfig.tooltipText"
               [isExpanded]="!filterConfig.defaultCollapsed"
+              [expandArrow]="filterConfig.expandArrow"
             >
             </ess-filter-date-calendar>
           </ng-container>
@@ -57,6 +101,7 @@ import { selectEntities } from '@ngneat/elf-entities';
               [filter]="filterConfig.filter"
               [tooltipText]="filterConfig.tooltipText"
               [isExpanded]="!filterConfig.defaultCollapsed"
+              [expandArrow]="filterConfig.expandArrow"
             ></ess-filter-range>
           </ng-container>
         </ng-container>
