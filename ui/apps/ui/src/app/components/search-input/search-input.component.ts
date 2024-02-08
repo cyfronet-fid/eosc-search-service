@@ -73,10 +73,12 @@ export class SearchInputComponent implements OnInit {
     { name: 'Exact' },
     { name: 'In title' },
     { name: 'Keyword' },
+    { name: 'DOI' },
     { name: 'None of' },
   ];
   isSpecialCollection = false;
   isAdvancedSearchOff = false;
+  isDOISelected = false;
 
   faMagnifyingGlass = faMagnifyingGlass;
   formControl = new UntypedFormControl();
@@ -96,27 +98,34 @@ export class SearchInputComponent implements OnInit {
   );
 
   withKeyword(): boolean {
-    if (
+    return !(
       this.collectionFc.value.id === 'guideline' ||
       this.collectionFc.value.id === 'bundle' ||
       this.collectionFc.value.id === 'provider'
-    ) {
-      return false;
-    }
-    return true;
+    );
   }
 
   withAuthor(): boolean {
-    if (
+    return !(
       this.collectionFc.value.id === 'data_source' ||
       this.collectionFc.value.id === 'service' ||
       this.collectionFc.value.id === 'guideline' ||
       this.collectionFc.value.id === 'bundle' ||
       this.collectionFc.value.id === 'provider'
-    ) {
-      return false;
-    }
-    return true;
+    );
+  }
+
+  withDOI(): boolean {
+    // Don't show DOI operator in the same cols as author, + not in trainings
+    return this.withAuthor() && this.collectionFc.value.id !== 'training';
+  }
+
+  shouldDisplayOption(navConfig: { name: string }): boolean {
+    return !(
+      (navConfig.name === 'Keyword' && !this.withKeyword()) ||
+      (navConfig.name === 'Author' && !this.withAuthor()) ||
+      (navConfig.name === 'DOI' && !this.withDOI())
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -344,13 +353,8 @@ export class SearchInputComponent implements OnInit {
         this.setCollection(this.formControl.value, navConfig)
       );
 
-    if (!this.withAuthor()) {
-      if (
-        this.collectionFcAdvForm.value.name === 'Author' ||
-        this.isSpecialCollection
-      ) {
-        this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
-      }
+    if (this.isSpecialCollection) {
+      this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
     } else {
       this.collectionFcAdvForm.reset();
     }
@@ -359,6 +363,10 @@ export class SearchInputComponent implements OnInit {
   onCheckboxChange() {
     this.exactmatch = !this.exactmatch;
     this.updateQueryParamsAdv(this.formControl.value || '*');
+  }
+
+  onDropdownChange() {
+    this.isDOISelected = this.collectionFcAdvForm.value.name === 'DOI';
   }
 
   onValueChange() {
@@ -442,20 +450,10 @@ export class SearchInputComponent implements OnInit {
     if (!this.navigateOnCollectionChange) {
       return;
     }
-    if (!this.withKeyword()) {
-      if (this.collectionFcAdvForm.value.name === 'Keyword') {
-        this.collectionFcAdvForm.reset();
-      }
-    }
-
-    if (!this.withAuthor()) {
-      if (
-        this.collectionFcAdvForm.value.name === 'Author' ||
-        this.isSpecialCollection
-      ) {
-        this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
-      }
-    } else {
+    if (
+      this.collectionFcAdvForm.value.name === 'Keyword' &&
+      !this.withKeyword()
+    ) {
       this.collectionFcAdvForm.reset();
     }
 

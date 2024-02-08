@@ -1,4 +1,5 @@
 import isArray from 'lodash-es/isArray';
+import { countDois } from '@pages/search-page/utils';
 
 export const queryParamsMapFrom = (currentUrl: string) => {
   const queryParams = currentUrl.split('?')[1];
@@ -60,6 +61,7 @@ export function getFiltersFromTags(
   const exacts: number[] = [];
   const titles: number[] = [];
   const keywords: number[] = [];
+  const dois: number[] = [];
   const allIndexes: number[] = [];
 
   if (Array.isArray(tags)) {
@@ -99,6 +101,8 @@ export function getFiltersFromTags(
             tag.split(':', 2)[1].trim() +
             '" OR tag_list_tg:"' +
             tag.split(':', 2)[1].trim() +
+            '" OR doi:"' +
+            tag.split(':', 2)[1].trim() +
             '"'
         );
         exacts.push(filters.length - 1);
@@ -109,6 +113,7 @@ export function getFiltersFromTags(
         filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
         filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
         filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!doi:"' + tag.split(':', 2)[1].trim() + '"');
       }
       if (tag.startsWith('in title:')) {
         filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
@@ -123,6 +128,10 @@ export function getFiltersFromTags(
             '"'
         );
         keywords.push(filters.length - 1);
+      }
+      if (tag.startsWith('doi:')) {
+        filters.push('doi:"' + tag.split(':', 2)[1].trim() + '"');
+        dois.push(filters.length - 1);
       }
       if (tag.startsWith('tagged:')) {
         filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
@@ -166,6 +175,8 @@ export function getFiltersFromTags(
           tag.split(':', 2)[1].trim() +
           '" OR tag_list_tg:"' +
           tag.split(':', 2)[1].trim() +
+          '" OR doi:"' +
+          tag.split(':', 2)[1].trim() +
           '"'
       );
       exacts.push(filters.length - 1);
@@ -176,10 +187,15 @@ export function getFiltersFromTags(
       filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
       filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
       filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      filters.push('!doi:"' + tag.split(':', 2)[1].trim() + '"');
     }
     if (tag.startsWith('in title:')) {
       filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
       titles.push(filters.length - 1);
+    }
+    if (tag.startsWith('doi:')) {
+      filters.push('doi:"' + tag.split(':', 2)[1].trim() + '"');
+      dois.push(filters.length - 1);
     }
     if (tag.startsWith('keyword:')) {
       filters.push(
@@ -195,6 +211,17 @@ export function getFiltersFromTags(
       filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
       keywords.push(filters.length - 1);
     }
+  }
+
+  // Merge doi tags with OR by default
+  if (countDois(tags) >= 2) {
+    let new_aut = '';
+    for (const doi of dois) {
+      new_aut += filters[doi] + ' OR ';
+      allIndexes.push(doi);
+    }
+    new_aut = new_aut.slice(0, new_aut.length - 4);
+    filters.push(new_aut);
   }
 
   if (radioValueAuthor === 'B') {

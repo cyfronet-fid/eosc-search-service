@@ -35,6 +35,7 @@ export function constructAdvancedSearchMetadata(
   const exacts: number[] = [];
   const titles: number[] = [];
   const keywords: number[] = [];
+  const dois: number[] = [];
   const allIndexes: number[] = [];
 
   const fq_o: string[] = routerParams.fq;
@@ -80,6 +81,8 @@ export function constructAdvancedSearchMetadata(
             tag.split(':', 2)[1].trim() +
             '" OR tag_list_tg:"' +
             tag.split(':', 2)[1].trim() +
+            '" OR doi:"' +
+            tag.split(':', 2)[1].trim() +
             '"'
         );
         exacts.push(filters.length - 1);
@@ -90,10 +93,15 @@ export function constructAdvancedSearchMetadata(
         filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
         filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
         filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('!doi:"' + tag.split(':', 2)[1].trim() + '"');
       }
       if (tag.startsWith('in title:')) {
         filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
         titles.push(filters.length - 1);
+      }
+      if (tag.startsWith('doi:')) {
+        filters.push('doi:"' + tag.split(':', 2)[1].trim() + '"');
+        dois.push(filters.length - 1);
       }
       if (tag.startsWith('keyword:')) {
         filters.push(
@@ -147,6 +155,8 @@ export function constructAdvancedSearchMetadata(
           tag.split(':', 2)[1].trim() +
           '" OR tag_list_tg:"' +
           tag.split(':', 2)[1].trim() +
+          '" OR doi:"' +
+          tag.split(':', 2)[1].trim() +
           '"'
       );
       exacts.push(filters.length - 1);
@@ -157,10 +167,15 @@ export function constructAdvancedSearchMetadata(
       filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
       filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
       filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      filters.push('!doi:"' + tag.split(':', 2)[1].trim() + '"');
     }
     if (tag.startsWith('in title:')) {
       filters.push('title:"' + tag.split(':', 2)[1].trim() + '"');
       titles.push(filters.length - 1);
+    }
+    if (tag.startsWith('doi:')) {
+      filters.push('doi:"' + tag.split(':', 2)[1].trim() + '"');
+      dois.push(filters.length - 1);
     }
     if (tag.startsWith('keyword:')) {
       filters.push(
@@ -176,6 +191,17 @@ export function constructAdvancedSearchMetadata(
       filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
       keywords.push(filters.length - 1);
     }
+  }
+
+  // Merge doi tags with OR by default
+  if (countDois(routerParams.tags) >= 2) {
+    let new_aut = '';
+    for (const doi of dois) {
+      new_aut += filters[doi] + ' OR ';
+      allIndexes.push(doi);
+    }
+    new_aut = new_aut.slice(0, new_aut.length - 4);
+    filters.push(new_aut);
   }
 
   if (radioValueAuthor === 'B') {
@@ -245,6 +271,18 @@ export function constructStandardSearchMetadata(
     q: queryChanger(routerParams.q, routerParams.exact.toString() === 'true'),
   };
   return searchMetadata;
+}
+
+export function countDois(tags: string | string[]): number {
+  const tagsArray = typeof tags === 'string' ? [tags] : tags;
+  // Count the occurrences of doi tags
+  const doiCount = tagsArray.reduce((count, tag) => {
+    if (tag.startsWith('doi:')) {
+      return count + 1;
+    }
+    return count;
+  }, 0);
+  return doiCount;
 }
 
 export const getMaxResultsByPage = () =>
