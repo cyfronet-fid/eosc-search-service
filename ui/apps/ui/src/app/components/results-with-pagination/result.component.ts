@@ -287,6 +287,17 @@ export class ResultComponent implements OnInit {
             '<em>' + tag.split(':', 2)[1].trim() + '</em>'
           );
         }
+
+        if (this.highlightsreal['doi'] === undefined) {
+          this.highlightsreal['doi'] = [];
+          this.highlightsreal['doi'].push(
+            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
+          );
+        } else {
+          this.highlightsreal['doi'].push(
+            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
+          );
+        }
       }
 
       if (tag.startsWith('in title:')) {
@@ -337,6 +348,19 @@ export class ResultComponent implements OnInit {
           );
         }
       }
+
+      if (tag.startsWith('doi:')) {
+        if (this.highlightsreal['doi'] === undefined) {
+          this.highlightsreal['doi'] = [];
+          this.highlightsreal['doi'].push(
+            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
+          );
+        } else {
+          this.highlightsreal['doi'].push(
+            '<em>' + tag.split(':', 2)[1].trim() + '</em>'
+          );
+        }
+      }
     }
     const highlightsreal_title = [...new Set(this.highlightsreal['title'])];
     const highlightsreal_an = [
@@ -347,12 +371,14 @@ export class ResultComponent implements OnInit {
     ];
     const highlightsreal_key = [...new Set(this.highlightsreal['keywords_tg'])];
     const highlightsreal_tl = [...new Set(this.highlightsreal['tag_list_tg'])];
+    const highlightsreal_doi = [...new Set(this.highlightsreal['doi'])];
 
     this.highlightsreal['title'] = highlightsreal_title.reverse();
     this.highlightsreal['author_names_tg'] = highlightsreal_an.reverse();
     this.highlightsreal['description'] = highlightsreal_desc.reverse();
     this.highlightsreal['keywords_tg'] = highlightsreal_key.reverse();
     this.highlightsreal['tag_list_tg'] = highlightsreal_tl.reverse();
+    this.highlightsreal['doi'] = highlightsreal_doi.reverse();
   }
 
   setHasDOIUrl() {
