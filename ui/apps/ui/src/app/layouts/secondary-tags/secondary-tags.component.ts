@@ -15,7 +15,7 @@ import { combineHighlightsWith } from './utils';
   template: `
     <div class="usage secondary-tags">
       <!-- Create some space between description and secondary tags -->
-      <div *ngIf="checkTagsWithValues()" style="margin-bottom: 0.9rem;"></div>
+      <div *ngIf="checkTagsWithValues()" style="margin-bottom: 0.7rem;"></div>
       <ng-container *ngFor="let tag of parsedTags; trackBy: identityTagTrack">
         <ng-container [ngSwitch]="tag.type">
           <ng-container *ngSwitchCase="'url'">

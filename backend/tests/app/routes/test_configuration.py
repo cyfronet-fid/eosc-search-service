@@ -19,4 +19,5 @@ async def test_return_backend_config(app: FastAPI, client: AsyncClient) -> None:
         "is_sort_by_relevance": True,
         "max_results_by_page": 50,
         "max_items_sort_relevance": 250,
+        "show_beta_collections": True,
     }

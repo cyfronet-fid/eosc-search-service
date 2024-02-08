@@ -30,6 +30,13 @@ function formatDate(dateString: string): string {
   }
 }
 
+function formatYear(dateString: string): string {
+  {
+    const from = dateString.split('to')[0];
+    return `${from.split('-')[0]}`;
+  }
+}
+
 function formatType(typeString: string): string {
   {
     const new_options = typeString
@@ -37,6 +44,10 @@ function formatType(typeString: string): string {
       .map((option) => option[0].toUpperCase() + option.slice(1));
     return new_options.join(' ');
   }
+}
+
+function formatProjectStatus(projectStatus: string): string {
+  return projectStatus[0].toUpperCase() + projectStatus.slice(1);
 }
 
 export function translateDictionaryValue(
@@ -107,8 +118,15 @@ export function translateDictionaryValue(
     case DICTIONARY_TYPE_FOR_PIPE.TYPE_DATE:
       return formatDate(valueType);
       break;
+    case DICTIONARY_TYPE_FOR_PIPE.TYPE_START_DATE:
+    case DICTIONARY_TYPE_FOR_PIPE.TYPE_END_DATE:
+      return formatYear(valueType);
+      break;
     case DICTIONARY_TYPE_FOR_PIPE.TYPE_RESOURCE_TYPE:
       return formatType(valueType);
+      break;
+    case DICTIONARY_TYPE_FOR_PIPE.STATUS_TYPE:
+      return formatProjectStatus(valueType);
       break;
     default:
       return value;

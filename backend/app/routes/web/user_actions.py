@@ -44,12 +44,15 @@ async def register_navigation_user_action(
         "guideline",
         "bundle",
         "provider",
+        "project",
+        "organisation",
     ],
     page_id: str,
     recommendation: bool = False,
     client: UserActionClient | None = Depends(user_actions_client),
 ):
     """Registers entering a URL and redirects to the URL"""
+
     if resource_type == "data-source":
         resource_type = "data source"
 
@@ -106,11 +109,12 @@ async def register_navigation_user_action(
 async def _create_redirect_response(
     return_path: str, search_params: str, client_uid: str, target_id: str, url: str
 ):
-    return RedirectResponse(
+    id_params = ["?id", "?projectId", "?organizationId"]
+    redirect_response = RedirectResponse(
         status_code=303,
         url=(
             url
-            + ("&" if "?id" in url else "?")
+            + ("&" if any(id_param in url for id_param in id_params) else "?")
             + "return_path="
             + return_path
             + "&search_params="
@@ -121,3 +125,4 @@ async def _create_redirect_response(
             + client_uid
         ),
     )
+    return redirect_response

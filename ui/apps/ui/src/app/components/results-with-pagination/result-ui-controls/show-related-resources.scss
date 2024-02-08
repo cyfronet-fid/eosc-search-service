@@ -1,0 +1,73 @@
+:host {
+  display: block;
+  margin-top: 4px;
+}
+
+.show-projects-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-image: url('../../../../assets/icon-entity.svg');
+  background-position: 0 25%;
+  background-size: 13px auto;
+}
+
+.show-resources-icon {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  background-repeat: no-repeat;
+  background-image: url('../../../../assets/resources.svg');
+  background-position: 0 1px;
+}
+
+.resources-publication {
+  .show-resources-icon {
+    background-image: url('../../../../assets/icon-type-publication.svg');
+    background-position: 0 2px;
+    background-size: 15px auto;
+    margin-right: 3px;
+  }
+}
+
+.resources-software {
+  .show-resources-icon {
+    background-image: url('../../../../assets/icon-type-software.svg');
+    background-position: 0 0;
+    background-size: 14px auto;
+    margin-right: 1px;
+  }
+}
+
+.resources-data {
+  .show-resources-icon {
+    background-image: url('../../../../assets/icon-type-data.svg');
+    background-position: 0 0;
+    background-size: 13px auto;
+    margin-right: 1px;
+  }
+}
+
+.resources-other {
+  .show-resources-icon {
+    background-image: url('../../../../assets/icon-type-other.svg');
+    background-position: 0 0;
+    background-size: 13px auto;
+    margin-right: 1px;
+  }
+}
+
+.show-resources-text {
+  color: #040f81;
+  margin-right: 8px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.show-resources-text.small {
+  font-size: 12px;
+  font-weight: 400;
+}

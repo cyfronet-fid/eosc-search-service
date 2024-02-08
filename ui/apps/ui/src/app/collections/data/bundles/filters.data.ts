@@ -13,6 +13,7 @@ export const bundlesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'best_access_right',
@@ -21,6 +22,16 @@ export const bundlesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
+    },
+    {
+      id: 'scientific_domains',
+      filter: 'scientific_domains',
+      label: 'Scientific domain',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'scientific_domains',
@@ -37,6 +48,7 @@ export const bundlesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'providers',
@@ -45,6 +57,7 @@ export const bundlesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'resource_organisation',
@@ -53,6 +66,7 @@ export const bundlesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'eosc_if',
@@ -61,6 +75,7 @@ export const bundlesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+      expandArrow: true,
     },
     {
       id: 'language',
@@ -69,6 +84,7 @@ export const bundlesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'bundle_goals',
@@ -77,6 +93,7 @@ export const bundlesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'capabilities_of_goals',
@@ -85,6 +102,7 @@ export const bundlesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'catalogue',

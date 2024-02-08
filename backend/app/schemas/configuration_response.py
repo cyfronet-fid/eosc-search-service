@@ -11,3 +11,4 @@ class ConfigurationResponse(BaseModel):
     is_sort_by_relevance: bool
     max_results_by_page: int
     max_items_sort_relevance: int
+    show_beta_collections: bool

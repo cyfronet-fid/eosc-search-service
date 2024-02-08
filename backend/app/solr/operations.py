@@ -5,7 +5,7 @@ from typing import Dict
 
 from httpx import AsyncClient, Response
 
-from app.consts import DEFAULT_QF, PROVIDER_QF
+from app.consts import DEFAULT_QF, ORGANISATION_QF, PROJECT_QF, PROVIDER_QF
 from app.schemas.search_request import StatFacet, TermsFacet
 from app.schemas.solr_response import Collection, SolrResponse
 from app.settings import settings
@@ -15,7 +15,11 @@ from .error_handling import (
     handle_solr_detail_response_errors,
     handle_solr_list_response_errors,
 )
-from .utils import parse_providers_filters
+from .utils import (
+    parse_organisation_filters,
+    parse_project_filters,
+    parse_providers_filters,
+)
 
 
 async def search(
@@ -50,7 +54,6 @@ async def search(
     q = q.replace("[", r"").replace("]", r"")
     q = q.replace("=", r"")
     q = q.replace(":", r"")
-
     if collection == Collection.ALL_COLLECTION and fq and "providers" in fq[0]:
         fq = parse_providers_filters(fq)
     mm_param = "80%"
@@ -59,6 +62,10 @@ async def search(
         mm_param = "100%"
         qs_param = "0"
     solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
+    if collection == Collection.PROJECT and fq:
+        fq = parse_project_filters(fq)
+    elif collection == Collection.ORGANISATION and fq:
+        fq = parse_organisation_filters(fq)
     request_body = {
         "params": {
             "defType": "edismax",
@@ -102,14 +109,12 @@ async def search(
             "wt": "json",
         }
     }
-
     if facets is not None and len(facets) > 0:
         request_body["facet"] = {
             k: v.serialize_to_solr_format() for k, v in facets.items()
         }
         if "title" in request_body["facet"]:
             request_body["facet"] = None
-
     response = await handle_solr_list_response_errors(
         client.post(
             f"{settings.SOLR_URL}{solr_collection}/select",
@@ -120,7 +125,7 @@ async def search(
     data = response.json()
 
     if len(data["response"]["docs"]) == 0:
-        await _check_collection_sanity(client, solr_collection)
+        await _check_collection_sanity(client, collection)
 
     return SolrResponse(collection=collection, data=data)
 
@@ -163,6 +168,10 @@ async def search_advanced(
         mm_param = "100%"
         qs_param = "0"
     solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
+    if collection == Collection.PROJECT and fq:
+        fq = parse_project_filters(fq)
+    elif collection == Collection.ORGANISATION and fq:
+        fq = parse_organisation_filters(fq)
     request_body = {
         "params": {
             "defType": "edismax",
@@ -221,7 +230,7 @@ async def search_advanced(
     data = response.json()
 
     if facets and len(data["response"]["docs"]) == 0:
-        await _check_collection_sanity(client, solr_collection)
+        await _check_collection_sanity(client, collection)
 
     return SolrResponse(collection=collection, data=data)
 
@@ -231,7 +240,15 @@ async def _check_collection_sanity(client, collection):
     Helper function checking if the solr collection is not empty in case of solr data request
     returns a response with no data.
     """
-    qf = PROVIDER_QF if collection == Collection.PROVIDER else DEFAULT_QF
+    if collection == Collection.PROVIDER:
+        qf = PROVIDER_QF
+    elif collection == Collection.ORGANISATION:
+        qf = ORGANISATION_QF
+    elif collection == Collection.PROJECT:
+        qf = PROJECT_QF
+
+    else:
+        qf = DEFAULT_QF
     request_body = {
         "params": {
             "defType": "edismax",
@@ -261,7 +278,6 @@ async def _check_collection_sanity(client, collection):
             json=request_body,
         )
     )
-
     if len(response.json()["response"]["docs"]) == 0:
         raise SolrCollectionEmptyError()
 

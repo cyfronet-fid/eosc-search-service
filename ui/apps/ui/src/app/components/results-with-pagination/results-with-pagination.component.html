@@ -80,7 +80,9 @@
         [loading]="(isLoading$ | async) ?? false"
         (activePageChange)="pageNr$.next($event)"
       ></ess-pagination>
-      <ess-sort-by-functionality></ess-sort-by-functionality>
+      <ess-sort-by-functionality
+      *ngIf="this.getCollectionName() !== 'organisation'"
+      ></ess-sort-by-functionality>
     </div>
     <ng-container *ngIf="this.getCollectionName() === 'training'">
       <a [href]="getKnowledgeHubUrl()">
@@ -92,11 +94,33 @@
     <ng-container
       *ngFor="let result of results$ | async; trackBy: trackByResultId"
     >
+      <div *ngIf="this.specialCollections.includes(result.type.value); else defaultResultTemplate">
+        <ess-result
+        *ngIf="
+          result.type.value.toString().includes('organisation')"
+        class="results organisation"
+        [id]="result.id"
+        [title]="result.title"
+        [abbreviation]="result.abbreviation ?? ''"
+        [tags]="result.tags"
+        [coloredTags]="result.coloredTags ?? []"
+        [secondaryTags]="result.secondaryTags ?? []"
+        [type]="result.type"
+        [country]="result.country ?? ''"
+        [website]="result.website ?? ''"
+        [url]="result.url"
+        [highlights]="highlights[result.id] ?? {}"
+        [isResearchProduct]="result.isResearchProduct"
+        [relatedPublicationNumber]="result.relatedPublicationNumber ?? 0"
+        [relatedSoftwareNumber]="result.relatedSoftwareNumber ?? 0"
+        [relatedDatasetNumber]="result.relatedDatasetNumber ?? 0"
+        [relatedOtherNumber]="result.relatedOtherNumber ?? 0"
+        [relatedProjectNumber]="result.relatedProjectNumber ?? 0"
+      ></ess-result>
+
       <ess-result
         *ngIf="
-          result.type.value.toString().includes('provider');
-          else defaultResultTemplate
-        "
+          result.type.value.toString().includes('provider')"
         class="results"
         [id]="result.id"
         [title]="result.title"
@@ -120,6 +144,32 @@
         [isResearchProduct]="result.isResearchProduct"
         [resourceType]="result.collection"
       ></ess-result>
+      <ess-result
+        *ngIf="
+          result.type.value.toString().includes('project')"
+        class="results project"
+        [id]="result.id"
+        [code]="result.code ?? ''"
+        [tags]="result.tags"
+        [coloredTags]="result.coloredTags ?? []"
+        [secondaryTags]="result.secondaryTags ?? []"
+        [isResearchProduct]="result.isResearchProduct"
+        [resourceType]="result.collection"
+        [highlights]="highlights[result.id] ?? {}"
+
+        [title]="result.title"
+        [abbreviation]="result.abbreviation ?? ''"
+        [description]="result.description | transformArrayDescriptionPipe"
+        [type]="result.type"
+        [fundedUnder]="result.fundedUnder ?? ''"
+        [currency]="result.currency?? ''"
+        [cost]="result.cost ?? 0"
+        [startDate]="result.startDate ?? ''"
+        [endDate]="result.endDate ?? ''"
+        [url]="result.url"
+      ></ess-result>
+
+      </div>
       <ng-template #defaultResultTemplate>
         <ess-result
           class="results"
@@ -147,6 +197,7 @@
           [isResearchProduct]="result.isResearchProduct"
           [providerName]="result.providerName ?? []"
           [relatedServices]="result.relatedServices"
+          [relatedOrganisations]="result.relatedOrganisations"
         ></ess-result>
       </ng-template>
     </ng-container>

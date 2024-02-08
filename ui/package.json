@@ -9,7 +9,7 @@
     "make:requirements": "npm run generate:vars",
     "prestart": "npm run make:requirements",
     "start": "nx serve",
-    "start:external": "nx serve --proxy-config apps/ui/proxy.external.conf.json",
+    "start:external": "nx serve ui --proxy-config apps/ui/proxy.external.conf.json",
     "prebuild": "npm run make:requirements",
     "build": "nx build",
     "test": "nx test",

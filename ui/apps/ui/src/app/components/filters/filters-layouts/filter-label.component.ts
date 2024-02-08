@@ -23,7 +23,7 @@ import { Router } from '@angular/router';
           <a href="javascript:void(0)" class="clear-button">Clear</a>
         </span>
       </div>
-      <div class="expand-arrow">
+      <div class="expand-arrow" *ngIf="expandArrow">
         <button
           class="expand-collapse-button"
           [class.expanded]="isExpanded"
@@ -77,10 +77,12 @@ export class FilterLabelComponent {
   @Input()
   label!: string;
 
-  @Input()
-  filter!: string;
+  @Input() filter!: string;
 
   @Input() isExpanded!: boolean;
+
+  @Input() expandArrow: boolean | undefined;
+
   @Output() isExpandedChanged = new EventEmitter<boolean>();
 
   @Input() showClearButton = false;

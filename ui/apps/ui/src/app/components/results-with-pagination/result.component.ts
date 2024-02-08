@@ -21,6 +21,8 @@ import { IOffer } from '@collections/data/bundles/bundle.model';
 import isArray from 'lodash-es/isArray';
 import { RelatedService } from '@collections/repositories/types';
 import { InstanceExportData } from '@collections/data/openair.model';
+import { SPECIAL_COLLECTIONS } from '@collections/data/config';
+import moment from 'moment';
 
 @Component({
   selector: 'ess-result',
@@ -33,6 +35,8 @@ export class ResultComponent implements OnInit {
   validUrl: string | null = null;
   highlightsreal: { [field: string]: string[] | undefined } = {};
   logoUrl = '';
+  isSpecialCollection = false;
+
   @Input() id!: string;
   @Input() date?: string;
   @Input() urls: string[] = [];
@@ -47,7 +51,22 @@ export class ResultComponent implements OnInit {
 
   @Input() offers: IOffer[] = [];
   @Input() providerName?: string[];
+  @Input() country?: string = '';
+  @Input() website?: string = '';
+  @Input() code?: string = '';
+  @Input() fundedUnder = '';
+  @Input() currency = '';
+  @Input() cost = 0;
+  @Input() startDate = '';
+  @Input() endDate = '';
+  @Input() relatedOrganisations: string[] | undefined;
+  @Input() relatedPublicationNumber: number = 0;
+  @Input() relatedSoftwareNumber: number = 0;
+  @Input() relatedDatasetNumber: number = 0;
+  @Input() relatedOtherNumber: number = 0;
+  @Input() relatedProjectNumber: number = 0;
 
+  @Input()
   @Input()
   set url(url: string) {
     if (url && url.trim() !== '') {
@@ -58,6 +77,15 @@ export class ResultComponent implements OnInit {
   }
 
   @Input() orderUrl?: string;
+
+  get duration(): string {
+    const start = moment(this.startDate);
+    const end = moment(this.endDate);
+    if (start.isValid() && end.isValid()) {
+      return `${start.format('YYYY')}-${end.format('YYYY')}`;
+    }
+    return '';
+  }
 
   get redirectUrl(): string | null {
     if (this.validUrl == null || this.validUrl === '') {
@@ -147,6 +175,8 @@ export class ResultComponent implements OnInit {
   }
   public hasDOIUrl = false;
 
+  public collection: string = '';
+
   public readonly RESOURCES_TO_SHOW_PIN_TO: string[] = [
     'software',
     'publication',
@@ -171,6 +201,8 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.setHasDOIUrl();
+    this.collection = this._customRoute.collection() || '';
+    this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(this.collection);
     const tgs = this._route.snapshot.queryParamMap.getAll('tags');
     if (typeof tgs === 'string') {
       this.tagsq.push(tgs);
@@ -383,6 +415,8 @@ export class ResultComponent implements OnInit {
         training: 'Training',
         other: 'Other Research Product',
         provider: 'Provider',
+        project: 'Project',
+        organisation: 'Organisation',
         'data source': 'Data Source',
         'interoperability guideline': 'Interoperability Guideline',
       };

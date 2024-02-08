@@ -8,11 +8,15 @@ import {
 import { trainingsNavConfig } from './trainings/nav-config.data';
 import { guidelinesNavConfig } from './guidelines/nav-config.data';
 import { providersNavConfig } from '@collections/data/providers/nav-config.data';
+import { projectNavConfig } from './projects/nav-config.data';
+import { organisationsNavConfig } from './organisations/nav-config.data';
 import { trainingsAdapter } from './trainings/adapter.data';
 import { guidelinesAdapter } from './guidelines/adapter.data';
 import { trainingsSearchMetadata } from './trainings/search-metadata.data';
 import { guidelinesSearchMetadata } from './guidelines/search-metadata.data';
 import { providersSearchMetadata } from './providers/search-metadata.data';
+import { projectsSearchMetadata } from './projects/search-metadata.data';
+import { organisationsSearchMetadata } from './organisations/search-metadata.data';
 
 import { allCollectionsAdapter } from './all/adapter.data';
 import { publicationsAdapter } from './publications/adapter.data';
@@ -27,6 +31,8 @@ import { dataSourcesFilters } from './data-sources/filters.data';
 import { trainingsFilters } from './trainings/filters.data';
 import { guidelinesFilters } from './guidelines/filters.data';
 import { providersAdapter } from '@collections/data/providers/adapter.data';
+import { projectsAdapter } from './projects/adapter.data';
+import { organisationsAdapter } from './organisations/adapter.data';
 import {
   URL_PARAM_NAME as ALL_COLLECTIONS_URL_PARAM_NAME,
   allCollectionsNavConfig,
@@ -44,6 +50,8 @@ import { servicesAdapter } from '@collections/data/services/adapter.data';
 import { servicesFilters } from '@collections/data/services/filters.data';
 import { servicesSearchMetadata } from '@collections/data/services/search-metadata.data';
 import { providersFilters } from '@collections/data/providers/filters.data';
+import { projectsFilters } from './projects/filters.data';
+import { organisationsFilters } from './organisations/filters.data';
 
 import { validateCollections } from '@collections/data/validators';
 import { servicesNavConfig } from '@collections/data/services/nav-config.data';
@@ -66,6 +74,8 @@ import { excludedOtherResourcesProductsFilters } from '@collections/data/other-r
 import { excludedGuidelinesFilters } from '@collections/data/guidelines/excluded.data';
 import { excludedBundlesFilters } from '@collections/data/bundles/excluded.data';
 import { excludedProvidersFilters } from '@collections/data/providers/excluded.data';
+import { excludedProjectFilters } from './projects/excluded.data';
+import { excludedOrganisationFilters } from './organisations/excluded.data';
 
 export const DEFAULT_COLLECTION_ID = ALL_COLLECTIONS_URL_PARAM_NAME;
 export const ADAPTERS: IAdapter[] = [
@@ -80,6 +90,8 @@ export const ADAPTERS: IAdapter[] = [
   trainingsAdapter,
   guidelinesAdapter,
   providersAdapter,
+  projectsAdapter,
+  organisationsAdapter,
 ];
 export const FILTERS: IFiltersConfig[] = [
   allCollectionsFilters,
@@ -93,6 +105,8 @@ export const FILTERS: IFiltersConfig[] = [
   trainingsFilters,
   guidelinesFilters,
   providersFilters,
+  projectsFilters,
+  organisationsFilters,
 ];
 
 // Excluded filters according to adjustments in
@@ -109,6 +123,8 @@ export const EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
   excludedTrainingsFilters,
   excludedGuidelinesFilters,
   excludedProvidersFilters,
+  excludedProjectFilters,
+  excludedOrganisationFilters,
 ];
 
 export const NAV_CONFIGS: ICollectionNavConfig[] = [
@@ -123,6 +139,8 @@ export const NAV_CONFIGS: ICollectionNavConfig[] = [
   trainingsNavConfig,
   guidelinesNavConfig,
   providersNavConfig,
+  projectNavConfig,
+  organisationsNavConfig,
 ];
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   allCollectionsSearchMetadata,
@@ -136,6 +154,8 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   trainingsSearchMetadata,
   guidelinesSearchMetadata,
   providersSearchMetadata,
+  projectsSearchMetadata,
+  organisationsSearchMetadata,
 ];
 
 validateCollections(
