@@ -29,7 +29,12 @@
     >
       <b> Hide All </b></span
     >
-    <div ngbAccordion (shown)="onShow()" (hidden)="onHide()" #accordion="ngbAccordion">
+    <div
+      ngbAccordion
+      (shown)="onShow()"
+      (hidden)="onHide()"
+      #accordion="ngbAccordion"
+    >
       <div ngbAccordionItem="first">
         <h2 ngbAccordionHeader>
           <button ngbAccordionButton>

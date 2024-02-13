@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 fastapi = {extras = ["all"], version = "*"}
 pydantic = "*"
+pydantic-settings = "*"
 sqlalchemy = "*"
 alembic = "*"
 psycopg2 = "*"
@@ -15,11 +16,14 @@ asgi-lifespan = "*"
 pytest-asyncio = "*"
 fastapi-sessions = "*"
 cryptojwt = "*"
+pyjwt = {extras = ["crypto"], version = "*"}
 oidcrp = "*"
 uvicorn = "*"
 "stomp.py" = "*"
 cachetools = "*"
 async-lru = "*"
+python-benedict = "*"
+databases = "*"
 
 [dev-packages]
 black = "*"

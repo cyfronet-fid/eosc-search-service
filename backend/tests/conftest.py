@@ -3,14 +3,14 @@
 """Test config"""
 import uuid
 
+import alembic
 import pytest
+from alembic.config import Config
 from asgi_lifespan import LifespanManager
 from fastapi import FastAPI
 from httpx import AsyncClient
 from sqlalchemy.orm import Session
 
-import alembic
-from alembic.config import Config
 from app.schemas.session_data import SessionData
 from app.server import get_app
 from app.utils.cookie_validators import backend, cookie

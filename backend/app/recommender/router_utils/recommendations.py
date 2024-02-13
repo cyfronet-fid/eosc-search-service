@@ -39,7 +39,7 @@ async def get_recommended_uuids(
             request_body["aai_uid"] = session.aai_id
 
         response = await client.post(
-            settings.RECOMMENDER_ENDPOINT,
+            str(settings.RECOMMENDER_ENDPOINT),
             json=request_body,
         )
 

@@ -3,7 +3,7 @@ version: '3.9'
 services:
   api:
     build: ./backend
-    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    command: bash -c "alembic upgrade head && uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000"
     ports:
       - "8000:8000"
     networks:
@@ -17,8 +17,10 @@ services:
       OIDC_AAI_NEW_API: "${OIDC_AAI_NEW_API}"
       SECRET_KEY: "${SECRET_KEY}"
       BACKEND_BASE_URL: "${BACKEND_BASE_URL}"
+      RECOMMENDER_ENDPOINT: "${RECOMMENDER_ENDPOINT}"
       UI_BASE_URL: "${UI_BASE_URL}"
       LOG_LEVEL: "${LOG_LEVEL}"
+      EOSC_EVENTS_API: "${EOSC_EVENTS_API}"
 
       # STOMP CONFIG
       STOMP_HOST: "${STOMP_HOST}"
@@ -26,6 +28,7 @@ services:
       STOMP_LOGIN: "${STOMP_LOGIN}"
       STOMP_PASS: "${STOMP_PASS}"
       STOMP_USER_ACTIONS_TOPIC: "${STOMP_USER_ACTIONS_TOPIC}"
+      STOMP_RECOMMENDATIONS_TOPIC: "${STOMP_RECOMMENDATIONS_TOPIC}"
       STOMP_CLIENT_NAME: "${STOMP_CLIENT_NAME}"
     depends_on:
       - db

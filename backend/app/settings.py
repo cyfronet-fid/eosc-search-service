@@ -1,4 +1,4 @@
-# pylint: disable=use-dict-literal, line-too-long, missing-class-docstring, missing-function-docstring, no-self-argument too-few-public-methods
+# pylint: disable=use-dict-literal, line-too-long, missing-class-docstring, missing-function-docstring, no-self-argument too-few-public-methods, invalid-name, no-member
 """
     IMPORTANT!!! We're using environment variables served from system instead of
     keeping them in file due security risks.
@@ -7,10 +7,14 @@
     https://docs.pydantic.dev/1.10/usage/settings/
 """
 import logging
-from typing import Literal
-from urllib.parse import urlparse
+import os
+from typing import ClassVar, Literal
 
-from pydantic import AnyUrl, BaseSettings, Field, PostgresDsn, root_validator
+from pydantic import AnyUrl, Field, model_validator
+from pydantic_settings import BaseSettings
+from starlette.config import Config
+
+config = Config(environ=os.environ)
 
 OIDC_NEW_AUTH_ENDPOINT: str = "/auth/realms/core/protocol/openid-connect/auth"
 OIDC_OLD_AUTH_ENDPOINT: str = "/oidc/authorize"
@@ -28,34 +32,63 @@ EnvironmentType = Literal["dev", "test", "production"]
 class GlobalSettings(BaseSettings):
     LOG_LEVEL: str = logging.getLevelName(logging.INFO)
     IS_TESTING: bool = False
-    DATABASE_URI: PostgresDsn = "postgresql+psycopg2://ess:ess@localhost:5442/ess"
+    DATABASE_URI: str = config(
+        "DATABASE_URI",
+        cast=str,
+        default="postgresql+psycopg2://ess:ess@localhost:5432/ess",
+    )
     SOLR_URL: AnyUrl = "http://localhost:8983/solr/"
     RS_URL: AnyUrl = "http://localhost:9080/"
     RS_ROWS: int = 1000
     BACKEND_BASE_URL: AnyUrl = "http://localhost:8000"
-    UI_BASE_URL: AnyUrl = "http://localhost:4200"
-    OIDC_HOST: AnyUrl = "https://aai-demo.eosc-portal.eu"
-    OIDC_AAI_NEW_API: bool = False
-    OIDC_CLIENT_ID: str = "NO_CLIENT_ID"
-    OIDC_CLIENT_SECRET: str = "NO_CLIENT_SECRET"
+    UI_BASE_URL: AnyUrl = config(
+        "UI_BASE_URL", cast=AnyUrl, default="https://localhost:4200/"
+    )
+    OIDC_HOST: str = config(
+        "OIDC_HOST", cast=str, default="https://aai-demo.eosc-portal.eu"
+    )
+    OIDC_AAI_NEW_API: bool = config("OIDC_AAI_NEW_API", cast=bool, default=False)
+    OIDC_CLIENT_ID: str = config("OIDC_CLIENT_ID", cast=str, default="NO_CLIENT_ID")
+    OIDC_CLIENT_SECRET: str = config(
+        "OIDC_CLIENT_SECRET", cast=str, default="NO_CLIENT_SECRET"
+    )
+    EOSC_EVENTS_API: str = config(
+        "EOSC_EVENTS_API", cast=str, default="https://eosc-portal.eu/events-json-date/"
+    )
 
-    OIDC_ISSUER: str = f"{OIDC_HOST}/oidc/"
+    OIDC_ISSUER: str = config(
+        "OIDC_ISSUER",
+        cast=str,
+        default=f"{OIDC_HOST}{'/auth/realms/core' if OIDC_AAI_NEW_API else '/oidc/'}",
+    )
     OIDC_AUTH_ENDPOINT: str = OIDC_OLD_AUTH_ENDPOINT
     OIDC_TOKEN_ENDPOINT: str = OIDC_OLD_TOKEN_ENDPOINT
     OIDC_USERINFO_ENDPOINT: str = OIDC_OLD_USERINFO_ENDPOINT
-    OIDC_JWKS_ENDPOINT = OIDC_OLD_JWKS_ENDPOINT
+    OIDC_JWKS_ENDPOINT: str = OIDC_OLD_JWKS_ENDPOINT
 
     STOMP_HOST: str = "127.0.0.1"
     STOMP_PORT: int = 61613
     STOMP_LOGIN: str = "guest"
     STOMP_PASS: str = "guest"
-    STOMP_USER_ACTIONS_TOPIC = Field("/topic/user_actions", env="ESS_STOMP_USER_ACTION")
-    STOMP_CLIENT_NAME = Field("dev-client", env="ESS_QUEUE_CLIENT_NAME")
+    STOMP_USER_ACTIONS_TOPIC: str = Field(
+        "/topic/user_actions", env="ESS_STOMP_USER_ACTION"
+    )
+    STOMP_RECOMMENDATIONS_TOPIC: str = config(
+        "ESS_STOMP_RECOMMENDATIONS_TOPIC",
+        cast=str,
+        default="/topic/recommendations_evaluation",
+    )
+
+    STOMP_CLIENT_NAME: str = Field("dev-client", env="ESS_QUEUE_CLIENT_NAME")
     STOMP_SSL: bool = Field(False, env="ESS_STOMP_SSL")
 
-    SHOW_RECOMMENDATIONS: bool = True
+    SHOW_RECOMMENDATIONS: bool = True  # Default True
     SHOW_RANDOM_RECOMMENDATIONS: bool = True
-    RECOMMENDER_ENDPOINT: AnyUrl = "http://localhost:8081/recommendations"
+    RECOMMENDER_ENDPOINT: str = config(
+        "RECOMMENDER_ENDPOINT",
+        cast=str,
+        default="http://localhost:8081/recommendations",
+    )
     MARKETPLACE_BASE_URL: AnyUrl = "https://marketplace.eosc-portal.eu"
     EOSC_COMMONS_URL: AnyUrl = "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
     EOSC_COMMONS_ENV: str = "production"
@@ -68,8 +101,19 @@ class GlobalSettings(BaseSettings):
     SHOW_BETA_COLLECTIONS: bool = True
 
     COLLECTIONS_PREFIX: str = ""
+    RecommendationTypes: Literal[
+        "all",
+        "publication",
+        "dataset",
+        "software",
+        "training",
+        "service",
+        "other",
+        "data-source",
+        "news",
+    ] = "all"
 
-    @root_validator()
+    @model_validator(mode="before")
     def oidc_issuer_path(cls, values):
         if values["OIDC_AAI_NEW_API"]:
             values["OIDC_ISSUER"] = f"{values['OIDC_HOST']}/auth/realms/core"
@@ -86,14 +130,16 @@ class DevSettings(GlobalSettings):
 
 class TestSettings(GlobalSettings):
     IS_TESTING: bool = True
-    DATABASE_URI: PostgresDsn = (
-        "postgresql+psycopg2://ess_test:ess_test@localhost:5452/ess_test"
+    DATABASE_URI: str = config(
+        "DATABASE_URI",
+        cast=str,
+        default="postgresql+psycopg2://ess_test:ess_test@localhost:5452/ess_test",
     )
     SOLR_URL: AnyUrl = "http://localhost:8993/solr/"
-    COLLECTIONS_PREFIX = "test_"
+    COLLECTIONS_PREFIX: str = "test_"
 
     class Config:
-        env_prefix = "TEST_"
+        env_prefix: str = "TEST_"
 
 
 class ProductionSettings(GlobalSettings):
@@ -103,7 +149,7 @@ class ProductionSettings(GlobalSettings):
 class EnvironmentConfig(BaseSettings):
     ENVIRONMENT: EnvironmentType = "production"
 
-    TYPES_TO_SETTINGS_MAP = {
+    TYPES_TO_SETTINGS_MAP: ClassVar[dict] = {
         "production": ProductionSettings,
         "dev": DevSettings,
         "test": TestSettings,
@@ -116,8 +162,8 @@ class EnvironmentConfig(BaseSettings):
 settings = EnvironmentConfig().make_settings()
 
 
-parsed_backend_url = urlparse(settings.BACKEND_BASE_URL)
-parsed_ui_url = urlparse(settings.UI_BASE_URL)
+parsed_backend_url = settings.BACKEND_BASE_URL
+parsed_ui_url = settings.UI_BASE_URL
 
 OIDC_CLIENT_OPTIONS = client_options = dict(
     issuer=settings.OIDC_ISSUER,
@@ -141,11 +187,15 @@ OIDC_CLIENT_OPTIONS = client_options = dict(
     backchannel_logout_session_required=True,
 )
 
+port = parsed_backend_url.port if parsed_backend_url.port else None
+host_with_port = (
+    f"{parsed_backend_url.host}:{port}" if port else parsed_backend_url.host
+)
 
 OIDC_CONFIG = dict(
-    port=parsed_backend_url.port if parsed_backend_url.port else None,
-    domain=f"{parsed_backend_url.scheme}://{parsed_backend_url.netloc}",
-    base_url=f"{parsed_backend_url.scheme}://{parsed_backend_url.netloc}",
+    port=port,
+    domain=f"{parsed_backend_url.scheme}://{host_with_port}",
+    base_url=f"{parsed_backend_url.scheme}://{host_with_port}",
     httpc_params=dict(verify=False),
     services=dict(
         discovery={
@@ -175,8 +225,12 @@ OIDC_JWT_ENCRYPT_CONFIG = dict(
 OIDC_CONFIG["clients"] = {}
 OIDC_CONFIG["clients"][settings.OIDC_ISSUER] = OIDC_CLIENT_OPTIONS
 
+hostname = parsed_ui_url.host
+if ":" in hostname:
+    hostname = hostname.split(":")[0]
+
 AUTH_COOKIES_CONFIG = dict(
-    domain=parsed_ui_url.hostname,
+    domain=hostname,
     max_age=24 * 60 * 60,  # 1 day
     cookie_name="_mp_service_auth",
     identifier="general_verifier",

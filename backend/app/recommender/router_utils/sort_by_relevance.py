@@ -25,7 +25,7 @@ def _get_raw_candidates() -> dict:
     }
 
 
-async def parse_candidates(documents: list) -> [dict, list[dict]]:
+async def parse_candidates(documents: list) -> [dict, list[dict]]:  # type: ignore
     """Parse documents before sorting by relevance"""
     candidates_ids = _get_raw_candidates()
 
@@ -63,7 +63,7 @@ async def perform_sort_by_relevance(
             request_body["aai_uid"] = session.aai_id
 
         response = await client.post(
-            settings.RECOMMENDER_ENDPOINT,
+            str(settings.RECOMMENDER_ENDPOINT),
             json=request_body,
         )
 

@@ -41,7 +41,7 @@
         >
           <option
             *ngFor="let navConfig of searchCollections"
-            [ngValue]="navConfig" 
+            [ngValue]="navConfig"
           >
             {{ navConfig.title }}
           </option>
@@ -78,27 +78,27 @@
           </span>
         </div>
       </div>
-     <div *ngIf="!isOrganisationCollection && !isProjectCollection"> 
-      <span
-      *ngIf="!isLanding()"
-      class="adv-search-text-btn"
-      (click)="standardSearch = false"
-      >Show Advanced Search -></span
-    >
-    <span
-      *ngIf="!isLanding()"
-      class="adv-search-text-btn"
-      style="margin-left: 25px"
-    >
-      <img
-        src="assets/asguide/asguide-icon.svg"
-        style="padding-bottom: 4px; padding-right: 5px"
-      />
-      <a routerLink="/asguide" target="_blank" style="color: white"
-        >Advanced Search Guide</a
-      >
-    </span>
-     </div>
+      <div *ngIf="!isOrganisationCollection && !isProjectCollection">
+        <span
+          *ngIf="!isLanding()"
+          class="adv-search-text-btn"
+          (click)="standardSearch = false"
+          >Show Advanced Search -></span
+        >
+        <span
+          *ngIf="!isLanding()"
+          class="adv-search-text-btn"
+          style="margin-left: 25px"
+        >
+          <img
+            src="assets/asguide/asguide-icon.svg"
+            style="padding-bottom: 4px; padding-right: 5px"
+          />
+          <a routerLink="/asguide" target="_blank" style="color: white"
+            >Advanced Search Guide</a
+          >
+        </span>
+      </div>
     </form>
 
     <div

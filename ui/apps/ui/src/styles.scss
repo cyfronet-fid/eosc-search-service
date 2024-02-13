@@ -843,10 +843,8 @@ h6 {
 }
 
 .results {
-
   &.project {
-    .bottom-actions
-    {
+    .bottom-actions {
       display: none;
     }
 
@@ -857,7 +855,6 @@ h6 {
 
   &.organisation {
     #container {
-
       .usage {
         border: none;
       }
@@ -2415,7 +2412,7 @@ h6 {
     border: 1px solid #d9d9d9;
     border-radius: 2px;
     border-collapse: separate;
-    transition: all .3s;
+    transition: all 0.3s;
 
     &:hover {
       border: 1px solid #1890ff;
@@ -2427,7 +2424,7 @@ h6 {
   }
 
   .checkmark:after {
-    content: "";
+    content: '';
     position: absolute;
     display: none;
   }
@@ -2457,7 +2454,6 @@ h6 {
     display: flex;
 
     &:hover {
-
       span {
         color: #0c2bd5;
       }
@@ -2469,6 +2465,6 @@ h6 {
   }
 }
 
-.ant-picker-input>input {
+.ant-picker-input > input {
   font-size: 13px;
 }
