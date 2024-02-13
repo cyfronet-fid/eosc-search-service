@@ -1,8 +1,10 @@
 """Define properties name that are used multiple times"""
+
 # TODO INPUT, OUTPUT, BOTH
 
 ABBREVIATION = "abbreviation"
 ACRONYM = "acronym"
+AFFILIATION = "affiliation"
 ALTERNATIVENAMES = "alternativenames"
 ALTERNATIVE_IDS = "alternative_ids"
 ALTERNATIVE_NAMES = "alternative_names"
@@ -41,6 +43,8 @@ INSTANCE = "instance"
 JURISDICTION = "jurisdiction"
 KEYWORDS = "keywords"
 LANGUAGE = "language"
+LEGALNAME = "legalname"
+LEGALSHORTNAME = "legalshortname"
 LVL_OF_EXPERTISE = "level_of_expertise"
 NAME = "name"
 OPEN_ACCESS = "open_access"
@@ -58,6 +62,12 @@ PROJECTS = "projects"
 PROVIDERS = "providers"
 PUBLICATION_DATE = "publication_date"
 PUBLISHER = "publisher"
+RELATED_DATASET_IDS = "related_dataset_ids"
+RELATED_ORGANISATION_TITLES = "related_organisation_titles"
+RELATED_OTHER_IDS = "related_other_ids"
+RELATED_PROJECT_IDS = "related_project_ids"
+RELATED_PUBLICATION_IDS = "related_publication_ids"
+RELATED_SOFTWARE_IDS = "related_software_ids"
 RELATIONS = "relations"
 RELATIONS_LONG = "relations_long"
 RESEARCH_COMMUNITY = "research_community"
@@ -87,3 +97,7 @@ AUTHOR_NAMES_TG = "author_names_tg"
 KEYWORDS_TG = "keywords_tg"
 TAG_LIST_TG = "tag_list_tg"
 EOSC_IF_TG = "eosc_if_tg"
+
+# AGGREGATED COLUMNS -> these columns are added to each other, so can not be tuples
+SELECTED_COLUMNS = [ID]
+ADDITIONAL_COLUMNS = [LEGALNAME]

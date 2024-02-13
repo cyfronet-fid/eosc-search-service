@@ -455,7 +455,6 @@
   <field name="access_policies_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="access_types" type="strings" required="false"/>
   <field name="activate_message" type="string" required="false" useDocValuesAsStored="true"/>
-  <field name="alternative_ids" type="text_general" uninvertible="false" docValues="false" multiValued="true" indexed="false" stored="true"/>
   <field name="author_affiliations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_affiliations_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_family_names" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -469,7 +468,6 @@
   <field name="bundle_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="capabilities_of_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="catalogue" type="string" required="false"/>
-  <field name="catalogues" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="categories" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="certifications" type="strings" required="false"/>
   <field name="changelog" type="strings" required="false"/>
@@ -481,7 +479,7 @@
   <field name="country" type="strings" required="false"/>
   <field name="creators" type="text_general" uninvertible="true" docValues="false" multiValued="false" indexed="true" stored="true"/>
   <field name="datasource_classification" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
-  <field name="datasource_pids" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="datasource_pids" type="strings" indexed="true" stored="true"/>
   <field name="dedicated_for" type="strings" required="false"/>
   <field name="delete" type="text_general"/>
   <field name="description" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
@@ -493,7 +491,6 @@
   <field name="duration" type="plong" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="eosc_guideline_type" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="eosc_if" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
-  <field name="eosc_if_tg" type="text_general" indexed="true" termOffsets="true" stored="true" uninvertible="true" termPositions="true" docValues="false" termVectors="true"/>
   <field name="eosc_integration_options" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_provider" type="strings" required="false"/>
   <field name="eosc_related_standards" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -505,7 +502,6 @@
   <field name="funding_programs" type="strings" required="false"/>
   <field name="geographical_availabilities" type="strings" required="false"/>
   <field name="grant_project_names" type="strings" required="false"/>
-  <field name="guidelines" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="helpdesk_email" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="helpdesk_url" type="text_general" sortMissingLast="true" required="false"/>
   <field name="horizontal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
@@ -561,6 +557,8 @@
   <field name="related_standards_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_standards_uri" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_training" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="related_organisation_titles" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="related_project_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="relations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="relations_long" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_community" type="strings" required="false" useDocValuesAsStored="true"/>
@@ -599,7 +597,6 @@
   <field name="terms_of_use_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="thematic" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="title" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
-  <field name="title_str" type="lowercase" indexed="true" stored="true"/>
   <field name="tool" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="training_information_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="trl" type="text_general" docValues="false" indexed="true" stored="true"/>
@@ -695,5 +692,4 @@
   <copyField source="relatedStandards.relatedStandardIdentifier" dest="relatedStandards.relatedStandardIdentifier_str" maxChars="256"/>
   <copyField source="delete" dest="delete_str" maxChars="256"/>
   <copyField source="research_product_metadata_license_urls" dest="research_product_metadata_license_urls_str" maxChars="256"/>
-  <copyField source="title" dest="title_str" maxChars="25000"/>
 </schema>

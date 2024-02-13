@@ -32,6 +32,8 @@ from app.transform.utils.common import (
     harvest_pids,
     harvest_relations,
     harvest_popularity,
+    harvest_project_ids,
+    harvest_related_organisations,
     transform_date,
     create_unified_categories,
     simplify_indicators,
@@ -95,6 +97,8 @@ class OagBaseTransformer(BaseTransformer):
         create_unified_categories(df, self.harvested_properties)
         harvest_exportation(df, self.harvested_properties)
         harvest_data_source(df, self.harvested_properties)
+        harvest_related_organisations(df, self.harvested_properties)
+        harvest_project_ids(df, self.harvested_properties)
 
         return df
 
@@ -118,6 +122,10 @@ class OagBaseTransformer(BaseTransformer):
                     StructField(OPEN_ACCESS, BooleanType(), True),
                     StructField(PIDS, StringType(), True),
                     StructField(POPULARITY, IntegerType(), True),
+                    StructField(
+                        RELATED_ORGANISATION_TITLES, ArrayType(StringType()), True
+                    ),
+                    StructField(RELATED_PROJECT_IDS, ArrayType(StringType()), True),
                     StructField(RELATIONS, ArrayType(StringType()), True),
                     StructField(RELATIONS_LONG, ArrayType(StringType()), True),
                     StructField(RESEARCH_COMMUNITY, ArrayType(StringType()), True),

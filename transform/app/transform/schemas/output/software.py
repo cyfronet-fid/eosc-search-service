@@ -27,6 +27,8 @@ software_output_schema = {
     "programming_language": "string",
     "publication_date": "date",
     "publisher": "string",
+    "related_organisation_titles": "array<string>",
+    "related_project_ids": "array<string>",
     "relations": "array<string>",
     "relations_long": "array<string>",
     "research_community": "array<string>",

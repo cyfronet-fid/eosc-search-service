@@ -13,6 +13,7 @@
       - [S3](#s3)
     - [Sources of Data](#sources-of-data)
       - [Local Data Dump](#local-data-dump)
+      - [Relations](#relations)
       - [Data from API](#data-from-api)
     - [Transformation General Settings](#transformation-general-settings)
 - [Running Service](#running-service)
@@ -76,6 +77,11 @@ We are using .env (in the root of the EOSC Transform Service) to store user-spec
 - `OTHER_RP_PATH`: `str` - A path to other research products **directory**.
 - `ORGANISATION_PATH`: `str` - A path to organisation **directory**.
 - `PROJECT_PATH`: `str` - A path to project **directory**.
+
+##### Relations
+- `RES_ORG_REL_PATH`: `str` - A path to resultOrganization **directory**.
+- `RES_PROJ_REL_PATH`: `str` - A path to resultProject **directory**.
+- `ORG_PROJ_REL_PATH`: `str` - A path to organizationProject **directory**.
 
 ##### Data from API
 - `MP_API_ADDRESS`: `AnyUrl = "https://beta.marketplace.eosc-portal.eu"` - A Marketplace API address.

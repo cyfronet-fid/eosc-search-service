@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema name="project" version="1.6">
+<schema name="organisation" version="1.6">
   <uniqueKey>id</uniqueKey>
   <fieldType name="binary" class="solr.BinaryField"/>
   <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
   <fieldType name="booleans" class="solr.BoolField" sortMissingLast="true" multiValued="true"/>
-  <fieldType name="date_range" class="solr.DateRangeField"/>
   <fieldType name="delimited_payloads_float" class="solr.TextField" indexed="true" stored="false">
     <analyzer>
       <tokenizer class="solr.WhitespaceTokenizerFactory"/>
@@ -105,24 +104,16 @@
   <field name="_text_" type="text_general" indexed="true" stored="false"/>
   <field name="_version_" type="plong" indexed="false" stored="false"/>
   <field name="abbreviation" type="text_general" indexed="true" stored="true" multiValued="false"/>
-  <field name="code" type="text_general" indexed="true" stored="true" multiValued="false"/>
-  <field name="currency" type="string" indexed="true" useDocValuesAsStored="true"/>
-  <field name="date_range" type="date_range" indexed="true" stored="true"/>
-  <field name="end_date" type="pdate" indexed="true" useDocValuesAsStored="true"/>
-  <field name="eosc_score" type="pint" indexed="true" useDocValuesAsStored="true"/>
-  <field name="funding_stream_title" type="strings" indexed="true" useDocValuesAsStored="true"/>
-  <field name="funding_title" type="strings" indexed="true" useDocValuesAsStored="true"/>
+  <field name="alternative_names" type="text_general" indexed="true" stored="true"/>
+  <field name="country" type="strings" indexed="true" stored="true" useDocValuesAsStored="true"/>
   <field name="id" type="string" required="true" indexed="true" stored="true"/>
-  <field name="keywords" type="strings" indexed="true" useDocValuesAsStored="true"/>
-  <field name="keywords_tg" type="text_general" indexed="true" stored="true" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
-  <field name="open_access_mandate_for_dataset" type="boolean" indexed="true" stored="true"/>
-  <field name="open_access_mandate_for_publications" type="boolean" indexed="true" stored="true"/>
-  <field name="start_date" type="pdate" indexed="true" useDocValuesAsStored="true"/>
-  <field name="subject" type="text_general" indexed="true" stored="true"/>
-  <field name="description" type="text_general" indexed="true" stored="true" multiValued="false"/>
   <field name="title" type="text_general" indexed="true" stored="true" multiValued="false"/>
-  <field name="title_str" type="lowercase" indexed="true" stored="true"/>
-  <field name="total_cost" type="pfloat" indexed="true" useDocValuesAsStored="true"/>
+  <field name="pids" type="string" indexed="true" stored="true"/>
+  <field name="related_dataset_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="related_other_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="related_project_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="related_publication_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="related_software_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="type" type="string" indexed="true" stored="true"/>
-  <copyField source="title" dest="title_str" maxChars="25000"/>
+  <field name="url" type="string" indexed="true" stored="true"/>
 </schema>
