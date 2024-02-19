@@ -52,7 +52,6 @@ ALL_COLLECTION_LIST = [
     Collection.GUIDELINE,
     Collection.BUNDLE,
     Collection.OTHER_RP,
-    Collection.PROVIDER,
 ]
 
 
