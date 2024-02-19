@@ -39,6 +39,7 @@ export class ResultComponent implements OnInit {
 
   @Input() id!: string;
   @Input() date?: string;
+  @Input() pid?: string = '';
   @Input() urls: string[] = [];
 
   @Input() isResearchProduct = false;
@@ -417,6 +418,7 @@ export class ResultComponent implements OnInit {
         provider: 'Provider',
         project: 'Project',
         organisation: 'Organisation',
+        catalogue: 'Catalogue',
         'data source': 'Data Source',
         'interoperability guideline': 'Interoperability Guideline',
       };

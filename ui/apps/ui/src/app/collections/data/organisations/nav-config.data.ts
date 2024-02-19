@@ -18,6 +18,6 @@ export const organisationsNavConfig: ICollectionNavConfig = {
   ],
   urlParam: URL_PARAM_NAME,
   rightMenu: true,
-  isSortByRelevanceCollectionScopeOff: false,
-  isSortByPopularityCollectionScopeOff: false,
+  isSortByRelevanceCollectionScopeOff: true,
+  isSortByPopularityCollectionScopeOff: true,
 };

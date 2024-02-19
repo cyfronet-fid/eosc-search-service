@@ -76,8 +76,7 @@ export class SearchInputComponent implements OnInit {
     { name: 'None of' },
   ];
   isSpecialCollection = false;
-  isOrganisationCollection = false;
-  isProjectCollection = false;
+  isAdvancedSearchOff = false;
 
   faMagnifyingGlass = faMagnifyingGlass;
   formControl = new UntypedFormControl();
@@ -232,8 +231,12 @@ export class SearchInputComponent implements OnInit {
   ngOnInit() {
     this._customRoute.collection$.subscribe((val) => {
       this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(val);
-      this.isOrganisationCollection = val === 'organisation';
-      this.isProjectCollection = val === 'project';
+      const advSearchExcludeCollections = [
+        'organisation',
+        'project',
+        'catalogue',
+      ];
+      this.isAdvancedSearchOff = advSearchExcludeCollections.includes(val);
     });
     this._customRoute.q$
       .pipe(

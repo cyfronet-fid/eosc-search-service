@@ -8,15 +8,35 @@ export const DEFAULT_FACET: { [field: string]: ITermsFacetParam } = {
 export const DEFAULT_QF =
   'title^100 author_names_tg^120 description^10 keywords_tg^10 tag_list_tg^10';
 
-export const PROVIDER_QF = 'title^100 description^10 scientific_domains^10';
+export const PROVIDER_QF =
+  'title^100 abbreviation^100 description^10 scientific_domains^10';
 
-export const PROJECT_QF = 'title^ description^10 keywords_tg^10';
+export const CATALOGUE_QF =
+  'title^100 abbreviation^100 description^10 keywords_tg^10';
+
+export const PROJECT_QF =
+  'title^100 abbreviation^100 description^10 keywords_tg^10';
 
 export const ORGANISATION_QF = 'alternative_names title abbreviation';
 
-export const SPECIAL_COLLECTIONS = ['organisation', 'provider', 'project'];
+export const SPECIAL_COLLECTIONS = [
+  'organisation',
+  'provider',
+  'project',
+  'catalogue',
+];
 
 export const BETA_ONLY_COLLECTIONS = ['organisation', 'project'];
+
+export const NO_RECOMMENDATIONS_COLLECTIONS = [
+  'guideline',
+  'provider',
+  'bundle',
+  'data_source',
+  'organisation',
+  'project',
+  'catalogue',
+];
 
 export const HORIZONTAL_TOOLTIP_TEXT =
   'Horizontal Services are services potentially useful for all researchers' +

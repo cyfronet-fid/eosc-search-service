@@ -2,9 +2,9 @@ import { ICollectionNavConfig } from '../../repositories/types';
 import { LABEL as ALL_COLLECTIONS_LABEL } from '../all/nav-config.data';
 import { URL_PARAM_NAME as ALL_COLLECTIONS_URL_PARAM_NAME } from '../all/nav-config.data';
 
-export const URL_PARAM_NAME = 'project';
-export const LABEL = 'Projects';
-export const projectNavConfig: ICollectionNavConfig = {
+export const URL_PARAM_NAME = 'catalogue';
+export const LABEL = 'Catalogues';
+export const cataloguesNavConfig: ICollectionNavConfig = {
   id: URL_PARAM_NAME,
   title: LABEL,
   breadcrumbs: [
@@ -17,7 +17,7 @@ export const projectNavConfig: ICollectionNavConfig = {
     },
   ],
   urlParam: URL_PARAM_NAME,
-  rightMenu: false,
+  rightMenu: true,
   isSortByRelevanceCollectionScopeOff: true,
   isSortByPopularityCollectionScopeOff: true,
 };

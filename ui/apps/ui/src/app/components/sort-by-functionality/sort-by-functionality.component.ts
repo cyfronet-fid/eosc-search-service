@@ -17,7 +17,7 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
 @Component({
   selector: 'ess-sort-by-functionality',
   template: ` <div class="col-sm-4 sort_container">
-    <div *ngIf="this.collection !== 'project'; else elseBlock">
+    <div *ngIf="this.collection !== 'project'">
       <label for="sorts" i18n>Sort By</label>
       <select
         [formControl]="selectedSortOptionControl"
@@ -36,7 +36,7 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
       </select>
     </div>
 
-    <ng-template #elseBlock>
+    <div *ngIf="this.collection === 'project'">
       <label for="sorts" i18n>Sort By</label>
       <select
         [formControl]="selectedSortOptionControl"
@@ -47,7 +47,7 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
         <option value="pdmr" i18n>Date - Most recent</option>
         <option value="pdlr" i18n>Date – Least recent</option>
       </select>
-    </ng-template>
+    </div>
   </div>`,
   styles: [
     `
