@@ -18,7 +18,7 @@ async def create_aliases(
         None,
         description="Prefix for collection names. It is recommended to use convention 'oag<dump_version>'",
     ),
-    alias_prefix: str = Query("", description="Prefix for aliases."),
+    alias_prefix: str = Query(None, description="Prefix for aliases."),
 ):
     """
     Creates or switches aliases for a singular data iteration.

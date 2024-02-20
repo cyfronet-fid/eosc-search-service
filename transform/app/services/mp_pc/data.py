@@ -17,6 +17,7 @@ async def get_data(data_type: str, data_address: str) -> list[dict] | None:
             settings.PROVIDER,
             settings.OFFER,
             settings.BUNDLE,
+            settings.CATALOGUE,
         ):
             headers = {
                 "accept": "application/json",

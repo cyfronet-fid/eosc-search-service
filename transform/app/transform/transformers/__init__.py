@@ -13,6 +13,7 @@ from .bundle import BundleTransformer
 from .provider import ProviderTransformer
 from .organisation import OrganisationTransformer
 from .project import ProjectTransformer
+from .catalogue import CatalogueTransformer
 from app.settings import settings
 
 __all__ = ["transformers"]
@@ -31,4 +32,5 @@ transformers = {
     settings.PUBLICATION: PublicationTransformer,
     settings.ORGANISATION: OrganisationTransformer,
     settings.PROJECT: ProjectTransformer,
+    settings.CATALOGUE: CatalogueTransformer,
 }

@@ -9,7 +9,7 @@ training_output_schema = {
     "catalogue": "string",  # TODO delete
     "catalogues": "array<string>",
     "content_type": "array<string>",
-    "description": "array<string>",
+    "description": "string",
     "duration": "bigint",
     "eosc_provider": "array<string>",  # TODO delete
     "geographical_availabilities": "array<string>",

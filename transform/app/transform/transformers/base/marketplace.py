@@ -123,8 +123,7 @@ class MarketplaceBaseTransformer(BaseTransformer):
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast certain columns"""
         df = (
-            df.withColumn("description", split(col("description"), ","))
-            .withColumn("id", col("id").cast(StringType()))
+            df.withColumn("id", col("id").cast(StringType()))
             .withColumn("publication_date", col("publication_date").cast("date"))
             .withColumn("last_update", col("last_update").cast("date"))
             .withColumn("synchronized_at", col("synchronized_at").cast("date"))

@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 @celery.task(name="create_solr_collections_task")
 def create_solr_collections_task(
     all_collection_config: str,
+    catalogue_config: str,
     organisation_config: str,
     project_config: str,
     provider_config: str,
@@ -24,7 +25,9 @@ def create_solr_collections_task(
     )
 
     for collection in collection_names:
-        if collection.endswith("_organisation"):
+        if collection.endswith("_catalogue"):
+            config = catalogue_config
+        elif collection.endswith("_organisation"):
             config = organisation_config
         elif collection.endswith("_project"):
             config = project_config

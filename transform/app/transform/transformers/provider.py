@@ -78,8 +78,7 @@ class ProviderTransformer(BaseTransformer):
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast certain columns"""
         df = (
-            df.withColumn("description", split(col("description"), ","))
-            .withColumn("webpage_url", split(col("webpage_url"), ","))
+            df.withColumn("webpage_url", split(col("webpage_url"), ","))
             .withColumn("country", split(col("country"), ","))
             .withColumn("id", col("id").cast(StringType()))
             .withColumn("publication_date", col("publication_date").cast("date"))

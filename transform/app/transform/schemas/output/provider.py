@@ -10,7 +10,7 @@ provider_output_schema = {
     "certifications": "array<string>",
     "city": "string",
     "country": "array<string>",
-    "description": "array<string>",
+    "description": "string",
     "esfri_domains": "array<string>",
     "esfri_type": "string",
     "hosting_legal_entity": "string",
