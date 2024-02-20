@@ -63,14 +63,6 @@ export const trainingsFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'target_group',
-      filter: 'target_group',
-      label: 'Target group',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-    {
       id: 'language',
       filter: 'language',
       label: 'Language',

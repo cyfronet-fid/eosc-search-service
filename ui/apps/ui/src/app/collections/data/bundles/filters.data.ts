@@ -34,14 +34,6 @@ export const bundlesFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'scientific_domains',
-      filter: 'scientific_domains',
-      label: 'Scientific domain',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-    {
       id: 'dedicated_for',
       filter: 'dedicated_for',
       label: 'Dedicated for',
