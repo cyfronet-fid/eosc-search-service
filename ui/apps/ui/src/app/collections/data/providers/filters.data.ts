@@ -33,15 +33,6 @@ export const providersFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'legal_status',
-      filter: 'legal_status',
-      label: 'Legal status',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-
-    {
       id: 'meril_scientific_domains',
       filter: 'meril_scientific_domains',
       label: 'MERIL Scientific categorisation',

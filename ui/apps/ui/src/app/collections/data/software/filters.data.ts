@@ -69,14 +69,6 @@ export const softwareFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'publication_date',
-      filter: 'publication_date',
-      label: 'Year range',
-      type: 'date-year',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-    {
       id: 'country',
       filter: 'country',
       label: 'Country',
