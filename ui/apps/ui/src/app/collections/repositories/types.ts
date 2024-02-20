@@ -60,6 +60,7 @@ export interface IResult {
   relatedProjectNumber?: number;
   relatedSoftwareNumber?: number;
   relatedOrganisationTitles?: string[];
+  pid?: string;
 }
 
 export interface RelatedService {

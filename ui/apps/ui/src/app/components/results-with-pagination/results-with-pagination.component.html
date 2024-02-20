@@ -117,7 +117,30 @@
         [relatedOtherNumber]="result.relatedOtherNumber ?? 0"
         [relatedProjectNumber]="result.relatedProjectNumber ?? 0"
       ></ess-result>
-
+      <ess-result
+      *ngIf="
+        result.type.value.toString().includes('catalogue')"
+      class="results organisation"
+      [id]="result.id"
+      [title]="result.title"
+      [abbreviation]="result.abbreviation ?? ''"
+      [pid]="result.pid ?? ''"
+      [description]="result.description | transformArrayDescriptionPipe"
+      [tags]="result.tags"
+      [coloredTags]="result.coloredTags ?? []"
+      [secondaryTags]="result.secondaryTags ?? []"
+      [type]="result.type"
+      [country]="result.country ?? ''"
+      [website]="result.website ?? ''"
+      [url]="result.url"
+      [highlights]="highlights[result.id] ?? {}"
+      [isResearchProduct]="result.isResearchProduct"
+      [relatedPublicationNumber]="result.relatedPublicationNumber ?? 0"
+      [relatedSoftwareNumber]="result.relatedSoftwareNumber ?? 0"
+      [relatedDatasetNumber]="result.relatedDatasetNumber ?? 0"
+      [relatedOtherNumber]="result.relatedOtherNumber ?? 0"
+      [relatedProjectNumber]="result.relatedProjectNumber ?? 0"
+    ></ess-result>
       <ess-result
         *ngIf="
           result.type.value.toString().includes('provider')"

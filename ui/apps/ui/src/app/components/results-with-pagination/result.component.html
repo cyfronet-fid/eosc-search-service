@@ -52,6 +52,7 @@
         >
         </ess-url-title>
         <ess-url-title
+        *ngIf="abbreviation"
           [ngClass]="{ sub_title: this.isSpecialCollection }"
           [title]="abbreviation"
           [highlight]="highlightsreal['abbreviation'] ?? []"
@@ -293,11 +294,12 @@
       [url]="redirectOrderUrl"
       style="float: left"
     ></ess-pin-static>
-    <div *ngIf="collection === 'provider' || collection === 'organisation'">
-      <ess-relatd-resources
+    <div *ngIf="collection === 'provider' || collection === 'organisation' || collection === 'catalogue' ">
+      <ess-related-resources
+        [pid]="this.pid ?? ''"
         [title]="title"
         [collection]="collection"
-      ></ess-relatd-resources>
+      ></ess-related-resources>
     </div>
 
   </div>

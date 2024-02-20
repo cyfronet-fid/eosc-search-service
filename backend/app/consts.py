@@ -19,6 +19,7 @@ class ResourceType(str, Enum):
     PROVIDER = "provider"
     ORGANISATION = "organisation"
     PROJECT = "project"
+    CATALOGUE = "catalogue"
 
 
 class Collection(str, Enum):
@@ -38,6 +39,7 @@ class Collection(str, Enum):
     OFFER = "offer"
     ORGANISATION = "organisation"
     PROJECT = "project"
+    CATALOGUE = "catalogue"
 
 
 ALL_COLLECTION_LIST = [
@@ -51,7 +53,6 @@ ALL_COLLECTION_LIST = [
     Collection.BUNDLE,
     Collection.OTHER_RP,
     Collection.PROVIDER,
-    Collection.ORGANISATION,
 ]
 
 
@@ -108,6 +109,8 @@ PANEL_ID_OPTIONS = [
 ]
 
 SPECIAL_COLLECTIONS = [Collection.PROJECT, Collection.ORGANISATION]
+
+CATALOGUE_QF = "title^100 abbreviation^100 description^10 keywords_tg^10"
 
 PROVIDER_QF = "title^100 description^10 scientific_domains^10"
 

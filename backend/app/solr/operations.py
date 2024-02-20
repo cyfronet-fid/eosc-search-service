@@ -5,7 +5,13 @@ from typing import Dict
 
 from httpx import AsyncClient, Response
 
-from app.consts import DEFAULT_QF, ORGANISATION_QF, PROJECT_QF, PROVIDER_QF
+from app.consts import (
+    CATALOGUE_QF,
+    DEFAULT_QF,
+    ORGANISATION_QF,
+    PROJECT_QF,
+    PROVIDER_QF,
+)
 from app.schemas.search_request import StatFacet, TermsFacet
 from app.schemas.solr_response import Collection, SolrResponse
 from app.settings import settings
@@ -246,6 +252,8 @@ async def _check_collection_sanity(client, collection):
         qf = ORGANISATION_QF
     elif collection == Collection.PROJECT:
         qf = PROJECT_QF
+    elif collection == Collection.CATALOGUE:
+        qf = CATALOGUE_QF
 
     else:
         qf = DEFAULT_QF
@@ -260,10 +268,7 @@ async def _check_collection_sanity(client, collection):
             "hl.method": "fastVector",
             "q": "*",
             "qf": qf,
-            "pf": (
-                "title^100 author_names_tg^120 description^10 keywords_tg^10"
-                " tag_list_tg^10"
-            ),
+            "pf": qf,
             "fq": [],
             "rows": 1,
             "cursorMark": "*",
@@ -271,10 +276,10 @@ async def _check_collection_sanity(client, collection):
             "wt": "json",
         }
     }
-
+    solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
     response = await handle_solr_list_response_errors(
         client.post(
-            f"{settings.SOLR_URL}{collection}/select",
+            f"{settings.SOLR_URL}{solr_collection}/select",
             json=request_body,
         )
     )

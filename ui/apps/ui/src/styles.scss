@@ -769,6 +769,15 @@ h6 {
     }
   }
 
+  &.catalogue {
+    border-color: #91aad2;
+
+    .type-icon {
+      background-image: url('assets/icon-type-organisation.svg');
+    }
+  }
+
+
   &.software {
     border-color: #d291c0;
 
