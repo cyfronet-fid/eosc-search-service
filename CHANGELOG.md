@@ -1,5 +1,43 @@
 # Changelog
 
+## [2.20.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.19.0...v2.20.0) (2024-02-21)
+
+
+### Features
+
+* [[#1098](https://github.com/cyfronet-fid/eosc-search-service/issues/1098)] Add organisation solr schema ([7d14981](https://github.com/cyfronet-fid/eosc-search-service/commit/7d1498156e5aa739e5d4a63945f704bbe6b84dfa))
+* [[#1098](https://github.com/cyfronet-fid/eosc-search-service/issues/1098)] Add organisation transformer ([6710994](https://github.com/cyfronet-fid/eosc-search-service/commit/6710994e2655afdf5223bff1e5c79dc9ab052ca4))
+* [[#1099](https://github.com/cyfronet-fid/eosc-search-service/issues/1099)] Add project solr schema ([de773fc](https://github.com/cyfronet-fid/eosc-search-service/commit/de773fcd8786ea46c3bdfa38e818ff7a48983589))
+* [[#1099](https://github.com/cyfronet-fid/eosc-search-service/issues/1099)] Add project transformer ([0b63aaa](https://github.com/cyfronet-fid/eosc-search-service/commit/0b63aaa807cbde14957c100a0dd97656fc1dda8b))
+* [[#1118](https://github.com/cyfronet-fid/eosc-search-service/issues/1118)] Add relations to transformer and solr schemas ([4ac32f1](https://github.com/cyfronet-fid/eosc-search-service/commit/4ac32f1e613aa1a397230b2ffe6f1aeff2000a66))
+* [[#1123](https://github.com/cyfronet-fid/eosc-search-service/issues/1123)] Add catalogue output schema ([f6abdd4](https://github.com/cyfronet-fid/eosc-search-service/commit/f6abdd4e8100dfcd0e265be8af13fe6b4bac22a3))
+* [[#1123](https://github.com/cyfronet-fid/eosc-search-service/issues/1123)] Add catalogue solr schema ([914049b](https://github.com/cyfronet-fid/eosc-search-service/commit/914049b5286433a5eaa6e49cc86107f039a87691))
+* [[#1127](https://github.com/cyfronet-fid/eosc-search-service/issues/1127)] map oag data sources pids ([bb9e8c4](https://github.com/cyfronet-fid/eosc-search-service/commit/bb9e8c4d445798a4d0ca2dd3ca849e3d39a2d66d))
+* [[#1191](https://github.com/cyfronet-fid/eosc-search-service/issues/1191)] Add project and organisation to the solr endpoints ([22ce8e3](https://github.com/cyfronet-fid/eosc-search-service/commit/22ce8e3a31a5763d0f1c785631c973116a1adbdb))
+* [[#1200](https://github.com/cyfronet-fid/eosc-search-service/issues/1200)] remove providers from sugg all_cols ([f00b2d1](https://github.com/cyfronet-fid/eosc-search-service/commit/f00b2d14d2d6314994a45e46d460215eb81f1cc4))
+* **1169:** add catalogues transformer ([1b71b64](https://github.com/cyfronet-fid/eosc-search-service/commit/1b71b64b43ef9e4357964193d4ef8f0e9bc9d2b6))
+* add catalogues collection ([5821002](https://github.com/cyfronet-fid/eosc-search-service/commit/5821002bd932bd2c978d56f20e8694f321c9b25c))
+* add projects and organisations ([0bc99c2](https://github.com/cyfronet-fid/eosc-search-service/commit/0bc99c20aaab81addc012aca412cbd8e69f81c77))
+* ignore null string in sd mapping ([b7f95fe](https://github.com/cyfronet-fid/eosc-search-service/commit/b7f95fe918b494c1023fcf42659ddb0d89f81199))
+* **mapping:** add new scientific domains to mapping ([2a44f00](https://github.com/cyfronet-fid/eosc-search-service/commit/2a44f008ba226b687777f9c32f0559486eed530e))
+* preload lazy loaded modules ([fb3a4a9](https://github.com/cyfronet-fid/eosc-search-service/commit/fb3a4a959f93cd4ad921e202b3fc8f3602e7e1f2))
+
+
+### Bug Fixes
+
+* [[#1134](https://github.com/cyfronet-fid/eosc-search-service/issues/1134)] country ([ec58deb](https://github.com/cyfronet-fid/eosc-search-service/commit/ec58debcbc3710f3a4ec45bca83c4ed5e23e9f9d))
+* [[#1134](https://github.com/cyfronet-fid/eosc-search-service/issues/1134)] country ([2a7806a](https://github.com/cyfronet-fid/eosc-search-service/commit/2a7806afe28e8f3c5f61f433497cba1b1a54c364))
+* [[#1142](https://github.com/cyfronet-fid/eosc-search-service/issues/1142)] Add title_str and delete catalogueId ([cfa2803](https://github.com/cyfronet-fid/eosc-search-service/commit/cfa28039b834d87abf64773285b6faf589f84a24))
+* [[#1142](https://github.com/cyfronet-fid/eosc-search-service/issues/1142)] Boost for Solr schema version ([cc83755](https://github.com/cyfronet-fid/eosc-search-service/commit/cc8375590f7d5793b33c6676a19175d0761d1a60))
+* display dash if no data in training ([9f1aeab](https://github.com/cyfronet-fid/eosc-search-service/commit/9f1aeab6d763d8aa7f98e0fa98abc0f981bc1c2b))
+* filters order, typos ([c0502de](https://github.com/cyfronet-fid/eosc-search-service/commit/c0502de1654c1239fc73bdec7f70154747c7b66e))
+* fix catalogues ([79a9820](https://github.com/cyfronet-fid/eosc-search-service/commit/79a98205a756a38998e3b30ae6935aea67f4a46c))
+* fix filters bugs ([928be5b](https://github.com/cyfronet-fid/eosc-search-service/commit/928be5b56f4099ffec0463e8117ecf4beaf6ff65))
+* guideline filter ([720b192](https://github.com/cyfronet-fid/eosc-search-service/commit/720b19205b50b443de9d556360275ea0782e3b3a))
+* remove doubled filters ([3747e95](https://github.com/cyfronet-fid/eosc-search-service/commit/3747e95ab71eeeca642eb236ce75c68f42ab3127))
+* sorting names ([87eacf3](https://github.com/cyfronet-fid/eosc-search-service/commit/87eacf3bab366a1f73fe4492af829c0e136ecb20))
+* version angular bumped to 17 ([8f6c7cd](https://github.com/cyfronet-fid/eosc-search-service/commit/8f6c7cdc7e774f13f311a325ee913edd7c9eeeae))
+
 ## [2.19.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.18.0...v2.19.0) (2023-12-21)
 
 
