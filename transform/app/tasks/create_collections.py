@@ -2,12 +2,8 @@ import logging
 import requests
 from typing import List
 
-from app.transform.utils.loader import load_env_vars
-from app.transform.schemas.properties.env import (
-    SOLR_ADDRESS,
-    SOLR_PORT,
-)
 from app.worker import celery
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +11,9 @@ logger = logging.getLogger(__name__)
 @celery.task(name="create_solr_collections_task")
 def create_solr_collections_task(
     all_collection_config: str,
+    catalogue_config: str,
+    organisation_config: str,
+    project_config: str,
     provider_config: str,
     collection_names: List[str],
     num_shards: int,
@@ -25,19 +24,22 @@ def create_solr_collections_task(
         "Initiating the creation of Solr collections for a single data iteration"
     )
 
-    env_vars = load_env_vars()
-
     for collection in collection_names:
-        config = (
-            provider_config
-            if collection.endswith("_provider")
-            else all_collection_config
-        )
+        if collection.endswith("_catalogue"):
+            config = catalogue_config
+        elif collection.endswith("_organisation"):
+            config = organisation_config
+        elif collection.endswith("_project"):
+            config = project_config
+        elif collection.endswith("_provider"):
+            config = provider_config
+        else:
+            config = all_collection_config
 
         create_collection_url = (
-            f"{env_vars[SOLR_ADDRESS]}:{env_vars[SOLR_PORT]}/solr/admin/collections?action=CREATE"
+            f"{settings.SOLR_URL}solr/admin/collections?action=CREATE"
             f"&name={collection}&numShards={num_shards}&replicationFactor={replication_factor}"
-            f"&collection.configName={config}&wt=xml"
+            f"&collection.configName={config}&wt=json"
         )
 
         response = requests.post(create_collection_url)

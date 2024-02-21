@@ -34,6 +34,7 @@ import { DEFAULT_MAX_DURATION } from '@components/filters/filter-range/utils';
       [isExpanded]="isExpanded"
       [tooltipText]="tooltipText"
       (isExpandedChanged)="isExpandedChanged($event)"
+      [expandArrow]="expandArrow"
     ></ess-filter-label>
     <div *ngIf="isExpanded">
       <nz-slider
@@ -52,6 +53,9 @@ import { DEFAULT_MAX_DURATION } from '@components/filters/filter-range/utils';
     `
       .filter {
         margin-bottom: 10px;
+        padding-bottom: 5px;
+        position: relative;
+        border-bottom: 1px solid #d9dee2;
       }
     `,
   ],
@@ -69,6 +73,9 @@ export class FilterRangeComponent implements OnInit {
 
   @Input()
   tooltipText!: string;
+
+  @Input()
+  expandArrow: boolean | undefined;
 
   step = 60;
 

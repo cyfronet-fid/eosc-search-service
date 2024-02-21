@@ -6,8 +6,8 @@ import {
 } from '@collections/data/config';
 import {
   alphanumericFilterSort,
+  transformBoolean,
   transformCatalogueNames,
-  transformHorizontal,
 } from '@collections/data/utils';
 
 export const servicesFilters: IFiltersConfig = {
@@ -20,22 +20,34 @@ export const servicesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'best_access_right',
       filter: 'best_access_right',
-      label: 'Access type',
+      label: 'Access right',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'scientific_domains',
       filter: 'scientific_domains',
-      label: 'Scientific Domains',
+      label: 'Scientific domain',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
+    },
+    {
+      id: 'dedicated_for',
+      filter: 'dedicated_for',
+      label: 'Dedicated for',
+      type: 'multiselect',
+      defaultCollapsed: true,
+      tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'categories',
@@ -48,26 +60,11 @@ export const servicesFilters: IFiltersConfig = {
     {
       id: 'providers',
       filter: 'providers',
-      label: 'Providers',
+      label: 'Provider',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
-    },
-    {
-      id: 'eosc_if',
-      filter: 'eosc_if',
-      label: 'Interoperability patterns',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
-    },
-    {
-      id: 'guidelines',
-      filter: 'guidelines',
-      label: 'Interoperability guideline',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'resource_organisation',
@@ -76,7 +73,27 @@ export const servicesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
+    {
+      id: 'eosc_if',
+      filter: 'eosc_if',
+      label: 'Interoperability pattern',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+      expandArrow: true,
+    },
+    {
+      id: 'guidelines_str',
+      filter: 'guidelines_str',
+      label: 'Interoperability guideline',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
+    },
+
     {
       id: 'language',
       filter: 'language',
@@ -85,15 +102,9 @@ export const servicesFilters: IFiltersConfig = {
       defaultCollapsed: true,
       tooltipText: '',
       customSort: alphanumericFilterSort,
+      expandArrow: true,
     },
-    {
-      id: 'dedicated_for',
-      filter: 'dedicated_for',
-      label: 'Dedicated for',
-      type: 'multiselect',
-      defaultCollapsed: true,
-      tooltipText: '',
-    },
+
     {
       id: 'platforms',
       filter: 'platforms',
@@ -101,6 +112,7 @@ export const servicesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'rating',
@@ -109,6 +121,7 @@ export const servicesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'geographical_availabilities',
@@ -117,6 +130,7 @@ export const servicesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'horizontal',
@@ -125,12 +139,13 @@ export const servicesFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: HORIZONTAL_TOOLTIP_TEXT,
-      transformNodes: transformHorizontal,
+      transformNodes: transformBoolean,
+      expandArrow: true,
     },
     {
       id: 'eosc_if',
       filter: 'eosc_if',
-      label: 'Interoperability patterns',
+      label: 'Interoperability pattern',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

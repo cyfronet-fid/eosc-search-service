@@ -16,11 +16,12 @@ export class FilterDateUtils {
 
   async replaceRange(
     filter: string,
-    startDate: Date | null,
-    endDate: Date | null
+    startDate: Date | number | null,
+    endDate: Date | number | null
   ): Promise<void> {
     const fqMap = this._customRoute.fqMap();
     fqMap[filter] = [startDate, endDate];
+
     const filtersConfigs = this._filtersConfigsRepository.get(
       this._customRoute.collection()
     ).filters;

@@ -9,8 +9,8 @@ def get_app():
 
     app = FastAPI(
         title="Data Transform Service",
-        description="Data transform service for EOSC Search Service",
-        version="1.0.0-alpha1",
+        description="Data Transform Service for EOSC Search Service",
+        version="1.0.0",
     )
     app.include_router(router=transform_api_router)
     app.include_router(router=solr_api_router)

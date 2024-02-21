@@ -1,6 +1,5 @@
 import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { IProvider } from '@collections/data/providers/provider.model';
 import { parseStatistics } from '@collections/data/utils';
@@ -50,12 +49,12 @@ export const providersAdapter: IAdapter = {
         filter: 'legal_status',
       },
       {
-        label: 'Areas of activity',
+        label: 'Area of activity',
         values: toValueWithLabel(toArray(provider.areas_of_activity)),
         filter: 'areas_of_activity',
       },
       {
-        label: 'MERIL Scientific Categorisation',
+        label: 'MERIL Scientific categorisation',
         values: toValueWithLabel(toArray(provider.meril_scientific_domains)),
         filter: 'meril_scientific_domains',
       },

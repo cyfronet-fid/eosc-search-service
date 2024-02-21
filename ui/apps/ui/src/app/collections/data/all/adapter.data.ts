@@ -177,6 +177,7 @@ export const allCollectionsAdapter: IAdapter = {
     urls: data.url,
     horizontal: data?.horizontal,
     coloredTags: [],
+    relatedOrganisations: data?.related_organisation_titles || [],
     tags:
       data.type === 'bundle'
         ? []
@@ -206,7 +207,14 @@ export const allCollectionsAdapter: IAdapter = {
             {
               label: 'Interoperability guideline',
               values: toValueWithLabel(toArray(data.guidelines)),
-              filter: 'guidelines',
+              filter: 'guidelines_str',
+            },
+            {
+              label: 'Related organisations',
+              values: toValueWithLabel(
+                toArray(data?.related_organisation_titles)
+              ),
+              filter: 'related_organisation_titles',
             },
           ],
     type: {

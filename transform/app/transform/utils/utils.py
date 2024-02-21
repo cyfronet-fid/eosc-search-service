@@ -1,11 +1,18 @@
 # pylint: disable=invalid-name, line-too-long
 """Useful functions"""
+from logging import getLogger
+import os
+import pandas as pd
 import traceback
+from typing import List
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import when, col, lit, split
 from pyspark.sql.types import StringType, StructType
 from app.services.spark.logger import Log4J
-from app.transform.utils.send import SOLR, S3, LOCAL_DUMP
+from app.settings import settings
+from app.transform.utils.send import SOLR, S3
+
+logger = getLogger(__name__)
 
 
 def replace_empty_str(df: DataFrame) -> DataFrame:
@@ -20,7 +27,7 @@ def replace_empty_str(df: DataFrame) -> DataFrame:
     return df
 
 
-def drop_columns(df: DataFrame, col_to_drop: tuple) -> DataFrame:
+def drop_columns_pyspark(df: DataFrame, col_to_drop: tuple) -> DataFrame:
     """Drop columns from dataframe"""
     return df.drop(*col_to_drop)
 
@@ -82,7 +89,7 @@ def print_errors(
     if error_type not in handled_errors:
         raise ValueError(f"error_type not in {handled_errors}")
 
-    for dest in (SOLR, S3, LOCAL_DUMP):
+    for dest in (SOLR, S3):
         failed_files[col_name][dest].append(file)
     logger.error(f"{col_name} - {file} - {error_type}")
     traceback.print_exc()
@@ -108,3 +115,71 @@ def extract_digits_and_trim(input_str: str):
     remaining_str = input_str[index:].strip()
 
     return remaining_str
+
+
+def normalize_directory_name(directory_name: str) -> str:
+    """
+    Normalize directory names to match the naming convention used in settings.
+
+    Parameters:
+        directory_name (str): The original directory name.
+
+    Returns:
+        str: The normalized directory name.
+    """
+    normalization_map = {
+        "organization": "organisation",
+        "otherresearchproduct": "other_rp",
+    }
+    return normalization_map.get(directory_name, directory_name)
+
+
+def create_file_path_column(
+    df: pd.DataFrame, directory_column: str, file_column: str
+) -> pd.Series:
+    """
+    Creates a new column in the pandas DataFrame with concatenated file path.
+
+    Parameters:
+        df (pd.DataFrame): The DataFrame to process.
+        directory_column (str): Column which will be used to get a specific path from settings.
+        file_column (str): Column which contains file names.
+
+    Returns:
+        A pandas Series object representing the new column with file path.
+    """
+    return df.apply(
+        lambda row: os.path.join(
+            settings.COLLECTIONS[normalize_directory_name(row[directory_column])][
+                "PATH"
+            ],
+            row[file_column],
+        ),
+        axis=1,
+    )
+
+
+def group_relations(
+    df: pd.DataFrame, group_by_columns: List[str], agg_column: str
+) -> pd.DataFrame:
+    """
+    Groups the DataFrame by specified columns and aggregates another column into a list.
+
+    Parameters:
+        df (pd.DataFrame): The DataFrame to process.
+        group_by_columns (List[str]): List of column names to group the DataFrame by.
+        agg_column (str): The column to aggregate into a list.
+
+    Returns:
+        A grouped and aggregated pandas DataFrame.
+    """
+    return (
+        df.groupby(group_by_columns)
+        .agg({agg_column: lambda x: x.tolist()})
+        .reset_index()
+    )
+
+
+def drop_columns_pandas(df: pd.DataFrame, columns: List[str]) -> None:
+    """Drops inplace specified columns from the DataFrame."""
+    df.drop(columns, axis=1, inplace=True)

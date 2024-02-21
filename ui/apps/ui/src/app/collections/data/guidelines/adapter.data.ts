@@ -1,6 +1,5 @@
 import { IAdapter, IResult } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
-import { v4 as uuidv4 } from 'uuid';
 import { COLLECTION } from './search-metadata.data';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import {
@@ -35,7 +34,7 @@ export const guidelinesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Providers',
+        label: 'Provider',
         values: toValueWithLabel(toArray(guideline['providers'])),
         filter: 'providers',
       },

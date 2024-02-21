@@ -34,6 +34,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { RedirectService } from '@collections/services/redirect.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { SPECIAL_COLLECTIONS } from '@collections/data/config';
 
 export interface Tags {
   narrow: string;
@@ -74,7 +75,8 @@ export class SearchInputComponent implements OnInit {
     { name: 'Keyword' },
     { name: 'None of' },
   ];
-  isProviderCollection = false;
+  isSpecialCollection = false;
+  isAdvancedSearchOff = false;
 
   faMagnifyingGlass = faMagnifyingGlass;
   formControl = new UntypedFormControl();
@@ -228,7 +230,13 @@ export class SearchInputComponent implements OnInit {
 
   ngOnInit() {
     this._customRoute.collection$.subscribe((val) => {
-      this.isProviderCollection = val === 'provider';
+      this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(val);
+      const advSearchExcludeCollections = [
+        'organisation',
+        'project',
+        'catalogue',
+      ];
+      this.isAdvancedSearchOff = advSearchExcludeCollections.includes(val);
     });
     this._customRoute.q$
       .pipe(
@@ -339,7 +347,7 @@ export class SearchInputComponent implements OnInit {
     if (!this.withAuthor()) {
       if (
         this.collectionFcAdvForm.value.name === 'Author' ||
-        this.isProviderCollection
+        this.isSpecialCollection
       ) {
         this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
       }
@@ -443,7 +451,7 @@ export class SearchInputComponent implements OnInit {
     if (!this.withAuthor()) {
       if (
         this.collectionFcAdvForm.value.name === 'Author' ||
-        this.isProviderCollection
+        this.isSpecialCollection
       ) {
         this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
       }

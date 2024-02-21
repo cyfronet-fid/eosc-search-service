@@ -181,9 +181,13 @@ export class CustomRoute {
     const AVAILABLE_FILTERS_TYPES: string[] = [
       'multiselect',
       'date-year',
+      'date-start-end',
+      'date-range',
       'date-calendar',
       'range',
       'dropdown',
+      'checkbox-resource-type',
+      'checkbox-status',
     ];
 
     filtersConfig

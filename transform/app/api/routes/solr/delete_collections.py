@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Query, HTTPException
 
 from app.tasks.delete_collections import delete_solr_collections_task
-from app.transform.schemas.properties.env import SOLR_COLLECTION_NAMES
 from app.validations.other import validate_date_basic_format
 from app.validations.solr import (
     validate_collections,
     validate_pinned_collections,
 )
+from app.settings import settings
 
 router = APIRouter()
 
@@ -25,7 +25,7 @@ async def delete_solr_collections(
         f"{date}_{collection}"
         if collection_prefix is None
         else f"{collection_prefix}_{date}_{collection}"
-        for collection in SOLR_COLLECTION_NAMES
+        for collection in settings.SOLR_COLLECTION_NAMES
     ]
 
     try:

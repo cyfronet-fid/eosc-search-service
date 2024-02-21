@@ -24,6 +24,7 @@ export interface IOpenAIREResult {
   pids: string;
   exportation: InstanceExportData[];
   eosc_if: string[];
+  related_organisation_titles: string[];
 }
 
 export interface InstanceExportData {

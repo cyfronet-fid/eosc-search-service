@@ -10,6 +10,8 @@ import { debounceTime } from 'rxjs';
 import { UntypedFormControl } from '@angular/forms';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { Router } from '@angular/router';
+import { flatNodesToTree } from '@components/filters/utils';
+import { search } from '@components/filters/filter-multiselect/utils';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import {
   deserializeAll,
@@ -37,13 +39,15 @@ const DEFAULT_RESULTS_SIZE = 10;
         [showClearButton]="anyActive"
         [tooltipText]="tooltipText"
         (isExpandedChanged)="isExpandedChanged($event)"
+        [expandArrow]="expandArrow"
       ></ess-filter-label>
 
       <input
-        *ngIf="hasShowMore"
+        *ngIf="showInputField"
         [attr.placeholder]="'Search in ' + label.toLowerCase() + '...'"
         class="query-input form-control form-control-sm"
         [formControl]="queryFc"
+        (click)="this.expandOnInputAction()"
       />
 
       <div *ngIf="shouldExpand">
@@ -62,8 +66,8 @@ const DEFAULT_RESULTS_SIZE = 10;
           ></ess-show-all>
         </ng-template>
         <span *ngIf="hasShowMore" (click)="showMore = !showMore">
-          <a href="javascript:void(0)" class="show-more">{{
-            showMore ? 'show less' : 'show more'
+          <a href="javascript:void(0)" class="show-more-less">{{
+            showMore ? 'Show less' : 'Show more'
           }}</a>
         </span>
       </div>
@@ -77,6 +81,14 @@ const DEFAULT_RESULTS_SIZE = 10;
   `,
   styles: [
     `
+      .show-more-less {
+        color: #040f81;
+        font-family: Inter;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 14.3px; /* 110% */
+      }
       .filter {
         margin-bottom: 10px;
         padding-bottom: 5px;
@@ -124,14 +136,20 @@ export class FilterMultiselectComponent implements OnInit, OnChanges {
   options: IFilterNode[] = [];
 
   @Input()
+  expandArrow: boolean | undefined;
+
+  @Input()
   isLoading = false;
 
   showMore = false;
+  showInputField = false;
 
   queryFc = new UntypedFormControl('');
   query: string | null = null;
 
   anyActive = false;
+
+  currentEntitiesNum = 0;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -143,6 +161,9 @@ export class FilterMultiselectComponent implements OnInit, OnChanges {
     // this._initFilterValues();
     // this._recalculateOnChanges();
     this._updateSearchQuery();
+    this.showInputField =
+      this.options.filter(({ level }) => level === 0).length >
+      DEFAULT_RESULTS_SIZE;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -151,11 +172,16 @@ export class FilterMultiselectComponent implements OnInit, OnChanges {
     }
   }
 
+  expandOnInputAction() {
+    this.isExpanded = true;
+  }
+
   async toggleActive(changes: [IUIFilterTreeNode, boolean][]) {
     const allFilters = this._filtersConfigsRepository.get(
       this._customRoute.collection()
     ).filters;
     let fqMap = serializeAll(this._customRoute.fq(), allFilters);
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const filtersToRemove = changes.filter(([_, isSelected]) => !isSelected);
     const allSelected = this.options;
@@ -187,7 +213,12 @@ export class FilterMultiselectComponent implements OnInit, OnChanges {
   _updateSearchQuery() {
     this.queryFc.valueChanges
       .pipe(untilDestroyed(this), debounceTime(500))
-      .subscribe((query) => (this.query = query));
+      .subscribe((query) => {
+        this.query = query;
+        this.currentEntitiesNum = flatNodesToTree(
+          search(this.query, this.options)
+        ).length;
+      });
   }
 
   _addFilterValue(
@@ -214,9 +245,10 @@ export class FilterMultiselectComponent implements OnInit, OnChanges {
   }
 
   get hasShowMore(): boolean {
-    return (
-      this.options.filter(({ level }) => level === 0).length >
-      DEFAULT_RESULTS_SIZE
-    );
+    const maxLength =
+      this.currentEntitiesNum > 0
+        ? this.currentEntitiesNum
+        : this.options.filter(({ level }) => level === 0).length;
+    return maxLength > DEFAULT_RESULTS_SIZE;
   }
 }

@@ -1,4 +1,5 @@
 """Models for Solr requests"""
+
 from typing import Dict, Optional
 
 from pydantic import BaseModel
@@ -30,10 +31,10 @@ class ExportData(BaseModel):
 
     url: str
     document_type: str
-    publication_year: Optional[str]
-    license: Optional[str]
+    publication_year: Optional[str] = None
+    license: Optional[str] = None
     hostedby: str
-    extracted_doi: Optional[str]
+    extracted_doi: Optional[str] = None
 
     def serialize_to_camel_case(self):
         """Serializes response to the format expected by front-end"""
@@ -48,3 +49,20 @@ class ExportData(BaseModel):
         for part in split_key[1:]:
             camel_key += part.capitalize()
         return camel_key
+
+
+class OrganisationResponse(BaseModel):
+    """Model for a single organisation object"""
+
+    id: str
+    country: str
+    title: str
+    abbreviation: str
+    type: str
+    url: str
+    alternative_names: list[str]
+    related_publication_number: Optional[int] = None
+    related_dataset_number: Optional[int] = None
+    related_other_number: Optional[int] = None
+    related_project_number: Optional[int] = None
+    related_software_number: Optional[int] = None

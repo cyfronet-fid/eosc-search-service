@@ -6,7 +6,6 @@ import { IBundle, IOffer } from '@collections/data/bundles/bundle.model';
 import {
   parseStatistics,
   toInterPatternsSecondaryTag,
-  toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
 import {

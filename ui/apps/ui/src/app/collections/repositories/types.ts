@@ -42,6 +42,25 @@ export interface IResult {
   orderUrl?: string;
   exportData?: InstanceExportData[];
   relatedServices?: RelatedService[];
+  country?: string;
+  website?: string;
+  currency?: string;
+  cost?: number;
+  code?: string;
+  fundedUnder?: string;
+  startDate?: string;
+  endDate?: string;
+  partners?: string[];
+  dateRange?: string;
+  yearRange?: string;
+  relatedOrganisations?: string[];
+  relatedPublicationNumber?: number;
+  relatedDatasetNumber?: number;
+  relatedOtherNumber?: number;
+  relatedProjectNumber?: number;
+  relatedSoftwareNumber?: number;
+  relatedOrganisationTitles?: string[];
+  pid?: string;
 }
 
 export interface RelatedService {
@@ -155,12 +174,17 @@ export interface IFilterConfig {
     | 'multiselect'
     | 'select'
     | 'date-year'
+    | 'date-range'
+    | 'date-start-end'
     | 'date-calendar'
     | 'tag'
     | 'range'
-    | 'dropdown';
+    | 'dropdown'
+    | 'checkbox-resource-type'
+    | 'checkbox-status';
   defaultCollapsed: boolean;
   tooltipText: string;
+  expandArrow?: boolean;
 
   customSort?: (a: IFilterNode, b: IFilterNode) => number;
   transformNodes?: (nodes: IFilterNode[]) => IFilterNode[];

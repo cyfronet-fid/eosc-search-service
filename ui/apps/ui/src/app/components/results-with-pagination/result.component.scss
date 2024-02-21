@@ -19,6 +19,7 @@
   line-height: 20px;
 }
 
+
 .usage > .statistic {
   font-size: 11px;
   margin-right: 15px;
@@ -86,4 +87,30 @@
   align-items: center;
   font-size: 14px;
   color: red;
+}
+.project-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.project-card-label {
+  width: 125px;
+  height: 13px;
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.project-card-value {
+  color: #000A64;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }

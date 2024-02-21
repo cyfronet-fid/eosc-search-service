@@ -170,11 +170,11 @@ export const transformCountryNames = (nodes: IFilterNode[]): IFilterNode[] => {
   }));
 };
 
-export const transformHorizontal = (nodes: IFilterNode[]): IFilterNode[] => {
+export const transformBoolean = (nodes: IFilterNode[]): IFilterNode[] => {
   return nodes.map((node) => {
     return {
       ...node,
-      name: ['true', 'yes'].includes(node.name) ? 'yes' : 'no',
+      name: ['true', 'yes'].includes(node.name.toLowerCase()) ? 'Yes' : 'No',
     };
   });
 };

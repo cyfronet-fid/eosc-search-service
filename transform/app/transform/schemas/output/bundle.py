@@ -8,7 +8,7 @@ bundle_output_schema = {
     "capabilities_of_goals": "array<string>",
     "contact_email": "string",
     "dedicated_for": "array<string>",
-    "description": "array<string>",
+    "description": "string",
     "eosc_if": "array<string>",
     "eosc_if_tg": "array<string>",
     "helpdesk_url": "string",

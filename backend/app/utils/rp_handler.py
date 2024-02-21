@@ -1,11 +1,11 @@
 # pylint: disable=use-dict-literal
 """
-    Module responsible for OIDC auth calls.
-    Create one instance of Relaying Party Handler service instance,
-    which contain inner tokens session.
+Module responsible for OIDC auth calls.
+Create one instance of Relaying Party Handler service instance,
+which contain inner tokens session.
 
-    For more information's see:
-    https://oidcrp.readthedocs.io/en/latest/rp_handler.html
+For more information's see:
+https://oidcrp.readthedocs.io/en/latest/rp_handler.html
 """
 
 import json

@@ -1,119 +1,135 @@
-# pylint: disable=use-dict-literal, line-too-long, missing-class-docstring, missing-function-docstring, no-self-argument too-few-public-methods
-"""
-    IMPORTANT!!! We're using environment variables served from system instead of
-    keeping them in file due security risks.
-
-    Configuration of the app based on
-    https://docs.pydantic.dev/1.10/usage/settings/
-"""
+# pylint: disable=invalid-name, use-dict-literal, fixme
+"""Backend Settings"""
 import logging
-from typing import Literal
-from urllib.parse import urlparse
+from typing import Annotated, Literal
+from urllib.parse import urljoin, urlparse
 
-from pydantic import AnyUrl, BaseSettings, Field, PostgresDsn, root_validator
+from pydantic import BeforeValidator, HttpUrl, PostgresDsn, TypeAdapter
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-OIDC_NEW_AUTH_ENDPOINT: str = "/auth/realms/core/protocol/openid-connect/auth"
-OIDC_OLD_AUTH_ENDPOINT: str = "/oidc/authorize"
-OIDC_NEW_TOKEN_ENDPOINT: str = "/auth/realms/core/protocol/openid-connect/token"
-OIDC_OLD_TOKEN_ENDPOINT: str = "/oidc/token"
-OIDC_NEW_USERINFO_ENDPOINT: str = "/auth/realms/core/protocol/openid-connect/userinfo"
-OIDC_OLD_USERINFO_ENDPOINT: str = "/oidc/userinfo"
-OIDC_NEW_JWKS_ENDPOINT: str = "/auth/realms/core/protocol/openid-connect/certs"
-OIDC_OLD_JWKS_ENDPOINT: str = "/oidc/jwk"
-
-
+# In pydantic v2 http annotations are not strings themselves which may cause code to crash.
+# Therefore, let's annotate it as str and validate http "manually"
+Url = Annotated[
+    str, BeforeValidator(lambda value: str(TypeAdapter(HttpUrl).validate_python(value)))
+]
 EnvironmentType = Literal["dev", "test", "production"]
 
 
 class GlobalSettings(BaseSettings):
+    """Common settings that are used among all environments"""
+
+    # General
+    ENVIRONMENT: EnvironmentType = "production"
     LOG_LEVEL: str = logging.getLevelName(logging.INFO)
     IS_TESTING: bool = False
+
+    # Operational
+    BACKEND_BASE_URL: Url = "http://localhost:8000/"
+    UI_BASE_URL: Url = "http://localhost:4200/"
     DATABASE_URI: PostgresDsn = "postgresql+psycopg2://ess:ess@localhost:5442/ess"
-    SOLR_URL: AnyUrl = "http://localhost:8983/solr/"
-    RS_URL: AnyUrl = "http://localhost:9080/"
-    RS_ROWS: int = 1000
-    BACKEND_BASE_URL: AnyUrl = "http://localhost:8000"
-    UI_BASE_URL: AnyUrl = "http://localhost:4200"
-    OIDC_HOST: AnyUrl = "https://aai-demo.eosc-portal.eu"
-    OIDC_AAI_NEW_API: bool = False
-    OIDC_CLIENT_ID: str = "NO_CLIENT_ID"
-    OIDC_CLIENT_SECRET: str = "NO_CLIENT_SECRET"
+    MAX_RESULTS_BY_PAGE: int = 50
+    SHOW_BETA_COLLECTIONS: bool = False
 
-    OIDC_ISSUER: str = f"{OIDC_HOST}/oidc/"
-    OIDC_AUTH_ENDPOINT: str = OIDC_OLD_AUTH_ENDPOINT
-    OIDC_TOKEN_ENDPOINT: str = OIDC_OLD_TOKEN_ENDPOINT
-    OIDC_USERINFO_ENDPOINT: str = OIDC_OLD_USERINFO_ENDPOINT
-    OIDC_JWKS_ENDPOINT = OIDC_OLD_JWKS_ENDPOINT
+    # Services
+    # - Solr
+    SOLR_URL: Url = "http://localhost:8983/solr/"
+    COLLECTIONS_PREFIX: str = ""
 
+    # - Recommender System
+    RS_URL: Url = "http://localhost:9080/"
+    RECOMMENDER_ENDPOINT: Url = (
+        "http://localhost:8081/recommendations"  # Remove / from the end!
+    )
+    RS_ROWS: int = 1000  # TODO deprecated?
+    SHOW_RECOMMENDATIONS: bool = True
+    SHOW_RANDOM_RECOMMENDATIONS: bool = True
+    IS_SORT_BY_RELEVANCE: bool = True
+    MAX_ITEMS_SORT_RELEVANCE: int = 250
+
+    # - STOMP
     STOMP_HOST: str = "127.0.0.1"
     STOMP_PORT: int = 61613
     STOMP_LOGIN: str = "guest"
     STOMP_PASS: str = "guest"
-    STOMP_USER_ACTIONS_TOPIC = Field("/topic/user_actions", env="ESS_STOMP_USER_ACTION")
-    STOMP_CLIENT_NAME = Field("dev-client", env="ESS_QUEUE_CLIENT_NAME")
-    STOMP_SSL: bool = Field(False, env="ESS_STOMP_SSL")
+    STOMP_USER_ACTIONS_TOPIC: str = "/topic/user_actions"
+    STOMP_CLIENT_NAME: str = "dev-client"
+    STOMP_SSL: bool = False
 
-    SHOW_RECOMMENDATIONS: bool = True
-    SHOW_RANDOM_RECOMMENDATIONS: bool = True
-    RECOMMENDER_ENDPOINT: AnyUrl = "http://localhost:8081/recommendations"
-    MARKETPLACE_BASE_URL: AnyUrl = "https://marketplace.eosc-portal.eu"
-    EOSC_COMMONS_URL: AnyUrl = "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
+    # - OIDC
+    OIDC_HOST: Url = "https://aai-demo.eosc-portal.eu"
+    OIDC_CLIENT_ID: str = "NO_CLIENT_ID"
+    OIDC_CLIENT_SECRET: str = "NO_CLIENT_SECRET"
+    OIDC_AAI_NEW_API: bool = False
+    # Old OIDC API by default
+    OIDC_ISSUER: Url = urljoin(OIDC_HOST, "/oidc/")
+    OIDC_AUTH_ENDPOINT: str = "/oidc/authorize"
+    OIDC_TOKEN_ENDPOINT: str = "/oidc/token"
+    OIDC_USERINFO_ENDPOINT: str = "/oidc/userinfo"
+    OIDC_JWKS_ENDPOINT: str = "/oidc/jwk"
+
+    # - Other
+    RELATED_SERVICES_ENDPOINT: Url = (
+        "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"
+    )
+
+    # Redirections
+    MARKETPLACE_BASE_URL: Url = "https://marketplace.eosc-portal.eu/"
+    EOSC_COMMONS_URL: Url = (
+        "https://s3.cloud.cyfronet.pl/eosc-portal-common/"  # Without / at the end it doesn't work
+    )
     EOSC_COMMONS_ENV: str = "production"
-    EOSC_EXPLORE_URL: AnyUrl = "https://explore.eosc-portal.eu"
-    KNOWLEDGE_HUB_URL: AnyUrl = "https://knowledge-hub.eosc-portal.eu/"
-    RELATED_SERVICES_ENDPOINT: AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"
-    IS_SORT_BY_RELEVANCE: bool = True
-    MAX_RESULTS_BY_PAGE: int = 50
-    MAX_ITEMS_SORT_RELEVANCE: int = 250
+    EOSC_EXPLORE_URL: Url = "https://explore.eosc-portal.eu/"
+    KNOWLEDGE_HUB_URL: Url = "https://knowledge-hub.eosc-portal.eu/"
 
-    COLLECTIONS_PREFIX: str = ""
-
-    @root_validator()
-    def oidc_issuer_path(cls, values):
-        if values["OIDC_AAI_NEW_API"]:
-            values["OIDC_ISSUER"] = f"{values['OIDC_HOST']}/auth/realms/core"
-            values["OIDC_JWKS_ENDPOINT"] = OIDC_NEW_JWKS_ENDPOINT
-            values["OIDC_USERINFO_ENDPOINT"] = OIDC_NEW_USERINFO_ENDPOINT
-            values["OIDC_TOKEN_ENDPOINT"] = OIDC_NEW_TOKEN_ENDPOINT
-            values["OIDC_AUTH_ENDPOINT"] = OIDC_NEW_AUTH_ENDPOINT
-        return values
+    # Get config from .env
+    model_config = SettingsConfigDict(env_file="../.env", env_file_encoding="utf-8")
 
 
 class DevSettings(GlobalSettings):
-    pass
+    """Dev Settings"""
 
 
 class TestSettings(GlobalSettings):
+    """Test Settings"""
+
     IS_TESTING: bool = True
     DATABASE_URI: PostgresDsn = (
         "postgresql+psycopg2://ess_test:ess_test@localhost:5452/ess_test"
     )
-    SOLR_URL: AnyUrl = "http://localhost:8993/solr/"
-    COLLECTIONS_PREFIX = "test_"
-
-    class Config:
-        env_prefix = "TEST_"
+    SOLR_URL: Url = "http://localhost:8993/solr/"
+    COLLECTIONS_PREFIX: str = "test_"
+    model_config = SettingsConfigDict(env_prefix="TEST_")
 
 
 class ProductionSettings(GlobalSettings):
-    pass
+    """Production Settings"""
 
 
-class EnvironmentConfig(BaseSettings):
-    ENVIRONMENT: EnvironmentType = "production"
+class EnvironmentConfig(GlobalSettings):
+    """Get settings based on your environment"""
 
-    TYPES_TO_SETTINGS_MAP = {
+    TYPES_TO_SETTINGS_MAP: dict = {
         "production": ProductionSettings,
         "dev": DevSettings,
         "test": TestSettings,
     }
 
     def make_settings(self) -> GlobalSettings:
-        return self.TYPES_TO_SETTINGS_MAP[self.ENVIRONMENT]()
+        """Make and return final settings"""
+        s = self.TYPES_TO_SETTINGS_MAP[self.ENVIRONMENT]()
+        if s.OIDC_AAI_NEW_API:  # Adjust OIDC integration params for the new API
+            s.OIDC_ISSUER = urljoin(s.OIDC_HOST, "/auth/realms/core")
+            s.OIDC_JWKS_ENDPOINT = "/auth/realms/core/protocol/openid-connect/certs"
+            s.OIDC_USERINFO_ENDPOINT = (
+                "/auth/realms/core/protocol/openid-connect/userinfo"
+            )
+            s.OIDC_TOKEN_ENDPOINT = "/auth/realms/core/protocol/openid-connect/token"
+            s.OIDC_AUTH_ENDPOINT = "/auth/realms/core/protocol/openid-connect/auth"
+
+        return s
 
 
 settings = EnvironmentConfig().make_settings()
-
 
 parsed_backend_url = urlparse(settings.BACKEND_BASE_URL)
 parsed_ui_url = urlparse(settings.UI_BASE_URL)
@@ -130,16 +146,15 @@ OIDC_CLIENT_OPTIONS = client_options = dict(
         token_endpoint_auth_method=["client_secret_basic", "client_secret_post"],
     ),
     provider_info=dict(
-        authorization_endpoint=f"{settings.OIDC_HOST}{settings.OIDC_AUTH_ENDPOINT}",
-        token_endpoint=f"{settings.OIDC_HOST}{settings.OIDC_TOKEN_ENDPOINT}",
-        userinfo_endpoint=f"{settings.OIDC_HOST}{settings.OIDC_USERINFO_ENDPOINT}",
+        authorization_endpoint=urljoin(settings.OIDC_HOST, settings.OIDC_AUTH_ENDPOINT),
+        token_endpoint=urljoin(settings.OIDC_HOST, settings.OIDC_TOKEN_ENDPOINT),
+        userinfo_endpoint=urljoin(settings.OIDC_HOST, settings.OIDC_USERINFO_ENDPOINT),
     ),
-    redirect_uris=[f"{settings.BACKEND_BASE_URL}/api/web/auth/checkin"],
-    post_logout_redirect_uri=f"{settings.BACKEND_BASE_URL}/auth/logout",
-    backchannel_logout_uri=f"{settings.BACKEND_BASE_URL}/auth/logout",
+    redirect_uris=[urljoin(settings.BACKEND_BASE_URL, "/api/web/auth/checkin")],
+    post_logout_redirect_uri=urljoin(settings.BACKEND_BASE_URL, "/auth/logout"),
+    backchannel_logout_uri=urljoin(settings.BACKEND_BASE_URL, "/auth/logout"),
     backchannel_logout_session_required=True,
 )
-
 
 OIDC_CONFIG = dict(
     port=parsed_backend_url.port if parsed_backend_url.port else None,
@@ -162,15 +177,15 @@ OIDC_CONFIG = dict(
     ),
 )
 
-
 OIDC_JWT_ENCRYPT_CONFIG = dict(
-    public_path=f"{settings.OIDC_HOST}{settings.OIDC_JWKS_ENDPOINT}",
+    public_path=urljoin(settings.OIDC_HOST, settings.OIDC_JWKS_ENDPOINT),
     key_defs=[
         {"type": "RSA", "use": ["sig"]},
     ],
     issuer_id=settings.OIDC_ISSUER,
     read_only=True,
 )
+
 OIDC_CONFIG["clients"] = {}
 OIDC_CONFIG["clients"][settings.OIDC_ISSUER] = OIDC_CLIENT_OPTIONS
 

@@ -20,4 +20,5 @@ async def config():
         is_sort_by_relevance=settings.IS_SORT_BY_RELEVANCE,
         max_results_by_page=settings.MAX_RESULTS_BY_PAGE,
         max_items_sort_relevance=settings.MAX_ITEMS_SORT_RELEVANCE,
+        show_beta_collections=settings.SHOW_BETA_COLLECTIONS,
     )

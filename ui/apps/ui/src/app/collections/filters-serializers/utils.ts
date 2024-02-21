@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { isArray } from 'lodash-es';
 import {
   IValueWithLabel,

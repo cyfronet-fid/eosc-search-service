@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
@@ -36,7 +37,6 @@ import { selectEntities } from '@ngneat/elf-entities';
     <div id="container-lower" class="page-heading">
       <div>
         <span id="results-count" i18n>{{ resultsCount }} search results</span>
-        {{ (activeNavConfig$ | async)?.title }}
       </div>
       <ess-download-results-button></ess-download-results-button>
     </div>

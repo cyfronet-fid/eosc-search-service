@@ -1,4 +1,5 @@
 """The Recommend endpoint"""
+
 from json import JSONDecodeError
 
 from fastapi import Body, Depends, HTTPException, Query

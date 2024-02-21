@@ -8,7 +8,35 @@ export const DEFAULT_FACET: { [field: string]: ITermsFacetParam } = {
 export const DEFAULT_QF =
   'title^100 author_names_tg^120 description^10 keywords_tg^10 tag_list_tg^10';
 
-export const PROVIDER_QF = 'title^100 description^10 scientific_domains^10';
+export const PROVIDER_QF =
+  'title^100 abbreviation^100 description^10 scientific_domains^10';
+
+export const CATALOGUE_QF =
+  'title^100 abbreviation^100 description^10 keywords_tg^10';
+
+export const PROJECT_QF =
+  'title^100 abbreviation^100 description^10 keywords_tg^10';
+
+export const ORGANISATION_QF = 'alternative_names title abbreviation';
+
+export const SPECIAL_COLLECTIONS = [
+  'organisation',
+  'provider',
+  'project',
+  'catalogue',
+];
+
+export const BETA_ONLY_COLLECTIONS = ['organisation', 'project'];
+
+export const NO_RECOMMENDATIONS_COLLECTIONS = [
+  'guideline',
+  'provider',
+  'bundle',
+  'data_source',
+  'organisation',
+  'project',
+  'catalogue',
+];
 
 export const HORIZONTAL_TOOLTIP_TEXT =
   'Horizontal Services are services potentially useful for all researchers' +
@@ -56,6 +84,11 @@ export const BIBLIOGRAPHY_TOOLTIP_TEXT =
 export const INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT =
   'With interoperability patterns you are able to discover research products ' +
   'along with processing tools dedicated for them.';
+
+export const ACTIVE_WITHIN_TOOLTIP_TEXT =
+  'Atcive within - Filters projects actively ongoing within selected years, ' +
+  'including also those that started before the range and extend beyond it. ' +
+  'The beginning or end of the project must always fall within the selected range.';
 
 // Source: http://country.io/data/
 export const COUNTRY_CODE_TO_NAME: Record<string, string> = {

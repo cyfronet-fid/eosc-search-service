@@ -14,6 +14,7 @@ export interface BackendConfig {
   knowledge_hub_url: string;
   is_sort_by_relevance: boolean;
   max_results_by_page: number;
+  show_beta_collections: boolean;
 }
 
 @Injectable({

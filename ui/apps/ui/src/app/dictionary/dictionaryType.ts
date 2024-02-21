@@ -17,5 +17,8 @@ export const DICTIONARY_TYPE_FOR_PIPE = {
   TYPE_SCIENTIFIC_DOMAINS: 'scientific_domains',
   TYPE_GENERAL: 'type_general',
   TYPE_DATE: 'publication_date',
+  TYPE_START_DATE: 'start_date',
+  TYPE_END_DATE: 'end_date',
   TYPE_RESOURCE_TYPE: 'type',
+  STATUS_TYPE: 'project_status',
 };

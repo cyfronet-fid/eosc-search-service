@@ -17,22 +17,37 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
 @Component({
   selector: 'ess-sort-by-functionality',
   template: ` <div class="col-sm-4 sort_container">
-    <label for="sorts" i18n>Sort By</label>
-    <select
-      [formControl]="selectedSortOptionControl"
-      id="sorts"
-      class="form-select"
-    >
-      <option value="dmr" i18n>Date - Most recent</option>
-      <option value="dlr" i18n>Date – Least recent</option>
-      <option [hidden]="disableSortByPopularity$() | async" value="mp" i18n>
-        Most popular
-      </option>
-      <option [hidden]="disableSortByRelevance$() | async" value="r" i18n>
-        Recommendation
-      </option>
-      <option value="default" i18n>Best match</option>
-    </select>
+    <div *ngIf="this.collection !== 'project'">
+      <label for="sorts" i18n>Sort By</label>
+      <select
+        [formControl]="selectedSortOptionControl"
+        id="sorts"
+        class="form-select"
+      >
+        <option value="default" i18n>Best match</option>
+        <option value="dmr" i18n>Date - Most recent</option>
+        <option value="dlr" i18n>Date – Least recent</option>
+        <option [hidden]="disableSortByPopularity$() | async" value="mp" i18n>
+          Downloads & Views
+        </option>
+        <option [hidden]="disableSortByRelevance$() | async" value="r" i18n>
+          Recommended
+        </option>
+      </select>
+    </div>
+
+    <div *ngIf="this.collection === 'project'">
+      <label for="sorts" i18n>Sort By</label>
+      <select
+        [formControl]="selectedSortOptionControl"
+        id="sorts"
+        class="form-select"
+      >
+        <option value="default" i18n>Best match</option>
+        <option value="pdmr" i18n>Date - Most recent</option>
+        <option value="pdlr" i18n>Date – Least recent</option>
+      </select>
+    </div>
   </div>`,
   styles: [
     `
@@ -41,6 +56,7 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
       }
 
       label {
+        display: inline-block;
         width: 100px;
         font-family: 'Inter';
         font-style: normal;
@@ -51,6 +67,7 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
       }
 
       select {
+        display: inline-block;
         font-family: 'Inter';
         font-style: normal;
         font-weight: 500;
@@ -79,6 +96,7 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
 export class SortByFunctionalityComponent implements OnInit {
   @Input()
   type!: string;
+  collection: string | null = '';
 
   public selectedSortOptionControl: FormControl<sortType> =
     new FormControl<sortType>(DEFAULT_SORT, { nonNullable: true });
@@ -108,6 +126,7 @@ export class SortByFunctionalityComponent implements OnInit {
         switchMap((value) => this.updateQueryParams(value))
       )
       .subscribe();
+    this.collection = this._customRoute.collection();
   }
 
   async updateQueryParams(sortOption: sortType) {

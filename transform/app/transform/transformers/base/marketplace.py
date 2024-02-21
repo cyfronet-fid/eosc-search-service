@@ -21,9 +21,7 @@ from app.transform.utils.common import (
     create_open_access,
     harvest_popularity,
 )
-
-SERVICE_TYPE = "service"
-DATA_SOURCE_TYPE = "data source"
+from app.settings import settings
 
 
 class MarketplaceBaseTransformer(BaseTransformer):
@@ -70,19 +68,19 @@ class MarketplaceBaseTransformer(BaseTransformer):
         df = map_best_access_right(df, self.harvested_properties, self.type)
         create_open_access(self.harvested_properties)
         harvest_popularity(df, self.harvested_properties)
-        if self.type == DATA_SOURCE_TYPE:
+        if self.type == settings.DATASOURCE:
             df = self.harvest_persistent_id_systems(df)
 
         return df
 
     def simplify_urls(self, df: DataFrame) -> DataFrame:
         """Simplify url columns - get only urls"""
-        if self.type not in {SERVICE_TYPE, DATA_SOURCE_TYPE}:
+        if self.type not in {settings.SERVICE, settings.DATASOURCE}:
             raise ValueError(
-                f"{self.type=} not in the scope of {SERVICE_TYPE, DATA_SOURCE_TYPE}"
+                f"{self.type=} not in the scope of {settings.SERVICE, settings.DATASOURCE}"
             )
 
-        if self.type == SERVICE_TYPE:
+        if self.type == settings.SERVICE:
             url_cols_to_simplify = ("multimedia_urls", "use_cases_urls")
         else:
             url_cols_to_simplify = (
@@ -125,8 +123,7 @@ class MarketplaceBaseTransformer(BaseTransformer):
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast certain columns"""
         df = (
-            df.withColumn("description", split(col("description"), ","))
-            .withColumn("id", col("id").cast(StringType()))
+            df.withColumn("id", col("id").cast(StringType()))
             .withColumn("publication_date", col("publication_date").cast("date"))
             .withColumn("last_update", col("last_update").cast("date"))
             .withColumn("synchronized_at", col("synchronized_at").cast("date"))

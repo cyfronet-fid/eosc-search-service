@@ -5,7 +5,7 @@
  * formatted or well-behaved
  */
 
-import { sharedEnvironment } from './environment.generated';
+import { sharedEnvironment } from '@environment/environment.generated';
 
 export const commonEnvironment = {
   // @ts-ignore

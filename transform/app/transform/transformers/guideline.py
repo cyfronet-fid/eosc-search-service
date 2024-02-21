@@ -19,11 +19,10 @@ from app.transform.schemas.output.guideline import guideline_output_schema
 from app.transform.schemas.input.guideline import guideline_input_schema
 from app.transform.utils.validate import validate_pd_schema
 from app.services.mp_pc.data import get_providers_mapping
+from app.settings import settings
 
 
 logger = logging.getLogger(__name__)
-
-IG_TYPE = "interoperability guideline"
 
 IDENTIFIER_INFO = "identifierInfo"
 IDENTIFIER = "identifier"
@@ -322,13 +321,13 @@ def transform_guidelines(data: str) -> DataFrame:
     df = pd.DataFrame(data)
 
     try:  # validate input schema
-        validate_pd_schema(df, guideline_input_schema, IG_TYPE, "input")
+        validate_pd_schema(df, guideline_input_schema, settings.GUIDELINE, "input")
     except AssertionError:
         logger.warning(
-            f"Schema validation of raw input data for type={IG_TYPE} has failed. Input schema is different than excepted"
+            f"Schema validation of raw input data for type={settings.GUIDELINE} has failed. Input schema is different than excepted"
         )
 
-    df[TYPE] = IG_TYPE
+    df[TYPE] = settings.GUIDELINE
     rename_cols(df)
     df["catalogue"] = df["catalogues"].copy()  # TODO delete
     map_providers(df)
@@ -349,10 +348,10 @@ def transform_guidelines(data: str) -> DataFrame:
     df = df.reindex(sorted(df.columns), axis=1)
 
     try:  # validate output schema
-        validate_pd_schema(df, guideline_output_schema, IG_TYPE, "output")
+        validate_pd_schema(df, guideline_output_schema, settings.GUIDELINE, "output")
     except AssertionError:
         logger.warning(
-            f"Schema validation after transformation failed for type={IG_TYPE} has failed. Output schema is different than excepted"
+            f"Schema validation after transformation failed for type={settings.GUIDELINE} has failed. Output schema is different than excepted"
         )
 
     columns_to_get = [

@@ -9,18 +9,16 @@ from app.transform.schemas.properties.data import ID, TYPE, URL, POPULARITY
 from app.transform.utils.common import harvest_popularity
 from app.transform.utils.utils import sort_schema
 from app.transform.schemas.output.provider import provider_output_schema
-
-PROVIDER_TYPE = "provider"
-PROVIDER_IDS_INCREMENTOR = 100_000
+from app.settings import settings
 
 
 class ProviderTransformer(BaseTransformer):
     """Transformer used to transform providers"""
 
     def __init__(self, spark: SparkSession):
-        self.type = PROVIDER_TYPE
+        self.type = settings.PROVIDER
         # Increase the range of providers IDs -> to avoid a conflicts
-        self.id_increment = PROVIDER_IDS_INCREMENTOR
+        self.id_increment = settings.PROVIDER_IDS_INCREMENTOR
         self.exp_output_schema = provider_output_schema
 
         super().__init__(
@@ -80,8 +78,7 @@ class ProviderTransformer(BaseTransformer):
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast certain columns"""
         df = (
-            df.withColumn("description", split(col("description"), ","))
-            .withColumn("webpage_url", split(col("webpage_url"), ","))
+            df.withColumn("webpage_url", split(col("webpage_url"), ","))
             .withColumn("country", split(col("country"), ","))
             .withColumn("id", col("id").cast(StringType()))
             .withColumn("publication_date", col("publication_date").cast("date"))

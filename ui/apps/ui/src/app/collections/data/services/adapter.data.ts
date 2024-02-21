@@ -69,7 +69,7 @@ export const servicesAdapter: IAdapter = {
       {
         label: 'Interoperability guideline',
         values: toValueWithLabel(toArray(service.guidelines)),
-        filter: 'guidelines',
+        filter: 'guidelines_str',
       },
     ],
     secondaryTags: [

@@ -1,6 +1,6 @@
-import os
+# pylint: disable=no-member
+
 from logging.config import fileConfig
-from os import getenv
 
 from psycopg2 import DatabaseError
 from sqlalchemy import create_engine
@@ -30,7 +30,7 @@ target_metadata = models.Base.metadata
 
 
 def get_url():
-    return settings.DATABASE_URI
+    return settings.DATABASE_URI.unicode_string()
 
 
 def run_migrations_offline():

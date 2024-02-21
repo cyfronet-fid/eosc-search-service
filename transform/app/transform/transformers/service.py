@@ -9,7 +9,6 @@ from pyspark.sql.types import (
 )
 from app.transform.transformers.base.marketplace import (
     MarketplaceBaseTransformer,
-    SERVICE_TYPE,
 )
 from app.transform.utils.utils import sort_schema
 from app.transform.schemas.properties.data import (
@@ -18,16 +17,15 @@ from app.transform.schemas.properties.data import (
     POPULARITY,
 )
 from app.transform.schemas.output.service import service_output_schema
-
-SERVICE_IDS_INCREMENTOR = 0
+from app.settings import settings
 
 
 class ServiceTransformer(MarketplaceBaseTransformer):
     """Service transformer"""
 
     def __init__(self, spark):
-        self.type = SERVICE_TYPE
-        id_increment = SERVICE_IDS_INCREMENTOR  # Do not change service ID
+        self.type = settings.SERVICE
+        id_increment = settings.SERVICE_IDS_INCREMENTOR
         self.exp_output_schema = service_output_schema
 
         super().__init__(

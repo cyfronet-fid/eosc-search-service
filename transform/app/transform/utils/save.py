@@ -6,12 +6,7 @@ import logging
 import pyspark
 from pyspark.sql.functions import spark_partition_id
 import pandas
-from app.transform.schemas.properties.env import (
-    ALL_COLLECTION,
-    CREATE_LOCAL_DUMP,
-    GUIDELINE,
-    LOCAL_DUMP_PATH,
-)
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +20,7 @@ def save_df(
     verbose=False,
 ) -> None:
     """Save dataframe"""
-    if col_name == GUIDELINE:
+    if col_name == settings.GUIDELINE:
         save_pd_df(df, path, verbose)
     else:
         save_spark_df(df, path, _format, mode, verbose)
@@ -59,22 +54,6 @@ def save_pd_df(
 
     if verbose:
         logger.info(f"Dataframe was successfully saved into {path}")
-
-
-def create_dump_struct(env_vars: dict) -> None:
-    """Create structure (directories) for the local dump"""
-    if env_vars[CREATE_LOCAL_DUMP]:
-        dump_path = env_vars[LOCAL_DUMP_PATH]
-        os.mkdir(dump_path)
-
-        for col in env_vars[ALL_COLLECTION]:
-            os.mkdir(os.path.join(dump_path, col.lower()))
-
-
-def make_archive(env_vars: dict) -> None:
-    """Compress the dump and delete the directory"""
-    shutil.make_archive(env_vars[LOCAL_DUMP_PATH], "zip", env_vars[LOCAL_DUMP_PATH])
-    shutil.rmtree(env_vars[LOCAL_DUMP_PATH])
 
 
 def clear_folder(folder) -> None:

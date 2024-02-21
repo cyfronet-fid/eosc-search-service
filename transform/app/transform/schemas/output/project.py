@@ -1,0 +1,28 @@
+"""Project expected schema after transformations"""
+
+project_output_schema = {
+    "abbreviation": "string",
+    "code": "string",
+    "currency": "string",
+    "date_range": "string",
+    "description": "string",
+    "end_date": "date",
+    "eosc_score": "integer",
+    "funding_stream_title": "array<string>",
+    "funding_title": "array<string>",
+    "id": "string",
+    "keywords": "array<string>",
+    "keywords_tg": "array<string>",
+    "open_access_mandate_for_dataset": "boolean",
+    "open_access_mandate_for_publications": "boolean",
+    "related_dataset_ids": "array<string>",
+    "related_organisation_titles": "array<string>",
+    "related_other_ids": "array<string>",
+    "related_publication_ids": "array<string>",
+    "related_software_ids": "array<string>",
+    "start_date": "date",
+    "subject": "array<string>",
+    "title": "string",
+    "total_cost": "float",
+    "type": "string",
+}

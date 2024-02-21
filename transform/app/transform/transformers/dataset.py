@@ -2,13 +2,14 @@
 """Transform datasets"""
 from app.transform.transformers.base.oag import OagBaseTransformer
 from app.transform.schemas.output.dataset import dataset_output_schema
+from app.settings import settings
 
 
 class DatasetTransformer(OagBaseTransformer):
     """Dataset transformer"""
 
     def __init__(self, spark):
-        self.type = "dataset"
+        self.type = settings.DATASET
         self.exp_output_schema = dataset_output_schema
 
         super().__init__(

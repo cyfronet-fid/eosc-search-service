@@ -3,30 +3,25 @@
 import asyncio
 from logging import getLogger
 import requests
-from app.transform.utils.loader import load_env_vars
-from app.transform.schemas.properties.env import (
-    ADDRESS,
-    ALL_COLLECTION,
-    BUNDLE,
-    DATASOURCE,
-    MP_API_TOKEN,
-    OFFER,
-    PROVIDER,
-    SERVICE,
-)
+from app.settings import settings
 
 logger = getLogger(__name__)
-
-env_vars = load_env_vars()
 
 
 async def get_data(data_type: str, data_address: str) -> list[dict] | None:
     """Get data from the APIs of both MP and PC"""
     try:
-        if data_type in (SERVICE, DATASOURCE, PROVIDER, OFFER, BUNDLE):
+        if data_type in (
+            settings.SERVICE,
+            settings.DATASOURCE,
+            settings.PROVIDER,
+            settings.OFFER,
+            settings.BUNDLE,
+            settings.CATALOGUE,
+        ):
             headers = {
                 "accept": "application/json",
-                "X-User-Token": env_vars[MP_API_TOKEN],
+                "X-User-Token": settings.MP_API_TOKEN,
             }
             data = requests.get(
                 data_address,
@@ -89,7 +84,10 @@ def get_data_source_pids() -> list[str]:
         or get_data_source_pids._instance is None
     ):
         data_sources = asyncio.run(
-            get_data(DATASOURCE, env_vars[ALL_COLLECTION][DATASOURCE][ADDRESS])
+            get_data(
+                settings.DATASOURCE,
+                settings.COLLECTIONS[settings.DATASOURCE]["ADDRESS"],
+            )
         )
         get_data_source_pids._instance = [ds["pid"] for ds in data_sources]
     return get_data_source_pids._instance
@@ -98,7 +96,7 @@ def get_data_source_pids() -> list[str]:
 def get_providers_mapping() -> dict[str, str]:
     """Get providers mapping dict, that maps pids into names."""
     providers_raw = asyncio.run(
-        get_data(PROVIDER, env_vars[ALL_COLLECTION][PROVIDER][ADDRESS])
+        get_data(settings.PROVIDER, settings.COLLECTIONS[settings.PROVIDER]["ADDRESS"])
     )
 
     return {provider["pid"]: provider["name"] for provider in providers_raw}

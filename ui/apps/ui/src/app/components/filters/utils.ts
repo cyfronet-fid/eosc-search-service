@@ -36,7 +36,10 @@ export function* toAllLevels(value: string) {
 }
 
 export const flatNodesToTree = (nodes: IFilterNode[]): IUIFilterTreeNode[] => {
-  if (nodes[0].filter !== 'publisher') {
+  if (
+    nodes[0].filter !== 'publisher' &&
+    nodes[0].filter !== 'related_organisation_titles'
+  ) {
     const allLvlsPermutations = facetToFlatNodes(
       [
         ...new Set(

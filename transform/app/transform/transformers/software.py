@@ -2,13 +2,14 @@
 """Transform software"""
 from app.transform.transformers.base.oag import OagBaseTransformer
 from app.transform.schemas.output.software import software_output_schema
+from app.settings import settings
 
 
 class SoftwareTransformer(OagBaseTransformer):
     """Software transformer"""
 
     def __init__(self, spark):
-        self.type = "software"
+        self.type = settings.SOFTWARE
         self.exp_output_schema = software_output_schema
 
         super().__init__(

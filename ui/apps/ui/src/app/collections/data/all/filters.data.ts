@@ -6,13 +6,21 @@ import {
 } from '@collections/data/config';
 import {
   alphanumericFilterSort,
+  transformBoolean,
   transformCatalogueNames,
-  transformHorizontal,
 } from '@collections/data/utils';
 
 export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
+    {
+      id: 'related_organisation_titles',
+      filter: 'related_organisation_titles',
+      label: 'Related organisations',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
     {
       id: 'unified_categories',
       filter: 'unified_categories',
@@ -20,14 +28,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
-    },
-    {
-      id: 'type',
-      filter: 'type',
-      label: 'Type of research product',
-      type: 'multiselect',
-      defaultCollapsed: false,
-      tooltipText: '',
+      expandArrow: true,
     },
     {
       id: 'best_access_right',
@@ -36,22 +37,43 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
     {
-      id: 'scientific_domains',
-      filter: 'scientific_domains',
-      label: 'Scientific Domains',
+      id: 'type',
+      filter: 'type',
+      label: 'Type of research product',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      expandArrow: true,
     },
+
+    {
+      id: 'scientific_domains',
+      filter: 'scientific_domains',
+      label: 'Scientific domain',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
+    },
+    // {
+    //   id: 'related_organisation_titles',
+    //   filter: 'related_organisation_titles',
+    //   label: 'Related organisations',
+    //   type: 'multiselect',
+    //   defaultCollapsed: false,
+    //   tooltipText: '',
+    // },
     {
       id: 'eosc_if',
       filter: 'eosc_if',
-      label: 'Interoperability patterns',
+      label: 'Interoperability pattern',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
+      expandArrow: true,
     },
     {
       id: 'language',
@@ -61,6 +83,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       defaultCollapsed: true,
       tooltipText: '',
       customSort: alphanumericFilterSort,
+      expandArrow: true,
     },
     {
       id: 'horizontal',
@@ -69,7 +92,8 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: true,
       tooltipText: HORIZONTAL_TOOLTIP_TEXT,
-      transformNodes: transformHorizontal,
+      transformNodes: transformBoolean,
+      expandArrow: true,
     },
     {
       id: 'author_names',
@@ -90,7 +114,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'scientific_domains',
       filter: 'scientific_domains',
-      label: 'Scientific Domains',
+      label: 'Scientific domain',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
@@ -106,7 +130,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'eosc_if',
       filter: 'eosc_if',
-      label: 'Interoperability patterns',
+      label: 'Interoperability pattern',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
@@ -138,8 +162,8 @@ export const allCollectionsFilters: IFiltersConfig = {
       transformNodes: transformCatalogueNames,
     },
     {
-      id: 'guidelines',
-      filter: 'guidelines',
+      id: 'guidelines_str',
+      filter: 'guidelines_str',
       label: 'Interoperability guideline',
       type: 'tag',
       defaultCollapsed: false,
@@ -148,7 +172,7 @@ export const allCollectionsFilters: IFiltersConfig = {
     {
       id: 'providers',
       filter: 'providers',
-      label: 'Providers',
+      label: 'Provider',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

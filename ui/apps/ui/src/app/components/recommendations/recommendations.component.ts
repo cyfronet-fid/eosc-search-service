@@ -16,6 +16,7 @@ import {
   RECOMMENDATIONS_TOOLTIP_TEXT_NOTLOGGED,
 } from '@collections/data/config';
 import { UserProfileService } from '../../auth/user-profile.service';
+import { NO_RECOMMENDATIONS_COLLECTIONS } from '@collections/data/config';
 
 @UntilDestroy()
 @Component({
@@ -46,12 +47,7 @@ export class RecommendationsComponent implements OnInit {
       .pipe(
         untilDestroyed(this),
         switchMap((panelId) => {
-          if (
-            panelId === 'guideline' ||
-            panelId === 'provider' ||
-            panelId === 'bundle' ||
-            panelId === 'data_source'
-          ) {
+          if (NO_RECOMMENDATIONS_COLLECTIONS.includes(panelId)) {
             return of([]);
           }
           return this._recommendationsService

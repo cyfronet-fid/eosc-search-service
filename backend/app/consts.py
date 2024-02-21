@@ -1,4 +1,5 @@
 """Common routes constants"""
+
 from enum import Enum
 from typing import Literal, TypeAlias
 
@@ -16,6 +17,9 @@ class ResourceType(str, Enum):
     TRAINING = "training"
     GUIDELINE = "interoperability guideline"
     PROVIDER = "provider"
+    ORGANISATION = "organisation"
+    PROJECT = "project"
+    CATALOGUE = "catalogue"
 
 
 class Collection(str, Enum):
@@ -33,6 +37,9 @@ class Collection(str, Enum):
     PROVIDER = "provider"
     SOFTWARE = "software"
     OFFER = "offer"
+    ORGANISATION = "organisation"
+    PROJECT = "project"
+    CATALOGUE = "catalogue"
 
 
 ALL_COLLECTION_LIST = [
@@ -45,7 +52,6 @@ ALL_COLLECTION_LIST = [
     Collection.GUIDELINE,
     Collection.BUNDLE,
     Collection.OTHER_RP,
-    Collection.PROVIDER,
 ]
 
 
@@ -101,15 +107,24 @@ PANEL_ID_OPTIONS = [
     PanelId.BUNDLE,
 ]
 
+SPECIAL_COLLECTIONS = [Collection.PROJECT, Collection.ORGANISATION]
+
+CATALOGUE_QF = "title^100 abbreviation^100 description^10 keywords_tg^10"
+
 PROVIDER_QF = "title^100 description^10 scientific_domains^10"
+
+PROJECT_QF = "title^ description^10 keywords_tg^10"
+
+ORGANISATION_QF = "alternative_names title abbreviation"
 
 DEFAULT_QF = (
     "title^100 author_names_tg^120 description^10 keywords_tg^10 tag_list_tg^10"
 )
 
-SortUi: TypeAlias = Literal["dmr", "dlr", "mp", "r", "default", ""]
+SortUi: TypeAlias = Literal["pdmr", "pdlr", "dmr", "dlr", "mp", "r", "default", ""]
 
 DEFAULT_SORT = ["score desc", "id asc"]
+DEFAULT_SPECIAL_COL_SORT = ["eosc_score desc", "score desc", "id asc"]
 
 SORT_UI_TO_SORT_MAP = {
     "default": [],
@@ -117,6 +132,8 @@ SORT_UI_TO_SORT_MAP = {
     "dlr": ["publication_date asc"],
     "mp": ["popularity desc"],
     "r": ["popularity desc"],
+    "pdmr": ["start_date desc"],
+    "pdlr": ["start_date asc"],
 }
 
 DOI_BASE_URL = "https://doi.org"
