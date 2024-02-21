@@ -49,10 +49,10 @@ def load_env_vars() -> dict:
         OUTPUT_PATH: os.environ.get(OUTPUT_PATH, "output/"),
         INPUT_FORMAT: os.environ.get(INPUT_FORMAT, "JSON"),
         OUTPUT_FORMAT: os.environ.get(OUTPUT_FORMAT, "JSON"),
-        SEND_TO_SOLR: os.environ.get(SEND_TO_SOLR, True),
-        SEND_TO_S3: os.environ.get(SEND_TO_S3, False),
-        CREATE_LOCAL_DUMP: os.environ.get(CREATE_LOCAL_DUMP, False),
-        CREATE_RELATIONS: os.environ.get(CREATE_RELATIONS, False),
+        SEND_TO_SOLR: os.environ.get(SEND_TO_SOLR, True).lower() in ("true", "1", "t"),
+        SEND_TO_S3: os.environ.get(SEND_TO_S3, False).lower() in ("true", "1", "t"),
+        CREATE_LOCAL_DUMP: os.environ.get(CREATE_LOCAL_DUMP, False).lower() in ("true", "1", "t"),
+        CREATE_RELATIONS: os.environ.get(CREATE_RELATIONS, False).lower() in ("true", "1", "t"),
     }
     if not env_vars[MP_API_TOKEN]:
         raise ValueError("MP_API_TOKEN needs to be specified.")
