@@ -77,6 +77,7 @@ class GlobalSettings(BaseSettings):
     BUNDLE: str = "bundle"
     GUIDELINE: str = "interoperability guideline"
     TRAINING: str = "training"
+    CATALOGUE: str = "catalogue"
 
     # Relations properties
     TMP_DIRECTORY: str = "tmp/"
@@ -104,6 +105,7 @@ class GlobalSettings(BaseSettings):
         "bundle",
         "guideline",
         "training",
+        "catalogue",
     ]
 
     # IDs incrementors
@@ -112,6 +114,7 @@ class GlobalSettings(BaseSettings):
     PROVIDER_IDS_INCREMENTOR: int = 100_000
     BUNDLE_IDS_INCREMENTOR: int = 1_000_000
     DATA_SOURCE_IDS_INCREMENTOR: int = 10_000_000
+    CATALOGUE_IDS_INCREMENTOR: int = 100_000_000
 
 
 class TransformSettings(GlobalSettings):
@@ -230,6 +233,11 @@ class TransformSettings(GlobalSettings):
                 OUTPUT_SCHEMA: offer_output_schema,
                 INPUT_SCHEMA: offer_input_schema,
             },
+            self.CATALOGUE: {
+                ADDRESS: mp_api + "catalogues",
+                OUTPUT_SCHEMA: catalogue_output_schema,
+                INPUT_SCHEMA: catalogue_input_schema,
+            },
         }
 
         if self.SEND_TO_SOLR:
@@ -261,6 +269,7 @@ class TransformSettings(GlobalSettings):
             self.TRAINING: (prefix + "all_collection", prefix + "training"),
             self.PROVIDER: (prefix + "provider",),
             self.OFFER: (prefix + "offer",),
+            self.CATALOGUE: (prefix + "catalogue",),
         }
 
         return {

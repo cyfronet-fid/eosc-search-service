@@ -21,6 +21,7 @@ async def full_collection_update(
         "bundle",
         "interoperability guideline",
         "training",
+        "catalogue"
     ],
 ):
     """Update a single whole collection or all collections besides OAG collections"""
@@ -32,6 +33,7 @@ async def full_collection_update(
         settings.BUNDLE: None,
         settings.GUIDELINE: None,
         settings.TRAINING: None,
+        settings.CATALOGUE: None,
     }
 
     if data_type == "all":
@@ -44,6 +46,7 @@ async def full_collection_update(
             settings.BUNDLE,
             settings.GUIDELINE,
             settings.TRAINING,
+            settings.CATALOGUE,
         ):
             await update_single_col(col, tasks_id)
     else:

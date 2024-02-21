@@ -87,7 +87,6 @@ class TrainingTransformer(BaseTransformer):
 
     def cast_columns(self, df: DataFrame) -> DataFrame:
         """Cast trainings columns"""
-        df = df.withColumn("description", split(col("description"), ","))
         df = df.withColumn("url", split(col("url"), ","))
         df = df.withColumn("duration", col("duration").cast("bigint"))
         df = transform_date(df, "publication_date", "yyyy-MM-dd")

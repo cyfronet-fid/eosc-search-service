@@ -17,6 +17,7 @@ async def batch_update(
         "bundle",
         "interoperability guideline",
         "training",
+        "catalogue",
         "other",
         "software",
         "dataset",
