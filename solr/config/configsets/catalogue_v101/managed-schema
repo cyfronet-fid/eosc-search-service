@@ -104,13 +104,13 @@
 <field name="_text_" type="text_general" indexed="true" stored="false"/>
 <field name="_version_" type="plong" indexed="false" stored="false"/>
 <field name="abbreviation" type="text_general" indexed="true" stored="true" multiValued="false"/>
-<field name="publication_date" type="pdate" indexed="true" stored="true"/>
 <field name="description" type="text_general" indexed="true" stored="true" multiValued="false"/>
 <field name="id" type="string" termPositions="true" termVectors="true" termOffsets="true" required="true" useDocValuesAsStored="true"/>
 <field name="keywords" type="strings" indexed="true" useDocValuesAsStored="true"/>
 <field name="keywords_tg" type="text_general" indexed="true" stored="true" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
 <field name="legal_status" type="strings" indexed="true" useDocValuesAsStored="true"/>
 <field name="pid" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+<field name="publication_date" type="pdate" indexed="true" stored="true"/>
 <field name="scientific_domains" type="strings" indexed="true" useDocValuesAsStored="true"/>
 <field name="structure_type" type="strings" indexed="true" useDocValuesAsStored="true"/>
 <field name="title" type="text_general" indexed="true" stored="true" multiValued="false"/>

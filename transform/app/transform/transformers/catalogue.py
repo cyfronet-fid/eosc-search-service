@@ -58,7 +58,7 @@ class CatalogueTransformer(BaseTransformer):
         """Cast certain columns"""
         df = (
             df.withColumn("id", col("id").cast(StringType()))
-            .withColumn("created_at", col("created_at").cast("date"))
+            .withColumn("publication_date", col("publication_date").cast("date"))
         )
         return df
 
