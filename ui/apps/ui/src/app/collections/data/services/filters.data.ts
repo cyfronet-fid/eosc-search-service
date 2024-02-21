@@ -85,8 +85,8 @@ export const servicesFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'guidelines',
-      filter: 'guidelines',
+      id: 'guidelines_str',
+      filter: 'guidelines_str',
       label: 'Interoperability guideline',
       type: 'multiselect',
       defaultCollapsed: false,
