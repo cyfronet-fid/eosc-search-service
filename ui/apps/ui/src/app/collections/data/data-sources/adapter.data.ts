@@ -54,7 +54,7 @@ export const dataSourcesAdapter: IAdapter = {
       {
         label: 'Interoperability guideline',
         values: toValueWithLabel(toArray(dataSource.guidelines)),
-        filter: 'guidelines',
+        filter: 'guidelines_str',
       },
     ],
     secondaryTags: [

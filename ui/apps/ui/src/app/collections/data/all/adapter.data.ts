@@ -207,7 +207,7 @@ export const allCollectionsAdapter: IAdapter = {
             {
               label: 'Interoperability guideline',
               values: toValueWithLabel(toArray(data.guidelines)),
-              filter: 'guidelines',
+              filter: 'guidelines_str',
             },
             {
               label: 'Related organisations',
