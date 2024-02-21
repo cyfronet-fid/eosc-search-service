@@ -11,5 +11,6 @@ Please create Solr collections based on these configs.
 | provider            | provider_v101             |
 | organisation        | organisation_v106         |
 | project             | project_v102              |
+| catalogue           | catalogue_v101            |
 
 These configs can be found [here](../../solr/config/configsets).
