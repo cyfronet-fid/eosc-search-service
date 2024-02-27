@@ -35,7 +35,7 @@
         </div>
         <select
           *ngIf="!this.isSpecialCollection"
-          class="form-select"
+          class="form-select" 
           (click)="focused = false"
           [formControl]="collectionFc"
         >
@@ -498,12 +498,7 @@
       </div>
       <span
         class="adv-search-text-btn"
-        (click)="
-          standardSearch = true;
-          tags = [];
-          clearQueryAdv();
-          updateQueryParamsAdv(this.formControl.value || '*')
-        "
+        (click)="this.backToStandard()"
         ><- Go back to Basic Search</span
       >
       <span class="adv-search-text-btn" style="margin-left: 25px">

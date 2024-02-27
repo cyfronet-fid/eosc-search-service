@@ -233,6 +233,18 @@ export class SearchInputComponent implements OnInit {
     return false;
   }
 
+  resetAdvSearch() {
+    this.tags = [];
+    this.clearQueryAdv();
+    this.updateQueryParamsAdv(this.formControl.value || '*');
+    this.collectionFcAdvForm.setValue(this.collectionFcAdv[2]);
+  }
+
+  backToStandard() {
+    this.standardSearch = true;
+    this.resetAdvSearch();
+  }
+
   // TODO: stream event - off when search is not focused and what with suggestes result set on []
   @HostListener('document:click')
   clicked() {
@@ -265,6 +277,11 @@ export class SearchInputComponent implements OnInit {
         'catalogue',
       ];
       this.isAdvancedSearchOff = advSearchExcludeCollections.includes(val);
+      if (this.isAdvancedSearchOff) {
+        this.backToStandard();
+      } else {
+        this.resetAdvSearch();
+      }
     });
     this._customRoute.q$
       .pipe(
