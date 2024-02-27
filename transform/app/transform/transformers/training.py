@@ -233,12 +233,13 @@ class TrainingTransformer(BaseTransformer):
 
         # Keys are mapped into values
         mapping_dict = {
-            "tr_dcmi_type-lesson_plan": "Lesson Plan",
             "tr_dcmi_type-activity_plan": "Activity Plan",
             "tr_dcmi_type-assessment": "Assessment",
+            "tr_dcmi_type-lesson_plan": "Lesson Plan",
+            "tr_dcmi_type-other": "Other",
             "tr_dcmi_type-recorded_lesson": "Recorded Lesson",
             "tr_dcmi_type-supporting_document": "Supporting Document",
-            "tr_dcmi_type-other": "Other",
+            "tr_dcmi_type-unit_plan": "Unit Plan",
         }
 
         resource_type_raw = df.select(RESOURCE_TYPE).collect()
