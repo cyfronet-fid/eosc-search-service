@@ -54,6 +54,7 @@ export class SearchInputComponent implements OnInit {
   @ViewChild('inputQueryAdv', { static: true }) inputQueryAdv!: ElementRef;
   @ViewChild('inputQueryAdv2', { static: true }) inputQueryAdv2!: ElementRef;
 
+  placeholderText: string = '';
   radioValueAuthor = 'A';
   radioValueExact = 'A';
   radioValueTitle = 'A';
@@ -76,6 +77,7 @@ export class SearchInputComponent implements OnInit {
     { name: 'DOI' },
     { name: 'None of' },
   ];
+
   isSpecialCollection = false;
   isAdvancedSearchOff = false;
   isDOISelected = false;
@@ -96,6 +98,22 @@ export class SearchInputComponent implements OnInit {
     this.collectionFcAdv[2],
     { nonNullable: true }
   );
+
+  setPlaceholderText(collection: string): string {
+    switch (collection) {
+      case 'service':
+      case 'data_source':
+        return 'Narrow by: title, keywords, exact, none of';
+      case 'bundle':
+      case 'guideline':
+      case 'provider':
+        return 'Narrow by: title, exact, none of';
+      case 'training':
+        return 'Narrow by: author, title, keywords, exact, none of';
+      default:
+        return 'Narrow by: author, title, DOI, keywords, exact, none of';
+    }
+  }
 
   withKeyword(): boolean {
     return !(
@@ -218,6 +236,7 @@ export class SearchInputComponent implements OnInit {
   // TODO: stream event - off when search is not focused and what with suggestes result set on []
   @HostListener('document:click')
   clicked() {
+    this.placeholderText = this.setPlaceholderText(this.collectionFc.value.id);
     if (this.suggestedResults.length > 0) {
       this.focused = false;
       this.suggestedResults = [];
@@ -347,6 +366,7 @@ export class SearchInputComponent implements OnInit {
       .subscribe((suggestedResults) => {
         this.suggestedResults = suggestedResults;
       });
+
     this.collectionFc.valueChanges
       .pipe(untilDestroyed(this))
       .subscribe((navConfig) =>
