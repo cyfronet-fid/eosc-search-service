@@ -167,10 +167,12 @@ class ProjectTransformer(BaseTransformer):
                     (
                         ((col(column) != "") & (col(column).isNotNull()))
                         if joined_dataframe.schema[column].dataType == StringType()
-                        else ((size(col(column)) > 0) & (col(column).isNotNull()))
-                        if joined_dataframe.schema[column].dataType
-                        == ArrayType(StringType())
-                        else col(column).isNotNull()
+                        else (
+                            ((size(col(column)) > 0) & (col(column).isNotNull()))
+                            if joined_dataframe.schema[column].dataType
+                            == ArrayType(StringType())
+                            else col(column).isNotNull()
+                        )
                     ),
                     lit(1),
                 ).otherwise(lit(0))
