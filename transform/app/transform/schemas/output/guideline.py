@@ -11,8 +11,8 @@ guideline_output_schema = {
     "author_names_id": "list",
     "author_names_tg": "list",
     "author_types": "list",
-    "catalogue": "string",  # TODO delete
-    "catalogues": "array<string>",
+    "catalogue": "str",  # TODO delete
+    "catalogues": "list",
     "creators": "str",
     "description": "list",
     "doi": "list",

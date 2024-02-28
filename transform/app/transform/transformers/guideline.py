@@ -63,13 +63,13 @@ def harvest_identifiers(df: DataFrame) -> None:
         match row[IDENTIFIER_TYPE]:
             case "ir_identifier_type-doi":
                 doi.append([row[IDENTIFIER]])
-                uri.append(None)
+                uri.append([])
             case "ir_identifier_type-uri":
-                doi.append(None)
+                doi.append([])
                 uri.append([row[IDENTIFIER]])
             case _:
-                doi.append(None)
-                uri.append(None)
+                doi.append([])
+                uri.append([])
                 logger.warning(f"Unknown identifier type: {row[IDENTIFIER_TYPE]}")
 
     df[DOI] = doi
