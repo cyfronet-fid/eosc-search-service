@@ -54,6 +54,7 @@ export class SearchInputComponent implements OnInit {
   @ViewChild('inputQueryAdv', { static: true }) inputQueryAdv!: ElementRef;
   @ViewChild('inputQueryAdv2', { static: true }) inputQueryAdv2!: ElementRef;
 
+  placeholderText: string = '';
   radioValueAuthor = 'A';
   radioValueExact = 'A';
   radioValueTitle = 'A';
@@ -73,10 +74,13 @@ export class SearchInputComponent implements OnInit {
     { name: 'Exact' },
     { name: 'In title' },
     { name: 'Keyword' },
+    { name: 'DOI' },
     { name: 'None of' },
   ];
+
   isSpecialCollection = false;
   isAdvancedSearchOff = false;
+  isDOISelected = false;
 
   faMagnifyingGlass = faMagnifyingGlass;
   formControl = new UntypedFormControl();
@@ -95,28 +99,51 @@ export class SearchInputComponent implements OnInit {
     { nonNullable: true }
   );
 
+  setPlaceholderText(collection: string): string {
+    switch (collection) {
+      case 'service':
+      case 'data_source':
+        return 'Narrow by: title, keywords, exact, none of';
+      case 'bundle':
+      case 'guideline':
+      case 'provider':
+        return 'Narrow by: title, exact, none of';
+      case 'training':
+        return 'Narrow by: author, title, keywords, exact, none of';
+      default:
+        return 'Narrow by: author, title, DOI, keywords, exact, none of';
+    }
+  }
+
   withKeyword(): boolean {
-    if (
+    return !(
       this.collectionFc.value.id === 'guideline' ||
       this.collectionFc.value.id === 'bundle' ||
       this.collectionFc.value.id === 'provider'
-    ) {
-      return false;
-    }
-    return true;
+    );
   }
 
   withAuthor(): boolean {
-    if (
+    return !(
       this.collectionFc.value.id === 'data_source' ||
       this.collectionFc.value.id === 'service' ||
       this.collectionFc.value.id === 'guideline' ||
       this.collectionFc.value.id === 'bundle' ||
       this.collectionFc.value.id === 'provider'
-    ) {
-      return false;
-    }
-    return true;
+    );
+  }
+
+  withDOI(): boolean {
+    // Don't show DOI operator in the same cols as author, + not in trainings
+    return this.withAuthor() && this.collectionFc.value.id !== 'training';
+  }
+
+  shouldDisplayOption(navConfig: { name: string }): boolean {
+    return !(
+      (navConfig.name === 'Keyword' && !this.withKeyword()) ||
+      (navConfig.name === 'Author' && !this.withAuthor()) ||
+      (navConfig.name === 'DOI' && !this.withDOI())
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -209,6 +236,7 @@ export class SearchInputComponent implements OnInit {
   // TODO: stream event - off when search is not focused and what with suggestes result set on []
   @HostListener('document:click')
   clicked() {
+    this.placeholderText = this.setPlaceholderText(this.collectionFc.value.id);
     if (this.suggestedResults.length > 0) {
       this.focused = false;
       this.suggestedResults = [];
@@ -338,19 +366,15 @@ export class SearchInputComponent implements OnInit {
       .subscribe((suggestedResults) => {
         this.suggestedResults = suggestedResults;
       });
+
     this.collectionFc.valueChanges
       .pipe(untilDestroyed(this))
       .subscribe((navConfig) =>
         this.setCollection(this.formControl.value, navConfig)
       );
 
-    if (!this.withAuthor()) {
-      if (
-        this.collectionFcAdvForm.value.name === 'Author' ||
-        this.isSpecialCollection
-      ) {
-        this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
-      }
+    if (this.isSpecialCollection) {
+      this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
     } else {
       this.collectionFcAdvForm.reset();
     }
@@ -359,6 +383,10 @@ export class SearchInputComponent implements OnInit {
   onCheckboxChange() {
     this.exactmatch = !this.exactmatch;
     this.updateQueryParamsAdv(this.formControl.value || '*');
+  }
+
+  onDropdownChange() {
+    this.isDOISelected = this.collectionFcAdvForm.value.name === 'DOI';
   }
 
   onValueChange() {
@@ -442,20 +470,10 @@ export class SearchInputComponent implements OnInit {
     if (!this.navigateOnCollectionChange) {
       return;
     }
-    if (!this.withKeyword()) {
-      if (this.collectionFcAdvForm.value.name === 'Keyword') {
-        this.collectionFcAdvForm.reset();
-      }
-    }
-
-    if (!this.withAuthor()) {
-      if (
-        this.collectionFcAdvForm.value.name === 'Author' ||
-        this.isSpecialCollection
-      ) {
-        this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
-      }
-    } else {
+    if (
+      this.collectionFcAdvForm.value.name === 'Keyword' &&
+      !this.withKeyword()
+    ) {
       this.collectionFcAdvForm.reset();
     }
 

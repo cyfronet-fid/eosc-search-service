@@ -41,7 +41,7 @@
         >
           <option
             *ngFor="let navConfig of searchCollections"
-            [ngValue]="navConfig" 
+            [ngValue]="navConfig"
           >
             {{ navConfig.title }}
           </option>
@@ -78,7 +78,7 @@
           </span>
         </div>
       </div>
-     <div *ngIf="!isAdvancedSearchOff"> 
+     <div *ngIf="!isAdvancedSearchOff">
       <span
       *ngIf="!isLanding()"
       class="adv-search-text-btn"
@@ -212,43 +212,17 @@
         </div>
       </div>
 
-      <div class="input-group" style="margin-bottom: 20px; margin-top: 15px">
+      <div class="input-group" [style.margin-bottom.px]="isDOISelected ? 4 : 20" style="margin-top: 15px">
         <select
           class="form-select"
           style="margin-left: 0px; min-width: 111px"
           (click)="focused = false"
+          (change)="onDropdownChange()"
           [formControl]="collectionFcAdvForm"
         >
           <ng-container *ngFor="let navConfig of collectionFcAdv">
-            <option
-              *ngIf="
-                !withKeyword() &&
-                navConfig.name !== 'Keyword' &&
-                !withAuthor() &&
-                navConfig.name !== 'Author'
-              "
-              [ngValue]="navConfig"
-            >
-              <span> {{ navConfig.name }} </span>
-            </option>
-            <option
-              *ngIf="
-                !withAuthor() && navConfig.name !== 'Author' && withKeyword()
-              "
-              [ngValue]="navConfig"
-            >
-              <span> {{ navConfig.name }} </span>
-            </option>
-            <option
-              *ngIf="
-                !withKeyword() && navConfig.name !== 'Keyword' && withAuthor()
-              "
-              [ngValue]="navConfig"
-            >
-              <span> {{ navConfig.name }} </span>
-            </option>
-            <option *ngIf="withKeyword() && withAuthor()" [ngValue]="navConfig">
-              <span> {{ navConfig.name }} </span>
+            <option *ngIf="shouldDisplayOption(navConfig)" [ngValue]="navConfig">
+              <span>{{ navConfig.name }}</span>
             </option>
           </ng-container>
         </select>
@@ -259,7 +233,7 @@
             class="form-control2"
             autocomplete="off"
             i18n-placeholder
-            placeholder="Narrow by: author, title, keywords, exact, none of"
+            placeholder="{{placeholderText}}"
             (keydown.enter)="
               add({
                 value: formControlAdv.value,
@@ -295,6 +269,9 @@
             Narrow down
           </button>
         </div>
+      </div>
+      <div *ngIf="isDOISelected && withDOI()" class="doi-message">
+        Enter a valid DOI format. Example: 10.1038/nature.25715
       </div>
       <div *ngIf="tags.length !== 0" class="mb-3">
         <div class="row gx-1 gy-1 py-0 tags-row">
@@ -477,6 +454,25 @@
                   >Or</label
                 >
               </nz-radio-group>
+            </span>
+          </div>
+        </div>
+        <div class="row gx-1 gy-1 py-0 tags-row">
+          <div class="col-1 gx-1 gy-1 py-0">
+            <span *ngIf="elemExist('doi')" class="adv-search-text-tag">
+              DOI
+            </span>
+          </div>
+          <div class="col-11 gx-1 gy-1 py-0">
+            <span class="adv-search-text-tag" *ngFor="let elem of tags">
+              <nz-tag
+                *ngIf="elem.startsWith('doi')"
+                nzMode="closeable"
+                (nzOnClose)="remove(elem)"
+                style="margin-top: 8px"
+                class="ant-tag-custom"
+              >{{ elem.split('doi:')[1] }}</nz-tag
+              >
             </span>
           </div>
         </div>
