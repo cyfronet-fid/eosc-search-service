@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.21.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.20.0...v2.21.0) (2024-02-28)
+
+
+### Features
+
+* [[#1179](https://github.com/cyfronet-fid/eosc-search-service/issues/1179)] search by doi ([7cc9aed](https://github.com/cyfronet-fid/eosc-search-service/commit/7cc9aed025b0697aa121b1d20d29c92b1bf6c2a5))
+
+
+### Bug Fixes
+
+* [[#1213](https://github.com/cyfronet-fid/eosc-search-service/issues/1213)] add resource type mapping ([5d5be32](https://github.com/cyfronet-fid/eosc-search-service/commit/5d5be3206e502ba12d4107d67a0a83055c0e4a77))
+* adjust placeholder in adv search input ([de72b40](https://github.com/cyfronet-fid/eosc-search-service/commit/de72b40ef34161630fb97862538d94638f0254c3))
+
 ## [2.20.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.19.0...v2.20.0) (2024-02-21)
 
 
