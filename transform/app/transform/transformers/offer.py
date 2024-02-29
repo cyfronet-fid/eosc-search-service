@@ -61,10 +61,9 @@ class OfferTransformer(BaseTransformer):
     @staticmethod
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast columns"""
-        df = (
-            df.withColumn("publication_date", col("publication_date").cast("date"))
-            .withColumn("updated_at", col("updated_at").cast("date"))
-        )
+        df = df.withColumn(
+            "publication_date", col("publication_date").cast("date")
+        ).withColumn("updated_at", col("updated_at").cast("date"))
         return df
 
     @property

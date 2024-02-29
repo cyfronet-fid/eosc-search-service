@@ -22,9 +22,11 @@ async def delete_solr_collections(
     Deletes Solr collections for a singular data iteration.
     """
     collection_names = [
-        f"{date}_{collection}"
-        if collection_prefix is None
-        else f"{collection_prefix}_{date}_{collection}"
+        (
+            f"{date}_{collection}"
+            if collection_prefix is None
+            else f"{collection_prefix}_{date}_{collection}"
+        )
         for collection in settings.SOLR_COLLECTION_NAMES
     ]
 

@@ -53,8 +53,12 @@ class GlobalSettings(BaseSettings):
     MP_API_TOKEN: str = ""
 
     # - Provider Component
-    GUIDELINE_ADDRESS: AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
-    TRAINING_ADDRESS: AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
+    GUIDELINE_ADDRESS: AnyUrl = (
+        "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
+    )
+    TRAINING_ADDRESS: AnyUrl = (
+        "https://beta.providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
+    )
 
     # Transformation General Settings
     INPUT_FORMAT: str = "json"

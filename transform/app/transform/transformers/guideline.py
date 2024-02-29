@@ -115,9 +115,9 @@ def harvest_authors_names(df: DataFrame) -> None:
                         "author_affiliation_info"
                     ].pop("affiliation")
                 if "affiliationIdentifier" in creator["author_affiliation_info"]:
-                    creator["author_affiliation_info"][
-                        "author_affiliations_id"
-                    ] = creator["author_affiliation_info"].pop("affiliationIdentifier")
+                    creator["author_affiliation_info"]["author_affiliations_id"] = (
+                        creator["author_affiliation_info"].pop("affiliationIdentifier")
+                    )
 
         return creators
 
