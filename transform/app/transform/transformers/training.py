@@ -115,7 +115,7 @@ class TrainingTransformer(BaseTransformer):
                     StructField(OPEN_ACCESS, BooleanType(), True),
                     StructField(PROVIDERS, ArrayType(StringType()), True),
                     StructField(PUBLICATION_DATE, DateType(), True),
-                    StructField(RESOURCE_ORGANISATION, ArrayType(StringType()), True),
+                    StructField(RESOURCE_ORGANISATION, StringType(), True),
                     StructField(UNIFIED_CATEGORIES, ArrayType(StringType()), True),
                 ]
             )
