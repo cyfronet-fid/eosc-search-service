@@ -34,7 +34,7 @@
     [ngClass]="{
       'mobile-collections-hidden': !showCollections,
       'mobile-collections-show': showCollections
-    }"
+    }" 
   >
     <ess-collections-navigation
       *ngIf="!this.isSpecialCollection"
@@ -68,10 +68,43 @@
           ></ess-results-with-pagination>
         </div>
         <div
-          class="col-sm-3 col-12 right-column"
-          style="border-left: 1px solid #d9dee2; padding-left: 20px"
+          class="col-sm-3 col-12 right-column pl-0"
         >
           <ess-articles></ess-articles>
+
+          <div class="right-links-wrapper">
+            <h4>Articles</h4>
+
+            <div class="link-box">
+              <a href="{{knowledgeHubUrl}}articles/article_01.html">
+                <div class="link-title">Exploration Toolkit</div>
+                <div class="link-desc">Navigating EOSC<br>Catalogue & Marketplace</div>
+              </a>
+            </div>
+
+            <div class="link-box">
+              <a href="{{knowledgeHubUrl}}articles/article_02.html">
+                <div class="link-title">Searching Pathways</div>
+                <div class="link-desc">Smart Strategies<br>for EOSC Exploration</div>
+              </a>
+            </div>
+
+            <div class="link-box">
+              <a href="{{knowledgeHubUrl}}articles/article_03.html">
+                <div class="link-title">Effective Data Reuse </div>
+                <div class="link-desc">Documentation and Metadata Refinement</div>
+              </a>
+            </div>
+
+          </div>
+
+          <a href="{{marketplaceUrl}}user_documentation" class="right-media-link">
+            <div class="media-title">Check Our User Documentation</div>
+            <div class="media-desc">Browse our guides for useful EOSC insights</div>
+            <div class="media-arrow"></div>
+          </a>
+
+
         </div>
       </div>
     </div>

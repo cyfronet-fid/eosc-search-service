@@ -7,34 +7,47 @@
 }
 
 .box {
-  width: 243px;
-  height: 137px;
-  background-color: #f2f3f6;
-  stroke: #edf4ff;
+  overflow: hidden;
+  background-color: #F3F7FF;
+  stroke: #F3F7FF;
   border-radius: 8px;
+  padding: 25px 20px 20px;
+
+  &:hover {
+    background: rgba(237, 244, 255, 0.69);
+  }
 }
 
 .article_title_box {
   font-size: 20px;
-  font-weight: 400;
-  color: #2255a4;
-  padding-top: 14px;
-  padding-left: 16px;
-  margin-bottom: 0.3rem;
+  font-weight: 600;
+  line-height: 24px;
+  color: #010E87;
+  margin-bottom: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.box:hover .article_title_box {
+  color: #010B65;
 }
 
 .article_desc {
   font-size: 12px;
+  line-height: 15px;
   color: black;
-  padding-left: 16px;
-  line-height: normal;
   margin-bottom: 0;
-  max-width: 160px;
 }
 
 .article_blue_arrow {
   position: relative;
   float: right;
-  left: -10px;
-  top: 94px;
+  width: 31px;
+  height: 30px;
+  margin: 15px 0 0 0;
+  background-image: url('../../../assets/ei_arrow-left.svg');
+  transition: all 0.2s ease;
+}
+
+.box:hover .article_blue_arrow {
+  background-image: url('../../../assets/ei_arrow-left-hover.svg');
 }

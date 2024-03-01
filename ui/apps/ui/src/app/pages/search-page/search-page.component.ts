@@ -19,6 +19,7 @@ import {
   constructStandardSearchMetadata,
 } from '@pages/search-page/utils';
 import { SPECIAL_COLLECTIONS } from '@collections/data/config';
+import { ConfigService } from '../../services/config.service';
 
 @UntilDestroy()
 @Component({
@@ -78,6 +79,8 @@ export class SearchPageComponent implements OnInit {
   response: ISearchResults<IResult> | null = null;
   public clearAll = false;
   isSpecialCollection = false;
+  knowledgeHubUrl = this._configService.get().knowledge_hub_url;
+  marketplaceUrl = this._configService.get().marketplace_url;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -86,7 +89,8 @@ export class SearchPageComponent implements OnInit {
     private _fetchDataService: FetchDataService,
     private _searchMetadataRepository: SearchMetadataRepository,
     private _adaptersRepository: AdaptersRepository,
-    private _filterConfigsRepository: FiltersConfigsRepository
+    private _filterConfigsRepository: FiltersConfigsRepository,
+    private _configService: ConfigService
   ) {}
 
   ngOnInit() {
