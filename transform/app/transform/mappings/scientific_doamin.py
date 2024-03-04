@@ -863,3 +863,27 @@ scientific_domains_mapping = {
     "wireless sensor network/wireless networking": "Natural Sciences>Computer & Information Sciences",
     "zoology": "Agricultural Sciences>Animal & Dairy Sciences",
 }
+
+# TODO: add dynamic mapping when PC will return proper facets from public API
+sd_training_temp_mapping = {
+    "agricultural_sciences": "Agricultural Sciences",
+    "agricultural_sciences-agricultural_biotechnology": "Agricultural Sciences>Agricultural Biotechnology",
+    "engineering_and_technology": "Engineering & Technology",
+    "engineering_and_technology-civil_engineering": "Engineering & Technology>Civil Engineering",
+    "engineering_and_technology-electrical_electronic_and_information_engineering": "Engineering & Technology>Electrical, Electronic & Information Engineering",
+    "engineering_and_technology-other_engineering_and_technology_sciences": "Engineering & Technology>Other Engineering & Technology Sciences",
+    "generic": "Generic",
+    "generic-generic": "Generic>Generic",
+    "humanities": "Humanities",
+    "humanities-languages_and_literature": "Humanities>Languages & Literature",
+    "humanities-other_humanities": "Humanities>Other Humanities",
+    "humanities-philosophy_ethics_and_religion": "Humanities>Philosophy, Ethics & Religion",
+    "medical_and_health_sciences": "Medical & Health Sciences",
+    "medical_and_health_sciences-basic_medicine": "Medical & Health Sciences>Basic Medicine",
+    "medical_and_health_sciences-other_medical_sciences": "Medical & Health Sciences>Other Medical Sciences",
+    "natural_sciences": "Natural Sciences",
+    "natural_sciences-earth_and_related_environmental_sciences": "Natural Sciences>Earth & Related Environmental Sciences",
+    "natural_sciences-physical_sciences": "Natural Sciences>Physical Sciences",
+    "other": "Other",
+    "other-other": "Other>Other",
+}

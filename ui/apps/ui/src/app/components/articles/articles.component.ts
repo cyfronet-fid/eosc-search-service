@@ -16,27 +16,10 @@ export class ArticlesComponent {
   articles: IArticle[] = [
     {
       id: '0',
-      title: 'Exploration Toolkit',
-      description: 'Navigating EOSC<br>Catalogue & Marketplace',
-      url: `${
-        this._configService.get().knowledge_hub_url
-      }/articles/article_01.html`,
-    },
-    {
-      id: '1',
-      title: 'Searching Pathways',
-      description: 'Smart Strategies<br>for EOSC Exploration',
-      url: `${
-        this._configService.get().knowledge_hub_url
-      }/articles/article_02.html`,
-    },
-    {
-      id: '2',
-      title: 'Effective Data Reuse',
-      description: 'Documentation and Metadata Refinement',
-      url: `${
-        this._configService.get().knowledge_hub_url
-      }/articles/article_03.html`,
+      title: 'EOSC Knowledge Hub',
+      description:
+        'Discover training materials, courses and learning paths supporting open science and FAIR sharing ',
+      url: this._configService.get().knowledge_hub_url,
     },
   ];
 

@@ -14,7 +14,7 @@ service_output_schema = {
     "certifications": "array<string>",
     "changelog": "array<string>",
     "dedicated_for": "array<string>",
-    "description": "array<string>",
+    "description": "string",
     "eosc_if": "array<string>",
     "eosc_if_tg": "array<string>",
     "funding_bodies": "array<string>",

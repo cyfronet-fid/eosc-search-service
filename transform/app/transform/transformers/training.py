@@ -16,6 +16,7 @@ from pyspark.sql.types import (
     BooleanType,
     DateType,
 )
+from app.transform.mappings.scientific_doamin import sd_training_temp_mapping
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
     map_best_access_right,
@@ -114,7 +115,7 @@ class TrainingTransformer(BaseTransformer):
                     StructField(OPEN_ACCESS, BooleanType(), True),
                     StructField(PROVIDERS, ArrayType(StringType()), True),
                     StructField(PUBLICATION_DATE, DateType(), True),
-                    StructField(RESOURCE_ORGANISATION, ArrayType(StringType()), True),
+                    StructField(RESOURCE_ORGANISATION, StringType(), True),
                     StructField(UNIFIED_CATEGORIES, ArrayType(StringType()), True),
                 ]
             )
@@ -260,6 +261,26 @@ class TrainingTransformer(BaseTransformer):
         {scientific_domain-generic, scientific_subdomain-generic-generic}
         -> ['Generic', 'Generic>Generic']"""
 
+        def map_scientific_domain(sd_raw: str, sd_list: list[str]) -> list[str] | None:
+            """Map scientific domain"""
+            try:
+                sd_mapped = sd_training_temp_mapping[sd_raw.lower()]
+
+                if ">" in sd_mapped:  # If a child is being added
+                    if sd_mapped not in sd_list:
+                        # Assumption: trusting the data to automatically assign parents to individual children.
+                        # Looking at the results, we actually have the most happy paths here.
+                        # When we previously added a child along with their parent,
+                        # there were almost always more parents than children, and there were definitely fewer happy paths.
+                        return [sd_mapped]
+                    return None
+                else:  # If a parent is being added
+                    return [sd_mapped]
+            except KeyError:
+                if sd_raw != "null":
+                    logger.warning(f"Unexpected scientific domain: {sd_raw=}")
+                return None  # Don't add unexpected scientific domain to not destroy filter's tree structure
+
         sci_domains_raw = df.select(SCIENTIFIC_DOMAINS).collect()
         sci_domains_column = []
 
@@ -267,12 +288,9 @@ class TrainingTransformer(BaseTransformer):
             sci_domain_row = []
             for sd in chain.from_iterable(sci_domain):
                 result_raw = sd.split("-", 1)[1]
-                split_len = len(result_raw.split("-"))
-                result = "".join(
-                    r.capitalize() if idx == split_len - 1 else r.capitalize() + ">"
-                    for idx, r in enumerate(result_raw.split("-"))
-                )
-                sci_domain_row.append(result)
+                final_sd = map_scientific_domain(result_raw, sci_domain_row)
+                if final_sd:
+                    sci_domain_row.extend(final_sd)
 
             sci_domains_column.append([sci_domain_row])
         self.harvested_properties[SCIENTIFIC_DOMAINS] = sci_domains_column

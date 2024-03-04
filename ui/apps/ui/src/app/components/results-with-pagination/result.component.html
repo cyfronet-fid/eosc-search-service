@@ -3,11 +3,12 @@
     type.value === 'service' ||
       type.value === 'data-source' ||
       type.value === 'provider' ||
-      type.value === 'data source';
+      type.value === 'data source'||
+      type.value === 'catalogue';
     else elseTypeIcon
   "
 >
-  <div class="type-icon-holder {{ type.label }}" style="flex: 115px 0 0">
+  <div class="type-icon-holder {{  type.label }}" style="flex: 115px 0 0">
     <div
       class="type-icon"
       [ngStyle]="{

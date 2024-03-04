@@ -21,7 +21,7 @@ async def full_collection_update(
         "bundle",
         "interoperability guideline",
         "training",
-        "catalogue"
+        "catalogue",
     ],
 ):
     """Update a single whole collection or all collections besides OAG collections"""
@@ -67,6 +67,6 @@ async def update_single_col(data_type: str, tasks_id: dict) -> None:
         update_task = transform_batch.delay(data_type, data, full_update=True)
         tasks_id[data_type] = update_task.id
     else:
-        tasks_id[
-            data_type
-        ] = f"Retrieving data from {data_address} has failed. Please try again. Checks logs for details."
+        tasks_id[data_type] = (
+            f"Retrieving data from {data_address} has failed. Please try again. Checks logs for details."
+        )

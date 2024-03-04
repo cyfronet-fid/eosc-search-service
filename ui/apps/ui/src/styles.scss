@@ -265,7 +265,7 @@ btn-primary.disabled,
 }
 
 .container--xxl {
-  padding: 0 50px;
+  padding: 0 10px;
   max-width: 1340px;
   margin: 0 auto;
 }
@@ -289,7 +289,7 @@ btn-primary.disabled,
 #sub-nav a {
   font-size: 14px;
   display: inline-block;
-  padding: 15px 10px 15px 33px;
+  padding: 15px 15px 15px 37px;
   color: #333;
   border: 1px solid #e2e2e2;
   border-right: none;
@@ -469,7 +469,6 @@ h3,
 }
 
 .dashboard .left-column {
-  border-right: 1px solid #d9dee2;
   width: 22%;
 }
 
@@ -479,12 +478,12 @@ h3,
 
 .dashboard .center-column {
   padding: 0 20px 0 20px;
+  width: 57%;
 }
 
 .dashboard .right-column {
-  padding: 0 0 0 30px;
-  width: 19%;
-  border-left: 1px solid #d9dee2;
+  padding: 25px 0 0 10px;
+  width: 20%;
 }
 
 #breadcrumbs {
@@ -2480,4 +2479,105 @@ h6 {
 
 .ant-picker-input>input {
   font-size: 13px;
+}
+
+.right-links-wrapper {
+  margin-top: 32px;
+
+  h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+
+  .link-box {
+    padding: 25px 20px;
+    border-bottom: 1px solid #D0D5DD;
+    transition: all 0.2s ease;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .link-title {
+      color: #010E87;
+      font-size: 20px;
+      line-height: 1.2;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .link-desc {
+      font-size: 12px;
+      line-height: 15px;
+      color: #000;
+      font-weight: 400;
+    }
+
+    &:hover {
+
+      .link-title {
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.right-media-link {
+  margin-top: 32px;
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  background: #82849b url(assets/user-documentation.jpg) no-repeat;
+  background-size: 100% auto;
+  padding: 17px 15px 15px 18px;
+  overflow: hidden;
+  color: #fff;
+  transition: all 0.2s ease;
+
+  .media-title {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    margin-bottom: 8px;
+    text-shadow: 0 1px 0 RGB(0,0,0,0.6);
+  }
+
+  .media-desc {
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 400;
+    text-shadow: 0 1px 0 RGB(0,0,0,0.6);
+  }
+
+  .media-arrow {
+    float: right;
+    background: url(assets/icon-circle-arrow.svg) no-repeat;
+    width: 32px;
+    height: 32px;
+    background-size: contain;
+  }
+
+  &:hover {
+    color: #fff !important;
+
+    .media-arrow {
+      background: url(assets/icon-circle-arrow-hover.svg) no-repeat;
+    }
+  }
+}
+
+@media (max-width: 1360px) {
+  #sub-nav a {
+    font-size: 13px;
+    padding: 15px 5px 15px 34px;
+  }
+}
+
+
+@media (max-width: 1180px) {
+  #sub-nav a {
+    font-size: 12px;
+    padding: 15px 5px 15px 34px;
+  }
 }

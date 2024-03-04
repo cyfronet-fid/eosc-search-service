@@ -34,9 +34,11 @@ async def create_aliases(
     )
 
     collection_names = [
-        f"{collection_date}_{collection}"
-        if collection_prefix == ""
-        else f"{collection_prefix}_{collection_date}_{collection}"
+        (
+            f"{collection_date}_{collection}"
+            if collection_prefix == ""
+            else f"{collection_prefix}_{collection_date}_{collection}"
+        )
         for collection in settings.SOLR_COLLECTION_NAMES
     ]
 

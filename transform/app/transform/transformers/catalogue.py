@@ -56,9 +56,8 @@ class CatalogueTransformer(BaseTransformer):
     @staticmethod
     def cast_columns(df: DataFrame) -> DataFrame:
         """Cast certain columns"""
-        df = (
-            df.withColumn("id", col("id").cast(StringType()))
-            .withColumn("publication_date", col("publication_date").cast("date"))
+        df = df.withColumn("id", col("id").cast(StringType())).withColumn(
+            "publication_date", col("publication_date").cast("date")
         )
         return df
 

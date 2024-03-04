@@ -1,4 +1,5 @@
 """Connect to s3"""
+
 import boto3
 from boto3.session import Session
 

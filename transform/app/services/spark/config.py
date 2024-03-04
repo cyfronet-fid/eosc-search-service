@@ -1,4 +1,5 @@
 """Parse Spark configuration"""
+
 import configparser
 from pyspark import SparkConf
 from pyspark.sql import SparkSession

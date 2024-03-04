@@ -1,4 +1,5 @@
 """Import output schemas"""
+
 from .bundle import bundle_output_schema
 from .catalogue import catalogue_output_schema
 from .data_source import data_source_output_schema
