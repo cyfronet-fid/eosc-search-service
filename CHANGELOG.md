@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.22.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.21.0...v2.22.0) (2024-03-04)
+
+
+### Features
+
+* [[#1235](https://github.com/cyfronet-fid/eosc-search-service/issues/1235)] enhance right side panel ([0272079](https://github.com/cyfronet-fid/eosc-search-service/commit/02720790404583672c5b4dbb8bc00e0fc6cf2f27))
+
+
+### Bug Fixes
+
+* [[#1212](https://github.com/cyfronet-fid/eosc-search-service/issues/1212)] training scientific domain ([d4fd4bb](https://github.com/cyfronet-fid/eosc-search-service/commit/d4fd4bb62f53f206115ee92a8f0d65c10ca83d6e))
+* [[#1236](https://github.com/cyfronet-fid/eosc-search-service/issues/1236)] resolve data warnings ([5527fb7](https://github.com/cyfronet-fid/eosc-search-service/commit/5527fb79b28d7c82b001d2ea242081c9e8ce7923))
+* add DOI explanation to AS guide ([c00fd9c](https://github.com/cyfronet-fid/eosc-search-service/commit/c00fd9c072414c365673b2914c817e18aa832ee6))
+* change icon to catalogue logo ([2e7e9db](https://github.com/cyfronet-fid/eosc-search-service/commit/2e7e9dbd053e6b36ee44c3606ad160f8de7d8bc1))
+
 ## [2.21.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.20.0...v2.21.0) (2024-02-28)
 
 
