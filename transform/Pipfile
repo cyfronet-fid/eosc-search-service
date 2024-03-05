@@ -18,6 +18,7 @@ flower = "*"
 pydantic = "*"
 pydantic-settings = "*"
 pyarrow = "*"
+"stomp.py" = "*"
 
 [dev-packages]
 pytest = "*"

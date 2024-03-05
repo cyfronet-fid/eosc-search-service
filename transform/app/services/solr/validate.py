@@ -1,15 +1,63 @@
+# pylint: disable=line-too-long, invalid-name, logging-fstring-interpolation
+"""Validate Solr"""
+import json
 import logging
-from fastapi import HTTPException
-from requests import RequestException
 from typing import List
 
+import requests
+from fastapi import HTTPException
+from requests import RequestException
+from requests.exceptions import ConnectionError as ReqConnectionError
+
+from app.services.solr.collections import get_collection_names, get_pined_collections
 from app.services.solr.configs import get_config_names
-from app.services.solr.collections import (
-    get_collection_names,
-    get_pined_collections,
-)
+from app.settings import settings
+from app.services.solr.utils import ids_mapping
 
 logger = logging.getLogger(__name__)
+
+
+def check_document_exists(
+    col_name: str,
+    data_id: str,
+) -> bool:
+    """Check if a solr document exists in all specified collections based on its ID"""
+    solr_col_names = settings.COLLECTIONS[col_name]["SOLR_COL_NAMES"]
+
+    check_if_exists = []
+
+    for s_col_name in solr_col_names:
+        url = f"{settings.SOLR_URL}solr/{s_col_name}/select?q=id:{data_id}"
+        try:
+            req = requests.get(url, timeout=180)
+            if req.status_code == 200:
+                response_data = req.json()
+                if response_data["response"]["numFound"] > 0:
+                    check_if_exists.append(True)
+                    logger.info(
+                        f"Document found. Data type={col_name}, solr_col={s_col_name}, ID={data_id}"
+                    )
+                else:
+                    check_if_exists.append(False)
+                    logger.info(
+                        f"No document found with ID. Data type={col_name}, solr_col={s_col_name}, ID={data_id}"
+                    )
+            else:
+                check_if_exists.append(False)
+                logger.error(
+                    f"{req.status_code} Failed to query Solr."
+                    f"Data type={col_name}, solr_col={s_col_name}, ID={data_id}"
+                )
+
+        except ReqConnectionError as e:
+            check_if_exists.append(False)
+            logger.error(
+                f"Connection failed {url=}."
+                f"Querying Solr has failed. Data type={col_name}, solr_col={s_col_name}. Details: {e}"
+            )
+
+    document_exists_in_any = any(check_if_exists)
+    return document_exists_in_any
 
 
 def validate_configset_exists(configset: str) -> None:

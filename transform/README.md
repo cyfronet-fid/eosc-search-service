@@ -11,6 +11,7 @@
     - [Services](#services)
       - [Solr](#solr)
       - [S3](#s3)
+      - [STOMP](#stomp)
     - [Sources of Data](#sources-of-data)
       - [Local Data Dump](#local-data-dump)
       - [Relations](#relations)
@@ -68,6 +69,14 @@ We are using .env (in the root of the EOSC Transform Service) to store user-spec
   - `S3_SECRET_KEY`: `str = ""` - Your S3 secret key with write permissions.
   - `S3_ENDPOINT`: `str = ""` - S3 endpoint. Example: `https://s3.cloud.com`.
   - `S3_BUCKET`: `str = ""` - S3 bucket. Example: `ess-mock-dumps`.
+
+##### STOMP
+- `STOMP_HOST`: `str = "127.0.0.1"` - The hostname or IP address of the STOMP broker. 
+- `STOMP_PORT`: `int = 61613`- The port on which the STOMP broker is listening.
+- `STOMP_LOGIN`: `str = "guest"` - The username for connecting to the STOMP broker.
+- `STOMP_PASS`: `str = "guest"`- The password for connecting to the STOMP broker.
+- `STOMP_CLIENT_NAME`: `str = "transformer-client"` - A name to identify this STOMP client instance.
+- `STOMP_SSL`: `bool = False` - Set to `True` to enable SSL for the STOMP connection. Ensure SSL certificates are properly configured if this enabled.
 
 #### Sources of Data:
 ##### Local Data Dump

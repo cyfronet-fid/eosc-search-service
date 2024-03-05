@@ -8,6 +8,7 @@ modules_to_include = [
     "app.tasks.create_collections",
     "app.tasks.create_aliases",
     "app.tasks.delete_collections",
+    "app.tasks.delete_data_by_id",
 ]
 
 celery = Celery(__name__, include=modules_to_include)
