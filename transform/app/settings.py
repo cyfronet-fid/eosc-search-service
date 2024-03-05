@@ -34,6 +34,22 @@ class GlobalSettings(BaseSettings):
     S3_ENDPOINT: AnyUrl = "https://example.com"
     S3_BUCKET: str = ""
 
+    # - STOMP
+    STOMP_HOST: str = "127.0.0.1"
+    STOMP_PORT: int = 61613
+    STOMP_LOGIN: str = "guest"
+    STOMP_PASS: str = "guest"
+    STOMP_PC_TOPICS: list[str] = [
+        "/topic/training_resource.update",
+        "/topic/training_resource.create",
+        "/topic/training_resource.delete",
+        "/topic/interoperability_record.update",
+        "/topic/interoperability_record.create",
+        "/topic/interoperability_record.delete",
+    ]
+    STOMP_CLIENT_NAME: str = "transformer-client"
+    STOMP_SSL: bool = False
+
     # Sources of data
     # - Local storage with OAG data
     DATASET_PATH: str = "input/dataset"

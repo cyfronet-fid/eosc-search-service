@@ -1,8 +1,8 @@
 from datetime import datetime
 from fastapi import APIRouter, Query, HTTPException
 from app.tasks.create_aliases import create_aliases_task
-from app.validations.other import validate_date_basic_format
-from app.validations.solr import validate_collections
+from app.transform.utils.validate import validate_date_basic_format
+from app.services.solr.validate import validate_collections
 from app.settings import settings
 
 router = APIRouter()
