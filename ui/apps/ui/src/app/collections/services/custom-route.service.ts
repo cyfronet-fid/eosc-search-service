@@ -158,14 +158,18 @@ export class CustomRoute {
     return routeProps;
   }
 
-  fetchFilters$(q: string, fq: string[], collection: string) {
-    const fqArray = getFiltersFromTags(
+  _getFqArray() {
+    return getFiltersFromTags(
       this._store$.getValue().tags,
       this._store$.getValue().radioValueAuthor,
       this._store$.getValue().radioValueExact,
       this._store$.getValue().radioValueTitle,
       this._store$.getValue().radioValueKeyword
     );
+  }
+
+  fetchFilters$(q: string, fq: string[], collection: string) {
+    const fqArray = this._getFqArray();
 
     const metadata = this._filterService.searchMetadataRepository.get(
       collection

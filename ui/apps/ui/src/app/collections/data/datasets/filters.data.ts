@@ -149,8 +149,8 @@ export const datasetsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'doi',
-      filter: 'doi',
+      id: 'pids',
+      filter: 'pids',
       label: 'DOI',
       type: 'tag',
       defaultCollapsed: false,

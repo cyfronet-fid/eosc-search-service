@@ -50,7 +50,7 @@ export const otherResourcesProductsAdapter: IAdapter = {
       {
         label: 'Identifier',
         values: constructIdentifierTag(openAIREResult?.pids),
-        filter: 'doi',
+        filter: 'pids',
         showMoreThreshold: 4,
       },
     ],
