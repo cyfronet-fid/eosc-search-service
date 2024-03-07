@@ -146,20 +146,7 @@
       </div>
 
       <div class="input-group" style="margin-bottom: 5px">
-        <select
-          *ngIf="!this.isSpecialCollection"
-          class="form-select"
-          style="margin-left: 0px"
-          (click)="focused = false"
-          [formControl]="collectionFc"
-        >
-          <option
-            *ngFor="let navConfig of searchCollections"
-            [ngValue]="navConfig"
-          >
-            {{ navConfig.title }}
-          </option>
-        </select>
+
         <div class="phase-box">
           <input
             #inputQueryAdv
@@ -187,6 +174,20 @@
             Clear <span>&cross;</span>
           </button>
         </div>
+        <select
+          *ngIf="!this.isSpecialCollection"
+          class="form-select"
+          style="margin-left: 0px"
+          (click)="focused = false"
+          [formControl]="collectionFc"
+        >
+          <option
+            *ngFor="let navConfig of searchCollections"
+            [ngValue]="navConfig"
+          >
+            {{ navConfig.title }}
+          </option>
+        </select>
         <div class="input-group-btn">
           <button
             class="btn btn-primary"
@@ -221,19 +222,7 @@
       </div>
 
       <div class="input-group" [style.margin-bottom.px]="isDOISelected ? 4 : 20" style="margin-top: 20px">
-        <select
-          class="form-select"
-          style="margin-left: 0px; min-width: 111px"
-          (click)="focused = false"
-          (change)="onDropdownChange()"
-          [formControl]="collectionFcAdvForm"
-        >
-          <ng-container *ngFor="let navConfig of collectionFcAdv">
-            <option *ngIf="shouldDisplayOption(navConfig)" [ngValue]="navConfig">
-              <span>{{ navConfig.name }}</span>
-            </option>
-          </ng-container>
-        </select>
+
         <div class="phase-box">
           <input
             #inputQueryAdv2
@@ -261,6 +250,19 @@
             Clear <span>&cross;</span>
           </button>
         </div>
+        <select
+          class="form-select"
+          style="margin-left: 0px; min-width: 111px"
+          (click)="focused = false"
+          (change)="onDropdownChange()"
+          [formControl]="collectionFcAdvForm"
+        >
+          <ng-container *ngFor="let navConfig of collectionFcAdv">
+            <option *ngIf="shouldDisplayOption(navConfig)" [ngValue]="navConfig">
+              <span>{{ navConfig.name }}</span>
+            </option>
+          </ng-container>
+        </select>
         <div class="input-group-btn">
           <button
             style="white-space: nowrap"
