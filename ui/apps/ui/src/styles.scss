@@ -161,14 +161,14 @@ btn-primary.disabled,
           padding: 9px 0;
           text-align: center;
           width: 50%;
-          color: #010E87;
-          background: #fff;
           font-size: 14px;
           cursor: pointer;
+          background: none;
+          color: #ffffff;
 
           &.selected {
-            background: none;
-            color: #ffffff;
+            color: #010E87;
+            background: #fff;
           }
         }
       }
