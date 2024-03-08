@@ -9,19 +9,19 @@
   z-index: 10;
 }
 .form-control2 {
-  width: 610px !important;
+  width: 598px !important;
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
 
 .form-control3 {
-  width: 418px !important;
+  width: 401px !important;
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
 
 .form-control4 {
-  width: 418px !important;
+  width: 401px !important;
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
@@ -39,19 +39,20 @@
 .btn-enter {
   color: #ffffff;
   height: 40px;
-  background: #040f80;
+  background: #010E87;
   padding: 0 20px 0 20px;
   border: 1px solid #fff;
   border-radius: 0 4px 4px 0;
 }
 
 .btn-enter:hover {
+  background: #010B65;
   color: #ffffff;
-  height: 40px;
-  background: #1f2b9c;
-  padding: 0 20px 0 20px;
-  border: 1px solid #fff;
-  border-radius: 0 4px 4px 0;
+}
+
+.btn-enter:focus {
+  background: #010E87;
+  color: #ffffff;
 }
 
 #container {
@@ -118,6 +119,8 @@
 
   a {
     color: #fff;
+    font-size: 16px;
+    font-weight: 500;
   }
 
   &:hover {
@@ -128,14 +131,12 @@
 .adv-search-text-checkbox {
   color: #ffffff;
   font-size: 14px;
-  font-family: Inter;
   cursor: pointer;
 }
 
 .search-text-checkbox {
   color: #ffffff;
   font-size: 12px;
-  font-family: Inter;
   cursor: pointer;
   padding-left: 18px;
   display: block;
@@ -143,11 +144,11 @@
 
   .input-checkbox-label {
     color: #ffffff !important;
-    font-size: 14px;
-    font-family: Inter;
+    font-size: 16px;
+    font-weight: 500;
     cursor: pointer;
     display: flex;
-    width: 130px !important;
+    width: 145px !important;
     justify-content: space-between;
     align-items: center;
   }
@@ -165,19 +166,23 @@
 .adv-search-text {
   color: #ffffff;
   font-size: 12px;
-  font-family: Inter;
   margin-left: -40px;
 }
 
 .adv-search-text-tag {
   color: #ffffff;
   font-size: 14px;
-  font-family: Inter;
   margin-left: 0px;
 
   &:hover {
     opacity: 0.7;
   }
+}
+
+.search-clear-button {
+  float: right;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 .tags-row {

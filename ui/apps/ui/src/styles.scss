@@ -98,14 +98,18 @@ btn-primary.disabled,
 }
 
 .search-bar {
-  background: #000 url(assets/top-bar-bg.jpg) no-repeat;
-  position: relative;
+  background: #000 url(assets/top-bar-bg.jpg) no-repeat 50% 0;
   background-size: cover;
-  margin-bottom: 30px;
+  position: relative;
+  margin-bottom: 32px;
 
   .container--xxl {
     max-width: 860px;
-    padding: 40px 0 45px;
+    padding: 54px 0 56px;
+
+    .ant-menu {
+      line-height: 1;
+    }
 
     .ant-menu-horizontal > .ant-menu-item::after {
       left: 0;
@@ -118,7 +122,7 @@ btn-primary.disabled,
     }
 
     .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item {
-      padding: 0 10px;
+      padding: 0 10px 12px;
       margin-right: 19px;
     }
 
@@ -158,7 +162,7 @@ btn-primary.disabled,
         border: 1px solid #D9D9D9;
 
         span {
-          padding: 9px 0;
+          padding: 5px 0 6px;
           text-align: center;
           width: 50%;
           font-size: 14px;
@@ -166,10 +170,24 @@ btn-primary.disabled,
           background: none;
           color: #ffffff;
 
+          &:hover {
+            background: RGB(255,255,255,0.3);
+            color: #fff;
+            opacity: 1;
+          }
+
           &.selected {
             color: #010E87;
             background: #fff;
+
+            &:hover {
+              background: RGB(255,255,255);
+              opacity: 1;
+              color: #010E87;
+            }
           }
+
+
         }
       }
     }
@@ -187,7 +205,7 @@ btn-primary.disabled,
 
     &.providers {
       .form-control4 {
-        width: 663px !important;
+        width: 646px !important;
       }
     }
   }
@@ -203,19 +221,15 @@ btn-primary.disabled,
         border-radius: 0 4px 4px 0;
       }
     }
-
-    .search-clear-button {
-
-    }
   }
 
   .search-box-adv {
-    margin: 24px auto 20px;
+    margin: 24px auto 0;
     position: relative;
 
     &.providers {
       .form-control3 {
-        width: 663px !important;
+        width: 646px !important;
         border-top-left-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
       }

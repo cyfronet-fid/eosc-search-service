@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div class="input-group" style="padding-bottom: 10px">
+      <div class="input-group">
         <div class="phase-box">
           <input
             #inputQuery
@@ -221,7 +221,7 @@
         </div>
       </div>
 
-      <div class="input-group" [style.margin-bottom.px]="isDOISelected ? 4 : 20" style="margin-top: 20px">
+      <div class="input-group" style="margin-top: 20px">
 
         <div class="phase-box">
           <input
@@ -252,7 +252,7 @@
         </div>
         <select
           class="form-select"
-          style="margin-left: 0px; min-width: 111px"
+          style="margin-left: 0px; min-width: 120px"
           (click)="focused = false"
           (change)="onDropdownChange()"
           [formControl]="collectionFcAdvForm"
@@ -283,7 +283,7 @@
       <div *ngIf="isDOISelected && withDOI()" class="doi-message">
         Enter a valid DOI or Handle format. DOI example: 10.1038/nature25715; Handle example: 11356/1451.
       </div>
-      <div *ngIf="tags.length !== 0" class="mb-3">
+      <div *ngIf="tags.length !== 0" class="mt-3">
         <div class="row gx-1 gy-1 py-0 tags-row">
           <div class="col-1 gx-1 gy-1 py-0">
             <span
