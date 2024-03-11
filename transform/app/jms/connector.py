@@ -4,7 +4,7 @@ import ssl
 import stomp
 from stomp.exception import ConnectFailedException
 import time
-from typing import Callable, Optional
+from typing import Callable, List, Optional, Union
 
 from app.services.solr.validate import check_document_exists
 from app.tasks.delete_data_by_id import delete_data_by_id
@@ -70,18 +70,18 @@ def default_subscription_condition(connection: stomp.Connection) -> bool:
 
 
 # pylint: disable=too-many-arguments
-def subscribe_to_queue(
+def subscribe_to_topics(
     host: str,
     port: int,
     username: str,
     password: str,
-    topic: str,
+    topics: Union[str, List[str]],
     subscription_id: str,
     _ssl: bool = True,
     _logger: Optional[logging.Logger] = None,
     subscription_condition: Optional[Callable] = default_subscription_condition,
 ) -> None:
-    """"""
+    """Subscribe to a single topic or multiple topics on a STOMP connection."""
     if _logger is None:
         _logger = logging.getLogger(__name__)
 
@@ -97,11 +97,16 @@ def subscribe_to_queue(
 
     try:
         connection.connect(username=username, password=password, wait=True, ssl=_ssl)
-        connection.subscribe(destination=topic, id=subscription_id, ack="auto")
-        _logger.info(
-            "Subscribed to %(topic)s on %(host)s:%(port)s",
-            {"topic": topic, "host": host, "port": port},
-        )
+
+        if isinstance(topics, str):
+            topics = [topics]
+
+        for topic in topics:
+            connection.subscribe(destination=topic, id=subscription_id, ack="auto")
+            _logger.info(
+                "Subscribed to %(topic)s on %(host)s:%(port)s",
+                {"topic": topic, "host": host, "port": port},
+            )
 
         while subscription_condition(connection):
             time.sleep(1.0)
