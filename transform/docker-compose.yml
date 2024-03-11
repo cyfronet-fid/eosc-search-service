@@ -53,6 +53,23 @@ services:
       - "61613:61613"
       - "15672:15672"  # admin interface for rabbitmq admin
 
+  jms_subscriber:
+    build: ./
+    command: python -m app.jms.start_jms
+    volumes:
+      - ./app:/app
+    environment:
+    - STOMP_HOST=${STOMP_HOST}
+    - STOMP_PORT=${STOMP_PORT}
+    - STOMP_LOGIN=${STOMP_LOGIN}
+    - STOMP_PASS=${STOMP_PASS}
+    - STOMP_CLIENT_NAME=${STOMP_CLIENT_NAME}
+    - CELERY_BROKER_URL=redis://redis:6379/0
+    - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - rabbitmq
+      - redis
+
 #  mongo:
 #    image: mongo
 #    ports:

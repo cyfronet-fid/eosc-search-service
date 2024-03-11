@@ -1,6 +1,5 @@
 # pylint: disable=line-too-long, invalid-name, logging-fstring-interpolation, too-many-locals, duplicate-code, fixme
 """Transform interoperability guidelines"""
-from itertools import chain
 import logging
 from datetime import datetime
 import json
@@ -305,9 +304,7 @@ def harvest_rights(df: DataFrame) -> None:
 def serialize_alternative_ids(df: DataFrame) -> None:
     """Serialize alternative_ids"""
     column = df[ALTERNATIVE_IDS]
-    df[ALTERNATIVE_IDS] = [
-        json.dumps(alter_ids) for alter_ids in chain.from_iterable(column)
-    ]
+    df[ALTERNATIVE_IDS] = [json.dumps(alter_ids) for alter_ids in column]
 
 
 def map_providers(df: DataFrame) -> None:
