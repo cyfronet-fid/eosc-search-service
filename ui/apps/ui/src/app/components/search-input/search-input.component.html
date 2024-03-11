@@ -177,7 +177,6 @@
         <select
           *ngIf="!this.isSpecialCollection"
           class="form-select"
-          style="margin-left: 0px"
           (click)="focused = false"
           [formControl]="collectionFc"
         >
@@ -281,9 +280,9 @@
         </div>
       </div>
       <div *ngIf="isDOISelected && withDOI()" class="doi-message">
-        Enter a valid DOI or Handle format. DOI example: 10.1038/nature25715; Handle example: 11356/1451.
+        Enter a valid DOI format. Example: 10.1038/nature.25715
       </div>
-      <div *ngIf="tags.length !== 0" class="mt-3">
+      <div *ngIf="tags.length !== 0" class="mt-3" style="overflow: hidden">
         <div class="row gx-1 gy-1 py-0 tags-row">
           <div class="col-1 gx-1 gy-1 py-0">
             <span
@@ -479,7 +478,7 @@
                 *ngIf="elem.startsWith('doi')"
                 nzMode="closeable"
                 (nzOnClose)="remove(elem)"
-                style="margin-top: 8px"
+                style="margin-top: 8px; margin-bottom: 8px;"
                 class="ant-tag-custom"
               >{{ elem.split('doi:')[1] }}</nz-tag
               >
@@ -505,20 +504,22 @@
             </span>
           </div>
         </div>
+
+        <span
+          *ngIf="tags.length !== 0"
+          class="adv-search-text-tag search-clear-button"
+          (click)="removeAll($event)"
+        >
+          <img
+            src="assets/trashed.svg"
+            class="tooltip-prompt-icon"
+            style="padding-bottom: 4px; padding-right: 7px"
+            width="22"
+          />Clear Advanced Search
+        </span>
       </div>
 
-      <span
-        *ngIf="tags.length !== 0"
-        class="adv-search-text-tag search-clear-button"
-        (click)="removeAll($event)"
-      >
-        <img
-          src="assets/trashed.svg"
-          class="tooltip-prompt-icon"
-          style="padding-bottom: 4px; padding-right: 7px"
-          width="22"
-        />Clear Advanced Search
-      </span>
+
     </form>
 
     <div
