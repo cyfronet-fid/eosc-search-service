@@ -6,7 +6,7 @@
     [ngClass]="{ providers: isSpecialCollection }"
   >
     <form>
-      <div class="search-selector-wrapper">
+      <div *ngIf="!isAdvancedSearchOff"  class="search-selector-wrapper">
         <div *ngIf="!isAdvancedSearchOff" class="search-switch">
           <span *ngIf="!isLanding()" class="adv-search-text-btn selected">Basic Search</span>
           <span *ngIf="!isLanding()" class="adv-search-text-btn" (click)="standardSearch = false">Advanced Search</span>
@@ -128,7 +128,7 @@
     [ngClass]="{ providers: isSpecialCollection }"
   >
     <form>
-      <div class="search-selector-wrapper">
+      <div *ngIf="!isAdvancedSearchOff" class="search-selector-wrapper">
         <div *ngIf="!isAdvancedSearchOff" class="search-switch">
           <span class="adv-search-text-btn"
           (click)="
