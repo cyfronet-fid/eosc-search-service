@@ -30,6 +30,7 @@ import { RedirectService } from '@collections/services/redirect.service';
         height: 18px;
         background-repeat: no-repeat;
         background-image: url('../../../../assets/pin-icon.svg');
+        background-position: 0 1px;
       }
 
       .pin-icon-text {

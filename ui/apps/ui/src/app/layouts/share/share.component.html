@@ -30,21 +30,21 @@
       target="_blank"
     >
       <img [src]="'./assets/linkedin.svg'" width="32" height="32" />
-    </a>
+    </a> 
 
-    <!-- <a
-        [href]="'https://twitter.com/intent/tweet??url=' + this.url"
+    <a
+        [href]="'https://twitter.com/intent/tweet?text=' + this.title + '&url=' + this.url"
         target="_blank"
         >
         <img
         [src]="'./assets/twitter.svg'"
         width="32"
         height="32" >
-    </a> -->
+    </a>
 
     <a
       [href]="
-        'mailto:?subject=Link from EOSC Marketplace inside&body=' + this.url
+        'mailto:?subject=' +this.emailTitle + '&body=' + this.emailBody
       "
       target="_blank"
     >

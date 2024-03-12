@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ng-zorro-antd/ng-zorro-antd.min.css';
 @import 'scss/landing';
+@import './node_modules/ngx-sharebuttons/themes/default.scss';
 
 .anticon {
   vertical-align: 0 !important;
@@ -640,21 +641,26 @@ h6 {
 
   .share-link {
     float: left;
-    margin: 4px 10px 0 10px;
-    padding: 0 10px;
-    border-left: 1px solid #d9d9d9;
+    margin: 0 10px 0 0;
+    padding: 0 10px 0 0;
     border-right: 1px solid #d9d9d9;
 
     a {
       font-size: 14px;
       font-weight: 500;
-      line-height: 19px;
+      line-height: 18px;
       cursor: pointer;
       color: #040f81;
       display: flex;
       background: url('assets/icon-share.svg') no-repeat 0 3px;
       padding-left: 20px;
       background-size: 12px auto;
+    }
+  }
+
+  &.training {
+    .share-link {
+      border-right: none;
     }
   }
 }
@@ -2023,6 +2029,7 @@ h6 {
         img {
           width: 24px;
           height: auto;
+          cursor: pointer;
         }
       }
     }
