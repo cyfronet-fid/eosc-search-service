@@ -222,7 +222,7 @@
     (activeFilter)="setActiveFilter($event.filter, $event.value)"
   >
   </ess-secondary-tags>
- 
+
   <div>
     <div>
       <div class="bundle-box" *ngIf="type.value === 'bundle'">
@@ -257,7 +257,7 @@
       </div>
     </div>
   </div>
-  <div class="bottom-actions">
+  <div class="bottom-actions {{ type.label }}">
     <ess-sources
       *ngIf="isResearchProduct"
       class="bottom-action-link"
@@ -265,12 +265,14 @@
       [urls]="urls"
       [exportData]="exportData"
     ></ess-sources>
-    <!-- <ess-share
+    <ess-share
       [urls]="urls"
-      [shareUrl]="validUrl"
+      [title]="title"
+      [description]="description"
+      [shareUrl]="validUrl || ''"
       [type]="type"
       class="share-link"
-    ></ess-share> -->
+    ></ess-share>
     <ess-bibliography
       class="bottom-action-link"
       *ngIf="isResearchProduct"

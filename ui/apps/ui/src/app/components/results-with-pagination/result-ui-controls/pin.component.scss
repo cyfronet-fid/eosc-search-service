@@ -1,6 +1,6 @@
 :host {
   display: block;
-  margin-top: 4px;
+  margin-top: 1px;
 }
 
 .pin-icon {
@@ -8,14 +8,14 @@
   height: 18px;
   background-repeat: no-repeat;
   background-image: url('../../../../assets/pin-icon.svg');
+  background-position: 0 1px;
 }
 
 .pin-icon-text {
   color: #040f81;
   margin-right: 8px;
-  font-family: Inter;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
-  line-height: 18px;
+  line-height: 17px;
 }
