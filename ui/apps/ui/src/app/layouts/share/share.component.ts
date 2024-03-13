@@ -88,6 +88,9 @@ export class ShareComponent {
       case 'service':
       case 'bundle':
       case 'provider':
+      case 'catalogue':
+      case 'organisation':
+      case 'project':
         return this.shareUrl;
       default:
         return '';
