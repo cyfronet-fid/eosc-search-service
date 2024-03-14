@@ -77,9 +77,8 @@ export class SearchInputComponent implements OnInit {
     { name: 'DOI' },
     { name: 'None of' },
   ];
-
+  optionsDropdownSelectedValue: ICollectionTagsConfig = this.collectionFcAdv[2];
   isSpecialCollection = false;
-  isAdvancedSearchOff = false;
   isDOISelected = false;
 
   faMagnifyingGlass = faMagnifyingGlass;
@@ -106,36 +105,48 @@ export class SearchInputComponent implements OnInit {
         return 'Narrow by: title, keywords, exact, none of';
       case 'bundle':
       case 'guideline':
-      case 'provider':
-        return 'Narrow by: title, exact, none of';
       case 'training':
         return 'Narrow by: author, title, keywords, exact, none of';
       default:
         return 'Narrow by: author, title, DOI, keywords, exact, none of';
     }
   }
+  hasKeyword: string[] = [
+    'all_collection',
+    'publication',
+    'dataset',
+    'software',
+    'other_rp',
+    'training',
+    'service',
+    'data_source',
+  ];
+  hasAuthor: string[] = [
+    'all_collection',
+    'publication',
+    'dataset',
+    'software',
+    'other_rp',
+    'training',
+  ];
+  hasDOI: string[] = [
+    'all_collection',
+    'publication',
+    'dataset',
+    'software',
+    'other_rp',
+  ];
 
   withKeyword(): boolean {
-    return !(
-      this.collectionFc.value.id === 'guideline' ||
-      this.collectionFc.value.id === 'bundle' ||
-      this.collectionFc.value.id === 'provider'
-    );
+    return this.hasKeyword.includes(this.collectionFc.value.id);
   }
 
   withAuthor(): boolean {
-    return !(
-      this.collectionFc.value.id === 'data_source' ||
-      this.collectionFc.value.id === 'service' ||
-      this.collectionFc.value.id === 'guideline' ||
-      this.collectionFc.value.id === 'bundle' ||
-      this.collectionFc.value.id === 'provider'
-    );
+    return this.hasAuthor.includes(this.collectionFc.value.id);
   }
 
   withDOI(): boolean {
-    // Don't show DOI operator in the same cols as author, + not in trainings
-    return this.withAuthor() && this.collectionFc.value.id !== 'training';
+    return this.hasDOI.includes(this.collectionFc.value.id);
   }
 
   shouldDisplayOption(navConfig: { name: string }): boolean {
@@ -233,6 +244,18 @@ export class SearchInputComponent implements OnInit {
     return false;
   }
 
+  resetAdvSearch() {
+    this.tags = [];
+    this.clearQueryAdv();
+    this.updateQueryParamsAdv(this.formControl.value || '*');
+    this.collectionFcAdvForm.setValue(this.collectionFcAdv[2]);
+  }
+
+  backToStandard() {
+    this.standardSearch = true;
+    this.resetAdvSearch();
+  }
+
   // TODO: stream event - off when search is not focused and what with suggestes result set on []
   @HostListener('document:click')
   clicked() {
@@ -250,6 +273,7 @@ export class SearchInputComponent implements OnInit {
     private _searchInputService: SearchInputService,
     private _navConfigsRepository: NavConfigsRepository,
     private _route: ActivatedRoute,
+
     @Inject(DOCUMENT) private _document: Document
   ) {
     this.tooltipText =
@@ -259,12 +283,9 @@ export class SearchInputComponent implements OnInit {
   ngOnInit() {
     this._customRoute.collection$.subscribe((val) => {
       this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(val);
-      const advSearchExcludeCollections = [
-        'organisation',
-        'project',
-        'catalogue',
-      ];
-      this.isAdvancedSearchOff = advSearchExcludeCollections.includes(val);
+      if (this.isSpecialCollection) {
+        this.backToStandard();
+      }
     });
     this._customRoute.q$
       .pipe(
@@ -276,13 +297,14 @@ export class SearchInputComponent implements OnInit {
 
     this._customRoute.collection$
       .pipe(untilDestroyed(this))
-      .subscribe((collection) =>
+      .subscribe((collection) => {
         this.collectionFc.setValue(
           this._navConfigsRepository.get(collection) ??
             this.searchCollections[0],
           { emitEvent: false }
-        )
-      );
+        );
+        this.adjustOptionsDropdown();
+      });
 
     const std = this._route.snapshot.queryParamMap.get('standard');
     if (std) {
@@ -366,18 +388,11 @@ export class SearchInputComponent implements OnInit {
       .subscribe((suggestedResults) => {
         this.suggestedResults = suggestedResults;
       });
-
     this.collectionFc.valueChanges
       .pipe(untilDestroyed(this))
-      .subscribe((navConfig) =>
-        this.setCollection(this.formControl.value, navConfig)
-      );
-
-    if (this.isSpecialCollection) {
-      this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
-    } else {
-      this.collectionFcAdvForm.reset();
-    }
+      .subscribe((navConfig) => {
+        this.setCollection(this.formControl.value, navConfig);
+      });
   }
 
   onCheckboxChange() {
@@ -386,6 +401,7 @@ export class SearchInputComponent implements OnInit {
   }
 
   onDropdownChange() {
+    this.optionsDropdownSelectedValue = this.collectionFcAdvForm.value;
     this.isDOISelected = this.collectionFcAdvForm.value.name === 'DOI';
   }
 
@@ -466,15 +482,46 @@ export class SearchInputComponent implements OnInit {
     this.formControlAdv.setValue('');
   }
 
+  displayDefaultOption(option: ICollectionTagsConfig) {
+    if (option.name === 'Keyword' && !this.withKeyword()) {
+      this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
+    } else if (option.name === 'Author' && !this.withAuthor()) {
+      this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
+    } else if (option.name === 'DOI' && !this.withDOI()) {
+      this.collectionFcAdvForm.reset(this.collectionFcAdv[2]);
+    }
+  }
+
+  revertSelectedOption(option: ICollectionTagsConfig) {
+    if (option.name === 'Keyword' && this.withKeyword()) {
+      this.collectionFcAdvForm.setValue(option);
+    } else if (option.name === 'Author' && this.withAuthor()) {
+      this.collectionFcAdvForm.setValue(option);
+    } else if (option.name === 'DOI' && this.withDOI()) {
+      this.collectionFcAdvForm.setValue(option);
+    }
+  }
+
+  optionIsConditional(option: ICollectionTagsConfig): boolean {
+    const presentInAllCollections = ['In title', 'Exact', 'None of'];
+    return !presentInAllCollections.includes(option.name);
+  }
+
+  adjustOptionsDropdown() {
+    const option = this.collectionFcAdvForm.value;
+    if (
+      option === this.optionsDropdownSelectedValue &&
+      this.optionIsConditional(option)
+    ) {
+      this.displayDefaultOption(option);
+    } else if (option !== this.optionsDropdownSelectedValue) {
+      this.revertSelectedOption(this.optionsDropdownSelectedValue);
+    }
+  }
+
   async setCollection(q: string, $event: ICollectionNavConfig) {
     if (!this.navigateOnCollectionChange) {
       return;
-    }
-    if (
-      this.collectionFcAdvForm.value.name === 'Keyword' &&
-      !this.withKeyword()
-    ) {
-      this.collectionFcAdvForm.reset();
     }
 
     await this._router.navigate(['/search', $event.urlParam], {
