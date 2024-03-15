@@ -236,10 +236,14 @@ class TrainingTransformer(BaseTransformer):
         mapping_dict = {
             "tr_dcmi_type-activity_plan": "Activity Plan",
             "tr_dcmi_type-assessment": "Assessment",
+            "tr_dcmi_type-assessment_item": "Assessment Item",
+            "tr_dcmi_type-educator_curriculum_guide": "Educator Curriculum Guide",
             "tr_dcmi_type-lesson_plan": "Lesson Plan",
             "tr_dcmi_type-other": "Other",
+            "tr_dcmi_type-physical_learning_resource": "Physical Learning Resource",
             "tr_dcmi_type-recorded_lesson": "Recorded Lesson",
             "tr_dcmi_type-supporting_document": "Supporting Document",
+            "tr_dcmi_type-textbook": "Textbook",
             "tr_dcmi_type-unit_plan": "Unit Plan",
         }
 
