@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~ng-zorro-antd/ng-zorro-antd.min.css';
 @import 'scss/landing';
-@import './node_modules/ngx-sharebuttons/themes/default.scss';
 
 .anticon {
   vertical-align: 0 !important;
@@ -99,14 +98,18 @@ btn-primary.disabled,
 }
 
 .search-bar {
-  background: #000 url(assets/top-bar-bg.jpg) no-repeat;
-  position: relative;
+  background: #000 url(assets/top-bar-bg.jpg) no-repeat 50% 0;
   background-size: cover;
-  margin-bottom: 30px;
+  position: relative;
+  margin-bottom: 32px;
 
   .container--xxl {
     max-width: 860px;
-    padding: 25px 0 15px;
+    padding: 54px 0 56px;
+
+    .ant-menu {
+      line-height: 1;
+    }
 
     .ant-menu-horizontal > .ant-menu-item::after {
       left: 0;
@@ -119,8 +122,8 @@ btn-primary.disabled,
     }
 
     .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item {
-      padding: 0 10px;
-      margin-right: 20px;
+      padding: 0 10px 12px;
+      margin-right: 19px;
     }
 
     .ant-menu-custom {
@@ -131,7 +134,7 @@ btn-primary.disabled,
 
     .ant-menu-item-custom {
       opacity: 0.6;
-      font-size: 18px;
+      font-size: 20px;
     }
 
     .ant-menu-item-selected {
@@ -145,24 +148,88 @@ btn-primary.disabled,
     }
   }
 
+  .search-row {
+    .search-selector-wrapper {
+      display: flex;
+      margin-bottom: 24px;
+      align-items: center;
+
+      .search-switch {
+        border-radius: 4px;
+        width: 470px;
+        display: flex;
+        margin-right: 20px;
+        border: 1px solid #D9D9D9;
+
+        span {
+          padding: 5px 0 6px;
+          text-align: center;
+          width: 50%;
+          font-size: 14px;
+          cursor: pointer;
+          background: none;
+          color: #ffffff;
+
+          &:hover {
+            background: RGB(255,255,255,0.3);
+            color: #fff;
+            opacity: 1;
+          }
+
+          &.selected {
+            color: #010E87;
+            background: #fff;
+
+            &:hover {
+              background: RGB(255,255,255);
+              opacity: 1;
+              color: #010E87;
+            }
+          }
+
+
+        }
+      }
+    }
+  }
+
   .search-box {
-    margin: 24px auto 20px;
+    margin: 0 auto;
     position: relative;
+
+    .input-group-btn {
+      .btn-primary {
+        border-radius: 0 4px 4px 0;
+      }
+    }
 
     &.providers {
       .form-control4 {
-        width: 663px !important;
+        width: 646px !important;
       }
     }
   }
 
   .search-box-adv {
-    margin: 24px auto 20px;
+    .input-group {
+      select {
+        border-radius: 4px;
+      }
+    }
+    .input-group-btn {
+      .btn-primary {
+        border-radius: 0 4px 4px 0;
+      }
+    }
+  }
+
+  .search-box-adv {
+    margin: 24px auto 0;
     position: relative;
 
     &.providers {
       .form-control3 {
-        width: 663px !important;
+        width: 646px !important;
         border-top-left-radius: 4px !important;
         border-bottom-left-radius: 4px !important;
       }
@@ -599,7 +666,7 @@ h6 {
 
 .bottom-actions {
   border-top: 1px dotted #d9dee2;
-  padding-top: 14px;
+  padding-top: 16px;
 
   .sources-box {
     a {
@@ -658,9 +725,10 @@ h6 {
     }
   }
 
-  &.training {
+  &.training,
+  &.interoperability {
     .share-link {
-      border-right: none;
+      border: none;
     }
   }
 }
@@ -859,6 +927,11 @@ h6 {
 .results {
 
   &.project {
+    .bottom-actions
+    {
+      display: none;
+    }
+
     .project-card {
       padding-top: 12px;
     }
@@ -1408,10 +1481,12 @@ h6 {
   }
 
   .search-row {
+
     #container {
       margin-top: 10px;
     }
   }
+
   .logo-wrapper .top-title {
     font-size: 14px;
     line-height: 20px;
@@ -1467,18 +1542,24 @@ h6 {
     .btn-primary {
       padding-left: 25px;
       padding-right: 25px;
-      border-radius: 8px;
+      border-radius: 4px !important;
     }
 
     select {
       max-width: 120px;
       font-size: 13px;
-      border-radius: 0 8px 8px 0 !important;
+      border-radius: 0 4px 4px 0 !important;
       padding: 0.375rem 1.25rem 0.375rem 0.25rem;
     }
+
   }
 
   .search-box-adv {
+
+    .btn-primary {
+      border-radius: 4px !important;
+    }
+
     input {
       font-size: 16px;
       padding-left: 15px;
@@ -1500,8 +1581,12 @@ h6 {
     select {
       max-width: 120px;
       font-size: 13px;
-      border-radius: 0 8px 8px 0 !important;
+      border-radius: 0 4px 4px 0 !important;
       padding: 0.375rem 1.25rem 0.375rem 0.25rem;
+    }
+
+    .btn-enter {
+      border-radius: 4px !important;
     }
   }
 
@@ -1715,6 +1800,58 @@ h6 {
 
   .tag-row .tag-title {
     flex: 0 0 60px;
+  }
+
+  .search-bar {
+
+    .search-row {
+      .search-selector-wrapper {
+        align-items: center;
+        flex-direction: column;
+
+        .search-switch {
+          margin: 0 0 15px;
+          width: 90%;
+        }
+      }
+    }
+
+    .container--xxl {
+      max-width: 860px;
+      padding: 20px 0 25px;
+
+      .ant-menu-horizontal {
+        line-height: 37px;
+        border: none;
+      }
+
+      .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected::after {
+        display: none;
+      }
+
+      .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item {
+        padding: 0 7px;
+        margin-right: 10px;
+      }
+
+      .ant-menu-item-selected {
+        background: #fff;
+        border-radius: 4px;
+
+        .ant-menu-item-custom {
+          opacity: 1;
+          color: #000;
+        }
+      }
+    }
+  }
+
+  .ant-menu-custom {
+    align-self: center;
+    row-gap: 12px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 }
 
@@ -2024,7 +2161,6 @@ h6 {
         img {
           width: 24px;
           height: auto;
-          cursor: pointer;
         }
       }
     }
