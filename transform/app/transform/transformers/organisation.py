@@ -1,18 +1,15 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
 """Transform organisations"""
 import json
-from pyspark.sql import SparkSession, DataFrame
+
+from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.functions import lit
-from pyspark.sql.types import (
-    ArrayType,
-    StringType,
-    StructType,
-    StructField,
-)
-from app.transform.transformers.base.base import BaseTransformer
-from app.transform.schemas.properties.data import *
-from app.transform.utils.utils import sort_schema
+from pyspark.sql.types import ArrayType, StringType, StructField, StructType
+
 from app.settings import settings
+from app.transform.schemas.properties.data import *
+from app.transform.transformers.base.base import BaseTransformer
+from app.transform.utils.utils import sort_schema
 
 
 class OrganisationTransformer(BaseTransformer):

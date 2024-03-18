@@ -2,7 +2,9 @@
 """Retrieve data from the APIs of both the Marketplace and the Provider Component"""
 import asyncio
 from logging import getLogger
+
 import requests
+
 from app.settings import settings
 
 logger = getLogger(__name__)

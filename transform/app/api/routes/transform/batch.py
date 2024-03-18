@@ -1,7 +1,9 @@
 """Transform single or many records of a single type of data"""
 
 from typing import Literal
+
 from fastapi import APIRouter
+
 from app.tasks.batch import transform_batch
 from app.tasks.delete_data_by_id import delete_data_by_id
 

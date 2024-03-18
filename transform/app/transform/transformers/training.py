@@ -1,35 +1,37 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import, duplicate-code
 """Transform trainings"""
-from itertools import chain
-from logging import getLogger
 import json
 from datetime import datetime
-from dateutil import parser
+from itertools import chain
+from logging import getLogger
+
 import pycountry
-from pyspark.sql.functions import split, lit, col
-from pyspark.sql import SparkSession, DataFrame
+from dateutil import parser
+from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql.functions import col, lit, split
 from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
     ArrayType,
     BooleanType,
     DateType,
+    StringType,
+    StructField,
+    StructType,
 )
-from app.transform.mappings.scientific_doamin import sd_training_temp_mapping
-from app.transform.transformers.base.base import BaseTransformer
-from app.transform.utils.common import (
-    map_best_access_right,
-    create_open_access,
-    transform_date,
-    create_unified_categories,
-    remove_commas,
-)
-from app.transform.utils.utils import sort_schema
-from app.transform.schemas.properties.data import *
-from app.transform.schemas.output.training import training_output_schema
+
 from app.services.mp_pc.data import get_providers_mapping
 from app.settings import settings
+from app.transform.mappings.scientific_doamin import sd_training_temp_mapping
+from app.transform.schemas.output.training import training_output_schema
+from app.transform.schemas.properties.data import *
+from app.transform.transformers.base.base import BaseTransformer
+from app.transform.utils.common import (
+    create_open_access,
+    create_unified_categories,
+    map_best_access_right,
+    remove_commas,
+    transform_date,
+)
+from app.transform.utils.utils import sort_schema
 
 logger = getLogger(__name__)
 

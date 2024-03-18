@@ -1,11 +1,12 @@
 # pylint: disable=line-too-long
 """Endpoint for full collection update"""
 from typing import Literal
+
 from fastapi import APIRouter
 
-from app.tasks.batch import transform_batch
 from app.services.mp_pc.data import get_data
 from app.settings import settings
+from app.tasks.batch import transform_batch
 
 router = APIRouter()
 

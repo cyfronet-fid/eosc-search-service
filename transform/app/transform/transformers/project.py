@@ -1,16 +1,12 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import
 """Transform projects"""
 
-from datetime import datetime
 import logging
+from datetime import datetime
 from typing import List, Optional
-from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import (
-    col,
-    lit,
-    size,
-    when,
-)
+
+from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql.functions import col, lit, size, when
 from pyspark.sql.types import (
     ArrayType,
     FloatType,
@@ -19,12 +15,13 @@ from pyspark.sql.types import (
     StructField,
     StructType,
 )
+
+from app.settings import settings
 from app.transform.mappings.currency import currency_mapping
-from app.transform.transformers.base.base import BaseTransformer
 from app.transform.schemas.properties.data import *
+from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.join_dfs import create_df, join_different_dfs
 from app.transform.utils.utils import sort_schema
-from app.settings import settings
 
 
 class ProjectTransformer(BaseTransformer):

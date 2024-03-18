@@ -1,28 +1,33 @@
 # pylint: disable=line-too-long, invalid-name, too-many-nested-blocks, unnecessary-dunder-call
 # pylint: disable=too-many-branches, unsubscriptable-object
 """Common transformations"""
+import json
 from collections import defaultdict
 from itertools import chain
 from logging import getLogger
-import json
 from typing import Dict, List, Optional
-from pyspark.sql.utils import AnalysisException
+
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import col, when, to_date, lit
+from pyspark.sql.functions import col, lit, to_date, when
+from pyspark.sql.utils import AnalysisException
 
 from app.services.mp_pc.data import get_data_source_pids
-from app.transform.schemas.mappings import (
-    access_rights_mapping,
-    OPEN_ACCESS_,
-    publisher_mapping,
-    ZENODO,
-    FIGSHARE,
-    language_mapping,
-    unified_categories_mapping,
+from app.transform.mappings.datasources_pids import (
+    datasource_pids_mapping,
+    services_pids,
 )
 from app.transform.mappings.scientific_doamin import (
-    scientific_domains_mapping,
     mp_sd_structure,
+    scientific_domains_mapping,
+)
+from app.transform.schemas.mappings import (
+    FIGSHARE,
+    OPEN_ACCESS_,
+    ZENODO,
+    access_rights_mapping,
+    language_mapping,
+    publisher_mapping,
+    unified_categories_mapping,
 )
 from app.transform.schemas.properties.data import (
     AFFILIATION,
@@ -31,8 +36,8 @@ from app.transform.schemas.properties.data import (
     AUTHOR_NAMES_TG,
     AUTHOR_PIDS,
     BEST_ACCESS_RIGHT,
-    COUNTRY,
     CONTEXT,
+    COUNTRY,
     DATA_SOURCE,
     DOCUMENT_TYPE,
     DOI,
@@ -54,11 +59,11 @@ from app.transform.schemas.properties.data import (
     POPULARITY,
     PROJECTS,
     PUBLISHER,
-    RESEARCH_COMMUNITY,
     RELATED_ORGANISATION_TITLES,
     RELATED_PROJECT_IDS,
     RELATIONS,
     RELATIONS_LONG,
+    RESEARCH_COMMUNITY,
     SCIENTIFIC_DOMAINS,
     SDG,
     SUBJECT,
@@ -70,10 +75,6 @@ from app.transform.schemas.properties.data import (
     VIEWS,
 )
 from app.transform.utils.utils import extract_digits_and_trim
-from app.transform.mappings.datasources_pids import (
-    datasource_pids_mapping,
-    services_pids,
-)
 
 logger = getLogger(__name__)
 

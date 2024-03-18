@@ -1,4 +1,5 @@
 import logging
+
 import requests
 from requests import ConnectionError as ReqConnectionError
 

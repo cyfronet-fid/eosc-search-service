@@ -1,9 +1,9 @@
 # pylint: disable=invalid-name, unbalanced-tuple-unpacking
 """Join dataframes"""
 from functools import reduce
-from pyspark.sql import Window, DataFrame
-from pyspark.sql.functions import row_number, lit
-from pyspark.sql import SparkSession
+
+from pyspark.sql import DataFrame, SparkSession, Window
+from pyspark.sql.functions import lit, row_number
 from pyspark.sql.types import StructType
 
 
