@@ -1,23 +1,22 @@
 # pylint: disable=duplicate-code
 """Transform services"""
 from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
     BooleanType,
     IntegerType,
+    StringType,
+    StructField,
+    StructType,
 )
-from app.transform.transformers.base.marketplace import (
-    MarketplaceBaseTransformer,
-)
-from app.transform.utils.utils import sort_schema
+
+from app.settings import settings
+from app.transform.schemas.output.service import service_output_schema
 from app.transform.schemas.properties.data import (
     BEST_ACCESS_RIGHT,
     OPEN_ACCESS,
     POPULARITY,
 )
-from app.transform.schemas.output.service import service_output_schema
-from app.settings import settings
+from app.transform.transformers.base.marketplace import MarketplaceBaseTransformer
+from app.transform.utils.utils import sort_schema
 
 
 class ServiceTransformer(MarketplaceBaseTransformer):

@@ -1,7 +1,8 @@
+from typing import Optional
+
 import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
-from typing import Optional
 
 
 def read_parquet(file_path: str) -> pd.DataFrame:

@@ -1,45 +1,47 @@
 # pylint: disable=line-too-long, wildcard-import, unused-wildcard-import
 """Transform OAG resources"""
 from abc import abstractmethod
-from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import lit, year, col, array
+
+from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql.functions import array, col, lit, year
 from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
     ArrayType,
     BooleanType,
     IntegerType,
+    StringType,
+    StructField,
+    StructType,
 )
+
+from app.transform.schemas.properties.data import *
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
-    harvest_author_names_and_pids,
     check_type,
-    harvest_scientific_domains,
-    harvest_sdg,
-    harvest_eosc_if,
-    map_best_access_right,
     create_open_access,
-    map_publisher,
-    simplify_language,
-    map_language,
+    create_unified_categories,
+    harvest_author_names_and_pids,
+    harvest_country,
+    harvest_data_source,
+    harvest_eosc_if,
     harvest_exportation,
     harvest_funder,
-    harvest_data_source,
-    harvest_url_and_document_type,
-    harvest_country,
-    harvest_research_community,
     harvest_pids,
-    harvest_relations,
     harvest_popularity,
     harvest_project_ids,
     harvest_related_organisations,
-    transform_date,
-    create_unified_categories,
+    harvest_relations,
+    harvest_research_community,
+    harvest_scientific_domains,
+    harvest_sdg,
+    harvest_url_and_document_type,
+    map_best_access_right,
+    map_language,
+    map_publisher,
     simplify_indicators,
+    simplify_language,
+    transform_date,
 )
 from app.transform.utils.utils import sort_schema
-from app.transform.schemas.properties.data import *
 
 
 class OagBaseTransformer(BaseTransformer):

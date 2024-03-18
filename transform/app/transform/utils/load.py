@@ -1,6 +1,8 @@
 import json
 from logging import getLogger
-from pyspark.sql import SparkSession, DataFrame
+
+from pyspark.sql import DataFrame, SparkSession
+
 from app.transform.utils.validate import validate_schema
 
 logger = getLogger(__name__)

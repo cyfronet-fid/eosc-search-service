@@ -1,6 +1,7 @@
 # pylint: disable=invalid-name, logging-fstring-interpolation
 """Celery worker. Responsibilities: get, transform, upload data"""
 import os
+
 from celery import Celery
 
 modules_to_include = [

@@ -1,25 +1,25 @@
 # pylint: disable=line-too-long, invalid-name, logging-fstring-interpolation, too-many-locals, duplicate-code, fixme
 """Transform interoperability guidelines"""
+import json
 import logging
 from datetime import datetime
-import json
 
 import pandas as pd
 from pandas import DataFrame
-from app.transform.schemas.properties.data import (
-    DOI,
-    URI,
-    AUTHOR_NAMES,
-    AUTHOR_NAMES_TG,
-    TYPE,
-    ALTERNATIVE_IDS,
-)
-from app.transform.schemas.output.guideline import guideline_output_schema
-from app.transform.schemas.input.guideline import guideline_input_schema
-from app.transform.utils.validate import validate_pd_schema
+
 from app.services.mp_pc.data import get_providers_mapping
 from app.settings import settings
-
+from app.transform.schemas.input.guideline import guideline_input_schema
+from app.transform.schemas.output.guideline import guideline_output_schema
+from app.transform.schemas.properties.data import (
+    ALTERNATIVE_IDS,
+    AUTHOR_NAMES,
+    AUTHOR_NAMES_TG,
+    DOI,
+    TYPE,
+    URI,
+)
+from app.transform.utils.validate import validate_pd_schema
 
 logger = logging.getLogger(__name__)
 

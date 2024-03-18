@@ -2,11 +2,11 @@
 """Fixtures for schemas tests"""
 import pytest
 from pyspark.sql.types import (
-    StructType,
-    StructField,
-    StringType,
     ArrayType,
     BooleanType,
+    StringType,
+    StructField,
+    StructType,
 )
 
 

@@ -1,8 +1,10 @@
 # pylint: disable=line-too-long, logging-fstring-interpolation
 """Refresh solr collection"""
 import logging
+
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
+
 from app.settings import settings
 
 logger = logging.getLogger(__name__)

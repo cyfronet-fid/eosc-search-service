@@ -1,16 +1,18 @@
 # pylint: disable=invalid-name, line-too-long
 """Useful functions"""
-from logging import getLogger
 import os
-import pandas as pd
 import traceback
+from logging import getLogger
 from typing import List
+
+import pandas as pd
 from pyspark.sql import DataFrame
-from pyspark.sql.functions import when, col, lit, split
+from pyspark.sql.functions import col, lit, split, when
 from pyspark.sql.types import StringType, StructType
+
 from app.services.spark.logger import Log4J
 from app.settings import settings
-from app.transform.utils.send import SOLR, S3
+from app.transform.utils.send import S3, SOLR
 
 logger = getLogger(__name__)
 

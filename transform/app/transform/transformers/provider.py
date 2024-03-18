@@ -1,15 +1,16 @@
 # pylint: disable=line-too-long, wildcard-import, unused-wildcard-import, invalid-name, duplicate-code
 """Transform Marketplace's resources"""
-from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import split, lit, col
-from pyspark.sql.types import StringType, StructType, StructField, IntegerType
+from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql.functions import col, lit, split
+from pyspark.sql.types import IntegerType, StringType, StructField, StructType
 from pyspark.sql.utils import AnalysisException
+
+from app.settings import settings
+from app.transform.schemas.output.provider import provider_output_schema
+from app.transform.schemas.properties.data import ID, POPULARITY, TYPE, URL
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.schemas.properties.data import ID, TYPE, URL, POPULARITY
 from app.transform.utils.common import harvest_popularity
 from app.transform.utils.utils import sort_schema
-from app.transform.schemas.output.provider import provider_output_schema
-from app.settings import settings
 
 
 class ProviderTransformer(BaseTransformer):

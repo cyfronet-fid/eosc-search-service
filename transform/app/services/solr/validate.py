@@ -11,8 +11,8 @@ from requests.exceptions import ConnectionError as ReqConnectionError
 
 from app.services.solr.collections import get_collection_names, get_pined_collections
 from app.services.solr.configs import get_config_names
-from app.settings import settings
 from app.services.solr.utils import ids_mapping
+from app.settings import settings
 
 logger = logging.getLogger(__name__)
 

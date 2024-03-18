@@ -2,8 +2,10 @@
 """Configs for all the environments"""
 import logging
 from typing import Literal
+
 from pydantic import AnyUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
 from app.transform.schemas.input import *
 from app.transform.schemas.output import *
 
@@ -35,11 +37,12 @@ class GlobalSettings(BaseSettings):
     S3_BUCKET: str = ""
 
     # - STOMP
+    STOMP_SUBSCRIPTION: bool = True
     STOMP_HOST: str = "127.0.0.1"
     STOMP_PORT: int = 61613
     STOMP_LOGIN: str = "guest"
     STOMP_PASS: str = "guest"
-    STOMP_PC_TOPICS: list[str] = [
+    STOMP_TOPICS: list[str] = [
         "/topic/training_resource.update",
         "/topic/training_resource.create",
         "/topic/training_resource.delete",

@@ -2,12 +2,12 @@ import json
 import logging
 
 import app.transform.transformers as trans
+from app.services.solr.delete import delete_data_by_type
+from app.services.spark.config import apply_spark_conf
+from app.settings import settings
 from app.transform.utils.load import load_request_data
 from app.transform.utils.send import send_json_string_to_solr
-from app.services.spark.config import apply_spark_conf
-from app.services.solr.delete import delete_data_by_type
 from app.worker import celery
-from app.settings import settings
 
 logger = logging.getLogger(__name__)
 

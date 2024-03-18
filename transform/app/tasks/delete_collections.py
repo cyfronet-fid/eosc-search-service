@@ -1,9 +1,10 @@
 import logging
-import requests
 from typing import List
 
-from app.worker import celery
+import requests
+
 from app.settings import settings
+from app.worker import celery
 
 logger = logging.getLogger(__name__)
 

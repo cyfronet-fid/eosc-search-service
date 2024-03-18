@@ -2,8 +2,10 @@
 """Delete resource based on its ID"""
 import json
 import logging
+
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
+
 from app.settings import settings
 
 logger = logging.getLogger(__name__)

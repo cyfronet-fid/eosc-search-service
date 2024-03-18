@@ -1,12 +1,14 @@
 # pylint: disable=line-too-long, wildcard-import, unused-wildcard-import, invalid-name, duplicate-code
 """Transform Marketplace's resources"""
-from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import lit, col
+from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql.functions import col, lit
 from pyspark.sql.types import StringType, StructType
-from app.transform.transformers.base.base import BaseTransformer
+
+from app.settings import settings
+from app.transform.schemas.output.catalogue import catalogue_output_schema
 from app.transform.schemas.properties.data import (
-    ID,
     CREATED_AT,
+    ID,
     KEYWORDS,
     NAME,
     PUBLICATION_DATE,
@@ -14,8 +16,7 @@ from app.transform.schemas.properties.data import (
     TITLE,
     TYPE,
 )
-from app.transform.schemas.output.catalogue import catalogue_output_schema
-from app.settings import settings
+from app.transform.transformers.base.base import BaseTransformer
 
 
 class CatalogueTransformer(BaseTransformer):
