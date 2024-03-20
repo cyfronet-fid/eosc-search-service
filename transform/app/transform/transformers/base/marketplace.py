@@ -103,7 +103,13 @@ class MarketplaceBaseTransformer(BaseTransformer):
         1) Retrieve persistent_identity_systems.entity_type as arr[str, ...]
         2) Retrieve persistent_identity_systems.entity_type_schemes as arr[arr[str], ...]
         """
-        persist_ids_collection = df.select(PERSIST_ID_SYS).collect()
+        try:
+            persist_ids_collection = df.select(PERSIST_ID_SYS).collect()
+        except AnalysisException:
+            self.harvested_properties[PERSIST_ID_SYS_ENTITY_TYPE] = [None] * df.count()
+            self.harvested_properties[PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES] = [None] * df.count()
+            return df
+
         types_column = []
         schemas_column = []
         for persist_ids in chain.from_iterable(persist_ids_collection):
