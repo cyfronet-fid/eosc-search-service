@@ -281,12 +281,6 @@ export class SearchInputComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._customRoute.collection$.subscribe((val) => {
-      this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(val);
-      if (this.isSpecialCollection) {
-        this.backToStandard();
-      }
-    });
     this._customRoute.q$
       .pipe(
         untilDestroyed(this),
@@ -294,7 +288,12 @@ export class SearchInputComponent implements OnInit {
         filter((q) => q !== this.formControl.value)
       )
       .subscribe((q) => this.formControl.setValue(q));
-
+    this._customRoute.collection$.subscribe((val) => {
+      this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(val);
+      if (this.isSpecialCollection) {
+        this.backToStandard();
+      }
+    });
     this._customRoute.collection$
       .pipe(untilDestroyed(this))
       .subscribe((collection) => {
