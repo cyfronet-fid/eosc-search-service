@@ -13,13 +13,12 @@ from stomp.exception import ConnectFailedException
 from app.settings import settings
 from app.transform.live_update.training_ig import process_message
 
-logging.basicConfig(filename="app/logs/celery.log", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 conn: stomp.Connection | None = None
 
 # Constant
-INIT_JMS_RETRY_INTERVAL = 60 # seconds
+INIT_JMS_RETRY_INTERVAL = 60  # seconds
 
 
 def subscription_condition(connection: stomp.Connection) -> bool:
@@ -76,7 +75,8 @@ class JMSMessageHandler(stomp.ConnectionListener):
 
     def on_disconnected(self):
         logging.warning(
-            "%s: Disconnected from the queue. Attempting to reconnect...", self.__class__.__name__
+            "%s: Disconnected from the queue. Attempting to reconnect...",
+            self.__class__.__name__,
         )
         subscribe(
             conn,

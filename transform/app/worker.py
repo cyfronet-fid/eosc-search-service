@@ -3,6 +3,9 @@
 import os
 
 from celery import Celery
+from celery.signals import after_setup_logger
+import logging.config
+from app.logger import LOGGING_CONFIG
 
 modules_to_include = [
     "app.tasks.batch",
@@ -17,3 +20,10 @@ celery.conf.broker_url = os.environ.get("CELERY_BROKER_URL", "redis://localhost:
 celery.conf.result_backend = os.environ.get(
     "CELERY_RESULT_BACKEND", "redis://localhost:6379"
 )
+
+
+@after_setup_logger.connect()
+def configurate_celery_task_logger(**kwargs):
+    """Celery won’t configure the loggers if this signal is connected,
+    allowing the logger to utilize our configuration"""
+    logging.config.dictConfig(LOGGING_CONFIG)

@@ -19,6 +19,7 @@ pydantic = "*"
 pydantic-settings = "*"
 pyarrow = "*"
 "stomp.py" = "*"
+coloredlogs = "*"
 
 [dev-packages]
 pytest = "*"

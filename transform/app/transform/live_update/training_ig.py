@@ -8,7 +8,6 @@ from app.settings import settings
 from app.tasks.batch import transform_batch
 from app.tasks.delete_data_by_id import delete_data_by_id
 
-logging.basicConfig(filename="app/logs/celery.log", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
