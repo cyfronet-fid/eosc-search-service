@@ -13,7 +13,6 @@ from app.services.solr.collections import get_collection_names, get_pined_collec
 from app.services.solr.configs import get_config_names
 from app.settings import settings
 
-logging.basicConfig(filename="app/logs/celery.log", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
@@ -35,10 +34,7 @@ def check_document_exists(
     check_if_exists = []
 
     for s_col_name in solr_col_names:
-        logger.info(f"{settings.SOLR_URL=}")
-        logger.info(f"{s_col_name=}")
         url = f"{settings.SOLR_URL}solr/{s_col_name}/select?q=id:{data_id}"
-        logger.info(f"{url=}")
         try:
             req = requests.get(url, timeout=180)
             if req.status_code == 200:

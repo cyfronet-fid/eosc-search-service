@@ -1,14 +1,13 @@
 """The FastAPI server"""
 
-import logging
+import logging.config
 
 from fastapi import FastAPI
 
 from app.api.routes import solr_api_router, transform_api_router
 from app.services.jms.connector import close_jms_subscription, start_jms_subscription
 from app.settings import settings
-
-logger = logging.getLogger(__name__)
+from app.logger import LOGGING_CONFIG
 
 
 def get_app():
@@ -27,6 +26,7 @@ def get_app():
 
         @app.on_event("startup")
         async def startup_event():
+            logging.config.dictConfig(LOGGING_CONFIG)
             await start_jms_subscription()
 
         @app.on_event("shutdown")

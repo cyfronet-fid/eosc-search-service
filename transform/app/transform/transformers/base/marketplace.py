@@ -107,7 +107,9 @@ class MarketplaceBaseTransformer(BaseTransformer):
             persist_ids_collection = df.select(PERSIST_ID_SYS).collect()
         except AnalysisException:
             self.harvested_properties[PERSIST_ID_SYS_ENTITY_TYPE] = [None] * df.count()
-            self.harvested_properties[PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES] = [None] * df.count()
+            self.harvested_properties[PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES] = [
+                None
+            ] * df.count()
             return df
 
         types_column = []
