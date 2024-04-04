@@ -36,7 +36,8 @@ def subscription_condition(connection: stomp.Connection) -> bool:
 
 class JMSMessageHandler(stomp.ConnectionListener):
     """
-    Class for handling incoming JMS messages.
+    Class for handling incoming JMS messages. It acts as a listener for the STOMP connection,
+    processing messages, handling errors, and managing disconnections and reconnections.
 
     Args:
         host (str): The hostname of the JMS server.
@@ -45,6 +46,7 @@ class JMSMessageHandler(stomp.ConnectionListener):
         password (str): Password for authentication.
         topics (Union[str, List[str]]): Topic or list of topics to subscribe to.
         subscription_id (str): ID for the subscription.
+        event_loop (asyncio.AbstractEventLoop): The event loop to use for asynchronous operations.
         _ssl (bool): Flag to indicate if SSL is to be used.
     """
 
@@ -56,6 +58,7 @@ class JMSMessageHandler(stomp.ConnectionListener):
         password: str,
         topics: Union[str, List[str]],
         subscription_id: str,
+        event_loop: asyncio.AbstractEventLoop,
         _ssl: bool = True,
     ):
         self.host = host
@@ -64,30 +67,52 @@ class JMSMessageHandler(stomp.ConnectionListener):
         self.password = password
         self.topics = topics
         self.subscription_id = subscription_id
+        self.event_loop = event_loop
         self._ssl = _ssl
 
     def on_message(self, frame):
-        logger.info("%s: Received a message '%s'", self.__class__.__name__, frame.body)
-        process_message(frame)
+        """Handle a received message. Logs the message and processes it."""
+        try:
+            logger.info(
+                "%s: Received a message '%s'", self.__class__.__name__, frame.body
+            )
+            process_message(frame)
+        except Exception as e:
+            logger.error("Error processing message: s%", e)
 
     def on_error(self, frame):
+        """Handle an error frame. Logs the error contained in the frame."""
         logger.error("%s: Received an error '%s'", self.__class__.__name__, frame.body)
 
     def on_disconnected(self):
+        """Handle disconnection events. Logs the disconnection and attempts to reconnect."""
         logging.warning(
             "%s: Disconnected from the queue. Attempting to reconnect...",
             self.__class__.__name__,
         )
-        subscribe(
-            conn,
-            self.host,
-            self.port,
-            self.username,
-            self.password,
-            self.topics,
-            self.subscription_id,
-            self._ssl,
-        )
+        asyncio.run_coroutine_threadsafe(self.handle_reconnection(), self.event_loop)
+
+    async def handle_reconnection(self):
+        """
+        Asynchronously handle reconnection attempts. Continues attempts until a successful reconnection is established.
+        """
+        while not subscription_condition(conn):
+            try:
+                logger.info("Attempting to reconnect...")
+                subscribe(
+                    conn,
+                    self.host,
+                    self.port,
+                    self.username,
+                    self.password,
+                    self.topics,
+                    self.subscription_id,
+                    self._ssl,
+                )
+                break
+            except Exception as e:
+                logger.error(f"Reconnection attempt failed: {e}")
+                await asyncio.sleep(INIT_JMS_RETRY_INTERVAL)
 
 
 def subscribe(
@@ -150,13 +175,18 @@ async def connect(
     """
     global conn
     try:
-        conn = stomp.Connection(host_and_ports=[(host, port)])
+        heartbeats = (10000, 10000)
+
+        conn = stomp.Connection(host_and_ports=[(host, port)], heartbeats=heartbeats)
+
         if _ssl:
             conn.set_ssl(for_hosts=[(host, port)], ssl_version=ssl.PROTOCOL_TLS)
+
+        event_loop = asyncio.get_running_loop()
         conn.set_listener(
             "JMSMessageHandler",
             JMSMessageHandler(
-                host, port, username, password, topics, subscription_id, _ssl
+                host, port, username, password, topics, subscription_id, event_loop, _ssl
             ),
         )
         subscribe(conn, host, port, username, password, topics, subscription_id, _ssl)
@@ -166,8 +196,10 @@ async def connect(
         conn.disconnect()
     except ConnectFailedException as e:
         logger.error(f"Failed to connect to the JMS: {host}:{port}, error: {e}")
+        raise
     except Exception as e:
         logger.error(f"Failed to subscribe to certain topics: {topics}, error: {e}")
+        raise
 
 
 async def start_jms_subscription():
@@ -202,14 +234,14 @@ async def start_jms_subscription():
             break
         except ConnectFailedException as e:
             logger.error(
-                f"Connection to JMS failed, retrying in {RETRY_INTERVAL_SECONDS} seconds... Queue: {settings.STOMP_HOST}:{settings.STOMP_PORT}, error: {e}"
+                f"Connection to JMS failed, retrying in {INIT_JMS_RETRY_INTERVAL} seconds... Queue: {settings.STOMP_HOST}:{settings.STOMP_PORT}, error: {e}"
             )
-            await asyncio.sleep(RETRY_INTERVAL_SECONDS)
+            await asyncio.sleep(INIT_JMS_RETRY_INTERVAL)
         except Exception as e:
             logger.error(
-                f"Error during JMS subscription, retrying in {RETRY_INTERVAL_SECONDS} seconds... Queue: {settings.STOMP_HOST}:{settings.STOMP_PORT}, error: {e}"
+                f"Error during JMS subscription, retrying in {INIT_JMS_RETRY_INTERVAL} seconds... Queue: {settings.STOMP_HOST}:{settings.STOMP_PORT}, error: {e}"
             )
-            await asyncio.sleep(RETRY_INTERVAL_SECONDS)
+            await asyncio.sleep(INIT_JMS_RETRY_INTERVAL)
 
 
 async def close_jms_subscription():
