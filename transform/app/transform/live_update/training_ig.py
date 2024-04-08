@@ -111,7 +111,7 @@ def handle_update_action(active, suspended, status, collection, data, data_id):
     else:
         if check_document_exists(collection, data_id):
             logger.info(f"Delete action - {collection=}, ID: {data_id}")
-            delete_data_by_id.delay(collection, data)
+            delete_data_by_id.delay(collection, data, delete=True)
 
 
 def handle_delete_action(collection, data_id, data):
@@ -125,4 +125,4 @@ def handle_delete_action(collection, data_id, data):
     """
     if check_document_exists(collection, data_id):
         logger.info(f"Delete action - {collection=}, ID: {data_id}")
-        delete_data_by_id.delay(collection, data)
+        delete_data_by_id.delay(collection, data, delete=True)

@@ -34,7 +34,7 @@ async def batch_update(
 ):
     """Transform a batch of a single type of data. Used for live update"""
     if action == "delete":
-        task = delete_data_by_id.delay(data_type, data)
+        task = delete_data_by_id.delay(data_type, data, delete=True)
         return {"task_id": task.id}
     else:
         task = transform_batch.delay(data_type, data, full_update=False)

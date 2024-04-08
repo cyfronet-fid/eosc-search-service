@@ -186,7 +186,14 @@ async def connect(
         conn.set_listener(
             "JMSMessageHandler",
             JMSMessageHandler(
-                host, port, username, password, topics, subscription_id, event_loop, _ssl
+                host,
+                port,
+                username,
+                password,
+                topics,
+                subscription_id,
+                event_loop,
+                _ssl,
             ),
         )
         subscribe(conn, host, port, username, password, topics, subscription_id, _ssl)
