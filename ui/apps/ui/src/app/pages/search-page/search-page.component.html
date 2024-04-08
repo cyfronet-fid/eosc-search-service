@@ -1,4 +1,12 @@
 <div class="search-page-container">
+
+  <div class="top-info-wrapper">
+    <div class="container">
+      <h3>The EOSC Marketplace will be phased out by April 15, 2024 as we transition to the EOSC EU Node. </h3>
+      <p>More details on accessing and integrating with the next phase of EOSC are forthcoming. The EOSC EU Node will maintain functions starting mid-April, with full features expected in late 2024. Service providers, please give consent for future communications via the Providers Portal.</p>
+      <p>Read <a href="#">this article</a> for more information. </p>
+    </div>
+  </div>
   <ess-search-bar #searchBar></ess-search-bar>
   <div class="container d-md-none">
     <div class="row mobile-buttons">
@@ -34,7 +42,7 @@
     [ngClass]="{
       'mobile-collections-hidden': !showCollections,
       'mobile-collections-show': showCollections
-    }" 
+    }"
   >
     <ess-collections-navigation
       *ngIf="!this.isSpecialCollection"
