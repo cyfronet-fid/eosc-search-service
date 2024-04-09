@@ -194,15 +194,15 @@ export const allCollectionsAdapter: IAdapter = {
               filter: 'resource_organisation',
             },
             {
+              label: 'Identifier',
+              values: constructIdentifierTag(data?.pids),
+              filter: 'pids',
+              showMoreThreshold: 4,
+            },
+            {
               label: 'Scientific domain',
               values: toValueWithLabel(toArray(data?.scientific_domains)),
               filter: 'scientific_domains',
-            },
-            {
-              label: 'Identifier',
-              values: constructIdentifierTag(data?.pids),
-              filter: 'doi',
-              showMoreThreshold: 4,
             },
             {
               label: 'Interoperability guideline',

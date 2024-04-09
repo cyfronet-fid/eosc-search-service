@@ -1,8 +1,8 @@
 # pylint: disable=duplicate-code
 """Transform publications"""
-from app.transform.transformers.base.oag import OagBaseTransformer
-from app.transform.schemas.output.publication import publication_output_schema
 from app.settings import settings
+from app.transform.schemas.output.publication import publication_output_schema
+from app.transform.transformers.base.oag import OagBaseTransformer
 
 
 class PublicationTransformer(OagBaseTransformer):

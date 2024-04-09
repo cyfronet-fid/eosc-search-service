@@ -1,9 +1,12 @@
 # pylint: disable=line-too-long, invalid-name, logging-fstring-interpolation
 """Validate transformation"""
 import logging
+import re
+from datetime import datetime
 from itertools import zip_longest
-from pyspark.sql import DataFrame
 from typing import Literal
+
+from pyspark.sql import DataFrame
 
 logger = logging.getLogger(__name__)
 
@@ -96,3 +99,29 @@ def sort_dict_schemas(expected_schema: dict) -> dict:
         expected_schema = {k: expected_schema[k] for k in sorted(expected_schema)}
 
     return expected_schema
+
+
+def validate_date_basic_format(date: str) -> None:
+    """
+    Validates that a date string adheres to the basic 'YYYYMMDD' format.
+
+    Parameters:
+        date (str): The date string to be validated.
+
+    Raises:
+        ValueError: If the data string is not in the 'YYYYMMDD' format.
+    """
+    date_pattern = re.compile(r"^\d{8}$")
+    if not date_pattern.match(date):
+        error_msg = f"Invalid date format: {date}. Use the format 'YYYYMMDD'."
+        logger.error(error_msg)
+        raise ValueError(error_msg)
+
+    try:
+        datetime.strptime(date, "%Y%m%d")
+    except ValueError:
+        error_msg = (
+            f"Invalid date: {date[:4]}-{date[4:6]}-{date[-2:]}. Not a valid date."
+        )
+        logger.error(error_msg)
+        raise ValueError(error_msg)

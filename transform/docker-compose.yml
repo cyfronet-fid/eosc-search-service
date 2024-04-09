@@ -16,7 +16,7 @@ services:
 
   worker:
     build: ./
-    command: celery -A app.worker.celery worker --concurrency=8 --loglevel=info --logfile=app/logs/celery.log
+    command: celery -A app.worker.celery worker --concurrency=4 --loglevel=info
     volumes:
       - ./app:/app
     environment:
@@ -42,12 +42,16 @@ services:
   redis:
     image: redis:7
 
-#  mongo:
-#    image: mongo
-#    ports:
-#      - ${MONGODB_HOST:-127.0.0.1:27017}:27017
-#    volumes:
-#      - db-data:/data/db
+  rabbitmq:
+    image: itzg/rabbitmq-stomp:latest
+    platform: linux/amd64
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+    ports:
+      - "5672:5672"
+      - "61613:61613"
+      - "15672:15672"  # admin interface for rabbitmq admin
 
 volumes:
   db-data:

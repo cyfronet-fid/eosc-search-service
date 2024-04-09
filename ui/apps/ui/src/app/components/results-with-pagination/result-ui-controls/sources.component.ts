@@ -11,7 +11,6 @@ import { InstanceExportData } from '@collections/data/openair.model';
       }
       .sources-label-text {
         color: #040f81;
-        font-family: Inter;
         font-size: 14px;
         font-style: normal;
         font-weight: 500;

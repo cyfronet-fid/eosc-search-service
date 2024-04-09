@@ -5,6 +5,7 @@ import {
   ISecondaryTag,
   ITag,
   IValueWithLabel,
+  IValueWithLabelAndLink,
 } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -36,6 +37,14 @@ export class ResultComponent implements OnInit {
   highlightsreal: { [field: string]: string[] | undefined } = {};
   logoUrl = '';
   isSpecialCollection = false;
+  doiCollections = [
+    'all_collection',
+    'publication',
+    'other',
+    'software',
+    'dataset',
+  ];
+  isDoiCollection = false;
 
   @Input() id!: string;
   @Input() date?: string;
@@ -67,7 +76,7 @@ export class ResultComponent implements OnInit {
   @Input() relatedOtherNumber: number = 0;
   @Input() relatedProjectNumber: number = 0;
 
-  @Input()
+  @Input() identifiers: IValueWithLabelAndLink[] = [];
   @Input()
   set url(url: string) {
     if (url && url.trim() !== '') {
@@ -204,6 +213,7 @@ export class ResultComponent implements OnInit {
     this.setHasDOIUrl();
     this.collection = this._customRoute.collection() || '';
     this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(this.collection);
+    this.isDoiCollection = this.doiCollections.includes(this.collection);
     const tgs = this._route.snapshot.queryParamMap.getAll('tags');
     if (typeof tgs === 'string') {
       this.tagsq.push(tgs);

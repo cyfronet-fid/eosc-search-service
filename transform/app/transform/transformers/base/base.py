@@ -2,16 +2,18 @@
 """Base transformer"""
 from abc import ABC, abstractmethod
 from logging import getLogger
+
 from pyspark.sql import DataFrame, SparkSession
-from pyspark.sql.functions import udf, col
-from pyspark.sql.types import StructType, StringType
+from pyspark.sql.functions import col, udf
+from pyspark.sql.types import StringType, StructType
+
+from app.transform.utils.common import add_tg_fields
 from app.transform.utils.join_dfs import create_df, join_different_dfs
 from app.transform.utils.utils import (
-    drop_columns_pyspark,
     add_columns,
+    drop_columns_pyspark,
     replace_empty_str,
 )
-from app.transform.utils.common import add_tg_fields
 from app.transform.utils.validate import validate_schema
 
 logger = getLogger(__name__)

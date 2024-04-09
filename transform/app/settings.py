@@ -2,8 +2,10 @@
 """Configs for all the environments"""
 import logging
 from typing import Literal
+
 from pydantic import AnyUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
 from app.transform.schemas.input import *
 from app.transform.schemas.output import *
 
@@ -33,6 +35,23 @@ class GlobalSettings(BaseSettings):
     S3_SECRET_KEY: str = ""
     S3_ENDPOINT: AnyUrl = "https://example.com"
     S3_BUCKET: str = ""
+
+    # - STOMP
+    STOMP_SUBSCRIPTION: bool = True
+    STOMP_HOST: str = "127.0.0.1"
+    STOMP_PORT: int = 61613
+    STOMP_LOGIN: str = "guest"
+    STOMP_PASS: str = "guest"
+    STOMP_TOPICS: list[str] = [
+        "/topic/training_resource.update",
+        "/topic/training_resource.create",
+        "/topic/training_resource.delete",
+        "/topic/interoperability_record.update",
+        "/topic/interoperability_record.create",
+        "/topic/interoperability_record.delete",
+    ]
+    STOMP_CLIENT_NAME: str = "transformer-client"
+    STOMP_SSL: bool = False
 
     # Sources of data
     # - Local storage with OAG data

@@ -1,12 +1,9 @@
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 
-from app.tasks.delete_collections import delete_solr_collections_task
-from app.validations.other import validate_date_basic_format
-from app.validations.solr import (
-    validate_collections,
-    validate_pinned_collections,
-)
+from app.services.solr.validate import validate_collections, validate_pinned_collections
 from app.settings import settings
+from app.tasks.delete_collections import delete_solr_collections_task
+from app.transform.utils.validate import validate_date_basic_format
 
 router = APIRouter()
 

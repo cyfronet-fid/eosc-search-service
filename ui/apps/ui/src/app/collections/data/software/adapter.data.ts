@@ -47,15 +47,15 @@ export const softwareAdapter: IAdapter = {
         filter: 'publisher',
       },
       {
+        label: 'Identifier',
+        values: constructIdentifierTag(openAIREResult?.pids),
+        filter: 'pids',
+        showMoreThreshold: 4,
+      },
+      {
         label: 'Scientific domain',
         values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
         filter: 'scientific_domains',
-      },
-      {
-        label: 'Identifier',
-        values: constructIdentifierTag(openAIREResult?.pids),
-        filter: 'doi',
-        showMoreThreshold: 4,
       },
     ],
     type: {

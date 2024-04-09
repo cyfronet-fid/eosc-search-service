@@ -18,12 +18,15 @@ flower = "*"
 pydantic = "*"
 pydantic-settings = "*"
 pyarrow = "*"
+"stomp.py" = "*"
+coloredlogs = "*"
 
 [dev-packages]
 pytest = "*"
 pylint = "*"
 jupyter = "*"
 black = {extras = ["jupyter"], version = "*"}
+isort = "*"
 
 [requires]
 python_version = "3.10"

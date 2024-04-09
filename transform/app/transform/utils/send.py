@@ -1,8 +1,10 @@
 # pylint: disable=line-too-long, too-many-arguments, consider-using-with, invalid-name, logging-fstring-interpolation
 """Module to send data"""
 import logging
+
 import requests
 from requests.exceptions import ConnectionError as ReqConnectionError
+
 from app.services.solr.errors import SolrException
 from app.settings import settings
 

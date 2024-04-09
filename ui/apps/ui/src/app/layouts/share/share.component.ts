@@ -1,16 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { IValueWithLabel } from '@collections/repositories/types';
+import { Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'ess-share-content',
   templateUrl: './share.component.html',
   styleUrls: ['./share.component.css'],
 })
-export class ShareModalContentComponent {
+export class ShareModalContentComponent implements OnInit {
   @Input() url = '';
+  @Input() title: string = '';
+  @Input() description: string = '';
+
+  emailTitle: string = encodeURIComponent(
+    'Take a look at the EOSC resource inside'
+  );
+  emailBody: string = '';
+  emailString: string = '';
 
   copyLink(popover: any) {
     navigator.clipboard.writeText(this.url);
@@ -20,7 +29,29 @@ export class ShareModalContentComponent {
     }, 2000);
   }
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal, private _meta: Meta) {}
+
+  ngOnInit(): void {
+    const emailBody =
+      "Hi, I've come across the interesting EOSC resource. Please have a look when you get a chance! " +
+      '\n' +
+      this.url +
+      '\n' +
+      'Best Wishes';
+    this.emailBody = encodeURIComponent(emailBody);
+    this._meta.updateTag({ property: 'og:title', content: this.title });
+    this._meta.updateTag({
+      property: 'og:description',
+      content: this.description,
+    });
+    this._meta.updateTag({ property: 'og:url', content: this.url });
+    this._meta.addTag({ property: 'twitter:card', content: 'summary' });
+    this._meta.addTag({ property: 'twitter:title', content: this.title });
+    this._meta.addTag({
+      property: 'twitter:description',
+      content: this.description,
+    });
+  }
 }
 
 @Component({
@@ -34,6 +65,8 @@ export class ShareModalContentComponent {
 export class ShareComponent {
   @Input() urls: string[] = [];
   @Input() shareUrl: string | null = null;
+  @Input() title: string = '';
+  @Input() description: string = '';
 
   @Input() type!: IValueWithLabel;
 
@@ -55,6 +88,9 @@ export class ShareComponent {
       case 'service':
       case 'bundle':
       case 'provider':
+      case 'catalogue':
+      case 'organisation':
+      case 'project':
         return this.shareUrl;
       default:
         return '';
@@ -66,5 +102,7 @@ export class ShareComponent {
       windowClass: 'share-modal-window',
     });
     modalRef.componentInstance.url = this.setUrl();
+    modalRef.componentInstance.title = this.title;
+    modalRef.componentInstance.description = this.description;
   }
 }

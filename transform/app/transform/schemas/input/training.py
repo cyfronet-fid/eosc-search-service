@@ -6,7 +6,7 @@ training_input_schema = {
     "alternativeIdentifiers": "array<struct<type:string,value:string>>",
     "authors": "array<string>",
     "catalogueId": "string",
-    "contact": "string",
+    "contact": "struct<email:string,firstName:string,lastName:string,organisation:string,phone:string,position:string>",
     "contentResourceTypes": "array<string>",
     "description": "string",
     "duration": "string",

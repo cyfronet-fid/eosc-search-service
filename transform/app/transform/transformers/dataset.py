@@ -1,8 +1,8 @@
 # pylint: disable=duplicate-code
 """Transform datasets"""
-from app.transform.transformers.base.oag import OagBaseTransformer
-from app.transform.schemas.output.dataset import dataset_output_schema
 from app.settings import settings
+from app.transform.schemas.output.dataset import dataset_output_schema
+from app.transform.transformers.base.oag import OagBaseTransformer
 
 
 class DatasetTransformer(OagBaseTransformer):

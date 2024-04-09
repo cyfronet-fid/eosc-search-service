@@ -2,12 +2,13 @@
 """Transform Marketplace's resources"""
 from abc import abstractmethod
 from itertools import chain
-from pyspark.sql import SparkSession, DataFrame
-from pyspark.sql.functions import split, col, lit
-from pyspark.sql.utils import AnalysisException
-from pyspark.sql.types import StringType
-from app.transform.transformers.base.base import BaseTransformer
 
+from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql.functions import col, lit, split
+from pyspark.sql.types import StringType
+from pyspark.sql.utils import AnalysisException
+
+from app.settings import settings
 from app.transform.schemas.properties.data import (
     ID,
     PERSIST_ID_SYS,
@@ -16,12 +17,12 @@ from app.transform.schemas.properties.data import (
     TYPE,
     URL,
 )
+from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
-    map_best_access_right,
     create_open_access,
     harvest_popularity,
+    map_best_access_right,
 )
-from app.settings import settings
 
 
 class MarketplaceBaseTransformer(BaseTransformer):
@@ -102,7 +103,15 @@ class MarketplaceBaseTransformer(BaseTransformer):
         1) Retrieve persistent_identity_systems.entity_type as arr[str, ...]
         2) Retrieve persistent_identity_systems.entity_type_schemes as arr[arr[str], ...]
         """
-        persist_ids_collection = df.select(PERSIST_ID_SYS).collect()
+        try:
+            persist_ids_collection = df.select(PERSIST_ID_SYS).collect()
+        except AnalysisException:
+            self.harvested_properties[PERSIST_ID_SYS_ENTITY_TYPE] = [None] * df.count()
+            self.harvested_properties[PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES] = [
+                None
+            ] * df.count()
+            return df
+
         types_column = []
         schemas_column = []
         for persist_ids in chain.from_iterable(persist_ids_collection):

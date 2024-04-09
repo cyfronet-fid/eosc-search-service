@@ -1,20 +1,21 @@
 # pylint: disable=undefined-variable, cyclic-import
 """Import transformations"""
-from .dataset import DatasetTransformer
-from .publication import PublicationTransformer
-from .software import SoftwareTransformer
-from .other_rp import OtherRPTransformer
-from .training import TrainingTransformer
-from .service import ServiceTransformer
+from app.settings import settings
+
+from .bundle import BundleTransformer
+from .catalogue import CatalogueTransformer
 from .data_source import DataSourceTransformer
+from .dataset import DatasetTransformer
 from .guideline import transform_guidelines
 from .offer import OfferTransformer
-from .bundle import BundleTransformer
-from .provider import ProviderTransformer
 from .organisation import OrganisationTransformer
+from .other_rp import OtherRPTransformer
 from .project import ProjectTransformer
-from .catalogue import CatalogueTransformer
-from app.settings import settings
+from .provider import ProviderTransformer
+from .publication import PublicationTransformer
+from .service import ServiceTransformer
+from .software import SoftwareTransformer
+from .training import TrainingTransformer
 
 __all__ = ["transformers"]
 
