@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.23.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.22.0...v2.23.0) (2024-04-09)
+
+
+### Features
+
+* [[#1267](https://github.com/cyfronet-fid/eosc-search-service/issues/1267)] map training resource type ([56a6163](https://github.com/cyfronet-fid/eosc-search-service/commit/56a616305bda7afe4c0436c02179628c30d1a962))
+* [[#1275](https://github.com/cyfronet-fid/eosc-search-service/issues/1275)] enhance live update ([0ee8c94](https://github.com/cyfronet-fid/eosc-search-service/commit/0ee8c94437f1375dff48c701f3752c06b646e5e0))
+* [[#1275](https://github.com/cyfronet-fid/eosc-search-service/issues/1275)] enhance live update ([f230c03](https://github.com/cyfronet-fid/eosc-search-service/commit/f230c036a0ccf7a6e72c1c70d0fbd72445d58128))
+* [[#1295](https://github.com/cyfronet-fid/eosc-search-service/issues/1295)] fix subscription issue ([f502f3f](https://github.com/cyfronet-fid/eosc-search-service/commit/f502f3f65ced14fdfe0d669cc790876d67bf32f2))
+* [[#1297](https://github.com/cyfronet-fid/eosc-search-service/issues/1297)] configure logger ([3149215](https://github.com/cyfronet-fid/eosc-search-service/commit/3149215239f70ccbe9fb2f7a0a66f15bd97da96c))
+* [[#1302](https://github.com/cyfronet-fid/eosc-search-service/issues/1302)] add top info banner ([7e088e5](https://github.com/cyfronet-fid/eosc-search-service/commit/7e088e5f201bbc3460078d21ed38b09140a4414b))
+* [[#931](https://github.com/cyfronet-fid/eosc-search-service/issues/931)] JMS subscriber ([65df8a1](https://github.com/cyfronet-fid/eosc-search-service/commit/65df8a155213e4865c9bdc859fcc29321204359a))
+* add more details to celery tasks ([d2bc89e](https://github.com/cyfronet-fid/eosc-search-service/commit/d2bc89e06445c2b36e15aefe49afac003c271322))
+* add share functionality ([75ff952](https://github.com/cyfronet-fid/eosc-search-service/commit/75ff9528601683a676348a2bc3eb77927a886374))
+
+
+### Bug Fixes
+
+* [[#1274](https://github.com/cyfronet-fid/eosc-search-service/issues/1274)] Fix live update ([2e1ed1a](https://github.com/cyfronet-fid/eosc-search-service/commit/2e1ed1ac235f07529f7e41e1ac09e7da1963fc93))
+* [[#1283](https://github.com/cyfronet-fid/eosc-search-service/issues/1283)] live update ([26a202c](https://github.com/cyfronet-fid/eosc-search-service/commit/26a202ca8855c99de58131eeb4529742121a588f))
+* add share url to catalogue, project and organisation ([e264ca1](https://github.com/cyfronet-fid/eosc-search-service/commit/e264ca1c4b5802f707d54826e6aac127e5f7817c))
+* doi tag, disabling AS in providers, AS dropdown behaviour on collection change ([e1bc94d](https://github.com/cyfronet-fid/eosc-search-service/commit/e1bc94d94661353c2397988535a529f826b44254))
+* nullable persistent ids in data sources ([feb784c](https://github.com/cyfronet-fid/eosc-search-service/commit/feb784c97970c9a74c0cd099eef3d51dd7152a68))
+* query reset after page refresh in special collections ([abe3508](https://github.com/cyfronet-fid/eosc-search-service/commit/abe35082051d309c5e49bde1133793ec493bec05))
+* show resources link mod ([d6c61ea](https://github.com/cyfronet-fid/eosc-search-service/commit/d6c61ea10b386b76dc2e24f4aed464895c5092a6))
+
 ## [2.22.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.21.0...v2.22.0) (2024-03-04)
 
 
