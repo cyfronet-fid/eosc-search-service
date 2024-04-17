@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.24.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.23.0...v2.24.0) (2024-04-17)
+
+
+### Features
+
+* top banner text mods ([3c04b57](https://github.com/cyfronet-fid/eosc-search-service/commit/3c04b57b2195a5b47e4536d48f7ab582210400b2))
+
 ## [2.23.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.22.0...v2.23.0) (2024-04-09)
 
 
