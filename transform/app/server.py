@@ -5,9 +5,10 @@ import logging.config
 from fastapi import FastAPI
 
 from app.api.routes import solr_api_router, transform_api_router
-from app.services.jms.connector import close_jms_subscription, start_jms_subscription
-from app.settings import settings
 from app.logger import LOGGING_CONFIG
+from app.services.jms.connector import (close_jms_subscription,
+                                        start_jms_subscription)
+from app.settings import settings
 
 
 def get_app():

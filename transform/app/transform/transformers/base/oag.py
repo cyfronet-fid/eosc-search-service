@@ -4,43 +4,28 @@ from abc import abstractmethod
 
 from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.functions import array, col, lit, year
-from pyspark.sql.types import (
-    ArrayType,
-    BooleanType,
-    IntegerType,
-    StringType,
-    StructField,
-    StructType,
-)
+from pyspark.sql.types import (ArrayType, BooleanType, IntegerType, StringType,
+                               StructField, StructType)
 
 from app.transform.schemas.properties.data import *
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.utils.common import (
-    check_type,
-    create_open_access,
-    create_unified_categories,
-    harvest_author_names_and_pids,
-    harvest_country,
-    harvest_data_source,
-    harvest_eosc_if,
-    harvest_exportation,
-    harvest_funder,
-    harvest_pids,
-    harvest_popularity,
-    harvest_project_ids,
-    harvest_related_organisations,
-    harvest_relations,
-    harvest_research_community,
-    harvest_scientific_domains,
-    harvest_sdg,
-    harvest_url_and_document_type,
-    map_best_access_right,
-    map_language,
-    map_publisher,
-    simplify_indicators,
-    simplify_language,
-    transform_date,
-)
+from app.transform.utils.common import (check_type, create_open_access,
+                                        create_unified_categories,
+                                        harvest_author_names_and_pids,
+                                        harvest_country, harvest_data_source,
+                                        harvest_eosc_if, harvest_exportation,
+                                        harvest_funder, harvest_pids,
+                                        harvest_popularity,
+                                        harvest_project_ids,
+                                        harvest_related_organisations,
+                                        harvest_relations,
+                                        harvest_research_community,
+                                        harvest_scientific_domains,
+                                        harvest_sdg,
+                                        harvest_url_and_document_type,
+                                        map_best_access_right, map_language,
+                                        map_publisher, simplify_indicators,
+                                        simplify_language, transform_date)
 from app.transform.utils.utils import sort_schema
 
 

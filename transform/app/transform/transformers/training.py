@@ -9,14 +9,8 @@ import pycountry
 from dateutil import parser
 from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.functions import col, lit, split
-from pyspark.sql.types import (
-    ArrayType,
-    BooleanType,
-    DateType,
-    StringType,
-    StructField,
-    StructType,
-)
+from pyspark.sql.types import (ArrayType, BooleanType, DateType, StringType,
+                               StructField, StructType)
 
 from app.services.mp_pc.data import get_providers_mapping
 from app.settings import settings
@@ -24,13 +18,10 @@ from app.transform.mappings.scientific_doamin import sd_training_temp_mapping
 from app.transform.schemas.output.training import training_output_schema
 from app.transform.schemas.properties.data import *
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.utils.common import (
-    create_open_access,
-    create_unified_categories,
-    map_best_access_right,
-    remove_commas,
-    transform_date,
-)
+from app.transform.utils.common import (create_open_access,
+                                        create_unified_categories,
+                                        map_best_access_right, remove_commas,
+                                        transform_date)
 from app.transform.utils.utils import sort_schema
 
 logger = getLogger(__name__)

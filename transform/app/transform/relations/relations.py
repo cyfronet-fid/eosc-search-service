@@ -1,11 +1,9 @@
 from tqdm import tqdm
 
 from app.settings import settings
-from app.transform.relations.process_data import (
-    process_combined_directories,
-    process_org_proj_rel,
-    process_result_relations,
-)
+from app.transform.relations.process_data import (process_combined_directories,
+                                                  process_org_proj_rel,
+                                                  process_result_relations)
 from app.transform.schemas.properties.data import SELECTED_COLUMNS
 from app.transform.utils.delete import remove_files
 

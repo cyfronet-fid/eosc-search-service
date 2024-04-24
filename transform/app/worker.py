@@ -1,10 +1,11 @@
 # pylint: disable=invalid-name, logging-fstring-interpolation
 """Celery worker. Responsibilities: get, transform, upload data"""
+import logging.config
 import os
 
 from celery import Celery
 from celery.signals import after_setup_logger
-import logging.config
+
 from app.logger import LOGGING_CONFIG
 
 modules_to_include = [
