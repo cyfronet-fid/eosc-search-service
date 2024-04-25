@@ -2,7 +2,8 @@ from datetime import datetime
 
 from fastapi import APIRouter, HTTPException, Query
 
-from app.services.solr.validate import validate_collections, validate_configset_exists
+from app.services.solr.validate import (validate_collections,
+                                        validate_configset_exists)
 from app.settings import settings
 from app.tasks.create_collections import create_solr_collections_task
 from app.transform.utils.validate import validate_date_basic_format

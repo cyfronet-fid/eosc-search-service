@@ -9,11 +9,8 @@ from pyspark.sql.types import StringType, StructType
 
 from app.transform.utils.common import add_tg_fields
 from app.transform.utils.join_dfs import create_df, join_different_dfs
-from app.transform.utils.utils import (
-    add_columns,
-    drop_columns_pyspark,
-    replace_empty_str,
-)
+from app.transform.utils.utils import (add_columns, drop_columns_pyspark,
+                                       replace_empty_str)
 from app.transform.utils.validate import validate_schema
 
 logger = getLogger(__name__)
