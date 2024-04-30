@@ -20,6 +20,8 @@ pydantic-settings = "*"
 pyarrow = "*"
 "stomp.py" = "*"
 coloredlogs = "*"
+pytest-mock = "*"
+pytest-asyncio = "*"
 
 [dev-packages]
 pytest = "*"
