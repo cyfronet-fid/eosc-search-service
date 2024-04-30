@@ -31,7 +31,7 @@ def subscription_condition(connection: stomp.Connection) -> bool:
     Returns:
         bool: True if the connection is active, False otherwise.
     """
-    return connection.is_connected()
+    return connection and connection.is_connected()
 
 
 class JMSMessageHandler(stomp.ConnectionListener):
@@ -78,7 +78,7 @@ class JMSMessageHandler(stomp.ConnectionListener):
             )
             process_message(frame)
         except Exception as e:
-            logger.error("Error processing message: s%", e)
+            logger.error("Error processing message: %s", e)
 
     def on_error(self, frame):
         """Handle an error frame. Logs the error contained in the frame."""
@@ -156,6 +156,7 @@ async def connect(
     topics: Union[str, List[str]],
     subscription_id: str,
     _ssl: bool = True,
+    ssl_version: int = ssl.PROTOCOL_TLS,
 ) -> None:
     """
     Establishes a connection to the JMS server and subscribes to specified topics.
@@ -180,7 +181,7 @@ async def connect(
         conn = stomp.Connection(host_and_ports=[(host, port)], heartbeats=heartbeats)
 
         if _ssl:
-            conn.set_ssl(for_hosts=[(host, port)], ssl_version=ssl.PROTOCOL_TLS)
+            conn.set_ssl(for_hosts=[(host, port)], ssl_version=ssl_version)
 
         event_loop = asyncio.get_running_loop()
         conn.set_listener(
@@ -254,10 +255,11 @@ async def start_jms_subscription():
 async def close_jms_subscription():
     """Close the connection to the JMS."""
     try:
-        if conn and subscription_condition(conn):
+        if conn and subscription_condition(conn) and conn.is_connected():
             logger.info(
                 f"Disconnecting from the queue... Queue: {settings.STOMP_HOST}:{settings.STOMP_PORT}"
             )
-            conn.disconnect()
+            if callable(getattr(conn, "disconnect", None)):
+                await conn.disconnect()
     except Exception as e:
         logger.error(f"Failed to disconnect from the JMS: {e}")

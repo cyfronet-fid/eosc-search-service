@@ -320,6 +320,20 @@ class TestSettings(TransformSettings):
     SOLR_URL: AnyUrl = "http://localhost:8983"
     SOLR_COLS_PREFIX: str = "test_"
 
+    # STOMP Settings for Testing
+    STOMP_SUBSCRIPTION: bool = True
+    STOMP_HOST: str = "localhost"
+    STOMP_PORT: int = 61613
+    STOMP_LOGIN: str = "test_user"
+    STOMP_PASS: str = "test_pass"
+    STOMP_TOPICS: list[str] = [
+        "/topic/test_resource.update",
+        "/topic/test_resource.create",
+        "/topic/test_resource.delete",
+    ]
+    STOMP_CLIENT_NAME: str = "test-transformer-client"
+    STOMP_SSL: bool = False
+
 
 class Settings(GlobalSettings):
     def get_settings(self) -> GlobalSettings:

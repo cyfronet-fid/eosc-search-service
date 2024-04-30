@@ -33,22 +33,37 @@ def delete_data_by_id(
                 logger.info(
                     f"{req.status_code} deleting resources was successful. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
                 )
-                results.append({"status": "success", "solr_col": s_col_name, "record_id": id_to_delete})
+                results.append(
+                    {
+                        "status": "success",
+                        "solr_col": s_col_name,
+                        "record_id": id_to_delete,
+                    }
+                )
             else:
                 logger.error(
                     f"{req.status_code} deleting resources has failed. Data type={col_name}, solr_col={s_col_name}, IDs={id_to_delete}"
                 )
-                results.append({
-                    "status": "failure",
-                    "solr_col": s_col_name,
-                    "record_id": id_to_delete,
-                    "http_status_code": req.status_code
-                })
+                results.append(
+                    {
+                        "status": "failure",
+                        "solr_col": s_col_name,
+                        "record_id": id_to_delete,
+                        "http_status_code": req.status_code,
+                    }
+                )
 
         except ReqConnectionError as e:
             logger.error(
                 f"Connection failed {url=}. Deleting resources has failed. Data type={col_name}, solr_col={s_col_name}. Details: {e}"
             )
-            results.append({"status": "failure", "solr_col": s_col_name, "record_id": id_to_delete, "error": str(e)})
+            results.append(
+                {
+                    "status": "failure",
+                    "solr_col": s_col_name,
+                    "record_id": id_to_delete,
+                    "error": str(e),
+                }
+            )
 
     return results

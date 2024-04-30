@@ -38,7 +38,7 @@ async def batch_update(
     tasks = {}
     if action == "delete":
         task = delete_data_by_id.delay(data_type, data, delete=True)
-        tasks['delete'] = task.id
+        tasks["delete"] = task.id
     else:
         if data_type == "service":
             task_ids = update_service(data)
@@ -46,7 +46,7 @@ async def batch_update(
             task_ids = update_data_source(data)
         else:
             task = transform_batch.delay(data_type, data, full_update=False)
-            task_ids = {'update': task.id}
+            task_ids = {"update": task.id}
 
         tasks.update(task_ids)
 
