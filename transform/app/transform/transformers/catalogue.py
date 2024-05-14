@@ -6,9 +6,16 @@ from pyspark.sql.types import StringType, StructType
 
 from app.settings import settings
 from app.transform.schemas.output.catalogue import catalogue_output_schema
-from app.transform.schemas.properties.data import (CREATED_AT, ID, KEYWORDS,
-                                                   NAME, PUBLICATION_DATE,
-                                                   TAG_LIST, TITLE, TYPE)
+from app.transform.schemas.properties.data import (
+    CREATED_AT,
+    ID,
+    KEYWORDS,
+    NAME,
+    PUBLICATION_DATE,
+    TAG_LIST,
+    TITLE,
+    TYPE,
+)
 from app.transform.transformers.base.base import BaseTransformer
 
 

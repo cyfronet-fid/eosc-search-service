@@ -4,8 +4,12 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from stomp.exception import ConnectFailedException
 
-from app.services.jms.connector import (close_jms_subscription, connect,
-                                        start_jms_subscription, subscribe)
+from app.services.jms.connector import (
+    close_jms_subscription,
+    connect,
+    start_jms_subscription,
+    subscribe,
+)
 from app.settings import settings
 
 

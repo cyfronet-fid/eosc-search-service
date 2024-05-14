@@ -2,6 +2,8 @@
 """Validate Solr"""
 
 import logging
+import re
+from datetime import datetime
 from typing import List
 
 import requests
@@ -9,10 +11,10 @@ from fastapi import HTTPException
 from requests import RequestException
 from requests.exceptions import ConnectionError as ReqConnectionError
 
-from app.services.solr.collections import (get_collection_names,
-                                           get_pined_collections)
+from app.services.solr.collections import get_collection_names, get_pined_collections
 from app.services.solr.configs import get_config_names
 from app.services.solr.utils import ids_mapping
+from app.services.solr.validate.schema.validate import logger
 from app.settings import settings
 
 logger = logging.getLogger(__name__)
@@ -183,3 +185,69 @@ def validate_pinned_collections(
         error_msg = f"Some collections in this iteration are still pinned to aliases, {still_pinned_collections=}"
         logger.error(error_msg)
         raise HTTPException(status_code=400, detail=error_msg)
+
+
+def validate_date_basic_format(date: str) -> None:
+    """
+    Validates that a date string adheres to the basic 'YYYYMMDD' format.
+
+    Parameters:
+        date (str): The date string to be validated.
+
+    Raises:
+        ValueError: If the data string is not in the 'YYYYMMDD' format.
+    """
+    date_pattern = re.compile(r"^\d{8}$")
+    if not date_pattern.match(date):
+        error_msg = f"Invalid date format: {date}. Use the format 'YYYYMMDD'."
+        logger.error(error_msg)
+        raise ValueError(error_msg)
+
+    try:
+        datetime.strptime(date, "%Y%m%d")
+    except ValueError:
+        error_msg = (
+            f"Invalid date: {date[:4]}-{date[4:6]}-{date[-2:]}. Not a valid date."
+        )
+        logger.error(error_msg)
+        raise ValueError(error_msg)
+
+
+def get_cols_names(col_prefix: str, date: str = None) -> list[str]:
+    """Get collection names for a given collection prefix and date."""
+    date = date or datetime.now().strftime("%Y%m%d")
+    return [
+        (
+            f"{date}_{collection}"
+            if col_prefix is None
+            else f"{col_prefix}_{date}_{collection}"
+        )
+        for collection in settings.SOLR_COLLECTION_NAMES
+    ]
+
+
+def validate(
+    all_collection_config: str,
+    catalogue_config: str,
+    organisation_config: str,
+    project_config: str,
+    provider_config: str,
+    collection_names: list[str],
+    date: str,
+) -> None:
+    """Main validation function."""
+    logger.info("Validating creation of solr collections...")
+    try:
+        validate_date_basic_format(date)
+        validate_configset_exists(all_collection_config)
+        validate_configset_exists(catalogue_config)
+        validate_configset_exists(organisation_config)
+        validate_configset_exists(project_config)
+        validate_configset_exists(provider_config)
+        validate_collections(collection_names, check_existence=True)
+
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+
+    except HTTPException as he:
+        raise HTTPException(status_code=he.status_code, detail=str(he.detail))

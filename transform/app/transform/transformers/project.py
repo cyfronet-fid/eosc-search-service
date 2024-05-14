@@ -7,8 +7,14 @@ from typing import List, Optional
 
 from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.functions import col, lit, size, when
-from pyspark.sql.types import (ArrayType, FloatType, IntegerType, StringType,
-                               StructField, StructType)
+from pyspark.sql.types import (
+    ArrayType,
+    FloatType,
+    IntegerType,
+    StringType,
+    StructField,
+    StructType,
+)
 
 from app.settings import settings
 from app.transform.mappings.currency import currency_mapping

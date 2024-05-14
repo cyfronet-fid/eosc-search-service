@@ -1,9 +1,9 @@
 import logging
-from typing import List
+from typing import List, Optional
 
 import requests
 
-from app.settings import settings
+from app.services.celery.task import CeleryTaskStatus
 from app.worker import celery
 
 logger = logging.getLogger(__name__)
@@ -16,7 +16,12 @@ class AliasesCreationFailed(Exception):
 
 
 @celery.task(name="create_aliases")
-def create_aliases_task(aliases: List[str], collection_names: List[str]) -> dict | None:
+def create_aliases_task(
+    prev_task_status: Optional[CeleryTaskStatus],
+    solr_url: str,
+    aliases: List[str],
+    collection_names: List[str],
+) -> dict | None:
     """Celery task for creating or switching solr aliases"""
     logger.info(
         "Initiating alias creation or switching aliases in Solr collections for a single data iteration"
@@ -28,7 +33,7 @@ def create_aliases_task(aliases: List[str], collection_names: List[str]) -> dict
 
         for alias, collection in zip(aliases, collection_names):
             create_alias_url = (
-                f"{settings.SOLR_URL}solr/admin/collections?action=CREATEALIAS"
+                f"{solr_url}solr/admin/collections?action=CREATEALIAS"
                 f"&name={alias}&collections={collection}"
             )
 
@@ -45,6 +50,6 @@ def create_aliases_task(aliases: List[str], collection_names: List[str]) -> dict
                 raise AliasesCreationFailed(
                     f"Failed to create/switch alias {alias}. Status code: {response.status_code}. Aborting task"
                 )
-        return {"status": "success"}
+        return CeleryTaskStatus(status="success").dict()
     except Exception as e:
-        return {"status": "failure", "error": str(e)}
+        return CeleryTaskStatus(status="failure", reason=str(e)).dict()

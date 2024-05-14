@@ -6,13 +6,13 @@ from fastapi import APIRouter
 
 from app.services.mp_pc.data import get_data
 from app.settings import settings
-from app.tasks.batch import transform_batch
+from app.tasks.transform.batch import transform_batch
 
 router = APIRouter()
 
 
 @router.post("/full")
-async def full_collection_update(
+async def full_update(
     data_type: Literal[
         "all",
         "service",
@@ -24,9 +24,9 @@ async def full_collection_update(
         "training",
         "catalogue",
     ],
-):
-    """Update a single whole collection or all collections besides OAG collections"""
-    tasks_id = {
+) -> dict[str, str | None]:
+    """Perform a full update of data collection/collections"""
+    tasks_ids = {
         settings.SERVICE: None,
         settings.DATASOURCE: None,
         settings.PROVIDER: None,
@@ -49,12 +49,12 @@ async def full_collection_update(
             settings.TRAINING,
             settings.CATALOGUE,
         ):
-            await update_single_col(col, tasks_id)
+            await update_single_col(col, tasks_ids)
     else:
         # Update single collection
-        await update_single_col(data_type, tasks_id)
+        await update_single_col(data_type, tasks_ids)
 
-    return tasks_id
+    return tasks_ids
 
 
 async def update_single_col(data_type: str, tasks_id: dict) -> None:
@@ -65,7 +65,7 @@ async def update_single_col(data_type: str, tasks_id: dict) -> None:
 
     if data:
         # Get data, transform data, delete current data of the same type, upload data
-        update_task = transform_batch.delay(data_type, data, full_update=True)
+        update_task = transform_batch.delay(None, data_type, data, full_update=True)
         tasks_id[data_type] = update_task.id
     else:
         tasks_id[data_type] = (

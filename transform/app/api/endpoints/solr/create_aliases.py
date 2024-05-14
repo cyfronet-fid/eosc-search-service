@@ -2,16 +2,22 @@ from datetime import datetime
 
 from fastapi import APIRouter, HTTPException, Query
 
-from app.services.solr.validate import validate_collections
+from app.services.solr.validate.endpoints.validate import (
+    validate_collections,
+    validate_date_basic_format,
+)
 from app.settings import settings
-from app.tasks.create_aliases import create_aliases_task
-from app.transform.utils.validate import validate_date_basic_format
+from app.tasks.solr.create_aliases import create_aliases_task
 
 router = APIRouter()
 
 
 @router.post("/create_aliases")
 async def create_aliases(
+    solr_url: str = Query(
+        settings.SOLR_URL,
+        description="Solr address",
+    ),
     collection_date: str = Query(
         None,
         description="Date string in the format 'YYYYMMDD'. Defaults to the current date if not provided.",
@@ -54,6 +60,6 @@ async def create_aliases(
     except HTTPException as he:
         raise HTTPException(status_code=he.status_code, detail=str(he.detail))
 
-    task = create_aliases_task.delay(aliases, collection_names)
+    task = create_aliases_task.delay(None, solr_url, aliases, collection_names)
 
     return {"task_id": task.id}

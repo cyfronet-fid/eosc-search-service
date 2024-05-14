@@ -25,12 +25,17 @@ class GlobalSettings(BaseSettings):
 
     # Services
     # - Solr
-    SEND_TO_SOLR: bool = True
     SOLR_URL: AnyUrl = "http://localhost:8983"
     SOLR_COLS_PREFIX: str = ""
+    #   - Default Solr collections configurations
+    # See: https://github.com/cyfronet-fid/eosc-search-service/blob/7e73eb17ec730b73ac54e002608e391e58b1d1e8/transform/docs/configs.md
+    SOLR_ALL_COL_CONF: str = "all_collection_oag56_v205"  # All collection
+    SOLR_ORG_CONF: str = "organisation_v106"  # Organisation
+    SOLR_PROJ_CONF: str = "project_v102"  # Project
+    SOLR_PROVIDER_CONF: str = "provider_v101"  # Provider
+    SOLR_CAT_CONF: str = "catalogue_v101"  # Catalogue
 
     # - S3
-    SEND_TO_S3: bool = False
     S3_ACCESS_KEY: str = ""
     S3_SECRET_KEY: str = ""
     S3_ENDPOINT: AnyUrl = "https://example.com"
@@ -79,12 +84,9 @@ class GlobalSettings(BaseSettings):
         "https://beta.providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
     )
 
-    # Transformation General Settings
-    INPUT_FORMAT: str = "json"
-    OUTPUT_FORMAT: str = "json"
-
-    # Get config from .env
-    model_config = SettingsConfigDict(env_file="../.env", env_file_encoding="utf-8")
+    # Transformation General Settings TODO
+    # INPUT_FORMAT: str = "json"
+    # OUTPUT_FORMAT: str = "json"
 
     # Defined data types, "type" property of each data type
     SOFTWARE: str = "software"
@@ -139,6 +141,9 @@ class GlobalSettings(BaseSettings):
     DATA_SOURCE_IDS_INCREMENTOR: int = 10_000_000
     CATALOGUE_IDS_INCREMENTOR: int = 100_000_000
 
+    # Get config from .env
+    model_config = SettingsConfigDict(env_file="../.env", env_file_encoding="utf-8")
+
 
 class TransformSettings(GlobalSettings):
     """Transformation configuration"""
@@ -146,13 +151,7 @@ class TransformSettings(GlobalSettings):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        if not (self.SEND_TO_SOLR or self.SEND_TO_S3):
-            raise ValueError(
-                "SEND_TO_SOLR or/and SEND_TO_S3 needs to be set to True. Otherwise, program will not have any effect"
-            )
-
         self.RELATIONS = self.get_relations_config()
-
         self.COLLECTIONS = self.get_collections_config()
 
     def get_relations_config(self) -> dict:
@@ -263,10 +262,7 @@ class TransformSettings(GlobalSettings):
             },
         }
 
-        if self.SEND_TO_SOLR:
-            collections = self.get_solr_col_names(collections)
-
-        return collections
+        return self.get_solr_col_names(collections)
 
     def get_solr_col_names(self, collections: dict) -> dict:
         """Get solr collections names of each data type.
@@ -313,6 +309,7 @@ class ProductionSettings(TransformSettings):
 
 class DevSettings(TransformSettings):
     SOLR_URL: AnyUrl = "http://149.156.182.2:8983"
+    STOMP_SUBSCRIPTION: bool = False
 
 
 class TestSettings(TransformSettings):

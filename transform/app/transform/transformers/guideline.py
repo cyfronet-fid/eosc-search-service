@@ -8,14 +8,18 @@ import pandas as pd
 from pandas import DataFrame
 
 from app.services.mp_pc.data import get_providers_mapping
+from app.services.solr.validate.schema.validate import validate_pd_schema
 from app.settings import settings
 from app.transform.schemas.input.guideline import guideline_input_schema
 from app.transform.schemas.output.guideline import guideline_output_schema
-from app.transform.schemas.properties.data import (ALTERNATIVE_IDS,
-                                                   AUTHOR_NAMES,
-                                                   AUTHOR_NAMES_TG, DOI, TYPE,
-                                                   URI)
-from app.transform.utils.validate import validate_pd_schema
+from app.transform.schemas.properties.data import (
+    ALTERNATIVE_IDS,
+    AUTHOR_NAMES,
+    AUTHOR_NAMES_TG,
+    DOI,
+    TYPE,
+    URI,
+)
 
 logger = logging.getLogger(__name__)
 

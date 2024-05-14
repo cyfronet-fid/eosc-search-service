@@ -2,8 +2,13 @@
 """Transform bundles"""
 from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.functions import col, lit, split, udf
-from pyspark.sql.types import (ArrayType, IntegerType, StringType, StructField,
-                               StructType)
+from pyspark.sql.types import (
+    ArrayType,
+    IntegerType,
+    StringType,
+    StructField,
+    StructType,
+)
 
 from app.settings import settings
 from app.transform.schemas.output.bundle import bundle_output_schema

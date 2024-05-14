@@ -1,9 +1,9 @@
 import logging
-from typing import List
+from typing import List, Optional
 
 import requests
 
-from app.settings import settings
+from app.services.celery.task import CeleryTaskStatus
 from app.worker import celery
 
 logger = logging.getLogger(__name__)
@@ -17,6 +17,8 @@ class CollectionDeletionFailed(Exception):
 
 @celery.task(name="delete_solr_collections_task")
 def delete_solr_collections_task(
+    prev_task_status: Optional[CeleryTaskStatus],
+    solr_url: str,
     collection_names: List[str],
 ) -> dict | None:
     """Celery task for deleting solr collections"""
@@ -27,8 +29,7 @@ def delete_solr_collections_task(
     try:
         for collection in collection_names:
             delete_collection_url = (
-                f"{settings.SOLR_URL}solr/admin/"
-                f"collections?action=DELETE&name={collection}"
+                f"{solr_url}solr/admin/" f"collections?action=DELETE&name={collection}"
             )
 
             response = requests.delete(delete_collection_url)
@@ -44,6 +45,6 @@ def delete_solr_collections_task(
                 raise CollectionDeletionFailed(
                     f"Failed to delete collection {collection}. Status code: {response.status_code}. Aborting task"
                 )
-        return {"status": "success"}
+        return CeleryTaskStatus(status="success").dict()
     except Exception as e:
-        return {"status": "failure", "error": str(e)}
+        return CeleryTaskStatus(status="failure", reason=str(e)).dict()
