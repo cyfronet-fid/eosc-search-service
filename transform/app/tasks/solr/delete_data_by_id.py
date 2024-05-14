@@ -1,8 +1,10 @@
 import logging
+from typing import Optional
 
 import requests
 from requests import ConnectionError as ReqConnectionError
 
+from app.services.celery.task import CeleryTaskStatus
 from app.services.solr.utils import ids_mapping
 from app.settings import settings
 from app.worker import celery
@@ -12,7 +14,10 @@ logger = logging.getLogger(__name__)
 
 @celery.task(name="delete_data_by_id")
 def delete_data_by_id(
-    col_name: str, data: dict | list[dict], delete: bool = True
+    prev_task_status: Optional[CeleryTaskStatus],
+    col_name: str,
+    data: dict | list[dict],
+    delete: bool = True,
 ) -> list[dict]:
     """Delete solr resource based on its ID"""
     raw_id = data[0]["id"] if col_name == "interoperability guideline" else data["id"]

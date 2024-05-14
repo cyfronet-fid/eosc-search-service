@@ -28,7 +28,7 @@ def subscription_id() -> str:
 def jms_handler(
     event_loop: asyncio.AbstractEventLoop,
     mock_stomp_connection: Generator[MagicMock, None, None],
-    subscription_id: str
+    subscription_id: str,
 ) -> JMSMessageHandler:
     """Create an instance of JMSMessageHandler with mocked stomp connection and settings."""
     return JMSMessageHandler(

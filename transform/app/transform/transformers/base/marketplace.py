@@ -10,11 +10,19 @@ from pyspark.sql.utils import AnalysisException
 
 from app.settings import settings
 from app.transform.schemas.properties.data import (
-    ID, PERSIST_ID_SYS, PERSIST_ID_SYS_ENTITY_TYPE,
-    PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES, TYPE, URL)
+    ID,
+    PERSIST_ID_SYS,
+    PERSIST_ID_SYS_ENTITY_TYPE,
+    PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES,
+    TYPE,
+    URL,
+)
 from app.transform.transformers.base.base import BaseTransformer
-from app.transform.utils.common import (create_open_access, harvest_popularity,
-                                        map_best_access_right)
+from app.transform.utils.common import (
+    create_open_access,
+    harvest_popularity,
+    map_best_access_right,
+)
 
 
 class MarketplaceBaseTransformer(BaseTransformer):

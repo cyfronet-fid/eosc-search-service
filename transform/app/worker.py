@@ -9,11 +9,16 @@ from celery.signals import after_setup_logger
 from app.logger import LOGGING_CONFIG
 
 modules_to_include = [
-    "app.tasks.batch",
-    "app.tasks.create_collections",
-    "app.tasks.create_aliases",
-    "app.tasks.delete_collections",
-    "app.tasks.delete_data_by_id",
+    "app.tasks.transform.batch",
+    "app.tasks.transform.dump.process",
+    "app.tasks.transform.dump.validate",
+    "app.tasks.transform.dump.load",
+    "app.tasks.transform.dump.transform",
+    "app.tasks.utils.send",
+    "app.tasks.solr.create_collections",
+    "app.tasks.solr.create_aliases",
+    "app.tasks.solr.delete_collections",
+    "app.tasks.solr.delete_data_by_id",
 ]
 
 celery = Celery(__name__, include=modules_to_include)

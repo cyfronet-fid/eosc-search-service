@@ -5,11 +5,13 @@ from unittest.mock import MagicMock
 import pytest
 
 from app.settings import settings
-from app.transform.live_update.training_ig import (extract_data_from_frame,
-                                                   handle_create_action,
-                                                   handle_delete_action,
-                                                   handle_update_action,
-                                                   process_message)
+from app.transform.live_update.training_ig import (
+    extract_data_from_frame,
+    handle_create_action,
+    handle_delete_action,
+    handle_update_action,
+    process_message,
+)
 from app.transform.schemas.properties.data import ID
 from tests.transform.live_update.conftest import MockDependencies
 
@@ -108,7 +110,7 @@ def test_handle_create_action_variations(
 
     if expected_call_count == 1:
         mock_dependencies.transform_batch.assert_called_once_with(
-            settings.TRAINING, training_resource, full_update=expected_full_update
+            None, settings.TRAINING, training_resource, full_update=expected_full_update
         )
     else:
         mock_dependencies.transform_batch.assert_not_called()

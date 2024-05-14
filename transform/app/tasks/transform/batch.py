@@ -1,7 +1,11 @@
+"""A task for transforming a batch of data and sending it to solr"""
+
 import json
 import logging
+from typing import Optional
 
 import app.transform.transformers as trans
+from app.services.celery.task import CeleryTaskStatus
 from app.services.solr.delete import delete_data_by_type
 from app.services.spark.config import apply_spark_conf
 from app.settings import settings
@@ -14,7 +18,10 @@ logger = logging.getLogger(__name__)
 
 @celery.task(name="transform_batch")
 def transform_batch(
-    type_: str, data: dict | list[dict], full_update=True
+    prev_task_status: Optional[CeleryTaskStatus],
+    type_: str,
+    data: dict | list[dict],
+    full_update=True,
 ) -> dict | None:
     """Celery task for transforming batch data
 
@@ -58,8 +65,8 @@ def transform_batch(
         send_json_string_to_solr(output, type_)  # Upload data to those collections
 
         logger.info(f"{type_} data update has been successful")
-        return {"status": "success"}
+        return CeleryTaskStatus(status="success").dict()
 
     except Exception as e:
         logger.error(f"{type_} data update has failed, error message: {e}")
-        return {"status": "failure", "error": str(e)}
+        return CeleryTaskStatus(status="failure", reason=str(e)).dict()

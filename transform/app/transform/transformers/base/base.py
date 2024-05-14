@@ -7,11 +7,14 @@ from pyspark.sql import DataFrame, SparkSession
 from pyspark.sql.functions import col, udf
 from pyspark.sql.types import StringType, StructType
 
+from app.services.solr.validate.schema.validate import validate_schema
 from app.transform.utils.common import add_tg_fields
 from app.transform.utils.join_dfs import create_df, join_different_dfs
-from app.transform.utils.utils import (add_columns, drop_columns_pyspark,
-                                       replace_empty_str)
-from app.transform.utils.validate import validate_schema
+from app.transform.utils.utils import (
+    add_columns,
+    drop_columns_pyspark,
+    replace_empty_str,
+)
 
 logger = getLogger(__name__)
 

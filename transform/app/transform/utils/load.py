@@ -3,7 +3,7 @@ from logging import getLogger
 
 from pyspark.sql import DataFrame, SparkSession
 
-from app.transform.utils.validate import validate_schema
+from app.services.solr.validate.schema.validate import validate_schema
 
 logger = getLogger(__name__)
 

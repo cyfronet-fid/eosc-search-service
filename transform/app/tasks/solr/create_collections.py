@@ -1,9 +1,10 @@
 import logging
-from typing import List
+from typing import Optional
 
 import requests
 
-from app.settings import settings
+from app.services.celery.task import CeleryTaskStatus
+from app.services.solr.validate.endpoints.validate import get_cols_names, validate
 from app.worker import celery
 
 logger = logging.getLogger(__name__)
@@ -17,18 +18,30 @@ class CollectionCreationFailed(Exception):
 
 @celery.task(name="create_solr_collections_task")
 def create_solr_collections_task(
+    prev_task_status: Optional[CeleryTaskStatus],
+    solr_url: str,
     all_collection_config: str,
     catalogue_config: str,
     organisation_config: str,
     project_config: str,
     provider_config: str,
-    collection_names: List[str],
+    collection_prefix: str,
+    date: str,
     num_shards: int,
     replication_factor: int,
 ) -> dict | None:
     """Celery task for creating solr collections"""
-    logger.info(
-        "Initiating the creation of Solr collections for a single data iteration"
+    logger.info("Creating solr collections...")
+
+    collection_names = get_cols_names(collection_prefix, date)
+    validate(
+        all_collection_config,
+        catalogue_config,
+        organisation_config,
+        project_config,
+        provider_config,
+        collection_names,
+        date,
     )
 
     try:
@@ -45,7 +58,7 @@ def create_solr_collections_task(
                 config = all_collection_config
 
             create_collection_url = (
-                f"{settings.SOLR_URL}solr/admin/collections?action=CREATE"
+                f"{solr_url}solr/admin/collections?action=CREATE"
                 f"&name={collection}&numShards={num_shards}&replicationFactor={replication_factor}"
                 f"&collection.configName={config}&wt=json"
             )
@@ -63,6 +76,6 @@ def create_solr_collections_task(
                 raise CollectionCreationFailed(
                     f"Failed to create collection {collection}. Status code: {response.status_code}. Aborting task"
                 )
-        return {"status": "success"}
+        return CeleryTaskStatus(status="success").dict()
     except Exception as e:
-        return {"status": "failure", "error": str(e)}
+        return CeleryTaskStatus(status="failure", reason=str(e)).dict()

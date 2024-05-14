@@ -1,7 +1,7 @@
-from app.services.solr.validate import check_document_exists
+from app.services.solr.validate.endpoints.validate import check_document_exists
 from app.settings import settings
-from app.tasks.batch import transform_batch
-from app.tasks.delete_data_by_id import delete_data_by_id
+from app.tasks.solr.delete_data_by_id import delete_data_by_id
+from app.tasks.transform.batch import transform_batch
 from app.transform.schemas.properties.data import ID
 
 
@@ -19,10 +19,10 @@ def update_data_item(data: dict, data_type: str, linked_data_type: str) -> dict:
     """
     tasks = {}
     if check_document_exists(linked_data_type, data[ID]):
-        delete_task = delete_data_by_id.delay(linked_data_type, data, delete=True)
+        delete_task = delete_data_by_id.delay(None, linked_data_type, data, delete=True)
         tasks["delete"] = delete_task.id
 
-    update_task = transform_batch.delay(data_type, data, full_update=False)
+    update_task = transform_batch.delay(None, data_type, data, full_update=False)
     tasks["update"] = update_task.id
 
     return tasks

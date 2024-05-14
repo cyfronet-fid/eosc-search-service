@@ -29,8 +29,9 @@ The data obtained from dumps includes `publications, datasets, software, other r
 
 ## API
 ### Transform Endpoints
-- `/batch` - handles live update. One or more resources per request.
-- `/full` - handles update of the whole data collection.
+- `/batch` - handles a live update. One or more resources per request.
+- `/full` - handles an update of the whole data collection.
+- `/dump` - handles a dump update to create a single data iteration.
 
 ### Solr Manipulation Endpoints
 - `/create_collections` - creates all necessary Solr collections for a single data iteration.
@@ -57,18 +58,14 @@ We are using .env (in the root of the EOSC Transform Service) to store user-spec
 
 #### Services:
 ##### Solr
-- `SEND_TO_SOLR`: `bool = True` -  A flag which indicates if data should be sent to Solr.
-  <br> If `SEND_TO_SOLR=True`, it is necessary to set also:
-  - `SOLR_URL`: `AnyUrl = "http://localhost:8983/solr/"` - Solr address.
-  - `SOLR_COLS_PREFIX`: `str` - The prefix of the Solr collections to which data will be sent.
+- `SOLR_URL`: `AnyUrl = "http://localhost:8983/solr/"` - Solr address.
+- `SOLR_COLS_PREFIX`: `str = ""` - The prefix of the Solr collections to which data will be sent.
 
 ##### S3
-- `SEND_TO_S3`: `bool = False` - A flag which indicates if data should be sent to S3.
-  <br> To send data to S3 it is needed to provide also:
-  - `S3_ACCESS_KEY`: `str = ""` - Your S3 access key with write permissions.
-  - `S3_SECRET_KEY`: `str = ""` - Your S3 secret key with write permissions.
-  - `S3_ENDPOINT`: `str = ""` - S3 endpoint. Example: `https://s3.cloud.com`.
-  - `S3_BUCKET`: `str = ""` - S3 bucket. Example: `ess-mock-dumps`.
+- `S3_ACCESS_KEY`: `str = ""` - Your S3 access key with write permissions.
+- `S3_SECRET_KEY`: `str = ""` - Your S3 secret key with write permissions.
+- `S3_ENDPOINT`: `str = ""` - S3 endpoint. Example: `https://s3.cloud.com`.
+- `S3_BUCKET`: `str = ""` - S3 bucket. Example: `ess-mock-dumps`.
 
 ##### STOMP
 - `STOMP_SUBSCRIPTION`: `bool = True` - Subscribe to JMS?

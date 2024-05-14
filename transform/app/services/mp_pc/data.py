@@ -104,5 +104,7 @@ def get_providers_mapping() -> dict[str, str] | dict:
     if providers_raw:
         return {provider["pid"]: provider["name"] for provider in providers_raw}
 
-    logger.error(f"Failed to retrieve providers from {settings.COLLECTIONS[settings.PROVIDER]['ADDRESS']}.")
+    logger.error(
+        f"Failed to retrieve providers from {settings.COLLECTIONS[settings.PROVIDER]['ADDRESS']}."
+    )
     return {}
