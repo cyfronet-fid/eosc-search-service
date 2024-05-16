@@ -95,10 +95,14 @@ def get_data_source_pids() -> list[str]:
     return get_data_source_pids._instance
 
 
-def get_providers_mapping() -> dict[str, str]:
+def get_providers_mapping() -> dict[str, str] | dict:
     """Get providers mapping dict, that maps pids into names."""
     providers_raw = asyncio.run(
         get_data(settings.PROVIDER, settings.COLLECTIONS[settings.PROVIDER]["ADDRESS"])
     )
 
-    return {provider["pid"]: provider["name"] for provider in providers_raw}
+    if providers_raw:
+        return {provider["pid"]: provider["name"] for provider in providers_raw}
+
+    logger.error(f"Failed to retrieve providers from {settings.COLLECTIONS[settings.PROVIDER]['ADDRESS']}.")
+    return {}
