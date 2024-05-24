@@ -4,7 +4,7 @@ from abc import abstractmethod
 from itertools import chain
 
 from pyspark.sql import DataFrame, SparkSession
-from pyspark.sql.functions import col, lit, split
+from pyspark.sql.functions import col, lit
 from pyspark.sql.types import StringType
 from pyspark.sql.utils import AnalysisException
 
@@ -15,6 +15,7 @@ from app.transform.schemas.properties.data import (
     PERSIST_ID_SYS_ENTITY_TYPE,
     PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES,
     TYPE,
+    UPSTREAM_ID,
     URL,
 )
 from app.transform.transformers.base.base import BaseTransformer
@@ -59,6 +60,7 @@ class MarketplaceBaseTransformer(BaseTransformer):
         df = df.withColumn(
             "catalogue", self.get_first_element(df["catalogues"])
         )  # TODO delete
+        df = df.withColumn(UPSTREAM_ID, col(UPSTREAM_ID).cast("bigint"))
 
         return df
 

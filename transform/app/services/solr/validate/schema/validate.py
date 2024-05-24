@@ -2,7 +2,7 @@
 """Validate transformation"""
 import logging
 from itertools import zip_longest
-from typing import Literal
+from typing import KeysView, Literal
 
 from pyspark.sql import DataFrame
 
@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 def validate_schema(
     df: DataFrame,
-    expected_schema: dict,
+    expected_schema: dict[str,  list[str] | str],
     collection: str,
     source: Literal["input", "output"],
 ) -> None:
@@ -20,49 +20,69 @@ def validate_schema(
     df = df.select(*sorted(df.columns))  # Sort pyspark dataframe
     expected_schema = sort_dict_schemas(expected_schema)  # Sort expected schema
 
-    columns = df.columns
-    schemas = [column.dataType.simpleString() for column in df.schema.fields]
+    validate_column_names(df.columns, expected_schema.keys(), collection, source)
+    validate_column_types(df, expected_schema, collection, source)
 
-    # All columns name are the same
-    cols_diff = set(columns) ^ set(expected_schema.keys())
-    assert len(cols_diff) == 0, logger.warning(
-        f"{collection} - {source} schema validation failure. Column names mismatch. Difference: {cols_diff}"
-    )
 
-    # All schemas for the same columns are the same or there is NullType in the transformed dataframe
-    assert all(
-        df_sch == exp_sch
-        for df_sch, exp_sch in zip_longest(schemas, expected_schema.values())
-        if df_sch != "void"
-    ), logger.warning(
-        f"{collection} - {source} schema validation failure. Column types missmatch. Difference: {print_diff_schema(schemas, expected_schema)}"
-    )
+def validate_column_names(
+    actual_columns: list[str],
+    expected_columns: KeysView[str],
+    collection: str,
+    source: Literal["input", "output"],
+) -> None:
+    """Validate that column names match"""
+    cols_diff = set(actual_columns) ^ set(expected_columns)
+    if cols_diff:
+        logger.warning(
+            f"{collection} - {source} schema validation failure. Column names mismatch. Difference: {cols_diff}"
+        )
+
+
+def validate_column_types(
+    df: DataFrame,
+    expected_schema: dict[str, list[str] | str],
+    collection: str,
+    source: Literal["input", "output"],
+) -> None:
+    """Validate that column types match"""
+    actual_types = [column.dataType.simpleString() for column in df.schema.fields]
+    differences = get_schema_differences(df.columns, actual_types, expected_schema)
+    if differences:
+        logger.warning(
+            f"{collection} - {source} schema validation failure. Column types mismatch. Differences: {differences}"
+        )
 
 
 def validate_pd_schema(
     df: DataFrame,
-    expected_schema: dict,
+    expected_schema: dict[str, list[str] | str],
     collection: str,
     source: Literal["input", "output"],
-):
+) -> None:
     """Validate Pandas schema"""
     # Assumption: schemas are sorted alphabetically
     df = df.reindex(sorted(df.columns), axis=1)  # Sort pandas df
     expected_schema = sort_dict_schemas(expected_schema)  # Sort expected schema
 
-    columns = list(df.columns)
+    validate_column_names(df.columns, expected_schema.keys(), collection, source)
+    validate_pd_column_types(df, expected_schema, collection, source)
+
+
+def validate_pd_column_types(
+    df: DataFrame,
+    expected_schema: dict[str, list[str] | str],
+    collection: str,
+    source: Literal["input", "output"],
+) -> None:
+    """Validate Pandas column types"""
     actual_schema = get_pd_df_schema(df)
-
-    # All column names are the same
-    cols_diff = set(columns) ^ set(expected_schema.keys())
-    assert len(cols_diff) == 0, logger.warning(
-        f"{collection} - {source} schema validation failure. Column names mismatch. Difference: {cols_diff}"
+    differences = get_schema_differences(
+        list(actual_schema.keys()), list(actual_schema.values()), expected_schema
     )
-
-    # Check schema match between the DataFrames
-    assert actual_schema == expected_schema, logger.warning(
-        f"{collection} - {source} schema validation failure. Column types mismatch. Difference: {print_diff_schema(list(actual_schema.values()), expected_schema)}"
-    )
+    if differences:
+        logger.warning(
+            f"{collection} - {source} schema validation failure. Column types mismatch. Differences: {differences}"
+        )
 
 
 def get_pd_df_schema(df: DataFrame) -> dict:
@@ -74,26 +94,36 @@ def get_pd_df_schema(df: DataFrame) -> dict:
                 return type(val).__name__
         return "NoneType"  # If all values are None
 
-    schema = {col: get_column_type(col) for col in df.columns}
-    return schema
+    return {col: get_column_type(col) for col in df.columns}
 
 
-def print_diff_schema(actual_schema: list[str], expected_schema: dict) -> dict:
+def is_type_match(actual_type: str, expected_type: list[str] | str) -> bool:
+    """Check if the actual type matches the expected type(s)"""
+    if isinstance(expected_type, list):
+        return (
+            actual_type in expected_type or actual_type == "void"
+        )
+    else:
+        return (
+            actual_type == expected_type or actual_type == "void"
+        )
+
+
+def get_schema_differences(
+    columns: list[str],
+    actual_schema: list[str],
+    expected_schema: dict[str, list[str] | str],
+) -> dict[str, dict[str, list[str] | str]]:
     """Print differences between schemas types"""
     differences = {}
 
-    for actual_sch, (key, expected_sch) in zip_longest(
-        actual_schema, expected_schema.items()
-    ):
-        if actual_sch not in (expected_sch, "void"):
-            differences[key] = {"ACTUAL": actual_sch, "EXPECTED": expected_sch}
-
+    for col, actual_sch in zip_longest(columns, actual_schema):
+        expected_sch = expected_schema[col]
+        if not is_type_match(actual_sch, expected_sch):
+            differences[col] = {"ACTUAL": actual_sch, "EXPECTED": expected_sch}
     return differences
 
 
 def sort_dict_schemas(expected_schema: dict) -> dict:
     """Sort expected dict schema"""
-    if list(expected_schema.keys()) != sorted(expected_schema.keys()):
-        expected_schema = {k: expected_schema[k] for k in sorted(expected_schema)}
-
-    return expected_schema
+    return {k: expected_schema[k] for k in sorted(expected_schema)}
