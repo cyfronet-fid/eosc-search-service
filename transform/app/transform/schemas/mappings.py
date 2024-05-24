@@ -15,7 +15,7 @@ PAID_ACCESS = "Paid Access"
 CLOSED = "Closed"
 EMBARGO = "Embargo"
 OTHER = "Other"
-
+METADATA_ONLY_ACCESS = "Metadata only access"
 
 access_rights_mapping = {
     OPEN_ACCESS_: (
@@ -28,7 +28,10 @@ access_rights_mapping = {
         "free access ",
         "tr_access_right-open_access",
     ),
-    RESTRICTED: ("RESTRICTED", "tr_access_right-restricted_access"),
+    RESTRICTED: (
+        "RESTRICTED",
+        "tr_access_right-restricted_access",
+    ),
     ORDER_REQUIRED: ("order_required",),
     LOGIN_REQUIRED: ("login required",),
     LOGIN_REQUIRED_ON: (
@@ -37,6 +40,7 @@ access_rights_mapping = {
     PAID_ACCESS: ("tr_access_right-paid_access",),
     CLOSED: ("CLOSED",),
     EMBARGO: ("EMBARGO",),
+    METADATA_ONLY_ACCESS: ("metadata_only_access",),
     OTHER: ("other",),
 }
 
