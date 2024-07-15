@@ -10,8 +10,8 @@ from pyspark.sql.types import (
 )
 
 from app.settings import settings
-from app.transform.schemas.output.data_source import data_source_output_schema
-from app.transform.schemas.properties.data import (
+from schemas.old.output.data_source import data_source_output_schema
+from schemas.properties.data import (
     BEST_ACCESS_RIGHT,
     OPEN_ACCESS,
     PERSIST_ID_SYS_ENTITY_TYPE,

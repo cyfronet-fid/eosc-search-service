@@ -6,7 +6,7 @@ import pandas as pd
 from tqdm import tqdm
 
 from app.settings import settings
-from app.transform.schemas.properties.data import (
+from schemas.properties.data import (
     ADDITIONAL_COLUMNS,
     ID,
     LEGALNAME,

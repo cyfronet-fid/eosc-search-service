@@ -1,7 +1,7 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import, duplicate-code
 """Transform bundles"""
 from pyspark.sql import DataFrame, SparkSession
-from pyspark.sql.functions import col, lit, split, udf
+from pyspark.sql.functions import col, lit, udf
 from pyspark.sql.types import (
     ArrayType,
     IntegerType,
@@ -11,8 +11,8 @@ from pyspark.sql.types import (
 )
 
 from app.settings import settings
-from app.transform.schemas.output.bundle import bundle_output_schema
-from app.transform.schemas.properties.data import *
+from schemas.old.output.bundle import bundle_output_schema
+from schemas.properties.data import TYPE, ID, POPULARITY
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import harvest_popularity
 from app.transform.utils.utils import sort_schema

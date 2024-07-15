@@ -9,7 +9,7 @@ from pyspark.sql.types import StringType
 from pyspark.sql.utils import AnalysisException
 
 from app.settings import settings
-from app.transform.schemas.properties.data import (
+from schemas.properties.data import (
     ID,
     PERSIST_ID_SYS,
     PERSIST_ID_SYS_ENTITY_TYPE,

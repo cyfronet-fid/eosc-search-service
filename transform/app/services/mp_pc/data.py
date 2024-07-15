@@ -76,8 +76,9 @@ def get_data_source_pids() -> list[str]:
     Returns a list of data source PIDs (used for OAG resources), using a singleton pattern.
 
     Assumptions:
-    - get data sources pids only once at the beginning of data upload iteration (constant through whole update),
-    - reset data source pids property after completed data update (next upload should get new ones).
+    - Get data sources pids only once at the beginning of data upload iteration (constant through whole update).
+    - Reset data source pids property after completed data update (next upload should get new ones).
+
     Returns:
         list[str]: A list of data source PIDs.
     """

@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 def validate_schema(
     df: DataFrame,
-    expected_schema: dict[str,  list[str] | str],
+    expected_schema: dict[str, list[str] | str],
     collection: str,
     source: Literal["input", "output"],
 ) -> None:
@@ -100,13 +100,9 @@ def get_pd_df_schema(df: DataFrame) -> dict:
 def is_type_match(actual_type: str, expected_type: list[str] | str) -> bool:
     """Check if the actual type matches the expected type(s)"""
     if isinstance(expected_type, list):
-        return (
-            actual_type in expected_type or actual_type == "void"
-        )
+        return actual_type in expected_type or actual_type == "void"
     else:
-        return (
-            actual_type == expected_type or actual_type == "void"
-        )
+        return actual_type == expected_type or actual_type == "void"
 
 
 def get_schema_differences(

@@ -1,7 +1,7 @@
 # pylint: disable=duplicate-code
 """Transform software"""
 from app.settings import settings
-from app.transform.schemas.output.software import software_output_schema
+from schemas.old.output.software import software_output_schema
 from app.transform.transformers.base.oag import OagBaseTransformer
 
 

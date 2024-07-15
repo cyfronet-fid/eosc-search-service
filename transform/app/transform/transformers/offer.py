@@ -1,7 +1,7 @@
 # pylint: disable=line-too-long, wildcard-import, invalid-name, unused-wildcard-import, duplicate-code
 """Transform offers"""
 from pyspark.sql import DataFrame, SparkSession
-from pyspark.sql.functions import col, lit, split
+from pyspark.sql.functions import col, lit
 from pyspark.sql.types import (
     BooleanType,
     IntegerType,
@@ -11,13 +11,19 @@ from pyspark.sql.types import (
 )
 
 from app.settings import settings
-from app.transform.schemas.output.offer import offer_output_schema
-from app.transform.schemas.properties.data import *
+from schemas.old.output.offer import offer_output_schema
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
     create_open_access,
     harvest_popularity,
     map_best_access_right,
+)
+from schemas.properties.data import (
+    TYPE,
+    BEST_ACCESS_RIGHT,
+    OPEN_ACCESS,
+    POPULARITY,
+    ID,
 )
 from app.transform.utils.utils import sort_schema
 

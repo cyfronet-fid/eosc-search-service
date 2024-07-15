@@ -12,7 +12,7 @@ from app.transform.live_update.training_ig import (
     handle_update_action,
     process_message,
 )
-from app.transform.schemas.properties.data import ID
+from schemas.properties.data import ID
 from tests.transform.live_update.conftest import MockDependencies
 
 
