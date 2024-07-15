@@ -2,7 +2,7 @@ from app.services.solr.validate.endpoints.validate import check_document_exists
 from app.settings import settings
 from app.tasks.solr.delete_data_by_id import delete_data_by_id
 from app.tasks.transform.batch import transform_batch
-from app.transform.schemas.properties.data import ID
+from schemas.properties.data import ID
 
 
 def update_data_item(data: dict, data_type: str, linked_data_type: str) -> dict:

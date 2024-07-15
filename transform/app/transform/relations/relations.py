@@ -6,7 +6,7 @@ from app.transform.relations.process_data import (
     process_org_proj_rel,
     process_result_relations,
 )
-from app.transform.schemas.properties.data import SELECTED_COLUMNS
+from schemas.properties.data import SELECTED_COLUMNS
 from app.transform.utils.delete import remove_files
 
 

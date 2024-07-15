@@ -7,7 +7,20 @@ from pyspark.sql.functions import lit
 from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from app.settings import settings
-from app.transform.schemas.properties.data import *
+from schemas.properties.data import (
+    TYPE,
+    LEGALSHORTNAME,
+    ABBREVIATION,
+    URL,
+    WEBSITEURL,
+    ALTERNATIVE_NAMES,
+    COUNTRY,
+    PIDS,
+    ALTERNATIVENAMES,
+    PID,
+    LEGALNAME,
+    TITLE,
+)
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.utils import sort_schema
 
@@ -134,9 +147,11 @@ class OrganisationTransformer(BaseTransformer):
     def harvest_pids(df: DataFrame, harvested_properties: dict) -> None:
         """
         Harvest PIDs and store them in the output dictionary.
+
         Args:
             df (DataFrame): The input DataFrame containing columns for PID information.
             harvested_properties (Dict[str, List[str]]): A dictionary to store harvested properties.
+
         Returns:
             None: The function operates in-place, updating the 'harvested_properties' dictionary.
         """

@@ -1,7 +1,37 @@
 # pylint: disable=undefined-variable, cyclic-import
-"""Import transformations"""
-from app.settings import settings
+"""
+Transformers module
 
+This module imports all the transformation classes used in the application. The
+available transformers are:
+
+- ServiceTransformer
+- DataSourceTransformer
+- ProviderTransformer
+- OfferTransformer
+- BundleTransformer
+- transform_guidelines
+- TrainingTransformer
+- OtherRPTransformer
+- SoftwareTransformer
+- DatasetTransformer
+- PublicationTransformer
+- OrganisationTransformer
+- ProjectTransformer
+- CatalogueTransformer
+
+The `transformers` dictionary maps settings to their corresponding transformer classes.
+
+Example:
+    To get a transformer for a specific setting:
+
+    .. code-block:: python
+
+        from transform.transformers import transformers
+        transformer = transformers[settings.SERVICE]
+"""
+
+from app.settings import settings
 from .bundle import BundleTransformer
 from .catalogue import CatalogueTransformer
 from .data_source import DataSourceTransformer

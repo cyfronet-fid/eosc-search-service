@@ -22,6 +22,10 @@ pyarrow = "*"
 coloredlogs = "*"
 pytest-mock = "*"
 pytest-asyncio = "*"
+sphinx = "*"
+sphinx-autodoc-typehints = "*"
+sphinx-rtd-theme = "*"
+autodoc-pydantic = "*"
 sentry-sdk = {version = "*", extras = ["fastapi"]}
 
 [dev-packages]

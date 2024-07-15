@@ -12,15 +12,15 @@ from pyspark.sql.functions import col, lit, to_date, when
 from pyspark.sql.utils import AnalysisException
 
 from app.services.mp_pc.data import get_data_source_pids
-from app.transform.mappings.datasources_pids import (
+from app.mappings.datasources_pids import (
     datasource_pids_mapping,
     services_pids,
 )
-from app.transform.mappings.scientific_doamin import (
+from app.mappings.scientific_doamin import (
     mp_sd_structure,
     scientific_domains_mapping,
 )
-from app.transform.schemas.mappings import (
+from app.mappings.mappings import (
     FIGSHARE,
     OPEN_ACCESS_,
     ZENODO,
@@ -29,7 +29,7 @@ from app.transform.schemas.mappings import (
     publisher_mapping,
     unified_categories_mapping,
 )
-from app.transform.schemas.properties.data import (
+from schemas.properties.data import (
     AFFILIATION,
     AUTHOR,
     AUTHOR_NAMES,
@@ -513,8 +513,10 @@ def harvest_research_community(df: DataFrame, harvested_properties: dict) -> Non
 def extract_pids(pid_list: List[Optional[Dict[str, str]]]) -> Dict[str, List[str]]:
     """
     Extract PID information from a list of PIDs and return it as a dictionary.
+
     Args:
         pid_list (list): List of PIDs.
+
     Returns:
         dict: Dictionary containing PID information categorized by scheme.
     """
@@ -680,25 +682,30 @@ def add_tg_fields(df: DataFrame) -> DataFrame:
 
 def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
     """
-    Harvest exportation information from instances within the DataFrame
+    Harvest exportation information from instances within the DataFrame.
+
     Args:
         df (DataFrame): Input DataFrame containing instance information.
         harvested_properties (dict): Dictionary to store harvested properties.
+
     Assumptions:
         - Only the first 10 versions of each instance are harvested; subsequent versions are skipped
           (approx. 0.2% of data is skipped).
+
     For each instance:
-    - Extracted Fields:
-        - URL: URL of the instance.
-        - Type: Type of the instance.
-        - Publication Year: Year of publication from the publication date.
-        - License: License information.
-        - PIDs: Persistent identifiers associated with the instance.
-        - Hosted By: The entity hosting the instance.
+        Extracted Fields:
+            - URL: URL of the instance.
+            - Type: Type of the instance.
+            - Publication Year: Year of publication from the publication date.
+            - License: License information.
+            - PIDs: Persistent identifiers associated with the instance.
+            - Hosted By: The entity hosting the instance.
+
     The extracted information is structured into a list of dictionaries for each instance and stored in
     'harvested_properties[EXPORTATION]'.
+
     Note:
-    - 'instance_idx' is used to limit harvesting to the first 10 versions of each instance.
+        - 'instance_idx' is used to limit harvesting to the first 10 versions of each instance.
     """
     instances_list = df.select(INSTANCE).collect()
     exportation_column = []

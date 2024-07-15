@@ -17,11 +17,11 @@ from pyspark.sql.types import (
 )
 
 from app.settings import settings
-from app.transform.mappings.currency import currency_mapping
-from app.transform.schemas.properties.data import *
+from app.mappings.currency import currency_mapping
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.join_dfs import create_df, join_different_dfs
 from app.transform.utils.utils import sort_schema
+from schemas.properties.data import *
 
 
 class ProjectTransformer(BaseTransformer):
