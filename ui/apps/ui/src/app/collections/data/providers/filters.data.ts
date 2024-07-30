@@ -44,7 +44,7 @@ export const providersFilters: IFiltersConfig = {
     {
       id: 'tag_list',
       filter: 'tag_list',
-      label: 'Tags',
+      label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
