@@ -21,6 +21,7 @@ uvicorn = "*"
 cachetools = "*"
 async-lru = "*"
 pydantic-settings = "*"
+sentry-sdk = "*"
 
 [dev-packages]
 black = "*"

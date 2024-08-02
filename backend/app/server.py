@@ -1,12 +1,18 @@
 """The FastAPI server"""
 
+import sentry_sdk
 from fastapi import FastAPI
+from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 from starlette.middleware.cors import CORSMiddleware
 
 from app.generic.apis.default_api import router as generic_router
 from app.middlewares import LogRequestsMiddleware
 from app.routes import internal_api_router, web_api_router
+from app.settings import settings
 from app.tasks import create_start_app_handler, create_stop_app_handler
+
+if settings.SENTRY_DSN:
+    sentry_sdk.init(dsn=settings.SENTRY_DSN)
 
 
 def get_app():
@@ -17,6 +23,8 @@ def get_app():
         description="EOSC Search Service",
         version="1.0.0-alpha1",
     )
+    if settings.SENTRY_DSN:
+        app.add_middleware(SentryAsgiMiddleware)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=["*"],

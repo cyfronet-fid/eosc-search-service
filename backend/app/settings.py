@@ -1,7 +1,7 @@
 # pylint: disable=invalid-name, use-dict-literal, fixme
 """Backend Settings"""
 import logging
-from typing import Annotated, Literal
+from typing import Annotated, Literal, Optional
 from urllib.parse import urljoin, urlparse
 
 from pydantic import BeforeValidator, HttpUrl, PostgresDsn, TypeAdapter
@@ -37,8 +37,8 @@ class GlobalSettings(BaseSettings):
 
     # - Recommender System
     RS_URL: Url = "http://localhost:9080/"
-    RECOMMENDER_ENDPOINT: Url = (
-        "http://localhost:8081/recommendations"  # Remove / from the end!
+    RECOMMENDER_ENDPOINT: Url = (  # Remove / from the end!
+        "http://localhost:8081/recommendations"
     )
     RS_ROWS: int = 1000  # TODO deprecated?
     SHOW_RECOMMENDATIONS: bool = True
@@ -67,6 +67,9 @@ class GlobalSettings(BaseSettings):
     OIDC_USERINFO_ENDPOINT: str = "/oidc/userinfo"
     OIDC_JWKS_ENDPOINT: str = "/oidc/jwk"
 
+    # - Sentry
+    SENTRY_DSN: Optional[str] = None
+
     # - Other
     RELATED_SERVICES_ENDPOINT: Url = (
         "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"
@@ -74,8 +77,8 @@ class GlobalSettings(BaseSettings):
 
     # Redirections
     MARKETPLACE_BASE_URL: Url = "https://marketplace.eosc-portal.eu/"
-    EOSC_COMMONS_URL: Url = (
-        "https://s3.cloud.cyfronet.pl/eosc-portal-common/"  # Without / at the end it doesn't work
+    EOSC_COMMONS_URL: Url = (  # Without / at the end it doesn't work
+        "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
     )
     EOSC_COMMONS_ENV: str = "production"
     EOSC_EXPLORE_URL: Url = "https://explore.eosc-portal.eu/"
