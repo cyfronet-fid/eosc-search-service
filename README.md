@@ -172,6 +172,9 @@ See docker-compose.yml for components.
 - `OIDC_CLIENT_SECRET`: `str = "NO_CLIENT_SECRET"` - Private key of the service needed in AAI auth process.
 - `OIDC_AAI_NEW_API`: `bool = False` - A param switching between new kind of endpoints and old one (AAI changed endpoints between instances)
 
+##### Sentry
+- `SENTRY_DSN`: endpoint for Sentry logged errors. For development leave this variable unset.
+
 ##### Other
 - `RELATED_SERVICES_ENDPOINT`: `Url = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"` - base URL to get related services for interoperability guidelines.
 
