@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Start containers
-      run: docker-compose -f dc-test.yml up -d db_test
+      run: docker compose -f dc-test.yml up -d db_test
     - uses: actions/setup-python@v3
       with:
         python-version: '3.10.9'
@@ -26,16 +26,16 @@ jobs:
         TESTING: 1
     - name: Containers logs
       if: always()
-      run: docker-compose logs
+      run: docker compose logs
     - name: Stop containers
       if: always()
-      run: docker-compose -f dc-test.yml down
+      run: docker compose -f dc-test.yml down
   backend-integration:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - name: Start containers
-      run: docker-compose -f dc-test.yml up -d
+      run: docker compose -f dc-test.yml up -d
     - uses: actions/setup-python@v3
       with:
         python-version: '3.10.9'
@@ -56,10 +56,10 @@ jobs:
         SOLR_URL: http://localhost:8993/solr/
     - name: Containers logs
       if: always()
-      run: docker-compose logs
+      run: docker compose logs
     - name: Stop containers
       if: always()
-      run: docker-compose -f dc-test.yml down
+      run: docker compose -f dc-test.yml down
   transform:
     runs-on: ubuntu-latest
     steps:
