@@ -3,6 +3,10 @@
 import logging.config
 
 from fastapi import FastAPI
+import sentry_sdk
+from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
+from sentry_sdk.integrations.celery import CeleryIntegration
+from sentry_sdk.integrations.redis import RedisIntegration
 
 from app.api.endpoints import solr_api_router, transform_api_router
 from app.logger import LOGGING_CONFIG
@@ -21,6 +25,14 @@ def get_app():
 
     app.include_router(router=transform_api_router)
     app.include_router(router=solr_api_router)
+
+    if settings.SENTRY_DSN:
+        sentry_sdk.init(dsn=settings.SENTRY_DSN)
+        app.add_middleware(SentryAsgiMiddleware)
+        sentry_sdk.init(
+            integrations=[CeleryIntegration(), RedisIntegration()],
+            traces_sample_rate=1.0,
+        )
 
     if settings.STOMP_SUBSCRIPTION:
 

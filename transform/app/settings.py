@@ -1,7 +1,7 @@
 # pylint: disable=too-few-public-methods
 """Configs for all the environments"""
 import logging
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import AnyUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -22,6 +22,7 @@ class GlobalSettings(BaseSettings):
     TESTING: bool = False
     RELATIONS: dict = {}  # Set in TransformSettings
     COLLECTIONS: dict = {}  # Set in TransformSettings
+    SENTRY_DSN: Optional[str] = None
 
     # Services
     # - Solr

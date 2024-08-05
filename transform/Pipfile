@@ -22,6 +22,7 @@ pyarrow = "*"
 coloredlogs = "*"
 pytest-mock = "*"
 pytest-asyncio = "*"
+sentry-sdk = {version = "*", extras = ["fastapi"]}
 
 [dev-packages]
 pytest = "*"

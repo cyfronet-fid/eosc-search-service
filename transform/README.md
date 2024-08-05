@@ -55,6 +55,7 @@ We are using .env (in the root of the EOSC Transform Service) to store user-spec
 #### General:
 - `ENVIRONMENT`: `Literal["dev", "test", "production"] = "dev"` - Choose environment in which you want to work in.
 - `LOG_LEVEL`: `str = "info"` - Logging level.
+- `SENTRY_DSN` - endpoint for Sentry logged errors. For development leave this variable unset.
 
 #### Services:
 ##### Solr
