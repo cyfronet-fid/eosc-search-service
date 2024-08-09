@@ -3,35 +3,8 @@
 from pydantic import BaseModel, AnyHttpUrl
 from typing import List
 
-
-class Country(BaseModel):
-    """
-    Model representing the country details.
-
-    Attributes:
-        code (str):
-            The country code.
-        label (str):
-            The country label.
-    """
-
-    code: str
-    label: str
-
-
-class PID(BaseModel):
-    """
-    Model representing a persistent identifier.
-
-    Attributes:
-        type (str):
-            The type of the persistent identifier.
-        value (str):
-            The value of the persistent identifier.
-    """
-
-    type: str
-    value: str
+from schemas.common.oag.country import Country
+from schemas.common.oag.pid import PID
 
 
 class OrganisationInputSchema(BaseModel):
