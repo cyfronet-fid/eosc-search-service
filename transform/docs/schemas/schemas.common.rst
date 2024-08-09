@@ -20,6 +20,15 @@ schemas.common.url module
    :undoc-members:
    :show-inheritance:
 
+schemas.common.oag package
+--------------------------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Submodules:
+
+   schemas.common.oag
+
 Module contents
 ---------------
 
