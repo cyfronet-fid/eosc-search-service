@@ -50,11 +50,11 @@ export class ConfigService {
       }),
       switchMap((config) =>
         forkJoin([
-          this._loadAsset(
-            `https://eosc-helpdesk.eosc-portal.eu/assets/form/form.js`,
-            'javascript',
-            'zammad_form_script'
-          ),
+          // this._loadAsset(
+          //   `https://eosc-helpdesk.eosc-portal.eu/assets/form/form.js`,
+          //   'javascript',
+          //   'zammad_form_script'
+          // ),
           this._loadAsset(
             `${config.eosc_commons_url}index.${config.eosc_commons_env}.min.js`,
             'javascript'
