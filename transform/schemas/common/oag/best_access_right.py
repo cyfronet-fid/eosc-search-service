@@ -13,6 +13,7 @@ class BestAccessRight(BaseModel):
         scheme (str):
             The scheme of the access right.
     """
+
     code: str
     label: str
     scheme: str

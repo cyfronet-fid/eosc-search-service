@@ -1,8 +1,9 @@
 """Project expected input schema"""
 
-from pydantic import BaseModel, AnyHttpUrl
-from typing import List
 from datetime import datetime
+from typing import List
+
+from pydantic import AnyHttpUrl, BaseModel
 
 
 class FundingStream(BaseModel):

@@ -1,5 +1,6 @@
-from pydantic import BaseModel
 from typing import Dict, Optional, Union
+
+from pydantic import BaseModel
 
 from schemas.common.oag.pid import PID
 from schemas.common.oag.provenance import Provenance
@@ -26,6 +27,7 @@ class Author(BaseModel):
             - "provenance": Represents the provenance information, including the
               source of the PID and the trust level associated with it.
     """
+
     fullname: str
     name: str
     rank: int

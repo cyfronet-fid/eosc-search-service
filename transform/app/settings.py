@@ -5,8 +5,9 @@ from typing import Literal, Optional
 
 from pydantic import AnyUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from schemas.old.output import *
+
 from schemas.old.input import *
+from schemas.old.output import *
 
 logger = logging.getLogger(__name__)
 EnvironmentType = Literal["dev", "test", "production"]

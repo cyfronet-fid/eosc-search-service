@@ -1,7 +1,8 @@
 """Organisation expected input schema"""
 
-from pydantic import BaseModel, AnyHttpUrl
 from typing import List
+
+from pydantic import AnyHttpUrl, BaseModel
 
 from schemas.common.oag.country import Country
 from schemas.common.oag.pid import PID

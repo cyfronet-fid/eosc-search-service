@@ -11,21 +11,15 @@ from pyspark.sql.types import (
 )
 
 from app.settings import settings
-from schemas.old.output.offer import offer_output_schema
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
     create_open_access,
     harvest_popularity,
     map_best_access_right,
 )
-from schemas.properties.data import (
-    TYPE,
-    BEST_ACCESS_RIGHT,
-    OPEN_ACCESS,
-    POPULARITY,
-    ID,
-)
 from app.transform.utils.utils import sort_schema
+from schemas.old.output.offer import offer_output_schema
+from schemas.properties.data import BEST_ACCESS_RIGHT, ID, OPEN_ACCESS, POPULARITY, TYPE
 
 
 class OfferTransformer(BaseTransformer):

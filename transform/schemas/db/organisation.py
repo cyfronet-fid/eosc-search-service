@@ -1,8 +1,10 @@
 """Organisation expected db schema"""
 
-from pydantic import BaseModel, AnyHttpUrl
 from typing import List
-from schemas.input.organisation import Country, PID
+
+from pydantic import AnyHttpUrl, BaseModel
+
+from schemas.input.organisation import PID, Country
 
 
 class OrganisationDBSchema(BaseModel):

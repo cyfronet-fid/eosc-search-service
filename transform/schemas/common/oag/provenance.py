@@ -11,5 +11,6 @@ class Provenance(BaseModel):
         trust (str):
             The trust level of the provenance.
     """
+
     provenance: str
     trust: str

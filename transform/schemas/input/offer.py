@@ -1,8 +1,9 @@
 """Offers expected input schema"""
 
-from pydantic import BaseModel
-from typing import List, Dict, Union
 from datetime import datetime
+from typing import Dict, List, Union
+
+from pydantic import BaseModel
 
 
 class ParameterConfig(BaseModel):

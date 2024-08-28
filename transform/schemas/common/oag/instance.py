@@ -1,5 +1,6 @@
-from pydantic import AnyHttpUrl, BaseModel
 from typing import List, Optional
+
+from pydantic import AnyHttpUrl, BaseModel
 
 from schemas.common.oag.article_processing_charge import ArticleProcessingCharge
 from schemas.common.oag.best_access_right import BestAccessRight
@@ -26,8 +27,6 @@ class Instance(BaseModel):
             Information about who hosts the instance.
         license (Optional[str]):
             The license for the instance.
-        measures (Optional[List[Measure]]):
-            A list of measures related to the instance.
         pid (Optional[List[PID]]):
             A list of persistent identifiers for the instance.
         publication_date (Optional[str]):
@@ -39,6 +38,7 @@ class Instance(BaseModel):
         url (Optional[List[str]]):
             A list of URLs for the instance.
     """
+
     access_right: Optional[BestAccessRight]
     alternate_identifier: Optional[List[PID]]
     article_processing_charge: Optional[ArticleProcessingCharge]
@@ -46,7 +46,6 @@ class Instance(BaseModel):
     full_text: Optional[str]
     hosted_by: Optional[KeyValueModel]
     license: Optional[str]
-    measures: Optional[List[KeyValueModel]]
     pid: Optional[List[PID]]
     publication_date: Optional[str]
     refereed: Optional[str]

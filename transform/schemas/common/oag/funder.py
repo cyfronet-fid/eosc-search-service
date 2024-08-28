@@ -15,6 +15,7 @@ class Funder(BaseModel):
         short_name (str):
             The short name of the funding.
     """
+
     funding_stream: str
     jurisdiction: str
     name: str

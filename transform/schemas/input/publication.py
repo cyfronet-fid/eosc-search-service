@@ -1,18 +1,18 @@
 """Publication expected input schema"""
 
-from pydantic import BaseModel
 from typing import List, Optional, Union
+
+from pydantic import BaseModel
 
 from schemas.common.oag.affiliation import Affiliation
 from schemas.common.oag.author import Author
 from schemas.common.oag.best_access_right import BestAccessRight
-from schemas.common.oag.key_value_model import KeyValueModel
 from schemas.common.oag.container import Container
 from schemas.common.oag.context import Context
 from schemas.common.oag.country import Country
-from schemas.common.oag.eosc_if import EoscIf
 from schemas.common.oag.indicator import Indicator
 from schemas.common.oag.instance import Instance
+from schemas.common.oag.key_value_model import KeyValueModel
 from schemas.common.oag.language import Language
 from schemas.common.oag.pid import PID
 from schemas.common.oag.project import Project
@@ -49,7 +49,7 @@ class PublicationInputSchema(BaseModel):
             A list of descriptions for the publication.
         embargo_end_date (Optional[str]):
             The end date of the embargo for the publication.
-        eosc_if (Optional[EoscIf]):
+        eosc_if (Optional[List[str]]):
             The EOSC IF details for the publication.
         format (Optional[List[str]]):
             A list of formats for the publication.
@@ -90,6 +90,7 @@ class PublicationInputSchema(BaseModel):
         type (Optional[str]):
             The type of the publication.
     """
+
     affiliation: Optional[List[Affiliation]]
     author: Optional[List[Author]]
     best_access_right: Optional[BestAccessRight]
@@ -102,7 +103,7 @@ class PublicationInputSchema(BaseModel):
     date_of_collection: Optional[str]
     description: Optional[List[str]]
     embargo_end_date: Optional[str]
-    eosc_if: Optional[EoscIf]
+    eosc_if: Optional[List[str]]
     format: Optional[List[str]]
     fulltext: Optional[List[str]]
     id: str
@@ -114,7 +115,7 @@ class PublicationInputSchema(BaseModel):
     main_title: Optional[str]
     original_id: Optional[List[str]]
     pid: Optional[List[PID]]
-    projects:  Optional[List[Project]]
+    projects: Optional[List[Project]]
     publication_date: Optional[str]
     publisher: Optional[str]
     relations: Optional[List[Relation]]

@@ -6,11 +6,11 @@ from pyspark.sql.types import IntegerType, StringType, StructField, StructType
 from pyspark.sql.utils import AnalysisException
 
 from app.settings import settings
-from schemas.old.output.provider import provider_output_schema
-from schemas.properties.data import ID, POPULARITY, TYPE, URL
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import harvest_popularity
 from app.transform.utils.utils import sort_schema
+from schemas.old.output.provider import provider_output_schema
+from schemas.properties.data import ID, POPULARITY, TYPE, URL
 
 
 class ProviderTransformer(BaseTransformer):

@@ -12,7 +12,7 @@ from pyspark.sql.types import (
     StructField,
     StructType,
 )
-from schemas import *
+
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
     check_type,
@@ -41,6 +41,7 @@ from app.transform.utils.common import (
     transform_date,
 )
 from app.transform.utils.utils import sort_schema
+from schemas import *
 from schemas.properties.data import *
 
 

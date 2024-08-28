@@ -1,6 +1,6 @@
 """Expected schema for URLs"""
 
-from pydantic import BaseModel, AnyHttpUrl
+from pydantic import AnyHttpUrl, BaseModel
 
 
 class BasicURL(BaseModel):

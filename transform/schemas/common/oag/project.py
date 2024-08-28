@@ -1,5 +1,6 @@
-from pydantic import BaseModel
 from typing import Optional
+
+from pydantic import BaseModel
 
 from schemas.common.oag.funder import Funder
 from schemas.common.oag.provenance import Provenance
@@ -25,6 +26,7 @@ class Project(BaseModel):
         validated (Optional[dict]):
             Validation details for the project.
     """
+
     acronym: Optional[str]
     code: Optional[str]
     funder: Optional[Funder]

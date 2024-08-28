@@ -1,8 +1,9 @@
 """Training expected search engine schema"""
 
-from pydantic import BaseModel
-from typing import List
 from datetime import date
+from typing import List
+
+from pydantic import BaseModel
 
 
 class TrainingSESchema(BaseModel):

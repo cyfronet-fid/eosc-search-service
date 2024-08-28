@@ -1,7 +1,8 @@
 """Organisation expected search engine schema"""
 
-from pydantic import BaseModel, AnyHttpUrl
 from typing import List
+
+from pydantic import AnyHttpUrl, BaseModel
 
 
 class OrganisationSESchema(BaseModel):

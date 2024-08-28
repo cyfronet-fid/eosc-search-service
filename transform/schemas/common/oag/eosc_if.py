@@ -1,5 +1,6 @@
-from pydantic import AnyHttpUrl, BaseModel
 from typing import Optional
+
+from pydantic import AnyHttpUrl, BaseModel
 
 
 class EoscIf(BaseModel):
@@ -16,6 +17,7 @@ class EoscIf(BaseModel):
         url (Optional[AnyHttpUrl]):
             The URL of the interface.
     """
+
     code: str
     label: str
     semantic_relation: str

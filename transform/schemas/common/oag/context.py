@@ -1,5 +1,6 @@
-from pydantic import BaseModel
 from typing import List
+
+from pydantic import BaseModel
 
 from schemas.common.oag.provenance import Provenance
 
@@ -16,6 +17,7 @@ class Context(BaseModel):
         provenance (List[Provenance]):
             A list of provenance information for the context.
     """
+
     code: str
     label: str
     provenance: List[Provenance]

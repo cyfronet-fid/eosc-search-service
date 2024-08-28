@@ -11,11 +11,11 @@ from pyspark.sql.types import (
 )
 
 from app.settings import settings
-from schemas.old.output.bundle import bundle_output_schema
-from schemas.properties.data import TYPE, ID, POPULARITY
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import harvest_popularity
 from app.transform.utils.utils import sort_schema
+from schemas.old.output.bundle import bundle_output_schema
+from schemas.properties.data import ID, POPULARITY, TYPE
 
 
 class BundleTransformer(BaseTransformer):

@@ -13,6 +13,7 @@ class GeoLocation(BaseModel):
         place (Optional[str]):
             The place representation of the location.
     """
+
     point: str
     box: str
     place: str

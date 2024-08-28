@@ -9,6 +9,12 @@ from pyspark.sql.types import StringType
 from pyspark.sql.utils import AnalysisException
 
 from app.settings import settings
+from app.transform.transformers.base.base import BaseTransformer
+from app.transform.utils.common import (
+    create_open_access,
+    harvest_popularity,
+    map_best_access_right,
+)
 from schemas.properties.data import (
     ID,
     PERSIST_ID_SYS,
@@ -17,12 +23,6 @@ from schemas.properties.data import (
     TYPE,
     UPSTREAM_ID,
     URL,
-)
-from app.transform.transformers.base.base import BaseTransformer
-from app.transform.utils.common import (
-    create_open_access,
-    harvest_popularity,
-    map_best_access_right,
 )
 
 
