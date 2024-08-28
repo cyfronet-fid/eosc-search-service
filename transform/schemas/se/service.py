@@ -1,8 +1,9 @@
 """Service expected search engine schema"""
 
-from pydantic import BaseModel, AnyHttpUrl, EmailStr
-from typing import List
 from datetime import date
+from typing import List
+
+from pydantic import AnyHttpUrl, BaseModel, EmailStr
 
 
 class ServiceSESchema(BaseModel):

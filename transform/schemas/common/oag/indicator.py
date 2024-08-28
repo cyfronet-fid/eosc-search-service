@@ -11,5 +11,6 @@ class Indicator(BaseModel):
         usage_counts_views (str):
             The number of views.
     """
+
     usage_counts_downloads: str
     usage_counts_views: str

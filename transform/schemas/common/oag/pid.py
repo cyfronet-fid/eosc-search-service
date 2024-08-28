@@ -11,5 +11,6 @@ class PID(BaseModel):
         value (str):
             The value of the PID.
     """
+
     scheme: str
     value: str

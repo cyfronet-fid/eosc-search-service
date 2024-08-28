@@ -27,6 +27,7 @@ class Container(BaseModel):
         conferencedate (str):
             The conference date of the container.
     """
+
     edition: str
     ep: str
     iss: str

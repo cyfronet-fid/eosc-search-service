@@ -1,5 +1,6 @@
-from pydantic import BaseModel
 from typing import List
+
+from pydantic import BaseModel
 
 from schemas.common.oag.pid import PID
 
@@ -16,7 +17,7 @@ class Affiliation(BaseModel):
         pid (List[PID]):
             A list of persistent identifiers for the affiliation.
     """
+
     id: str
     name: str
     pid: List[PID]
-    

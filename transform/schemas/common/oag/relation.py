@@ -1,5 +1,6 @@
-from pydantic import BaseModel
 from typing import Optional
+
+from pydantic import BaseModel
 
 from schemas.common.oag.provenance import Provenance
 
@@ -14,6 +15,7 @@ class Reltype(BaseModel):
         type (str):
             The type of the relationship type.
     """
+
     name: str
     type: str
 
@@ -34,6 +36,7 @@ class Relation(BaseModel):
         targetType (Optional[str]):
             The target type of the relation.
     """
+
     provenance: Optional[Provenance]
     reltype: Optional[Reltype]
     source: Optional[str]

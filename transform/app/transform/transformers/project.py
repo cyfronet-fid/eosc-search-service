@@ -16,8 +16,8 @@ from pyspark.sql.types import (
     StructType,
 )
 
-from app.settings import settings
 from app.mappings.currency import currency_mapping
+from app.settings import settings
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.join_dfs import create_df, join_different_dfs
 from app.transform.utils.utils import sort_schema

@@ -1,8 +1,9 @@
 """Bundle expected db schema"""
 
-from pydantic import BaseModel, EmailStr, AnyHttpUrl
-from typing import List
 from datetime import datetime
+from typing import List
+
+from pydantic import AnyHttpUrl, BaseModel, EmailStr
 
 
 class BundleDBSchema(BaseModel):

@@ -1,10 +1,12 @@
 """Catalogue expected input schema"""
 
-from pydantic import BaseModel, AnyHttpUrl
-from typing import List, Optional
 from datetime import datetime
-from schemas.common.url import BasicURL
+from typing import List, Optional
+
+from pydantic import AnyHttpUrl, BaseModel
+
 from schemas.common.public_contact import PublicContact
+from schemas.common.url import BasicURL
 
 
 class CatalogueInputSchema(BaseModel):

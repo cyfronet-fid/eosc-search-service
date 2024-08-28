@@ -1,8 +1,9 @@
 """Input training expected schema"""
 
-from pydantic import BaseModel, AnyHttpUrl, EmailStr
-from typing import List, Union
 from datetime import datetime
+from typing import List, Union
+
+from pydantic import AnyHttpUrl, BaseModel, EmailStr
 
 
 class AlternativeIdentifier(BaseModel):

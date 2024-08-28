@@ -1,5 +1,6 @@
-from pydantic import BaseModel
 from typing import Optional
+
+from pydantic import BaseModel
 
 from schemas.common.oag.provenance import Provenance
 
@@ -16,6 +17,7 @@ class Country(BaseModel):
         provenance (Provenance):
             The provenance information for the country.
     """
+
     code: str
     label: str
     provenance: Optional[Provenance]

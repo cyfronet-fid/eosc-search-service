@@ -1,17 +1,17 @@
 """Software expected input schema"""
 
-from pydantic import AnyHttpUrl, BaseModel
 from typing import List, Optional, Union
+
+from pydantic import AnyHttpUrl, BaseModel
 
 from schemas.common.oag.affiliation import Affiliation
 from schemas.common.oag.author import Author
 from schemas.common.oag.best_access_right import BestAccessRight
-from schemas.common.oag.key_value_model import KeyValueModel
 from schemas.common.oag.context import Context
 from schemas.common.oag.country import Country
-from schemas.common.oag.eosc_if import EoscIf
 from schemas.common.oag.indicator import Indicator
 from schemas.common.oag.instance import Instance
+from schemas.common.oag.key_value_model import KeyValueModel
 from schemas.common.oag.language import Language
 from schemas.common.oag.pid import PID
 from schemas.common.oag.project import Project
@@ -48,8 +48,8 @@ class SoftwareInputSchema(BaseModel):
             A list of documentation URLs.
         embargo_end_date (Optional[str]):
             The end date of the embargo.
-        eosc_if (Optional[EoscIf]):
-            The EOSC IF details.
+        eosc_if (Optional[List[str]]):
+            The EOSC IF details for the software.
         format (Optional[List[str]]):
             A list of formats.
         id (str):
@@ -89,6 +89,7 @@ class SoftwareInputSchema(BaseModel):
         type (Optional[str]):
             The type of the software.
     """
+
     affiliation: Optional[List[Affiliation]]
     author: Optional[List[Author]]
     best_access_right: Optional[BestAccessRight]
@@ -101,7 +102,7 @@ class SoftwareInputSchema(BaseModel):
     description: Optional[List[str]]
     documentation_url: Optional[List[AnyHttpUrl]]
     embargo_end_date: Optional[str]
-    eosc_if: Optional[EoscIf]
+    eosc_if: Optional[List[str]]
     format: Optional[List[str]]
     id: str
     indicator: Optional[Indicator]
@@ -113,7 +114,7 @@ class SoftwareInputSchema(BaseModel):
     original_id: Optional[List[str]]
     pid: Optional[List[PID]]
     programming_language: Optional[List[str]]
-    projects:  Optional[List[Project]]
+    projects: Optional[List[Project]]
     publication_date: Optional[str]
     publisher: Optional[str]
     relations: Optional[List[Relation]]

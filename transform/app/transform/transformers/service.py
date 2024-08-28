@@ -9,14 +9,10 @@ from pyspark.sql.types import (
 )
 
 from app.settings import settings
-from schemas.old.output.service import service_output_schema
-from schemas.properties.data import (
-    BEST_ACCESS_RIGHT,
-    OPEN_ACCESS,
-    POPULARITY,
-)
 from app.transform.transformers.base.marketplace import MarketplaceBaseTransformer
 from app.transform.utils.utils import sort_schema
+from schemas.old.output.service import service_output_schema
+from schemas.properties.data import BEST_ACCESS_RIGHT, OPEN_ACCESS, POPULARITY
 
 
 class ServiceTransformer(MarketplaceBaseTransformer):

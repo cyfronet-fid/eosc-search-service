@@ -12,5 +12,6 @@ class ArticleProcessingCharge(BaseModel):
         amount (str):
             The amount of the article processing charge.
     """
+
     currency: str
     amount: str

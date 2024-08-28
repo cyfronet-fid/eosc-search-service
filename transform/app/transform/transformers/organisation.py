@@ -7,22 +7,22 @@ from pyspark.sql.functions import lit
 from pyspark.sql.types import ArrayType, StringType, StructField, StructType
 
 from app.settings import settings
-from schemas.properties.data import (
-    TYPE,
-    LEGALSHORTNAME,
-    ABBREVIATION,
-    URL,
-    WEBSITEURL,
-    ALTERNATIVE_NAMES,
-    COUNTRY,
-    PIDS,
-    ALTERNATIVENAMES,
-    PID,
-    LEGALNAME,
-    TITLE,
-)
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.utils import sort_schema
+from schemas.properties.data import (
+    ABBREVIATION,
+    ALTERNATIVE_NAMES,
+    ALTERNATIVENAMES,
+    COUNTRY,
+    LEGALNAME,
+    LEGALSHORTNAME,
+    PID,
+    PIDS,
+    TITLE,
+    TYPE,
+    URL,
+    WEBSITEURL,
+)
 
 
 class OrganisationTransformer(BaseTransformer):

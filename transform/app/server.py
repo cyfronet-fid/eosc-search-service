@@ -2,8 +2,8 @@
 
 import logging.config
 
-from fastapi import FastAPI
 import sentry_sdk
+from fastapi import FastAPI
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.redis import RedisIntegration

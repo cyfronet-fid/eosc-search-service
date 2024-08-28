@@ -1,8 +1,10 @@
 """Project expected db schema"""
 
-from pydantic import BaseModel, AnyHttpUrl
-from typing import List
 from datetime import datetime
+from typing import List
+
+from pydantic import AnyHttpUrl, BaseModel
+
 from schemas.input.project import Funding, Granted, H2020Programme
 
 

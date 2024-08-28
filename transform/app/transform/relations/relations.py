@@ -6,8 +6,8 @@ from app.transform.relations.process_data import (
     process_org_proj_rel,
     process_result_relations,
 )
-from schemas.properties.data import SELECTED_COLUMNS
 from app.transform.utils.delete import remove_files
+from schemas.properties.data import SELECTED_COLUMNS
 
 
 def process_relations():

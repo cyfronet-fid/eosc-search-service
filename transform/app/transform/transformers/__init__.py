@@ -32,6 +32,7 @@ Example:
 """
 
 from app.settings import settings
+
 from .bundle import BundleTransformer
 from .catalogue import CatalogueTransformer
 from .data_source import DataSourceTransformer

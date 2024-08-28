@@ -10,6 +10,8 @@ from pyspark.sql.types import (
 )
 
 from app.settings import settings
+from app.transform.transformers.base.marketplace import MarketplaceBaseTransformer
+from app.transform.utils.utils import sort_schema
 from schemas.old.output.data_source import data_source_output_schema
 from schemas.properties.data import (
     BEST_ACCESS_RIGHT,
@@ -18,8 +20,6 @@ from schemas.properties.data import (
     PERSIST_ID_SYS_ENTITY_TYPE_SCHEMES,
     POPULARITY,
 )
-from app.transform.transformers.base.marketplace import MarketplaceBaseTransformer
-from app.transform.utils.utils import sort_schema
 
 
 class DataSourceTransformer(MarketplaceBaseTransformer):

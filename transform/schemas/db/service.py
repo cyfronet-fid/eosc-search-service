@@ -1,10 +1,12 @@
 """Service expected db schema"""
 
-from pydantic import BaseModel, AnyHttpUrl, EmailStr
-from typing import List, Union
 from datetime import datetime
-from schemas.common.url import BasicURL
+from typing import List, Union
+
+from pydantic import AnyHttpUrl, BaseModel, EmailStr
+
 from schemas.common.public_contact import PublicContact
+from schemas.common.url import BasicURL
 
 
 class ServiceDBSchema(BaseModel):

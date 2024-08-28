@@ -11,5 +11,6 @@ class KeyValueModel(BaseModel):
         value (str):
             The value, name of the KeyValueModel.
     """
+
     key: str
     value: str

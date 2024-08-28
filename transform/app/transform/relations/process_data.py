@@ -6,6 +6,13 @@ import pandas as pd
 from tqdm import tqdm
 
 from app.settings import settings
+from app.transform.utils.json_io import read_json, write_json
+from app.transform.utils.parquet_io import read_parquet, write_parquet
+from app.transform.utils.utils import (
+    create_file_path_column,
+    drop_columns_pandas,
+    group_relations,
+)
 from schemas.properties.data import (
     ADDITIONAL_COLUMNS,
     ID,
@@ -16,13 +23,6 @@ from schemas.properties.data import (
     RELATED_PROJECT_IDS,
     RELATED_PUBLICATION_IDS,
     RELATED_SOFTWARE_IDS,
-)
-from app.transform.utils.json_io import read_json, write_json
-from app.transform.utils.parquet_io import read_parquet, write_parquet
-from app.transform.utils.utils import (
-    create_file_path_column,
-    drop_columns_pandas,
-    group_relations,
 )
 
 logger = getLogger(__name__)

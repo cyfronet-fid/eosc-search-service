@@ -1,8 +1,9 @@
 """Interoperability Guideline expected input schema"""
 
-from pydantic import BaseModel
-from typing import List, Dict
 from datetime import datetime
+from typing import Dict, List
+
+from pydantic import BaseModel
 
 
 class GuidelineInputSchema(BaseModel):

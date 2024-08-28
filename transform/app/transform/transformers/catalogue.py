@@ -5,6 +5,7 @@ from pyspark.sql.functions import col, lit
 from pyspark.sql.types import StringType, StructType
 
 from app.settings import settings
+from app.transform.transformers.base.base import BaseTransformer
 from schemas.old.output.catalogue import catalogue_output_schema
 from schemas.properties.data import (
     CREATED_AT,
@@ -16,7 +17,6 @@ from schemas.properties.data import (
     TITLE,
     TYPE,
 )
-from app.transform.transformers.base.base import BaseTransformer
 
 
 class CatalogueTransformer(BaseTransformer):
