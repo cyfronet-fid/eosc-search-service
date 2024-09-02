@@ -9,6 +9,7 @@ from schemas.common.oag.author import Author
 from schemas.common.oag.best_access_right import BestAccessRight
 from schemas.common.oag.context import Context
 from schemas.common.oag.country import Country
+from schemas.common.oag.eosc_if import EoscIf
 from schemas.common.oag.geolocation import GeoLocation
 from schemas.common.oag.indicator import Indicator
 from schemas.common.oag.instance import Instance
@@ -47,7 +48,7 @@ class DatasetInputSchema(BaseModel):
             A list of descriptions for the dataset.
         embargo_end_date (Optional[str]):
             The end date of the embargo for the dataset.
-        eosc_if (Optional[List[str]]):
+        eosc_if (Optional[EoscIf]):
             The EOSC IF details for the dataset.
         format (Optional[List[str]]):
             A list of formats for the dataset.
@@ -104,7 +105,7 @@ class DatasetInputSchema(BaseModel):
     date_of_collection: Optional[str]
     description: Optional[List[str]]
     embargo_end_date: Optional[str]
-    eosc_if: Optional[List[str]]
+    eosc_if: Optional[EoscIf]
     format: Optional[List[str]]
     geolocation: Optional[List[GeoLocation]]
     id: str

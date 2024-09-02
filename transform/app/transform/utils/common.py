@@ -11,7 +11,15 @@ from pyspark.sql import DataFrame
 from pyspark.sql.functions import col, lit, to_date, when
 from pyspark.sql.utils import AnalysisException
 
-from app.mappings.datasources_pids import datasource_pids_mapping, services_pids
+from app.services.mp_pc.data import get_data_source_pids
+from app.mappings.datasources_pids import (
+    datasource_pids_mapping,
+    services_pids,
+)
+from app.mappings.scientific_domain import (
+    mp_sd_structure,
+    scientific_domains_mapping,
+)
 from app.mappings.mappings import (
     FIGSHARE,
     OPEN_ACCESS_,
@@ -21,9 +29,6 @@ from app.mappings.mappings import (
     publisher_mapping,
     unified_categories_mapping,
 )
-from app.mappings.scientific_doamin import mp_sd_structure, scientific_domains_mapping
-from app.services.mp_pc.data import get_data_source_pids
-from app.transform.utils.utils import extract_digits_and_trim
 from schemas.properties.data import (
     AFFILIATION,
     AUTHOR,
@@ -69,6 +74,7 @@ from schemas.properties.data import (
     URL,
     VIEWS,
 )
+from app.transform.utils.utils import extract_digits_and_trim
 
 logger = getLogger(__name__)
 

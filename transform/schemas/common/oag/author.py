@@ -22,6 +22,7 @@ class Author(BaseModel):
         pid (Optional[Dict[str, Union[PID, Provenance]]]):
             An optional dictionary containing the persistent identifier (PID)
             information for the author. This dictionary must have two keys:
+
             - "id": Represents the PID, which includes information like the scheme
               and the value of the identifier.
             - "provenance": Represents the provenance information, including the
