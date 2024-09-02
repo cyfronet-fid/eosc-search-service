@@ -18,9 +18,10 @@ from pyspark.sql.types import (
     StructType,
 )
 
-from app.mappings.scientific_doamin import sd_training_temp_mapping
 from app.services.mp_pc.data import get_providers_mapping
 from app.settings import settings
+from app.mappings.scientific_domain import sd_training_temp_mapping
+from schemas.old.output.training import training_output_schema
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.common import (
     create_open_access,
@@ -30,7 +31,6 @@ from app.transform.utils.common import (
     transform_date,
 )
 from app.transform.utils.utils import sort_schema
-from schemas.old.output.training import training_output_schema
 from schemas.properties.data import *
 
 logger = getLogger(__name__)
