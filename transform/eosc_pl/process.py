@@ -9,8 +9,10 @@ if __name__ == "__main__":
     conf = get_config()
     # Load
     datasets_raw = pd_load_datasets(conf[DATASET_ADDRESS])
+
     # Transform
     datasets = trans.transformers[DATASET]()(datasets_raw)
+
     # Send
     datasets_json = datasets.to_json(orient="records")
     send_json_string_to_solr(datasets_json, conf)

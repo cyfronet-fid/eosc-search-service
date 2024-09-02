@@ -1,7 +1,7 @@
 # pylint: disable=invalid-name, line-too-long
 """Dataset transformer"""
 from logging import getLogger
-from pandas import DataFrame
+from pandas import DataFrame, to_datetime
 from eosc_pl.transform.transformers.pd.base.base import BaseTransformer
 
 logger = getLogger(__name__)
@@ -26,6 +26,9 @@ class DatasetTransformer(BaseTransformer):
     def transform(self, df: DataFrame) -> DataFrame:
         """Apply df transformations"""
         self.add_tg_fields(df)
+        self.transform_global_id(df)
+        df['datasource_pids'] = [["eosc.cyfronet.rodbuk"]] * len(df)
+        df['publication_year'] = to_datetime(df['published_at']).dt.year
         self.check_subjects_empty(df)
         self.serialize(df, ["contacts", "publications"])
 
@@ -34,7 +37,7 @@ class DatasetTransformer(BaseTransformer):
     def cast_columns(self, df: DataFrame) -> DataFrame:
         """Cast columns"""
         # String -> array
-        self.map_str_to_arr(df, ["title", "url", "description"])
+        self.map_str_to_arr(df, ["title", "url", "description", "doi"])
 
         return df
 
@@ -48,7 +51,7 @@ class DatasetTransformer(BaseTransformer):
         """Columns to rename. Keys are mapped to the values"""
         return {
             "name": "title",
-            "global_id": "id",
+            "global_id": "doi",
             "published_at": "publication_date",
             "citationHtml": "citation_html",
             "identifier_of_dataverse": "dataverse_id",
@@ -62,6 +65,13 @@ class DatasetTransformer(BaseTransformer):
             "updatedAt": "updated_at",
             "authors": AUTHOR_NAMES,
         }
+
+    @staticmethod
+    def transform_global_id(df: DataFrame) -> None:
+        """Transform global_id (doi) to format used in our application.
+        Simply remove 'doi:' form the beginning."""
+        df['global_id'] = df['global_id'].str.replace('^doi:', '', regex=True)
+        df['id'] = df['global_id']  # We still need unique identifier
 
     @staticmethod
     def add_tg_fields(df: DataFrame) -> None:
