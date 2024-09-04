@@ -187,7 +187,6 @@ class TransformSettings(GlobalSettings):
         INPUT_SCHEMA = "INPUT_SCHEMA"
         PATH = "PATH"
         ADDRESS = "ADDRESS"
-
         mp_api = str(self.MP_API_ADDRESS) + "/api/v1/ess/"
 
         collections = {
