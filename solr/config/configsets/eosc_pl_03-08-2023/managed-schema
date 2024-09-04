@@ -471,6 +471,7 @@
   <field name="publication_year" type="pint" required="false"/>
   <field name="publications" type="text_general" docValues="false" indexed="true" stored="true"/>
   <field name="publisher" type="string" required="false"/>
+  <field name="scientific_domains" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="storage_id" type="string" required="false" useDocValuesAsStored="true"/>
   <field name="subjects" type="strings" required="false"/>
   <field name="title" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
