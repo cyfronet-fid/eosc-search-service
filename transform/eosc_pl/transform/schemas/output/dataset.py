@@ -29,4 +29,5 @@
     author_names_tg: arr[str],
     publications: str,
     producers: arr[str],
+    scientific_domains: arr[str],
 """

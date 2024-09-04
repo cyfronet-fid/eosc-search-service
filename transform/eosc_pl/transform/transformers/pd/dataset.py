@@ -3,6 +3,7 @@
 from logging import getLogger
 from pandas import DataFrame, to_datetime
 from eosc_pl.transform.transformers.pd.base.base import BaseTransformer
+from eosc_pl.transform.utils.sd_mapping import harvest_scientific_domains
 
 logger = getLogger(__name__)
 
@@ -30,6 +31,7 @@ class DatasetTransformer(BaseTransformer):
         df['datasource_pids'] = [["eosc.cyfronet.rodbuk"]] * len(df)
         df['country'] = [["PL"]] * len(df)
         df['publication_year'] = to_datetime(df['published_at']).dt.year
+        df['scientific_domains'] = harvest_scientific_domains(df)
         self.check_subjects_empty(df)
         self.serialize(df, ["contacts", "publications"])
 
@@ -43,9 +45,9 @@ class DatasetTransformer(BaseTransformer):
         return df
 
     @property
-    def cols_to_drop(self) -> tuple | None:
+    def cols_to_drop(self) -> str | None:
         """Drop those columns from the dataframe"""
-        return None
+        return "metadataBlocks"
 
     @property
     def cols_to_rename(self) -> dict[str, str] | None:

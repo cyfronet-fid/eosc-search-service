@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def pd_load_datasets(url: str) -> pd.DataFrame | None:
     """Load datasets from url as pandas df"""
     try:
-        response = requests.get(url, timeout=20)
+        response = requests.get(url, timeout=200)
         response.raise_for_status()  # Raise an exception for any unsuccessful response
         data = response.json()["data"]["items"]
         data = pd.DataFrame(data)

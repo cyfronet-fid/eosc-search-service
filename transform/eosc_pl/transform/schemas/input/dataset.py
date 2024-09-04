@@ -1,4 +1,5 @@
 # Dataset input schema
+# TODO include citation:*
 """
     name: str,
     type: str,
