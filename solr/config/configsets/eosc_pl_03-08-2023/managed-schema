@@ -454,6 +454,7 @@
   <field name="citation" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="citation_html" type="text_general" docValues="false" indexed="true" stored="true"/>
   <field name="contacts" type="text_general" tokenized="false" uninvertible="false" indexed="false" required="false"/>
+  <field name="country" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="created_at" type="pdate" required="false" stored="false" useDocValuesAsStored="true"/>
   <field name="datasource_pids" type="strings" required="false"/>
   <field name="dataverse_id" type="string" required="false" useDocValuesAsStored="true"/>
