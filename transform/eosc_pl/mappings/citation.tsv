@@ -1,0 +1,450 @@
+#metadataBlock	name	dataverseAlias	displayName	blockURI												
+	citation		Citation Metadata	https://dataverse.org/schema/citation/												
+#datasetField	name	title	description	watermark	 fieldType	displayOrder	displayFormat	advancedSearchField	allowControlledVocabulary	allowmultiples	facetable	displayoncreate	required	parent	metadatablock_id	termURI
+	title	Title	Full title by which the Dataset is known.	Enter title...	text	0		TRUE	FALSE	FALSE	FALSE	TRUE	TRUE		citation	http://purl.org/dc/terms/title
+	alternativeTitle	Alternative Title	A title by which the work is commonly referred, or an abbreviation of the title.		text	1		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		citation	http://purl.org/dc/terms/alternative
+	author	Author	The person(s), corporate body(ies), or agency(ies) responsible for creating the work.		none	2		FALSE	FALSE	TRUE	FALSE	TRUE	TRUE		citation	http://purl.org/dc/terms/creator
+	authorName	Name	The author's Family Name, Given Name or the name of the organization responsible for this Dataset.	FamilyName, GivenName or Organization	text	3	#VALUE	TRUE	FALSE	FALSE	TRUE	TRUE	TRUE	author	citation	
+	authorAffiliation	Affiliation	The organization with which the author is affiliated.		text	4	(#VALUE)	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	author	citation	
+	authorIdentifierScheme	Identifier Scheme	Name of the identifier scheme (ORCID, ISNI).		text	5	- #VALUE:	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	author	citation	http://purl.org/spar/datacite/AgentIdentifierScheme
+	authorIdentifier	Identifier	Uniquely identifies an individual author or organization, according to various schemes.		text	6	#VALUE	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE	author	citation	http://purl.org/spar/datacite/AgentIdentifier
+	contributor	Contributor			none	7		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		citation	http://purl.org/dc/terms/contributor
+	contributorName	Name			text	8		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	contributor	citation	
+	contributorAffiliation	Affiliation			text	9	(#VALUE)	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	contributor	citation	
+	contributorIdScheme	ID Scheme			text	10	- #VALUE:	FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	contributor	citation	http://purl.org/spar/datacite/AgentIdentifierScheme
+	contributorId	ID			text	11		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	contributor	citation	http://purl.org/spar/datacite/AgentIdentifier
+	datasetContact	Contact	The contact(s) for this Dataset.		none	12		FALSE	FALSE	TRUE	FALSE	TRUE	TRUE		citation	
+	datasetContactName	Name	The contact's Family Name, Given Name or the name of the organization.	FamilyName, GivenName or Organization	text	13	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	datasetContact	citation	
+	datasetContactAffiliation	Affiliation	The organization with which the contact is affiliated.		text	14	(#VALUE)	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	datasetContact	citation	
+	datasetContactEmail	E-mail	The e-mail address(es) of the contact(s) for the Dataset. This will not be displayed.		email	15	#EMAIL	FALSE	FALSE	FALSE	FALSE	TRUE	TRUE	datasetContact	citation	
+	dsDescription	Description	A summary describing the purpose, nature, and scope of the Dataset.		none	16		FALSE	FALSE	TRUE	FALSE	TRUE	TRUE		citation	
+	dsDescriptionValue	Text	A summary describing the purpose, nature, and scope of the Dataset.		textbox	17	#VALUE	TRUE	FALSE	FALSE	FALSE	TRUE	TRUE	dsDescription	citation	
+	abstract	Abstract	Project description		none	18		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE		citation	
+	abstractField	A summary of the project			textbox	19	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	abstract	citation	
+	keyword	Keyword	Key terms that describe important aspects of the Dataset.		none	20		FALSE	FALSE	TRUE	FALSE	TRUE	TRUE		citation	
+	mein2023				none	21		FALSE	FALSE	TRUE	FALSE	TRUE	TRUE		citation	
+	subjectField	Field			text	22	#VALUE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	mein2023	citation	
+	oecd				none	23		FALSE	FALSE	TRUE	FALSE	TRUE	TRUE		citation	
+	oecdList	Subject	The area of study relevant to the Dataset		text	24		TRUE	TRUE	FALSE	FALSE	TRUE	TRUE	oecd	citation	http://purl.org/dc/terms/subject
+	keywordValue	Term	Key terms that describe important aspects of the Dataset. Can be used for building keyword indexes and for classification and retrieval purposes. A controlled vocabulary can be employed. The vocab attribute is provided for specification of the controlled vocabulary in use, such as LCSH, MeSH, or others. The vocabURI attribute specifies the location for the full controlled vocabulary.		text	25	#VALUE	TRUE	FALSE	FALSE	TRUE	TRUE	TRUE	keyword	citation	
+	publication	Related Publication	Publications that use the data from this Dataset. The full list of Related Publications will be displayed on the metadata tab.		none	26		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		citation	http://purl.org/dc/terms/isReferencedBy
+	publicationCitation	Citation	The full bibliographic citation for this related publication.		text	27		TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	publication	citation	http://purl.org/dc/terms/bibliographicCitation
+	publicationAuthor	Author			text	28		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	publication	citation	
+	publicationTitle	Title			text	29		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	publication	citation	
+	publicationIDType	ID Type	The type of digital identifier used for this publication (e.g., Digital Object Identifier (DOI)).		text	30		TRUE	TRUE	FALSE	FALSE	TRUE	FALSE	publication	citation	http://purl.org/spar/datacite/ResourceIdentifierScheme
+	publicationIDNumber	ID Number	The identifier for the selected ID type.		url	31	<a href='#VALUE'>#VALUE</a>	TRUE	FALSE	FALSE	FALSE	TRUE	FALSE	publication	citation	http://purl.org/spar/datacite/ResourceIdentifier
+	publicationURL	URL	Link to the publication web page (e.g., journal article page, archive record page, or other).	Enter full URL, starting with http://	url	32	<a href='#VALUE'>#VALUE</a>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	publication	citation	https://schema.org/distribution
+	relatedDatasetsMain	Related datasets	Any Datasets that are related to this Dataset, such as previous research on this subject.		text	33		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		citation	
+	relatedDatasets	Type of relation	Type of relatation to other dataset.		text	34		FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	relatedDatasetsMain	citation	
+	relatedDatasetsAuthor	Author	Author or Authors of the related dataset.		text	35		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	relatedDatasetsMain	citation	
+	relatedDatasetsTitle	Title	Title of the related dataset		text	36		FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	relatedDatasetsMain	citation	
+	relatedDatasetsIDType	Id type	The type of digital identifier used for this dataset (e.g., Digital Object Identifier (DOI)).		text	37		FALSE	TRUE	FALSE	FALSE	TRUE	FALSE	relatedDatasetsMain	citation	
+	relatedDatasetsID	Id	The identifier for the selected ID type.		url	38	<a href='#VALUE'>#VALUE</a>	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	relatedDatasetsMain	citation	
+	relatedDatasetsURL	URL	Link to the dataset web page (e.g. other data repository).		url	39	<a href='#VALUE'>#VALUE</a>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	relatedDatasetsMain	citation	
+	domain	Notes	Additional important information about the Dataset.		textbox	40		TRUE	FALSE	FALSE	FALSE	TRUE	FALSE		citation	
+	languageMain				none	41		FALSE	FALSE	TRUE	TRUE	TRUE	TRUE		citation	
+	language	Language	Language of the Dataset		text	42		TRUE	TRUE	FALSE	TRUE	FALSE	TRUE	languageMain	citation	http://purl.org/dc/terms/language
+	producer	Producer	Person or organization with the financial or administrative responsibility over this Dataset		none	43		FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		citation	
+	producerName	Name	Producer name	FamilyName, GivenName or Organization	text	44	#VALUE	TRUE	FALSE	FALSE	TRUE	TRUE	FALSE	producer	citation	
+	producerAffiliation	Affiliation	The organization with which the producer is affiliated.		text	45	(#VALUE)	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	producer	citation	
+	producerAbbreviation	Abbreviation	The abbreviation by which the producer is commonly known. (ex. IQSS, ICPSR)		text	46	(#VALUE)	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	producer	citation	
+	producerURL	URL	Producer URL points to the producer's web presence, if appropriate. Enter an absolute URL where the producer's web site is found, such as http://www.my.org.  	Enter full URL, starting with http://	url	47	<a href='#VALUE'>#VALUE</a>	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	producer	citation	
+	funding	Funding	External founding of a project		text	48		TRUE	FALSE	TRUE	FALSE	TRUE	FALSE		citation	
+	fundingAgency	Funding institution	The institution granting external financing of a project		text	49	#VALUE:	TRUE	TRUE	FALSE	FALSE	FALSE	FALSE	funding	citation	
+	fundingName	Grant name			text	50	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	funding	citation	
+	fundingID	Grant ID			text	51	#VALUE	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	funding	citation	
+	grantInfo	Grant Information	Additional information about the awarded grant		url	52	<a href='#VALUE'>#VALUE</a>	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	funding	citation	
+	depositor	Depositor	The person (Family Name, Given Name) or the name of the organization that deposited this Dataset to the repository.		text	53		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		citation	
+	dateOfDeposit	Deposit Date	Date that the Dataset was deposited into the repository.	YYYY-MM-DD	date	54		FALSE	FALSE	FALSE	TRUE	FALSE	FALSE		citation	http://purl.org/dc/terms/dateSubmitted
+	dateOfCollection	Date of Collection	Contains the date(s) when the data were collected.		none	55	;	FALSE	FALSE	TRUE	FALSE	TRUE	FALSE		citation	
+	dateOfCollectionStart	Start	Date when the data collection started.	YYYY-MM-DD	date	56	#NAME: #VALUE 	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	dateOfCollection	citation	
+	dateOfCollectionEnd	End	Date when the data collection ended.	YYYY-MM-DD	date	57	#NAME: #VALUE 	FALSE	FALSE	FALSE	FALSE	TRUE	FALSE	dateOfCollection	citation	
+	kindOfDataMain	Kind of Data			none	58		FALSE	FALSE	TRUE	FALSE	TRUE	TRUE		citation	
+	kindOfData	Kind of Data	Type of data included in the file: survey data, census/enumeration data, aggregate data, clinical data, event/transaction data, program source code, machine-readable text, administrative records data, experimental data, psychological test, textual data, coded textual, coded documents, time budget diaries, observation data/ratings, process-produced data, or other.		text	59	#VALUE	TRUE	TRUE	FALSE	TRUE	TRUE	TRUE	kindOfDataMain	citation	http://rdf-vocabulary.ddialliance.org/discovery#kindOfData
+	topicClassification	Topic Classification	Indicates a broad, important topic or subject that the Dataset covers and information about any controlled vocabulary used		none	60		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		citation	
+	topicClassValue	Term	A topic or subject term		text	61	#VALUE	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	topicClassification	citation	
+	topicClassVocab	Controlled Vocabulary Name	The controlled vocabulary used for the keyword term (e.g. LCSH, MeSH)		text	62	(#VALUE)	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	topicClassification	citation	
+	topicClassVocabURI	Controlled Vocabulary URL	The URL where one can access information about the term's controlled vocabulary	https://	url	63	"<a href=""#VALUE"" target=""_blank"" rel=""noopener"">#VALUE</a>"	FALSE	FALSE	FALSE	FALSE	FALSE	FALSE	topicClassification	citation	
+	subject				text	64		FALSE	FALSE	FALSE	FALSE	FALSE	FALSE		citation	
+#controlledVocabulary	DatasetField	Value	identifier	displayOrder												
+	subjectField	11		0												
+	subjectField	12		1												
+	subjectField	13		2												
+	subjectField	14		3												
+	subjectField	15		4												
+	subjectField	16		5												
+	subjectField	17		6												
+	subjectField	18		7												
+	subjectField	19		8												
+	subjectField	21		9												
+	subjectField	22		10												
+	subjectField	23		11												
+	subjectField	24		12												
+	subjectField	25		13												
+	subjectField	26		14												
+	subjectField	27		15												
+	subjectField	28		16												
+	subjectField	29		17												
+	subjectField	210		18												
+	subjectField	211		19												
+	subjectField	31		20												
+	subjectField	32		21												
+	subjectField	33		22												
+	subjectField	34		23												
+	subjectField	35		24												
+	subjectField	41		25												
+	subjectField	51		26												
+	subjectField	52		27												
+	subjectField	53		28												
+	subjectField	54		29												
+	subjectField	61		30												
+	subjectField	62		31												
+	subjectField	63		32												
+	subjectField	64		33												
+	subjectField	65		34												
+	subjectField	66		35												
+	subjectField	67		36												
+	subjectField	68		37												
+	subjectField	69		38												
+	subjectField	610		39												
+	subjectField	611		40												
+	subjectField	612		41												
+	subjectField	71		42												
+	subjectField	72		43												
+	subjectField	73		44												
+	subjectField	74		45												
+	subjectField	75		46												
+	subjectField	76		47												
+	subjectField	77		48												
+	subjectField	78		49												
+	subjectField	81		50												
+	subjectField	82		51												
+	subjectField	91		52												
+	subjectField	101		53												
+	subjectField	102		54												
+	subjectField	103		55												
+	authorIdentifierScheme	ORCID		0												
+	authorIdentifierScheme	ISNI		1												
+	authorIdentifierScheme	LCNA		2												
+	authorIdentifierScheme	VIAF		3												
+	authorIdentifierScheme	GND		4												
+	authorIdentifierScheme	DAI		5												
+	authorIdentifierScheme	ResearcherID		6												
+	authorIdentifierScheme	ScopusID		7												
+	contributorIdScheme	ORCID		0												
+	contributorIdScheme	ISNI		1												
+	contributorIdScheme	LCNA		2												
+	contributorIdScheme	VIAF		3												
+	contributorIdScheme	GND		4												
+	contributorIdScheme	DAI		5												
+	contributorIdScheme	ResearcherID		6												
+	contributorIdScheme	ScopusID		7												
+	language	English		0												
+	language	Polish		1												
+	language	French		2												
+	language	Spanish, Castilian		3												
+	language	German		4												
+	language	Russian		5												
+	language	Italian		6												
+	language	Abkhaz		7												
+	language	Afar		8												
+	language	Afrikaans		9												
+	language	Akan		10												
+	language	Albanian		11												
+	language	Amharic		12												
+	language	Arabic		13												
+	language	Aragonese		14												
+	language	Armenian		15												
+	language	Assamese		16												
+	language	Avaric		17												
+	language	Avestan		18												
+	language	Aymara		19												
+	language	Azerbaijani		20												
+	language	Bambara		21												
+	language	Bashkir		22												
+	language	Basque		23												
+	language	Belarusian		24												
+	language	Bengali, Bangla		25												
+	language	Bihari		26												
+	language	Bislama		27												
+	language	Bosnian		28												
+	language	Breton		29												
+	language	Bulgarian		30												
+	language	Burmese		31												
+	language	Catalan,Valencian		32												
+	language	Chamorro		33												
+	language	Chechen		34												
+	language	Chichewa, Chewa, Nyanja		35												
+	language	Chinese		36												
+	language	Chuvash		37												
+	language	Cornish		38												
+	language	Corsican		39												
+	language	Cree		40												
+	language	Croatian		41												
+	language	Czech		42												
+	language	Danish		43												
+	language	Divehi, Dhivehi, Maldivian		44												
+	language	Dutch		45												
+	language	Dzongkha		46												
+	language	Esperanto		47												
+	language	Estonian		48												
+	language	Ewe		49												
+	language	Faroese		50												
+	language	Fijian		51												
+	language	Finnish		52												
+	language	Fula, Fulah, Pulaar, Pular		53												
+	language	Galician		54												
+	language	Georgian		55												
+	language	Greek (modern)		56												
+	language	Guaraní		57												
+	language	Gujarati		58												
+	language	Haitian, Haitian Creole		59												
+	language	Hausa		60												
+	language	Hebrew (modern)		61												
+	language	Herero		62												
+	language	Hindi		63												
+	language	Hiri Motu		64												
+	language	Hungarian		65												
+	language	Interlingua		66												
+	language	Indonesian		67												
+	language	Interlingue		68												
+	language	Irish		69												
+	language	Igbo		70												
+	language	Inupiaq		71												
+	language	Ido		72												
+	language	Icelandic		73												
+	language	Inuktitut		74												
+	language	Japanese		75												
+	language	Javanese		76												
+	language	Kalaallisut, Greenlandic		77												
+	language	Kannada		78												
+	language	Kanuri		79												
+	language	Kashmiri		80												
+	language	Kazakh		81												
+	language	Khmer		82												
+	language	Kikuyu, Gikuyu		83												
+	language	Kinyarwanda		84												
+	language	Kyrgyz		85												
+	language	Komi		86												
+	language	Kongo		87												
+	language	Korean		88												
+	language	Kurdish		89												
+	language	Kwanyama, Kuanyama		90												
+	language	Latin		91												
+	language	Luxembourgish, Letzeburgesch		92												
+	language	Ganda		93												
+	language	Limburgish, Limburgan, Limburger		94												
+	language	Lingala		95												
+	language	Lao		96												
+	language	Lithuanian		97												
+	language	Luba-Katanga		98												
+	language	Latvian		99												
+	language	Manx		100												
+	language	Macedonian		101												
+	language	Malagasy		102												
+	language	Malay		103												
+	language	Malayalam		104												
+	language	Maltese		105												
+	language	Māori		106												
+	language	Marathi (Marāṭhī)		107												
+	language	Marshallese		108												
+	language	Mixtepec Mixtec		109												
+	language	Mongolian		110												
+	language	Nauru		111												
+	language	Navajo, Navaho		112												
+	language	Northern Ndebele		113												
+	language	Nepali		114												
+	language	Ndonga		115												
+	language	Norwegian Bokmål		116												
+	language	Norwegian Nynorsk		117												
+	language	Norwegian		118												
+	language	Nuosu		119												
+	language	Southern Ndebele		120												
+	language	Occitan		121												
+	language	Ojibwe, Ojibwa		122												
+	language	Old Church Slavonic,Church Slavonic,Old Bulgarian		123												
+	language	Oromo		124												
+	language	Oriya		125												
+	language	Ossetian, Ossetic		126												
+	language	Panjabi, Punjabi		127												
+	language	Pāli		128												
+	language	Persian (Farsi)		129												
+	language	Pashto, Pushto		130												
+	language	Portuguese		131												
+	language	Quechua		132												
+	language	Romansh		133												
+	language	Kirundi		134												
+	language	Romanian		135												
+	language	Sanskrit (Saṁskṛta)		136												
+	language	Sardinian		137												
+	language	Sindhi		138												
+	language	Northern Sami		139												
+	language	Samoan		140												
+	language	Sango		141												
+	language	Serbian		142												
+	language	Scottish Gaelic, Gaelic		143												
+	language	Shona		144												
+	language	Sinhala, Sinhalese		145												
+	language	Slovak		146												
+	language	Slovene		147												
+	language	Somali		148												
+	language	Southern Sotho		149												
+	language	Sundanese		150												
+	language	Swahili		151												
+	language	Swati		152												
+	language	Swedish		153												
+	language	Tamil		154												
+	language	Telugu		155												
+	language	Tajik		156												
+	language	Thai		157												
+	language	Tigrinya		158												
+	language	Tibetan Standard, Tibetan, Central		159												
+	language	Turkmen		160												
+	language	Tagalog		161												
+	language	Tswana		162												
+	language	Tonga (Tonga Islands)		163												
+	language	Turkish		164												
+	language	Tsonga		165												
+	language	Tatar		166												
+	language	Twi		167												
+	language	Tahitian		168												
+	language	Uyghur, Uighur		169												
+	language	Ukrainian		170												
+	language	Urdu		171												
+	language	Uzbek		172												
+	language	Venda		173												
+	language	Vietnamese		174												
+	language	Volapük		175												
+	language	Walloon		176												
+	language	Welsh		177												
+	language	Wolof		178												
+	language	Western Frisian		179												
+	language	Xhosa		180												
+	language	Yiddish		181												
+	language	Yoruba		182												
+	language	Zhuang, Chuang		183												
+	language	Zulu		184												
+	language	Not applicable		185												
+	oecdList	11		0												
+	oecdList	12		1												
+	oecdList	13		2												
+	oecdList	14		3												
+	oecdList	15		4												
+	oecdList	16		5												
+	oecdList	17		6												
+	oecdList	21		7												
+	oecdList	22		8												
+	oecdList	23		9												
+	oecdList	24		10												
+	oecdList	25		11												
+	oecdList	26		12												
+	oecdList	27		13												
+	oecdList	28		14												
+	oecdList	29		15												
+	oecdList	210		16												
+	oecdList	211		17												
+	oecdList	31		18												
+	oecdList	32		19												
+	oecdList	33		20												
+	oecdList	34		21												
+	oecdList	35		22												
+	oecdList	41		23												
+	oecdList	42		24												
+	oecdList	43		25												
+	oecdList	44		26												
+	oecdList	45		27												
+	oecdList	51		28												
+	oecdList	52		29												
+	oecdList	53		30												
+	oecdList	54		31												
+	oecdList	55		32												
+	oecdList	56		33												
+	oecdList	57		34												
+	oecdList	58		35												
+	oecdList	59		36												
+	oecdList	61		37												
+	oecdList	62		38												
+	oecdList	63		39												
+	oecdList	64		40												
+	oecdList	65		41												
+	fundingAgency	National Science Center (NCN)		0												
+	fundingAgency	Narodowe Centrum Badan i Rozwoju (NCBR)		1												
+	fundingAgency	Foundation For Polish Science (FNP)		2												
+	fundingAgency	Ministerstwo Edukacji i Nauki		3												
+	fundingAgency	Agency3		4												
+	fundingAgency	Agency4		5												
+	fundingAgency	Agency5		6												
+	fundingAgency	Agency6		7												
+	fundingAgency	Agency7		8												
+	fundingAgency	Agency8		9												
+	fundingAgency	Agency9		10												
+	fundingAgency	Agency10		11												
+	fundingAgency	Agency11		12												
+	fundingAgency	Other		13												
+	kindOfData	Databases (content)		0												
+	kindOfData	Numerical data (statistics)		1												
+	kindOfData	Financial data		2												
+	kindOfData	Laboratory data (measurements, samples, notebooks, protocols, etc.)		3												
+	kindOfData	Text documents (notes, descriptions, specifications, procedures, protocols)		4												
+	kindOfData	Codes, algorithms, scripts		5												
+	kindOfData	Questionnaires, surveys		6												
+	kindOfData	Maps		7												
+	kindOfData	3D Models		8												
+	kindOfData	Mathematical models		9												
+	kindOfData	Audio and video recordings		10												
+	kindOfData	Pictures		11												
+	kindOfData	Software		12												
+	kindOfData	Patents		13												
+	kindOfData	Posters		14												
+	kindOfData	Presentations		15												
+	kindOfData	Chemical structures (formulas)		16												
+	kindOfData	Summary of research results (experiments, observations)		17												
+	kindOfData	Other		18												
+	publicationCitation	Relation1		0												
+	publicationCitation	Relation2		1												
+	publicationCitation	Relation3		2												
+	publicationCitation	Relation4		3												
+	publicationCitation	Relation5		4												
+	publicationCitation	Relation6		5												
+	publicationCitation	Relation7		6												
+	relatedDatasets	Deposited1		0												
+	relatedDatasets	Deposited2		1												
+	relatedDatasets	Deposited3		2												
+	relatedDatasets	Deposited4		3												
+	relatedDatasets	Deposited5		4												
+	relatedDatasets	Deposited6		5												
+	relatedDatasets	Deposited7		6												
+	publicationIDType	ark		0												
+	publicationIDType	arXiv		1												
+	publicationIDType	bibcode		2												
+	publicationIDType	doi		3												
+	publicationIDType	ean13		4												
+	publicationIDType	eissn		5												
+	publicationIDType	handle		6												
+	publicationIDType	isbn		7												
+	publicationIDType	issn		8												
+	publicationIDType	istc		9												
+	publicationIDType	lissn		10												
+	publicationIDType	lsid		11												
+	publicationIDType	pmid		12												
+	publicationIDType	purl		13												
+	publicationIDType	upc		14												
+	publicationIDType	url		15												
+	publicationIDType	urn		16												
+	relatedDatasetsIDType	ark		0												
+	relatedDatasetsIDType	arXiv		1												
+	relatedDatasetsIDType	bibcode		2												
+	relatedDatasetsIDType	doi		3												
+	relatedDatasetsIDType	ean13		4												
+	relatedDatasetsIDType	eissn		5												
+	relatedDatasetsIDType	handle		6												
+	relatedDatasetsIDType	isbn		7												
+	relatedDatasetsIDType	issn		8												
+	relatedDatasetsIDType	istc		9												
+	relatedDatasetsIDType	lissn		10												
+	relatedDatasetsIDType	lsid		11												
+	relatedDatasetsIDType	pmid		12												
+	relatedDatasetsIDType	purl		13												
+	relatedDatasetsIDType	upc		14												
+	relatedDatasetsIDType	url		15												
+	relatedDatasetsIDType	urn		16												

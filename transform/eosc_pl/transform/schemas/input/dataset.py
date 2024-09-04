@@ -11,6 +11,7 @@
     identifier_of_dataverse: str,
     name_of_dataverse: str,
     citation: str,
+    country: arr[str],
     storageIdentifier: str,
     keywords: arr[str],
     subjects: arr[str], # empty for all resources

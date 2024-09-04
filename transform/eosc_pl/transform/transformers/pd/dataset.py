@@ -28,6 +28,7 @@ class DatasetTransformer(BaseTransformer):
         self.add_tg_fields(df)
         self.transform_global_id(df)
         df['datasource_pids'] = [["eosc.cyfronet.rodbuk"]] * len(df)
+        df['country'] = [["PL"]] * len(df)
         df['publication_year'] = to_datetime(df['published_at']).dt.year
         self.check_subjects_empty(df)
         self.serialize(df, ["contacts", "publications"])
