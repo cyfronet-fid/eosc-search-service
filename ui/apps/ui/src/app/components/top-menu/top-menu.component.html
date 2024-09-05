@@ -1,80 +1,94 @@
+<div class="prefix-buttons">
+  <button [class.active]="selectedPrefix === 'eu'" (click)="setPrefix('eu')">
+    EU
+  </button>
+
+  <button [class.active]="selectedPrefix === 'pl'" (click)="setPrefix('pl')">
+    PL
+  </button>
+</div>
+
 <ul nz-menu nzMode="horizontal" class="search-bar ant-menu-custom">
-  <li nz-menu-item nzSelected="{{ this.selected === 'main' }}">
-    <a
-      [queryParams]="{ q: '*' }"
-      [routerLink]="'/search/all_collection'"
-      [routerLinkActiveOptions]="{
-        queryParams: 'ignored',
-        paths: 'exact',
-        matrixParams: 'ignored',
-        fragment: 'ignored'
-      }"
-      routerLinkActive=""
-      [queryParams]="{
-        q: (q$ | async),
-        standard: (st$ | async),
-        tags: (tg$ | async),
-        exact: (ex$ | async),
-        radioValueAuthor: (radioValueAuthor$ | async),
-        radioValueExact: (radioValueExact$ | async),
-        radioValueTitle: (radioValueTitle$ | async),
-        radioValueKeyword: (radioValueKeyword$ | async)
-      }"
-    >
-      <span class="ant-menu-item-custom">EOSC Marketplace Resources</span>
-    </a>
-  </li>
-  <li nz-menu-item nzSelected="{{ this.selected === 'provider' }}">
-    <a
-      [queryParams]="{ q: '*' }"
-      [routerLink]="'/search/provider'"
-      [routerLinkActiveOptions]="{
-        queryParams: 'ignored',
-        paths: 'exact',
-        matrixParams: 'ignored',
-        fragment: 'ignored'
-      }"
-      routerLinkActive=""
-      [queryParams]="{
-        q: (q$ | async),
-        standard: (st$ | async),
-        tags: (tg$ | async),
-        exact: (ex$ | async),
-        radioValueAuthor: (radioValueAuthor$ | async),
-        radioValueExact: (radioValueExact$ | async),
-        radioValueTitle: (radioValueTitle$ | async),
-        radioValueKeyword: (radioValueKeyword$ | async)
-      }"
-    >
-      <span class="ant-menu-item-custom">Providers</span>
-    </a>
-  </li>
-  <li nz-menu-item nzSelected="{{ this.selected === 'catalogue' }}">
-    <a
-      [queryParams]="{ q: '*' }"
-      [routerLink]="'/search/catalogue'"
-      [routerLinkActiveOptions]="{
-        queryParams: 'ignored',
-        paths: 'exact',
-        matrixParams: 'ignored',
-        fragment: 'ignored'
-      }"
-      routerLinkActive=""
-      [queryParams]="{
-        q: (q$ | async),
-        standard: (st$ | async),
-        tags: (tg$ | async),
-        exact: (ex$ | async),
-        radioValueAuthor: (radioValueAuthor$ | async),
-        radioValueExact: (radioValueExact$ | async),
-        radioValueTitle: (radioValueTitle$ | async),
-        radioValueKeyword: (radioValueKeyword$ | async)
-      }"
-    >
-      <span class="ant-menu-item-custom">Catalogues</span>
-    </a>
-  </li>
-  <li *ngIf="showBetaCollections" nz-menu-item nzSelected="{{ this.selected === 'project' }}">
+  <!--  <li nz-menu-item nzSelected="{{ this.selected === 'main' }}">-->
+  <!--    <a-->
+  <!--      [queryParams]="{ q: '*' }"-->
+  <!--      [routerLink]="'/search/all_collection'"-->
+  <!--      [routerLinkActiveOptions]="{-->
+  <!--        queryParams: 'ignored',-->
+  <!--        paths: 'exact',-->
+  <!--        matrixParams: 'ignored',-->
+  <!--        fragment: 'ignored'-->
+  <!--      }"-->
+  <!--      routerLinkActive=""-->
+  <!--      [queryParams]="{-->
+  <!--        q: (q$ | async),-->
+  <!--        standard: (st$ | async),-->
+  <!--        tags: (tg$ | async),-->
+  <!--        exact: (ex$ | async),-->
+  <!--        radioValueAuthor: (radioValueAuthor$ | async),-->
+  <!--        radioValueExact: (radioValueExact$ | async),-->
+  <!--        radioValueTitle: (radioValueTitle$ | async),-->
+  <!--        radioValueKeyword: (radioValueKeyword$ | async)-->
+  <!--      }"-->
+  <!--    >-->
+  <!--      <span class="ant-menu-item-custom">EOSC Marketplace Resources</span>-->
+  <!--    </a>-->
+  <!--  </li>-->
+  <!--  <li nz-menu-item nzSelected="{{ this.selected === 'provider' }}">-->
+  <!--    <a-->
+  <!--      [queryParams]="{ q: '*' }"-->
+  <!--      [routerLink]="'/search/provider'"-->
+  <!--      [routerLinkActiveOptions]="{-->
+  <!--        queryParams: 'ignored',-->
+  <!--        paths: 'exact',-->
+  <!--        matrixParams: 'ignored',-->
+  <!--        fragment: 'ignored'-->
+  <!--      }"-->
+  <!--      routerLinkActive=""-->
+  <!--      [queryParams]="{-->
+  <!--        q: (q$ | async),-->
+  <!--        standard: (st$ | async),-->
+  <!--        tags: (tg$ | async),-->
+  <!--        exact: (ex$ | async),-->
+  <!--        radioValueAuthor: (radioValueAuthor$ | async),-->
+  <!--        radioValueExact: (radioValueExact$ | async),-->
+  <!--        radioValueTitle: (radioValueTitle$ | async),-->
+  <!--        radioValueKeyword: (radioValueKeyword$ | async)-->
+  <!--      }"-->
+  <!--    >-->
+  <!--      <span class="ant-menu-item-custom">Providers</span>-->
+  <!--    </a>-->
+  <!--  </li>-->
+  <!--  <li nz-menu-item nzSelected="{{ this.selected === 'catalogue' }}">-->
+  <!--    <a-->
+  <!--      [queryParams]="{ q: '*' }"-->
+  <!--      [routerLink]="'/search/catalogue'"-->
+  <!--      [routerLinkActiveOptions]="{-->
+  <!--        queryParams: 'ignored',-->
+  <!--        paths: 'exact',-->
+  <!--        matrixParams: 'ignored',-->
+  <!--        fragment: 'ignored'-->
+  <!--      }"-->
+  <!--      routerLinkActive=""-->
+  <!--      [queryParams]="{-->
+  <!--        q: (q$ | async),-->
+  <!--        standard: (st$ | async),-->
+  <!--        tags: (tg$ | async),-->
+  <!--        exact: (ex$ | async),-->
+  <!--        radioValueAuthor: (radioValueAuthor$ | async),-->
+  <!--        radioValueExact: (radioValueExact$ | async),-->
+  <!--        radioValueTitle: (radioValueTitle$ | async),-->
+  <!--        radioValueKeyword: (radioValueKeyword$ | async)-->
+  <!--      }"-->
+  <!--    >-->
+  <!--      <span class="ant-menu-item-custom">Catalogues</span>-->
+  <!--    </a>-->
+  <!--  </li>-->
+  <li
+    *ngIf="showBetaCollections"
+    nz-menu-item
+    nzSelected="{{ this.selected === 'project' }}"
+  >
     <a
       [queryParams]="{ q: '*' }"
       [routerLink]="'/search/project'"
@@ -99,7 +113,11 @@
       <span class="ant-menu-item-custom">Projects</span>
     </a>
   </li>
-  <li *ngIf="showBetaCollections" nz-menu-item nzSelected="{{ this.selected === 'organisation' }}">
+  <li
+    *ngIf="showBetaCollections"
+    nz-menu-item
+    nzSelected="{{ this.selected === 'organisation' }}"
+  >
     <a
       [queryParams]="{ q: '*' }"
       [routerLink]="'/search/organisation'"
@@ -124,5 +142,4 @@
       <span class="ant-menu-item-custom">Organisations</span>
     </a>
   </li>
-
 </ul>

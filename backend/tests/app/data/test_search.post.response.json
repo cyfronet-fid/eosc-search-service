@@ -11,6 +11,7 @@
         "subject:energy",
         "subject:monitoring"
       ],
+      "collections_prefix": null,
       "_": "1646736215079"
     }
   },

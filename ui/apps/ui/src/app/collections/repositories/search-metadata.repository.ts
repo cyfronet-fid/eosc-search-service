@@ -8,7 +8,11 @@ import {
   withEntities,
 } from '@ngneat/elf-entities';
 import { ICollectionSearchMetadata } from './types';
-import { DEFAULT_COLLECTION_ID, SEARCH_METADATA } from '../data';
+import {
+  DEFAULT_COLLECTION_ID,
+  PL_SEARCH_METADATA,
+  SEARCH_METADATA,
+} from '../data';
 
 @Injectable({ providedIn: 'root' })
 export class SearchMetadataRepository {
@@ -21,7 +25,11 @@ export class SearchMetadataRepository {
   );
 
   constructor() {
-    this._store$.update(setEntities(SEARCH_METADATA));
+    const metadata =
+      localStorage.getItem('COLLECTIONS_PREFIX') === 'eu'
+        ? SEARCH_METADATA
+        : PL_SEARCH_METADATA;
+    this._store$.update(setEntities(metadata));
   }
 
   get(urlPath: string | null | undefined | '') {

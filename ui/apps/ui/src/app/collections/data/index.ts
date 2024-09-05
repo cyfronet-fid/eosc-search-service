@@ -102,6 +102,14 @@ export const ADAPTERS: IAdapter[] = [
   organisationsAdapter,
   cataloguesAdapter,
 ];
+
+export const PL_ADAPTERS: IAdapter[] = [
+  allCollectionsAdapter,
+  publicationsAdapter,
+  datasetsAdapter,
+  servicesAdapter,
+];
+
 export const FILTERS: IFiltersConfig[] = [
   allCollectionsFilters,
   publicationsFilters,
@@ -117,6 +125,13 @@ export const FILTERS: IFiltersConfig[] = [
   projectsFilters,
   organisationsFilters,
   catalogueFilters,
+];
+
+export const PL_FILTERS: IFiltersConfig[] = [
+  allCollectionsFilters,
+  publicationsFilters,
+  datasetsFilters,
+  servicesFilters,
 ];
 
 // Excluded filters according to adjustments in
@@ -138,6 +153,13 @@ export const EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
   excludedCatalogueFilters,
 ];
 
+export const PL_EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
+  excludedAllCollectionsFilters,
+  excludedPublicationsFilters,
+  excludedDatasetsFilters,
+  excludedServicesFilters,
+];
+
 export const NAV_CONFIGS: ICollectionNavConfig[] = [
   allCollectionsNavConfig,
   publicationsNavConfig,
@@ -154,6 +176,14 @@ export const NAV_CONFIGS: ICollectionNavConfig[] = [
   organisationsNavConfig,
   cataloguesNavConfig,
 ];
+
+export const PL_NAV_CONFIGS: ICollectionNavConfig[] = [
+  allCollectionsNavConfig,
+  publicationsNavConfig,
+  datasetsNavConfig,
+  servicesNavConfig,
+];
+
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   allCollectionsSearchMetadata,
   publicationsSearchMetadata,
@@ -171,10 +201,25 @@ export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   cataloguesSearchMetadata,
 ];
 
+export const PL_SEARCH_METADATA: ICollectionSearchMetadata[] = [
+  allCollectionsSearchMetadata,
+  publicationsSearchMetadata,
+  datasetsSearchMetadata,
+  servicesSearchMetadata,
+];
+
 validateCollections(
   ADAPTERS,
   FILTERS,
   EXCLUDED_FILTERS,
   NAV_CONFIGS,
   SEARCH_METADATA
+);
+
+validateCollections(
+  PL_ADAPTERS,
+  PL_FILTERS,
+  PL_EXCLUDED_FILTERS,
+  PL_NAV_CONFIGS,
+  PL_SEARCH_METADATA
 );

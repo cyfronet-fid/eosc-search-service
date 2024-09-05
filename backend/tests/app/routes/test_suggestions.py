@@ -30,6 +30,7 @@ async def test_suggestions_one_collection(
             "collection": "publication",
             "qf": "bar baz",
             "exact": "false",
+            "collections_prefix": None,
         },
         json={},
     )
@@ -43,6 +44,7 @@ async def test_suggestions_one_collection(
         sort=["score desc", "id asc"],
         rows=3,
         exact="false",
+        collections_prefix=None,
     )
 
 

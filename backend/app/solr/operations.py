@@ -1,8 +1,9 @@
 #  pylint: disable=too-many-locals, too-many-arguments
 
 """Operations on Solr"""
-from typing import Dict
+from typing import Annotated, Dict
 
+from fastapi import Header
 from httpx import AsyncClient, Response
 
 from app.consts import (
@@ -40,6 +41,7 @@ async def search(
     exact: str,
     cursor: str = "*",
     facets: dict[str, TermsFacet | StatFacet] = None,
+    collections_prefix: Annotated[str | None, Header()] = None,
 ) -> SolrResponse:
     # pylint: disable=line-too-long
     """
@@ -67,7 +69,7 @@ async def search(
     if exact == "true":
         mm_param = "100%"
         qs_param = "0"
-    solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
+    solr_collection = _get_solr_collection(collection, collections_prefix)
     if collection == Collection.PROJECT and fq:
         fq = parse_project_filters(fq)
     elif collection == Collection.ORGANISATION and fq:
@@ -131,7 +133,7 @@ async def search(
     data = response.json()
 
     if len(data["response"]["docs"]) == 0:
-        await _check_collection_sanity(client, collection)
+        await _check_collection_sanity(client, collection, collections_prefix)
 
     return SolrResponse(collection=collection, data=data)
 
@@ -148,6 +150,7 @@ async def search_advanced(
     exact: str,
     cursor: str = "*",
     facets: dict[str, TermsFacet] | None,
+    collections_prefix: Annotated[str | None, Header()] = None,
 ) -> SolrResponse:
     # pylint: disable=line-too-long
     """
@@ -173,7 +176,7 @@ async def search_advanced(
     if exact == "true":
         mm_param = "100%"
         qs_param = "0"
-    solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
+    solr_collection = _get_solr_collection(collection, collections_prefix)
     if collection == Collection.PROJECT and fq:
         fq = parse_project_filters(fq)
     elif collection == Collection.ORGANISATION and fq:
@@ -236,12 +239,16 @@ async def search_advanced(
     data = response.json()
 
     if facets and len(data["response"]["docs"]) == 0:
-        await _check_collection_sanity(client, collection)
+        await _check_collection_sanity(client, collection, collections_prefix)
 
     return SolrResponse(collection=collection, data=data)
 
 
-async def _check_collection_sanity(client, collection):
+async def _check_collection_sanity(
+    client,
+    collection,
+    collections_prefix: Annotated[str | None, Header()] = None,
+):
     """
     Helper function checking if the solr collection is not empty in case of solr data request
     returns a response with no data.
@@ -276,7 +283,7 @@ async def _check_collection_sanity(client, collection):
             "wt": "json",
         }
     }
-    solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
+    solr_collection = _get_solr_collection(collection, collections_prefix)
     response = await handle_solr_list_response_errors(
         client.post(
             f"{settings.SOLR_URL}{solr_collection}/select",
@@ -291,9 +298,10 @@ async def get(
     client: AsyncClient,
     collection: Collection,
     item_id: int | str,
+    collections_prefix: Annotated[str | None, Header()] = None,
 ) -> Dict:
     """Get item from defined collection based on ID"""
-    solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
+    solr_collection = _get_solr_collection(collection, collections_prefix)
     url = f"{settings.SOLR_URL}{solr_collection}/get?id={item_id}"
     response = await handle_solr_detail_response_errors(client.get(url))
     response = response.json()
@@ -305,9 +313,10 @@ async def get_item_by_pid(
     client: AsyncClient,
     collection: Collection,
     item_pid: str,
+    collections_prefix: Annotated[str | None, Header()] = None,
 ) -> Response:
     """Get item from defined collection based on PID"""
-    solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
+    solr_collection = _get_solr_collection(collection, collections_prefix)
     url = f"{settings.SOLR_URL}{solr_collection}/query?q=pid:{item_pid}"
     return await handle_solr_list_response_errors(client.get(url))
 
@@ -325,3 +334,11 @@ def search_advanced_dep():
 def get_dep():
     """get method dependency"""
     return get
+
+
+def _get_solr_collection(
+    collection: Collection, collections_prefix: Annotated[str | None, Header()] = None
+):
+    prefix_mapping = {"pl": "pl_", "eu": "", "": ""}
+    actual_prefix = prefix_mapping.get(collections_prefix, settings.COLLECTIONS_PREFIX)
+    return f"{actual_prefix}{collection}"
