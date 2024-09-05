@@ -3,9 +3,10 @@
 """Presentable items UI endpoint"""
 import logging
 import uuid
+from typing import Annotated
 
 import httpx
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, Header, HTTPException, Request
 from httpx import ReadTimeout
 from starlette.responses import JSONResponse
 
@@ -38,7 +39,11 @@ logger = logging.getLogger(__name__)
     "/recommendations",
     responses={200: {"model": dict}, 500: {"model": BadRequest}},
 )
-async def get_recommendations(panel_id: Collection, request: Request):
+async def get_recommendations(
+    panel_id: Collection,
+    request: Request,
+    collections_prefix: Annotated[str | None, Header()] = None,
+):
     if settings.SHOW_RECOMMENDATIONS is False:
         return []
     session, _ = await get_session(request)
@@ -50,7 +55,7 @@ async def get_recommendations(panel_id: Collection, request: Request):
                 uuids = await get_recommended_uuids(
                     client, session, panel_id, recommendation_visit_id
                 )
-                items = await get_recommended_items(client, uuids)
+                items = await get_recommended_items(client, uuids, collections_prefix)
                 resp = JSONResponse({"recommendations": items, "isRand": False})
                 # Let's store the recommendation visit id for retrieval in the user actions
                 resp.set_cookie("recommendation_visit_id", recommendation_visit_id)
@@ -58,8 +63,12 @@ async def get_recommendations(panel_id: Collection, request: Request):
             except (RecommenderError, ReadTimeout, SolrDocumentNotFoundError) as error:
                 items = []
                 if settings.SHOW_RANDOM_RECOMMENDATIONS:
-                    uuids = await get_fixed_recommendations(panel_id)
-                    items = await get_recommended_items(client, uuids)
+                    uuids = await get_fixed_recommendations(
+                        panel_id, collections_prefix=collections_prefix
+                    )
+                    items = await get_recommended_items(
+                        client, uuids, collections_prefix
+                    )
 
                 resp = JSONResponse({
                     "recommendations": items,

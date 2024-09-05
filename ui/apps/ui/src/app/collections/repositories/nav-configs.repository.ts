@@ -10,7 +10,7 @@ import {
   withEntities,
 } from '@ngneat/elf-entities';
 import { ICollectionNavConfig } from './types';
-import { DEFAULT_COLLECTION_ID, NAV_CONFIGS } from '../data';
+import { DEFAULT_COLLECTION_ID, NAV_CONFIGS, PL_NAV_CONFIGS } from '../data';
 import {
   BETA_ONLY_COLLECTIONS,
   SPECIAL_COLLECTIONS,
@@ -28,7 +28,11 @@ export class NavConfigsRepository {
   );
 
   constructor() {
-    this._store$.update(setEntities(NAV_CONFIGS));
+    const configs =
+      localStorage.getItem('COLLECTIONS_PREFIX') === 'pl'
+        ? PL_NAV_CONFIGS
+        : NAV_CONFIGS;
+    this._store$.update(setEntities(configs));
   }
 
   readonly activeEntity$ = this._store$.pipe(selectActiveEntity());

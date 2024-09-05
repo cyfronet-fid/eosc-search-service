@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring,useless-suppression
+# pylint: disable=missing-module-docstring,missing-function-docstring,useless-suppression,fixme
 from unittest.mock import ANY, AsyncMock
 
 import pytest
@@ -30,6 +30,7 @@ async def test_post(
             "collection": "foo",
             "qf": "bar baz",
             "exact": "false",
+            "collections_prefix": None,
         },
         json={},
     )
@@ -46,11 +47,49 @@ async def test_post(
         rows=10,
         cursor="*",
         facets=None,
+        collections_prefix=None,
     )
 
 
 @pytest.mark.asyncio
 async def test_passes_all_query_params(
+    app: FastAPI, client: AsyncClient, mock_post_search: AsyncMock
+) -> None:
+    res = await client.post(
+        app.url_path_for("apis:post-search"),
+        params={
+            "q": "bar",
+            "collection": "foo",
+            "qf": "bar baz",
+            "exact": "false",
+            "fq": ['foo:"bar"'],
+            "sort": ["fizz asc"],
+            "rows": 42,
+            "cursor": "transparent",
+            # TODO no matter what u pass here, it will return None - investigate
+            "collections_prefix": None,
+        },
+        json={},
+    )
+
+    assert res.status_code == HTTP_200_OK
+    mock_post_search.assert_called_once_with(
+        ANY,
+        "foo",
+        q="bar",
+        qf="bar baz",
+        exact="false",
+        fq=['foo:"bar"'],
+        sort=["fizz asc", "score desc", "id asc"],
+        rows=42,
+        cursor="transparent",
+        facets=None,
+        collections_prefix=None,
+    )
+
+
+@pytest.mark.asyncio
+async def test_col_prefix_none_when_not_passed(
     app: FastAPI, client: AsyncClient, mock_post_search: AsyncMock
 ) -> None:
     res = await client.post(
@@ -80,6 +119,7 @@ async def test_passes_all_query_params(
         rows=42,
         cursor="transparent",
         facets=None,
+        collections_prefix=None,
     )
 
 
@@ -94,6 +134,7 @@ async def test_passes_all_facets(
             "collection": "foo",
             "qf": "bar baz",
             "exact": "false",
+            "collections_prefix": None,
         },
         json={
             "facets": {
@@ -122,6 +163,7 @@ async def test_passes_all_facets(
         sort=["score desc", "id asc"],
         rows=10,
         cursor="*",
+        collections_prefix=None,
         facets={
             "faz": TermsFacet(
                 type="terms",

@@ -2,9 +2,9 @@
 
 import asyncio
 import logging
-from typing import Dict, Tuple
+from typing import Annotated, Dict, Tuple
 
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Header, Query
 from httpx import AsyncClient
 
 from app.consts import ALL_COLLECTION_LIST, DEFAULT_SORT, PROVIDER_QF
@@ -32,6 +32,7 @@ async def search_suggestions(
         3, description="Row count per collection", gte=3, lt=10
     ),
     search=Depends(search_dep),
+    collections_prefix: Annotated[str | None, Header()] = None,
 ) -> Dict[str, list[Dict]]:
     """
     Main function performing the search for suggestions.
@@ -49,7 +50,16 @@ async def search_suggestions(
     )
 
     gathered_result = await asyncio.gather(*[
-        _search(col, q, qf, exact, fq, results_per_collection, search)
+        _search(
+            col,
+            q,
+            qf,
+            exact,
+            fq,
+            results_per_collection,
+            search,
+            collections_prefix,
+        )
         for col in collections
     ])
 
@@ -70,6 +80,7 @@ async def _search(
         3, description="Row count per collection", gte=3, lt=10
     ),
     search=Depends(search_dep),
+    collections_prefix: Annotated[str | None, Header()] = None,
 ) -> Tuple[str, Dict]:
     """Performs the search in a single collection"""
     if "provider" in collection:
@@ -84,6 +95,7 @@ async def _search(
             sort=DEFAULT_SORT,
             rows=results_per_collection,
             exact=exact,
+            collections_prefix=collections_prefix,
         )
 
     res_json = response.data

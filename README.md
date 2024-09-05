@@ -148,7 +148,7 @@ See docker-compose.yml for components.
 #### Services:
 ##### Solr
 - `SOLR_URL`: `Url = "http://localhost:8983/solr/"` - your Solr URL.
-- `COLLECTIONS_PREFIX`: `str = ""` - Specify custom prefix for solr collections. Then your specific collection with that prefix will be used.
+- `COLLECTIONS_PREFIX`: `str = ""` - Specify custom prefix for solr collections. Then your specific collection with that prefix will be used by default. Otherwise, determined with a request header, if it's present.
 ##### Recommender System
 - `RS_URL`: `Url = "http://localhost:9080/"` - your Recommender System URL.
 - `RECOMMENDER_ENDPOINT`: `Url = "http://localhost:8081/recommendations"` - your endpoint that returns recommendations.

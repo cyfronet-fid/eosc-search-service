@@ -10,7 +10,13 @@ import {
   filterUIEntitiesRef,
   withFilterUIEntities,
 } from './types';
-import { DEFAULT_COLLECTION_ID, EXCLUDED_FILTERS, FILTERS } from '../data';
+import {
+  DEFAULT_COLLECTION_ID,
+  EXCLUDED_FILTERS,
+  FILTERS,
+  PL_EXCLUDED_FILTERS,
+  PL_FILTERS,
+} from '../data';
 import { filterValueType } from '@collections/services/custom-route.type';
 import { mutateUiValue } from '@components/active-filters/utils';
 import { map } from 'rxjs';
@@ -100,10 +106,20 @@ export class FiltersConfigsRepository {
   }
 
   clear() {
-    this._excludedFiltersStore$.update(setEntities(EXCLUDED_FILTERS));
+    const filters =
+      localStorage.getItem('COLLECTIONS_PREFIX') === 'pl'
+        ? PL_FILTERS
+        : FILTERS;
+
+    const excluded =
+      localStorage.getItem('COLLECTIONS_PREFIX') === 'pl'
+        ? PL_EXCLUDED_FILTERS
+        : EXCLUDED_FILTERS;
+
+    this._excludedFiltersStore$.update(setEntities(excluded));
     this._store$.update(
       (state) => ({ ...state, loading: true }),
-      setEntities(FILTERS),
+      setEntities(filters),
       setEntities([], { ref: filterUIEntitiesRef })
     );
   }

@@ -18,6 +18,7 @@ export class TopMenuComponent implements OnInit {
   public radioValueTitle$ = this._customRoute.radioValueTitle$;
   public radioValueKeyword$ = this._customRoute.radioValueKeyword$;
   public selected = 'main';
+  public selectedPrefix: string = 'eu';
   showBetaCollections: boolean = ConfigService.config?.show_beta_collections;
 
   constructor(private _customRoute: CustomRoute) {}
@@ -30,5 +31,16 @@ export class TopMenuComponent implements OnInit {
         this.selected = 'main';
       }
     });
+
+    const storedPrefix = localStorage.getItem('COLLECTIONS_PREFIX');
+    this.selectedPrefix = storedPrefix ? storedPrefix : 'eu';
+  }
+
+  setPrefix(prefix: string) {
+    localStorage.setItem('COLLECTIONS_PREFIX', prefix);
+    this.selectedPrefix = prefix;
+
+    // TODO: Make this an observable and reload only the affected components
+    window.location.reload();
   }
 }
