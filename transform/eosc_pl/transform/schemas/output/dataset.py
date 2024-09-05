@@ -30,4 +30,5 @@
     publications: str,
     producers: arr[str],
     scientific_domains: arr[str],
+    funder: arr[str],
 """

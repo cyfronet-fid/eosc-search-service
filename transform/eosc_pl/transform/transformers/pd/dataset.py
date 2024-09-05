@@ -3,7 +3,8 @@
 from logging import getLogger
 from pandas import DataFrame, to_datetime
 from eosc_pl.transform.transformers.pd.base.base import BaseTransformer
-from eosc_pl.transform.utils.sd_mapping import harvest_scientific_domains
+from eosc_pl.transform.utils.data.scientific_domains import harvest_scientific_domains
+from eosc_pl.transform.utils.data.funder import harvest_funder
 
 logger = getLogger(__name__)
 
@@ -32,6 +33,7 @@ class DatasetTransformer(BaseTransformer):
         df['country'] = [["PL"]] * len(df)
         df['publication_year'] = to_datetime(df['published_at']).dt.year
         df['scientific_domains'] = harvest_scientific_domains(df)
+        df['funder'] = harvest_funder(df)
         self.check_subjects_empty(df)
         self.serialize(df, ["contacts", "publications"])
 

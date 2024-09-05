@@ -149,7 +149,7 @@ def harvest_scientific_domains(df: DataFrame) -> list[list[str]] | list[str]:
             )
 
     def create_raw_sd_column() -> list[list[int]]:
-        """Create raw scientific column from Rodbuk's oecd nested fields"""
+        """Create raw scientific column from Rodbuk's 'oecd' nested field"""
         raw_sd_list = []
         for row in df["metadataBlocks"]:
             for field in row["citation"]["fields"]:
