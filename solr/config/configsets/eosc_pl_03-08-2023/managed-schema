@@ -477,6 +477,7 @@
   <field name="scientific_domains" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="storage_id" type="string" required="false" useDocValuesAsStored="true"/>
   <field name="subjects" type="strings" required="false"/>
+  <field name="tag_list_tg" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="title" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="type" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="updated_at" type="pdate" required="false" stored="false" useDocValuesAsStored="true"/>
