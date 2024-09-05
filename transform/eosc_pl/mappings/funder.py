@@ -1,3 +1,4 @@
+"""Funder mapping"""
 
 funder_mapping = {
     "national_science_center_(ncn)": "National Science Center (NCN)",

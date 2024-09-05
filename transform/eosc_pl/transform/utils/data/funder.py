@@ -12,7 +12,7 @@ def map_funder(funder: str) -> str:
 
 
 def harvest_funder(df: DataFrame) -> list[list[int]]:
-    """Create raw funder column from Rodbuk's 'funding' nested field"""
+    """Create funder column from Rodbuk's 'funding' nested field"""
     funder_column = []
     for row in df["metadataBlocks"]:
         for field in row["citation"]["fields"]:
