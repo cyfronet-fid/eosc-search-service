@@ -460,6 +460,7 @@
   <field name="dataverse_id" type="string" required="false" useDocValuesAsStored="true"/>
   <field name="dataverse_name" type="strings" required="false"/>
   <field name="description" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
+  <field name="document_type" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="doi" type="strings" required="false"/>
   <field name="file_count" type="pint" required="false" useDocValuesAsStored="true"/>
   <field name="funder" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
