@@ -469,8 +469,8 @@
   <field name="keywords" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="keywords_tg" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="language" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="license" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="major_version" type="pint" required="false" useDocValuesAsStored="true"/>
-  <field name="metadataBlocks" type="text_general"/>
   <field name="producers" type="strings" required="false"/>
   <field name="publication_date" type="pdate" required="false" stored="false" useDocValuesAsStored="true"/>
   <field name="publication_year" type="pint" required="false"/>
@@ -555,5 +555,4 @@
   <dynamicField name="*_f" type="pfloat" indexed="true" stored="true"/>
   <dynamicField name="*_d" type="pdouble" indexed="true" stored="true"/>
   <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
-  <copyField source="metadataBlocks" dest="metadataBlocks_str" maxChars="256"/>
 </schema>
