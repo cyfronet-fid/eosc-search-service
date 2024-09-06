@@ -7,9 +7,7 @@ import pandas as pd
 logger = getLogger(__name__)
 
 
-def validate_loaded_pd_df(
-    response: Response, df: pd.DataFrame
-) -> None:
+def validate_loaded_pd_df(response: Response, df: pd.DataFrame) -> None:
     """Validate loaded pandas df"""
     try:
         # All data was returned

@@ -19,9 +19,11 @@ def harvest_funder(df: DataFrame) -> list[list[int]]:
             raw_funder_row = []
             if field["typeName"] == "funding":  # funder property
                 for val in field["value"]:
-                    if val.get('fundingAgency'):
-                        raw_funder_row.append(map_funder(val['fundingAgency']['value']))
-                funder_column.append(list(set(raw_funder_row)))  # there are duplicated values
+                    if val.get("fundingAgency"):
+                        raw_funder_row.append(map_funder(val["fundingAgency"]["value"]))
+                funder_column.append(
+                    list(set(raw_funder_row))
+                )  # there are duplicated values
                 break
         else:
             funder_column.append([])

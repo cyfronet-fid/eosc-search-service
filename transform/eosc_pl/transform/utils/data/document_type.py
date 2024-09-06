@@ -19,8 +19,10 @@ def harvest_document_type(df: DataFrame) -> list[list[int]]:
             raw_document_type_row = []
             if field["typeName"] == "kindOfDataMain":  # document_type property
                 for val in field["value"]:
-                    if val.get('kindOfData'):
-                        raw_document_type_row.append(map_document_type(val['kindOfData']['value']))
+                    if val.get("kindOfData"):
+                        raw_document_type_row.append(
+                            map_document_type(val["kindOfData"]["value"])
+                        )
                 document_type_column.append(list(set(raw_document_type_row)))
                 break
         else:

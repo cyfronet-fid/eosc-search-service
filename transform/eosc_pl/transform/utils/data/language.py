@@ -11,8 +11,8 @@ def harvest_language(df: DataFrame) -> list[list[int]]:
             raw_language_row = []
             if field["typeName"] == "languageMain":  # language property
                 for val in field["value"]:
-                    if val.get('language'):
-                        raw_language_row.append(val['language']['value'])
+                    if val.get("language"):
+                        raw_language_row.append(val["language"]["value"])
                 language_column.append(list(set(raw_language_row)))
                 break
         else:

@@ -156,7 +156,7 @@ def harvest_scientific_domains(df: DataFrame) -> list[list[str]] | list[str]:
                 sd_row = []
                 if field["typeName"] == "oecd":  # scientific domain property
                     for val in field["value"]:
-                        sd_row.append(int(val['oecdList']['value']))
+                        sd_row.append(int(val["oecdList"]["value"]))
                     raw_sd_list.append(sd_row)
                     break
             else:

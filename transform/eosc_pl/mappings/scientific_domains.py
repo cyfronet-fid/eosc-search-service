@@ -103,7 +103,7 @@ oecd_mapping = {
     62: "Humanities>Languages & Literature",
     63: "Humanities>Philosophy, Ethics & Religion",
     64: "Humanities>Arts",
-    65: "Humanities>Other Humanities"
+    65: "Humanities>Other Humanities",
 }
 
 # Not used, just for the sake of having a snapshot of a CV that was used initially
@@ -149,6 +149,5 @@ oecd_controlled_vocabulary = {
     62: "Humanities - Languages and literature",
     63: "Humanities - Philosophy, ethics and religion",
     64: "Humanities - Arts (arts, history of arts, performing arts, music)",
-    65: "Humanities - Other humanities"
+    65: "Humanities - Other humanities",
 }
-

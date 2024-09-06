@@ -32,14 +32,14 @@ class DatasetTransformer(BaseTransformer):
         """Apply df transformations"""
         self.add_tg_fields(df)
         self.transform_global_id(df)
-        df['datasource_pids'] = [["eosc.cyfronet.rodbuk"]] * len(df)
-        df['country'] = [["PL"]] * len(df)
-        df['publication_year'] = to_datetime(df['published_at']).dt.year
-        df['scientific_domains'] = harvest_scientific_domains(df)
-        df['funder'] = harvest_funder(df)
-        df['document_type'] = harvest_document_type(df)
-        df['language'] = harvest_language(df)
-        df['affiliation'] = harvest_affiliation(df)
+        df["datasource_pids"] = [["eosc.cyfronet.rodbuk"]] * len(df)
+        df["country"] = [["PL"]] * len(df)
+        df["publication_year"] = to_datetime(df["published_at"]).dt.year
+        df["scientific_domains"] = harvest_scientific_domains(df)
+        df["funder"] = harvest_funder(df)
+        df["document_type"] = harvest_document_type(df)
+        df["language"] = harvest_language(df)
+        df["affiliation"] = harvest_affiliation(df)
         self.check_subjects_empty(df)
         self.serialize(df, ["contacts", "publications"])
 
@@ -81,8 +81,8 @@ class DatasetTransformer(BaseTransformer):
     def transform_global_id(df: DataFrame) -> None:
         """Transform global_id (doi) to format used in our application.
         Simply remove 'doi:' form the beginning."""
-        df['global_id'] = df['global_id'].str.replace('^doi:', '', regex=True)
-        df['id'] = df['global_id']  # We still need unique identifier
+        df["global_id"] = df["global_id"].str.replace("^doi:", "", regex=True)
+        df["id"] = df["global_id"]  # We still need unique identifier
 
     @staticmethod
     def add_tg_fields(df: DataFrame) -> None:
