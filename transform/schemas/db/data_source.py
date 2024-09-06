@@ -74,7 +74,7 @@ class DataSourceDBSchema(BaseModel):
         open_access (bool):
             Indicates whether the data source is open access.
         open_source_technologies (List[str]):
-           # TODO Add description.
+            TODO Add description.
         order_url (AnyHttpUrl):
             The URL for ordering the data source.
         payment_model_url (AnyHttpUrl):
@@ -240,7 +240,8 @@ class DataSourceDBSchema(BaseModel):
     version_control: bool
     webpage_url: AnyHttpUrl
 
-    """Transformations necessary to convert DataSourceInputSchema to DataSourceDBSchema
+    """
+    Transformations necessary to convert DataSourceInputSchema to DataSourceDBSchema
         - add type = "data source"
         - add popularity
         - add open_access

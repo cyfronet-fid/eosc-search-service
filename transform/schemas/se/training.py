@@ -100,7 +100,8 @@ class TrainingSESchema(BaseModel):
     unified_categories: List[str]
     url: List[str]
 
-    """Transformations necessary to convert TrainingInputSchema to TrainingSESchema
+    """
+    Transformations necessary to convert TrainingInputSchema to TrainingSESchema
         - add type = "training"
         - add open_access
         - add unified categories
@@ -120,7 +121,6 @@ class TrainingSESchema(BaseModel):
             - ts_to_iso
             - serialize_alternative_ids
             - map_providers_and_orgs
-            - 
         - rename:
             "accessRights": "best_access_right",
             "alternativeIdentifiers": "alternative_ids",

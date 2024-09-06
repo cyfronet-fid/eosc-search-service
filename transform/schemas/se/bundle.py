@@ -14,7 +14,7 @@ class BundleSESchema(BaseModel):
         bundle_goals (List[str]):
             A list of goals associated with the bundle. Used in tags.
         catalogue (str):
-            # TODO replace with catalogues. Make sure that backend/frontend are not using it.
+            TODO replace with catalogues. Make sure that backend/frontend are not using it.
             A catalogue associated with the bundle.
         catalogues (List[str]):
             A list of catalogues associated with the bundle. Used in filters.
@@ -25,19 +25,19 @@ class BundleSESchema(BaseModel):
         description (str):
             A detailed description of the bundle. Used for searching.
         eosc_if (List[str]):
-            # TODO Add description - strings solr type. Used in filters and second tags
+            TODO Add description - strings solr type. Used in filters and second tags
         eosc_if_tg (List[str]):
-            # The same as eosc_if but solr type: text general. Used in searching.
+            The same as eosc_if but solr type: text general. Used in searching.
         id (str):
             Unique identifier for the bundle.
         iid (int):
-            # TODO probably keep only in db - scope for other refactor
+            TODO probably keep only in db - scope for other refactor
             Internal identifier for the bundle.
         main_offer_id (str):
-            # TODO probably keep only in db - scope for other refactor
+            TODO probably keep only in db - scope for other refactor
             Identifier for the main offer associated with the bundle.
         offer_ids (List[int]):
-            # TODO probably keep only in db - scope for other refactor
+            TODO probably keep only in db - scope for other refactor
             A list of offer identifiers associated with the bundle.
         popularity (int):
             Popularity score of the bundle. Used in sorting.
@@ -50,7 +50,7 @@ class BundleSESchema(BaseModel):
         scientific_domains (List[str]):
             A list of scientific domains that the bundle pertains to. Used in filters and tags.
         service_id (int):
-            # TODO probably keep only in db - scope for other refactor
+            TODO probably keep only in db - scope for other refactor
             Identifier for the service associated with the bundle.
         title (str):
             Title of the bundle. Used in searching
@@ -88,26 +88,22 @@ class BundleSESchema(BaseModel):
     usage_counts_downloads: int
     usage_counts_views: int
 
-    """Transformations necessary to convert BundleInputSchema to BundleSESchema
-    - delete "contact_email"
-    - delete "helpdesk_url"
-    - delete "related_training"
-    - delete "updated_at"
-    - rename "target_users" -> "dedicated_for"
-    - rename "name" -> "title"
-    - rename "research_steps" -> "unified_categories"
-    - add type = "bundle"
-    - add popularity using harvest_popularity func: popularity = usage_counts_downloads + usage_counts_views
-    - cast:
-        .withColumn(
-            "publication_date", col("publication_date").cast("date")
-    - convert ids:
-        df = self.convert_int_ids(df, columns=(ID,), increment=self.id_increment)
-        # Increase offers IDs to match their increased IDs
-        df = self.convert_int_ids(
-            df, columns=("main_offer_id",), increment=settings.OFFER_IDS_INCREMENTOR
-        )
-        df = self.convert_arr_ids(
-            df, columns=("offer_ids",), increment=settings.OFFER_IDS_INCREMENTOR
-        )
+    """
+    Transformations necessary to convert BundleInputSchema to BundleSESchema
+        - delete "contact_email"
+        - delete "helpdesk_url"
+        - delete "related_training"
+        - delete "updated_at"
+        - rename "target_users" -> "dedicated_for"
+        - rename "name" -> "title"
+        - rename "research_steps" -> "unified_categories"
+        - add type = "bundle"
+        - add popularity using harvest_popularity func: popularity = usage_counts_downloads + usage_counts_views
+        - cast:
+            .withColumn("publication_date", col("publication_date").cast("date")
+        - convert ids:
+            df = self.convert_int_ids(df, columns=(ID,), increment=self.id_increment)
+            # Increase offers IDs to match their increased IDs
+            df = self.convert_int_ids(df, columns=("main_offer_id",), increment=settings.OFFER_IDS_INCREMENTOR)
+            df = self.convert_arr_ids(df, columns=("offer_ids",), increment=settings.OFFER_IDS_INCREMENTOR)
     """

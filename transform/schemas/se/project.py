@@ -88,7 +88,8 @@ class ProjectSESchema(BaseModel):
     total_cost: float
     type: str
 
-    """Transformations necessary to convert ProjectInputSchema to ProjectSESchema
+    """
+    Transformations necessary to convert ProjectInputSchema to ProjectSESchema
         - add type = "project"
         - delete
             - subject

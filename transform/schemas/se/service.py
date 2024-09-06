@@ -108,7 +108,8 @@ class ServiceSESchema(BaseModel):
     usage_counts_downloads: int
     usage_counts_views: int
 
-    """Transformations necessary to convert ServiceInputSchema to ServiceSESchema
+    """
+    Transformations necessary to convert ServiceInputSchema to ServiceSESchema
         - add type = "service"
         - delete: 
             - abbreviation
@@ -154,7 +155,6 @@ class ServiceSESchema(BaseModel):
             - use_cases_urls
             - version
             - webpage_url
-            
         - add popularity
         - add open_access
         - rename order_type to best_access_right

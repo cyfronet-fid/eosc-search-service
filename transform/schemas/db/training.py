@@ -107,7 +107,8 @@ class TrainingDBSchema(BaseModel):
     url_type: str
     publication_date: datetime
 
-    """Transformations necessary to convert TrainingInputSchema to TrainingDBSchema
+    """
+    Transformations necessary to convert TrainingInputSchema to TrainingDBSchema
         - add type = "training"
         - add open_access
         - add unified categories
@@ -121,7 +122,6 @@ class TrainingDBSchema(BaseModel):
             - ts_to_iso
             - serialize_alternative_ids
             - map_providers_and_orgs
-            - 
         - rename:
             "accessRights": "best_access_right",
             "alternativeIdentifiers": "alternative_ids",

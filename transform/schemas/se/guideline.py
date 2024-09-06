@@ -116,7 +116,8 @@ class GuidelineSESchema(BaseModel):
     updated_at: datetime
     uri: List[str]
 
-    """Transformations necessary to convert GuidelineInputSchema to GuidelineSESchema
+    """
+    Transformations necessary to convert GuidelineInputSchema to GuidelineSESchema
         - add type = "interoperability guideline"
         - rename:
             "alternativeIdentifiers": "alternative_ids",

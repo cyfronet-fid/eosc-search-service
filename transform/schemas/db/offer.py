@@ -18,7 +18,7 @@ class OfferDBSchema(BaseModel):
         description (str):
             A detailed description of the offer.
         eosc_if (List[str]):
-            # TODO - Add description
+            TODO - Add description
         id (int):
             The unique identifier of the offer.
         iid (int):
@@ -73,7 +73,8 @@ class OfferDBSchema(BaseModel):
     usage_counts_views: int
     voucherable: bool
 
-    """Transformations necessary to convert OfferInputSchema to OfferDBSchema
+    """
+    Transformations necessary to convert OfferInputSchema to OfferDBSchema
         - add type = "offer"
         - add open_access
         - add popularity

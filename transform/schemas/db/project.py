@@ -88,7 +88,8 @@ class ProjectDBSchema(BaseModel):
     type: str
     url: AnyHttpUrl
 
-    """Transformations necessary to convert ProjectInputSchema to ProjectDBSchema
+    """
+    Transformations necessary to convert ProjectInputSchema to ProjectDBSchema
         - add type = "project"
         - add eosc_score
         - add date_range

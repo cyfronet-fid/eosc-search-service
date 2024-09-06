@@ -68,7 +68,8 @@ class OfferSESchema(BaseModel):
     usage_counts_views: int
     voucherable: bool
 
-    """Transformations necessary to convert OfferInputSchema to OfferSESchema
+    """
+    Transformations necessary to convert OfferInputSchema to OfferSESchema
         - add type = "offer"
         - add open_access
         - add popularity

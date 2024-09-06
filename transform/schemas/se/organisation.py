@@ -54,7 +54,8 @@ class OrganisationSESchema(BaseModel):
     type: str
     url: AnyHttpUrl
 
-    """Transformations necessary to convert OrganisationInputSchema to OrganisationDBSchema
+    """
+    Transformations necessary to convert OrganisationInputSchema to OrganisationDBSchema
         - add type = "organisation"
         - rename:
             "legalname": "title",

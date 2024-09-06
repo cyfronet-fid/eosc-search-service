@@ -72,7 +72,8 @@ class GuidelineDBSchema(BaseModel):
     type: str
     updated_at: datetime
 
-    """Transformations necessary to convert GuidelineInputSchema to GuidelineDBSchema
+    """
+    Transformations necessary to convert GuidelineInputSchema to GuidelineDBSchema
         - add type = "interoperability guideline"
         - rename:
             "alternativeIdentifiers": "alternative_ids",

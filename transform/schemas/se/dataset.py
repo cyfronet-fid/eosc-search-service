@@ -122,16 +122,16 @@ class DatasetSESchema(BaseModel):
     usage_counts_downloads: str
     usage_counts_views: str
 
-    """Transformations necessary to convert DatasetInputSchema to DatasetSESchema
+    """
+    Transformations necessary to convert DatasetInputSchema to DatasetSESchema
         - add type = "dataset"
+        - add author_pids
+        - add direct_url
+        - add size
+        - add source
+        - add subtitle
+        - add version
         - delete:
-            - author_pids
-            - direct_url
-            - size
-            - source
-            - subtitle
-            - version
-            (
             "affiliation",
             "author",
             "collectedfrom",
@@ -152,19 +152,15 @@ class DatasetSESchema(BaseModel):
             "pid",
             "relations",
             "subject",
-        )
         - apply current transformations
         - cast:
             df = transform_date(df, "publication_date", "yyyy-MM-dd")
             df = df.withColumn("publication_year", year(col("publication_date")))
         - rename:
-            {
                 "bestaccessright": "best_access_right",
                 "documentationUrl": "documentation_url",
                 "programmingLanguage": "programming_language",
                 "publicationdate": "publication_date",
                 "maintitle": "title",
                 "fulltext": "direct_url",
-            }
-        
     """

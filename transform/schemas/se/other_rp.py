@@ -125,15 +125,15 @@ class OtherResearchProductSESchema(BaseModel):
     usage_counts_downloads: str
     usage_counts_views: str
 
-    """Transformations necessary to convert OtherResearchProductInputSchema to OtherResearchProductSESchema
+    """
+    Transformations necessary to convert OtherResearchProductInputSchema to OtherResearchProductSESchema
         - add type = "other"
+        - add author_pids
+        - add contactgroup
+        - add contactperson
+        - add direct_url
+        - add tool
         - delete:
-            - author_pids
-            - contactgroup
-            - contactperson
-            - direct_url
-            - tool
-            (
             "affiliation",
             "author",
             "collectedfrom",
@@ -153,18 +153,15 @@ class OtherResearchProductSESchema(BaseModel):
             "pid",
             "relations",
             "subject",
-        )
         - apply current transformations
         - cast:
             df = transform_date(df, "publication_date", "yyyy-MM-dd")
             df = df.withColumn("publication_year", year(col("publication_date")))
         - rename:
-            {
-                "bestaccessright": "best_access_right",
-                "documentationUrl": "documentation_url",
-                "programmingLanguage": "programming_language",
-                "publicationdate": "publication_date",
-                "maintitle": "title",
-                "fulltext": "direct_url",
-            }
+            "bestaccessright": "best_access_right",
+            "documentationUrl": "documentation_url",
+            "programmingLanguage": "programming_language",
+            "publicationdate": "publication_date",
+            "maintitle": "title",
+            "fulltext": "direct_url",
 """
