@@ -32,4 +32,5 @@
     scientific_domains: arr[str],
     funder: arr[str],
     document_type: arr[str],
+    language: arr[str],
 """

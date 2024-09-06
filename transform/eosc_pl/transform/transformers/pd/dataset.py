@@ -6,6 +6,7 @@ from eosc_pl.transform.transformers.pd.base.base import BaseTransformer
 from eosc_pl.transform.utils.data.scientific_domains import harvest_scientific_domains
 from eosc_pl.transform.utils.data.funder import harvest_funder
 from eosc_pl.transform.utils.data.document_type import harvest_document_type
+from eosc_pl.transform.utils.data.language import harvest_language
 
 logger = getLogger(__name__)
 
@@ -36,6 +37,7 @@ class DatasetTransformer(BaseTransformer):
         df['scientific_domains'] = harvest_scientific_domains(df)
         df['funder'] = harvest_funder(df)
         df['document_type'] = harvest_document_type(df)
+        df['language'] = harvest_language(df)
         self.check_subjects_empty(df)
         self.serialize(df, ["contacts", "publications"])
 
