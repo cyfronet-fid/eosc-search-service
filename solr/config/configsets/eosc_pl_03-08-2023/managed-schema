@@ -467,6 +467,7 @@
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
   <field name="keywords" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="keywords_tg" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
+  <field name="language" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="major_version" type="pint" required="false" useDocValuesAsStored="true"/>
   <field name="metadataBlocks" type="text_general"/>
   <field name="producers" type="strings" required="false"/>
