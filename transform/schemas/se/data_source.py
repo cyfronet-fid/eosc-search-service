@@ -14,10 +14,10 @@ class DataSourceSESchema(BaseModel):
         best_access_right (str):
             The best access right for the data source. Used in filters.
         catalogue (str):
-            # TODO replace with catalogues. Make sure that backend/frontend are not using it.
+            TODO replace with catalogues. Make sure that backend/frontend are not using it.
             The catalogue associated with the data source.
         catalogues (List[str]):
-            # TODO is it used anywhere for data sources?
+            TODO is it used anywhere for data sources?
             A list of catalogues associated with the data source.
         categories (List[str]):
             A list of categories applicable to the data source. Used in filters.
@@ -26,7 +26,7 @@ class DataSourceSESchema(BaseModel):
         description (str):
             A detailed description of the data source. Used in searching.
         eosc_if (List[str]):
-            # TODO add description. Used in filters and secondary tags
+            TODO add description. Used in filters and secondary tags
         eosc_if_tg (List[str]):
             The same data as 'eosc_if' but in solr text general type. Used in searching.
         guidelines (List[str]):
@@ -40,7 +40,7 @@ class DataSourceSESchema(BaseModel):
         language (List[str]):
             A list of languages in which the data source is available. Used in resource view and filters.
         open_access (bool):
-            # TODO Saw no usage in the code. Dive deeper.
+            TODO Saw no usage in the code. Dive deeper.
             Indicates whether the data source is open access.
         pid (str):
             Persistent identifier for the data source. Used in resource view.
@@ -57,7 +57,7 @@ class DataSourceSESchema(BaseModel):
         scientific_domains (List[str]):
             A list of scientific domains associated with the data source. Used in tags and filters
         tag_list (List[str]):
-            # TODO rename it to keywords
+            TODO rename it to keywords
             A list of tags categorizing the data source. Used in tags and filters
         tag_list_tg (List[str]):
             # TODO rename it to keywords_tg
@@ -104,7 +104,8 @@ class DataSourceSESchema(BaseModel):
     usage_counts_views: int
     webpage_url: AnyHttpUrl
 
-    """Transformations necessary to convert DataSourceInputSchema to DataSourceSESchema
+    """
+    Transformations necessary to convert DataSourceInputSchema to DataSourceSESchema
         - add type = "data source"
         - add popularity
         - add open_access
@@ -164,5 +165,5 @@ class DataSourceSESchema(BaseModel):
             - use_cases_urls
             - version
             - version_control
-            - webpage_url            
+            - webpage_url
     """

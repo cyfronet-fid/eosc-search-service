@@ -131,7 +131,8 @@ class ProviderDBSchema(BaseModel):
     usage_counts_views: int
     webpage_url: List[AnyHttpUrl]
 
-    """Transformations necessary to convert ProviderInputSchema to ProviderDBSchema
+    """
+    Transformations necessary to convert ProviderInputSchema to ProviderDBSchema
         - add type = "provider"
         - add popularity
         - rename:

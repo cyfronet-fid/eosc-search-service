@@ -47,32 +47,30 @@ class CatalogueSESchema(BaseModel):
     title: str
     type: str
 
-    """Transformations necessary to convert CatalogueInputSchema to CatalogueSESchema
+    """
+    Transformations necessary to convert CatalogueInputSchema to CatalogueSESchema
         - add type = "catalogue"
         - rename "name" to "title"
         - rename "tag_list" to "keywords"
         - rename "created_at" to "publication_date"
         - delete:
-            (
-                "affiliations",
-                "city",
-                "country",
-                "hosting_legal_entity",
-                "legal_entity",
-                "multimedia_urls",
-                "networks",
-                "participating_countries",
-                "postal_code",
-                "public_contacts",
-                "region",
-                "slug",
-                "street_name_and_number",
-                "updated_at",
-                "webpage_url",
-            )
+            "affiliations",
+            "city",
+            "country",
+            "hosting_legal_entity",
+            "legal_entity",
+            "multimedia_urls",
+            "networks",
+            "participating_countries",
+            "postal_code",
+            "public_contacts",
+            "region",
+            "slug",
+            "street_name_and_number",
+            "updated_at",
+            "webpage_url",
         - convert ID:
             df = df.withColumn(ID, (col(ID) + self.id_increment))
         - cast:
-        .withColumn(
-            "publication_date", col("publication_date").cast("date")
+            .withColumn("publication_date", col("publication_date").cast("date")
     """

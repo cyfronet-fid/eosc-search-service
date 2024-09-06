@@ -92,7 +92,8 @@ class BundleDBSchema(BaseModel):
     usage_counts_downloads: int
     usage_counts_views: int
 
-    """Transformations necessary to convert BundleInputSchema to BundleDBSchema
+    """
+    Transformations necessary to convert BundleInputSchema to BundleDBSchema
     - rename "target_users" -> "dedicated_for"
     - rename "name" -> "title"
     - rename "research_steps" -> "unified_categories"

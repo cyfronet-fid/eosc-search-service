@@ -1,0 +1,4 @@
+sphinx==7.4.7
+sphinx_rtd_theme
+sphinx_autodoc_typehints
+autodoc_pydantic

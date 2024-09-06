@@ -74,7 +74,8 @@ class ProviderSESchema(BaseModel):
     usage_counts_downloads: int
     usage_counts_views: int
 
-    """Transformations necessary to convert ProviderInputSchema to ProviderSESchema
+    """
+    Transformations necessary to convert ProviderInputSchema to ProviderSESchema
         - add type = "provider"
         - add popularity
         - delete:

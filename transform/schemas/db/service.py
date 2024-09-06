@@ -230,7 +230,8 @@ class ServiceDBSchema(BaseModel):
     version: str
     webpage_url: AnyHttpUrl
 
-    """Transformations necessary to convert ServiceInputSchema to ServiceDBSchema
+    """
+    Transformations necessary to convert ServiceInputSchema to ServiceDBSchema
         - add type = "service"
         - add popularity
         - add open_access

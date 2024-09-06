@@ -54,12 +54,12 @@ class OrganisationDBSchema(BaseModel):
     type: str
     url: AnyHttpUrl
 
-    """Transformations necessary to convert OrganisationInputSchema to OrganisationDBSchema
+    """
+    Transformations necessary to convert OrganisationInputSchema to OrganisationDBSchema
         - add type = "organisation"
         - rename:
             "legalname": "title",
             "legalshortname": "abbreviation",
             "websiteurl": "url",
         - #TODO alternativenames vs alternative_names - not sure if renaming is good enough. Maybe there is a need for harvest_alternative_names method
-        - 
     """

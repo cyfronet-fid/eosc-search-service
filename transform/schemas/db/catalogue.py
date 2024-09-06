@@ -94,7 +94,8 @@ class CatalogueDBSchema(BaseModel):
     updated_at: Optional[datetime]  # TODO check date format
     webpage_url: Optional[AnyHttpUrl]
 
-    """Transformations necessary to convert CatalogueInputSchema to CatalogueDBSchema
+    """
+    Transformations necessary to convert CatalogueInputSchema to CatalogueDBSchema
         - add type = "catalogue"
         - rename "name" to "title"
         - rename "tag_list" to "keywords"

@@ -191,7 +191,8 @@ class OtherResearchProductDBSchema(BaseModel):
     usage_counts_downloads: str  # It could benefit from being int
     usage_counts_views: str  # It could benefit from being int
 
-    """Transformations necessary to convert other_rp oag results
+    """
+    Transformations necessary to convert other_rp oag results
         - add type = "dataset"
         - add best_access_right
         - add open_access
@@ -212,18 +213,18 @@ class OtherResearchProductDBSchema(BaseModel):
         - add datasource_pids
         - add related_organisation_titles
         - add related_project_ids
-                - rename:
-                "bestaccessright": "best_access_right",
-                "documentationUrl": "documentation_url",
-                "programmingLanguage": "programming_language",
-                "publicationdate": "publication_date",
-                "maintitle": "title",
-                "fulltext": "direct_url",
-                "dateofcollection": "date_of_collection",
-                "embargoenddate": "embargo_end_date",
-                "eoscIF": "eosc_if",
-                "lastupdatetimestamp": "last_update_timestamp",
-                "originalId": "original_id",
+        - rename:
+            "bestaccessright": "best_access_right",
+            "documentationUrl": "documentation_url",
+            "programmingLanguage": "programming_language",
+            "publicationdate": "publication_date",
+            "maintitle": "title",
+            "fulltext": "direct_url",
+            "dateofcollection": "date_of_collection",
+            "embargoenddate": "embargo_end_date",
+            "eoscIF": "eosc_if",
+            "lastupdatetimestamp": "last_update_timestamp",
+            "originalId": "original_id",
         - do mappings:
             - map_publisher
         - simplyfies:
@@ -244,8 +245,6 @@ class OtherResearchProductDBSchema(BaseModel):
             "pid",
             "relations",
             "subject",
-            
-            
         - TODO:
             date_of_collection from 2020-05-29T12:31:43.313Z to datetime
     """

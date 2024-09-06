@@ -124,14 +124,14 @@ class PublicationSESchema(BaseModel):
     usage_counts_downloads: str
     usage_counts_views: str
 
-    """Transformations necessary to convert PublicationInputSchema to PublicationSESchema
+    """
+    Transformations necessary to convert PublicationInputSchema to PublicationSESchema
         - add type = "publication"
+        - add author_pids
+        - add direct_url
+        - add source
+        - add subtitle
         - delete:
-            - author_pids
-            - direct_url
-            - source
-            - subtitle
-            (
             "affiliation",
             "author",
             "collectedfrom",
@@ -152,19 +152,15 @@ class PublicationSESchema(BaseModel):
             "pid",
             "relations",
             "subject",
-            )
-
         - apply current transformations
         - cast:
             df = transform_date(df, "publication_date", "yyyy-MM-dd")
             df = df.withColumn("publication_year", year(col("publication_date")))
         - rename:
-            {
-                "bestaccessright": "best_access_right",
-                "documentationUrl": "documentation_url",
-                "programmingLanguage": "programming_language",
-                "publicationdate": "publication_date",
-                "maintitle": "title",
-                "fulltext": "direct_url",
-            }
+            "bestaccessright": "best_access_right",
+            "documentationUrl": "documentation_url",
+            "programmingLanguage": "programming_language",
+            "publicationdate": "publication_date",
+            "maintitle": "title",
+            "fulltext": "direct_url",
 """

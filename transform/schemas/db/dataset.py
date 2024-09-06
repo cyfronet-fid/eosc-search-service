@@ -20,7 +20,7 @@ from schemas.common.oag.subject import Subject
 
 class DatasetDBSchema(BaseModel):
     """
-        Pydantic model representing the expected db schema for a dataset data type.
+    Pydantic model representing the expected db schema for a dataset data type.
 
     Attributes:
         affiliation (Optional[List[Affiliation]]):
@@ -194,7 +194,8 @@ class DatasetDBSchema(BaseModel):
     usage_counts_views: str  # It could benefit from being int
     version: str
 
-    """Transformations necessary to convert dataset oag results
+    """
+    Transformations necessary to convert dataset oag results
         - add type = "dataset"
         - add best_access_right
         - add open_access
@@ -215,18 +216,18 @@ class DatasetDBSchema(BaseModel):
         - add datasource_pids
         - add related_organisation_titles
         - add related_project_ids
-                - rename:
-                "bestaccessright": "best_access_right",
-                "documentationUrl": "documentation_url",
-                "programmingLanguage": "programming_language",
-                "publicationdate": "publication_date",
-                "maintitle": "title",
-                "fulltext": "direct_url",
-                "dateofcollection": "date_of_collection",
-                "embargoenddate": "embargo_end_date",
-                "eoscIF": "eosc_if",
-                "lastupdatetimestamp": "last_update_timestamp",
-                "originalId": "original_id",
+        - rename:
+            "bestaccessright": "best_access_right",
+            "documentationUrl": "documentation_url",
+            "programmingLanguage": "programming_language",
+            "publicationdate": "publication_date",
+            "maintitle": "title",
+            "fulltext": "direct_url",
+            "dateofcollection": "date_of_collection",
+            "embargoenddate": "embargo_end_date",
+            "eoscIF": "eosc_if",
+            "lastupdatetimestamp": "last_update_timestamp",
+            "originalId": "original_id",
         - do mappings:
             - map_publisher
         - simplyfies:
@@ -234,7 +235,7 @@ class DatasetDBSchema(BaseModel):
             - simplify_indicators
         - cast:
             transform_date(df, "publication_date", "yyyy-MM-dd")
-            df.withColumn("publication_year", year(col("publication_date"))) 
+            df.withColumn("publication_year", year(col("publication_date")))
         - cols_to_drop:
             "affiliation",
             "author",
@@ -248,7 +249,6 @@ class DatasetDBSchema(BaseModel):
             "pid",
             "relations",
             "subject",
-            
         - TODO:
             date_of_collection from 2020-05-29T12:31:43.313Z to datetime
     """
