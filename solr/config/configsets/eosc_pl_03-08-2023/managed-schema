@@ -449,6 +449,7 @@
   </fieldType>
   <field name="_text_" type="text_general" multiValued="true" indexed="true" stored="false"/>
   <field name="_version_" type="plong" indexed="false" stored="false"/>
+  <field name="affiliation" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="author_names" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="author_names_tg" type="text_general" sortMissingLast="false" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="citation" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
