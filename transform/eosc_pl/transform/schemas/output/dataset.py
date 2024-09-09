@@ -34,4 +34,5 @@
     document_type: arr[str],
     language: arr[str],
     affiliation: arr[str],
+    license: str
 """

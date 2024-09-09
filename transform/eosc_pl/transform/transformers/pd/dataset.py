@@ -8,6 +8,7 @@ from eosc_pl.transform.utils.data.funder import harvest_funder
 from eosc_pl.transform.utils.data.document_type import harvest_document_type
 from eosc_pl.transform.utils.data.language import harvest_language
 from eosc_pl.transform.utils.data.affiliation import harvest_affiliation
+from eosc_pl.transform.utils.data.license import harvest_license
 
 logger = getLogger(__name__)
 
@@ -31,7 +32,6 @@ class DatasetTransformer(BaseTransformer):
     def transform(self, df: DataFrame) -> DataFrame:
         """Apply df transformations"""
         self.add_tg_fields(df)
-        self.transform_global_id(df)
         df["datasource_pids"] = [["eosc.cyfronet.rodbuk"]] * len(df)
         df["country"] = [["PL"]] * len(df)
         df["publication_year"] = to_datetime(df["published_at"]).dt.year
@@ -40,6 +40,8 @@ class DatasetTransformer(BaseTransformer):
         df["document_type"] = harvest_document_type(df)
         df["language"] = harvest_language(df)
         df["affiliation"] = harvest_affiliation(df)
+        df["license"] = harvest_license(df)
+        self.transform_global_id(df)
         self.check_subjects_empty(df)
         self.serialize(df, ["contacts", "publications"])
 
@@ -83,6 +85,7 @@ class DatasetTransformer(BaseTransformer):
         Simply remove 'doi:' form the beginning."""
         df["global_id"] = df["global_id"].str.replace("^doi:", "", regex=True)
         df["id"] = df["global_id"]  # We still need unique identifier
+        # TODO ID shouldn't be taken from DOIs
 
     @staticmethod
     def add_tg_fields(df: DataFrame) -> None:
