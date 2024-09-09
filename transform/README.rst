@@ -10,6 +10,33 @@ The data obtained from APIs includes ``services, data sources, providers, offers
 
 The data obtained from dumps includes ``publications, datasets, software, other research products, organizations, and projects``. Live updates are not available, only batch updates.
 
+Documentation
+=============
+The service uses Sphinx for generating both local and public documentation. Follow the instructions below to access the documentation.
+
+Public Documentation
+---------------------
+The public documentation for the EOSC Data Transform Service is available online at `Read the Docs <https://eosc-search-service.readthedocs.io/en/latest/index.html>`_.
+This should be your first point of reference for detailed information about the service.
+
+Local Sphinx Documentation
+---------------------------
+You can generate and view the Sphinx documentation locally by running the following command in the docs directory:
+
+.. code-block:: shell
+
+   make html
+
+Once generated, the documentation will be available at `docs/build/html/index.html`. Open it in a browser to navigate the API, Schemas and other documentation.
+
+To remove old build files and ensure a fresh documentation generation, use the following command before running `make html`:
+
+.. code-block:: shell
+
+   make clean
+
+This will delete the `docs/build/` directory, allowing Sphinx to regenerate all files from scratch.
+
 API
 ===
 
