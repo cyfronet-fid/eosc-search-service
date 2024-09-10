@@ -10,6 +10,7 @@ from celery.result import AsyncResult
 from app.api.schemas.transform.dump import DumpUpdateRequest
 from app.services.celery.task import CeleryTaskStatus
 from app.tasks.solr.create_collections import create_solr_collections_task
+from app.tasks.transform.dump.load import load_dump
 from app.tasks.transform.dump.transform import transform_data
 from app.tasks.transform.dump.validate import validate_dump
 from app.worker import celery
@@ -42,7 +43,6 @@ def process_dump(req_body: dict) -> AsyncResult:
         req_body (DumpUpdateRequest): request body.
     """
     logger.info(f"Transforming data dump has started. Details={req_body}")
-
     workflow = create_workflow(req_body)
     result = workflow.apply_async()
 
@@ -53,7 +53,8 @@ def create_workflow(req_body: dict) -> chain:
     """Construct a proper celery workflow for given needs"""
     instances = req_body.get("instances", [])
     workflow = chain(
-        validate_dump.s(None, req_body["dump_url"])
+        validate_dump.s(None, req_body["dump_url"]),
+        load_dump.s(req_body["dump_url"]),
     )  # Validate task, no previous status
 
     # Create solr collections for each solr instance task

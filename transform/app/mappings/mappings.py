@@ -17,6 +17,11 @@ EMBARGO = "Embargo"
 OTHER = "Other"
 METADATA_ONLY_ACCESS = "Metadata only access"
 
+OTHER_RP = "other"
+ORGANISATION = "organisation"
+RESULT_ORGANISATION = "resultOrganisation"
+ORGANISATION_PROJECT = "organisationProject"
+
 access_rights_mapping = {
     OPEN_ACCESS_: (
         "OPEN",
@@ -96,4 +101,11 @@ language_mapping = {
     ROMANIAN: "ro",
     SERBIAN: "sr",
     SLOVENIAN: "sl",
+}
+
+entity_mapping = {
+    OTHER_RP: "otherresearchproduct",
+    ORGANISATION: "organization",
+    RESULT_ORGANISATION: "resultOrganization",
+    ORGANISATION_PROJECT: "organizationProject",
 }

@@ -41,6 +41,7 @@ class S3Instance(BaseInstance):
     """S3 instance"""
 
     type: Literal["s3"]
+    s3_output_bucket: str = None
     s3_output_name: str = None
 
 

@@ -5,6 +5,7 @@ import requests
 from requests import ConnectionError as ReqConnectionError
 
 from app.services.celery.task import CeleryTaskStatus
+from app.services.celery.task_statuses import ABORTED, FAILURE, SUCCESS
 from app.services.solr.utils import ids_mapping
 from app.settings import settings
 from app.worker import celery
@@ -24,7 +25,7 @@ def delete_data_by_id(
     id_to_delete = ids_mapping(raw_id, col_name)
 
     if not delete:
-        return [{"status": "aborted", "record_id": id_to_delete}]
+        return [{"status": ABORTED, "record_id": id_to_delete}]
 
     solr_col_names = settings.COLLECTIONS[col_name]["SOLR_COL_NAMES"]
 
@@ -40,7 +41,7 @@ def delete_data_by_id(
                 )
                 results.append(
                     {
-                        "status": "success",
+                        "status": SUCCESS,
                         "solr_col": s_col_name,
                         "record_id": id_to_delete,
                     }
@@ -51,7 +52,7 @@ def delete_data_by_id(
                 )
                 results.append(
                     {
-                        "status": "failure",
+                        "status": FAILURE,
                         "solr_col": s_col_name,
                         "record_id": id_to_delete,
                         "http_status_code": req.status_code,
@@ -64,7 +65,7 @@ def delete_data_by_id(
             )
             results.append(
                 {
-                    "status": "failure",
+                    "status": FAILURE,
                     "solr_col": s_col_name,
                     "record_id": id_to_delete,
                     "error": str(e),

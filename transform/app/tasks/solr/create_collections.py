@@ -4,6 +4,7 @@ from typing import Optional
 import requests
 
 from app.services.celery.task import CeleryTaskStatus
+from app.services.celery.task_statuses import FAILURE, SUCCESS
 from app.services.solr.validate.endpoints.validate import get_cols_names, validate
 from app.worker import celery
 
@@ -76,6 +77,6 @@ def create_solr_collections_task(
                 raise CollectionCreationFailed(
                     f"Failed to create collection {collection}. Status code: {response.status_code}. Aborting task"
                 )
-        return CeleryTaskStatus(status="success").dict()
+        return CeleryTaskStatus(status=SUCCESS).dict()
     except Exception as e:
-        return CeleryTaskStatus(status="failure", reason=str(e)).dict()
+        return CeleryTaskStatus(status=FAILURE, reason=str(e)).dict()
