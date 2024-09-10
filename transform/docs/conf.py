@@ -12,8 +12,8 @@ import sys
 sys.path.insert(0, os.path.abspath(".."))
 
 project = "Transformer Service"
-copyright = "2024, Michał Kołomański"
-author = "Michał Kołomański"
+copyright = "2024, Michał Kołomański & Wiktor Florian"
+author = "Michał Kołomański & Wiktor Florian"
 release = "1.0.0"
 
 # -- General configuration ---------------------------------------------------

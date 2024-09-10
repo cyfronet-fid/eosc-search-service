@@ -4,6 +4,7 @@ from typing import List, Optional
 import requests
 
 from app.services.celery.task import CeleryTaskStatus
+from app.services.celery.task_statuses import FAILURE, SUCCESS
 from app.worker import celery
 
 logger = logging.getLogger(__name__)
@@ -50,6 +51,6 @@ def create_aliases_task(
                 raise AliasesCreationFailed(
                     f"Failed to create/switch alias {alias}. Status code: {response.status_code}. Aborting task"
                 )
-        return CeleryTaskStatus(status="success").dict()
+        return CeleryTaskStatus(status=SUCCESS).dict()
     except Exception as e:
-        return CeleryTaskStatus(status="failure", reason=str(e)).dict()
+        return CeleryTaskStatus(status=FAILURE, reason=str(e)).dict()

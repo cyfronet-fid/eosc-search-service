@@ -14,6 +14,7 @@ modules_to_include = [
     "app.tasks.transform.dump.validate",
     "app.tasks.transform.dump.load",
     "app.tasks.transform.dump.transform",
+    "app.tasks.utils.s3_paths",
     "app.tasks.utils.send",
     "app.tasks.solr.create_collections",
     "app.tasks.solr.create_aliases",

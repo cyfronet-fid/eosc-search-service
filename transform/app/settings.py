@@ -104,6 +104,9 @@ class GlobalSettings(BaseSettings):
     GUIDELINE: str = "interoperability guideline"
     TRAINING: str = "training"
     CATALOGUE: str = "catalogue"
+    RESULT_ORGANISATION: str = "resultOrganisation"
+    RESULT_PROJECT: str = "resultProject"
+    ORGANISATION_PROJECT: str = "organisationProject"
 
     # Relations properties
     TMP_DIRECTORY: str = "tmp/"
