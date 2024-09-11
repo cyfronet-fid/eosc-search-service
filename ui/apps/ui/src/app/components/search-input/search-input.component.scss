@@ -9,19 +9,19 @@
   z-index: 10;
 }
 .form-control2 {
-  width: 598px !important;
-  border-top-left-radius: 4px !important;
-  border-bottom-left-radius: 4px !important;
+  width: 580px !important;
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 24px !important;
 }
 
 .form-control3 {
-  width: 400px !important;
+  width: 480px !important;
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
 
 .form-control4 {
-  width: 400px !important;
+  width: 480px !important;
   border-top-left-radius: 4px !important;
   border-bottom-left-radius: 4px !important;
 }
@@ -37,16 +37,16 @@
   color: #3987be;
 }
 .btn-enter {
-  color: #ffffff;
+  color: #000;
   height: 40px;
-  background: #010E87;
+  background: #F39BB1;
   padding: 0 20px 0 20px;
-  border: 1px solid #fff;
-  border-radius: 0 4px 4px 0;
+  border: 2px solid #fff;
+  border-radius: 20px;
 }
 
 .btn-enter:hover {
-  background: #010B65;
+  background: #24727B;
   color: #ffffff;
 }
 
@@ -216,7 +216,7 @@
 }
 
 .ant-tag-custom {
-  background: transparent !important;
+  background: #24727B !important;
   color: white !important;
   border-radius: 16px !important;
 }
@@ -238,14 +238,14 @@
   .ant-radio-group {
     border-radius: 16px !important;
     padding: 3px !important;
-    border: 1px solid #0d6efd !important;
+    border: 1px solid #fff !important;
   }
   .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
-    color: white !important;
+    color: #24727B !important;
 
     border-radius: 16px !important;
-    background: #0d6efd !important;
-    border: 1px solid #0d6efd !important;
+    background: #fff !important;
+    border: 1px solid #fff !important;
     font-size: 11px !important;
   }
 
@@ -254,7 +254,7 @@
   }
 
   .ant-radio-button-wrapper {
-    color: #0d6efd !important;
+    color: #fff !important;
     border-radius: 16px !important;
     border: none !important;
     font-size: 11px !important;
@@ -273,4 +273,8 @@
   font-weight: 400;
   margin-top: 8px;
   margin-bottom: 7px
+}
+
+.search-box-adv .form-control3 {
+  border-radius: 24px 0 0 0 !important;
 }

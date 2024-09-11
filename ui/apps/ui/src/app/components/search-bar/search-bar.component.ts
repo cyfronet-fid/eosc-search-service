@@ -9,7 +9,7 @@ import { SearchInputComponent } from '@components/search-input/search-input.comp
         <div class="col-12">
           <ess-top-menu></ess-top-menu>
         </div>
-        <div class="col-12">
+        <div class="col-12 bordered-search">
           <div class="search-row">
             <ess-search-input></ess-search-input>
             <!--p class="user-announcement" i18n>

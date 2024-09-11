@@ -1,15 +1,17 @@
 <div class="prefix-buttons">
-  <button [class.active]="selectedPrefix === 'eu'" (click)="setPrefix('eu')">
-    EU
-  </button>
+
 
   <button [class.active]="selectedPrefix === 'pl'" (click)="setPrefix('pl')">
-    PL
+    Browse Polish Resources
+  </button>
+
+  <button [class.active]="selectedPrefix === 'eu'" (click)="setPrefix('eu')">
+    Browse EU Resources
   </button>
 </div>
 
-<ul nz-menu nzMode="horizontal" class="search-bar ant-menu-custom">
-  <!--  <li nz-menu-item nzSelected="{{ this.selected === 'main' }}">-->
+<!--<ul nz-menu nzMode="horizontal" class="search-bar ant-menu-custom">-->
+<!--  <li nz-menu-item nzSelected="{{ this.selected === 'main' }}">-->
   <!--    <a-->
   <!--      [queryParams]="{ q: '*' }"-->
   <!--      [routerLink]="'/search/all_collection'"-->
@@ -84,62 +86,62 @@
   <!--      <span class="ant-menu-item-custom">Catalogues</span>-->
   <!--    </a>-->
   <!--  </li>-->
-  <li
-    *ngIf="showBetaCollections"
-    nz-menu-item
-    nzSelected="{{ this.selected === 'project' }}"
-  >
-    <a
-      [queryParams]="{ q: '*' }"
-      [routerLink]="'/search/project'"
-      [routerLinkActiveOptions]="{
-        queryParams: 'ignored',
-        paths: 'exact',
-        matrixParams: 'ignored',
-        fragment: 'ignored'
-      }"
-      routerLinkActive=""
-      [queryParams]="{
-        q: (q$ | async),
-        standard: (st$ | async),
-        tags: (tg$ | async),
-        exact: (ex$ | async),
-        radioValueAuthor: (radioValueAuthor$ | async),
-        radioValueExact: (radioValueExact$ | async),
-        radioValueTitle: (radioValueTitle$ | async),
-        radioValueKeyword: (radioValueKeyword$ | async)
-      }"
-    >
-      <span class="ant-menu-item-custom">Projects</span>
-    </a>
-  </li>
-  <li
-    *ngIf="showBetaCollections"
-    nz-menu-item
-    nzSelected="{{ this.selected === 'organisation' }}"
-  >
-    <a
-      [queryParams]="{ q: '*' }"
-      [routerLink]="'/search/organisation'"
-      [routerLinkActiveOptions]="{
-        queryParams: 'ignored',
-        paths: 'exact',
-        matrixParams: 'ignored',
-        fragment: 'ignored'
-      }"
-      routerLinkActive=""
-      [queryParams]="{
-        q: (q$ | async),
-        standard: (st$ | async),
-        tags: (tg$ | async),
-        exact: (ex$ | async),
-        radioValueAuthor: (radioValueAuthor$ | async),
-        radioValueExact: (radioValueExact$ | async),
-        radioValueTitle: (radioValueTitle$ | async),
-        radioValueKeyword: (radioValueKeyword$ | async)
-      }"
-    >
-      <span class="ant-menu-item-custom">Organisations</span>
-    </a>
-  </li>
-</ul>
+  <!-- <li
+   *ngIf="showBetaCollections"
+   nz-menu-item
+   nzSelected="{{ this.selected === 'project' }}"
+ >
+   <a
+     [queryParams]="{ q: '*' }"
+     [routerLink]="'/search/project'"
+     [routerLinkActiveOptions]="{
+       queryParams: 'ignored',
+       paths: 'exact',
+       matrixParams: 'ignored',
+       fragment: 'ignored'
+     }"
+     routerLinkActive=""
+     [queryParams]="{
+       q: (q$ | async),
+       standard: (st$ | async),
+       tags: (tg$ | async),
+       exact: (ex$ | async),
+       radioValueAuthor: (radioValueAuthor$ | async),
+       radioValueExact: (radioValueExact$ | async),
+       radioValueTitle: (radioValueTitle$ | async),
+       radioValueKeyword: (radioValueKeyword$ | async)
+     }"
+   >
+     <span class="ant-menu-item-custom">Projects</span>
+   </a>
+ </li>
+ <li
+   *ngIf="showBetaCollections"
+   nz-menu-item
+   nzSelected="{{ this.selected === 'organisation' }}"
+ >
+   <a
+     [queryParams]="{ q: '*' }"
+     [routerLink]="'/search/organisation'"
+     [routerLinkActiveOptions]="{
+       queryParams: 'ignored',
+       paths: 'exact',
+       matrixParams: 'ignored',
+       fragment: 'ignored'
+     }"
+     routerLinkActive=""
+     [queryParams]="{
+       q: (q$ | async),
+       standard: (st$ | async),
+       tags: (tg$ | async),
+       exact: (ex$ | async),
+       radioValueAuthor: (radioValueAuthor$ | async),
+       radioValueExact: (radioValueExact$ | async),
+       radioValueTitle: (radioValueTitle$ | async),
+       radioValueKeyword: (radioValueKeyword$ | async)
+     }"
+   >
+     <span class="ant-menu-item-custom">Organisations</span>
+   </a>
+ </li>
+</ul> -->
