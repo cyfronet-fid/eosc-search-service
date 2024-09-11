@@ -60,7 +60,7 @@ const DEFAULT_NO_OF_RESULTS = 2000;
         font-weight: 500;
         font-size: 16px;
         line-height: 20px;
-        color: #3d4db6;
+        color: #257b85;
 
         display: inline-block;
         cursor: pointer;

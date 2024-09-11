@@ -26,7 +26,7 @@ h2 {
 }
 
 .btn-primary:hover {
-  background: #3d4db6;
+  background: #000;
 }
 
 .anticon {
@@ -76,6 +76,10 @@ h2 {
   position: relative;
 }
 
+.phase-box input.form-control4 {
+  border-radius: 0 0 0 24px !important;
+}
+
 .search-box input {
   height: 40px;
   width: 565px;
@@ -107,7 +111,7 @@ h2 {
 }
 
 .search-box .btn-primary i {
-  color: #3d4db6;
+  color: #0E0F0F;
   font-size: 22px;
 }
 
@@ -120,6 +124,7 @@ h2 {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
+
 
 .search-box-adv select {
   border: none;
@@ -142,7 +147,7 @@ h2 {
 }
 
 .search-box-adv .btn-primary i {
-  color: #3d4db6;
+  color: #000;
   font-size: 22px;
 }
 
