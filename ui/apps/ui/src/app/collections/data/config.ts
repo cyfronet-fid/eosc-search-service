@@ -19,6 +19,30 @@ export const PROJECT_QF =
 
 export const ORGANISATION_QF = 'alternative_names title abbreviation';
 
+export const PL_CONTEXT_COLLECTIONS = [
+  'all_collection',
+  'dataset',
+  'publication',
+  'service',
+];
+
+export const EU_CONTEXT_COLLECTIONS = [
+  'all_collection',
+  'bundle',
+  'catalogue',
+  'data_source',
+  'dataset',
+  'guideline',
+  'organisation',
+  'other_rp',
+  'project',
+  'provider',
+  'publication',
+  'service',
+  'software',
+  'training',
+];
+
 export const SPECIAL_COLLECTIONS = [
   'organisation',
   'provider',
