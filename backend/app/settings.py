@@ -72,7 +72,8 @@ class GlobalSettings(BaseSettings):
 
     # - Other
     RELATED_SERVICES_ENDPOINT: Url = (
-        "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"
+        "https://integration.providers.sandbox.eosc-beyond.eu/"
+        + "api/public/interoperabilityRecord/relatedResources"
     )
 
     # Redirections
