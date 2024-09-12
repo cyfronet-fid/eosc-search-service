@@ -185,7 +185,7 @@ See docker-compose.yml for components.
   > `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.js` and `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.css`
 
 - `EOSC_EXPLORE_URL`: `Url = "https://explore.eosc-portal.eu/"` - base URL to OpenAire Explore - used when constructing links for publications, datasets ETC.
-- `KNOWLEDGE_HUB_URL`: `Url = "https://knowledge-hub.eosc-portal.eu/"` - base URL to Knowledge Hub.
+- `KNOWLEDGE_HUB_URL`: `Url = "https://knowledge-hub.sandbox.eosc-beyond.eu/"` - base URL to Knowledge Hub.
 
 ### `db` envs:
 - `DB_POSTGRES_DB`
