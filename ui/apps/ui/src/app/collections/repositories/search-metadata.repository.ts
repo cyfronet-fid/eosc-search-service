@@ -26,9 +26,9 @@ export class SearchMetadataRepository {
 
   constructor() {
     const metadata =
-      localStorage.getItem('COLLECTIONS_PREFIX') === 'eu'
-        ? SEARCH_METADATA
-        : PL_SEARCH_METADATA;
+      localStorage.getItem('COLLECTIONS_PREFIX') === 'pl'
+        ? PL_SEARCH_METADATA
+        : SEARCH_METADATA;
     this._store$.update(setEntities(metadata));
   }
 
