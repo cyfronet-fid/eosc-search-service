@@ -200,6 +200,14 @@ btn-primary.disabled,
     }
   }
 
+  .adv-search-text-btn {
+    border-radius: 24px;
+    padding: 4px 16px;
+    opacity: 0.9;
+    background: #24727B;
+    backdrop-filter: blur(300px);
+  }
+
   .search-box {
     margin: 0 auto;
     position: relative;
@@ -360,13 +368,15 @@ btn-primary.disabled,
 
 #sub-nav {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
   text-align: center;
   margin: 0 0 45px;
 
   #bottom-border-wrapper {
     border-bottom: 1px solid #C0C3C3;
+    width: 100%;
+    text-align: left;
   }
 }
 
