@@ -24,7 +24,7 @@ export class TopMenuComponent implements OnInit {
   public radioValueTitle$ = this._customRoute.radioValueTitle$;
   public radioValueKeyword$ = this._customRoute.radioValueKeyword$;
   public selected = 'main';
-  public selectedPrefix: string = 'eu';
+  public selectedPrefix: string = 'pl';
   showBetaCollections: boolean = ConfigService.config?.show_beta_collections;
 
   constructor(private _customRoute: CustomRoute, private _router: Router) {}
@@ -39,7 +39,7 @@ export class TopMenuComponent implements OnInit {
     });
 
     const storedPrefix = localStorage.getItem('COLLECTIONS_PREFIX');
-    this.selectedPrefix = storedPrefix ? storedPrefix : 'eu';
+    this.selectedPrefix = storedPrefix ? storedPrefix : 'pl';
   }
 
   setPrefix(prefix: string) {
