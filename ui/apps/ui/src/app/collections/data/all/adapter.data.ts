@@ -53,7 +53,7 @@ const urlAdapter = (
     case 'data source':
       return getDataSourceUrl(data?.pid);
     case 'service':
-      return `${ConfigService.config?.marketplace_url}/services/${data?.pid}`;
+      return `${ConfigService.config?.marketplace_url}/services/${data?.slug}`;
     case 'training':
       return '/trainings/' + data.id;
     case 'interoperability guideline':
@@ -83,8 +83,8 @@ const orderUrlAdapter = (
     case 'data source':
       return getServiceOrderUrl(data?.pid);
     case 'service':
-      return data.pid
-        ? `${ConfigService.config?.marketplace_url}/services/${data.pid}/offers`
+      return data.slug
+        ? `${ConfigService.config?.marketplace_url}/services/${data.slug}/offers`
         : undefined;
     case 'bundle':
       return `${ConfigService.config?.marketplace_url}/services/${data.service_id}/offers`;

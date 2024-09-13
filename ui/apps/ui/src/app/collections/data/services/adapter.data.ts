@@ -15,11 +15,11 @@ import {
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
 
-export const getServiceOrderUrl = (pid?: string) => {
-  if (!pid) {
-    pid = '';
+export const getServiceOrderUrl = (slug?: string) => {
+  if (!slug) {
+    slug = '';
   }
-  return `${ConfigService.config?.marketplace_url}/services/${pid}/offers`;
+  return `${ConfigService.config?.marketplace_url}/services/${slug}/offers`;
 };
 
 const setType = (type: string | undefined) => {
@@ -49,10 +49,10 @@ export const servicesAdapter: IAdapter = {
     languages: transformLanguages(service?.language),
     horizontal: service?.horizontal,
     type: setType(service.type),
-    url: service.pid
-      ? `${ConfigService.config?.marketplace_url}/services/${service.pid}`
+    url: service.slug
+      ? `${ConfigService.config?.marketplace_url}/services/${service.slug}`
       : '',
-    orderUrl: getServiceOrderUrl(service.pid),
+    orderUrl: getServiceOrderUrl(service.slug),
     collection: COLLECTION,
     coloredTags: [],
     tags: [
