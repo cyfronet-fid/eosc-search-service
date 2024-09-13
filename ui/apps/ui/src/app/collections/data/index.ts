@@ -108,6 +108,7 @@ export const PL_ADAPTERS: IAdapter[] = [
   publicationsAdapter,
   datasetsAdapter,
   servicesAdapter,
+  dataSourcesAdapter,
 ];
 
 export const FILTERS: IFiltersConfig[] = [
@@ -132,6 +133,7 @@ export const PL_FILTERS: IFiltersConfig[] = [
   publicationsFilters,
   datasetsFilters,
   servicesFilters,
+  dataSourcesFilters,
 ];
 
 // Excluded filters according to adjustments in
@@ -158,6 +160,7 @@ export const PL_EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
   excludedPublicationsFilters,
   excludedDatasetsFilters,
   excludedServicesFilters,
+  excludedDataSourcesFilters,
 ];
 
 export const NAV_CONFIGS: ICollectionNavConfig[] = [
@@ -182,6 +185,7 @@ export const PL_NAV_CONFIGS: ICollectionNavConfig[] = [
   publicationsNavConfig,
   datasetsNavConfig,
   servicesNavConfig,
+  dataSourcesNavConfig,
 ];
 
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
@@ -206,6 +210,7 @@ export const PL_SEARCH_METADATA: ICollectionSearchMetadata[] = [
   publicationsSearchMetadata,
   datasetsSearchMetadata,
   servicesSearchMetadata,
+  dataSourcesSearchMetadata,
 ];
 
 validateCollections(
