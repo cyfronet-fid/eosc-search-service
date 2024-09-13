@@ -7,6 +7,7 @@ export interface IService {
   scientific_domains: string[];
   resource_organisation: string;
   pid: string;
+  slug: string;
   best_access_right: string;
   type: string;
   usage_counts_views: string;
