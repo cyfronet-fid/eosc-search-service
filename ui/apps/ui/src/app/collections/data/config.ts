@@ -24,6 +24,7 @@ export const PL_CONTEXT_COLLECTIONS = [
   'dataset',
   'publication',
   'service',
+  'data_source',
 ];
 
 export const EU_CONTEXT_COLLECTIONS = [
