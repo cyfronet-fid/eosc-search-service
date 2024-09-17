@@ -1,560 +1,440 @@
-<main>
-  <section class="text-center heading">
-    <div class="container">
-      <div class="row py-lg-3">
-        <div class="col-md-8 col-sm-12 mx-auto">
-          <div class="logo-box">
-            <img
-              src="assets/logo-eosc-white.png"
-              alt="EOSC Portal Catalogue and Marketplace"
-            />
+<main class="landing_page">
+  <div class="landing-header">
+    <section class="heading">
+      <div class="container">
+        <div class="row py-lg-3">
+          <div class="col-lg-7 col-sm-12 pr-0">
+            <h1>Polska Platforma Otwartej Nauki</h1>
+            <p class="intro-text">
+              Wspieramy rozwój polskiej nauki i innowacji, oferując nowoczesne narzędzia
+              <br>
+              oraz dostęp do unikalnych danych badawczych.
+            </p>
+            <ess-search-input
+              [navigateOnCollectionChange]="false"
+            ></ess-search-input>
+
+            <div class="browse d-flex whitelabel">
+              <div class="browse-label">
+                Popularne frazy:
+              </div>
+              <div class="popular-box">
+                <a href="#">nanotechnologie</a>
+                <a href="#">zasoby obliczeniowe</a>
+                <a href="#">pamięć masowa</a>
+              </div>
+            </div>
+
           </div>
+        </div>
+      </div>
+    </section>
+  </div>
 
-          <h1>EOSC Portal Marketplace</h1>
-          <p>
-            Search. Browse. Access. Hundreds of research and innovation tools
-            and services, thousands of datasets from a wide scale of research
-            domains from renowned European service providers.
-          </p>
 
-          <ess-search-input
-            [navigateOnCollectionChange]="false"
-          ></ess-search-input>
+  <section class="research-activity">
+    <div class="container">
+      <div class="row">
 
-          <p class="lead">Browse solutions</p>
-
-          <div class="solutions-box">
-            <a [routerLink]="researchProductsPath" [queryParams]="{ q: '*' }"
-              >Discover research outputs</a
-            >
-            <a
-              [routerLink]="allUrlPath"
-              [queryParams]="fqBy('categories_ss', 'Aggregators & Integrators')"
-              >Publish research outputs</a
-            >
-            <a
-              [routerLink]="allUrlPath"
-              [queryParams]="fqBy('categories_ss', 'Processing & Analysis')"
-              >Process and analyse</a
-            >
-            <a
-              [routerLink]="allUrlPath"
-              [queryParams]="
-                fqBy(
-                  'categories_ss',
-                  'Access physical & eInfrastructures>Compute'
-                )
-              "
-              >Access computing resources</a
-            >
-            <a href="#">Find bundles</a>
-            <a
-              [routerLink]="allUrlPath"
-              [queryParams]="
-                fqBy(
-                  'categories_ss',
-                  'Access physical & eInfrastructures>Instruments & Equipment'
-                )
-              "
-              >Find instruments & equipment</a
-            >
-            <a [routerLink]="trainingsPath" [queryParams]="{ q: '*' }"
-              >Access training materials</a
-            >
-            <a
-              [routerLink]="allUrlPath"
-              [queryParams]="
-                fqBy('categories_ss', 'Access physical & eInfrastructures')
-              "
-              >Access research infrastructures
+        <div class="col-md-8 col-sm-12">
+          <div class="eoscpl-intro right-intro">
+            <div class="eoscpl-intro-title">
+              Zasoby Polskie
+            </div>
+            <div class="eoscpl-intro-desc">
+              Znajdź treści i narzędzia dedykowane polskiej społeczności badawczej. Wybieraj spośród tysięcy zasobów,
+              które ułatwią Ci prowadzenie badań. Korzystaj z bogatej oferty informacji oraz wsparcia,
+              które pomogą Ci w rozwoju innowacyjnych projektów w kraju i za granicą.
+            </div>
+            <a class="eoscpl-more-link">
+              <a
+                [routerLink]="allUrlPath"
+                [queryParams]="{ q: '*', scope: 'pl' }"
+              >
+                Przeglądaj zasoby Polskie
+              </a>
+              <svg class="svg-inline--fa fa-arrow-right ml-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fas fa-arrow-right ml-2"></i> Font Awesome fontawesome.com -->
+            </a>
+          </div>
+          <div class="eoscpl-intro right-intro">
+            <div class="eoscpl-intro-title">
+              Zasoby Unii Europejskiej
+            </div>
+            <div class="eoscpl-intro-desc">
+              Przeglądaj jedną z największych baz danych naukowych w Europie. Dostęp do milionów publikacji, serwisów,
+              oprogramowania i innych narzędzi, które wspierają międzynarodową współpracę i rozwój
+              Twoich projektów badawczych.
+            </div>
+            <a class="eoscpl-more-link">
+              <a
+                [routerLink]="allUrlPath"
+                [queryParams]="{ q: '*', scope: 'eu' }"
+              >
+              Przeglądaj zasoby europejskie
+              </a>
+              <svg class="svg-inline--fa fa-arrow-right ml-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fas fa-arrow-right ml-2"></i> Font Awesome fontawesome.com -->
             </a>
           </div>
         </div>
+
+        <div class="col-md-4 col-sm-12">
+          <img alt="Service name" class="img-fluid" src="assets/eoscpl-pic-01.jpg">
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="who-are-you py-5 text-center bg-light">
+  <section class="learn-more">
     <div class="container">
-      <h2>Who are you?</h2>
-
-      <div class="col-md-6 col-sm-12 mx-auto intro-box">
-        <p style="text-align: center">
-          Are you a researcher, citizen scientist or an educator looking for
-          research data, tools or services? Are you a service provider keen on
-          sharing its brand new tool or service to advance European research and
-          innovation? Access the EOSC Portal services you need.
-        </p>
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          <h4>Dowiedz się więcej</h4>
+        </div>
+        <div class="col-md-8 col-sm-12">
+          <a href="#" class="learn-more-link">
+            <div class="link-title">Partnerzy</div>
+            <div class="link-more">Sprawdź
+              <svg class="svg-inline--fa fa-arrow-right ml-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fas fa-arrow-right ml-2"></i> Font Awesome fontawesome.com -->
+            </div>
+          </a>
+          <a href="#" class="learn-more-link">
+            <div class="link-title">Powiązane Inicjatywy</div>
+            <div class="link-more">Sprawdź
+              <svg class="svg-inline--fa fa-arrow-right ml-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fas fa-arrow-right ml-2"></i> Font Awesome fontawesome.com -->
+            </div>
+          </a>
+          <a href="#" class="learn-more-link">
+            <div class="link-title">Polska Platforma Otwartej Nauki </div>
+            <div class="link-more">Sprawdź
+              <svg class="svg-inline--fa fa-arrow-right ml-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fas fa-arrow-right ml-2"></i> Font Awesome fontawesome.com -->
+            </div>
+          </a>
+          <a href="#" class="learn-more-link">
+            <div class="link-title">O National Node EOSC.PL</div>
+            <div class="link-more">Sprawdź
+              <svg class="svg-inline--fa fa-arrow-right ml-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fas fa-arrow-right ml-2"></i> Font Awesome fontawesome.com -->
+            </div>
+          </a>
+          <a href="#" class="learn-more-link">
+            <div class="link-title">Popularne serwisy</div>
+            <div class="link-more">Sprawdź
+              <svg class="svg-inline--fa fa-arrow-right ml-2" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fas fa-arrow-right ml-2"></i> Font Awesome fontawesome.com -->
+            </div>
+          </a>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <div class="col-md-6 col-sm-12 mx-auto">
+
+  <section class="partners">
+    <div class="container">
+      <h4>Partnerzy</h4>
+    </div>
+    <div class="container-wide">
+      <a href="#" class="partner-box">
+        <div class="partner-logo">
+          <img alt="Partner" class="img-fluid" src="assets/partner-placeholder.png">
+        </div>
+        <div class="partner-title">
+          Partner
+        </div>
+      </a>
+      <a href="#" class="partner-box">
+        <div class="partner-logo">
+          <img alt="Partner" class="img-fluid" src="assets/partner-placeholder.png">
+        </div>
+        <div class="partner-title">
+          Partner
+        </div>
+      </a>
+      <a href="#" class="partner-box">
+        <div class="partner-logo">
+          <img alt="Partner" class="img-fluid" src="assets/partner-placeholder.png">
+        </div>
+        <div class="partner-title">
+          Partner
+        </div>
+      </a>
+      <a href="#" class="partner-box">
+        <div class="partner-logo">
+          <img alt="Partner" class="img-fluid" src="assets/partner-placeholder.png">
+        </div>
+        <div class="partner-title">
+          Partner
+        </div>
+      </a>
+      <a href="#" class="partner-box">
+        <div class="partner-logo">
+          <img alt="Partner" class="img-fluid" src="assets/partner-placeholder.png">
+        </div>
+        <div class="partner-title">
+          Partner
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section class="initiatives">
+    <div class="container">
+      <div class="container">
+        <h3>Powiązane inicjatywy</h3>
         <div class="row">
-          <a
-            href="javascript:void(0)"
-            class="col-lg-5 col-sm-12 bg-light mx-auto py-4 px-4"
-            (click)="scroll(services)"
-          >
-            <div class="icon-box">
-              <img
-                src="assets/research.png"
-                alt="Researcher Citizen science Educator"
-                class="img-responsive vertical-center"
-              />
-            </div>
+          <div class="col-md-4 col-sm-12">
 
-            <div class="card-title">Researcher Citizen science Educator</div>
-          </a>
-
-          <a
-            href="javascript:void(0)"
-            class="col-lg-5 col-sm-12 bg-light mx-auto py-4 px-4"
-            (click)="scroll(provider)"
-          >
-            <div class="icon-box">
-              <img
-                src="assets/provider.png"
-                alt="Provider"
-                class="img-responsive vertical-center"
-              />
+            <div class="initiatives-pic">
+              <img src="assets/initiative-01.jpg" alt="eosc.gov.pl">
             </div>
-            <div class="card-title">Provider</div>
-          </a>
+            <div class="initiatives-title">eosc.gov.pl</div>
+            <div class="initiatives-desc">
+              EOSC.gov.pl to inicjatywa polskiego partnerstwa EOSC, której celem jest promowanie i wspieranie rozwoju otwartej nauki w Polsce. Oferuje informacje na temat krajowych działań związanych z otwartą nauką oraz stanowi platformę do wymiany doświadczeń i najlepszych praktyk pomiędzy polskimi instytucjami zaangażowanymi w projekty EOSC. Witryna koordynowana jest przez Narodowe Centrum Nauki, które odpowiada za nadzór nad krajową implementacją inicjatywy.
+
+            </div>
+            <a class="initiatives-link" href="#" target="_blank">
+              Sprawdź
+              <svg class="svg-inline--fa fa-arrow-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fa fa-arrow-right"></i> Font Awesome fontawesome.com -->
+            </a>
+          </div>
+          <div class="col-md-4 col-sm-12">
+
+            <div class="initiatives-pic">
+              <img src="assets/initiative-02.jpg" alt="eosc.gov.pl">
+            </div>
+            <div class="initiatives-title">EOSC Beyond</div>
+            <div class="initiatives-desc">
+              EOSC Beyond to projekt realizowany w ramach Europejskiej Chmury Otwartej Nauki, mającej na celu budowanie sieci współpracy między badaczami z całej Europy. Dzięki zaawansowanej infrastrukturze naukowcy zyskują dostęp do narzędzi, które ułatwiają i usprawniają prowadzenie badań. Głównym celem EOSC Beyond jest dostarczenie nowych funkcji platformy EOSC Core, które umożliwią dostawcom usług naukowych łatwiejszy dostęp, integrację oraz udostępnianie zasobów badawczych.
+            </div>
+            <a class="initiatives-link" href="#" target="_blank">
+              Sprawdź
+              <svg class="svg-inline--fa fa-arrow-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fa fa-arrow-right"></i> Font Awesome fontawesome.com -->
+            </a>
+          </div>
+          <div class="col-md-4 col-sm-12">
+
+            <div class="initiatives-pic">
+              <img src="assets/initiative-03.jpg" alt="eosc.gov.pl">
+            </div>
+            <div class="initiatives-title">EOSC Association</div>
+            <div class="initiatives-desc">
+              EOSC Association łączy instytucje i organizacje zaangażowane w budowę otwartego ekosystemu naukowego w Europie. Pracuje nad ułatwieniem dostępu do danych, narzędzi i usług badawczych, wspierając współpracę pomiędzy krajami oraz instytucjami naukowymi. Stowarzyszenie koordynuje także rozwój wspólnych standardów i infrastruktury, aby zapewnić trwały i otwarty dostęp do zasobów naukowych dla wszystkich użytkowników.
+            </div>
+            <a class="initiatives-link" href="#" target="_blank">
+              Sprawdź
+              <svg class="svg-inline--fa fa-arrow-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fa fa-arrow-right"></i> Font Awesome fontawesome.com -->
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="open-science">
+    <div class="container">
+      <div class="row">
+        <h3>Polska Platforma Otwartej Nauki</h3>
+        <div class="col-md-8 col-sm-12">
+          <div class="container">
+
+            <div class="row">
+
+              <div class="openscience-intro top-intro">
+                <div class="openscience-container">
+                  <div class="openscience-intro-title">Infrastruktura badawcza</div>
+                  <div class="openscience-intro-desc">
+                    Odkryj serwisy zapewniające dostęp do zaawansowanej infrastruktury badawczej, w tym usług chmurowych,
+                    mocy obliczeniowej i zasobów pamięci masowej. Wszystko, czego potrzebujesz, aby wesprzeć swoje badania.
+                  </div>
+                </div>
+                <a class="openscience-more-link" href="#">
+                  Sprawdź
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
+                    <path d="M6.25529 0.436386L12.9254 6.9574L6.40442 13.6275L5.44172 12.6864L11.0216 6.97892L5.31411 1.39909L6.25529 0.436386Z" fill="#0E0F0F"/>
+                    <path d="M11.9844 7.64844L0.425113 7.77912L0.409739 6.41921L11.969 6.28852L11.9844 7.64844Z" fill="#0E0F0F"/>
+                  </svg>
+                </a>
+              </div>
+
+              <div class="openscience-intro middle-intro">
+                <div class="openscience-container">
+                  <div class="openscience-intro-title">Zbiory danych naukowych</div>
+                  <div class="openscience-intro-desc">
+                    Zyskaj dostęp do szerokiej bazy datasetów, które wspomogą rozwój Twoich projektów badawczych.
+                    Przeglądaj dane z różnych dziedzin, analizuj je i wykorzystuj w swojej pracy naukowej.
+                  </div>
+                </div>
+                <a class="openscience-more-link" href="#">
+                  Sprawdź
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
+                    <path d="M6.25529 0.436386L12.9254 6.9574L6.40442 13.6275L5.44172 12.6864L11.0216 6.97892L5.31411 1.39909L6.25529 0.436386Z" fill="#0E0F0F"/>
+                    <path d="M11.9844 7.64844L0.425113 7.77912L0.409739 6.41921L11.969 6.28852L11.9844 7.64844Z" fill="#0E0F0F"/>
+                  </svg>
+                </a>
+              </div>
+
+              <div class="openscience-intro bottom-intro">
+                <div class="openscience-container">
+                  <div class="openscience-intro-title">Publikacje naukowe</div>
+                  <div class="openscience-intro-desc">
+                    Znajdź najnowsze artykuły, raporty i badania opublikowane przez polskich i międzynarodowych naukowców.
+                    Platforma oferuje dostęp do katalogu publikacji z różnych dziedzin i obszarów badawczych.
+                    Platforma oferuje dostęp do katalogu publikacji z różnych dziedzin i obszarów badawczych.
+                  </div>
+                </div>
+                <a class="openscience-more-link" href="#">
+                  Sprawdź
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" viewBox="0 0 13 14" fill="none">
+                    <path d="M6.25529 0.436386L12.9254 6.9574L6.40442 13.6275L5.44172 12.6864L11.0216 6.97892L5.31411 1.39909L6.25529 0.436386Z" fill="#0E0F0F"/>
+                    <path d="M11.9844 7.64844L0.425113 7.77912L0.409739 6.41921L11.969 6.28852L11.9844 7.64844Z" fill="#0E0F0F"/>
+                  </svg>
+                </a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <img alt="Service name" class="img-fluid" src="assets/eoscpl-pic-02.jpg">
         </div>
       </div>
     </div>
   </section>
 
-  <!--  <section class="help bg-light" #services>-->
-  <!--    <div class="container">-->
-  <!--      <div class="row">-->
-  <!--        <div class="col-md-4 col-sm-12">-->
-  <!--          <h3>Hundreds of solutions grouped by research activity.</h3>-->
-  <!--          <p><strong>Your research. Your activity. Your category.</strong></p>-->
-  <!--          <p>-->
-  <!--            Find the service, tool or data you need to research and innovate via-->
-  <!--            the categories listed.-->
-  <!--          </p>-->
-  <!--        </div>-->
-
-  <!--        <div class="col-md-2 col-sm-12"></div>-->
-
-  <!--        <div class="col-md-6 col-sm-12 float-end cards-container">-->
-  <!--          <div class="row">-->
-  <!--            <div class="col-6 gx-1 gy-1 py-0">-->
-  <!--              <a-->
-  <!--                [routerLink]="researchProductsPath"-->
-  <!--                [queryParams]="{ q: '*' }"-->
-  <!--                class="card"-->
-  <!--              >-->
-  <!--                <div class="icon-box">-->
-  <!--                  <img-->
-  <!--                    src="assets/ico-01.png"-->
-  <!--                    alt="Discover research outputs"-->
-  <!--                    class="img-responsive"-->
-  <!--                  />-->
-  <!--                </div>-->
-  <!--                <div class="card-title">Discover research outputs</div>-->
-  <!--              </a>-->
-  <!--            </div>-->
-
-  <!--            <div class="col-6 gx-1 gy-1 py-0">-->
-  <!--              <a-->
-  <!--                [routerLink]="allUrlPath"-->
-  <!--                [queryParams]="-->
-  <!--                  fqBy('categories_ss', 'Aggregators & Integrators')-->
-  <!--                "-->
-  <!--                class="card"-->
-  <!--              >-->
-  <!--                <div class="icon-box">-->
-  <!--                  <img-->
-  <!--                    src="assets/ico-02.png"-->
-  <!--                    alt="Publish research outputs"-->
-  <!--                    class="img-responsive"-->
-  <!--                  />-->
-  <!--                </div>-->
-  <!--                <div class="card-title">Publish research outputs</div>-->
-  <!--              </a>-->
-  <!--            </div>-->
-
-  <!--            <div class="col-6 gx-1 gy-1 py-0">-->
-  <!--              <a-->
-  <!--                [routerLink]="allUrlPath"-->
-  <!--                [queryParams]="fqBy('categories_ss', 'Processing & Analysis')"-->
-  <!--                class="card"-->
-  <!--              >-->
-  <!--                <div class="icon-box">-->
-  <!--                  <img-->
-  <!--                    src="assets/ico-03.png"-->
-  <!--                    alt="Process and analyses"-->
-  <!--                    class="img-responsive"-->
-  <!--                  />-->
-  <!--                </div>-->
-  <!--                <div class="card-title">Process and analyse</div>-->
-  <!--              </a>-->
-  <!--            </div>-->
-
-  <!--            <div class="col-6 gx-1 gy-1 py-0">-->
-  <!--              <a-->
-  <!--                [routerLink]="allUrlPath"-->
-  <!--                [queryParams]="-->
-  <!--                  fqBy(-->
-  <!--                    'categories_ss',-->
-  <!--                    'Access physical & eInfrastructures>Compute'-->
-  <!--                  )-->
-  <!--                "-->
-  <!--                class="card"-->
-  <!--              >-->
-  <!--                <div class="icon-box">-->
-  <!--                  <img-->
-  <!--                    src="assets/ico-04.png"-->
-  <!--                    alt="Access computing resources"-->
-  <!--                    class="img-responsive"-->
-  <!--                  />-->
-  <!--                </div>-->
-  <!--                <div class="card-title">Access computing resources</div>-->
-  <!--              </a>-->
-  <!--            </div>-->
-
-  <!--            <div class="col-6 gx-1 gy-1 py-0">-->
-  <!--              <a-->
-  <!--                [routerLink]="allUrlPath"-->
-  <!--                [queryParams]="-->
-  <!--                  fqBy(-->
-  <!--                    'categories_ss',-->
-  <!--                    'Access physical & eInfrastructures>Instruments & Equipment'-->
-  <!--                  )-->
-  <!--                "-->
-  <!--                class="card"-->
-  <!--              >-->
-  <!--                <div class="icon-box">-->
-  <!--                  <img-->
-  <!--                    src="assets/ico-05.png"-->
-  <!--                    alt="Find instruments & equipment"-->
-  <!--                    class="img-responsive"-->
-  <!--                  />-->
-  <!--                </div>-->
-  <!--                <div class="card-title">Find instruments & equipment</div>-->
-  <!--              </a>-->
-  <!--            </div>-->
-
-  <!--            <div class="col-6 gx-1 gy-1 py-0">-->
-  <!--              <a-->
-  <!--                [routerLink]="trainingsPath"-->
-  <!--                [queryParams]="{ q: '*' }"-->
-  <!--                class="card"-->
-  <!--              >-->
-  <!--                <div class="icon-box">-->
-  <!--                  <img-->
-  <!--                    src="assets/ico-06.png"-->
-  <!--                    alt="Access training material"-->
-  <!--                    class="img-responsive"-->
-  <!--                  />-->
-  <!--                </div>-->
-  <!--                <div class="card-title">Access training material</div>-->
-  <!--              </a>-->
-  <!--            </div>-->
-
-  <!--            <div class="col-6 gx-1 gy-1 py-0">-->
-  <!--              <a-->
-  <!--                [routerLink]="allUrlPath"-->
-  <!--                [queryParams]="-->
-  <!--                  fqBy('categories_ss', 'Access physical & eInfrastructures')-->
-  <!--                "-->
-  <!--                class="card"-->
-  <!--              >-->
-  <!--                <div class="icon-box">-->
-  <!--                  <img-->
-  <!--                    src="assets/ico-07.png"-->
-  <!--                    alt="Access research infrastructures"-->
-  <!--                    class="img-responsive"-->
-  <!--                  />-->
-  <!--                </div>-->
-  <!--                <div class="card-title">Access research infrastructures</div>-->
-  <!--              </a>-->
-  <!--            </div>-->
-
-  <!--            <div class="col-6 gx-1 gy-1 py-0">-->
-  <!--              <a href="#" class="card">-->
-  <!--                <div class="icon-box">-->
-  <!--                  <img-->
-  <!--                    src="assets/ico-08.png"-->
-  <!--                    alt="Find bundles"-->
-  <!--                    class="img-responsive"-->
-  <!--                  />-->
-  <!--                </div>-->
-  <!--                <div class="card-title">Find bundles</div>-->
-  <!--              </a>-->
-  <!--            </div>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </section>-->
-
-  <section class="looking py-4">
+  <section class="programme">
     <div class="container">
       <div class="row">
-        <div class="col-md-7 col-sm-12">
-          <img src="assets/looking.png" alt="Loking for services" />
+        <div class="col-md-3 col-sm-12">
+          <h4>
+            National Node
+            <br>EOSC.PL
+          </h4>
         </div>
-
-        <div class="col-md-5 col-sm-12">
-          <h3>Looking for services?</h3>
+        <div class="col-md-6 col-sm-12">
           <p>
-            Access the EOSC Portal Marketplace to find hundreds of research and
-            innovation tools and services and thousands of datasets from
-            renowned European service providers.
+            Polska Platforma Otwartej Nauki jest częścią europejskiej inicjatywy European Open Science Cloud, której celem jest rozwój otwartych i
+            dostępnych zasobów badawczych na skalę europejską. Jako jeden z krajowych węzłów, Polska wspiera naukowców w dostępie do danych, publikacji oraz
+            infrastruktury, która umożliwia prowadzenie zaawansowanych badań i współpracę międzynarodową. Krajowe, regionalne i temetyczne węzły EOSC, w tym PPON,
+            stanowią punkty dostępu do Federacji EOSC, oferującej własne i zewnętrzne usługi, w tym zarządzanie danymi oraz ich udostępnianie.
           </p>
-          <a [attr.href]="marketplaceUrl" class="btn btn-primary mt-3"
-            >Go to Marketplace</a
-          >
+        </div>
+        <div class="col-md-3 col-sm-12 d-flex">
+          <a class="programme-link" href="#">
+            Przeglądaj wszystkie zasoby
+            <svg class="svg-inline--fa fa-arrow-right" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg><!-- <i class="fa fa-arrow-right"></i> Font Awesome fontawesome.com -->
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="help bg-light" #services>
+  <section class="research">
     <div class="container">
+      <h3>Popularne serwisy</h3>
       <div class="row">
-        <div class="col-md-6 col-sm-12 cards-container">
-          <div class="row">
-            <div class="col-6 gx-1 gy-1 py-0">
-              <a
-                class="card"
-                [routerLink]="allUrlPath"
-                [queryParams]="
-                  fqBy('scientific_domains_ss', 'Medical & Health Sciences')
-                "
-              >
-                <div class="icon-box">
-                  <img
-                    src="assets/ico-09.png"
-                    alt="Medical & Health Sciences"
-                    class="img-responsive"
-                  />
-                </div>
-                <div class="card-title">Medical & Health Sciences</div>
-              </a>
+        <div class="col-md-3 col-sm-12 d-flex align-items-stretch">
+          <div class="popular-services-box card">
+            <div class="popular-top">
+              <img src="assets/service-placeholder.png">
             </div>
-
-            <div class="col-6 gx-1 gy-1 py-0">
-              <a
-                class="card"
-                [routerLink]="allUrlPath"
-                [queryParams]="
-                  fqBy('scientific_domains_ss', 'Engineering & Technology')
-                "
-              >
-                <div class="icon-box">
-                  <img
-                    src="assets/ico-10.png"
-                    alt="Engineering & technology"
-                    class="img-responsive"
-                  />
-                </div>
-                <div class="card-title">Engineering & technology</div>
-              </a>
+            <a class="popular-title" href="#">3DBIONOTES-WS</a>
+            <a class="popular-provider" href="#">
+              European Space Agency
+            </a>
+            <div class="popular-description">
+              Access to resources from the Global Earth Observation System of Systems
             </div>
-
-            <div class="col-6 gx-1 gy-1 py-0">
-              <a
-                [routerLink]="allUrlPath"
-                [queryParams]="
-                  fqBy('scientific_domains_ss', 'Natural Sciences')
-                "
-                class="card"
-              >
-                <div class="icon-box">
-                  <img
-                    src="assets/ico-11.png"
-                    alt="Natural Sciences"
-                    class="img-responsive"
-                  />
-                </div>
-                <div class="card-title">Natural Sciences</div>
-              </a>
-            </div>
-
-            <div class="col-6 gx-1 gy-1 py-0">
-              <a
-                [routerLink]="allUrlPath"
-                [queryParams]="fqBy('scientific_domains_ss', 'Generic')"
-                class="card"
-              >
-                <div class="icon-box">
-                  <img
-                    src="assets/ico-12.png"
-                    alt="Generic"
-                    class="img-responsive"
-                  />
-                </div>
-                <div class="card-title">Generic</div>
-              </a>
-            </div>
-
-            <div class="col-6 gx-1 gy-1 py-0">
-              <a
-                [routerLink]="allUrlPath"
-                [queryParams]="fqBy('scientific_domains_ss', 'Humanities')"
-                class="card"
-              >
-                <div class="icon-box">
-                  <img
-                    src="assets/ico-13.png"
-                    alt="Humanities"
-                    class="img-responsive"
-                  />
-                </div>
-                <div class="card-title">Humanities</div>
-              </a>
-            </div>
-
-            <div class="col-6 gx-1 gy-1 py-0">
-              <a
-                [routerLink]="allUrlPath"
-                [queryParams]="
-                  fqBy('scientific_domains_ss', 'Agricultural Sciences')
-                "
-                class="card"
-              >
-                <div class="icon-box">
-                  <img
-                    src="assets/ico-14.png"
-                    alt="Agricultural sciences"
-                    class="img-responsive"
-                  />
-                </div>
-                <div class="card-title">Agricultural sciences</div>
-              </a>
-            </div>
-
-            <div class="col-6 gx-1 gy-1 py-0">
-              <a
-                [routerLink]="allUrlPath"
-                [queryParams]="fqBy('scientific_domains_ss', 'Social Sciences')"
-                class="card"
-              >
-                <div class="icon-box">
-                  <img
-                    src="assets/ico-15.png"
-                    alt="Social Sciences"
-                    class="img-responsive"
-                  />
-                </div>
-                <div class="card-title">Social sciences</div>
-              </a>
-            </div>
-
-            <div class="col-6 gx-1 gy-1 py-0">
-              <a
-                [routerLink]="allUrlPath"
-                [queryParams]="fqBy('scientific_domains_ss', 'Other')"
-                class="card"
-              >
-                <div class="icon-box">
-                  <img
-                    src="assets/ico-16.png"
-                    alt="Other"
-                    class="img-responsive"
-                  />
-                </div>
-                <div class="card-title">Other</div>
-              </a>
+            <div class="taglist-holder">
+              <div class="tag-item">
+                <a href="#">Science</a>
+              </div>
+              <div class="tag-item">
+                <a href="#">Nanotechnology</a>
+              </div>
+              <div class="tag-item">
+                <a href="#">Systems</a>
+              </div>
             </div>
           </div>
         </div>
-        <div class="col-md-2 col-sm-12"></div>
-        <div class="col-md-4 col-sm-12">
-          <h3>Hundreds of solutions grouped by research domain.</h3>
-          <p><strong>Your research. Your domain. Your category.</strong></p>
-          <p>
-            Find the service, tool or data you need to research and innovate via
-            the domains listed.
-          </p>
+        <div class="col-md-3 col-sm-12 d-flex align-items-stretch">
+          <div class="popular-services-box card">
+            <div class="popular-top">
+              <img src="assets/service-placeholder.png">
+            </div>
+            <a class="popular-title" href="#">GEOSS Web Portal</a>
+            <a class="popular-provider" href="#">
+              ICTLC S.P.A.
+            </a>
+            <div class="popular-description">
+              Access to resources from the Global Earth Observation System of Systems
+            </div>
+            <div class="taglist-holder">
+              <div class="tag-item">
+                <a href="#">Science</a>
+              </div>
+              <div class="tag-item">
+                <a href="#">Nanotechnology</a>
+              </div>
+              <div class="tag-item">
+                <a href="#">Systems</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-12 d-flex align-items-stretch">
+          <div class="popular-services-box card">
+            <div class="popular-top">
+              <img src="assets/service-placeholder.png">
+            </div>
+            <a class="popular-title" href="#">ADAM Platform</a>
+            <a class="popular-provider" href="#">
+              European Space Agency
+            </a>
+            <div class="popular-description">
+              Access to resources from the Global Earth Observation System of Systems
+            </div>
+            <div class="taglist-holder">
+              <div class="tag-item">
+                <a href="#">Science</a>
+              </div>
+              <div class="tag-item">
+                <a href="#">Nanotechnology</a>
+              </div>
+              <div class="tag-item">
+                <a href="#">Systems</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-12 d-flex align-items-stretch">
+          <div class="popular-services-box card">
+            <div class="popular-top">
+              <img src="assets/service-placeholder.png">
+            </div>
+            <a class="popular-title" href="#">GEOSS Web Portal</a>
+            <a class="popular-provider" href="#">
+              European Space Agency
+            </a>
+            <div class="popular-description">
+              Access to resources from the Global Earth Observation System of Systems
+            </div>
+            <div class="taglist-holder">
+              <div class="tag-item">
+                <a href="#">Science</a>
+              </div>
+              <div class="tag-item">
+                <a href="#">Nanotechnology</a>
+              </div>
+              <div class="tag-item">
+                <a href="#">Systems</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="provider py-5 text-center bg-light" #provider>
-    <div class="container">
-      <h2>How can we help you provide your service?</h2>
-      <div class="col-md-6 col-sm-12 mx-auto intro-box">
-        <p>
-          Contribute to advancing European Research and Innovation, provide your
-          service. Pick the support you need.
-        </p>
-      </div>
-
-      <div class="row help-row">
-        <div class="col-lg-3 gx-4">
-          <a
-            href="https://providers.eosc-portal.eu/becomeAProvider"
-            class="card bg-light py-4 px-4"
-          >
-            <div class="icon-box">
-              <img
-                src="assets/provider-01.png"
-                alt="Onboard resources"
-                class="img-responsive vertical-center"
-              />
-            </div>
-
-            <div class="card-title">Onboard resources</div>
-          </a>
-        </div>
-
-        <div class="col-lg-3 gx-4">
-          <a
-            href="https://providers.eosc-portal.eu/home"
-            class="card bg-light py-4 px-4"
-          >
-            <div class="icon-box">
-              <img
-                src="assets/provider-02.png"
-                alt="Provider dashboard"
-                class="img-responsive vertical-center"
-              />
-            </div>
-
-            <div class="card-title">Provider dashboard</div>
-          </a>
-        </div>
-
-        <div class="col-lg-3 gx-4">
-          <a
-            href="https://providers.eosc-portal.eu/developers"
-            class="card bg-light py-4 px-4"
-          >
-            <div class="icon-box">
-              <img
-                src="assets/provider-03.png"
-                alt="API"
-                class="img-responsive vertical-center"
-              />
-            </div>
-
-            <div class="card-title">API</div>
-          </a>
-        </div>
-
-        <div class="col-lg-3 gx-4">
-          <a
-            href="https://eosc-portal.eu/providers-documentation"
-            class="card bg-light py-4 px-4"
-          >
-            <div class="icon-box">
-              <img
-                src="assets/provider-04.png"
-                alt="Documentation"
-                class="img-responsive vertical-center"
-              />
-            </div>
-
-            <div class="card-title">Documentation</div>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
 </main>
