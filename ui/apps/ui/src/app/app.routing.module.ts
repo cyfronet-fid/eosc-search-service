@@ -6,7 +6,10 @@ const appRoutes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: SEARCH_PAGE_PATH,
+    loadChildren: () =>
+      import('./pages/landing-page/landing-page.module').then(
+        (m) => m.LandingPageModule
+      ),
   },
   {
     path: `${SEARCH_PAGE_PATH}/all`,
