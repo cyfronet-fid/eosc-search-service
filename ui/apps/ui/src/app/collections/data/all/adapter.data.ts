@@ -203,6 +203,8 @@ export const allCollectionsAdapter: IAdapter = {
     exportData: data.exportation || [],
     urls: data.url,
     horizontal: data?.horizontal,
+    license: data?.license,
+    funder: data?.funder,
     coloredTags: [],
     relatedOrganisations: data?.related_organisation_titles || [],
     tags:
@@ -214,6 +216,16 @@ export const allCollectionsAdapter: IAdapter = {
               values: toValueWithLabel(toArray(data?.author_names)),
               filter: 'author_names',
               showMoreThreshold: 10,
+            },
+            {
+              label: 'Affiliation',
+              values: toValueWithLabel(toArray(data?.affiliation)),
+              filter: 'affiliation',
+            },
+            {
+              label: 'Publisher',
+              values: toValueWithLabel(toArray(data?.publisher)),
+              filter: 'publisher',
             },
             {
               label: 'Organisation',

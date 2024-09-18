@@ -30,6 +30,7 @@ export const datasetsAdapter: IAdapter = {
     urls: openAIREResult.url,
     exportData: openAIREResult.exportation || [],
     license: openAIREResult?.license,
+    funder: openAIREResult?.funder,
     documentType: openAIREResult?.document_type,
     redirectUrl: `${
       ConfigService.config?.eosc_explore_url
@@ -41,6 +42,11 @@ export const datasetsAdapter: IAdapter = {
         values: toValueWithLabel(toArray(openAIREResult?.author_names)),
         filter: 'author_names',
         showMoreThreshold: 10,
+      },
+      {
+        label: 'Affiliation',
+        values: toValueWithLabel(toArray(openAIREResult?.affiliation)),
+        filter: 'affiliation',
       },
       {
         label: 'Publisher',
