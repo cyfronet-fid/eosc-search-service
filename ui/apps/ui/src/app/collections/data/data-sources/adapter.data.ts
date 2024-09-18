@@ -36,7 +36,10 @@ export const dataSourcesAdapter: IAdapter = {
       label: dataSource.type || '',
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
-    url: getDataSourceUrl(dataSource.pid),
+    redirectUrl: getDataSourceUrl(dataSource.pid),
+    logoUrl: dataSource.pid
+      ? `${ConfigService.config?.marketplace_url}/services/${dataSource.pid}/logo`
+      : '',
     orderUrl: getServiceOrderUrl(dataSource.pid),
     collection: COLLECTION,
     coloredTags: [],

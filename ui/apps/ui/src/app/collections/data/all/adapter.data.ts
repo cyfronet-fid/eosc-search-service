@@ -30,7 +30,7 @@ import { ConfigService } from '../../../services/config.service';
 import { IBundle } from '@collections/data/bundles/bundle.model';
 import { IProvider } from '@collections/data/providers/provider.model';
 
-const urlAdapter = (
+const redirectUrlAdapter = (
   type: string,
   data: Partial<
     IOpenAIREResult &
@@ -53,7 +53,7 @@ const urlAdapter = (
     case 'data source':
       return getDataSourceUrl(data?.pid);
     case 'service':
-      return `${ConfigService.config?.marketplace_url}/services/${data?.slug}`;
+      return `${ConfigService.config?.marketplace_url}/services/${data?.slug}/offers`;
     case 'training':
       return '/trainings/' + data.id;
     case 'interoperability guideline':
@@ -64,6 +64,32 @@ const urlAdapter = (
       return `${ConfigService.config?.marketplace_url}/providers/${data?.pid}`;
     default:
       return '';
+  }
+};
+
+const logoUrlAdapter = (
+  type: string,
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (type) {
+    case 'data source':
+      return data.pid
+        ? `${ConfigService.config?.marketplace_url}/services/${data.pid}/logo`
+        : undefined;
+    case 'service':
+      return data.slug
+        ? `${ConfigService.config?.marketplace_url}/services/${data.slug}/logo`
+        : undefined;
+    default:
+      return undefined;
   }
 };
 
@@ -171,9 +197,10 @@ export const allCollectionsAdapter: IAdapter = {
     documentType: data?.document_type,
     date: extractDate(data),
     languages: transformLanguages(data?.language),
-    url: urlAdapter(data.type || '', data),
-    exportData: data.exportation || [],
+    redirectUrl: redirectUrlAdapter(data.type || '', data),
+    logoUrl: logoUrlAdapter(data.type || '', data),
     orderUrl: orderUrlAdapter(data.type || '', data),
+    exportData: data.exportation || [],
     urls: data.url,
     horizontal: data?.horizontal,
     coloredTags: [],

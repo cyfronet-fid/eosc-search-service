@@ -41,12 +41,11 @@ export class IgServicesDetailCardComponent {
     window.open(url);
   }
 
-  setLogoUrl(pid: string, type: string): string {
+  setLogoUrl(logoUrl: string, type: string): string {
     const defaultLogoMapper: Record<string, string> = {
       'data source': 'assets/icon-type-data-source.svg',
       service: 'assets/icon-type-service.svg',
     };
-    const logoUrl = `${ConfigService.config?.marketplace_url}/services/${pid}/logo`;
 
     if (this.imageExists(logoUrl)) {
       return logoUrl;

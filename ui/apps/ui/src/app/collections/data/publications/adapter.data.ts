@@ -31,7 +31,7 @@ export const publicationsAdapter: IAdapter = {
     documentType: openAIREResult?.document_type,
     languages: transformLanguages(openAIREResult?.language),
     license: openAIREResult?.license,
-    url: `${
+    redirectUrl: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
     coloredTags: [],

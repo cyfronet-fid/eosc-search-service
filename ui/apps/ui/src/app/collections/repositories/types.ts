@@ -23,7 +23,8 @@ export interface IResult {
   type: IValueWithLabel;
   collection: string;
   urls?: string[];
-  url: string;
+  redirectUrl: string;
+  logoUrl?: string;
   tags: ITag[];
   date?: string;
   coloredTags?: IColoredTag[];
@@ -71,6 +72,7 @@ export interface RelatedService {
   tagline: string;
   joined_categories: string[];
   type: string;
+  logoUrl: string;
 }
 
 export interface ISecondaryTag {
