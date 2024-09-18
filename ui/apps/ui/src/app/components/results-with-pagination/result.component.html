@@ -194,7 +194,7 @@
       [description]="description"
       [highlights]="highlightsreal['description'] ?? []"
     ></ess-description>
-   
+
     <ess-ig-services-card
       *ngIf="type.value === 'guideline'"
       [relatedServices]="relatedServices"
@@ -237,7 +237,7 @@
                 <div class="bundle-offer-pic p-2">
                   <img
                     style="width: 48px"
-                    src="{{ getLogoUrl(offer.service?.id) }}"
+                    src="{{ getLogoUrl(offer.service?.slug) }}"
                   />
                 </div>
                 <div class="bundle-offer-desc p-2">
@@ -270,7 +270,7 @@
       [urls]="urls"
       [title]="title"
       [description]="description"
-      [shareUrl]="validUrl || ''"
+      [shareUrl]="redirectUrl || ''"
       [type]="type"
       class="share-link"
     ></ess-share>

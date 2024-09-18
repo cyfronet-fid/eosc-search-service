@@ -31,7 +31,7 @@ export const datasetsAdapter: IAdapter = {
     exportData: openAIREResult.exportation || [],
     license: openAIREResult?.license,
     documentType: openAIREResult?.document_type,
-    url: `${
+    redirectUrl: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
     coloredTags: [],

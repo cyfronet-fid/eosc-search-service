@@ -42,7 +42,7 @@ export const cataloguesAdapter: IAdapter = {
       toKeywordsSecondaryTag(catalogue.keywords ?? [], 'keywords'),
     ],
 
-    url: catalogue.pid
+    redirectUrl: catalogue.pid
       ? `${ConfigService.config?.marketplace_url}/catalogues/${catalogue.pid}`
       : '',
     coloredTags: [],

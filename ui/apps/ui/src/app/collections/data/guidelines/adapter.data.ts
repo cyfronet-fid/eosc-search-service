@@ -30,7 +30,7 @@ export const guidelinesAdapter: IAdapter = {
       value: 'guideline',
     },
     collection: COLLECTION,
-    url: '/guidelines/' + guideline.id || '',
+    redirectUrl: '/guidelines/' + guideline.id || '',
     coloredTags: [],
     tags: [
       {
