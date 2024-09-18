@@ -122,6 +122,9 @@ export class ResultComponent implements OnInit {
   license?: string | string[];
 
   @Input()
+  funder?: string[] = [];
+
+  @Input()
   downloads?: number;
 
   @Input()
@@ -447,5 +450,9 @@ export class ResultComponent implements OnInit {
 
   _formatLicense(license: string | string[]) {
     return isArray(license) ? license.join(', ') : license;
+  }
+
+  _getFormattedFunderId(funder: string): string {
+    return funder.replace(/\s+/g, '-');
   }
 }

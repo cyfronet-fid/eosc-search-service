@@ -62,6 +62,7 @@ export interface IResult {
   relatedSoftwareNumber?: number;
   relatedOrganisationTitles?: string[];
   pid?: string;
+  funder?: string[];
 }
 
 export interface RelatedService {
