@@ -1,8 +1,8 @@
 """The Search endpoint"""
 
-from typing import Annotated
+from typing import Optional
 
-from fastapi import Body, Depends, Header, Query
+from fastapi import Body, Depends, Query
 from httpx import AsyncClient
 
 from app.consts import DEFAULT_SORT
@@ -31,7 +31,7 @@ async def search_post(
     cursor: str = Query("*", description="Cursor"),
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_dep),
-    collections_prefix: Annotated[str | None, Header()] = None,
+    scope: Optional[str] = None,
 ):
     """
     Do a search against the specified collection.
@@ -56,7 +56,7 @@ async def search_post(
             exact=exact,
             cursor=cursor,
             facets=request.facets,
-            collections_prefix=collections_prefix,
+            scope=scope,
         )
     res_json = response.data
     out = {

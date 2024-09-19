@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { createStore } from '@ngneat/elf';
+import { ActivatedRoute } from '@angular/router';
 import {
   getAllEntities,
   getEntity,
   selectActiveEntity,
+  selectManyByPredicate,
   setActiveId,
   setEntities,
   withActiveId,
@@ -27,12 +29,12 @@ export class NavConfigsRepository {
     withActiveId(undefined)
   );
 
-  constructor() {
-    const configs =
-      localStorage.getItem('COLLECTIONS_PREFIX') === 'pl'
-        ? PL_NAV_CONFIGS
-        : NAV_CONFIGS;
-    this._store$.update(setEntities(configs));
+  readonly navCollections$ = this._store$.pipe(
+    selectManyByPredicate((entity) => !SPECIAL_COLLECTIONS.includes(entity.id))
+  );
+
+  constructor(private _route: ActivatedRoute) {
+    this.setScope();
   }
 
   readonly activeEntity$ = this._store$.pipe(selectActiveEntity());
@@ -51,7 +53,14 @@ export class NavConfigsRepository {
     return allCollections;
   }
 
+  setScope() {
+    const scope = this._route.snapshot.queryParamMap.get('scope') || '';
+    const configs = scope === 'eu' ? NAV_CONFIGS : PL_NAV_CONFIGS;
+    this._store$.update(setEntities(configs));
+  }
+
   getResourcesCollections() {
+    this.setScope();
     const allCollections = this._store$.query(getAllEntities());
     return allCollections.filter(
       (collection) => !SPECIAL_COLLECTIONS.includes(collection.id)

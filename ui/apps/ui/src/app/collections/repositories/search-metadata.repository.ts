@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { createStore } from '@ngneat/elf';
 import {
   getAllEntities,
@@ -24,18 +25,20 @@ export class SearchMetadataRepository {
     withActiveId(undefined)
   );
 
-  constructor() {
-    const metadata =
-      localStorage.getItem('COLLECTIONS_PREFIX') === 'pl'
-        ? PL_SEARCH_METADATA
-        : SEARCH_METADATA;
-    this._store$.update(setEntities(metadata));
+  constructor(private _route: ActivatedRoute) {
+    const scope = this._route.snapshot.queryParamMap.get('scope') || '';
+    this.setScope(scope);
   }
 
   get(urlPath: string | null | undefined | '') {
     return this._store$.query(
       getEntity(urlPath ?? DEFAULT_COLLECTION_ID)
     ) as ICollectionSearchMetadata;
+  }
+
+  setScope(scope: string) {
+    const metadata = scope === 'eu' ? SEARCH_METADATA : PL_SEARCH_METADATA;
+    this._store$.update(setEntities(metadata));
   }
 
   getAll() {

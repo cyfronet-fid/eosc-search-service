@@ -11,6 +11,7 @@ export type paramType =
   | number[];
 export interface ICustomRouteProps {
   collection: string | null;
+  scope: string;
   q: string;
   sort_ui: sortType;
   fq: string[];

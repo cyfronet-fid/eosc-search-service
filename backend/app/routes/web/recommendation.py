@@ -3,10 +3,10 @@
 """Presentable items UI endpoint"""
 import logging
 import uuid
-from typing import Annotated
+from typing import Optional
 
 import httpx
-from fastapi import APIRouter, Header, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request
 from httpx import ReadTimeout
 from starlette.responses import JSONResponse
 
@@ -42,7 +42,7 @@ logger = logging.getLogger(__name__)
 async def get_recommendations(
     panel_id: Collection,
     request: Request,
-    collections_prefix: Annotated[str | None, Header()] = None,
+    scope: Optional[str] = None,
 ):
     if settings.SHOW_RECOMMENDATIONS is False:
         return []
@@ -55,7 +55,7 @@ async def get_recommendations(
                 uuids = await get_recommended_uuids(
                     client, session, panel_id, recommendation_visit_id
                 )
-                items = await get_recommended_items(client, uuids, collections_prefix)
+                items = await get_recommended_items(client, uuids, scope)
                 resp = JSONResponse({"recommendations": items, "isRand": False})
                 # Let's store the recommendation visit id for retrieval in the user actions
                 resp.set_cookie("recommendation_visit_id", recommendation_visit_id)
@@ -63,12 +63,8 @@ async def get_recommendations(
             except (RecommenderError, ReadTimeout, SolrDocumentNotFoundError) as error:
                 items = []
                 if settings.SHOW_RANDOM_RECOMMENDATIONS:
-                    uuids = await get_fixed_recommendations(
-                        panel_id, collections_prefix=collections_prefix
-                    )
-                    items = await get_recommended_items(
-                        client, uuids, collections_prefix
-                    )
+                    uuids = await get_fixed_recommendations(panel_id, scope=scope)
+                    items = await get_recommended_items(client, uuids, scope)
 
                 resp = JSONResponse({
                     "recommendations": items,
