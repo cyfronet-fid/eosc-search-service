@@ -30,7 +30,7 @@ import { ConfigService } from '../../../services/config.service';
 import { IBundle } from '@collections/data/bundles/bundle.model';
 import { IProvider } from '@collections/data/providers/provider.model';
 
-const redirectUrlAdapter = (
+export const redirectUrlAdapter = (
   type: string,
   data: Partial<
     IOpenAIREResult &
