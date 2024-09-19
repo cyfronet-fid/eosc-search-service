@@ -25,6 +25,7 @@ export const PL_CONTEXT_COLLECTIONS = [
   'publication',
   'service',
   'data_source',
+  'provider',
 ];
 
 export const EU_CONTEXT_COLLECTIONS = [

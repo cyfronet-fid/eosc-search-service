@@ -1,0 +1,57 @@
+<h4>Initiatives</h4>
+<div *ngIf="!this.isProvider()">
+  <a class="right-column-link" 
+  [queryParams]="{ q: '*' }"
+  [routerLink]="'/search/provider'"
+  [routerLinkActiveOptions]="{
+    queryParams: 'ignored',
+    paths: 'exact',
+    matrixParams: 'ignored',
+    fragment: 'ignored'
+  }"
+  routerLinkActive=""
+  [queryParams]="{
+    q: (q$ | async),
+    scope: (scope$ | async),
+    standard: (st$ | async),
+    tags: (tg$ | async),
+    exact: (ex$ | async),
+    radioValueAuthor: (radioValueAuthor$ | async),
+    radioValueExact: (radioValueExact$ | async),
+    radioValueTitle: (radioValueTitle$ | async),
+    radioValueKeyword: (radioValueKeyword$ | async)
+  }"
+>
+<div class="right-link-title">Providers</div>
+<div class="right-link-desc">Browse entities providing resources to our service.</div>
+<div class="right-link-arrow"><img src="assets/arrow-right-dark.svg" alt="more" /></div>
+</a>
+</div>
+<div *ngIf="this.isProvider()">
+  <a class="right-column-link"
+  [queryParams]="{ q: '*' }"
+  [routerLink]="'/search/all_collection'"
+  [routerLinkActiveOptions]="{
+    queryParams: 'ignored',
+    paths: 'exact',
+    matrixParams: 'ignored',
+    fragment: 'ignored'
+  }"
+  routerLinkActive=""
+  [queryParams]="{
+    q: (q$ | async),
+    scope: (scope$ | async),
+    standard: (st$ | async),
+    tags: (tg$ | async),
+    exact: (ex$ | async),
+    radioValueAuthor: (radioValueAuthor$ | async),
+    radioValueExact: (radioValueExact$ | async),
+    radioValueTitle: (radioValueTitle$ | async),
+    radioValueKeyword: (radioValueKeyword$ | async)
+  }"
+>
+  <div class="right-link-arrow">Back to search</div>
+</a>
+
+
+</div>

@@ -4,7 +4,6 @@ import { CustomRoute } from '@collections/services/custom-route.service';
 import {
   EU_CONTEXT_COLLECTIONS,
   PL_CONTEXT_COLLECTIONS,
-  SPECIAL_COLLECTIONS,
 } from '@collections/data/config';
 import { ConfigService } from '../../services/config.service';
 import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
@@ -16,19 +15,20 @@ import { DEFAULT_SCOPE } from '@collections/services/custom-route.service';
 
 @Component({
   selector: 'ess-top-menu',
-  templateUrl: './top-menu.component.html',
+  template: `
+    <div class="prefix-buttons">
+      <button [class.active]="selectedScope === 'pl'" (click)="setScope('pl')">
+        Browse Polish Resources
+      </button>
+
+      <button [class.active]="selectedScope === 'eu'" (click)="setScope('eu')">
+        Browse EU Resources
+      </button>
+    </div>
+  `,
   styleUrls: ['./top-menu.component.scss'],
 })
 export class TopMenuComponent implements OnInit {
-  public q$ = this._customRoute.q$;
-  public st$ = this._customRoute.standard$;
-  public tg$ = this._customRoute.tags$;
-  public ex$ = this._customRoute.exact$;
-  public radioValueAuthor$ = this._customRoute.radioValueAuthor$;
-  public radioValueExact$ = this._customRoute.radioValueExact$;
-  public radioValueTitle$ = this._customRoute.radioValueTitle$;
-  public radioValueKeyword$ = this._customRoute.radioValueKeyword$;
-  public selected = 'main';
   public selectedScope: string = DEFAULT_SCOPE;
   showBetaCollections: boolean = ConfigService.config?.show_beta_collections;
 
@@ -45,13 +45,6 @@ export class TopMenuComponent implements OnInit {
   ngOnInit() {
     this.selectedScope =
       this._route.snapshot.queryParamMap.get('scope') || DEFAULT_SCOPE;
-    this._customRoute.collection$.subscribe((val) => {
-      if (SPECIAL_COLLECTIONS.includes(val)) {
-        this.selected = val;
-      } else {
-        this.selected = 'main';
-      }
-    });
   }
 
   async setScope(scope: string) {
@@ -68,8 +61,6 @@ export class TopMenuComponent implements OnInit {
     this._filtersConfigsRepository.setScope();
     this._searchMetadataRepository.setScope(targetScope);
     this._adaptersRepository.setScope();
-
-    // TODO: Make this an observable and reload only the affected components
   }
   setCollection(targetScope: string) {
     const currentCollection: string = this._customRoute.collection() || '';
