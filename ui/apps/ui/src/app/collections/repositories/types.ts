@@ -103,6 +103,7 @@ export interface IColoredTag {
 export interface ISolrCollectionParams {
   qf: string;
   collection: string;
+  scope?: string;
 }
 
 export interface ISolrSuggestionQueryParams {

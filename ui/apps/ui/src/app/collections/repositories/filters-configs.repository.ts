@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createStore, withProps } from '@ngneat/elf';
 import { getEntity, setEntities, withEntities } from '@ngneat/elf-entities';
+import { ActivatedRoute } from '@angular/router';
 import {
   FiltersStoreConfig,
   IExcludedFiltersConfig,
@@ -41,18 +42,19 @@ export class FiltersConfigsRepository {
 
   public readonly isLoading$ = this._store$.pipe(map((state) => state.loading));
 
-  constructor() {
-    this.clear();
+  constructor(private _route: ActivatedRoute) {
+    this.setScope();
   }
 
   get(urlPath: string | null | undefined | ''): IFiltersConfig {
     const id = urlPath ?? DEFAULT_COLLECTION_ID;
-    const filtersConfig = this._store$.query(getEntity(id)) as IFiltersConfig;
-
+    const config = this._store$.query(getEntity(id)) as IFiltersConfig;
+    const filtersConfig =
+      config ||
+      (this._store$.query(getEntity(DEFAULT_COLLECTION_ID)) as IFiltersConfig);
     const excludedFiltersConfig = this._excludedFiltersStore$.query(
       getEntity(id)
     ) as IExcludedFiltersConfig;
-
     const filtersAfterExclusion = filtersConfig.filters.filter(
       (entry) => !excludedFiltersConfig.excluded.includes(entry.filter)
     );
@@ -105,20 +107,13 @@ export class FiltersConfigsRepository {
     this._store$.update((state) => ({ ...state, loading }));
   }
 
-  clear() {
-    const filters =
-      localStorage.getItem('COLLECTIONS_PREFIX') === 'pl'
-        ? PL_FILTERS
-        : FILTERS;
-
-    const excluded =
-      localStorage.getItem('COLLECTIONS_PREFIX') === 'pl'
-        ? PL_EXCLUDED_FILTERS
-        : EXCLUDED_FILTERS;
-
+  setScope() {
+    const scope = this._route.snapshot.queryParamMap.get('scope') || '';
+    const filters = scope === 'eu' ? FILTERS : PL_FILTERS;
+    const excluded = scope === 'eu' ? EXCLUDED_FILTERS : PL_EXCLUDED_FILTERS;
     this._excludedFiltersStore$.update(setEntities(excluded));
     this._store$.update(
-      (state) => ({ ...state, loading: true }),
+      (state) => ({ ...state }),
       setEntities(filters),
       setEntities([], { ref: filterUIEntitiesRef })
     );

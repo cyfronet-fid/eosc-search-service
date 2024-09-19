@@ -23,8 +23,11 @@ import {
 } from '@collections/repositories/types';
 import { FilterService } from '@components/filters/filters.service';
 
+export const DEFAULT_SCOPE = 'pl';
+
 const DEFAULT_PARAMS = {
   collection: null,
+  scope: DEFAULT_SCOPE,
   q: '*',
   sort_ui: DEFAULT_SORT,
   fq: [],
@@ -57,6 +60,7 @@ export class CustomRoute {
     filter((collection) => !!collection),
     map((collection) => collection as string)
   );
+  readonly scope$ = this._store$.pipe(select(({ scope }) => scope));
   readonly q$ = this._store$.pipe(select(({ q }) => q));
   readonly standard$ = this._store$.pipe(select(({ standard }) => standard));
   readonly sort_ui$ = this._store$.pipe(select(({ sort_ui }) => sort_ui));
@@ -111,6 +115,9 @@ export class CustomRoute {
   collection() {
     return this._store$.query(({ collection }) => collection);
   }
+  scope() {
+    return this._store$.query(({ scope }) => scope);
+  }
   cursor() {
     return this._store$.query(({ cursor }) => cursor);
   }
@@ -130,9 +137,10 @@ export class CustomRoute {
   _updateParamsBy(collection: string, currentUrl: string): ICustomRouteProps {
     const parsedQueryParams = queryParamsMapFrom(currentUrl);
     const q = (parsedQueryParams['q'] as string | undefined) ?? '*';
-
+    const scope =
+      (parsedQueryParams['scope'] as string | undefined) ?? DEFAULT_SCOPE;
     if (this._store$.getValue().collection !== collection) {
-      this._filtersConfigsRepository.clear();
+      this._filtersConfigsRepository.setScope();
     }
 
     const fq = toArray(parsedQueryParams['fq']);
@@ -141,6 +149,7 @@ export class CustomRoute {
       ...DEFAULT_PARAMS,
       ...parsedQueryParams,
       collection: collection,
+      scope: scope,
       fq: fq,
       q: q,
       exact: (parsedQueryParams['exact'] as string | undefined) ?? 'false',
@@ -168,7 +177,7 @@ export class CustomRoute {
     );
   }
 
-  fetchFilters$(q: string, fq: string[], collection: string) {
+  fetchFilters$(q: string, fq: string[], collection: string, scope: string) {
     const fqArray = this._getFqArray();
 
     const metadata = this._filterService.searchMetadataRepository.get(
@@ -206,12 +215,12 @@ export class CustomRoute {
       });
 
     this._filtersConfigsRepository.setLoading(true);
-
     return this._filterService
       .fetchTreeNodes$(
         filtersBatch,
         toSearchMetadata(
           q,
+          scope,
           this._store$.getValue().exact,
           [...fqArray, ...fq],
           metadata

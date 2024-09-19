@@ -13,12 +13,17 @@ import { FiltersConfigsRepository } from '@collections/repositories/filters-conf
 import { Observable, combineLatest, debounceTime, filter, map } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { selectEntities } from '@ngneat/elf-entities';
+import { DEFAULT_SCOPE } from '@collections/services/custom-route.service';
 
 @UntilDestroy()
 @Component({
   selector: 'ess-page-header',
   template: `
-    <div id="container-upper" class="page-heading">
+    <div
+      id="container-upper"
+      class="page-heading"
+      *ngIf="this.showGlobalFilters"
+    >
       <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
         <ng-container [ngSwitch]="filterConfig.type">
           <ess-filter-multiselect-dropdown
@@ -67,6 +72,11 @@ export class PageHeaderComponent {
   filtersConfigs$ = this.selectActiveFilters$();
 
   isLoading$: Observable<boolean> = this._filtersConfigsRepository.isLoading$;
+
+  scope: string =
+    this._route.snapshot.queryParamMap.get('scope') || DEFAULT_SCOPE;
+
+  showGlobalFilters: boolean = this.scope === DEFAULT_SCOPE;
 
   constructor(
     private _router: Router,

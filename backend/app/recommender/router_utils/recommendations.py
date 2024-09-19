@@ -1,11 +1,10 @@
 import datetime
 import random
 import uuid
-from typing import Annotated
+from typing import Optional
 
 import httpx
 from async_lru import alru_cache
-from fastapi import Header
 from httpx import AsyncClient
 
 from app.consts import Collection
@@ -64,16 +63,12 @@ async def get_recommended_uuids(
 
 
 async def get_recommended_items(
-    client: AsyncClient,
-    uuids: list[str],
-    collections_prefix: Annotated[str | None, Header()] = None,
+    client: AsyncClient, uuids: list[str], scope: Optional[str] = None
 ):
     try:
         items = []
         for item_uuid in uuids:
-            item = await get(
-                client, Collection.ALL_COLLECTION, item_uuid, collections_prefix
-            )
+            item = await get(client, Collection.ALL_COLLECTION, item_uuid, scope)
             items.append(item["doc"])
         return items
     except httpx.ConnectError as e:
@@ -85,7 +80,7 @@ async def get_recommended_items(
 async def get_fixed_recommendations(
     collection: Collection,
     count: int = 3,
-    collections_prefix: Annotated[str | None, Header()] = None,
+    scope: Optional[str] = None,
 ) -> list[str]:
     rows = 100
     if collection == Collection.DATA_SOURCE:
@@ -103,7 +98,7 @@ async def get_fixed_recommendations(
             sort=["id desc"],
             rows=rows,
             exact="false",
-            collections_prefix=collections_prefix,
+            scope=scope,
         )
     docs: list = response.data["response"]["docs"]
     if len(docs) == 0:

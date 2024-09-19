@@ -2,9 +2,9 @@
 
 import asyncio
 import logging
-from typing import Annotated, Callable
+from typing import Callable, Optional
 
-from fastapi import APIRouter, Body, Depends, Header, HTTPException, Query
+from fastapi import APIRouter, Body, Depends, HTTPException, Query
 from httpx import AsyncClient
 from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 
@@ -34,7 +34,7 @@ async def search_filters(
     exact: str = Query(..., description="Exact match"),
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_dep),
-    collections_prefix: Annotated[str | None, Header()] = None,
+    scope: Optional[str] = None,
 ):
     """
     Do a search for filters for specified (multiple) facets.
@@ -67,7 +67,7 @@ async def search_filters(
             exact,
             search,
             client,
-            collections_prefix,
+            scope,
         )
         for key, value in request.facets.items()
     ]
@@ -99,7 +99,7 @@ async def _search(
     exact: str,
     search: Callable,
     client: AsyncClient,
-    collections_prefix: Annotated[str | None, Header()] = None,
+    scope: Optional[str] = None,
 ) -> dict:
     response = await search(
         client,
@@ -113,7 +113,7 @@ async def _search(
         cursor=cursor,
         facets={facet_key: facet_value},
         exact=exact,
-        collections_prefix=collections_prefix,
+        scope=scope,
     )
 
     return create_output(response.data)

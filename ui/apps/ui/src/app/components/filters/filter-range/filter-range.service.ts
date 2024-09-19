@@ -26,9 +26,10 @@ export class FilterRangeService {
     ) as ICollectionSearchMetadata;
 
     const exact = this._customRoute.params()['exact'] as string;
+    const scope = this._customRoute.params()['scope'] as string;
 
     const searchMetadata: ISolrCollectionParams & ISolrQueryParams =
-      toSearchMetadata('*', exact, [], metadata);
+      toSearchMetadata('*', scope, exact, [], metadata);
 
     const facetParams = {
       max_duration: {

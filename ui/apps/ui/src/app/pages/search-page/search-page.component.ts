@@ -119,6 +119,7 @@ export class SearchPageComponent implements OnInit {
           const adapter = this._adaptersRepository.get(collection)
             ?.adapter as adapterType;
           this.response = null;
+          const scope = routerParams.scope.toString();
           const resultsRequest$ =
             routerParams.standard.toString() === 'true'
               ? this._fetchStandardResults$(routerParams, metadata, adapter)
@@ -128,7 +129,8 @@ export class SearchPageComponent implements OnInit {
             filters: this._customRoute.fetchFilters$(
               q,
               fq,
-              collection as string
+              collection as string,
+              scope
             ),
           });
         }),

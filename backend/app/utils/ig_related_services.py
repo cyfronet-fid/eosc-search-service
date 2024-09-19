@@ -3,9 +3,8 @@
 import asyncio
 import copy
 import logging
-from typing import Annotated, Optional
+from typing import Optional
 
-from fastapi import Header
 from httpx import AsyncClient, ConnectError, ConnectTimeout
 
 from app.consts import ResourceType
@@ -51,9 +50,7 @@ async def _get_related_records_pids(client, ig_pid):
 
 
 async def extend_ig_with_related_services(
-    client: AsyncClient,
-    docs: list[dict],
-    collections_prefix: Annotated[str | None, Header()] = None,
+    client: AsyncClient, docs: list[dict], scope: Optional[str] = None
 ):
     """Main function responsible for extending iteroperability guideline response
     with related services data
@@ -72,7 +69,7 @@ async def extend_ig_with_related_services(
             finally:
                 if related_services_pids:
                     doc["related_services"] = await _get_related_services(
-                        client, related_services_pids, collections_prefix
+                        client, related_services_pids, scope
                     )
                 else:
                     doc["related_services"] = []
@@ -86,25 +83,21 @@ async def extend_ig_with_related_services(
 async def _get_related_services(
     client: AsyncClient,
     related_services_pids: list[str],
-    collections_prefix: Annotated[str | None, Header()] = None,
+    scope: Optional[str] = None,
 ):
-    gathered_result = await asyncio.gather(*[
-        _get_related_service(client, pid, collections_prefix)
-        for pid in related_services_pids
-    ])
+    gathered_result = await asyncio.gather(
+        *[_get_related_service(client, pid, scope) for pid in related_services_pids]
+    )
     return [result for result in gathered_result if result]
 
 
 async def _get_related_service(
     client,
     pid,
-    collections_prefix: Annotated[str | None, Header()] = None,
+    scope: Optional[str] = None,
 ):
     response = await get_item_by_pid(
-        client=client,
-        collection=Collection.ALL_COLLECTION,
-        item_pid=pid,
-        collections_prefix=collections_prefix,
+        client=client, collection=Collection.ALL_COLLECTION, item_pid=pid, scope=scope
     )
 
     if response and response.json()["response"]["docs"]:

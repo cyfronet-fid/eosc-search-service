@@ -7,9 +7,9 @@ import json
 import logging
 from contextlib import suppress
 from io import StringIO
-from typing import Annotated, Iterator, Optional
+from typing import Iterator, Optional
 
-from fastapi import APIRouter, Body, Depends, Header, Query, Request
+from fastapi import APIRouter, Body, Depends, Query, Request
 from httpx import AsyncClient
 from starlette.responses import StreamingResponse
 
@@ -57,7 +57,7 @@ async def search_post(
     return_csv: bool = False,
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_dep),
-    collections_prefix: Annotated[str | None, Header()] = None,
+    scope: Optional[str] = None,
 ):
     """
     Do a search against the specified collection.
@@ -85,17 +85,17 @@ async def search_post(
             exact=exact,
             cursor=cursor,
             facets=request.facets,
-            collections_prefix=collections_prefix,
+            scope=scope,
         )
         res_json = response.data
 
         # Extend results with bundles
         if collection in [Collection.ALL_COLLECTION, Collection.BUNDLE]:
-            await extend_results_with_bundles(client, res_json, collections_prefix)
+            await extend_results_with_bundles(client, res_json, scope)
         if collection in [Collection.ALL_COLLECTION, Collection.GUIDELINE]:
             try:
                 new_docs = await extend_ig_with_related_services(
-                    client, res_json["response"]["docs"], collections_prefix
+                    client, res_json["response"]["docs"], scope
                 )
                 res_json["response"]["docs"] = copy.deepcopy(new_docs)
             except (Exception,):  # pylint: disable=broad-except
@@ -135,7 +135,7 @@ async def search_post_advanced(
     return_csv: bool = False,
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_advanced_dep),
-    collections_prefix: Annotated[str | None, Header()] = None,
+    scope: Optional[str] = None,
 ):
     """
     Do a search against the specified collection.
@@ -158,14 +158,14 @@ async def search_post_advanced(
             exact=exact,
             cursor=cursor,
             facets=request.facets,
-            collections_prefix=collections_prefix,
+            scope=scope,
         )
 
         res_json = response.data
 
         # Extent the results with bundles
         if collection in [Collection.ALL_COLLECTION, Collection.BUNDLE]:
-            await extend_results_with_bundles(client, res_json, collections_prefix)
+            await extend_results_with_bundles(client, res_json, scope)
     collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
 
@@ -300,9 +300,7 @@ async def create_output(
 
 
 # pylint: disable=logging-fstring-interpolation, too-many-locals, useless-suppression
-async def extend_results_with_bundles(
-    client, res_json, collections_prefix: Annotated[str | None, Header()] = None
-):
+async def extend_results_with_bundles(client, res_json, scope: Optional[str] = None):
     """Extend bundles in search results with information about offers and services"""
 
     bundle_results = list(
@@ -326,9 +324,7 @@ async def extend_results_with_bundles(
             offer_results = []
             for offer_id in offer_ids:
                 with suppress(SolrDocumentNotFoundError):
-                    response = await get(
-                        client, Collection.OFFER, offer_id, collections_prefix
-                    )
+                    response = await get(client, Collection.OFFER, offer_id, scope)
                     item = response["doc"]
                     if item is None:
                         logger.warning(f"No offer with id={offer_id}")
@@ -345,9 +341,7 @@ async def extend_results_with_bundles(
             service_results = []
             for service_id in services_ids:
                 with suppress(SolrDocumentNotFoundError):
-                    response = await get(
-                        client, Collection.SERVICE, service_id, collections_prefix
-                    )
+                    response = await get(client, Collection.SERVICE, service_id, scope)
                     item = response["doc"]
                     if item is None:
                         logger.warning(f"No service with id={service_id}")

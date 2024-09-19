@@ -88,11 +88,13 @@ export const flatNodesToTree = (nodes: IFilterNode[]): IUIFilterTreeNode[] => {
 };
 export const toSearchMetadata = (
   q: string,
+  scope: string,
   exact: string,
   fq: string[],
   metadata: ICollectionSearchMetadata
 ) => ({
   q: queryChanger(q, exact === 'true'),
+  scope,
   exact: exact,
   fq,
   cursor: '*',

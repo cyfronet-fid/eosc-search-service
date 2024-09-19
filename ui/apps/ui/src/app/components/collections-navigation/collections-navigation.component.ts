@@ -28,6 +28,7 @@ import { Observable, map } from 'rxjs';
               standard: (st$ | async),
               tags: (tg$ | async),
               exact: (ex$ | async),
+              scope: (scope$ | async),
               radioValueAuthor: (radioValueAuthor$ | async),
               radioValueExact: (radioValueExact$ | async),
               radioValueTitle: (radioValueTitle$ | async),
@@ -42,11 +43,13 @@ import { Observable, map } from 'rxjs';
 })
 export class CollectionsNavigationComponent implements OnInit {
   public navigationLinks: INavigationLink[] = [];
+  public navCollections$ = this._navConfigsRepository.navCollections$;
   public showCollections = false;
   public q$ = this._customRoute.q$;
   public st$ = this._customRoute.standard$;
   public tg$ = this._customRoute.tags$;
   public ex$ = this._customRoute.exact$;
+  public scope$ = this._customRoute.scope$;
   public radioValueAuthor$ = this._customRoute.radioValueAuthor$;
   public radioValueExact$ = this._customRoute.radioValueExact$;
   public radioValueTitle$ = this._customRoute.radioValueTitle$;
@@ -58,9 +61,9 @@ export class CollectionsNavigationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.navigationLinks = this._navConfigsRepository
-      .getResourcesCollections()
-      .map(toNavigationLink);
+    this.navCollections$.subscribe((entities) => {
+      this.navigationLinks = Object.values(entities).map(toNavigationLink);
+    });
   }
 
   public globalFq$(collection: string): Observable<string | undefined> {

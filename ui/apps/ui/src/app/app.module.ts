@@ -23,8 +23,6 @@ import { environment } from '@environment/environment';
 import { ConfigService } from './services/config.service';
 import { WINDOW } from './app.providers';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CollectionsPrefixInterceptor } from '@collections/services/collections-prefix.interceptor';
-import { initializeCollectionsPrefix } from './services/initialize-collections-prefix.service';
 
 registerLocaleData(en);
 
@@ -62,22 +60,12 @@ const googleAnalyticsId = (
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: CollectionsPrefixInterceptor,
-      multi: true,
-    },
     { provide: WINDOW, useValue: window },
     {
       provide: APP_INITIALIZER,
       useFactory: getUserProfileFactory$,
       multi: true,
       deps: [UserProfileService],
-    },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: initializeCollectionsPrefix,
-      multi: true,
     },
     {
       provide: APP_INITIALIZER,
