@@ -19,7 +19,7 @@ export const getDataSourceUrl = (pid?: string) => {
   if (!pid) {
     pid = '';
   }
-  return `${ConfigService.config?.marketplace_url}/services/${pid}`;
+  return `${ConfigService.config?.marketplace_url}/services/${pid}/offers`;
 };
 
 export const dataSourcesAdapter: IAdapter = {
