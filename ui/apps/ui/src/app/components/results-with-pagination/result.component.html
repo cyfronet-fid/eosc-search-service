@@ -118,14 +118,15 @@
       ><img src="/assets/usage-views.svg" />
       <ng-container i18n>{{ views }} Views</ng-container></span
     >
-    <span *ngIf="license !== undefined" class="statistic text-muted">
+    <span *ngIf="license !== undefined" class="statistic text-muted"
+      ><img src="/assets/article.svg" />
       <ng-container i18n>License: {{ _formatLicense(license!) }}</ng-container>
     </span>
     <ng-container *ngIf="funder && funder.length > 0">
       <!-- Check if there is exactly one funder -->
       <ng-container *ngIf="funder.length === 1; else elseBlock">
-        <!-- Convert to dropdown if funder's name is longer than 20 characters -->
-        <ng-container *ngIf="funder[0].length > 20; else singleFunder">
+        <!-- Convert to dropdown if funder's name is longer than 35 characters -->
+        <ng-container *ngIf="funder[0].length > 35; else singleFunder">
           <img src="/assets/funder.svg" />
           <div ngbDropdown class="d-inline-block funder-dropdown">
             <button
