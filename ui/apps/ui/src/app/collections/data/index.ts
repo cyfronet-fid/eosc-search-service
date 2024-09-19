@@ -38,6 +38,9 @@ import { otherResourcesProductsAdapter } from '@collections/data/other-resources
 import { bundlesAdapter } from '@collections/data/bundles/adapter.data';
 import { cataloguesAdapter } from './catalogues/adapter.data';
 
+import { plDatasetsAdapter } from '../pl-data/datasets/adapter.data';
+import { plAllCollectionsAdapter } from '../pl-data/all/adapter.data';
+
 import { trainingsSearchMetadata } from './trainings/search-metadata.data';
 import { guidelinesSearchMetadata } from './guidelines/search-metadata.data';
 import { providersSearchMetadata } from './providers/search-metadata.data';
@@ -104,9 +107,9 @@ export const ADAPTERS: IAdapter[] = [
 ];
 
 export const PL_ADAPTERS: IAdapter[] = [
-  allCollectionsAdapter,
+  plAllCollectionsAdapter,
   publicationsAdapter,
-  datasetsAdapter,
+  plDatasetsAdapter,
   servicesAdapter,
   dataSourcesAdapter,
   providersAdapter,
