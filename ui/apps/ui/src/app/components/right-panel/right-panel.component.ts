@@ -4,7 +4,6 @@ import { CustomRoute } from '@collections/services/custom-route.service';
 @Component({
   selector: 'ess-right-panel',
   templateUrl: './right-panel.component.html',
-  styleUrls: ['./right-panel.component.scss'],
 })
 export class RightPanelComponent {
   public q$ = this._customRoute.q$;
