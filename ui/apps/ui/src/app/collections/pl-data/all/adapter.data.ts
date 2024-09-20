@@ -7,8 +7,11 @@ import { IProvider } from '../../data/providers/provider.model';
 import { IOpenAIREResult } from '../../data/openair.model';
 import {
   allCollectionsAdapter,
+  logoUrlAdapter,
+  orderUrlAdapter,
   redirectUrlAdapter,
 } from '../../data/all/adapter.data';
+import { ConfigService } from '../../../services/config.service';
 
 const plRedirectUrlAdapter = (
   type: string,
@@ -22,12 +25,77 @@ const plRedirectUrlAdapter = (
       IProvider
   >
 ) => {
-  if (type === 'dataset') {
-    return data?.url?.[0] || '';
-  }
+  switch (type) {
+    case 'dataset':
+      return data?.url?.[0] || '';
 
-  // Use the original redirectUrlAdapter for all other cases
-  return redirectUrlAdapter(type, data);
+    case 'service':
+      return data?.slug
+        ? `${ConfigService.config?.pl_marketplace_url}/services/${data.slug}/offers`
+        : '';
+
+    case 'data source':
+      return data?.pid
+        ? `${ConfigService.config?.pl_marketplace_url}/services/${data.pid}/offers`
+        : '';
+
+    default:
+      // Use the original redirectUrlAdapter for all other cases
+      return redirectUrlAdapter(type, data);
+  }
+};
+
+const plLogoUrlAdapter = (
+  type: string,
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (type) {
+    case 'data source':
+      return data.pid
+        ? `${ConfigService.config?.pl_marketplace_url}/services/${data.pid}/logo`
+        : '';
+    case 'service':
+      return data.slug
+        ? `${ConfigService.config?.pl_marketplace_url}/services/${data.slug}/logo`
+        : '';
+    default:
+      // Use the original redirectUrlAdapter for all other cases
+      return logoUrlAdapter(type, data);
+  }
+};
+
+export const plOrderUrlAdapter = (
+  type: string,
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (type) {
+    case 'data source':
+      return data.pid
+        ? `${ConfigService.config?.pl_marketplace_url}/services/${data.pid}/offers`
+        : '';
+    case 'service':
+      return data.slug
+        ? `${ConfigService.config?.pl_marketplace_url}/services/${data.slug}/offers`
+        : '';
+    default:
+      return orderUrlAdapter(type, data);
+  }
 };
 
 export const plAllCollectionsAdapter = {
@@ -50,6 +118,8 @@ export const plAllCollectionsAdapter = {
     return {
       ...result,
       redirectUrl: plRedirectUrlAdapter(data.type || '', data), // Override the redirectUrl
+      logoUrl: plLogoUrlAdapter(data.type || '', data),
+      orderUrl: plOrderUrlAdapter(data.type || '', data),
     };
   },
 };

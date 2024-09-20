@@ -64,7 +64,7 @@ export class PinComponent implements OnChanges {
       const type =
         this.resourceType === 'other' ? 'other_rp' : this.resourceType;
       this.pinUrl = `${
-        this._configService.get().marketplace_url
+        this._configService.get().eu_marketplace_url
       }/research_products/new?resource_id=${encodeURIComponent(
         this.resourceId
       )}&resource_type=${encodeURIComponent(type)}`;

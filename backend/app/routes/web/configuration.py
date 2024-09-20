@@ -12,7 +12,8 @@ router = APIRouter()
 @router.get("/config", name="web:configuration", response_model=ConfigurationResponse)
 async def config():
     return ConfigurationResponse(
-        marketplace_url=settings.MARKETPLACE_BASE_URL,
+        eu_marketplace_url=settings.EU_MARKETPLACE_BASE_URL,
+        pl_marketplace_url=settings.PL_MARKETPLACE_BASE_URL,
         eosc_explore_url=settings.EOSC_EXPLORE_URL,
         eosc_commons_url=settings.EOSC_COMMONS_URL,
         eosc_commons_env=settings.EOSC_COMMONS_ENV,

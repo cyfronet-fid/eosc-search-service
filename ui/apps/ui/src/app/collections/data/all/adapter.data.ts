@@ -11,8 +11,6 @@ import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { IService } from '@collections/data/services/service.model';
-import { getDataSourceUrl } from '@collections/data/data-sources/adapter.data';
-import { getServiceOrderUrl } from '../services/adapter.data';
 import {
   toArray,
   toValueWithLabel,
@@ -51,23 +49,25 @@ export const redirectUrlAdapter = (
         ConfigService.config?.eosc_explore_url
       }/search/result?id=${data?.id?.split('|')?.pop()}`;
     case 'data source':
-      return getDataSourceUrl(data?.pid);
+      return data?.pid
+        ? `${ConfigService.config?.eu_marketplace_url}/services/${data.pid}`
+        : '';
     case 'service':
-      return `${ConfigService.config?.marketplace_url}/services/${data?.slug}/offers`;
+      return `${ConfigService.config?.eu_marketplace_url}/services/${data?.slug}`;
     case 'training':
       return '/trainings/' + data.id;
     case 'interoperability guideline':
       return '/guidelines/' + data.id;
     case 'bundle':
-      return `${ConfigService.config?.marketplace_url}/services/${data.service_id}`;
+      return `${ConfigService.config?.eu_marketplace_url}/services/${data.service_id}`;
     case 'provider':
-      return `${ConfigService.config?.marketplace_url}/providers/${data?.pid}`;
+      return `${ConfigService.config?.eu_marketplace_url}/providers/${data?.pid}`;
     default:
       return '';
   }
 };
 
-const logoUrlAdapter = (
+export const logoUrlAdapter = (
   type: string,
   data: Partial<
     IOpenAIREResult &
@@ -82,18 +82,18 @@ const logoUrlAdapter = (
   switch (type) {
     case 'data source':
       return data.pid
-        ? `${ConfigService.config?.marketplace_url}/services/${data.pid}/logo`
-        : undefined;
+        ? `${ConfigService.config?.eu_marketplace_url}/services/${data.pid}/logo`
+        : '';
     case 'service':
       return data.slug
-        ? `${ConfigService.config?.marketplace_url}/services/${data.slug}/logo`
-        : undefined;
+        ? `${ConfigService.config?.eu_marketplace_url}/services/${data.slug}/logo`
+        : '';
     default:
-      return undefined;
+      return '';
   }
 };
 
-const orderUrlAdapter = (
+export const orderUrlAdapter = (
   type: string,
   data: Partial<
     IOpenAIREResult &
@@ -107,15 +107,17 @@ const orderUrlAdapter = (
 ) => {
   switch (type) {
     case 'data source':
-      return getServiceOrderUrl(data?.pid);
+      return data.pid
+        ? `${ConfigService.config?.eu_marketplace_url}/services/${data.pid}/offers`
+        : '';
     case 'service':
       return data.slug
-        ? `${ConfigService.config?.marketplace_url}/services/${data.slug}/offers`
-        : undefined;
+        ? `${ConfigService.config?.eu_marketplace_url}/services/${data.slug}/offers`
+        : '';
     case 'bundle':
-      return `${ConfigService.config?.marketplace_url}/services/${data.service_id}/offers`;
+      return `${ConfigService.config?.eu_marketplace_url}/services/${data.service_id}/offers`;
     default:
-      return undefined;
+      return '';
   }
 };
 

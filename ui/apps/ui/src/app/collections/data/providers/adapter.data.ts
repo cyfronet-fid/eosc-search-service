@@ -30,6 +30,12 @@ export const providersAdapter: IAdapter = {
       label: 'provider',
       value: 'provider',
     },
+    redirectUrl: provider.pid
+      ? `${ConfigService.config?.eu_marketplace_url}/providers/${provider.pid}`
+      : '',
+    logoUrl: provider.pid
+      ? `${ConfigService.config?.eu_marketplace_url}/providers/${provider.pid}/logo`
+      : '',
     collection: COLLECTION,
     coloredTags: [],
     secondaryTags: [
@@ -59,9 +65,6 @@ export const providersAdapter: IAdapter = {
         filter: 'meril_scientific_domains',
       },
     ],
-    redirectUrl: provider.pid
-      ? `${ConfigService.config?.marketplace_url}/providers/${provider.pid}`
-      : '',
     ...parseStatistics(provider),
   }),
 };

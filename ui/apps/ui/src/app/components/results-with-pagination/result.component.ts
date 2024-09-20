@@ -378,7 +378,7 @@ export class ResultComponent implements OnInit {
 
   getLogoUrl(slug: string | undefined) {
     return slug
-      ? `${ConfigService.config?.marketplace_url}/services/${slug}/logo`
+      ? `${ConfigService.config?.eu_marketplace_url}/services/${slug}/logo`
       : 'assets/bundle_service.svg';
   }
 

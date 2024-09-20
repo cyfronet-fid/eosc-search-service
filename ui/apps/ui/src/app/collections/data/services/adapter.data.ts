@@ -15,13 +15,6 @@ import {
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
 
-export const getServiceOrderUrl = (slug?: string) => {
-  if (!slug) {
-    slug = '';
-  }
-  return `${ConfigService.config?.marketplace_url}/services/${slug}/offers`;
-};
-
 const setType = (type: string | undefined) => {
   if (type === 'data source') {
     return {
@@ -50,12 +43,14 @@ export const servicesAdapter: IAdapter = {
     horizontal: service?.horizontal,
     type: setType(service.type),
     redirectUrl: service.slug
-      ? `${ConfigService.config?.marketplace_url}/services/${service.slug}/offers`
+      ? `${ConfigService.config?.eu_marketplace_url}/services/${service.slug}`
       : '',
     logoUrl: service.slug
-      ? `${ConfigService.config?.marketplace_url}/services/${service.slug}/logo`
+      ? `${ConfigService.config?.eu_marketplace_url}/services/${service.slug}/logo`
       : '',
-    orderUrl: getServiceOrderUrl(service.slug),
+    orderUrl: service.slug
+      ? `${ConfigService.config?.eu_marketplace_url}/services/${service.slug}/offers`
+      : '',
     collection: COLLECTION,
     coloredTags: [],
     tags: [
