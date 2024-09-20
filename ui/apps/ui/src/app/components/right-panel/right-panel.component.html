@@ -1,6 +1,6 @@
 <h4>Initiatives</h4>
-<div *ngIf="!this.isProvider()">
-  <a class="right-column-link" 
+<div class="right-column-link" *ngIf="!this.isProvider()">
+  <a  
   [queryParams]="{ q: '*' }"
   [routerLink]="'/search/provider'"
   [routerLinkActiveOptions]="{
@@ -27,8 +27,10 @@
 <div class="right-link-arrow"><img src="assets/arrow-right-dark.svg" alt="more" /></div>
 </a>
 </div>
-<div *ngIf="this.isProvider()">
-  <a class="right-column-link"
+
+
+<div class="right-column-link" *ngIf="this.isProvider()">
+  <a  
   [queryParams]="{ q: '*' }"
   [routerLink]="'/search/all_collection'"
   [routerLinkActiveOptions]="{
@@ -50,8 +52,8 @@
     radioValueKeyword: (radioValueKeyword$ | async)
   }"
 >
-  <div class="right-link-arrow">Back to search</div>
+  <div class="right-link-title">Go back to resource discovery service</div>
+  <div class="right-link-arrow"><img src="assets/arrow-right-dark.svg" alt="more" /></div>
 </a>
-
 
 </div>

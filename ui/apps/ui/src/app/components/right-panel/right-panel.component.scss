@@ -1,0 +1,58 @@
+
+.right-column-link {
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8px;
+    border-radius: 0 20px 20px 20px;
+    border: 1.5px solid #BAD3D4;
+
+    .right-link-title {
+      color: #24727B;
+      font-size: 14.992px;
+      font-weight: 500;
+      line-height: 140%; /* 20.989px */
+    }
+
+    .right-link-desc {
+      color: #363939;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 140%; /* 16.8px */
+    }
+
+    .right-link-arrow {
+      display: flex;
+      height: 18.289px;
+      padding: 5px 12.5px;
+      align-items: center;
+      gap: 15px;
+      float: right;
+      border-radius: 20px;
+      border: 1.5px solid #BAD3D4;
+      background: #FAFAFA;
+      margin-left: auto;
+    }
+
+    &:hover {
+      border: 1.5px solid #24727B;
+
+      .right-link-arrow {
+        background: #eee;
+      }
+    }
+  }
+
+  .eosc-back-link {
+    color: inherit;
+    .chevron-left {
+      background-image: url("../../../assets/ico_back.svg") !important;
+      background-size: 10px auto;
+      background-position: 0 100% !important;
+      margin: 0 3px 0 0 !important;
+      width: 13px !important;
+      
+    }
+  }
