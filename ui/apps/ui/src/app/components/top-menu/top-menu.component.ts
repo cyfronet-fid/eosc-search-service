@@ -48,20 +48,26 @@ export class TopMenuComponent implements OnInit {
   }
 
   async setScope(scope: string) {
-    const targetScope = scope;
-    const targetCollection = this.setCollection(targetScope);
-    this.selectedScope = targetScope;
-    await this._router.navigate([`${SEARCH_PAGE_PATH}/${targetCollection}/`], {
-      queryParams: {
-        scope: targetScope,
-      },
-      queryParamsHandling: 'merge',
-    });
-    this._navConfigRepository.getResourcesCollections();
-    this._filtersConfigsRepository.setScope();
-    this._searchMetadataRepository.setScope(targetScope);
-    this._adaptersRepository.setScope();
+    if (this.selectedScope != scope) {
+      const targetScope = scope;
+      const targetCollection = this.setCollection(targetScope);
+      this.selectedScope = targetScope;
+      await this._router.navigate(
+        [`${SEARCH_PAGE_PATH}/${targetCollection}/`],
+        {
+          queryParams: {
+            scope: targetScope,
+          },
+          queryParamsHandling: 'merge',
+        }
+      );
+      this._navConfigRepository.getResourcesCollections();
+      this._filtersConfigsRepository.setScope();
+      this._searchMetadataRepository.setScope(targetScope);
+      this._adaptersRepository.setScope();
+    }
   }
+
   setCollection(targetScope: string) {
     const currentCollection: string = this._customRoute.collection() || '';
     const availableCollections: string[] =
