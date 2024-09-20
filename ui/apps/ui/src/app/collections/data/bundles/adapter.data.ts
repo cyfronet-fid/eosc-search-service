@@ -15,9 +15,9 @@ import {
 
 function getBundleUrl(bundle: Partial<IBundle> & { id: string }): string {
   if (bundle.iid != null && bundle.iid.length === 1) {
-    return `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}/bundles/${bundle.iid?.[0]}`;
+    return `${ConfigService.config?.eu_marketplace_url}/services/${bundle.service_id}/bundles/${bundle.iid?.[0]}`;
   }
-  return `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}`;
+  return `${ConfigService.config?.eu_marketplace_url}/services/${bundle.service_id}`;
 }
 
 export const bundlesAdapter: IAdapter = {
@@ -35,7 +35,7 @@ export const bundlesAdapter: IAdapter = {
     },
     collection: COLLECTION,
     redirectUrl: getBundleUrl(bundle),
-    orderUrl: `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}/offers`,
+    orderUrl: `${ConfigService.config?.eu_marketplace_url}/services/${bundle.service_id}/offers`,
     coloredTags: [],
     tags: [
       {

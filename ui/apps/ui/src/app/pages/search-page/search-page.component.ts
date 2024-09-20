@@ -80,7 +80,7 @@ export class SearchPageComponent implements OnInit {
   public clearAll = false;
   isSpecialCollection = false;
   knowledgeHubUrl = this._configService.get().knowledge_hub_url;
-  marketplaceUrl = this._configService.get().marketplace_url;
+  marketplaceUrl = this._configService.get().eu_marketplace_url;
 
   constructor(
     private _customRoute: CustomRoute,

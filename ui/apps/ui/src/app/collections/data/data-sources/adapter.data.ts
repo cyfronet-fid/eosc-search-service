@@ -13,14 +13,6 @@ import {
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
-import { getServiceOrderUrl } from '../services/adapter.data';
-
-export const getDataSourceUrl = (pid?: string) => {
-  if (!pid) {
-    pid = '';
-  }
-  return `${ConfigService.config?.marketplace_url}/services/${pid}/offers`;
-};
 
 export const dataSourcesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -36,11 +28,15 @@ export const dataSourcesAdapter: IAdapter = {
       label: dataSource.type || '',
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
-    redirectUrl: getDataSourceUrl(dataSource.pid),
-    logoUrl: dataSource.pid
-      ? `${ConfigService.config?.marketplace_url}/services/${dataSource.pid}/logo`
+    redirectUrl: dataSource.pid
+      ? `${ConfigService.config?.eu_marketplace_url}/services/${dataSource.pid}`
       : '',
-    orderUrl: getServiceOrderUrl(dataSource.pid),
+    logoUrl: dataSource.pid
+      ? `${ConfigService.config?.eu_marketplace_url}/services/${dataSource.pid}/logo`
+      : '',
+    orderUrl: dataSource.pid
+      ? `${ConfigService.config?.eu_marketplace_url}/services/${dataSource.pid}/offers`
+      : '',
     collection: COLLECTION,
     coloredTags: [],
     tags: [

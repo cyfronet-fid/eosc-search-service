@@ -93,7 +93,7 @@ export class ResultsWithPaginationComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.marketplaceUrl = this._configService.get().marketplace_url;
+    this.marketplaceUrl = this._configService.get().eu_marketplace_url;
     this.pageNr$
       .pipe(
         untilDestroyed(this),

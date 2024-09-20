@@ -27,7 +27,7 @@ export class GuidelineDetailPageComponent implements OnInit {
 
   type = DICTIONARY_TYPE_FOR_PIPE;
 
-  marketplaceUrl: string = ConfigService.config?.marketplace_url;
+  marketplaceUrl: string = ConfigService.config?.eu_marketplace_url;
   currentUrl: string = this._router.url;
 
   constructor(

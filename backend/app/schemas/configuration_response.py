@@ -5,7 +5,8 @@ from app.settings import Url
 
 
 class ConfigurationResponse(BaseModel):
-    marketplace_url: Url
+    eu_marketplace_url: Url
+    pl_marketplace_url: Url
     eosc_commons_url: Url
     eosc_commons_env: str
     eosc_explore_url: Url

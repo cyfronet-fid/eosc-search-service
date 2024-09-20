@@ -31,7 +31,7 @@ export class IgServicesDetailCardComponent {
   }
 
   openService(pid: string) {
-    const url = `${ConfigService.config?.marketplace_url}/services/${pid}`;
+    const url = `${ConfigService.config?.eu_marketplace_url}/services/${pid}`;
     window.open(url);
   }
 
