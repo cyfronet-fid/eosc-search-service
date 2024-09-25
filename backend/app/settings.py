@@ -77,12 +77,12 @@ class GlobalSettings(BaseSettings):
     )
 
     # Redirections
-    MARKETPLACE_BASE_URL: Url = "https://marketplace.eosc-portal.eu/"
+    MARKETPLACE_BASE_URL: Url = "https://marketplace.sandbox.eosc-beyond.eu/"
     EOSC_COMMONS_URL: Url = (  # Without / at the end it doesn't work
         "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
     )
     EOSC_COMMONS_ENV: str = "production"
-    EOSC_EXPLORE_URL: Url = "https://explore.eosc-portal.eu/"
+    EOSC_EXPLORE_URL: Url = "https://beta.connect.openaire.eu/"
     KNOWLEDGE_HUB_URL: Url = "https://knowledge-hub.sandbox.eosc-beyond.eu/"
 
     # Get config from .env

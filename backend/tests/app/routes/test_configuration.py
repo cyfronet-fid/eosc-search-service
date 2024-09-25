@@ -13,8 +13,8 @@ async def test_return_backend_config(app: FastAPI, client: AsyncClient) -> None:
     assert response.json() == {
         "eosc_commons_env": "production",
         "eosc_commons_url": "https://s3.cloud.cyfronet.pl/eosc-portal-common/",
-        "marketplace_url": "https://marketplace.eosc-portal.eu/",
-        "eosc_explore_url": "https://explore.eosc-portal.eu/",
+        "marketplace_url": "https://marketplace.sandbox.eosc-beyond.eu/",
+        "eosc_explore_url": "https://beta.connect.openaire.eu/",
         "knowledge_hub_url": "https://knowledge-hub.sandbox.eosc-beyond.eu/",
         "is_sort_by_relevance": True,
         "max_results_by_page": 50,
