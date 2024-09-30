@@ -1,3 +1,5 @@
+import gzip
+import json
 import logging
 import re
 import zipfile
@@ -69,8 +71,8 @@ def check_zip_file_conflicts(
     return zip_file_conflicts
 
 
-def extract_bucket_and_directory(s3_url: str) -> tuple:
-    """Extract bucket and directory from the full S3 URL."""
+def extract_bucket_and_key(s3_url: str) -> tuple:
+    """Extract bucket and key from the full S3 URL."""
     if not s3_url.startswith(str(settings.S3_ENDPOINT)):
         logger.error(
             "The provided URL does not match the endpoint: %s.", settings.S3_ENDPOINT
@@ -85,18 +87,18 @@ def extract_bucket_and_directory(s3_url: str) -> tuple:
 
     if not match:
         logger.error(
-            "Invalid S3 URL %s format. Expected format: /files/<bucket>/<directory>",
+            "Invalid S3 URL %s format. Expected format: /files/<bucket>/<key>",
             s3_url,
         )
         raise ValueError(
-            "Invalid S3 URL %s format. Expected format: /files/<bucket>/<directory>",
+            "Invalid S3 URL %s format. Expected format: /files/<bucket>/<key>",
             s3_url,
         )
 
     bucket = match.group(1)
-    directory = match.group(2).rstrip("/")
+    key = match.group(2).rstrip("/")
 
-    return bucket, directory
+    return bucket, key
 
 
 def filter_system_files(file_name: str) -> bool:
@@ -124,9 +126,7 @@ def is_exact_directory_match(file_key: str, target_key: str, directory: str) -> 
     return False
 
 
-def list_files_in_zip(
-    zip_content: BytesIO, zip_file_name: str
-) -> Generator[str, None, None]:
+def list_files_in_zip(zip_content: BytesIO) -> Generator[str, None, None]:
     """
     Extract and yield the paths of valid files inside a ZIP archive.
     """
@@ -134,4 +134,37 @@ def list_files_in_zip(
         for file_info in z.infolist():
             file_name = file_info.filename
             if not file_info.is_dir() and filter_system_files(file_name):
-                yield f"{zip_file_name}/{file_name}"
+                parts = file_name.split("/")
+                yield f"{parts[0]}.zip/{'/'.join(parts[:])}"
+
+
+def process_json_content(content: bytes, is_gzipped: bool) -> list[dict]:
+    """Process the JSON content, handling .gz and line-split JSON."""
+    data = []
+    if is_gzipped:
+        with gzip.GzipFile(fileobj=BytesIO(content)) as gz:
+            content_str = gz.read().decode("utf-8")
+    else:
+        content_str = content.decode("utf-8")
+
+    json_objects = content_str.splitlines()
+    for json_obj in json_objects:
+        if json_obj.strip():
+            try:
+                data.append(json.loads(json_obj))
+            except json.JSONDecodeError as e:
+                logger.warning(f"JSON decoding failed for line: {json_obj}. Error: {e}")
+                continue
+    return data
+
+
+def read_json_from_zip(zip_content: BytesIO, file_path: str) -> list[dict]:
+    """
+    Read and return JSON content from a specific file within a ZIP archive.
+    """
+    zip_file_name = file_path.split(".zip/")[1]
+    logger.warning("file name %s", zip_file_name)
+    with zipfile.ZipFile(zip_content) as z:
+        with z.open(zip_file_name) as f:
+            content = f.read()
+            return process_json_content(content, zip_file_name.endswith(".gz"))

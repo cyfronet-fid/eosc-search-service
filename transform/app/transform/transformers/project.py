@@ -21,6 +21,7 @@ from app.settings import settings
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.join_dfs import create_df, join_different_dfs
 from app.transform.utils.utils import sort_schema
+from schemas.old.output.project import project_output_schema
 from schemas.properties.data import *
 
 
@@ -29,11 +30,17 @@ class ProjectTransformer(BaseTransformer):
 
     def __init__(self, spark: SparkSession):
         self.type = settings.PROJECT
+        self.exp_output_schema = project_output_schema
 
         self.logger = logging.getLogger(__name__)
 
         super().__init__(
-            self.type, self.cols_to_add, self.cols_to_drop, self.cols_to_rename, spark
+            self.type,
+            self.cols_to_add,
+            self.cols_to_drop,
+            self.cols_to_rename,
+            self.exp_output_schema,
+            spark,
         )
 
     def apply_simple_trans(self, df: DataFrame) -> DataFrame:

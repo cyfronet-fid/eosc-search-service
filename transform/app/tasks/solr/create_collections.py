@@ -77,6 +77,9 @@ def create_solr_collections_task(
                 raise CollectionCreationFailed(
                     f"Failed to create collection {collection}. Status code: {response.status_code}. Aborting task"
                 )
-        return CeleryTaskStatus(status=SUCCESS).dict()
+        prev_task_status["status"] = SUCCESS
+        return prev_task_status
     except Exception as e:
-        return CeleryTaskStatus(status=FAILURE, reason=str(e)).dict()
+        prev_task_status["status"] = FAILURE
+        prev_task_status["reason"] = str(e)
+        return prev_task_status

@@ -1,9 +1,12 @@
+import logging
 from io import BytesIO
 from typing import Dict, Generator
 
 from app.mappings.mappings import entity_mapping
-from app.services.s3.utils import is_exact_directory_match, list_files_in_zip, logger
+from app.services.s3.utils import is_exact_directory_match, list_files_in_zip
 from app.settings import settings
+
+logger = logging.getLogger(__name__)
 
 
 def get_s3_paths(
@@ -56,9 +59,17 @@ def get_s3_paths(
                                     "Body"
                                 ].read()
                             )
-                            files_dict[key] = list_files_in_zip(zip_content, file_key)
-                        else:
-                            files_dict[key].append(file_key)
+                            files_dict[key] = [
+                                f"{settings.S3_ENDPOINT}files/{bucket_name}/{s3_directory}/{zip_file}"
+                                for zip_file in list_files_in_zip(zip_content)
+                            ]
+                        elif (
+                            file_key
+                            != f"{s3_directory}/{entity_mapping.get(key, key)}/"
+                        ):
+                            files_dict[key].append(
+                                f"{settings.S3_ENDPOINT}files/{bucket_name}/{file_key}"
+                            )
                         break
     except Exception as e:
         logger.error(f"Error retrieving files from S3: {e}")

@@ -58,6 +58,7 @@ def create_workflow(req_body: dict) -> chain:
     )  # Validate task, no previous status
 
     # Create solr collections for each solr instance task
+
     for instance in instances:
         if instance["type"] == "solr":
             solr_task_params = {
@@ -76,7 +77,8 @@ def create_workflow(req_body: dict) -> chain:
             workflow |= create_solr_collections_task.s(**solr_task_params)
 
     # Add the remaining tasks
-    workflow |= transform_data.s(req_body)
-    workflow |= update_peripheral_data.s(req_body)
+    workflow |= transform_data.s()
+
+    # workflow |= update_peripheral_data.s(req_body)
 
     return workflow

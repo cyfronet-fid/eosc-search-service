@@ -10,7 +10,8 @@ from app.services.s3.utils import (
     check_missing_directories,
     check_s3_directory_or_zip_exists,
     check_zip_file_conflicts,
-    extract_bucket_and_directory,
+    extract_bucket_and_key,
+    filter_system_files,
 )
 from app.settings import settings
 
@@ -19,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 def validate_s3_bucket_access(s3_client: boto3.client, s3_url: str) -> None:
     """Check if access to S3 bucket is granted."""
-    bucket, _ = extract_bucket_and_directory(s3_url)
+    bucket, _ = extract_bucket_and_key(s3_url)
 
     logger.info("Checking if access to S3 bucket %s is granted.", bucket)
 
@@ -38,7 +39,7 @@ def validate_s3_bucket_access(s3_client: boto3.client, s3_url: str) -> None:
 
 def validate_s3_directory_access(s3_client: boto3.client, s3_url: str) -> None:
     """Check if access to S3 object is granted."""
-    bucket, directory = extract_bucket_and_directory(s3_url)
+    bucket, directory = extract_bucket_and_key(s3_url)
 
     logger.info("Checking if access to S3 object %s is granted.", s3_url)
 
@@ -69,7 +70,7 @@ def validate_s3_directory_access(s3_client: boto3.client, s3_url: str) -> None:
 def validate_s3_directory_structure(s3_client: boto3.client, s3_url: str) -> None:
     """Check if S3 directory structure is valid."""
 
-    bucket, directory = extract_bucket_and_directory(s3_url)
+    bucket, directory = extract_bucket_and_key(s3_url)
 
     logger.info("Checking if S3 directory %s is valid.", directory)
 
@@ -194,7 +195,7 @@ def validate_files_in_zip(
 def validate_files_extension(s3_client: boto3.client, s3_url: str) -> None:
     """Validate if directories contain .json or .json.gz files."""
 
-    bucket, directory = extract_bucket_and_directory(s3_url)
+    bucket, directory = extract_bucket_and_key(s3_url)
 
     logger.info(
         "Validating files in S3 directory %s for correct extensions.", directory
@@ -231,6 +232,8 @@ def validate_files_extension(s3_client: boto3.client, s3_url: str) -> None:
 
             if not directory_has_valid_files:
                 missing_files.append(required_directory)
+
+        invalid_files = [file for file in invalid_files if filter_system_files(file)]
 
         if missing_files:
             logger.error(f"Missing files in S3 directory %s", missing_files)

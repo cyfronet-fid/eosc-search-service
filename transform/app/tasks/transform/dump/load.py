@@ -12,21 +12,34 @@ logger = logging.getLogger(__name__)
 
 
 @celery.task(name="load_dump")
-def load_dump(prev_task_status: Optional[CeleryTaskStatus], s3_url: str) -> Dict:
+def load_dump(
+    prev_task_status: Optional[CeleryTaskStatus], s3_url: str
+) -> CeleryTaskStatus:
     """Task to load the dump"""
     if prev_task_status and prev_task_status.get("status") == SUCCESS:
         logger.info("Loading dump...")
 
         logger.info("Getting S3 paths...")
-        get_s3_paths_task(s3_url)
-        logger.info("S3 paths retrieved")
+        s3_paths_status = get_s3_paths_task(s3_url)
+        if s3_paths_status.get("status") == SUCCESS:
+            logger.info("S3 paths retrieved")
 
-        logger.info("Transforming...")
-        # TODO TRANSFORM
-        return CeleryTaskStatus(status=SUCCESS).dict()
+            prev_task_status["file_paths"] = s3_paths_status["file_paths"]
 
+            prev_task_status["status"] = SUCCESS
+            return prev_task_status
+
+        else:
+            logger.error("Failed to retrieve S3 paths")
+            prev_task_status["status"] = FAILURE
+            prev_task_status["reason"] = "Failed to retrieve S3 paths"
+            return prev_task_status
     else:
         logger.error(
             "Invalid previous task status for loading dump: %s", prev_task_status
         )
-        return CeleryTaskStatus(status=FAILURE).dict()
+        if prev_task_status is None:
+            prev_task_status = CeleryTaskStatus(status=FAILURE).dict()
+        else:
+            prev_task_status["status"] = FAILURE
+        return prev_task_status
