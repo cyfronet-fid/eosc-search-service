@@ -5,7 +5,7 @@ from app.services.celery.task import CeleryTaskStatus
 from app.services.celery.task_statuses import FAILURE, SUCCESS
 from app.services.s3.connect import connect_to_s3
 from app.services.s3.get_s3_paths import get_s3_paths
-from app.services.s3.utils import extract_bucket_and_directory
+from app.services.s3.utils import extract_bucket_and_key
 from app.settings import settings
 from app.worker import celery
 
@@ -27,7 +27,7 @@ def get_s3_paths_task(s3_url: str) -> Dict:
     """
     logger.info("Task started: retrieving file paths from S3")
 
-    bucket, directory = extract_bucket_and_directory(s3_url)
+    bucket, directory = extract_bucket_and_key(s3_url)
 
     try:
         s3_client = connect_to_s3(

@@ -146,8 +146,12 @@ class GlobalSettings(BaseSettings):
     CATALOGUE_IDS_INCREMENTOR: int = 100_000_000
 
     # EOSC PL
-    DATASET_ADDRESS: str = "https://rodbuk.pl/api/search?q=*&type=dataset&per_page=1000&metadata_fields=citation:*"
-    LICENSE_ADDRESS: str = "https://rodbuk.pl/api/datasets/export?exporter=dataverse_json&persistentId="
+    DATASET_ADDRESS: str = (
+        "https://rodbuk.pl/api/search?q=*&type=dataset&per_page=1000&metadata_fields=citation:*"
+    )
+    LICENSE_ADDRESS: str = (
+        "https://rodbuk.pl/api/datasets/export?exporter=dataverse_json&persistentId="
+    )
     SOLR_EOSCPL_DATASET_COLS_NAME: str = "pl_all_collection pl_dataset"
 
     # Get config from .env
