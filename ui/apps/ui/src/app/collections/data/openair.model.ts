@@ -15,6 +15,7 @@ export interface IOpenAIREResult {
   publisher: string;
   author_pids: string[];
   license: string;
+  funder: string[];
   document_type: string[];
   country: string;
   doi: string[];

@@ -118,9 +118,70 @@
       ><img src="/assets/usage-views.svg" />
       <ng-container i18n>{{ views }} Views</ng-container></span
     >
-    <span *ngIf="license !== undefined" class="statistic text-muted">
+    <span *ngIf="license !== undefined" class="statistic text-muted"
+      ><img src="/assets/article.svg" />
       <ng-container i18n>License: {{ _formatLicense(license!) }}</ng-container>
     </span>
+    <ng-container *ngIf="funder && funder.length > 0">
+      <!-- Check if there is exactly one funder -->
+      <ng-container *ngIf="funder.length === 1; else elseBlock">
+        <!-- Convert to dropdown if funder's name is longer than 35 characters -->
+        <ng-container *ngIf="funder[0].length > 35; else singleFunder">
+          <img src="/assets/funder.svg" />
+          <div ngbDropdown class="d-inline-block funder-dropdown">
+            <button
+              type="button"
+              class="btn statistic text-muted"
+              [id]="'funderDropdown-' + _getFormattedFunderId(funder[0])"
+              ngbDropdownToggle
+            >
+              <ng-container i18n>Funder</ng-container>
+            </button>
+            <div
+              ngbDropdownMenu
+              [attr.aria-labelledby]="'funderDropdown-' + _getFormattedFunderId(funder[0])"
+              class="funder-dropdown-menu"
+            >
+              <div class="statistic text-muted funder-item">
+                <ng-container i18n>{{ funder[0] }}</ng-container>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #singleFunder>
+      <span class="statistic text-muted">
+        <img src="/assets/funder.svg" />
+        <ng-container i18n>Funder: {{ funder[0] }}</ng-container>
+      </span>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #elseBlock>
+        <img src="/assets/funder.svg" />
+        <div ngbDropdown class="d-inline-block funder-dropdown">
+          <button
+            type="button"
+            class="btn statistic text-muted"
+            [id]="'funderDropdownMultiple'"
+            ngbDropdownToggle
+          >
+            <ng-container i18n>{{ funder.length }} Funders</ng-container>
+          </button>
+          <div
+            ngbDropdownMenu
+            [attr.aria-labelledby]="'funderDropdownMultiple'"
+            class="funder-dropdown-menu"
+          >
+            <div
+              *ngFor="let f of funder"
+              class="statistic text-muted funder-item"
+            >
+              <ng-container i18n>{{ f }}</ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
     <ng-container *ngIf="languages.length > 0">
       <ng-container *ngIf="languages.length === 1; else elseBlock">
         <span class="statistic text-muted">
@@ -194,7 +255,7 @@
       [description]="description"
       [highlights]="highlightsreal['description'] ?? []"
     ></ess-description>
-   
+
     <ess-ig-services-card
       *ngIf="type.value === 'guideline'"
       [relatedServices]="relatedServices"
@@ -237,7 +298,7 @@
                 <div class="bundle-offer-pic p-2">
                   <img
                     style="width: 48px"
-                    src="{{ getLogoUrl(offer.service?.id) }}"
+                    src="{{ getServiceLogoUrl(offer.service?.id) }}"
                   />
                 </div>
                 <div class="bundle-offer-desc p-2">
@@ -270,7 +331,7 @@
       [urls]="urls"
       [title]="title"
       [description]="description"
-      [shareUrl]="validUrl || ''"
+      [shareUrl]="redirectUrl || ''"
       [type]="type"
       class="share-link"
     ></ess-share>
