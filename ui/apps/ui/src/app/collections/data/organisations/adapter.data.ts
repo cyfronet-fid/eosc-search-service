@@ -29,7 +29,7 @@ export const organisationsAdapter: IAdapter = {
     title: organisation.title ?? '',
     abbreviation: organisation.abbreviation ?? '',
     website: organisation.url ?? '',
-    url: `${
+    redirectUrl: `${
       ConfigService.config?.eosc_explore_url
     }/search/organization?organizationId=${organisation?.id
       ?.split('|')

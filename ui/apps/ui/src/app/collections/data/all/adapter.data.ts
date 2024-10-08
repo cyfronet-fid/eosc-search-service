@@ -11,8 +11,6 @@ import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { IService } from '@collections/data/services/service.model';
-import { getDataSourceUrl } from '@collections/data/data-sources/adapter.data';
-import { getServiceOrderUrl } from '../services/adapter.data';
 import {
   toArray,
   toValueWithLabel,
@@ -30,7 +28,7 @@ import { ConfigService } from '../../../services/config.service';
 import { IBundle } from '@collections/data/bundles/bundle.model';
 import { IProvider } from '@collections/data/providers/provider.model';
 
-const urlAdapter = (
+const redirectUrlAdapter = (
   type: string,
   data: Partial<
     IOpenAIREResult &
@@ -49,21 +47,43 @@ const urlAdapter = (
     case 'other':
       return `${
         ConfigService.config?.eosc_explore_url
-      }/search/result?id=${data?.id?.split('|')?.pop()}`;
+      }/search/result?id=${data.id?.split('|')?.pop()}`;
     case 'data source':
-      return getDataSourceUrl(data?.pid);
     case 'service':
-      return `${ConfigService.config?.marketplace_url}/services/${data?.pid}`;
-    case 'training':
-      return '/trainings/' + data.id;
-    case 'interoperability guideline':
-      return '/guidelines/' + data.id;
+      return `${ConfigService.config?.marketplace_url}/services/${data.pid}`;
     case 'bundle':
       return `${ConfigService.config?.marketplace_url}/services/${data.service_id}`;
     case 'provider':
       return `${ConfigService.config?.marketplace_url}/providers/${data?.pid}`;
+    case 'training':
+      return '/trainings/' + data.id;
+    case 'interoperability guideline':
+      return '/guidelines/' + data.id;
     default:
       return '';
+  }
+};
+
+const logoUrlAdapter = (
+  type: string,
+  data: Partial<
+    IOpenAIREResult &
+      IDataSource &
+      IService &
+      ITraining &
+      IGuideline &
+      IBundle &
+      IProvider
+  >
+) => {
+  switch (type) {
+    case 'data source':
+    case 'service':
+      return `${ConfigService.config?.marketplace_url}/services/${data.pid}/logo`;
+    case 'provider':
+      return `${ConfigService.config?.marketplace_url}/providers/${data?.pid}/logo`;
+    default:
+      return undefined;
   }
 };
 
@@ -81,11 +101,8 @@ const orderUrlAdapter = (
 ) => {
   switch (type) {
     case 'data source':
-      return getServiceOrderUrl(data?.pid);
     case 'service':
-      return data.pid
-        ? `${ConfigService.config?.marketplace_url}/services/${data.pid}/offers`
-        : undefined;
+      return `${ConfigService.config?.marketplace_url}/services/${data.pid}/offers`;
     case 'bundle':
       return `${ConfigService.config?.marketplace_url}/services/${data.service_id}/offers`;
     default:
@@ -171,11 +188,14 @@ export const allCollectionsAdapter: IAdapter = {
     documentType: data?.document_type,
     date: extractDate(data),
     languages: transformLanguages(data?.language),
-    url: urlAdapter(data.type || '', data),
-    exportData: data.exportation || [],
+    redirectUrl: redirectUrlAdapter(data.type || '', data),
+    logoUrl: logoUrlAdapter(data.type || '', data),
     orderUrl: orderUrlAdapter(data.type || '', data),
+    exportData: data.exportation || [],
     urls: data.url,
     horizontal: data?.horizontal,
+    license: data?.license,
+    funder: data?.funder,
     coloredTags: [],
     relatedOrganisations: data?.related_organisation_titles || [],
     tags:

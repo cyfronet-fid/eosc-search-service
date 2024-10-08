@@ -34,6 +34,7 @@ export const toRelatedService = (
     tagline: value['tagline'],
     joined_categories: value['joined_categories'],
     type: value['type'],
+    logoUrl: value['logoUrl'],
   }));
 };
 
