@@ -42,7 +42,7 @@ export const servicesAdapter: IAdapter = {
     languages: transformLanguages(service?.language),
     horizontal: service?.horizontal,
     type: setType(service.type),
-    redirectUrl: `${ConfigService.config?.marketplace_url}/services/${service.pid}`,
+    url: `${ConfigService.config?.marketplace_url}/services/${service.pid}`,
     logoUrl: `${ConfigService.config?.marketplace_url}/services/${service.pid}/logo`,
     orderUrl: `${ConfigService.config?.marketplace_url}/services/${service.pid}/offers`,
     collection: COLLECTION,

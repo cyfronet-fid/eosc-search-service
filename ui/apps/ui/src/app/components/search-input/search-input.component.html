@@ -110,7 +110,7 @@
           *ngFor="let result of group.results"
           [attr.href]="
             redirectService.internalUrl(
-              result.redirectUrl,
+              result.url,
               result.id,
               result.type.value,
               ''
@@ -539,7 +539,7 @@
           *ngFor="let result of group.results"
           [attr.href]="
             redirectService.internalUrl(
-              result.redirectUrl,
+              result.url,
               result.id,
               result.type.value,
               ''

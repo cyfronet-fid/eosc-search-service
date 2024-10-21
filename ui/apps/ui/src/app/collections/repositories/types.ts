@@ -23,7 +23,7 @@ export interface IResult {
   type: IValueWithLabel;
   collection: string;
   urls?: string[];
-  redirectUrl: string;
+  url: string;
   logoUrl?: string;
   tags: ITag[];
   date?: string;

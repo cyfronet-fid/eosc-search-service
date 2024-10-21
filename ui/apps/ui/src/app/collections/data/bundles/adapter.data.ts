@@ -34,7 +34,7 @@ export const bundlesAdapter: IAdapter = {
       value: 'bundle',
     },
     collection: COLLECTION,
-    redirectUrl: getBundleUrl(bundle),
+    url: getBundleUrl(bundle),
     orderUrl: `${ConfigService.config?.marketplace_url}/services/${bundle.service_id}/offers`,
     coloredTags: [],
     tags: [
