@@ -31,7 +31,7 @@ export const softwareAdapter: IAdapter = {
     license: openAIREResult?.license,
     funder: openAIREResult?.funder,
     date: formatPublicationDate(openAIREResult['publication_date']),
-    redirectUrl: `${
+    url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
     coloredTags: [],

@@ -45,7 +45,7 @@ export class ResultComponent implements OnInit {
   @Input() date?: string;
   @Input() pid?: string = '';
   @Input() urls: string[] = [];
-  @Input() redirectUrl: string = '';
+  @Input() url: string = '';
   @Input() logoUrl?: string;
   @Input() orderUrl?: string;
 
@@ -83,6 +83,28 @@ export class ResultComponent implements OnInit {
       return `${start.format('YYYY')}-${end.format('YYYY')}`;
     }
     return '';
+  }
+
+  get redirectUrl(): string | null {
+    if (this.url == null || this.url === '') {
+      return null;
+    }
+    if (this.type.value === 'bundle') {
+      this.redirectService.internalUrl(
+        this.url,
+        this.id,
+        this.type.value,
+        this.offers[0]?.main_offer_id
+          ? '#offer-' + this.offers[0].main_offer_id.toString().substring(2)
+          : ''
+      );
+    }
+    return this.redirectService.internalUrl(
+      this.url,
+      this.id,
+      this.type.value,
+      ''
+    );
   }
 
   get redirectOrderUrl(): string | null {

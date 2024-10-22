@@ -28,7 +28,7 @@ import { ConfigService } from '../../../services/config.service';
 import { IBundle } from '@collections/data/bundles/bundle.model';
 import { IProvider } from '@collections/data/providers/provider.model';
 
-const redirectUrlAdapter = (
+const urlAdapter = (
   type: string,
   data: Partial<
     IOpenAIREResult &
@@ -188,7 +188,7 @@ export const allCollectionsAdapter: IAdapter = {
     documentType: data?.document_type,
     date: extractDate(data),
     languages: transformLanguages(data?.language),
-    redirectUrl: redirectUrlAdapter(data.type || '', data),
+    url: urlAdapter(data.type || '', data),
     logoUrl: logoUrlAdapter(data.type || '', data),
     orderUrl: orderUrlAdapter(data.type || '', data),
     exportData: data.exportation || [],

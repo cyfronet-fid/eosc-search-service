@@ -59,7 +59,7 @@ export const providersAdapter: IAdapter = {
         filter: 'meril_scientific_domains',
       },
     ],
-    redirectUrl: `${ConfigService.config?.marketplace_url}/providers/${provider.pid}`,
+    url: `${ConfigService.config?.marketplace_url}/providers/${provider.pid}`,
     logoUrl: `${ConfigService.config?.marketplace_url}/providers/${provider?.pid}/logo`,
     ...parseStatistics(provider),
   }),

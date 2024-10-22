@@ -28,7 +28,7 @@ export const dataSourcesAdapter: IAdapter = {
       label: dataSource.type || '',
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
-    redirectUrl: `${ConfigService.config?.marketplace_url}/services/${dataSource.pid}`,
+    url: `${ConfigService.config?.marketplace_url}/services/${dataSource.pid}`,
     logoUrl: `${ConfigService.config?.marketplace_url}/services/${dataSource.pid}/logo`,
     orderUrl: `${ConfigService.config?.marketplace_url}/services/${dataSource.pid}/offers`,
     collection: COLLECTION,

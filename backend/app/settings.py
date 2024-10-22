@@ -82,7 +82,7 @@ class GlobalSettings(BaseSettings):
         "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
     )
     EOSC_COMMONS_ENV: str = "production"
-    EOSC_EXPLORE_URL: Url = "https://beta.connect.openaire.eu/"
+    EOSC_EXPLORE_URL: Url = "https://explore.sandbox.eosc-beyond.eu/"
     KNOWLEDGE_HUB_URL: Url = "https://knowledge-hub.sandbox.eosc-beyond.eu/"
 
     # Get config from .env

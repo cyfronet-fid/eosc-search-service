@@ -32,7 +32,7 @@ export const otherResourcesProductsAdapter: IAdapter = {
     date: formatPublicationDate(openAIREResult['publication_date']),
     license: openAIREResult?.license,
     funder: openAIREResult?.funder,
-    redirectUrl: `${
+    url: `${
       ConfigService.config?.eosc_explore_url
     }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
     coloredTags: [],
