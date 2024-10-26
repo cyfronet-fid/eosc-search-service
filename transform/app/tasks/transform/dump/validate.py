@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 @celery.task(name="validate_dump")
-def validate_dump(prev_task_status: Optional[CeleryTaskStatus], s3_url: str) -> dict:
+def validate_dump(prev_task_status: Optional[CeleryTaskStatus], req_body: dict) -> dict:
     """Task to validate the dump.
     Validation scope:
     - Access,
@@ -28,22 +28,30 @@ def validate_dump(prev_task_status: Optional[CeleryTaskStatus], s3_url: str) -> 
     - Extension of files"""
     logger.info("Validating dump...")
 
+    dump_url = req_body.get("dump_url")
+    instances = req_body.get("instances", [])
+
+    instance_s3 = next((inst for inst in instances if inst.get("type") == "s3"), None)
+    logger.info("instance_s3: %s", instance_s3)
     s3_client = connect_to_s3(
         settings.S3_ACCESS_KEY, settings.S3_SECRET_KEY, settings.S3_ENDPOINT
     )
 
     try:
         # 1. Validate access to S3
-        validate_s3_bucket_access(s3_client, s3_url)
+        validate_s3_bucket_access(s3_client, dump_url)
+
+        if instance_s3:
+            validate_s3_bucket_access(s3_client, instance_s3.get("s3_output_url"))
 
         # 2. Validate directory
-        validate_s3_directory_access(s3_client, s3_url)
+        validate_s3_directory_access(s3_client, dump_url)
 
         # 3. Validate folder structure in the dump
-        validate_s3_directory_structure(s3_client, s3_url)
+        validate_s3_directory_structure(s3_client, dump_url)
 
         # 4. Validate file extensions
-        validate_files_extension(s3_client, s3_url)
+        validate_files_extension(s3_client, dump_url)
 
         logger.info("Dump validated successfully.")
 

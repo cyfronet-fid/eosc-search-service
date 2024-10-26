@@ -6,11 +6,12 @@ from typing import Optional
 
 import app.transform.transformers as trans
 from app.services.celery.task import CeleryTaskStatus
+from app.services.celery.task_statuses import FAILURE, SUCCESS
 from app.services.solr.delete import delete_data_by_type
 from app.services.spark.config import apply_spark_conf
 from app.settings import settings
+from app.tasks.utils.send import send_data
 from app.transform.utils.load import load_request_data
-from app.transform.utils.send import send_json_string_to_solr
 from app.worker import celery
 
 logger = logging.getLogger(__name__)
@@ -50,23 +51,27 @@ def transform_batch(
             df = load_request_data(spark, data, input_schema, type_)
             df_trans = transformer(spark)(df)
 
-        # df -> json
-        if type_ == settings.GUIDELINE:
-            output = df_trans.to_json(orient="records")
-        else:
-            output_list = (
-                df_trans.toJSON().map(lambda str_json: json.loads(str_json)).collect()
-            )
-            output = json.dumps(output_list)
-
         if full_update:
             # Delete all resources of a certain type only if that is a full collection update
             delete_data_by_type(type_)
-        send_json_string_to_solr(output, type_)  # Upload data to those collections
+
+        task_status = send_data(
+            prev_task_status=prev_task_status
+            or CeleryTaskStatus(status=SUCCESS).dict(),
+            df_transformed=df_trans,
+            collection_name=type_,
+            task_type="full" if full_update else "batch",
+            s3_client=None,
+            req_body=None,
+            file_path=None,
+        )
+
+        if task_status["status"] == FAILURE:
+            raise Exception(task_status["reason"], "Unknown error")
 
         logger.info(f"{type_} data update has been successful")
-        return CeleryTaskStatus(status="success").dict()
+        return CeleryTaskStatus(status=SUCCESS).dict()
 
     except Exception as e:
         logger.error(f"{type_} data update has failed, error message: {e}")
-        return CeleryTaskStatus(status="failure", reason=str(e)).dict()
+        return CeleryTaskStatus(status=FAILURE, reason=str(e)).dict()

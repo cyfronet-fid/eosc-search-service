@@ -20,7 +20,7 @@ from app.mappings.currency import currency_mapping
 from app.settings import settings
 from app.transform.transformers.base.base import BaseTransformer
 from app.transform.utils.join_dfs import create_df, join_different_dfs
-from app.transform.utils.utils import sort_schema
+from app.transform.utils.utils import handle_missing_column, sort_schema
 from schemas.old.output.project import project_output_schema
 from schemas.properties.data import *
 
@@ -205,17 +205,23 @@ class ProjectTransformer(BaseTransformer):
             harvested_properties, harvested_properties_schema, spark
         )
 
-        project_df = df.select(
-            df[ABBREVIATION],
-            df[CODE],
-            df[DESCRIPTION],
-            df[END_DATE],
-            df[OPEN_ACCESS_MANDATE_FOR_DATASET],
-            df[OPEN_ACCESS_MANDATE_FOR_PUBLICATIONS],
-            df[START_DATE],
-            df[SUBJECT],
-            df[TITLE],
-        )
+        project_columns = [
+            column
+            for column in [
+                ABBREVIATION,
+                CODE,
+                DESCRIPTION,
+                END_DATE,
+                OPEN_ACCESS_MANDATE_FOR_DATASET,
+                OPEN_ACCESS_MANDATE_FOR_PUBLICATIONS,
+                START_DATE,
+                SUBJECT,
+                TITLE,
+            ]
+            if column in df.columns
+        ]
+
+        project_df = df.select([df[column] for column in project_columns])
 
         joined_df = join_different_dfs((project_df, harvested_properties_df))
         eosc_conditions = create_conditions(joined_df)
@@ -311,22 +317,26 @@ class ProjectTransformer(BaseTransformer):
         Harvests keywords from the specified DataFrame columns, converts them from strings to lists,
         and store them in the output dictionary.
         """
-        keywords_list = df.select(KEYWORDS).collect()
+        if not handle_missing_column(
+            df, KEYWORDS, harvested_properties, [KEYWORDS], None
+        ):
 
-        keywords_column = []
+            keywords_list = df.select(KEYWORDS).collect()
 
-        for keywords_row in keywords_list:
-            keywords = keywords_row[KEYWORDS] or None
+            keywords_column = []
 
-            if keywords:
-                keywords_to_list = [
-                    keyword.strip()
-                    for keyword in keywords.split(",")
-                    if keyword.strip()
-                ]
+            for keywords_row in keywords_list:
+                keywords = keywords_row[KEYWORDS] or None
 
-                keywords_column.append(keywords_to_list)
-            else:
-                keywords_column.append(None)
+                if keywords:
+                    keywords_to_list = [
+                        keyword.strip()
+                        for keyword in keywords.split(",")
+                        if keyword.strip()
+                    ]
 
-        harvested_properties[KEYWORDS] = keywords_column
+                    keywords_column.append(keywords_to_list)
+                else:
+                    keywords_column.append(None)
+
+            harvested_properties[KEYWORDS] = keywords_column

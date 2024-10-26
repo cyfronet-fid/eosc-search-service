@@ -2,8 +2,6 @@
 """Validate Solr"""
 
 import logging
-import re
-from datetime import datetime
 from typing import List
 
 import requests
@@ -187,45 +185,6 @@ def validate_pinned_collections(
         raise HTTPException(status_code=400, detail=error_msg)
 
 
-def validate_date_basic_format(date: str) -> None:
-    """
-    Validates that a date string adheres to the basic 'YYYYMMDD' format.
-
-    Parameters:
-        date (str): The date string to be validated.
-
-    Raises:
-        ValueError: If the data string is not in the 'YYYYMMDD' format.
-    """
-    date_pattern = re.compile(r"^\d{8}$")
-    if not date_pattern.match(date):
-        error_msg = f"Invalid date format: {date}. Use the format 'YYYYMMDD'."
-        logger.error(error_msg)
-        raise ValueError(error_msg)
-
-    try:
-        datetime.strptime(date, "%Y%m%d")
-    except ValueError:
-        error_msg = (
-            f"Invalid date: {date[:4]}-{date[4:6]}-{date[-2:]}. Not a valid date."
-        )
-        logger.error(error_msg)
-        raise ValueError(error_msg)
-
-
-def get_cols_names(col_prefix: str, date: str = None) -> list[str]:
-    """Get collection names for a given collection prefix and date."""
-    date = date or datetime.now().strftime("%Y%m%d")
-    return [
-        (
-            f"{date}_{collection}"
-            if col_prefix is None
-            else f"{col_prefix}_{date}_{collection}"
-        )
-        for collection in settings.SOLR_COLLECTION_NAMES
-    ]
-
-
 def validate(
     all_collection_config: str,
     catalogue_config: str,
@@ -233,12 +192,10 @@ def validate(
     project_config: str,
     provider_config: str,
     collection_names: list[str],
-    date: str,
 ) -> None:
     """Main validation function."""
     logger.info("Validating creation of solr collections...")
     try:
-        validate_date_basic_format(date)
         validate_configset_exists(all_collection_config)
         validate_configset_exists(catalogue_config)
         validate_configset_exists(organisation_config)

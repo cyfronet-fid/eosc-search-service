@@ -9,6 +9,7 @@ software_input_schema = {
         "array<struct<fullname:string,name:string,rank:int,surname:string,pid:struct<id:struct<scheme:string,value:string>,provenance:struct<provenance:string,trust:string>>>>"
     ],
     "bestaccessright": ["struct<code:string,label:string,scheme:string>"],
+    "codeRepositoryUrl": ["array<string>"],  # TODO decide what to do
     "collectedfrom": ["array<struct<key:string,value:string>>"],
     "context": [
         "array<struct<code:string,label:string,provenance:struct<provenance:string,trust:string>>>"

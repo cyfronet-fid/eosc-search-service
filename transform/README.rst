@@ -129,10 +129,10 @@ Relations
 Data from API
 -------------
 
-- ``MP_API_ADDRESS``: ``AnyUrl = "https://beta.marketplace.eosc-portal.eu"`` - A Marketplace API address.
+- ``MP_API_ADDRESS``: ``AnyUrl = "https://marketplace.sandbox.eosc-beyond.eu"`` - A Marketplace API address.
 - ``MP_API_TOKEN``: ``str`` - An authorization token for the Marketplace API.
-- ``GUIDELINE_ADDRESS``: ``AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&suspended=false&quantity=10000"`` - A full address to get all interoperability guidelines **endpoint**.
-- ``TRAINING_ADDRESS``: ``AnyUrl = "https://beta.providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"`` - A full address to get all trainings **endpoint**.
+- ``GUIDELINE_ADDRESS``: ``AnyUrl = "https://integration.providers.sandbox.eosc-beyond.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&suspended=false&quantity=10000"`` - A full address to get all interoperability guidelines **endpoint**.
+- ``TRAINING_ADDRESS``: ``AnyUrl = "https://integration.providers.sandbox.eosc-beyond.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"`` - A full address to get all trainings **endpoint**.
 
 Transformation General Settings
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

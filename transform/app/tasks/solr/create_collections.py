@@ -5,7 +5,8 @@ import requests
 
 from app.services.celery.task import CeleryTaskStatus
 from app.services.celery.task_statuses import FAILURE, SUCCESS
-from app.services.solr.validate.endpoints.validate import get_cols_names, validate
+from app.services.solr.collections import get_uniq_solr_col_names
+from app.services.solr.validate.endpoints.validate import validate
 from app.worker import celery
 
 logger = logging.getLogger(__name__)
@@ -27,14 +28,13 @@ def create_solr_collections_task(
     project_config: str,
     provider_config: str,
     collection_prefix: str,
-    date: str,
     num_shards: int,
     replication_factor: int,
 ) -> dict | None:
     """Celery task for creating solr collections"""
     logger.info("Creating solr collections...")
 
-    collection_names = get_cols_names(collection_prefix, date)
+    collection_names = get_uniq_solr_col_names(collection_prefix)
     validate(
         all_collection_config,
         catalogue_config,
@@ -42,7 +42,6 @@ def create_solr_collections_task(
         project_config,
         provider_config,
         collection_names,
-        date,
     )
 
     try:

@@ -9,7 +9,6 @@ from typing import Generator, Optional
 import boto3
 
 from app.mappings.mappings import entity_mapping
-from app.settings import settings
 
 logger = logging.getLogger(__name__)
 
@@ -71,28 +70,17 @@ def check_zip_file_conflicts(
     return zip_file_conflicts
 
 
-def extract_bucket_and_key(s3_url: str) -> tuple:
+def extract_bucket_and_key(file_path: str) -> tuple:
     """Extract bucket and key from the full S3 URL."""
-    if not s3_url.startswith(str(settings.S3_ENDPOINT)):
-        logger.error(
-            "The provided URL does not match the endpoint: %s.", settings.S3_ENDPOINT
-        )
-        raise ValueError(
-            f"The provided URL does not match the endpoint: {settings.S3_ENDPOINT}"
-        )
-
-    url_path = s3_url.replace(str(settings.S3_ENDPOINT), "")
-    logger.warning(url_path)
-    match = re.match(r"files/([^/]+)/(.+)", url_path)
+    match = re.search(r"/files/([^/]+)/(.+)", file_path)
 
     if not match:
         logger.error(
-            "Invalid S3 URL %s format. Expected format: /files/<bucket>/<key>",
-            s3_url,
+            "Invalid S3 file path %s format. Expected format: /files/<bucket>/<key>",
+            file_path,
         )
         raise ValueError(
-            "Invalid S3 URL %s format. Expected format: /files/<bucket>/<key>",
-            s3_url,
+            f"Invalid S3 file path format: {file_path}. Expected format: /files/<bucket>/<key>"
         )
 
     bucket = match.group(1)
