@@ -30,12 +30,7 @@ async def create_solr_collections(
     ),
     collection_prefix: str = Query(
         None,
-        description="Prefix for collection names. It is recommended to use convention 'oag<dump_version>'",
-    ),
-    date: str = Query(
-        None,
-        description="Date string in the format 'YYYYMMDD'. "
-        "Defaults to the current date if not provided.",
+        description="Prefix for collection names. It is recommended to use convention 'oag<ver>_YYYYMMDD_'",
     ),
     num_shards: int = Query(1, description="Number of shards"),
     replication_factor: int = Query(1, description="Replication factor"),
@@ -50,7 +45,6 @@ async def create_solr_collections(
         project_config,
         provider_config,
         collection_prefix,
-        date,
         num_shards,
         replication_factor,
     )

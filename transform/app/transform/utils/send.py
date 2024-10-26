@@ -42,31 +42,31 @@ req_headers = {"Accept": "application/json", "Content-Type": "application/json"}
 #         send_to_s3(col_name, file, file_num)
 
 
-def send_json_string_to_solr(
-    data: str,
-    col_name: str,
-) -> None:
-    """Send json string data to solr"""
-    solr_col_names = settings.COLLECTIONS[col_name]["SOLR_COL_NAMES"]
-
-    for s_col_name in solr_col_names:
-        url = f"{settings.SOLR_URL}solr/{s_col_name}/update?commitWithin=100"
-        try:
-            req = requests.post(url, data=data, headers=req_headers, timeout=180)
-            if req.status_code == 200:
-                logger.info(
-                    f"{req.status_code} update was successful. Data type={col_name}, solr_col={s_col_name}"
-                )
-            else:
-                logger.error(
-                    f"{req.status_code} update failed. Data type={col_name}, solr_col={s_col_name}. Data has failed to be sent to Solr. Details: {req.json()}"
-                )
-                raise SolrException(req.json())
-        except ReqConnectionError as e:
-            logger.error(
-                f"Connection failed {url=}. Update failed. Data type={col_name}, solr_col={s_col_name}. Solr is not reachable. Details: {e}"
-            )
-            raise SolrException(e)
+# def send_json_string_to_solr(
+#     data: str,
+#     col_name: str,
+# ) -> None:
+#     """Send json string data to solr"""
+#     solr_col_names = settings.COLLECTIONS[col_name]["SOLR_COL_NAMES"]
+#
+#     for s_col_name in solr_col_names:
+#         url = f"{settings.SOLR_URL}solr/{s_col_name}/update?commitWithin=100"
+#         try:
+#             req = requests.post(url, data=data, headers=req_headers, timeout=180)
+#             if req.status_code == 200:
+#                 logger.info(
+#                     f"{req.status_code} update was successful. Data type={col_name}, solr_col={s_col_name}"
+#                 )
+#             else:
+#                 logger.error(
+#                     f"{req.status_code} update failed. Data type={col_name}, solr_col={s_col_name}. Data has failed to be sent to Solr. Details: {req.json()}"
+#                 )
+#                 raise SolrException(req.json())
+#         except ReqConnectionError as e:
+#             logger.error(
+#                 f"Connection failed {url=}. Update failed. Data type={col_name}, solr_col={s_col_name}. Solr is not reachable. Details: {e}"
+#             )
+#             raise SolrException(e)
 
 
 # def send_to_solr(

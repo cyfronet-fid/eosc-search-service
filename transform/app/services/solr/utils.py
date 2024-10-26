@@ -18,3 +18,8 @@ def ids_mapping(id_: int | str, col_name: str) -> str:
             return str(id_ + settings.CATALOGUE_IDS_INCREMENTOR)
         case _:
             return id_
+
+
+def get_default_headers() -> dict:
+    """Return default headers for Solr API requests."""
+    return {"Accept": "application/json", "Content-Type": "application/json"}

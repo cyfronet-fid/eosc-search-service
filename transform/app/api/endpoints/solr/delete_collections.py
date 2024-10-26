@@ -2,7 +2,6 @@ from fastapi import APIRouter, HTTPException, Query
 
 from app.services.solr.validate.endpoints.validate import (
     validate_collections,
-    validate_date_basic_format,
     validate_pinned_collections,
 )
 from app.settings import settings
@@ -17,25 +16,19 @@ async def delete_solr_collections(
         settings.SOLR_URL,
         description="Solr address",
     ),
-    date: str = Query(..., description="Date string in the format 'YYYYMMDD'."),
     collection_prefix: str = Query(
-        None, description="Prefix for collection names. Defaults to the empty string"
+        description="Prefix for collection names. Usually 'oag<ver>_YYYYMMDD_'"
     ),
 ):
     """
     Deletes Solr collections for a singular data iteration.
     """
     collection_names = [
-        (
-            f"{date}_{collection}"
-            if collection_prefix is None
-            else f"{collection_prefix}_{date}_{collection}"
-        )
+        (f"{collection_prefix}{collection}")
         for collection in settings.SOLR_COLLECTION_NAMES
     ]
 
     try:
-        validate_date_basic_format(date)
         validate_collections(collection_names, check_existence=False)
         validate_pinned_collections(collection_names)
 

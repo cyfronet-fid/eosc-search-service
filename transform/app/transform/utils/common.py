@@ -23,7 +23,7 @@ from app.mappings.mappings import (
 )
 from app.mappings.scientific_domain import mp_sd_structure, scientific_domains_mapping
 from app.services.mp_pc.data import get_data_source_pids
-from app.transform.utils.utils import extract_digits_and_trim
+from app.transform.utils.utils import extract_digits_and_trim, handle_missing_column
 from schemas.properties.data import (
     AFFILIATION,
     AUTHOR,
@@ -91,7 +91,8 @@ def harvest_author_names_and_pids(df: DataFrame, harvested_properties: dict) -> 
                     # Fullname
                     author_names_row.append(author["fullname"].replace(",", ""))
                     # Pids
-                    if author["pid"]:
+                    author_pid_field = author["pid"] if "pid" in author else None
+                    if author_pid_field:
                         author_pid = [
                             [author["fullname"]],
                             author["pid"]["id"]["value"],
@@ -423,27 +424,41 @@ def map_language(df: DataFrame, harvested_properties: dict) -> DataFrame:
     return df.drop(LANGUAGE)
 
 
+def get_funder_info(project: dict) -> Optional[str]:
+    """Extracts and formats funder information from a project."""
+    funder_info = project["funder"] if project["funder"] else None
+    if not funder_info:
+        return None
+
+    funding_stream = funder_info["fundingStream"]
+    funder_name = funder_info["name"]
+
+    if funding_stream and funder_name:
+        return f"[{funding_stream}] {funder_name}"
+    elif funder_name:
+        return funder_name
+    return None
+
+
 def harvest_funder(df: DataFrame, harvested_properties: dict) -> None:
     """Harvest funder -> name and fundingStream as arr(arr(arr(fundingStream, <value>), arr(name, <value>>)))"""
-    projects_list = df.select(PROJECTS).collect()
-    funder_column = []
+    if not handle_missing_column(df, PROJECTS, harvested_properties, [FUNDER], None):
+        projects_list = df.select(PROJECTS).collect() if PROJECTS in df.columns else []
+        funder_column = []
 
-    for projects in projects_list:
-        if projects[PROJECTS]:
+        for projects in projects_list:
             funder_list = []
-            for project in projects[PROJECTS]:
-                try:
-                    funder = [
-                        f"[{project[FUNDER]['fundingStream']}] {project[FUNDER]['name']}"
-                    ]
-                    funder_list.extend(funder)
-                except TypeError:
-                    funder_list.append([])
-            funder_column.append(funder_list)
-        else:
-            funder_column.append([])
+            if projects[PROJECTS]:
+                for project in projects[PROJECTS]:
+                    try:
+                        funder_info = get_funder_info(project)
+                        funder_list.append(funder_info)
+                    except TypeError:
+                        funder_list.append(None)
 
-    harvested_properties[FUNDER] = funder_column
+            funder_column.append(funder_list)
+
+        harvested_properties[FUNDER] = funder_column
 
 
 def harvest_url_and_document_type(df: DataFrame, harvested_properties: dict) -> None:
@@ -493,15 +508,18 @@ def harvest_country(df: DataFrame, harvested_properties: dict) -> None:
 
 def harvest_research_community(df: DataFrame, harvested_properties: dict) -> None:
     """Harvest research_community as array(str)"""
-    contexts_list = df.select(CONTEXT).collect()
-    rc_column = []
+    if not handle_missing_column(
+        df, CONTEXT, harvested_properties, [RESEARCH_COMMUNITY], None
+    ):
+        contexts_list = df.select(CONTEXT).collect()
+        rc_column = []
 
-    for contexts in contexts_list:
-        contexts_raw_val = contexts[CONTEXT] or []
-        contexts_val = [context["label"] for context in contexts_raw_val]
-        rc_column.append(contexts_val)
+        for contexts in contexts_list:
+            contexts_raw_val = contexts[CONTEXT] or []
+            contexts_val = [context["label"] for context in contexts_raw_val]
+            rc_column.append(contexts_val)
 
-    harvested_properties[RESEARCH_COMMUNITY] = rc_column
+        harvested_properties[RESEARCH_COMMUNITY] = rc_column
 
 
 def extract_pids(pid_list: List[Optional[Dict[str, str]]]) -> Dict[str, List[str]]:
@@ -522,6 +540,8 @@ def extract_pids(pid_list: List[Optional[Dict[str, str]]]) -> Dict[str, List[str
         "pmc": [],
         "pmid": [],
         "w3id": [],
+        "mag_id": [],
+        "swhid": [],
     }
 
     for pid in pid_list:
@@ -555,27 +575,31 @@ def harvest_pids(df: DataFrame, harvested_properties: dict) -> None:
 
 def harvest_relations(df: DataFrame, harvested_properties: dict):
     """Harvest relations from OAG resources"""
-    relations_collection = df.select(RELATIONS).collect()
-    relations_short_col = []
-    relations_long_col = []
+    if not handle_missing_column(
+        df, RELATIONS, harvested_properties, [RELATIONS, RELATIONS_LONG], None
+    ):
 
-    for relations in chain.from_iterable(relations_collection):
-        targets_row = []
-        all_row = []
-        if relations:
-            for relation in relations:
-                target = relation["target"]
-                relation_name = relation["reltype"]["name"]
-                relation_type = relation["reltype"]["type"]
+        relations_collection = df.select(RELATIONS).collect()
+        relations_short_col = []
+        relations_long_col = []
 
-                targets_row.append(target)
-                all_row.append([target, relation_name, relation_type])
+        for relations in chain.from_iterable(relations_collection):
+            targets_row = []
+            all_row = []
+            if relations:
+                for relation in relations:
+                    target = relation["target"]
+                    relation_name = relation["reltype"]["name"]
+                    relation_type = relation["reltype"]["type"]
 
-        relations_short_col.append(targets_row)
-        relations_long_col.append(all_row)
+                    targets_row.append(target)
+                    all_row.append([target, relation_name, relation_type])
 
-    harvested_properties[RELATIONS] = relations_short_col
-    harvested_properties[RELATIONS_LONG] = relations_long_col
+            relations_short_col.append(targets_row)
+            relations_long_col.append(all_row)
+
+        harvested_properties[RELATIONS] = relations_short_col
+        harvested_properties[RELATIONS_LONG] = relations_long_col
 
 
 def harvest_eosc_if(df: DataFrame, harvested_properties: dict):
@@ -720,7 +744,9 @@ def harvest_exportation(df: DataFrame, harvested_properties: dict) -> None:
                     if instance["publicationdate"]
                     else None
                 )
-                instance_license = instance["license"] or None
+                instance_license = (
+                    instance["license"] if "licence" in instance else None
+                )
 
                 pids = instance["pid"] or []
                 instance_pids = extract_pids(pids)
@@ -814,21 +840,25 @@ def harvest_related_organisations(df: DataFrame, harvested_properties: dict) -> 
 
 def harvest_project_ids(df: DataFrame, harvested_properties: dict) -> None:
     """"""
-    project_list = df.select(PROJECTS).collect()
-    project_ids_column = []
+    if not handle_missing_column(
+        df, PROJECTS, harvested_properties, [RELATED_PROJECT_IDS], None
+    ):
 
-    for projects in project_list:
-        if projects[PROJECTS]:
-            project_ids_row_set = set()
-            for project in projects[PROJECTS]:
-                project_id = project[ID]
-                project_ids_row_set.update([project_id])
+        project_list = df.select(PROJECTS).collect() if PROJECTS in df.columns else []
+        project_ids_column = []
 
-            project_ids_column.append(list(project_ids_row_set))
-        else:
-            project_ids_column.append([])
+        for projects in project_list:
+            if projects[PROJECTS]:
+                project_ids_row_set = set()
+                for project in projects[PROJECTS]:
+                    project_id = project[ID]
+                    project_ids_row_set.update([project_id])
 
-    harvested_properties[RELATED_PROJECT_IDS] = project_ids_column
+                project_ids_column.append(list(project_ids_row_set))
+            else:
+                project_ids_column.append([])
+
+        harvested_properties[RELATED_PROJECT_IDS] = project_ids_column
 
 
 def remove_commas(

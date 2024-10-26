@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import Dict
 
 from app.services.celery.task import CeleryTaskStatus
@@ -33,7 +34,7 @@ def get_s3_paths_task(s3_url: str) -> Dict:
         s3_client = connect_to_s3(
             settings.S3_ACCESS_KEY, settings.S3_SECRET_KEY, str(settings.S3_ENDPOINT)
         )
-        file_paths = get_s3_paths(bucket, directory, s3_client)
+        file_paths = get_s3_paths(bucket, directory, s3_client, s3_url)
         logger.info("File paths successfully retrieved from S3.")
         return CeleryTaskStatus(
             status=SUCCESS,
@@ -42,3 +43,10 @@ def get_s3_paths_task(s3_url: str) -> Dict:
     except Exception as e:
         logger.error(f"Task failed: {e}")
         return CeleryTaskStatus(status=FAILURE, reason=str(e)).dict()
+
+
+def extract_after_bucket(file_path: str, dump_url: str) -> str:
+    """extract filepath after bucket-name."""
+    modified_dump_url = os.path.dirname(dump_url)
+    trimmed_path = file_path.replace(modified_dump_url, "").lstrip("/")
+    return trimmed_path

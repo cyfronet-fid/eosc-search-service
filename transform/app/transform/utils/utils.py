@@ -185,3 +185,31 @@ def group_relations(
 def drop_columns_pandas(df: pd.DataFrame, columns: List[str]) -> None:
     """Drops inplace specified columns from the DataFrame."""
     df.drop(columns, axis=1, inplace=True)
+
+
+def handle_missing_column(
+    df: DataFrame, column_name: str, harvested_properties: dict, keys: list, placeholder
+) -> bool:
+    """
+    Check if a column exists in the DataFrame. If missing, log a warning and populate
+    the harvested_properties dictionary with placeholder values.
+
+    Parameters:
+        df (DataFrame): The input DataFrame.
+        column_name (str): The column name to check.
+        harvested_properties (dict): The dictionary to update with placeholder values.
+        keys (list): List of keys in harvested_properties to update with placeholders.
+        placeholder: Placeholder value to fill in when the column is missing.
+
+    Returns:
+        bool: True if the column is missing, False otherwise.
+    """
+    if column_name not in df.columns:
+        logger.warning(f"{column_name} column is missing from DataFrame")
+        row_count = df.rdd.isEmpty()
+        placeholder_values = [placeholder] * (df.count() if not row_count else 0)
+
+        for key in keys:
+            harvested_properties[key] = placeholder_values
+        return True
+    return False

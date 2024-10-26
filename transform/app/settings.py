@@ -1,8 +1,10 @@
 # pylint: disable=too-few-public-methods
 """Configs for all the environments"""
 import logging
+import os
 from typing import Literal, Optional
 
+from dotenv import load_dotenv
 from pydantic import AnyUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -11,6 +13,7 @@ from schemas.old.output import *
 
 logger = logging.getLogger(__name__)
 EnvironmentType = Literal["dev", "test", "production"]
+load_dotenv(os.path.join(os.path.dirname(__file__), "../.env"))
 
 
 class GlobalSettings(BaseSettings):
@@ -74,15 +77,15 @@ class GlobalSettings(BaseSettings):
     ORG_PROJ_REL_PATH: str = "input/organizationProject"
 
     # - Marketplace
-    MP_API_ADDRESS: AnyUrl = "https://beta.marketplace.eosc-portal.eu"
+    MP_API_ADDRESS: AnyUrl = "https://marketplace.sandbox.eosc-beyond.eu"
     MP_API_TOKEN: str = ""
 
     # - Provider Component
     GUIDELINE_ADDRESS: AnyUrl = (
-        "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
+        "https://integration.providers.sandbox.eosc-beyond.eu/api/public/interoperabilityRecord/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
     )
     TRAINING_ADDRESS: AnyUrl = (
-        "https://beta.providers.eosc-portal.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
+        "https://integration.providers.sandbox.eosc-beyond.eu/api/public/trainingResource/all?catalogue_id=all&active=true&suspended=false&quantity=10000"
     )
 
     # Transformation General Settings TODO
@@ -287,7 +290,7 @@ class TransformSettings(GlobalSettings):
             self.DATASET: (prefix + "all_collection", prefix + "dataset"),
             self.PUBLICATION: (prefix + "all_collection", prefix + "publication"),
             self.ORGANISATION: (
-                prefix + "organization",
+                prefix + "organisation",
             ),  # Commas create tuples here for easy iteration later on
             self.PROJECT: (prefix + "project",),
             self.SERVICE: (prefix + "all_collection", prefix + "service"),

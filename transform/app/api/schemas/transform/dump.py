@@ -41,14 +41,14 @@ class S3Instance(BaseInstance):
     """S3 instance"""
 
     type: Literal["s3"]
-    s3_output_bucket: str = None
-    s3_output_name: str = None
+    s3_output_url: str = None
 
 
 class DumpUpdateRequest(BaseModel):
     """Dump update request"""
 
     dump_url: AnyUrl
+    records_threshold: int
     instances: conlist(Union[SolrInstance, S3Instance], min_length=1)
 
     # Update swagger request body example
@@ -56,11 +56,12 @@ class DumpUpdateRequest(BaseModel):
         json_schema_extra = {
             "example": {
                 "dump_url": "https://example.com/",
+                "records_threshold": 1000,
                 "instances": [
                     {
                         "type": "solr",
                         "url": settings.SOLR_URL,
-                        "cols_prefix": "oag<dump_version>",
+                        "cols_prefix": "oag<ver>_YYYYMMDD_",
                         "all_col_conf": settings.SOLR_ALL_COL_CONF,
                         "org_conf": settings.SOLR_ORG_CONF,
                         "proj_conf": settings.SOLR_PROJ_CONF,
@@ -79,6 +80,7 @@ class DumpUpdateRequest(BaseModel):
                         "mp_api_token": "",
                         "guideline_address": "",
                         "training_address": "",
+                        "s3_output_url": "",
                     },
                 ],
             }
