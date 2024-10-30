@@ -81,7 +81,7 @@ class GlobalSettings(BaseSettings):
     EOSC_COMMONS_URL: Url = (  # Without / at the end it doesn't work
         "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
     )
-    EOSC_COMMONS_ENV: str = "production"
+    EOSC_COMMONS_ENV: str = "beta"
     EOSC_EXPLORE_URL: Url = "https://explore.sandbox.eosc-beyond.eu/"
     KNOWLEDGE_HUB_URL: Url = "https://knowledge-hub.sandbox.eosc-beyond.eu/"
 

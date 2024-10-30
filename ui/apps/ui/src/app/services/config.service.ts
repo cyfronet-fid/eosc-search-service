@@ -75,7 +75,6 @@ export class ConfigService {
 
   private _initializeCommons(): void {
     this._window.eosccommon.renderMainFooter('EoscCommonMainFooter');
-    this._window.eosccommon.renderEuInformation('EoscCommonEuInformation');
   }
 
   private _loadAsset(
