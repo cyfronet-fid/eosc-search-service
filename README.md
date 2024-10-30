@@ -181,7 +181,7 @@ See docker-compose.yml for components.
 ##### Redirections
 - `MARKETPLACE_BASE_URL`: `Url = "https://marketplace.eosc-portal.eu/"` - marketplace base url (used to generate links back to MP).
 - `EOSC_COMMONS_URL`: `Url = "https://s3.cloud.cyfronet.pl/eosc-portal-common/"` - Base URL to eosc commons.
-- `EOSC_COMMONS_ENV`: `str = "production"` - Environment used to load eosc commons. Together with `EOSC_COMMONS_URL` two assets are loaded:
+- `EOSC_COMMONS_ENV`: `enum: 'production' | 'beta'` - Environment used to load eosc commons. Together with `EOSC_COMMONS_URL` two assets are loaded:
   > `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.js` and `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.css`
 
 - `EOSC_EXPLORE_URL`: `Url = "https://explore.eosc-portal.eu/"` - base URL to OpenAire Explore - used when constructing links for publications, datasets ETC.
