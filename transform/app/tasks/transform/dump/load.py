@@ -15,7 +15,18 @@ logger = logging.getLogger(__name__)
 def load_dump(
     prev_task_status: Optional[CeleryTaskStatus], s3_url: str
 ) -> CeleryTaskStatus:
-    """Task to load the dump"""
+    """
+    Celery task to load data from an S3 dump.
+
+    Args:
+        prev_task_status (Optional[CeleryTaskStatus]): Status of the previous task in the workflow,
+            used to manage task dependencies and handle any errors or progress updates.
+        s3_url (str): S3 URL where the dump is stored.
+
+    Returns:
+        CeleryTaskStatus: Status of the current task, including success or failure and any
+        relevant progress information.
+    """
     if prev_task_status and prev_task_status.get("status") == SUCCESS:
         logger.info("Loading dump...")
 

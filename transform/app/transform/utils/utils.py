@@ -12,7 +12,6 @@ from pyspark.sql.types import StringType, StructType
 
 from app.services.spark.logger import Log4J
 from app.settings import settings
-from app.transform.utils.send import S3, SOLR
 
 logger = getLogger(__name__)
 
@@ -81,20 +80,6 @@ def print_results(failed_files: dict, logger: Log4J) -> None:
     for col_name, dests in failed_files.items():
         for dest, f_file in dests.items():
             _print(col_name, f_file, dest)
-
-
-def print_errors(
-    error_type: str, failed_files: dict, col_name: str, file: str, logger: Log4J
-) -> None:
-    """Print errors"""
-    handled_errors = ("transform_fail", "consistency_fail")
-    if error_type not in handled_errors:
-        raise ValueError(f"error_type not in {handled_errors}")
-
-    for dest in (SOLR, S3):
-        failed_files[col_name][dest].append(file)
-    logger.error(f"{col_name} - {file} - {error_type}")
-    traceback.print_exc()
 
 
 def sort_schema(schema: StructType) -> StructType:
