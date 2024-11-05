@@ -85,5 +85,5 @@ def get_solr_upload_config(prefix: str) -> dict:
 def get_uniq_solr_col_names(col_prefix: str) -> list[str]:
     """Get all unique collection names for a single data iteration given a collection prefix."""
     return [
-        (f"{col_prefix}{collection}") for collection in settings.SOLR_COLLECTION_NAMES
+        f"{col_prefix}{collection}" for collection in settings.SOLR_COLLECTION_NAMES
     ]

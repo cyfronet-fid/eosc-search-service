@@ -95,7 +95,7 @@ def send_data_to_services(
                 )
                 logger.info("%s successfully send to s3", file_key)
 
-    else:
+    else:  # Batch/full update
         solr_collections = settings.COLLECTIONS[collection_name]["SOLR_COL_NAMES"]
         solr_url = str(settings.SOLR_URL)
         send_str_to_solr(json_dump, solr_url, solr_collections, None)
