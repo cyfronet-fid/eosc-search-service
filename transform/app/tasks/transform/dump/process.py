@@ -25,9 +25,7 @@ logger = logging.getLogger(__name__)
 
 
 @celery.task(name="update_peripheral_data")
-def update_peripheral_data(
-    prev_task_status: Optional[CeleryTaskStatus], req_body: dict
-) -> dict:
+def update_peripheral_data(prev_task_status: Optional[dict], req_body: dict) -> dict:
     """Task to update peripheral data."""
     logger.info("Updating peripheral data...")
     # Invoke send task

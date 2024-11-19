@@ -37,7 +37,6 @@ async def create_solr_collections(
 ):
     """Creates Solr collections for a singular data iteration."""
     task = create_solr_collections_task.delay(
-        None,  # No previous celery task status
         solr_url,
         all_collection_config,
         catalogue_config,

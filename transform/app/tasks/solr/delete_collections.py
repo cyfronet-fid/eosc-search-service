@@ -18,10 +18,9 @@ class CollectionDeletionFailed(Exception):
 
 @celery.task(name="delete_solr_collections_task")
 def delete_solr_collections_task(
-    prev_task_status: Optional[CeleryTaskStatus],
     solr_url: str,
     collection_names: List[str],
-) -> dict | None:
+) -> dict:
     """Celery task for deleting solr collections"""
     logger.info(
         "Initiating the deletion of the Solr collection for a single data iteration"

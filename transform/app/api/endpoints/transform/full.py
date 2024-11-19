@@ -65,7 +65,7 @@ async def update_single_col(data_type: str, tasks_id: dict) -> None:
 
     if data:
         # Get data, transform data, delete current data of the same type, upload data
-        update_task = transform_batch.delay(None, data_type, data, full_update=True)
+        update_task = transform_batch.delay(data_type, data, full_update=True)
         tasks_id[data_type] = update_task.id
     else:
         tasks_id[data_type] = (

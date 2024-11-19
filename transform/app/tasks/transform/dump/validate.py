@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 @celery.task(name="validate_dump")
-def validate_dump(prev_task_status: Optional[CeleryTaskStatus], req_body: dict) -> dict:
+def validate_dump(prev_task_status: Optional[dict], req_body: dict) -> dict:
     """Task to validate the dump.
     Validation scope:
     - Access,

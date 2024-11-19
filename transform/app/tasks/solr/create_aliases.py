@@ -18,7 +18,6 @@ class AliasesCreationFailed(Exception):
 
 @celery.task(name="create_aliases")
 def create_aliases_task(
-    prev_task_status: Optional[CeleryTaskStatus],
     solr_url: str,
     aliases: List[str],
     collection_names: List[str],

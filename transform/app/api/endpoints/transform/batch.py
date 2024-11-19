@@ -35,7 +35,7 @@ async def batch_update(
     """Perform a batch update of a single data collection. Used for live update"""
     tasks_ids = {}
     if action == "delete":
-        task = delete_data_by_id.delay(None, data_type, data, delete=True)
+        task = delete_data_by_id.delay(data_type, data, delete=True)
         tasks_ids["delete"] = task.id
     else:
         if data_type == "service":
@@ -43,7 +43,7 @@ async def batch_update(
         elif data_type == "data source":
             task_ids = update_data_source(data)
         else:
-            task = transform_batch.delay(None, data_type, data, full_update=False)
+            task = transform_batch.delay(data_type, data, full_update=False)
             task_ids = {"update": task.id}
 
         tasks_ids.update(task_ids)

@@ -86,7 +86,7 @@ def handle_create_action(active, suspended, status, collection, data, data_id):
         and status in ["approved resource", "approved interoperability record"]
     ):
         logger.info(f"Creating action - {collection=}, ID: {data_id}")
-        transform_batch.delay(None, collection, data, full_update=False)
+        transform_batch.delay(collection, data, full_update=False)
 
 
 def handle_update_action(active, suspended, status, collection, data, data_id):
@@ -107,11 +107,11 @@ def handle_update_action(active, suspended, status, collection, data, data_id):
         and status in ["approved resource", "approved interoperability record"]
     ):
         logger.info(f"Update action - {collection=}, ID: {data_id}")
-        transform_batch.delay(None, collection, data, full_update=False)
+        transform_batch.delay(collection, data, full_update=False)
     else:
         if check_document_exists(collection, data_id):
             logger.info(f"Delete action - {collection=}, ID: {data_id}")
-            delete_data_by_id.delay(None, collection, data, delete=True)
+            delete_data_by_id.delay(collection, data, delete=True)
 
 
 def handle_delete_action(collection, data_id, data):
@@ -125,4 +125,4 @@ def handle_delete_action(collection, data_id, data):
     """
     if check_document_exists(collection, data_id):
         logger.info(f"Delete action - {collection=}, ID: {data_id}")
-        delete_data_by_id.delay(None, collection, data, delete=True)
+        delete_data_by_id.delay(collection, data, delete=True)
