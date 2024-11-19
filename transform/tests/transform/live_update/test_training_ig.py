@@ -110,7 +110,7 @@ def test_handle_create_action_variations(
 
     if expected_call_count == 1:
         mock_dependencies.transform_batch.assert_called_once_with(
-            None, settings.TRAINING, training_resource, full_update=expected_full_update
+            settings.TRAINING, training_resource, full_update=expected_full_update
         )
     else:
         mock_dependencies.transform_batch.assert_not_called()

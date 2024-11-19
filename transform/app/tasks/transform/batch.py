@@ -19,7 +19,6 @@ logger = logging.getLogger(__name__)
 
 @celery.task(name="transform_batch")
 def transform_batch(
-    prev_task_status: Optional[CeleryTaskStatus],
     type_: str,
     data: dict | list[dict],
     full_update=True,
@@ -36,10 +35,9 @@ def transform_batch(
 
     if not transformer:
         logger.error(f"No data transformer is provided for {type_}")
-        return {
-            "status": "failure",
-            "error": f"No data transformer is provided for {type_}",
-        }
+        return CeleryTaskStatus(
+            status=FAILURE, reason=f"No data transformer is provided for {type_}"
+        ).dict()
 
     # Transform
     try:
@@ -56,14 +54,8 @@ def transform_batch(
             delete_data_by_type(type_)
 
         task_status = send_data(
-            prev_task_status=prev_task_status
-            or CeleryTaskStatus(status=SUCCESS).dict(),
-            df_transformed=df_trans,
+            df=df_trans,
             collection_name=type_,
-            task_type="full" if full_update else "batch",
-            s3_client=None,
-            req_body=None,
-            file_path=None,
         )
 
         if task_status["status"] == FAILURE:

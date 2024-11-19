@@ -38,6 +38,6 @@ async def delete_solr_collections(
     except HTTPException as he:
         raise HTTPException(status_code=he.status_code, detail=str(he.detail))
 
-    task = delete_solr_collections_task.delay(None, solr_url, collection_names)
+    task = delete_solr_collections_task.delay(solr_url, collection_names)
 
     return {"task_id": task.id}

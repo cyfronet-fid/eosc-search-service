@@ -12,9 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 @celery.task(name="load_dump")
-def load_dump(
-    prev_task_status: Optional[CeleryTaskStatus], s3_url: str
-) -> CeleryTaskStatus:
+def load_dump(prev_task_status: Optional[dict], s3_url: str) -> dict:
     """
     Celery task to load data from an S3 dump.
 

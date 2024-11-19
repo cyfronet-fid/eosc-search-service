@@ -12,7 +12,7 @@ def send_str_to_solr(
     data: str,
     solr_url: str,
     collections: list[str],
-    file_key: str,
+    file_key: str = "",
     headers: dict = None,
 ) -> None:
     """

@@ -15,7 +15,6 @@ logger = logging.getLogger(__name__)
 
 @celery.task(name="delete_data_by_id")
 def delete_data_by_id(
-    prev_task_status: Optional[CeleryTaskStatus],
     col_name: str,
     data: dict | list[dict],
     delete: bool = True,

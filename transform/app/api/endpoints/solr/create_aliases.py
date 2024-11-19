@@ -45,6 +45,6 @@ async def create_aliases(
     except HTTPException as he:
         raise HTTPException(status_code=he.status_code, detail=str(he.detail))
 
-    task = create_aliases_task.delay(None, solr_url, aliases, collection_names)
+    task = create_aliases_task.delay(solr_url, aliases, collection_names)
 
     return {"task_id": task.id}

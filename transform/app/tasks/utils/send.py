@@ -2,10 +2,10 @@
 
 import json
 import logging
-from typing import Optional
 
 import boto3
-from pyspark.sql import DataFrame
+from pyspark.sql import DataFrame as SparkDF
+from pandas import DataFrame as PandasDF
 
 from app.services.celery.task import CeleryTaskStatus
 from app.services.celery.task_statuses import FAILURE, SUCCESS
@@ -21,82 +21,151 @@ logger = logging.getLogger(__name__)
 
 @celery.task(name="send_data")
 def send_data(
-    prev_task_status: Optional[CeleryTaskStatus],
-    df_transformed: DataFrame,
+    df: SparkDF | PandasDF,
     collection_name: str,
-    task_type: str,
-    s3_client: Optional[boto3.client] = None,
-    req_body: Optional[dict] = None,
-    file_path: Optional[str] = None,
-) -> CeleryTaskStatus:
+    s3_client: boto3.client = None,
+    req_body: dict = None,
+    file_path: str = None,
+    prev_task_status: dict = None,
+) -> dict:
     """Task to send data to solr/s3"""
+    if prev_task_status and prev_task_status.get("status") != SUCCESS:
+        logger.error(
+            "Previous task failed or missing:  %s. Skipping sending data...",
+            prev_task_status,
+        )
+        return CeleryTaskStatus(
+            status=FAILURE, reason="Previous task status failed or missing"
+        ).dict()
+
     logger.info(
         "Starting data sending task for file: %s, collection: %s",
         file_path,
         collection_name,
     )
 
-    if not prev_task_status or prev_task_status.get("status") != SUCCESS:
-        error_reason = "Previous task failed or is missing."
-        logger.error(error_reason)
-        prev_task_status = CeleryTaskStatus(status=FAILURE, reason=error_reason).dict()
-        return prev_task_status
-
     try:
-        is_dump = task_type == "dump"
-        send_data_to_services(
-            df_transformed, collection_name, is_dump, req_body, s3_client, file_path
-        )
-        prev_task_status["status"] = SUCCESS
-        return prev_task_status
+        if req_body:  # Dump
+            send_dump_data(df, collection_name, req_body, file_path, s3_client)
+        else:  # Live update
+            send_live_data(df, collection_name)
+
+        return CeleryTaskStatus(status=SUCCESS).dict()
 
     except Exception as e:
-        logger.error("Error in send_data task: %s", str(e))
-        prev_task_status["status"] = FAILURE
-        prev_task_status["reason"] = str(e)
-        return prev_task_status
+        logger.error(
+            "Sending data failure for file: %s, collection: %s: reason: %s",
+            file_path,
+            collection_name,
+            str(e),
+        )
+        return CeleryTaskStatus(status=FAILURE, reason=str(e)).dict()
 
 
-def send_data_to_services(
-    df_transformed: DataFrame,
+def send_dump_data(
+    df: SparkDF | PandasDF,
     collection_name: str,
-    is_dump: bool = False,
-    req_body: Optional[dict] = None,
-    s3_client: Optional[boto3.client] = None,
-    file_path: Optional[str] = None,
+    req_body: dict | None,
+    file_path: str | None,
+    s3_client: boto3.client = None,
 ) -> None:
     """Helper function to send data to S3 and/or Solr based on the task type and a configuration."""
-    if collection_name == settings.GUIDELINE:
-        json_dump = df_transformed.to_json(orient="records")
+    solr_data_form, s3_data_form = serialize_df_to_send(collection_name, df)
+
+    instances = req_body.get("instances")
+    if not instances:
+        logger.error(
+            "Unsuccessful data sent. No instance provided in a req_body: %s",
+            req_body,
+        )
+        return
+
+    file_key = extract_after_bucket(file_path, req_body.get("dump_url", ""))
+
+    solr_instance = next(
+        (inst for inst in instances if inst.get("type") == "solr"), None
+    )
+    if solr_instance:
+        solr_url = solr_instance.get("url")
+        solr_collections = solr_instance[COL_UPLOAD_CONFIG][collection_name]
+        send_str_to_solr(solr_data_form, solr_url, solr_collections, file_key)
+        logger.info("%s successfully send to solr.", file_key)
+
+    s3_instance = next((inst for inst in instances if inst.get("type") == "s3"), None)
+
+    if s3_instance:
+        if not s3_client:
+            logger.error("No S3 client provided.")
+            raise S3ClientError()
+        send_to_s3(s3_data_form, s3_client, s3_instance.get("s3_output_url"), file_key)
+        logger.info("%s successfully send to s3", file_key)
+
+
+def send_live_data(
+    df: SparkDF | PandasDF,
+    collection_name: str,
+) -> None:
+    """Send data to solr/s3 integrated by constant settings. Used for live update."""
+    solr_data_form, s3_data_form = serialize_df_to_send(collection_name, df)
+    solr_collections = settings.COLLECTIONS[collection_name]["SOLR_COL_NAMES"]
+    send_str_to_solr(solr_data_form, str(settings.SOLR_URL), solr_collections)
+    logger.info("Data successfully sent to Solr collections: %s.", solr_collections)
+
+
+def send_merged_data(
+    df: SparkDF,
+    files: list[str],
+    collection_name: str,
+    req_body: dict,
+    s3_client: boto3.client,
+    prev_task_status: dict,
+) -> dict:
+    """Sends merged DataFrame to the target services."""
+    path, file_num = get_file_number_and_path(files[0])
+
+    if len(files) == 1:
+        file_name = f"{file_num}.json.gz"
     else:
-        json_data = df_transformed.toJSON().collect()
-        json_dump = json.dumps([json.loads(line) for line in json_data])
+        file_range = "_to_".join(
+            get_file_number_and_path(f)[1] for f in [files[0], files[-1]]
+        )
+        file_name = f"merged_{file_range}.json.gz"
 
-    if is_dump:
-        instances = req_body.get("instances", None)
-        file_key = extract_after_bucket(file_path, req_body.get("dump_url", ""))
+    return send_data(
+        df=df,
+        collection_name=collection_name,
+        s3_client=s3_client,
+        req_body=req_body,
+        file_path=f"{path}/{file_name}",
+        prev_task_status=prev_task_status,
+    )
 
-        if instances:
-            solr_instance = next(
-                (inst for inst in instances if inst.get("type") == "solr"), None
-            )
-            if solr_instance:
-                solr_url = solr_instance.get("url")
-                solr_collections = solr_instance[COL_UPLOAD_CONFIG][collection_name]
-                send_str_to_solr(json_dump, solr_url, solr_collections, file_key)
-                logger.info("%s successfully send to solr.", file_key)
 
-            s3_instance = next(
-                (inst for inst in instances if inst.get("type") == "s3"), None
-            )
-            if s3_instance:
-                send_to_s3(
-                    json_data, s3_client, s3_instance.get("s3_output_url"), file_key
-                )
-                logger.info("%s successfully send to s3", file_key)
+def get_file_number_and_path(file_path: str) -> tuple[str, str]:
+    """Extracts the file number and the rest of the path from the file path."""
+    parts = file_path.rsplit("/", 1)  # Split into path and filename
+    path, filename = parts[0], parts[1]
+    file_number = filename.split(".")[0].split("-")[-1]
+    return path, file_number
 
-    else:  # Batch/full update
-        solr_collections = settings.COLLECTIONS[collection_name]["SOLR_COL_NAMES"]
-        solr_url = str(settings.SOLR_URL)
-        send_str_to_solr(json_dump, solr_url, solr_collections, None)
-        logger.info("Data successfully sent to Solr collections: %s.", solr_collections)
+
+def serialize_df_to_send(
+    collection_name: str, df: SparkDF | PandasDF
+) -> [str, list[str]]:
+    """Serialize dataframes to solr and s3 send formats."""
+    if collection_name == settings.GUIDELINE:  # Pandas
+        s3_data_form = df.apply(lambda row: row.to_json(), axis=1).tolist()
+        solr_data_form = df.to_json(orient="records")
+    else:  # Spark
+        s3_data_form = df.toJSON().collect()
+        solr_data_form = json.dumps([json.loads(line) for line in s3_data_form])
+
+    return solr_data_form, s3_data_form
+
+
+class S3ClientError(Exception):
+    """Exception raised when S3 client is not provided and it is needed."""
+
+    def __init__(self, message="No S3 client provided."):
+        self.message = message
+        super().__init__(self.message)
