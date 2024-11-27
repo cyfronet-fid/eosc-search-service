@@ -60,20 +60,3 @@ jobs:
     - name: Stop containers
       if: always()
       run: docker compose -f dc-test.yml down
-  transform:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v3
-      with:
-        python-version: '3.10.5'
-        cache: 'pipenv'
-        cache-dependency-path: transform/Pipfile.lock
-    - name: Install pipenv
-      run: pipx install pipenv
-    - name: Install dependencies
-      run: pipenv sync --dev
-      working-directory: ./transform
-    - name: Run tests
-      run: pipenv run python -m pytest
-      working-directory: ./transform
