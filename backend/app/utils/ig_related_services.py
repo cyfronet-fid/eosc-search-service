@@ -5,7 +5,7 @@ import copy
 import logging
 from typing import Optional
 
-from httpx import AsyncClient, ConnectError, ConnectTimeout
+from httpx import AsyncClient, ConnectError, ConnectTimeout, HTTPStatusError
 
 from app.consts import ResourceType
 from app.error_handling.exceptions import RelatedServicesError
@@ -30,23 +30,53 @@ def _parse_categories(categories: list, unified_categories: Optional[list]) -> l
 
 async def _get_related_records_pids(client, ig_pid):
     try:
-        response = await client.get(
-            f"{settings.RELATED_SERVICES_ENDPOINT}/{ig_pid}",
-        )
-        if response.status_code != 200:
-            logger.error("%s. %s", response.status_code, str(response))
-            raise RelatedServicesError(
-                status_code=response.status_code,
-                detail=(
-                    f"Related services for guideline {ig_pid} server status error: \n\n"
-                    f" {response}"
-                ),
-            )
-        return response.json()
+        response = await client.get(f"{settings.RELATED_SERVICES_ENDPOINT}/{ig_pid}")
+        response.raise_for_status()
 
-    except (ConnectError, ConnectTimeout) as e:
-        logger.error("%s", str(e))
-        raise RelatedServicesError(detail="Connection error") from e
+        try:
+            json_data = response.json()
+        except ValueError as exc:
+            logger.error(
+                "Error parsing JSON response from Provider Component's API for guideline %s. "
+                "Response content: %s",
+                ig_pid,
+                response.text,
+            )
+            raise RelatedServicesError(
+                detail="Invalid JSON received from the related services API."
+            ) from exc
+
+        return json_data or []
+
+    except (ConnectError, ConnectTimeout) as conn_err:
+        logger.error(
+            "Connection error while fetching related services for guideline %s: %s",
+            ig_pid,
+            conn_err,
+        )
+        raise RelatedServicesError(detail="Connection error") from conn_err
+
+    except HTTPStatusError as http_err:
+        logger.error(
+            "HTTP error while fetching related services for guideline %s: %s",
+            ig_pid,
+            http_err,
+        )
+        raise RelatedServicesError(
+            status_code=http_err.response.status_code,
+            detail=(
+                f"Server error for related services for guideline {ig_pid}: "
+                f"{http_err.response.text}"
+            ),
+        ) from http_err
+
+    except Exception as exc:
+        logger.error(
+            "Unexpected error while fetching related services for guideline %s: %s",
+            ig_pid,
+            exc,
+        )
+        raise RelatedServicesError(detail="Unexpected error") from exc
 
 
 async def extend_ig_with_related_services(client: AsyncClient, docs: list[dict]):
