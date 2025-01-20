@@ -1,11 +1,23 @@
 <div id="container">
+
   <div
     *ngIf="standardSearch"
     class="search-box"
     [ngClass]="{ providers: isSpecialCollection }"
   >
     <form>
-      <div class="input-group" style="padding-bottom: 10px">
+      <div *ngIf="!isSpecialCollection"  class="search-selector-wrapper">
+        <div *ngIf="!isSpecialCollection" class="search-switch">
+          <span *ngIf="!isLanding()" class="adv-search-text-btn selected">Basic Search</span>
+          <span *ngIf="!isLanding()" class="adv-search-text-btn" (click)="standardSearch = false">Advanced Search</span>
+        </div>
+        <div *ngIf="!isLanding()" class="search-guide adv-search-text-btn">
+          <img src="assets/asguide/asguide-icon.svg"/>
+          <a routerLink="/asguide" target="_blank">Advanced Search Guide</a>
+        </div>
+      </div>
+
+      <div class="input-group">
         <div class="phase-box">
           <input
             #inputQuery
@@ -78,27 +90,7 @@
           </span>
         </div>
       </div>
-     <div *ngIf="!isSpecialCollection">
-      <span
-      *ngIf="!isLanding()"
-      class="adv-search-text-btn"
-      (click)="standardSearch = false"
-      >Show Advanced Search -></span
-    >
-    <span
-      *ngIf="!isLanding()"
-      class="adv-search-text-btn"
-      style="margin-left: 25px"
-    >
-      <img
-        src="assets/asguide/asguide-icon.svg"
-        style="padding-bottom: 4px; padding-right: 5px"
-      />
-      <a routerLink="/asguide" target="_blank" style="color: white"
-        >Advanced Search Guide</a
-      >
-    </span>
-     </div>
+
     </form>
 
     <div
@@ -136,21 +128,25 @@
     [ngClass]="{ providers: isSpecialCollection }"
   >
     <form>
+      <div *ngIf="!isSpecialCollection" class="search-selector-wrapper">
+        <div *ngIf="!isSpecialCollection" class="search-switch">
+          <span class="adv-search-text-btn"
+          (click)="
+          standardSearch = true;
+          tags = [];
+          clearQueryAdv();
+          updateQueryParamsAdv(this.formControl.value || '*')
+          ">Basic Search</span>
+          <span *ngIf="!isLanding()" class="adv-search-text-btn selected" (click)="standardSearch = false">Advanced Search</span>
+        </div>
+        <div *ngIf="!isLanding()" class="search-guide adv-search-text-btn">
+          <img src="assets/asguide/asguide-icon.svg"/>
+          <a routerLink="/asguide" target="_blank">Advanced Search Guide</a>
+        </div>
+      </div>
+
       <div class="input-group" style="margin-bottom: 5px">
-        <select
-          *ngIf="!this.isSpecialCollection"
-          class="form-select"
-          style="margin-left: 0px"
-          (click)="focused = false"
-          [formControl]="collectionFc"
-        >
-          <option
-            *ngFor="let navConfig of searchCollections"
-            [ngValue]="navConfig"
-          >
-            {{ navConfig.title }}
-          </option>
-        </select>
+
         <div class="phase-box">
           <input
             #inputQueryAdv
@@ -178,6 +174,19 @@
             Clear <span>&cross;</span>
           </button>
         </div>
+        <select
+          *ngIf="!this.isSpecialCollection"
+          class="form-select"
+          (click)="focused = false"
+          [formControl]="collectionFc"
+        >
+          <option
+            *ngFor="let navConfig of searchCollections"
+            [ngValue]="navConfig"
+          >
+            {{ navConfig.title }}
+          </option>
+        </select>
         <div class="input-group-btn">
           <button
             class="btn btn-primary"
@@ -204,28 +213,15 @@
                 [ngbTooltip]="tooltipText"
                 alt="Tooltip prompt icon"
                 class="tooltip-prompt-icon"
-                style="padding-bottom: 4px"
-                width="19"
+                width="17"
               />
             </label>
           </span>
         </div>
       </div>
 
-      <div class="input-group" [style.margin-bottom.px]="isDOISelected ? 4 : 20" style="margin-top: 15px">
-        <select
-          class="form-select"
-          style="margin-left: 0px; min-width: 111px"
-          (click)="focused = false"
-          (change)="onDropdownChange()"
-          [formControl]="collectionFcAdvForm"
-        >
-          <ng-container *ngFor="let navConfig of collectionFcAdv">
-            <option *ngIf="shouldDisplayOption(navConfig)" [ngValue]="navConfig">
-              <span>{{ navConfig.name }}</span>
-            </option>
-          </ng-container>
-        </select>
+      <div class="input-group" style="margin-top: 20px">
+
         <div class="phase-box">
           <input
             #inputQueryAdv2
@@ -253,6 +249,19 @@
             Clear <span>&cross;</span>
           </button>
         </div>
+        <select
+          class="form-select"
+          style="margin-left: 0px; min-width: 120px"
+          (click)="focused = false"
+          (change)="onDropdownChange()"
+          [formControl]="collectionFcAdvForm"
+        >
+          <ng-container *ngFor="let navConfig of collectionFcAdv">
+            <option *ngIf="shouldDisplayOption(navConfig)" [ngValue]="navConfig">
+              <span>{{ navConfig.name }}</span>
+            </option>
+          </ng-container>
+        </select>
         <div class="input-group-btn">
           <button
             style="white-space: nowrap"
@@ -273,7 +282,7 @@
       <div *ngIf="isDOISelected && withDOI()" class="doi-message">
         Enter a valid DOI format. Example: 10.1038/nature.25715
       </div>
-      <div *ngIf="tags.length !== 0" class="mb-3">
+      <div *ngIf="tags.length !== 0" class="mt-3" style="overflow: hidden">
         <div class="row gx-1 gy-1 py-0 tags-row">
           <div class="col-1 gx-1 gy-1 py-0">
             <span
@@ -469,7 +478,7 @@
                 *ngIf="elem.startsWith('doi')"
                 nzMode="closeable"
                 (nzOnClose)="remove(elem)"
-                style="margin-top: 8px"
+                style="margin-top: 8px; margin-bottom: 8px;"
                 class="ant-tag-custom"
               >{{ elem.split('doi:')[1] }}</nz-tag
               >
@@ -495,40 +504,22 @@
             </span>
           </div>
         </div>
-      </div>
-      <span
-        class="adv-search-text-btn"
-        (click)="
-          standardSearch = true;
-          tags = [];
-          clearQueryAdv();
-          updateQueryParamsAdv(this.formControl.value || '*')
-        "
-        ><- Go back to Basic Search</span
-      >
-      <span class="adv-search-text-btn" style="margin-left: 25px">
-        <img
-          src="assets/asguide/asguide-icon.svg"
-          style="padding-bottom: 4px; padding-right: 5px"
-        />
-        <a routerLink="/asguide" target="_blank" style="color: white"
-          >Advanced Search Guide</a
-        >
-      </span>
 
-      <span
-        *ngIf="tags.length !== 0"
-        class="adv-search-text-tag"
-        style="cursor: pointer; padding-left: 25px"
-        (click)="removeAll($event)"
-      >
-        <img
-          src="assets/trashed.svg"
-          class="tooltip-prompt-icon"
-          style="padding-bottom: 4px; padding-right: 5px"
-          width="19"
-        />Clear Advanced Search
-      </span>
+        <span
+          *ngIf="tags.length !== 0"
+          class="adv-search-text-tag search-clear-button"
+          (click)="removeAll($event)"
+        >
+          <img
+            src="assets/trashed.svg"
+            class="tooltip-prompt-icon"
+            style="padding-bottom: 4px; padding-right: 7px"
+            width="22"
+          />Clear Advanced Search
+        </span>
+      </div>
+
+
     </form>
 
     <div

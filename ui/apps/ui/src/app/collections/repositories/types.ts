@@ -24,6 +24,7 @@ export interface IResult {
   collection: string;
   urls?: string[];
   url: string;
+  logoUrl?: string;
   tags: ITag[];
   date?: string;
   coloredTags?: IColoredTag[];
@@ -61,6 +62,7 @@ export interface IResult {
   relatedSoftwareNumber?: number;
   relatedOrganisationTitles?: string[];
   pid?: string;
+  funder?: string[];
 }
 
 export interface RelatedService {
@@ -71,6 +73,7 @@ export interface RelatedService {
   tagline: string;
   joined_categories: string[];
   type: string;
+  logoUrl: string;
 }
 
 export interface ISecondaryTag {

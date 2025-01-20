@@ -114,3 +114,35 @@
   font-weight: 400;
   line-height: normal;
 }
+
+.funder-dropdown .btn {
+  font-size: 11px;
+  line-height: 17px;
+  padding: 5px 10px;
+}
+
+.funder-dropdown-menu {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  width: 250px;
+}
+
+.funder-item {
+  font-size: 11px;
+  line-height: 17px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #eee;
+  word-wrap: break-word;
+}
+
+.funder-item:last-child {
+  border-bottom: none;
+}
+
+.statistic.text-muted {
+  white-space: normal;
+}

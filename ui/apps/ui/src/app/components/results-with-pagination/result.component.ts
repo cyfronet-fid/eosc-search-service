@@ -13,17 +13,14 @@ import { deserializeAll } from '@collections/filters-serializers/filters-seriali
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { toArray } from '@collections/filters-serializers/utils';
 import { RedirectService } from '@collections/services/redirect.service';
-import { environment } from '@environment/environment';
-import { COLLECTION } from '@collections/data/services/search-metadata.data';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { IService } from '@collections/data/services/service.model';
 import { IOffer } from '@collections/data/bundles/bundle.model';
 import isArray from 'lodash-es/isArray';
 import { RelatedService } from '@collections/repositories/types';
 import { InstanceExportData } from '@collections/data/openair.model';
 import { SPECIAL_COLLECTIONS } from '@collections/data/config';
 import moment from 'moment';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'ess-result',
@@ -33,9 +30,7 @@ import moment from 'moment';
 export class ResultComponent implements OnInit {
   q$ = this._customRoute.q$;
   tagsq: string[] = [];
-  validUrl: string | null = null;
   highlightsreal: { [field: string]: string[] | undefined } = {};
-  logoUrl = '';
   isSpecialCollection = false;
   doiCollections = [
     'all_collection',
@@ -50,6 +45,9 @@ export class ResultComponent implements OnInit {
   @Input() date?: string;
   @Input() pid?: string = '';
   @Input() urls: string[] = [];
+  @Input() url: string = '';
+  @Input() logoUrl?: string;
+  @Input() orderUrl?: string;
 
   @Input() isResearchProduct = false;
   @Input() description!: string;
@@ -77,16 +75,6 @@ export class ResultComponent implements OnInit {
   @Input() relatedProjectNumber: number = 0;
 
   @Input() identifiers: IValueWithLabelAndLink[] = [];
-  @Input()
-  set url(url: string) {
-    if (url && url.trim() !== '') {
-      this.validUrl = url;
-      this.logoUrl = `${url}/logo`;
-      return;
-    }
-  }
-
-  @Input() orderUrl?: string;
 
   get duration(): string {
     const start = moment(this.startDate);
@@ -98,12 +86,12 @@ export class ResultComponent implements OnInit {
   }
 
   get redirectUrl(): string | null {
-    if (this.validUrl == null || this.validUrl === '') {
+    if (this.url == null || this.url === '') {
       return null;
     }
     if (this.type.value === 'bundle') {
       this.redirectService.internalUrl(
-        this.validUrl,
+        this.url,
         this.id,
         this.type.value,
         this.offers[0]?.main_offer_id
@@ -112,7 +100,7 @@ export class ResultComponent implements OnInit {
       );
     }
     return this.redirectService.internalUrl(
-      this.validUrl,
+      this.url,
       this.id,
       this.type.value,
       ''
@@ -155,6 +143,9 @@ export class ResultComponent implements OnInit {
 
   @Input()
   license?: string | string[];
+
+  @Input()
+  funder?: string[] = [];
 
   @Input()
   downloads?: number;
@@ -399,11 +390,6 @@ export class ResultComponent implements OnInit {
     });
   }
 
-  get$(id: number | string): Observable<IService> {
-    const endpointUrl = `/${environment.backendApiPath}/${COLLECTION}`;
-    return this._http.get<IService>(`${endpointUrl}/${id}`);
-  }
-
   async setActiveFilter(filter: string, value: string) {
     await this._router.navigate([], {
       queryParams: {
@@ -413,9 +399,9 @@ export class ResultComponent implements OnInit {
     });
   }
 
-  getLogoUrl(id: string | undefined) {
+  getServiceLogoUrl(id: string | undefined) {
     return id
-      ? `https://marketplace.eosc-portal.eu/services/${id}/logo`
+      ? `${ConfigService.config?.marketplace_url}/services/${id}/logo`
       : 'assets/bundle_service.svg';
   }
 
@@ -487,5 +473,9 @@ export class ResultComponent implements OnInit {
 
   _formatLicense(license: string | string[]) {
     return isArray(license) ? license.join(', ') : license;
+  }
+
+  _getFormattedFunderId(funder: string): string {
+    return funder.replace(/\s+/g, '-');
   }
 }

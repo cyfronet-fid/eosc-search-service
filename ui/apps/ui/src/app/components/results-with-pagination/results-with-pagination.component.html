@@ -109,6 +109,7 @@
         [country]="result.country ?? ''"
         [website]="result.website ?? ''"
         [url]="result.url"
+        [logoUrl]="result.logoUrl"
         [highlights]="highlights[result.id] ?? {}"
         [isResearchProduct]="result.isResearchProduct"
         [relatedPublicationNumber]="result.relatedPublicationNumber ?? 0"
@@ -133,6 +134,7 @@
       [country]="result.country ?? ''"
       [website]="result.website ?? ''"
       [url]="result.url"
+      [logoUrl]="result.logoUrl"
       [highlights]="highlights[result.id] ?? {}"
       [isResearchProduct]="result.isResearchProduct"
       [relatedPublicationNumber]="result.relatedPublicationNumber ?? 0"
@@ -162,6 +164,7 @@
         [exportData]="result.exportData"
         [highlights]="highlights[result.id] ?? {}"
         [url]="result.url"
+        [logoUrl]="result.logoUrl"
         [orderUrl]="result.orderUrl"
         [urls]="result.urls ?? []"
         [isResearchProduct]="result.isResearchProduct"
@@ -190,6 +193,7 @@
         [startDate]="result.startDate ?? ''"
         [endDate]="result.endDate ?? ''"
         [url]="result.url"
+        [logoUrl]="result.logoUrl"
       ></ess-result>
 
       </div>
@@ -201,6 +205,7 @@
           [description]="result.description | transformArrayDescriptionPipe"
           [type]="result.type"
           [url]="result.url"
+          [logoUrl]="result.logoUrl"
           [orderUrl]="result.orderUrl"
           [urls]="result.urls ?? []"
           [tags]="result.tags"
@@ -210,6 +215,7 @@
           [coloredTags]="result.coloredTags ?? []"
           [languages]="result.languages ?? []"
           [license]="result.license"
+          [funder]="result.funder"
           [secondaryTags]="result.secondaryTags ?? []"
           [views]="result.views"
           [downloads]="result.downloads"

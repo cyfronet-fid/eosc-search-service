@@ -29,6 +29,7 @@ export const softwareAdapter: IAdapter = {
     urls: openAIREResult.url,
     languages: transformLanguages(openAIREResult?.language),
     license: openAIREResult?.license,
+    funder: openAIREResult?.funder,
     date: formatPublicationDate(openAIREResult['publication_date']),
     url: `${
       ConfigService.config?.eosc_explore_url
