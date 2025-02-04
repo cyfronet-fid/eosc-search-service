@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://beta.search.marketplace.eosc-portal.eu",
+    "target": "https://search.marketplace.sandbox.eosc-beyond.eu",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "debug"
