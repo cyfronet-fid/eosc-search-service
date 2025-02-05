@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.26.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.25.0...v2.26.0) (2025-02-05)
+
+
+### Features
+
+* [[#1492](https://github.com/cyfronet-fid/eosc-search-service/issues/1492)] update favicon ([1138c18](https://github.com/cyfronet-fid/eosc-search-service/commit/1138c1836fc42cda8caca67b29ac7493aee392d9))
+
+
+### Bug Fixes
+
+* [[#1495](https://github.com/cyfronet-fid/eosc-search-service/issues/1495)] backend address in proxy external ([8afd17a](https://github.com/cyfronet-fid/eosc-search-service/commit/8afd17a8b25bc12634a78b91171904c64d7c8bf4))
+
 ## [2.25.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.24.0...v2.25.0) (2025-01-20)
 
 
