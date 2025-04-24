@@ -42,8 +42,8 @@ export const providersFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'tag_list',
-      filter: 'tag_list',
+      id: 'keywords',
+      filter: 'keywords',
       label: 'Keywords',
       type: 'tag',
       defaultCollapsed: false,

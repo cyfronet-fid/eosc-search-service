@@ -9,7 +9,6 @@ export interface IProject {
   open_access_mandate_for_dataset?: boolean;
   description?: string;
   code?: string;
-  tag_list?: string[];
   funded_amount?: number;
   currency?: string;
   total_cost?: number;
