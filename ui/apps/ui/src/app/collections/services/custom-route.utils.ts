@@ -99,8 +99,6 @@ export function getFiltersFromTags(
             tag.split(':', 2)[1].trim() +
             '" OR keywords_tg:"' +
             tag.split(':', 2)[1].trim() +
-            '" OR tag_list_tg:"' +
-            tag.split(':', 2)[1].trim() +
             '" OR doi:"' +
             tag.split(':', 2)[1].trim() +
             '"'
@@ -112,7 +110,6 @@ export function getFiltersFromTags(
         filters.push('!author_names_tg:"' + tag.split(':', 2)[1].trim() + '"');
         filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
         filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
-        filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
         filters.push('!doi:"' + tag.split(':', 2)[1].trim() + '"');
       }
       if (tag.startsWith('in title:')) {
@@ -120,22 +117,12 @@ export function getFiltersFromTags(
         titles.push(filters.length - 1);
       }
       if (tag.startsWith('keyword:')) {
-        filters.push(
-          'keywords_tg:"' +
-            tag.split(':', 2)[1].trim() +
-            '" OR tag_list_tg:"' +
-            tag.split(':', 2)[1].trim() +
-            '"'
-        );
+        filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
         keywords.push(filters.length - 1);
       }
       if (tag.startsWith('doi:')) {
         filters.push('doi:"' + tag.split(':', 2)[1].trim() + '"');
         dois.push(filters.length - 1);
-      }
-      if (tag.startsWith('tagged:')) {
-        filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
-        keywords.push(filters.length - 1);
       }
     }
   } else {
@@ -173,8 +160,6 @@ export function getFiltersFromTags(
           tag.split(':', 2)[1].trim() +
           '" OR keywords_tg:"' +
           tag.split(':', 2)[1].trim() +
-          '" OR tag_list_tg:"' +
-          tag.split(':', 2)[1].trim() +
           '" OR doi:"' +
           tag.split(':', 2)[1].trim() +
           '"'
@@ -186,7 +171,6 @@ export function getFiltersFromTags(
       filters.push('!author_names_tg:"' + tag.split(':', 2)[1].trim() + '"');
       filters.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
       filters.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
-      filters.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
       filters.push('!doi:"' + tag.split(':', 2)[1].trim() + '"');
     }
     if (tag.startsWith('in title:')) {
@@ -198,17 +182,7 @@ export function getFiltersFromTags(
       dois.push(filters.length - 1);
     }
     if (tag.startsWith('keyword:')) {
-      filters.push(
-        'keywords_tg:"' +
-          tag.split(':', 2)[1].trim() +
-          '" OR tag_list_tg:"' +
-          tag.split(':', 2)[1].trim() +
-          '"'
-      );
-      keywords.push(filters.length - 1);
-    }
-    if (tag.startsWith('tagged:')) {
-      filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
       keywords.push(filters.length - 1);
     }
   }
