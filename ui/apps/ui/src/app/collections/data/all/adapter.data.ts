@@ -47,18 +47,31 @@ const urlAdapter = (
     case 'other':
       return `${
         ConfigService.config?.eosc_explore_url
-      }/search/result?id=${data.id?.split('|')?.pop()}`;
+      }/search/result?id=${encodeURIComponent(
+        data.id?.split('|')?.pop() || ''
+      )}`;
     case 'data source':
     case 'service':
-      return `${ConfigService.config?.marketplace_url}/services/${data.pid}`;
+      return `${
+        ConfigService.config?.marketplace_url
+      }/services/${encodeURIComponent(data.pid || '')}`;
+
     case 'bundle':
-      return `${ConfigService.config?.marketplace_url}/services/${data.service_id}`;
+      return `${
+        ConfigService.config?.marketplace_url
+      }/services/${encodeURIComponent(data.service_id || '')}`;
+
     case 'provider':
-      return `${ConfigService.config?.marketplace_url}/providers/${data?.pid}`;
+      return `${
+        ConfigService.config?.marketplace_url
+      }/providers/${encodeURIComponent(data.pid || '')}`;
+
     case 'training':
-      return '/trainings/' + data.id;
+      return '/trainings/' + encodeURIComponent(data.id || '');
+
     case 'interoperability guideline':
-      return '/guidelines/' + data.id;
+      return '/guidelines/' + encodeURIComponent(data.id || '');
+
     default:
       return '';
   }
@@ -79,9 +92,13 @@ const logoUrlAdapter = (
   switch (type) {
     case 'data source':
     case 'service':
-      return `${ConfigService.config?.marketplace_url}/services/${data.pid}/logo`;
+      return `${
+        ConfigService.config?.marketplace_url
+      }/services/${encodeURIComponent(data.pid || '')}/logo`;
     case 'provider':
-      return `${ConfigService.config?.marketplace_url}/providers/${data?.pid}/logo`;
+      return `${
+        ConfigService.config?.marketplace_url
+      }/providers/${encodeURIComponent(data?.pid || '')}/logo`;
     default:
       return undefined;
   }
@@ -102,9 +119,13 @@ const orderUrlAdapter = (
   switch (type) {
     case 'data source':
     case 'service':
-      return `${ConfigService.config?.marketplace_url}/services/${data.pid}/offers`;
+      return `${
+        ConfigService.config?.marketplace_url
+      }/services/${encodeURIComponent(data.pid || '')}/offers`;
     case 'bundle':
-      return `${ConfigService.config?.marketplace_url}/services/${data.service_id}/offers`;
+      return `${
+        ConfigService.config?.marketplace_url
+      }/services/${encodeURIComponent(data.service_id || '')}/offers`;
     default:
       return undefined;
   }

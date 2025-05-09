@@ -42,9 +42,15 @@ export const servicesAdapter: IAdapter = {
     languages: transformLanguages(service?.language),
     horizontal: service?.horizontal,
     type: setType(service.type),
-    url: `${ConfigService.config?.marketplace_url}/services/${service.pid}`,
-    logoUrl: `${ConfigService.config?.marketplace_url}/services/${service.pid}/logo`,
-    orderUrl: `${ConfigService.config?.marketplace_url}/services/${service.pid}/offers`,
+    url: `${
+      ConfigService.config?.marketplace_url
+    }/services/${encodeURIComponent(service.pid || '')}`,
+    logoUrl: `${
+      ConfigService.config?.marketplace_url
+    }/services/${encodeURIComponent(service.pid || '')}/logo`,
+    orderUrl: `${
+      ConfigService.config?.marketplace_url
+    }/services/${encodeURIComponent(service.pid || '')}/offers`,
     collection: COLLECTION,
     coloredTags: [],
     tags: [

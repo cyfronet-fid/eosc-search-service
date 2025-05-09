@@ -17,7 +17,7 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
-@router.get("/research-product/{resource_type}/{rp_id}")
+@router.get("/research-product/{resource_type}/{rp_id:path}")
 async def get_rp_by_id(
     resource_type: ResearchProductCollection, rp_id: str, solr_get=Depends(get_dep)
 ) -> Optional[ResearchProductResponse]:

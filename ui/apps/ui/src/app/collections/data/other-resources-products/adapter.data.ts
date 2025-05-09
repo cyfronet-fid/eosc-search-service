@@ -34,7 +34,9 @@ export const otherResourcesProductsAdapter: IAdapter = {
     funder: openAIREResult?.funder,
     url: `${
       ConfigService.config?.eosc_explore_url
-    }/search/result?id=${openAIREResult?.id?.split('|')?.pop()}`,
+    }/search/result?id=${encodeURIComponent(
+      openAIREResult?.id?.split('|')?.pop() || ''
+    )}`,
     coloredTags: [],
     tags: [
       {

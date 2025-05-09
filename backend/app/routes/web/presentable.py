@@ -14,12 +14,12 @@ router = APIRouter()
 
 
 @router.get(
-    "/{collection}/{item_id}",
+    "/{collection}/{item_id:path}",
     responses={500: {"model": BadRequest}},
 )
 async def read_item(
     collection: Collection,
-    item_id: int | str,
+    item_id: str,
     get_item=Depends(get_dep),
 ):
     async with AsyncClient() as client:

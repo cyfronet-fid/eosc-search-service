@@ -42,8 +42,12 @@ export const cataloguesAdapter: IAdapter = {
       toKeywordsSecondaryTag(catalogue.keywords ?? [], 'keywords'),
     ],
 
-    url: `${ConfigService.config?.marketplace_url}/catalogues/${catalogue.pid}`,
-    logoUrl: `${ConfigService.config?.marketplace_url}/catalogues/${catalogue.pid}/logo`,
+    url: `${
+      ConfigService.config?.marketplace_url
+    }/catalogues/${encodeURIComponent(catalogue.pid || '')}`,
+    logoUrl: `${
+      ConfigService.config?.marketplace_url
+    }/catalogues/${encodeURIComponent(catalogue.pid || '')}/logo`,
     coloredTags: [],
     isResearchProduct: false,
   }),

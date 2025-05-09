@@ -28,9 +28,15 @@ export const dataSourcesAdapter: IAdapter = {
       label: dataSource.type || '',
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
-    url: `${ConfigService.config?.marketplace_url}/services/${dataSource.pid}`,
-    logoUrl: `${ConfigService.config?.marketplace_url}/services/${dataSource.pid}/logo`,
-    orderUrl: `${ConfigService.config?.marketplace_url}/services/${dataSource.pid}/offers`,
+    url: `${
+      ConfigService.config?.marketplace_url
+    }/services/${encodeURIComponent(dataSource.pid || '')}`,
+    logoUrl: `${
+      ConfigService.config?.marketplace_url
+    }/services/${encodeURIComponent(dataSource.pid || '')}/logo`,
+    orderUrl: `${
+      ConfigService.config?.marketplace_url
+    }/services/${encodeURIComponent(dataSource.pid || '')}/offers`,
     collection: COLLECTION,
     coloredTags: [],
     tags: [

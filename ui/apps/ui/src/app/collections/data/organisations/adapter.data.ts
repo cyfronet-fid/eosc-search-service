@@ -31,9 +31,9 @@ export const organisationsAdapter: IAdapter = {
     website: organisation.url ?? '',
     url: `${
       ConfigService.config?.eosc_explore_url
-    }/search/organization?organizationId=${organisation?.id
-      ?.split('|')
-      ?.pop()}`,
+    }/search/organization?organizationId=${encodeURIComponent(
+      organisation?.id?.split('|')?.pop() || ''
+    )}`,
     coloredTags: [],
     secondaryTags: [],
     description: '',
