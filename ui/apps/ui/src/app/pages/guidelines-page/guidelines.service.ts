@@ -10,13 +10,16 @@ import { IService } from '@collections/data/services/service.model';
 export class GuidelinesService {
   endpointUrl = `/${environment.backendApiPath}/${COLLECTION}`;
   constructor(private _http: HttpClient) {}
+
   get$(id: number | string): Observable<IGuideline> {
-    return this._http.get<IGuideline>(`${this.endpointUrl}/${id}`);
+    return this._http.get<IGuideline>(
+      `${this.endpointUrl}/${encodeURIComponent(id)}`
+    );
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   getFromProviderById$(id: number | string): Observable<any> {
     const endpoint = `/${environment.backendApiPath}/related_services?guideline_id=`;
-    return this._http.get<IService[]>(`${endpoint}${id}`);
+    return this._http.get<IService[]>(`${endpoint}${encodeURIComponent(id)}`);
   }
 }

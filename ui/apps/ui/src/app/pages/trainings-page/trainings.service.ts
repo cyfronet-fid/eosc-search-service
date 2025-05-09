@@ -10,7 +10,10 @@ export class TrainingsService {
   endpointUrl = `/${environment.backendApiPath}/${COLLECTION}`;
 
   constructor(private _http: HttpClient) {}
+
   get$(id: number | string): Observable<ITraining> {
-    return this._http.get<ITraining>(`${this.endpointUrl}/${id}`);
+    return this._http.get<ITraining>(
+      `${this.endpointUrl}/${encodeURIComponent(id)}`
+    );
   }
 }
