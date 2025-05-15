@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.27.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.26.0...v2.27.0) (2025-05-15)
+
+
+### Features
+
+* [[#1549](https://github.com/cyfronet-fid/eosc-search-service/issues/1549)] encode ids ([38ebdb6](https://github.com/cyfronet-fid/eosc-search-service/commit/38ebdb6b3ca1d1bdc85434c4a5dee9eb16c9d72a))
+
+
+### Bug Fixes
+
+* [[#1550](https://github.com/cyfronet-fid/eosc-search-service/issues/1550)] oidc_host default value ([3c855cc](https://github.com/cyfronet-fid/eosc-search-service/commit/3c855ccef80c3285e867b129071fdf94e191074a))
+* remove tag_list ([#1542](https://github.com/cyfronet-fid/eosc-search-service/issues/1542)) ([8737d67](https://github.com/cyfronet-fid/eosc-search-service/commit/8737d67b7910a4eeaad4d8b412d6ae213965f558))
+
 ## [2.26.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.25.0...v2.26.0) (2025-02-05)
 
 
