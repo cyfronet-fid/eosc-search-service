@@ -74,14 +74,6 @@ export const guidelinesFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'tag_list',
-      filter: 'tag_list',
-      label: 'Keywords',
-      type: 'tag',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-    {
       id: 'catalogue',
       filter: 'catalogue',
       label: 'Community Catalog',

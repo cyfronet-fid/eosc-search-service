@@ -117,9 +117,7 @@ PROJECT_QF = "title^ description^10 keywords_tg^10"
 
 ORGANISATION_QF = "alternative_names title abbreviation"
 
-DEFAULT_QF = (
-    "title^100 author_names_tg^120 description^10 keywords_tg^10 tag_list_tg^10"
-)
+DEFAULT_QF = "title^100 author_names_tg^120 description^10 keywords_tg^10"
 
 SortUi: TypeAlias = Literal["pdmr", "pdlr", "dmr", "dlr", "mp", "r", "default", ""]
 

@@ -42,8 +42,6 @@ function _setExactTag(collection: string, tag: string) {
       tag.split(':', 2)[1].trim() +
       '" OR keywords_tg:"' +
       tag.split(':', 2)[1].trim() +
-      '" OR tag_list_tg:"' +
-      tag.split(':', 2)[1].trim() +
       '" OR doi:"' +
       tag.split(':', 2)[1].trim() +
       '"'
@@ -58,8 +56,6 @@ function _setExactTag(collection: string, tag: string) {
       tag.split(':', 2)[1].trim() +
       '" OR keywords_tg:"' +
       tag.split(':', 2)[1].trim() +
-      '" OR tag_list_tg:"' +
-      tag.split(':', 2)[1].trim() +
       '"'
     );
   }
@@ -69,7 +65,6 @@ function _setNoneOfTag(collection: string, tag: string) {
   const tags = [];
   tags.push('!title:"' + tag.split(':', 2)[1].trim() + '"');
   tags.push('!description:"' + tag.split(':', 2)[1].trim() + '"');
-  tags.push('!tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
   tags.push('!keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
   tags.push('!author_names_tg:"' + tag.split(':', 2)[1].trim() + '"');
   if (doiCollections.includes(collection)) {
@@ -139,17 +134,7 @@ export function constructAdvancedSearchMetadata(
         dois.push(filters.length - 1);
       }
       if (tag.startsWith('keyword:') && !isProvider) {
-        filters.push(
-          'keywords_tg:"' +
-            tag.split(':', 2)[1].trim() +
-            '" OR tag_list_tg:"' +
-            tag.split(':', 2)[1].trim() +
-            '"'
-        );
-        keywords.push(filters.length - 1);
-      }
-      if (tag.startsWith('tagged:') && !isProvider) {
-        filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+        filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
         keywords.push(filters.length - 1);
       }
     }
@@ -195,17 +180,7 @@ export function constructAdvancedSearchMetadata(
       dois.push(filters.length - 1);
     }
     if (tag.startsWith('keyword:') && !isProvider) {
-      filters.push(
-        'keywords_tg:"' +
-          tag.split(':', 2)[1].trim() +
-          '" OR tag_list_tg:"' +
-          tag.split(':', 2)[1].trim() +
-          '"'
-      );
-      keywords.push(filters.length - 1);
-    }
-    if (tag.startsWith('tagged:') && !isProvider) {
-      filters.push('tag_list_tg:"' + tag.split(':', 2)[1].trim() + '"');
+      filters.push('keywords_tg:"' + tag.split(':', 2)[1].trim() + '"');
       keywords.push(filters.length - 1);
     }
   }

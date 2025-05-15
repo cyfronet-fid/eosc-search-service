@@ -6,7 +6,7 @@ export const DEFAULT_FACET: { [field: string]: ITermsFacetParam } = {
   title: { field: 'title', type: 'terms', limit: 0 },
 };
 export const DEFAULT_QF =
-  'title^100 author_names_tg^120 description^10 keywords_tg^10 tag_list_tg^10';
+  'title^100 author_names_tg^120 description^10 keywords_tg^10';
 
 export const PROVIDER_QF =
   'title^100 abbreviation^100 description^10 scientific_domains^10';

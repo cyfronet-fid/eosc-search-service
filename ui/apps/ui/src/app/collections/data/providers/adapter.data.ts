@@ -35,7 +35,7 @@ export const providersAdapter: IAdapter = {
     secondaryTags: [
       // toDownloadsStatisticsSecondaryTag(openAIREResult.usage_counts_downloads),
       // toViewsStatisticsSecondaryTag(openAIREResult.usage_counts_views),
-      toKeywordsSecondaryTag(provider.tag_list ?? [], 'tag_list'),
+      toKeywordsSecondaryTag(provider.keywords ?? [], 'keywords'),
     ],
     tags: [
       {
@@ -59,8 +59,12 @@ export const providersAdapter: IAdapter = {
         filter: 'meril_scientific_domains',
       },
     ],
-    url: `${ConfigService.config?.marketplace_url}/providers/${provider.pid}`,
-    logoUrl: `${ConfigService.config?.marketplace_url}/providers/${provider?.pid}/logo`,
+    url: `${
+      ConfigService.config?.marketplace_url
+    }/providers/${encodeURIComponent(provider.pid || '')}`,
+    logoUrl: `${
+      ConfigService.config?.marketplace_url
+    }/providers/${encodeURIComponent(provider.pid || '')}/logo`,
     ...parseStatistics(provider),
   }),
 };

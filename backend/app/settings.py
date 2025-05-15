@@ -56,7 +56,7 @@ class GlobalSettings(BaseSettings):
     STOMP_SSL: bool = False
 
     # - OIDC
-    OIDC_HOST: Url = "https://aai-demo.eosc-portal.eu"
+    OIDC_HOST: Url = "https://core-proxy.sandbox.eosc-beyond.eu"
     OIDC_CLIENT_ID: str = "NO_CLIENT_ID"
     OIDC_CLIENT_SECRET: str = "NO_CLIENT_SECRET"
     OIDC_AAI_NEW_API: bool = False
