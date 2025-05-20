@@ -524,6 +524,7 @@
   <field name="maintenance_url" type="text_general" sortMissingLast="true" required="false"/>
   <field name="manual_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="multimedia_urls" type="text_general" sortMissingLast="true" required="false"/>
+  <field name="node" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="offer_ids" type="pints" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="offers_count" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="open_access" type="boolean" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
@@ -552,13 +553,13 @@
   <field name="rating" type="pdouble" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="relatedStandards.relatedStandardIdentifier" type="text_general"/>
   <field name="relatedStandards.relatedStandardURI" type="text_general"/>
+  <field name="related_organisation_titles" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="related_platforms" type="strings" required="false"/>
+  <field name="related_project_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_services" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_standards_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_standards_uri" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_training" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
-  <field name="related_organisation_titles" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
-  <field name="related_project_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="relations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="relations_long" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_community" type="strings" required="false" useDocValuesAsStored="true"/>
