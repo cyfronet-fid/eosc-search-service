@@ -230,6 +230,12 @@ export const allCollectionsAdapter: IAdapter = {
               showMoreThreshold: 10,
             },
             {
+              label: 'Node',
+              values: toValueWithLabel(toArray(data?.node)),
+              filter: 'node',
+              showMoreThreshold: 4,
+            },
+            {
               label: 'Organisation',
               values: toValueWithLabel(toArray(data?.resource_organisation)),
               filter: 'resource_organisation',
