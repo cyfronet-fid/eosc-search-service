@@ -6,6 +6,23 @@ export const guidelinesFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
+      id: 'node',
+      filter: 'node',
+      label: 'Node',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
+    },
+    {
+      id: 'node',
+      filter: 'node',
+      label: 'Node',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
       id: 'author_names',
       filter: 'author_names',
       label: 'Creator Name',

@@ -34,6 +34,12 @@ export const guidelinesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
+        label: 'Node',
+        values: toValueWithLabel(toArray(guideline?.node)),
+        filter: 'node',
+        showMoreThreshold: 4,
+      },
+      {
         label: 'Provider',
         values: toValueWithLabel(toArray(guideline['providers'])),
         filter: 'providers',

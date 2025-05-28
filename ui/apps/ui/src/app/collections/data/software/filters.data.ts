@@ -51,15 +51,6 @@ export const softwareFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'funder',
-      filter: 'funder',
-      label: 'Funder',
-      type: 'multiselect',
-      defaultCollapsed: true,
-      tooltipText: '',
-      expandArrow: true,
-    },
-    {
       id: 'license',
       filter: 'license',
       label: 'License',

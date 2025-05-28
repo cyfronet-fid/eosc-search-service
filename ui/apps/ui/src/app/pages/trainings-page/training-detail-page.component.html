@@ -9,34 +9,20 @@
               <div class="ig-logo-container col-md-2 col-12">
                 <img [src]="'./assets/training.png'" alt="" />
               </div>
-              <div
-                class="ig-title-container about-content-title col-md-7 col-12"
-              >
+              <div class="ig-title-container about-content-title col-md-7 col-12">
                 <p class="ig-about-title" i18n>
                   {{ myTraining.title ?? '-' }}
                 </p>
-                <p class="ig-about-subtitle" i18n>
-                  Resource organization:
-                  <span class="sub-headline-color">{{
-                    myTraining.resource_organisation ?? '-'
-                  }}</span
-                  ><br />
-                  Provided by:
-                  <span class="sub-headline-color">{{
-                    providersNames === '' ? '-' : providersNames
-                  }}</span>
+
+                <p class="ig-about-subtitle" *ngIf="myTraining.resource_organisation" i18n>
+                  Resource organization: {{ myTraining.resource_organisation }}
                 </p>
-              </div>
-              <div class="ig-buttons-container col-md-3 col-12">
-                <a href="{{ myTraining.url ?? '' }}">
-                  <div class="button" i18n>Access training</div>
-                </a>
-                <div class="button-off" i18n>
-                  {{
-                    myTraining.best_access_right
-                      | filterPipe: type.TRAINING_ACCESS_TYPE
-                  }}
-                </div>
+                <p class="ig-about-subtitle" *ngIf="providersNames" i18n>
+                  Provider: {{ providersNames }}
+                </p>
+                <p class="ig-about-subtitle" *ngIf="myTraining.node" i18n>
+                  Node: {{ myTraining.node }}
+                </p>
               </div>
             </div>
           </div>
@@ -84,7 +70,7 @@
                       <ng-container
                         *ngFor="let resource of myTraining.content_type"
                       >
-                      
+
                         <span class="section-description">{{ resource }}</span
                         ><br />
                       </ng-container>

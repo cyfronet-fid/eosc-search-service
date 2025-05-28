@@ -23,6 +23,12 @@ export const cataloguesAdapter: IAdapter = {
     },
     tags: [
       {
+        label: 'Node',
+        values: toValueWithLabel(toArray(catalogue?.node)),
+        filter: 'node',
+        showMoreThreshold: 4,
+      },
+      {
         label: 'Scientific domain',
         values: toValueWithLabel(toArray(catalogue.scientific_domains)),
         filter: 'scientific_domains',

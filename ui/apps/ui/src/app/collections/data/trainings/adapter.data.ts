@@ -39,6 +39,12 @@ export const trainingsAdapter: IAdapter = {
         showMoreThreshold: 10,
       },
       {
+        label: 'Node',
+        values: toValueWithLabel(toArray(training?.node)),
+        filter: 'node',
+        showMoreThreshold: 4,
+      },
+      {
         label: 'Content type',
         values: toValueWithLabel(toArray(training['content_type'])),
         filter: 'content_type',
