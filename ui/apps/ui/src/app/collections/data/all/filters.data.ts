@@ -14,6 +14,15 @@ export const allCollectionsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
+      id: 'node',
+      filter: 'node',
+      label: 'Node',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
+    },
+    {
       id: 'related_organisation_titles',
       filter: 'related_organisation_titles',
       label: 'Related organisations',
@@ -94,6 +103,14 @@ export const allCollectionsFilters: IFiltersConfig = {
       tooltipText: HORIZONTAL_TOOLTIP_TEXT,
       transformNodes: transformBoolean,
       expandArrow: true,
+    },
+    {
+      id: 'node',
+      filter: 'node',
+      label: 'Node',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'author_names',

@@ -30,7 +30,7 @@ export class TrainingDetailPageComponent implements OnInit {
   isArray = isArray;
   myTraining?: ITraining;
   type = DICTIONARY_TYPE_FOR_PIPE;
-  providersNames = '-';
+  providersNames = '';
 
   constructor(
     private trainingsService: TrainingsService,

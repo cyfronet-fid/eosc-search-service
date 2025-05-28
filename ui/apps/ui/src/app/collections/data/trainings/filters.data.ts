@@ -9,6 +9,15 @@ export const trainingsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
+      id: 'node',
+      filter: 'node',
+      label: 'Node',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
+    },
+    {
       id: 'unified_categories',
       filter: 'unified_categories',
       label: 'Research step',
@@ -136,6 +145,14 @@ export const trainingsFilters: IFiltersConfig = {
       defaultCollapsed: false,
       tooltipText: '',
       expandArrow: true,
+    },
+    {
+      id: 'node',
+      filter: 'node',
+      label: 'Node',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'author_names',
