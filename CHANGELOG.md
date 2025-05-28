@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.28.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.27.0...v2.28.0) (2025-05-28)
+
+
+### Features
+
+* [[#1570](https://github.com/cyfronet-fid/eosc-search-service/issues/1570)] display node as filter, tag, in detail page ([bbed5e4](https://github.com/cyfronet-fid/eosc-search-service/commit/bbed5e4f447afb3ad4e228335483cd98c1e7faf8))
+
+
+### Bug Fixes
+
+* [[#1572](https://github.com/cyfronet-fid/eosc-search-service/issues/1572)] duplicated funder filter ([0588a4c](https://github.com/cyfronet-fid/eosc-search-service/commit/0588a4ca7181d4a92026e1f04a4d6eabad89bc22))
+
 ## [2.27.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.26.0...v2.27.0) (2025-05-15)
 
 
