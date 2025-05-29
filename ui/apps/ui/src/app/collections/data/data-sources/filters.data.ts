@@ -17,7 +17,7 @@ export const dataSourcesFilters: IFiltersConfig = {
     {
       id: 'node',
       filter: 'node',
-      label: 'Node',
+      label: 'EOSC Node',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
@@ -156,7 +156,7 @@ export const dataSourcesFilters: IFiltersConfig = {
     {
       id: 'node',
       filter: 'node',
-      label: 'Node',
+      label: 'EOSC Node',
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',

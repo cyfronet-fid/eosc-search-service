@@ -39,7 +39,7 @@ export const trainingsAdapter: IAdapter = {
         showMoreThreshold: 10,
       },
       {
-        label: 'Node',
+        label: 'EOSC Node',
         values: toValueWithLabel(toArray(training?.node)),
         filter: 'node',
         showMoreThreshold: 4,

@@ -34,7 +34,7 @@ export const guidelinesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Node',
+        label: 'EOSC Node',
         values: toValueWithLabel(toArray(guideline?.node)),
         filter: 'node',
         showMoreThreshold: 4,
