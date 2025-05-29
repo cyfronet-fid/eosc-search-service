@@ -23,7 +23,7 @@ export const cataloguesAdapter: IAdapter = {
     },
     tags: [
       {
-        label: 'Node',
+        label: 'EOSC Node',
         values: toValueWithLabel(toArray(catalogue?.node)),
         filter: 'node',
         showMoreThreshold: 4,

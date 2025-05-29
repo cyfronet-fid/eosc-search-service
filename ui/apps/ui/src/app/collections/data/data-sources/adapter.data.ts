@@ -41,7 +41,7 @@ export const dataSourcesAdapter: IAdapter = {
     coloredTags: [],
     tags: [
       {
-        label: 'Node',
+        label: 'EOSC Node',
         values: toValueWithLabel(toArray(dataSource?.node)),
         filter: 'node',
         showMoreThreshold: 4,

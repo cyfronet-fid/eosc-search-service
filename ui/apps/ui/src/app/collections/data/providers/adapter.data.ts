@@ -39,7 +39,7 @@ export const providersAdapter: IAdapter = {
     ],
     tags: [
       {
-        label: 'Node',
+        label: 'EOSC Node',
         values: toValueWithLabel(toArray(provider?.node)),
         filter: 'node',
         showMoreThreshold: 4,
