@@ -35,5 +35,5 @@ export interface IProvider {
   title: string;
   _version_: number;
   type: IValueWithLabel;
-  node: string[];
+  node: string;
 }
