@@ -230,7 +230,7 @@ export const allCollectionsAdapter: IAdapter = {
               showMoreThreshold: 10,
             },
             {
-              label: 'Node',
+              label: 'EOSC Node',
               values: toValueWithLabel(toArray(data?.node)),
               filter: 'node',
               showMoreThreshold: 4,

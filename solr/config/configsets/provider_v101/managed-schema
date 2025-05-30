@@ -468,7 +468,7 @@
   <field name="multimedia_urls" type="strings" required="false"/>
   <field name="national_roadmaps" type="strings" required="false"/>
   <field name="networks" type="strings" required="false"/>
-  <field name="node" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="node" type="string" required="false"/>
   <field name="participating_countries" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="pid" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="popularity" type="pint" uninvertible="true" docValues="true" indexed="true" stored="true"/>

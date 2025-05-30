@@ -15,5 +15,5 @@ export interface IDataSource {
   horizontal: boolean;
   guidelines: string[];
   eosc_if: string[];
-  node: string[];
+  node: string;
 }
