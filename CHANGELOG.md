@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.29.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.28.0...v2.29.0) (2025-05-30)
+
+
+### Features
+
+* [[#1578](https://github.com/cyfronet-fid/eosc-search-service/issues/1578)] node as a string ([fd44622](https://github.com/cyfronet-fid/eosc-search-service/commit/fd44622f04d2b2714764f2fff5b7f83905c7dc34))
+* [[#1582](https://github.com/cyfronet-fid/eosc-search-service/issues/1582)] rename node to eosc node ([134e7a6](https://github.com/cyfronet-fid/eosc-search-service/commit/134e7a687612f7b146218327af98029014aef1b1))
+
 ## [2.28.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.27.0...v2.28.0) (2025-05-28)
 
 
