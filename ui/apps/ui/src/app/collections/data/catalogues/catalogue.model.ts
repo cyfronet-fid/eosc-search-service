@@ -11,5 +11,5 @@ export interface ICatalogue {
   publication_date: string;
   pid: string;
   type: IValueWithLabel;
-  node: string[];
+  node: string;
 }

@@ -33,7 +33,7 @@ export interface IGuideline {
   keywords?: string[];
   creators: string | '';
   related_services: Record<string, string>[];
-  node: string[];
+  node: string;
 }
 
 export interface ICreators {

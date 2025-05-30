@@ -455,6 +455,7 @@
   <field name="access_policies_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="access_types" type="strings" required="false"/>
   <field name="activate_message" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="alternative_ids" type="text_general"/>
   <field name="author_affiliations" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_affiliations_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="author_family_names" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -468,6 +469,7 @@
   <field name="bundle_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="capabilities_of_goals" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="catalogue" type="string" required="false"/>
+  <field name="catalogues" type="text_general"/>
   <field name="categories" type="strings" required="false" useDocValuesAsStored="true"/>
   <field name="certifications" type="strings" required="false"/>
   <field name="changelog" type="strings" required="false"/>
@@ -491,6 +493,7 @@
   <field name="duration" type="plong" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="eosc_guideline_type" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="eosc_if" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="eosc_if_tg" type="text_general"/>
   <field name="eosc_integration_options" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="eosc_provider" type="strings" required="false"/>
   <field name="eosc_related_standards" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -524,7 +527,7 @@
   <field name="maintenance_url" type="text_general" sortMissingLast="true" required="false"/>
   <field name="manual_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="multimedia_urls" type="text_general" sortMissingLast="true" required="false"/>
-  <field name="node" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="node" type="string" required="false"/>
   <field name="offer_ids" type="pints" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="offers_count" type="pint" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="open_access" type="boolean" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
@@ -693,4 +696,7 @@
   <copyField source="relatedStandards.relatedStandardIdentifier" dest="relatedStandards.relatedStandardIdentifier_str" maxChars="256"/>
   <copyField source="delete" dest="delete_str" maxChars="256"/>
   <copyField source="research_product_metadata_license_urls" dest="research_product_metadata_license_urls_str" maxChars="256"/>
+  <copyField source="catalogues" dest="catalogues_str" maxChars="256"/>
+  <copyField source="eosc_if_tg" dest="eosc_if_tg_str" maxChars="256"/>
+  <copyField source="alternative_ids" dest="alternative_ids_str" maxChars="256"/>
 </schema>

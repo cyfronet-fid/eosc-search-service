@@ -28,5 +28,5 @@ export interface ITraining {
   learning_outcomes?: string[];
   geographical_availabilities?: string[];
   scientific_domains: string[];
-  node: string[];
+  node: string;
 }
