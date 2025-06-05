@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.30.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.29.0...v2.30.0) (2025-06-05)
+
+
+### Features
+
+* [[#1591](https://github.com/cyfronet-fid/eosc-search-service/issues/1591)] display node for oag resources ([58c7102](https://github.com/cyfronet-fid/eosc-search-service/commit/58c7102537fc2feaee0fd60894daea9cd8026a1f))
+
 ## [2.29.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.28.0...v2.29.0) (2025-05-30)
 
 
