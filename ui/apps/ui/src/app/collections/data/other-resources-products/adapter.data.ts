@@ -46,6 +46,12 @@ export const otherResourcesProductsAdapter: IAdapter = {
         showMoreThreshold: 10,
       },
       {
+        label: 'EOSC Node',
+        values: toValueWithLabel(toArray(openAIREResult.node)),
+        filter: 'node',
+        showMoreThreshold: 4,
+      },
+      {
         label: 'Scientific domain',
         values: toValueWithLabel(toArray(openAIREResult?.scientific_domains)),
         filter: 'scientific_domains',

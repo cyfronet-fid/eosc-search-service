@@ -26,6 +26,7 @@ export interface IOpenAIREResult {
   exportation: InstanceExportData[];
   eosc_if: string[];
   related_organisation_titles: string[];
+  node: string;
 }
 
 export interface InstanceExportData {
