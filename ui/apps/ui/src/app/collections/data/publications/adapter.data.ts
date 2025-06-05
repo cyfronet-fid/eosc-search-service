@@ -46,6 +46,12 @@ export const publicationsAdapter: IAdapter = {
         showMoreThreshold: 10,
       },
       {
+        label: 'EOSC Node',
+        values: toValueWithLabel(toArray(openAIREResult.node)),
+        filter: 'node',
+        showMoreThreshold: 4,
+      },
+      {
         label: 'Publisher',
         values: toValueWithLabel(toArray(openAIREResult?.publisher)),
         filter: 'publisher',

@@ -15,6 +15,15 @@ export const datasetsFilters: IFiltersConfig = {
   id: URL_PARAM_NAME,
   filters: [
     {
+      id: 'node',
+      filter: 'node',
+      label: 'EOSC Node',
+      type: 'multiselect',
+      defaultCollapsed: false,
+      tooltipText: '',
+      expandArrow: true,
+    },
+    {
       id: 'unified_categories',
       filter: 'unified_categories',
       label: 'Research step',
@@ -132,6 +141,14 @@ export const datasetsFilters: IFiltersConfig = {
       defaultCollapsed: true,
       tooltipText: SDG_TOOLTIP_TEXT,
       expandArrow: true,
+    },
+    {
+      id: 'node',
+      filter: 'node',
+      label: 'EOSC Node',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
     },
     {
       id: 'publisher',
