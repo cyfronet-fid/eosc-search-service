@@ -459,7 +459,13 @@ btn-primary.disabled,
   mask-image: url(assets/icon-type-guidelines.svg);
 }
 
-#sub-nav a.Guidelines::after {
+#sub-nav a.Adapters::before {
+  background-color: #000;
+  -webkit-mask-image: url(assets/icon-type-adapter.svg);
+  mask-image: url(assets/icon-type-adapter.svg);
+}
+
+#sub-nav a.Adapters::after {
   position: absolute;
   content: '[BETA]';
   top: 2px;
@@ -920,6 +926,14 @@ h6 {
 
     .type-icon {
       background-image: url('assets/icon-type-provider.svg');
+    }
+  }
+
+  &.adapter {
+    border-color: #91aad2;
+
+    .type-icon {
+      background-image: url('assets/icon-type-adapter.svg');
     }
   }
 }

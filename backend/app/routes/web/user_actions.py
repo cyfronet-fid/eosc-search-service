@@ -33,6 +33,7 @@ async def register_navigation_user_action(
     url: str,
     resource_id: str,
     resource_type: Literal[
+        "adapter",
         "service",
         "publication",
         "dataset",

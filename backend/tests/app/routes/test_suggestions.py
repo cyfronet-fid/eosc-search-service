@@ -61,7 +61,7 @@ async def test_suggestions_dispatch_collections(
         json={},
     )
     assert res.status_code == status.HTTP_200_OK
-    assert mock_post_search.call_count == 9
+    assert mock_post_search.call_count == 10
 
 
 @pytest.mark.parametrize(

@@ -30,10 +30,12 @@ async def bibliography_export_all_formats(pid: str):
     Args:
         pid(str): PID of a document (currently only DOI) to fetch the data for.
     """
-    gathered_results = await asyncio.gather(*[
-        _get_bibliography_record(pid=pid, entry_format=entry_format)
-        for entry_format in EntryFormat
-    ])
+    gathered_results = await asyncio.gather(
+        *[
+            _get_bibliography_record(pid=pid, entry_format=entry_format)
+            for entry_format in EntryFormat
+        ]
+    )
     filtered_results = []
     for result in gathered_results:
         if isinstance(result, BibliographyRecordResponse):
