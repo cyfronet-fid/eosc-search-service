@@ -63,6 +63,7 @@ export interface IResult {
   relatedOrganisationTitles?: string[];
   pid?: string;
   funder?: string[];
+  programmingLanguage?: string;
 }
 
 export interface RelatedService {
