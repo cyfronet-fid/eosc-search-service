@@ -40,6 +40,7 @@ class Collection(str, Enum):
     ORGANISATION = "organisation"
     PROJECT = "project"
     CATALOGUE = "catalogue"
+    ADAPTER = "adapter"
 
 
 ALL_COLLECTION_LIST = [
@@ -52,8 +53,8 @@ ALL_COLLECTION_LIST = [
     Collection.GUIDELINE,
     Collection.BUNDLE,
     Collection.OTHER_RP,
+    Collection.ADAPTER,
 ]
-
 
 ResearchProductCollection: TypeAlias = Literal[
     Collection.PUBLICATION, Collection.DATASET, Collection.SOFTWARE, Collection.OTHER_RP
@@ -82,6 +83,7 @@ class PanelId(str, Enum):
     TRAININGS = "trainings"
     SOFTWARE = "software"
     BUNDLE = "bundle"
+    ADAPTERS = "adapters"
 
 
 # Mapping Solr collection names to recommender names [panel_id]
@@ -95,6 +97,7 @@ COLLECTION_TO_PANEL_ID_MAP = {
     Collection.TRAINING: PanelId.TRAININGS,
     Collection.SOFTWARE: PanelId.SOFTWARE,
     Collection.BUNDLE: PanelId.BUNDLE,
+    Collection.ADAPTER: PanelId.ADAPTERS,
 }
 
 PANEL_ID_OPTIONS = [

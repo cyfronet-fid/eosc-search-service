@@ -6,6 +6,7 @@ import {
   ITag,
   IValueWithLabel,
   IValueWithLabelAndLink,
+  RelatedService,
 } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +17,6 @@ import { RedirectService } from '@collections/services/redirect.service';
 import { HttpClient } from '@angular/common/http';
 import { IOffer } from '@collections/data/bundles/bundle.model';
 import isArray from 'lodash-es/isArray';
-import { RelatedService } from '@collections/repositories/types';
 import { InstanceExportData } from '@collections/data/openair.model';
 import { SPECIAL_COLLECTIONS } from '@collections/data/config';
 import moment from 'moment';
@@ -174,6 +174,7 @@ export class ResultComponent implements OnInit {
     this.highlightsreal = highlights;
     return;
   }
+
   public hasDOIUrl = false;
 
   public collection: string = '';
@@ -406,6 +407,7 @@ export class ResultComponent implements OnInit {
         catalogue: 'Catalogue',
         'data source': 'Data Source',
         'interoperability guideline': 'Interoperability Guideline',
+        adapter: 'Adapter',
       };
       return type in humanReadableDict
         ? humanReadableDict[type]
