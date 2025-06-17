@@ -40,6 +40,7 @@ class Collection(str, Enum):
     ORGANISATION = "organisation"
     PROJECT = "project"
     CATALOGUE = "catalogue"
+    ADAPTER = "adapter"
 
 
 ALL_COLLECTION_LIST = [
@@ -52,6 +53,7 @@ ALL_COLLECTION_LIST = [
     Collection.GUIDELINE,
     Collection.BUNDLE,
     Collection.OTHER_RP,
+    Collection.ADAPTER,
 ]
 
 
