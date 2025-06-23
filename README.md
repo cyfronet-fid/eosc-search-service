@@ -144,6 +144,7 @@ See docker-compose.yml for components.
 - `DATABASE_URI`: `PostgresDsn = "postgresql+psycopg2://ess:ess@localhost:5442/ess"` - your database URI.
 - `MAX_RESULTS_BY_PAGE`: `int = 50` - how many results to fetch with a single call to SOLR backend.
 - `SHOW_BETA_COLLECTIONS`: `bool = False` - show collections that are in beta version?
+- `USER_ACTIONS_ENABLED`: `bool = False` - user actions tracking enabled? Instance scope.
 
 #### Services:
 ##### Solr
