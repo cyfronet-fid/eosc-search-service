@@ -87,8 +87,8 @@ async def register_navigation_user_action(
         )
         cookie.attach_to_response(response, cookie_session_id)
 
-    if not client:
-        logger.debug("No mqtt client, user action not sent")
+    if not settings.UA_ENABLED_INSTANCE_SCOPE or not client:
+        logger.debug("User actions disabled or jms client not available")
         return response
 
     # For now, the recommendation visit id will be stored in cookies by itself,

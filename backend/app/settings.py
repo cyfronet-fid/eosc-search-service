@@ -30,6 +30,7 @@ class GlobalSettings(BaseSettings):
     MAX_RESULTS_BY_PAGE: int = 20
     SHOW_BETA_COLLECTIONS: bool = False
     SHOW_KNOWLEDGE_BASE: bool = True
+    UA_ENABLED_INSTANCE_SCOPE: bool = False
 
     # Services
     # - Solr
