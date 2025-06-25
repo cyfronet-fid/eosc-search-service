@@ -1,50 +1,68 @@
+<ess-back-to-search-bar></ess-back-to-search-bar>
 <div class="adapter-detail-container container-xxl">
-  <ess-back-to-search-bar></ess-back-to-search-bar>
 
-  <div class="row">
+  <div class="row description-header">
     <div class="col-md-9">
       <div class="d-flex align-items-start mb-4">
-        <div class="me-4">
-          <div class="col-md-2 col-1">
+        <div class="description-placeholder">
             <img [src]="'assets/adapters.png'" alt="" class="img-fluid" />
-          </div>
         </div>
 
-        <div>
-          <h1 class="h3 mb-2">{{ adapter?.title }}</h1>
+        <div class="description-details">
+          <h2 class="font-weight-bolder mb-3">{{ adapter?.title }}</h2>
 
-          <ul class="list-inline mb-3">
-            <li class="list-inline-item badge bg-secondary">Adapter</li>
-          </ul>
+          <div class="resource-row row mb-3">
+            <span class="pin-value resource-type">Adapter</span>
+          </div>
 
-          <p class="mb-0">
-            <strong>Programming language:</strong>
-            {{ adapter?.programmingLanguage }}
-          </p>
-          <p *ngIf="adapter?.relatedGuidelineUrl" class="mb-0">
-            <strong>Guideline:</strong>
-            <a href="{{ redirectUrl(adapter?.relatedGuidelineUrl) }}">Link</a>
-          </p>
-          <p *ngIf="adapter?.relatedServiceUrl" class="mb-0">
-            <strong>Service:</strong>
-            <a href="{{ redirectUrl(adapter?.relatedServiceUrl) }}"> Link</a>
-          </p>
+          <dl class="mb-1 d-flex">
+            <dt>Programming language:</dt>
+            <dd>{{ adapter?.programmingLanguage }}</dd>
+          </dl>
+
+          <dl *ngIf="adapter?.relatedGuidelineUrl" class="mb-1 d-flex">
+            <dt>Guideline:</dt>
+            <dd><a href="{{ redirectUrl(adapter?.relatedGuidelineUrl) }}">Link</a></dd>
+          </dl>
+
+          <dl *ngIf="adapter?.relatedServiceUrl" class="mb-1 d-flex">
+            <dt>Service:</dt>
+            <dd><a href="{{ redirectUrl(adapter?.relatedServiceUrl) }}"> Link</a></dd>
+          </dl>
+
         </div>
       </div>
+    </div>
+    <div class="col-md-3">
 
-      <ul class="nav nav-tabs mb-3">
-        <li class="nav-item"><span class="nav-link active">About</span></li>
+    </div>
+  </div>
+
+  <div class="row description-body">
+    <div class="col-md-9">
+
+      <ul class="nav nav-tabs" id="my-tab" role="tablist">
+        <li class="nav-item">
+          <span class="nav-link active">About</span>
+        </li>
       </ul>
 
-      <p class="mb-4">
+      <div class="description-content mb-4">
         {{ adapter?.description }}
-      </p>
+      </div>
 
-      <div class="row g-3">
+      <div class="row description-blocks mb-5">
+
         <div class="col-md-3">
           <div class="card h-100">
             <div class="card-body">
-              <h6 class="card-title fw-bold">Management</h6>
+              <div class="card-title">
+                <div class="card-title-icon">
+                  <img src="assets/icon-management.svg" alt="Management">
+                </div>
+                <h6 class="card-title fw-bold">Management</h6>
+              </div>
+
               <ul class="list-unstyled small mb-0">
                 <li><strong>Licence</strong></li>
                 <li>{{ adapter?.license }}</li>
@@ -58,7 +76,12 @@
         <div class="col-md-3">
           <div class="card h-100">
             <div class="card-body">
-              <h6 class="card-title fw-bold">Change Log</h6>
+              <div class="card-title">
+                <div class="card-title-icon">
+                  <img src="assets/icon-changelog.svg" alt="Change Log">
+                </div>
+                <h6 class="card-title fw-bold">Change Log</h6>
+              </div>
               <ul class="list-unstyled small mb-0">
                 <li *ngFor="let change of adapter?.changelog">{{ change }}</li>
               </ul>
@@ -69,7 +92,30 @@
         <div class="col-md-3">
           <div class="card h-100">
             <div class="card-body">
-              <h6 class="card-title fw-bold">Classification</h6>
+              <div class="card-title">
+                <div class="card-title-icon">
+                  <img src="assets/icon-funding.svg" alt="Funding">
+                </div>
+                <h6 class="card-title fw-bold">Funding</h6>
+              </div>
+              <ul class="list-unstyled small mb-0">
+                <li>ACC Cyfronet AGH</li>
+                <li>Lorem ipsum dolor</li>
+                <li>ACC Cyfronet AGH</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="card-title">
+                <div class="card-title-icon">
+                  <img src="assets/icon-classification.svg" alt="Classification">
+                </div>
+                <h6 class="card-title fw-bold">Classification</h6>
+              </div>
               <ul class="list-unstyled small mb-0">
                 <li><strong>Node</strong></li>
                 <li>{{ adapter?.node }}</li>
@@ -79,16 +125,51 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
 
-    <div class="col-md-3">
-      <div class="card mb-4">
-        <ul class="list-group list-group-flush text-center">
-          <a class="list-group-item" href="{{ adapter?.documentationUrl }}"
-            >Documentation</a
-          >
+    <div class="col-md-3 pt-5">
+      <div class="right-panel-links">
+        <ul>
+          <li class="package_url">
+            <a class="list-group-item" href="#">Package</a>
+          </li>
+          <li class="documentation_url">
+            <a class="list-group-item" href="{{ adapter?.documentationUrl }}">Documentation</a>
+          </li>
+          <li class="repository_url">
+            <a class="list-group-item" href="#">Repository</a>
+          </li>
+
         </ul>
+      </div>
+
+      <div class="contact-panel mb-5">
+        <div class="card-title">
+          <div class="card-title-icon">
+            <img src="assets/icon-eye.svg" alt="Contact">
+          </div>
+          <h6 class="card-title fw-bold">Contact</h6>
+        </div>
+
+        <div class="card-body">
+          <dl>
+            <dt>Maintainers</dt>
+            <dd>Monika Kowalska</dd>
+          </dl>
+          <dl>
+            <dt>E-mail</dt>
+            <dd>contact&#64;cyfronet.pl</dd>
+          </dl>
+          <dl>
+            <dt>Organisation</dt>
+            <dd>ACC Cyfronet AGH</dd>
+          </dl>
+
+          <a href="#" class="organisation-link" target="_blank">Organisation URL -></a>
+        </div>
+
       </div>
     </div>
   </div>
