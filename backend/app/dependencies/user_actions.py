@@ -130,6 +130,11 @@ class UserActionClient:
 
 def user_actions_client() -> UserActionClient | None:
     """User actions databus client dependency"""
+    if not settings.USER_ACTIONS_ENABLED:
+        logger.debug(
+            "User actions disabled via USER_ACTIONS_ENABLED environment variable"
+        )
+        return None
 
     client = UserActionClient(
         settings.STOMP_HOST,
