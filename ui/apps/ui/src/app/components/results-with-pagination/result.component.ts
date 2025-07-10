@@ -40,6 +40,7 @@ export class ResultComponent implements OnInit {
     'dataset',
   ];
   isDoiCollection = false;
+  logoLoadFailed = false;
 
   @Input() id!: string;
   @Input() date?: string;
@@ -203,6 +204,7 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.setHasDOIUrl();
+    this.logoLoadFailed = false;
     this.collection = this._customRoute.collection() || '';
     this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(this.collection);
     this.isDoiCollection = this.doiCollections.includes(this.collection);
@@ -442,5 +444,9 @@ export class ResultComponent implements OnInit {
 
   _getFormattedFunderId(funder: string): string {
     return funder.replace(/\s+/g, '-');
+  }
+
+  onLogoError() {
+    this.logoLoadFailed = true;
   }
 }

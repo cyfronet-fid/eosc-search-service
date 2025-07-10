@@ -4,6 +4,7 @@
       type.value === 'data-source' ||
       type.value === 'provider' ||
       type.value === 'data source'||
+      type.value === 'adapter'||
       type.value === 'catalogue';
     else elseTypeIcon
   "
@@ -11,16 +12,20 @@
   <div class="type-icon-holder {{  type.label }}" style="flex: 115px 0 0">
     <div
       class="type-icon"
-      [ngStyle]="{
+      [ngStyle]="this.logoUrl && !this.logoLoadFailed ? {
         'background-image': 'url(' + this.logoUrl + ')',
-        width: '100%',
-        height: '100%',
-        'background-repeat': 'no-repeat',
-        'background-size': 'auto',
-        'background-position': 'top center',
-        margin: '25px auto'
-      }"
+        'background-size': '60px auto',
+        'width': '70px',
+        'height': '70px'
+      } : {}"
     ></div>
+    <img
+      *ngIf="this.logoUrl && !this.logoLoadFailed"
+      [src]="this.logoUrl"
+      (error)="onLogoError()"
+      style="display: none;"
+      alt=""
+    />
   </div>
 </ng-container>
 
@@ -342,6 +347,12 @@
       [hasDOIUrl]="hasDOIUrl"
       [exportData]="exportData"
     ></ess-bibliography>
+    <ess-package
+      class="bottom-action-link"
+      *ngIf="type.value === 'adapter'"
+      [title]="title"
+      [urls]="urls"
+    ></ess-package>
     <ess-pin
       *ngIf="RESOURCES_TO_SHOW_PIN_TO.includes(type.value)"
       [resourceType]="type.value"
