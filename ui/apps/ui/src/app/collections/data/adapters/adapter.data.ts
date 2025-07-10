@@ -29,6 +29,7 @@ export const adaptersAdapter: IAdapter = {
       rawAdapter?.programming_language
     ),
     documentationUrl: rawAdapter?.documentation_url,
+    logoUrl: rawAdapter?.logo,
     relatedServiceUrl:
       rawAdapter?.related_services && rawAdapter?.related_services?.length > 0
         ? `${
