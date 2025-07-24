@@ -3,13 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { AdaptersService } from '@pages/adapters-page/adapters.service';
 import { IResult } from '@collections/repositories/types';
-import { catchError, map, switchMap } from 'rxjs';
-import { Observable, of } from 'rxjs';
+import { map, switchMap } from 'rxjs';
 import { adaptersAdapter } from '@collections/data/adapters/adapter.data';
 import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
 import { RedirectService } from '@collections/services/redirect.service';
 import { HttpClient } from '@angular/common/http';
-import { ALLOWED_EXTENSIONS, FALLBACK_LOGO, MAX_IMAGE_SIZE } from './config';
+import { ALLOWED_EXTENSIONS, FALLBACK_LOGO } from './config';
 
 @UntilDestroy()
 @Component({

@@ -59,13 +59,12 @@ class GlobalSettings(BaseSettings):
     OIDC_HOST: Url = "https://core-proxy.sandbox.eosc-beyond.eu"
     OIDC_CLIENT_ID: str = "NO_CLIENT_ID"
     OIDC_CLIENT_SECRET: str = "NO_CLIENT_SECRET"
-    OIDC_AAI_NEW_API: bool = False
-    # Old OIDC API by default
-    OIDC_ISSUER: Url = urljoin(OIDC_HOST, "/oidc/")
-    OIDC_AUTH_ENDPOINT: str = "/oidc/authorize"
-    OIDC_TOKEN_ENDPOINT: str = "/oidc/token"
-    OIDC_USERINFO_ENDPOINT: str = "/oidc/userinfo"
-    OIDC_JWKS_ENDPOINT: str = "/oidc/jwk"
+
+    OIDC_ISSUER: Url = urljoin(OIDC_HOST, "/auth/realms/core")
+    OIDC_AUTH_ENDPOINT: str = "/auth/realms/core/protocol/openid-connect/auth"
+    OIDC_TOKEN_ENDPOINT: str = "/auth/realms/core/protocol/openid-connect/token"
+    OIDC_USERINFO_ENDPOINT: str = "/auth/realms/core/protocol/openid-connect/userinfo"
+    OIDC_JWKS_ENDPOINT: str = "/auth/realms/core/protocol/openid-connect/certs"
 
     # - Sentry
     SENTRY_DSN: Optional[str] = None
@@ -121,15 +120,6 @@ class EnvironmentConfig(GlobalSettings):
     def make_settings(self) -> GlobalSettings:
         """Make and return final settings"""
         s = self.TYPES_TO_SETTINGS_MAP[self.ENVIRONMENT]()
-        if s.OIDC_AAI_NEW_API:  # Adjust OIDC integration params for the new API
-            s.OIDC_ISSUER = urljoin(s.OIDC_HOST, "/auth/realms/core")
-            s.OIDC_JWKS_ENDPOINT = "/auth/realms/core/protocol/openid-connect/certs"
-            s.OIDC_USERINFO_ENDPOINT = (
-                "/auth/realms/core/protocol/openid-connect/userinfo"
-            )
-            s.OIDC_TOKEN_ENDPOINT = "/auth/realms/core/protocol/openid-connect/token"
-            s.OIDC_AUTH_ENDPOINT = "/auth/realms/core/protocol/openid-connect/auth"
-
         return s
 
 
