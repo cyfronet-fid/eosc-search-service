@@ -52,7 +52,10 @@ export const adaptersAdapter: IAdapter = {
       },
       {
         label: 'Programming language',
-        values: toValueWithLabel(toArray(rawAdapter.programming_language)),
+        values: toArray(rawAdapter.programming_language).map((lang) => ({
+          value: lang, // Raw value for filtering
+          label: formatProgrammingLanguage(lang), // Formatted label for display
+        })),
         filter: 'programming_language',
         showMoreThreshold: 4,
       },
