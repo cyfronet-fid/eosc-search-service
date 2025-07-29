@@ -37,14 +37,6 @@ export const adapterFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'node',
-      filter: 'node',
-      label: 'EOSC Node',
-      type: 'tag',
-      defaultCollapsed: false,
-      tooltipText: '',
-    },
-    {
       id: 'programming_language',
       filter: 'programming_language',
       label: 'Programming language',
@@ -53,6 +45,14 @@ export const adapterFilters: IFiltersConfig = {
       tooltipText: '',
       expandArrow: true,
       transformNodes: transformProgrammingLanguages,
+    },
+    {
+      id: 'node',
+      filter: 'node',
+      label: 'EOSC Node',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
     },
   ],
 };
