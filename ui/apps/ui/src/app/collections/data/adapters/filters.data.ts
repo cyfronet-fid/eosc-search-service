@@ -54,5 +54,13 @@ export const adapterFilters: IFiltersConfig = {
       defaultCollapsed: false,
       tooltipText: '',
     },
+    {
+      id: 'keywords',
+      filter: 'keywords',
+      label: 'Keywords',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
   ],
 };

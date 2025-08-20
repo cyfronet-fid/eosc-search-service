@@ -26,7 +26,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { ShareModule } from '../../layouts/share/share.module';
 import { PageHeaderModule } from '@components/page-header/page-header.module';
 import { IgServicesCardModule } from '../../layouts/ig-services-card/ig-services-card.module';
-import { PackageComponent } from '../package/package.component';
+import { RepositoryComponent } from '@components/repository/repository.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { PackageComponent } from '../package/package.component';
     ShowRelatedResourceComponent,
     PinStaticComponent,
     SourcesComponent,
-    PackageComponent,
+    RepositoryComponent,
   ],
   imports: [
     CommonModule,

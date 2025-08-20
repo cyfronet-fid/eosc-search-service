@@ -32,6 +32,21 @@
               <a href="{{ redirectUrl(adapter?.relatedServiceUrl) }}"> Link</a>
             </dd>
           </dl>
+
+          <!-- Keywords Section -->
+          <div *ngIf="adapter?.secondaryTags?.length" class="keywords-section mt-3">
+            <ng-container *ngFor="let tag of adapter?.secondaryTags">
+              <dl class="mb-1 d-flex" *ngIf="tag?.values?.length">
+                <dt>{{ tag.label || 'Tag' }}</dt>
+                <dd class="keywords-list">
+                  <span *ngFor="let value of tag.values; let last = last" class="keyword-tag">
+                    {{ value.label }}<span *ngIf="!last">, </span>
+                  </span>
+                </dd>
+              </dl>
+            </ng-container>
+          </div>
+
         </div>
       </div>
     </div>
@@ -47,7 +62,7 @@
       </ul>
 
       <div class="description-content mb-4">
-        {{ adapter?.description }}
+        {{ stripHtml(adapter?.description) }}
       </div>
 
       <div class="row description-blocks mb-5">
@@ -62,44 +77,12 @@
               </div>
 
               <ul class="list-unstyled small mb-0">
-                <li><strong>Licence</strong></li>
+                <li class="mt-2"><strong>Version</strong></li>
+                <li>{{ adapter?.version }}</li>
+                <li class="mt-2"><strong>License</strong></li>
                 <li>{{ adapter?.license }}</li>
-                <li class="mt-2"><strong>Publication date</strong></li>
+                <li class="mt-2"><strong>Last update</strong></li>
                 <li>{{ adapter?.date }}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="card-title">
-                <div class="card-title-icon">
-                  <img src="assets/icon-changelog.svg" alt="Change Log" />
-                </div>
-                <h6 class="card-title fw-bold">Change Log</h6>
-              </div>
-              <ul class="list-unstyled small mb-0">
-                <li *ngFor="let change of adapter?.changelog">{{ change }}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="card-title">
-                <div class="card-title-icon">
-                  <img src="assets/icon-funding.svg" alt="Funding" />
-                </div>
-                <h6 class="card-title fw-bold">Funding</h6>
-              </div>
-              <ul class="list-unstyled small mb-0">
-                <li>ACC Cyfronet AGH</li>
-                <li>Lorem ipsum dolor</li>
-                <li>ACC Cyfronet AGH</li>
               </ul>
             </div>
           </div>
@@ -121,11 +104,28 @@
                 <li><strong>Node</strong></li>
                 <li>{{ adapter?.node }}</li>
                 <li class="mt-2"><strong>Catalogue</strong></li>
-                <li>Catalogue name</li>
+                <li>{{ adapter?.catalogue }}</li>
               </ul>
             </div>
           </div>
         </div>
+
+        <div class="col-md-3">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="card-title">
+                <div class="card-title-icon">
+                  <img src="assets/icon-changelog.svg" alt="Change Log" />
+                </div>
+                <h6 class="card-title fw-bold">Change Log</h6>
+              </div>
+              <ul class="list-unstyled small mb-0">
+                <li *ngFor="let change of adapter?.changelog">{{ change }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -133,27 +133,29 @@
       <div class="right-panel-links">
         <ul>
           <li class="package_url">
-            <a class="list-group-item" href="#">Package</a>
+            <a class="list-group-item" href="{{ adapter?.repository }}">Repository</a>
           </li>
           <li class="documentation_url">
-            <a class="list-group-item" href="{{ adapter?.documentationUrl }}"
-              >Documentation</a
-            >
+            <a class="list-group-item" href="{{ adapter?.documentationUrl }}">Documentation</a>
           </li>
           <li class="repository_url">
-            <a class="list-group-item" href="#">Repository</a>
+            <span class="list-group-item">Releases</span>
+            <ul *ngIf="adapter?.releases?.length" class="releases-list">
+              <li *ngFor="let release of adapter?.releases">
+                <a [href]="release" target="_blank">{{ release | sliceRelease }}</a>
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
 
-      <div class="contact-panel mb-5">
+      <div class="contact-panel mb-5" *ngIf="adapter?.public_contacts">
         <div class="card-title">
           <div class="card-title-icon">
             <img src="assets/icon-eye.svg" alt="Contact" />
           </div>
           <h6 class="card-title fw-bold">Contact</h6>
         </div>
-
         <div class="card-body">
           <dl>
             <dt>Maintainers</dt>
@@ -167,10 +169,9 @@
             <dt>Organisation</dt>
             <dd>ACC Cyfronet AGH</dd>
           </dl>
-
-          <a href="#" class="organisation-link" target="_blank"
-            >Organisation URL -></a
-          >
+          <a href="#" class="organisation-link" target="_blank">
+            Organisation URL ->
+          </a>
         </div>
       </div>
     </div>
