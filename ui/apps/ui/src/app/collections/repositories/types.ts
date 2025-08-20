@@ -69,6 +69,12 @@ export interface IResult {
   changelog?: string[];
   node?: string;
   documentationUrl?: string;
+  repository?: string;
+  keywords?: string[];
+  catalogue?: string[];
+  public_contacts?: string[];
+  releases?: string[];
+  version?: string;
 }
 
 export interface RelatedService {

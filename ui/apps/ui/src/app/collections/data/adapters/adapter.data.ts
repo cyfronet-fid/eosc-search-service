@@ -10,6 +10,7 @@ import {
   formatProgrammingLanguage,
   formatPublicationDate,
   parseStatistics,
+  toKeywordsSecondaryTag,
 } from '@collections/data/utils';
 import { ConfigService } from '../../../services/config.service';
 import { IAdapterModel } from '@collections/data/adapters/adapter.model';
@@ -22,13 +23,17 @@ export const adaptersAdapter: IAdapter = {
     title: rawAdapter?.title?.join(' ') || '',
     description: rawAdapter?.description?.join(' ') || '',
     license: formatLicense(rawAdapter?.license),
-    date: formatPublicationDate(rawAdapter.last_update),
+    catalogue: rawAdapter?.catalogues,
+    releases: rawAdapter?.releases,
+    version: rawAdapter?.version,
+    date: formatPublicationDate(rawAdapter.publication_date),
     changelog: rawAdapter?.changelog,
     node: rawAdapter?.node,
     programmingLanguage: formatProgrammingLanguage(
       rawAdapter?.programming_language
     ),
     documentationUrl: rawAdapter?.documentation_url,
+    repository: rawAdapter?.repository,
     logoUrl: rawAdapter?.logo,
     relatedServiceUrl:
       rawAdapter?.related_services && rawAdapter?.related_services?.length > 0
@@ -42,6 +47,11 @@ export const adaptersAdapter: IAdapter = {
         ? '/guidelines/' + encodeURIComponent(rawAdapter.related_guidelines[0])
         : undefined,
     url: '/adapters/' + encodeURIComponent(rawAdapter?.id) || '',
+    collection: COLLECTION,
+    type: {
+      label: rawAdapter?.type || '',
+      value: rawAdapter?.type || '',
+    },
     coloredTags: [],
     tags: [
       {
@@ -60,12 +70,9 @@ export const adaptersAdapter: IAdapter = {
         showMoreThreshold: 4,
       },
     ],
-    type: {
-      label: rawAdapter?.type || '',
-      value: rawAdapter?.type || '',
-    },
-    collection: COLLECTION,
-    secondaryTags: [],
+    secondaryTags: [
+      toKeywordsSecondaryTag(rawAdapter.keywords ?? [], 'keywords'),
+    ],
     ...parseStatistics(rawAdapter),
   }),
 };

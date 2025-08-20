@@ -347,12 +347,11 @@
       [hasDOIUrl]="hasDOIUrl"
       [exportData]="exportData"
     ></ess-bibliography>
-    <ess-package
+    <ess-repository
       class="bottom-action-link"
-      *ngIf="type.value === 'adapter'"
-      [title]="title"
-      [urls]="urls"
-    ></ess-package>
+      *ngIf="type.value === 'adapter' && repository"
+      [repository]="repository"
+    ></ess-repository>
     <ess-pin
       *ngIf="RESOURCES_TO_SHOW_PIN_TO.includes(type.value)"
       [resourceType]="type.value"

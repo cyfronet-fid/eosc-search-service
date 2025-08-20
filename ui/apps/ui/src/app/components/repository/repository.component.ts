@@ -1,16 +1,16 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'ess-package',
+  selector: 'ess-repository',
   template: `
-    <div>
-      <a href="javascript:void(0)" class="link-package">
+    <div *ngIf="repository">
+      <a [href]="repository" target="_blank" class="link-repository">
         <img
           src="/assets/icon-website.svg"
-          alt="Package"
-          class="package-icon"
+          alt="Repository"
+          class="repository-icon"
         />
-        <span class="package-label">Package</span>
+        <span class="repository-label">{{ title || 'Repository' }}</span>
       </a>
     </div>
   `,
@@ -20,7 +20,7 @@ import { Component, Input } from '@angular/core';
         display: block;
       }
 
-      .link-package {
+      .link-repository {
         display: flex;
         align-items: center;
         text-decoration: none;
@@ -29,19 +29,19 @@ import { Component, Input } from '@angular/core';
         font-weight: 500;
       }
 
-      .package-icon {
+      .repository-icon {
         width: 16px;
         height: 16px;
         margin-right: 4px;
       }
 
-      .package-label {
+      .repository-label {
         line-height: 18px;
       }
     `,
   ],
 })
-export class PackageComponent {
+export class RepositoryComponent {
   @Input() title: string = '';
-  @Input() urls: string[] = [];
+  @Input() repository?: string;
 }

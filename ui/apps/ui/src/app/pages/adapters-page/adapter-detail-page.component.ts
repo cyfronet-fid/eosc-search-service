@@ -87,4 +87,11 @@ export class AdapterDetailPageComponent implements OnInit {
       urlWithoutQuery.toLowerCase().endsWith(ext)
     );
   }
+
+  stripHtml(html: string | string[] | null | undefined): string {
+    if (!html) return '';
+
+    const str = Array.isArray(html) ? html.join(' ') : html;
+    return str.replace(/<[^>]*>/g, ''); // remove all HTML tags
+  }
 }
