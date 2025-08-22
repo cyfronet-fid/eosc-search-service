@@ -6,13 +6,13 @@ import {
   toArray,
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
-import { transformLanguages } from '@collections/data/shared-tags';
+import { transformLanguages } from '../shared-tags';
 import {
   parseStatistics,
   toInterPatternsSecondaryTag,
   toKeywordsSecondaryTag,
-} from '@collections/data/utils';
-import { ConfigService } from '../../../services/config.service';
+} from '../utils';
+import { buildServiceUrl } from '../url-builder-utils';
 
 export const dataSourcesAdapter: IAdapter = {
   id: URL_PARAM_NAME,
@@ -28,15 +28,9 @@ export const dataSourcesAdapter: IAdapter = {
       label: dataSource.type || '',
       value: (dataSource.type || '')?.replace(/ +/gm, '-'),
     },
-    url: `${
-      ConfigService.config?.marketplace_url
-    }/services/${encodeURIComponent(dataSource.pid || '')}`,
-    logoUrl: `${
-      ConfigService.config?.marketplace_url
-    }/services/${encodeURIComponent(dataSource.pid || '')}/logo`,
-    orderUrl: `${
-      ConfigService.config?.marketplace_url
-    }/services/${encodeURIComponent(dataSource.pid || '')}/offers`,
+    url: buildServiceUrl(dataSource),
+    logoUrl: buildServiceUrl(dataSource, '/logo'),
+    orderUrl: buildServiceUrl(dataSource, '/offers'),
     collection: COLLECTION,
     coloredTags: [],
     tags: [
