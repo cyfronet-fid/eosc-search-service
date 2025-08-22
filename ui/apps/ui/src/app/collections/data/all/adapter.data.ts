@@ -11,6 +11,7 @@ import { IDataSource } from '@collections/data/data-sources/data-source.model';
 import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { IService } from '@collections/data/services/service.model';
+import { IAdapterModel } from '@collections/data/adapters/adapter.model';
 import {
   toArray,
   toValueWithLabel,
@@ -47,7 +48,8 @@ const extractDate = (
       ITraining &
       IGuideline &
       IBundle &
-      IProvider
+      IProvider &
+      IAdapterModel
   >
 ) => {
   switch (data.type) {
@@ -59,6 +61,7 @@ const extractDate = (
     case 'software':
     case 'dataset':
     case 'training':
+    case 'adapter':
     case 'other':
       return formatPublicationDate(data['publication_date']);
     default:
@@ -74,7 +77,8 @@ const setIsResearchProduct = (
       ITraining &
       IGuideline &
       IBundle &
-      IProvider
+      IProvider &
+      IAdapterModel
   >
 ) => {
   switch (data.type) {
@@ -98,7 +102,8 @@ export const allCollectionsAdapter: IAdapter = {
         IService &
         IGuideline &
         IBundle &
-        IProvider
+        IProvider &
+        IAdapterModel
     > & {
       id: string;
     }

@@ -7,6 +7,7 @@ import { IBundle } from './bundles/bundle.model';
 import { IOpenAIREResult } from './openair.model';
 import { ITraining } from './trainings/training.model';
 import { IGuideline } from './guidelines/guideline.model';
+import { IAdapterModel } from './adapters/adapter.model';
 
 // Type for entities that can have pid/slug identifiers
 // Using union instead of intersection to avoid conflicting property types
@@ -19,6 +20,7 @@ type IdentifiableEntity = Partial<
   | IOpenAIREResult
   | ITraining
   | IGuideline
+  | IAdapterModel
 > & {
   pid?: string;
   slug?: string;
@@ -118,6 +120,9 @@ export const getEntityUrl = (
 
     case 'interoperability guideline':
       return '/guidelines/' + encodeURIComponent(entity.id || '');
+
+    case 'adapter':
+      return '/adapters/' + encodeURIComponent(entity?.id || '');
 
     default:
       return '';
