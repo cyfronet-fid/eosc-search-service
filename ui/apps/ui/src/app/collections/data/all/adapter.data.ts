@@ -24,112 +24,13 @@ import {
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
-import { ConfigService } from '../../../services/config.service';
 import { IBundle } from '@collections/data/bundles/bundle.model';
 import { IProvider } from '@collections/data/providers/provider.model';
-
-const urlAdapter = (
-  type: string,
-  data: Partial<
-    IOpenAIREResult &
-      IDataSource &
-      IService &
-      ITraining &
-      IGuideline &
-      IBundle &
-      IProvider
-  >
-) => {
-  switch (type) {
-    case 'dataset':
-    case 'publication':
-    case 'software':
-    case 'other':
-      return `${
-        ConfigService.config?.eosc_explore_url
-      }/search/result?id=${encodeURIComponent(
-        data.id?.split('|')?.pop() || ''
-      )}`;
-    case 'data source':
-    case 'service':
-      return `${
-        ConfigService.config?.marketplace_url
-      }/services/${encodeURIComponent(data.pid || '')}`;
-
-    case 'bundle':
-      return `${
-        ConfigService.config?.marketplace_url
-      }/services/${encodeURIComponent(data.service_id || '')}`;
-
-    case 'provider':
-      return `${
-        ConfigService.config?.marketplace_url
-      }/providers/${encodeURIComponent(data.pid || '')}`;
-
-    case 'training':
-      return '/trainings/' + encodeURIComponent(data.id || '');
-
-    case 'interoperability guideline':
-      return '/guidelines/' + encodeURIComponent(data.id || '');
-
-    default:
-      return '';
-  }
-};
-
-const logoUrlAdapter = (
-  type: string,
-  data: Partial<
-    IOpenAIREResult &
-      IDataSource &
-      IService &
-      ITraining &
-      IGuideline &
-      IBundle &
-      IProvider
-  >
-) => {
-  switch (type) {
-    case 'data source':
-    case 'service':
-      return `${
-        ConfigService.config?.marketplace_url
-      }/services/${encodeURIComponent(data.pid || '')}/logo`;
-    case 'provider':
-      return `${
-        ConfigService.config?.marketplace_url
-      }/providers/${encodeURIComponent(data?.pid || '')}/logo`;
-    default:
-      return undefined;
-  }
-};
-
-const orderUrlAdapter = (
-  type: string,
-  data: Partial<
-    IOpenAIREResult &
-      IDataSource &
-      IService &
-      ITraining &
-      IGuideline &
-      IBundle &
-      IProvider
-  >
-) => {
-  switch (type) {
-    case 'data source':
-    case 'service':
-      return `${
-        ConfigService.config?.marketplace_url
-      }/services/${encodeURIComponent(data.pid || '')}/offers`;
-    case 'bundle':
-      return `${
-        ConfigService.config?.marketplace_url
-      }/services/${encodeURIComponent(data.service_id || '')}/offers`;
-    default:
-      return undefined;
-  }
-};
+import {
+  getEntityLogoUrl,
+  getEntityOrderUrl,
+  getEntityUrl,
+} from '../url-builder-utils';
 
 const forInteroperabilityGuidelinesValueAdapter = (value: string = '') => {
   const valueToLowerCase = value.toLowerCase();
@@ -209,9 +110,9 @@ export const allCollectionsAdapter: IAdapter = {
     documentType: data?.document_type,
     date: extractDate(data),
     languages: transformLanguages(data?.language),
-    url: urlAdapter(data.type || '', data),
-    logoUrl: logoUrlAdapter(data.type || '', data),
-    orderUrl: orderUrlAdapter(data.type || '', data),
+    url: getEntityUrl(data.type || '', data),
+    logoUrl: getEntityLogoUrl(data.type || '', data),
+    orderUrl: getEntityOrderUrl(data.type || '', data),
     exportData: data.exportation || [],
     urls: data.url,
     horizontal: data?.horizontal,
