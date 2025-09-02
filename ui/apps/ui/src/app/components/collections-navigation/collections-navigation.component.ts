@@ -259,7 +259,7 @@ import { ConfigService } from '../../services/config.service';
             </a>
             <div class="submenu">
               <div class="left">
-                <a href="#" class="item" style="display: none;">
+                <a href="/search/adapter?q=*" class="item">
                   <div class="title">Libraries</div>
                   <div class="desc">
                     Integration libraries enabling composability of services.
