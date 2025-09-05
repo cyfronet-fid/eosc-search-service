@@ -15,6 +15,7 @@ export interface BackendConfig {
   is_sort_by_relevance: boolean;
   max_results_by_page: number;
   show_beta_collections: boolean;
+  show_knowledge_base: boolean;
 }
 
 @Injectable({

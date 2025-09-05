@@ -20,7 +20,7 @@ jobs:
     - name: Check with black
       run: |
         pipenv run black --version
-        pipenv run black --check --preview alembic app tests
+        pipenv run black --check alembic app tests
       working-directory: ./backend
     - name: Check with isort
       run: |

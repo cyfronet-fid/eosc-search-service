@@ -35,6 +35,13 @@ const appRoutes: Routes = [
       ),
   },
   {
+    path: 'adapters',
+    loadChildren: () =>
+      import('./pages/adapters-page/adapters-page.module').then(
+        (m) => m.AdaptersPageModule
+      ),
+  },
+  {
     path: 'acceptable-use-policy',
     pathMatch: 'full',
     loadChildren: () =>

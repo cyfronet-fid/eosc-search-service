@@ -133,6 +133,26 @@ export const constructIdentifierTag = (
   ];
 };
 
+export const formatProgrammingLanguage = (
+  rawProgrammingLanguage: string | undefined
+): string => {
+  if (rawProgrammingLanguage === undefined) {
+    return 'unknown';
+  }
+  return rawProgrammingLanguage.startsWith('adapter_programming_language-')
+    ? rawProgrammingLanguage.split('-')[1]
+    : rawProgrammingLanguage;
+};
+
+export const formatLicense = (rawLicence: string | undefined): string => {
+  if (rawLicence === undefined) {
+    return 'unknown';
+  }
+  return rawLicence.startsWith('adapter_license-')
+    ? rawLicence.split('-')[1]
+    : rawLicence;
+};
+
 // TODO: These should be fetched dynamically from the backend
 export const transformDataSourceNames = (
   nodes: IFilterNode[]
@@ -177,4 +197,20 @@ export const transformBoolean = (nodes: IFilterNode[]): IFilterNode[] => {
       name: ['true', 'yes'].includes(node.name.toLowerCase()) ? 'Yes' : 'No',
     };
   });
+};
+
+export const transformProgrammingLanguages = (
+  nodes: IFilterNode[]
+): IFilterNode[] => {
+  return nodes.map((node) => ({
+    ...node,
+    name: formatProgrammingLanguage(node.name),
+  }));
+};
+
+export const transformLicense = (nodes: IFilterNode[]): IFilterNode[] => {
+  return nodes.map((node) => ({
+    ...node,
+    name: formatLicense(node.name),
+  }));
 };

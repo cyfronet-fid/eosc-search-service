@@ -6,6 +6,7 @@ import {
   ITag,
   IValueWithLabel,
   IValueWithLabelAndLink,
+  RelatedService,
 } from '@collections/repositories/types';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,7 +17,6 @@ import { RedirectService } from '@collections/services/redirect.service';
 import { HttpClient } from '@angular/common/http';
 import { IOffer } from '@collections/data/bundles/bundle.model';
 import isArray from 'lodash-es/isArray';
-import { RelatedService } from '@collections/repositories/types';
 import { InstanceExportData } from '@collections/data/openair.model';
 import { SPECIAL_COLLECTIONS } from '@collections/data/config';
 import moment from 'moment';
@@ -40,6 +40,7 @@ export class ResultComponent implements OnInit {
     'dataset',
   ];
   isDoiCollection = false;
+  logoLoadFailed = false;
 
   @Input() id!: string;
   @Input() date?: string;
@@ -48,6 +49,7 @@ export class ResultComponent implements OnInit {
   @Input() url: string = '';
   @Input() logoUrl?: string;
   @Input() orderUrl?: string;
+  @Input() repository?: string;
 
   @Input() isResearchProduct = false;
   @Input() description!: string;
@@ -174,6 +176,7 @@ export class ResultComponent implements OnInit {
     this.highlightsreal = highlights;
     return;
   }
+
   public hasDOIUrl = false;
 
   public collection: string = '';
@@ -202,6 +205,7 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.setHasDOIUrl();
+    this.logoLoadFailed = false;
     this.collection = this._customRoute.collection() || '';
     this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(this.collection);
     this.isDoiCollection = this.doiCollections.includes(this.collection);
@@ -406,6 +410,7 @@ export class ResultComponent implements OnInit {
         catalogue: 'Catalogue',
         'data source': 'Data Source',
         'interoperability guideline': 'Interoperability Guideline',
+        adapter: 'Adapter',
       };
       return type in humanReadableDict
         ? humanReadableDict[type]
@@ -440,5 +445,9 @@ export class ResultComponent implements OnInit {
 
   _getFormattedFunderId(funder: string): string {
     return funder.replace(/\s+/g, '-');
+  }
+
+  onLogoError() {
+    this.logoLoadFailed = true;
   }
 }
