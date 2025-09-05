@@ -1,5 +1,23 @@
 # Changelog
 
+## [2.31.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.30.0...v2.31.0) (2025-09-05)
+
+
+### Features
+
+* [[#1555](https://github.com/cyfronet-fid/eosc-search-service/issues/1555)] Add adapters ([dcf8707](https://github.com/cyfronet-fid/eosc-search-service/commit/dcf87074c18e172f19bbaa4ca99c8f538108745b))
+* [[#1628](https://github.com/cyfronet-fid/eosc-search-service/issues/1628)] Add documentation needed for bronze SQA badge ([8b5f716](https://github.com/cyfronet-fid/eosc-search-service/commit/8b5f71641a42d51c36cb3dc1b1fba8c301744044))
+* [[#1645](https://github.com/cyfronet-fid/eosc-search-service/issues/1645)] adapters detail view and list view enhanced ([cc0aa13](https://github.com/cyfronet-fid/eosc-search-service/commit/cc0aa13a631c2c3a8c2c51777db01855661c415b))
+* [1603] Add adapter dynamic logo fetching ([5de2deb](https://github.com/cyfronet-fid/eosc-search-service/commit/5de2debe5cd566c5c19c1a2d33ddc79a835425e0))
+* [1638] Add new navigation ([#1626](https://github.com/cyfronet-fid/eosc-search-service/issues/1626)) ([4cc6262](https://github.com/cyfronet-fid/eosc-search-service/commit/4cc6262da11df08a1366bfc04891ade2295f9318))
+
+
+### Bug Fixes
+
+* [[#1624](https://github.com/cyfronet-fid/eosc-search-service/issues/1624)] adapter programming language tag wrapped ([be8bdaa](https://github.com/cyfronet-fid/eosc-search-service/commit/be8bdaa3d9e557d7345bf745eb1b59428cdd094d))
+* [[#1645](https://github.com/cyfronet-fid/eosc-search-service/issues/1645)] adapters in all collections ([924a171](https://github.com/cyfronet-fid/eosc-search-service/commit/924a1718cfe30c5a49c16ee22d1ae6764e58eeb2))
+* [[#1645](https://github.com/cyfronet-fid/eosc-search-service/issues/1645)] refactor redirection ([888caa7](https://github.com/cyfronet-fid/eosc-search-service/commit/888caa76da6aa024f58be08488815138d6e8035d))
+
 ## [2.30.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.29.0...v2.30.0) (2025-06-05)
 
 
