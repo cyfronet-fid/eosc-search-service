@@ -479,7 +479,11 @@
   <field name="contactperson" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="content_type" type="strings" required="false"/>
   <field name="country" type="strings" required="false"/>
+  <field name="creator_affiliations" type="text_general" uninvertible="false" docValues="false" multiValued="true" indexed="true" stored="true"/>
+  <field name="creator_identifiers" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="creator_names" type="text_general" uninvertible="false" docValues="false" multiValued="true" indexed="true" stored="true"/>
   <field name="creators" type="text_general" uninvertible="true" docValues="false" multiValued="false" indexed="true" stored="true"/>
+  <field name="creators_searchable" type="text_general" uninvertible="false" docValues="false" multiValued="true" indexed="true" stored="true"/>
   <field name="datasource_classification" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="datasource_pids" type="strings" indexed="true" stored="true"/>
   <field name="dedicated_for" type="strings" required="false"/>
