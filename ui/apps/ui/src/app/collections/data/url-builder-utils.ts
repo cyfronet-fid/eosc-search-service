@@ -8,6 +8,7 @@ import { IOpenAIREResult } from './openair.model';
 import { ITraining } from './trainings/training.model';
 import { IGuideline } from './guidelines/guideline.model';
 import { IAdapterModel } from './adapters/adapter.model';
+import { IDeployableServiceModel } from '@collections/data/deployable-services/deployable-service.model';
 
 // Type for entities that can have pid/slug identifiers
 // Using union instead of intersection to avoid conflicting property types
@@ -21,6 +22,7 @@ type IdentifiableEntity = Partial<
   | ITraining
   | IGuideline
   | IAdapterModel
+  | IDeployableServiceModel
 > & {
   pid?: string;
   slug?: string;
@@ -42,7 +44,7 @@ export const getEntityIdentifier = (entity: {
  * Builds marketplace URLs for different resource types
  */
 export const buildMarketplaceUrl = (
-  resourceType: 'services' | 'providers' | 'catalogues',
+  resourceType: 'services' | 'providers' | 'catalogues' | 'deployable_services',
   identifier: string,
   path: string = ''
 ): string => {
@@ -85,6 +87,17 @@ export const buildCatalogueUrl = (
 };
 
 /**
+ * Builds catalogue URLs with pid/slug fallback
+ */
+export const buildDeployableServiceUrl = (
+  entity: { slug?: string; pid?: string },
+  path: string = ''
+): string => {
+  const identifier = entity.slug || entity.pid || '';
+  return buildMarketplaceUrl('deployable_services', identifier, path);
+};
+
+/**
  * Gets the main URL for an entity based on its type
  */
 export const getEntityUrl = (
@@ -115,6 +128,8 @@ export const getEntityUrl = (
     case 'catalogue':
       return buildCatalogueUrl(entity);
 
+    case 'deployable service':
+      return buildDeployableServiceUrl(entity);
     case 'training':
       return '/trainings/' + encodeURIComponent(entity.id || '');
 
