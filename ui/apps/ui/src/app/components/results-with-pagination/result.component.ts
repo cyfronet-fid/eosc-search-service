@@ -410,6 +410,7 @@ export class ResultComponent implements OnInit {
         catalogue: 'Catalogue',
         'data source': 'Data Source',
         'interoperability guideline': 'Interoperability Guideline',
+        'deployable service': 'Deployable Service',
         adapter: 'Adapter',
       };
       return type in humanReadableDict

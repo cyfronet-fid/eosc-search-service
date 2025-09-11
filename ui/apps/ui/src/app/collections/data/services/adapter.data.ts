@@ -36,7 +36,6 @@ export const servicesAdapter: IAdapter = {
   ): IResult => ({
     isResearchProduct: false,
     id: service.id,
-    // basic information
     title: service.title?.join(' ') || '',
     description: service.description?.join(' ') || '',
     languages: transformLanguages(service?.language),

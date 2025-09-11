@@ -12,6 +12,7 @@ import { ITraining } from '@collections/data/trainings/training.model';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { IService } from '@collections/data/services/service.model';
 import { IAdapterModel } from '@collections/data/adapters/adapter.model';
+import { IDeployableServiceModel } from '@collections/data/deployable-services/deployable-service.model';
 import {
   toArray,
   toValueWithLabel,
@@ -49,7 +50,8 @@ const extractDate = (
       IGuideline &
       IBundle &
       IProvider &
-      IAdapterModel
+      IAdapterModel &
+      IDeployableServiceModel
   >
 ) => {
   switch (data.type) {
@@ -62,6 +64,7 @@ const extractDate = (
     case 'dataset':
     case 'training':
     case 'adapter':
+    case 'deployable service':
     case 'other':
       return formatPublicationDate(data['publication_date']);
     default:
@@ -78,7 +81,8 @@ const setIsResearchProduct = (
       IGuideline &
       IBundle &
       IProvider &
-      IAdapterModel
+      IAdapterModel &
+      IDeployableServiceModel
   >
 ) => {
   switch (data.type) {
@@ -103,7 +107,8 @@ export const allCollectionsAdapter: IAdapter = {
         IGuideline &
         IBundle &
         IProvider &
-        IAdapterModel
+        IAdapterModel &
+        IDeployableServiceModel
     > & {
       id: string;
     }
@@ -145,6 +150,12 @@ export const allCollectionsAdapter: IAdapter = {
               label: 'Organisation',
               values: toValueWithLabel(toArray(data?.resource_organisation)),
               filter: 'resource_organisation',
+            },
+            {
+              label: 'Authors',
+              values: toValueWithLabel(toArray(data.creator_names)),
+              filter: 'creator_names',
+              showMoreThreshold: 4,
             },
             {
               label: 'Identifier',

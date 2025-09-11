@@ -94,7 +94,19 @@ import { ConfigService } from '../../services/config.service';
             </a>
             <div class="submenu">
               <div class="left">
-                <a href="#" class="item" style="display: none;">
+                <a
+                  [routerLink]="['/search', 'deployable_service']"
+                  [queryParams]="{
+                    q: (q$ | async),
+                    standard: (st$ | async),
+                    exact: (ex$ | async),
+                    radioValueAuthor: (radioValueAuthor$ | async),
+                    radioValueExact: (radioValueExact$ | async),
+                    radioValueTitle: (radioValueTitle$ | async),
+                    radioValueKeyword: (radioValueKeyword$ | async)
+                  }"
+                  class="item"
+                >
                   <div class="title">Ready-to-run services</div>
                   <div class="desc">
                     Deploy open-source services automatically on cloud via TOSCA
