@@ -359,15 +359,15 @@
       style="border-right: none !important"
       class="bottom-action-link"
     ></ess-pin>
-    <ess-pin-static
-      *ngIf="
-        MP_RESOURCES_TO_SHOW_PIN_TO.includes(type.value) &&
-        redirectOrderUrl !== null
-      "
-      [type]="type.value"
-      [url]="redirectOrderUrl"
-      style="float: left"
-    ></ess-pin-static>
+<!--    <ess-pin-static-->
+<!--      *ngIf="-->
+<!--        MP_RESOURCES_TO_SHOW_PIN_TO.includes(type.value) &&-->
+<!--        redirectOrderUrl !== null-->
+<!--      "-->
+<!--      [type]="type.value"-->
+<!--      [url]="redirectOrderUrl"-->
+<!--      style="float: left"-->
+<!--    ></ess-pin-static>-->
     <div *ngIf="collection === 'provider' || collection === 'organisation' || collection === 'catalogue' ">
       <ess-related-resources
         [pid]="this.pid ?? ''"
