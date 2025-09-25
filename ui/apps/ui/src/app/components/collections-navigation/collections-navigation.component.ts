@@ -94,7 +94,19 @@ import { ConfigService } from '../../services/config.service';
             </a>
             <div class="submenu">
               <div class="left">
-                <a href="#" class="item" style="display: none;">
+                <a
+                  [routerLink]="['/search', 'deployable_service']"
+                  [queryParams]="{
+                    q: (q$ | async),
+                    standard: (st$ | async),
+                    exact: (ex$ | async),
+                    radioValueAuthor: (radioValueAuthor$ | async),
+                    radioValueExact: (radioValueExact$ | async),
+                    radioValueTitle: (radioValueTitle$ | async),
+                    radioValueKeyword: (radioValueKeyword$ | async)
+                  }"
+                  class="item"
+                >
                   <div class="title">Ready-to-run services</div>
                   <div class="desc">
                     Deploy open-source services automatically on cloud via TOSCA
@@ -252,17 +264,17 @@ import { ConfigService } from '../../services/config.service';
             <a class="menu-top-level">
               <img
                 src="assets/main-menu-04.svg"
-                alt="Standards & Libraries"
+                alt="Standards & Adapters"
                 class="icon"
               />
-              Standards & Libraries
+              Standards & Adapters
             </a>
             <div class="submenu">
               <div class="left">
                 <a href="/search/adapter?q=*" class="item">
-                  <div class="title">Libraries</div>
+                  <div class="title">Adapters</div>
                   <div class="desc">
-                    Integration libraries enabling composability of services.
+                    Integration adapters enabling composability of services.
                   </div>
                 </a>
                 <a
@@ -286,9 +298,9 @@ import { ConfigService } from '../../services/config.service';
                 </a>
               </div>
               <div class="right">
-                <div class="title">Standards & Libraries</div>
+                <div class="title">Standards & Adapters</div>
                 Access interoperability standards, configuration templates, and
-                integration libraries.
+                integration adapters.
               </div>
             </div>
           </li>

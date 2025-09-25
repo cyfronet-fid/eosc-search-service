@@ -121,6 +121,14 @@ export const allCollectionsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
+      id: 'creator_names',
+      filter: 'creator_names',
+      label: 'Authors',
+      type: 'tag',
+      defaultCollapsed: false,
+      tooltipText: '',
+    },
+    {
       id: 'scientific_domains',
       filter: 'scientific_domains',
       label: 'Scientific domain',
