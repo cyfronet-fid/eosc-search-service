@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.32.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.31.0...v2.32.0) (2025-09-25)
+
+
+### Features
+
+* [[#1671](https://github.com/cyfronet-fid/eosc-search-service/issues/1671)] rename libraries into adapters ([af4e9cf](https://github.com/cyfronet-fid/eosc-search-service/commit/af4e9cfd3cc031e75122e79011fc2fe72b64d5ad))
+* [[#1673](https://github.com/cyfronet-fid/eosc-search-service/issues/1673)] display deployable services ([f10de47](https://github.com/cyfronet-fid/eosc-search-service/commit/f10de477b2ceeba36d2b62b20469ed8364e388d0))
+
+
+### Bug Fixes
+
+* dont display access the button ([1db4955](https://github.com/cyfronet-fid/eosc-search-service/commit/1db4955e56f24d87033a8c4e9e11b5b775b9dbcc))
+
 ## [2.31.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.30.0...v2.31.0) (2025-09-05)
 
 
