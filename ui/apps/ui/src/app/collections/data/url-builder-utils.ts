@@ -44,12 +44,21 @@ export const getEntityIdentifier = (entity: {
  * Builds marketplace URLs for different resource types
  */
 export const buildMarketplaceUrl = (
-  resourceType: 'services' | 'providers' | 'catalogues' | 'deployable_services',
+  resourceType:
+    | 'services'
+    | 'providers'
+    | 'catalogues'
+    | 'deployable_services'
+    | 'adapters',
   identifier: string,
   path: string = ''
 ): string => {
   const baseUrl = ConfigService.config?.marketplace_url;
   const encodedIdentifier = encodeURIComponent(identifier);
+  // console.log(
+  //   `baseUrl: ${baseUrl} / resourceType: ${resourceType} / encodedIdentifier: ${encodedIdentifier} path:${path}`
+  // );
+  // console.log(`${baseUrl}/${resourceType}/${encodedIdentifier}${path}`);
   return `${baseUrl}/${resourceType}/${encodedIdentifier}${path}`;
 };
 
@@ -84,6 +93,15 @@ export const buildCatalogueUrl = (
 ): string => {
   const identifier = getEntityIdentifier(entity);
   return buildMarketplaceUrl('catalogues', identifier, path);
+};
+
+/**
+ * Builds adapter URLs with pid/slug fallback
+ */
+export const buildAdapterUrl = (entity: {
+  logoUrl?: string;
+}): string | undefined => {
+  return entity.logoUrl;
 };
 
 /**
@@ -149,7 +167,9 @@ export const getEntityUrl = (
  */
 export const getEntityLogoUrl = (
   type: string,
-  entity: { pid?: string; slug?: string }
+  // entity: { pid?: string; slug?: string; logoUrl?: string },
+  entity: { pid?: string; slug?: string },
+  logoUrl?: string
 ): string | undefined => {
   switch (type) {
     case 'data source':
@@ -161,6 +181,11 @@ export const getEntityLogoUrl = (
 
     case 'catalogue':
       return buildCatalogueUrl(entity, '/logo');
+
+    case 'adapter':
+      return buildAdapterUrl({
+        logoUrl: logoUrl,
+      });
 
     default:
       return undefined;
