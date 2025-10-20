@@ -55,10 +55,6 @@ export const buildMarketplaceUrl = (
 ): string => {
   const baseUrl = ConfigService.config?.marketplace_url;
   const encodedIdentifier = encodeURIComponent(identifier);
-  // console.log(
-  //   `baseUrl: ${baseUrl} / resourceType: ${resourceType} / encodedIdentifier: ${encodedIdentifier} path:${path}`
-  // );
-  // console.log(`${baseUrl}/${resourceType}/${encodedIdentifier}${path}`);
   return `${baseUrl}/${resourceType}/${encodedIdentifier}${path}`;
 };
 
@@ -167,7 +163,6 @@ export const getEntityUrl = (
  */
 export const getEntityLogoUrl = (
   type: string,
-  // entity: { pid?: string; slug?: string; logoUrl?: string },
   entity: { pid?: string; slug?: string },
   logoUrl?: string
 ): string | undefined => {

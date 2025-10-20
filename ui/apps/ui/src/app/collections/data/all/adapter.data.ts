@@ -19,7 +19,6 @@ import {
 } from '@collections/filters-serializers/utils';
 import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  toBetaTag,
   transformLanguages,
 } from '@collections/data/shared-tags';
 import {
@@ -121,9 +120,7 @@ export const allCollectionsAdapter: IAdapter = {
     date: extractDate(data),
     languages: transformLanguages(data?.language),
     url: getEntityUrl(data.type || '', data),
-    // logoUrl: getEntityLogoUrl(data.type || '', { logoUrl: data.logo }),
     logoUrl: getEntityLogoUrl(data.type || '', data, data.logo),
-    // logoUrl: getEntityLogoUrl(data.type || '', data),
     orderUrl: getEntityOrderUrl(data.type || '', data),
     exportData: data.exportation || [],
     urls: data.url,
