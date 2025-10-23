@@ -44,12 +44,7 @@ export const getEntityIdentifier = (entity: {
  * Builds marketplace URLs for different resource types
  */
 export const buildMarketplaceUrl = (
-  resourceType:
-    | 'services'
-    | 'providers'
-    | 'catalogues'
-    | 'deployable_services'
-    | 'adapters',
+  resourceType: 'services' | 'providers' | 'catalogues' | 'deployable_services',
   identifier: string,
   path: string = ''
 ): string => {
