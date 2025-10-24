@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.33.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.32.0...v2.33.0) (2025-10-24)
+
+
+### Features
+
+* [[#1703](https://github.com/cyfronet-fid/eosc-search-service/issues/1703)] hide sections knowledge hub and articles ([13ed826](https://github.com/cyfronet-fid/eosc-search-service/commit/13ed82671a11296bc97d6f95ddead817bad4b5ed))
+
+
+### Bug Fixes
+
+* [[#1653](https://github.com/cyfronet-fid/eosc-search-service/issues/1653)] fix displaying logo for adapters in all collection ([#1706](https://github.com/cyfronet-fid/eosc-search-service/issues/1706)) ([17f19c1](https://github.com/cyfronet-fid/eosc-search-service/commit/17f19c12a8056d5bae1a0418e5d9d1d62b460a1a))
+
 ## [2.32.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.31.0...v2.32.0) (2025-09-25)
 
 
