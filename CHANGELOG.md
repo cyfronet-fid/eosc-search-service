@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.33.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.33.0...v2.33.1) (2025-10-24)
+
+
+### Bug Fixes
+
+* [[#1708](https://github.com/cyfronet-fid/eosc-search-service/issues/1708)] fix documentation v2 ([59e6d88](https://github.com/cyfronet-fid/eosc-search-service/commit/59e6d8839fbc242aad10035086b6b4102dba1b95))
+* [[#1708](https://github.com/cyfronet-fid/eosc-search-service/issues/1708)] fix user documentation ([8e3d77a](https://github.com/cyfronet-fid/eosc-search-service/commit/8e3d77a343847e8353faf0ae99e936e816cb85b4))
+
 ## [2.33.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.32.0...v2.33.0) (2025-10-24)
 
 
