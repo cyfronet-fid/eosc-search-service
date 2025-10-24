@@ -81,6 +81,7 @@ export class SearchPageComponent implements OnInit {
   isSpecialCollection = false;
   knowledgeHubUrl = this._configService.get().knowledge_hub_url;
   marketplaceUrl = this._configService.get().marketplace_url;
+  userDocumentationUrl = this._configService.get().user_documentation_url;
 
   constructor(
     private _customRoute: CustomRoute,
