@@ -15,3 +15,4 @@ class ConfigurationResponse(BaseModel):
     max_items_sort_relevance: int
     show_beta_collections: bool
     show_knowledge_base: bool
+    user_documentation_url: Url
