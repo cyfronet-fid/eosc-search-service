@@ -87,6 +87,15 @@ export const buildCatalogueUrl = (
 };
 
 /**
+ * Builds adapter URLs with pid/slug fallback
+ */
+export const buildAdapterUrl = (entity: {
+  logoUrl?: string;
+}): string | undefined => {
+  return entity.logoUrl;
+};
+
+/**
  * Builds catalogue URLs with pid/slug fallback
  */
 export const buildDeployableServiceUrl = (
@@ -149,7 +158,8 @@ export const getEntityUrl = (
  */
 export const getEntityLogoUrl = (
   type: string,
-  entity: { pid?: string; slug?: string }
+  entity: { pid?: string; slug?: string },
+  logoUrl?: string
 ): string | undefined => {
   switch (type) {
     case 'data source':
@@ -161,6 +171,11 @@ export const getEntityLogoUrl = (
 
     case 'catalogue':
       return buildCatalogueUrl(entity, '/logo');
+
+    case 'adapter':
+      return buildAdapterUrl({
+        logoUrl: logoUrl,
+      });
 
     default:
       return undefined;
