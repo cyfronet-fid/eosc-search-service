@@ -22,4 +22,5 @@ async def config():
         max_items_sort_relevance=settings.MAX_ITEMS_SORT_RELEVANCE,
         show_beta_collections=settings.SHOW_BETA_COLLECTIONS,
         show_knowledge_base=settings.SHOW_KNOWLEDGE_BASE,
+        user_documentation_url=settings.USER_DOCUMENTATION_URL,
     )

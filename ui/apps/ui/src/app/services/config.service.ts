@@ -16,6 +16,7 @@ export interface BackendConfig {
   max_results_by_page: number;
   show_beta_collections: boolean;
   show_knowledge_base: boolean;
+  user_documentation_url: string;
 }
 
 @Injectable({
