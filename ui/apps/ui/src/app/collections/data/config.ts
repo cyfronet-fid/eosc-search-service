@@ -359,6 +359,8 @@ export const DATASOURCE_PID_MAPPING: Record<string, string> = {
   'eosc.ceric-eric.ceric-data-portal': 'CERIC Data Portal',
   'eosc.cern.cod': 'CERN Open Data Portal',
   'eosc.cessda-eric.cdc': 'CESSDA Data Catalogue',
+  '21.15124/2shDkg': 'CESSDA Data Catalogue',
+  '21.15132/2shDkg': 'CESSDA Data Catalogue',
   'eosc.clarin-eric.virtual_language_observatory':
     'Virtual Language Observatory update',
   'eosc.cnr_-_isti.isti_open_portal': 'ISTI Open Portal',

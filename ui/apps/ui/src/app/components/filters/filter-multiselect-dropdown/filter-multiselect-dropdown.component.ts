@@ -112,7 +112,14 @@ export class FilterMultiselectDropdownComponent {
   set data(data: IUIFilterTreeNode[]) {
     this._previousData = data;
 
-    this._data = data.map((x) => {
+    const uniqueData = data.filter(
+      (item, index, self) =>
+        index === self.findIndex((t) => t.name === item.name)
+    );
+
+    this.value = [];
+
+    this._data = uniqueData.map((x) => {
       if (x.isSelected) this.value.push(x.value);
 
       return {
