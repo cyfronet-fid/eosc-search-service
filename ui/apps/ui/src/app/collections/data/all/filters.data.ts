@@ -1,13 +1,14 @@
 import { IFiltersConfig } from '../../repositories/types';
 import { URL_PARAM_NAME } from './nav-config.data';
 import {
+  DATASOURCE_FILTER_TOOLTIP_TEXT,
   HORIZONTAL_TOOLTIP_TEXT,
   INTEROPERABILITY_PATTERNS_TOOLTIP_TEXT,
 } from '@collections/data/config';
 import {
   alphanumericFilterSort,
   transformBoolean,
-  transformCatalogueNames,
+  transformDataSourceNames,
 } from '@collections/data/utils';
 
 export const allCollectionsFilters: IFiltersConfig = {
@@ -161,16 +162,6 @@ export const allCollectionsFilters: IFiltersConfig = {
       tooltipText: '',
     },
     {
-      id: 'catalogue',
-      filter: 'catalogue',
-      label: 'Community Catalog',
-      type: 'dropdown',
-      defaultCollapsed: false,
-      tooltipText: '',
-      global: true,
-      transformNodes: transformCatalogueNames,
-    },
-    {
       id: 'guidelines_str',
       filter: 'guidelines_str',
       label: 'Interoperability guideline',
@@ -201,6 +192,16 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
+    },
+    {
+      id: 'datasource_pids',
+      filter: 'datasource_pids',
+      label: 'Data Source',
+      type: 'dropdown',
+      defaultCollapsed: false,
+      tooltipText: DATASOURCE_FILTER_TOOLTIP_TEXT,
+      global: true,
+      transformNodes: transformDataSourceNames,
     },
   ],
 };
