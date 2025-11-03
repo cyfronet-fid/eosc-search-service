@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.33.2](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.33.1...v2.33.2) (2025-11-03)
+
+
+### Bug Fixes
+
+* [[#1654](https://github.com/cyfronet-fid/eosc-search-service/issues/1654)] add pretty names and dropdown with unique values ([ce527e4](https://github.com/cyfronet-fid/eosc-search-service/commit/ce527e4b849112e3e96127370ad5a7f504de246f))
+
 ## [2.33.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.33.0...v2.33.1) (2025-10-24)
 
 
