@@ -27,7 +27,7 @@ class GlobalSettings(BaseSettings):
     BACKEND_BASE_URL: Url = "http://localhost:8000/"
     UI_BASE_URL: Url = "http://localhost:4200/"
     DATABASE_URI: PostgresDsn = "postgresql+psycopg2://ess:ess@localhost:5442/ess"
-    MAX_RESULTS_BY_PAGE: int = 50
+    MAX_RESULTS_BY_PAGE: int = 20
     SHOW_BETA_COLLECTIONS: bool = False
     SHOW_KNOWLEDGE_BASE: bool = True
 
