@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.models import Dump, DumpElement
 
+# pylint: disable=no-member
 schema = schemathesis.from_path(
     os.path.dirname(__file__) + "/../eosc-search-service-v1.yaml"
 )

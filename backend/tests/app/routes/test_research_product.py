@@ -51,6 +51,8 @@ async def test_get_rp_by_id_success(
         # ("bundle", status.HTTP_422_UNPROCESSABLE_ENTITY),
     ],
 )
+
+# pylint: disable=too-many-positional-arguments
 async def test_get_rp_by_id_accepts_only_valid_types(
     collection: str,
     http_status: status,

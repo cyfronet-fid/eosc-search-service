@@ -10,7 +10,7 @@ from app.solr.operations import search_dep
 from .router import internal_api_router
 
 
-# pylint: disable=too-many-arguments
+# pylint: disable=too-many-arguments,too-many-positional-arguments
 @internal_api_router.post("/search", name="apis:post-search")
 async def search_post(
     collection: str = Query(..., description="Collection"),
