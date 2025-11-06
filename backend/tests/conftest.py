@@ -6,7 +6,7 @@ import uuid
 import pytest
 from asgi_lifespan import LifespanManager
 from fastapi import FastAPI
-from httpx import AsyncClient
+from httpx import ASGITransport, AsyncClient
 from sqlalchemy.orm import Session
 
 import alembic
@@ -36,8 +36,9 @@ def app() -> FastAPI:
 @pytest.fixture
 async def client(app: FastAPI) -> AsyncClient:
     """Get lifecycle-managed AsyncClient"""
+    transport = ASGITransport(app=app)
     async with AsyncClient(
-        app=app,
+        transport=transport,
         base_url="http://testserver",
         headers={"Content-Type": "application/json"},
     ) as client:
@@ -66,8 +67,9 @@ async def auth_client(app: FastAPI, user_session: UserSession) -> AsyncClient:
         cookie.model.name: str(cookie.signer.dumps(user_session.backend_session_id.hex))
     }
 
+    transport = ASGITransport(app=app)
     async with AsyncClient(
-        app=app,
+        transport=transport,
         base_url="http://testserver",
         headers={"Content-Type": "application/json"},
         cookies=cookies,

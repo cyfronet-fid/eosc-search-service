@@ -1,5 +1,6 @@
+"""Common router utils"""
+
 import random
-import re
 
 from fastapi import HTTPException
 from starlette.requests import Request

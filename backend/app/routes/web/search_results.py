@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 DOWNLOAD_RESULT_FIELDS = ["title", "type", "description", "best_access_right"]
 
 
-# pylint: disable=too-many-arguments, too-many-locals
+# pylint: disable=too-many-arguments,too-many-positional-arguments, too-many-locals
 @router.post("/search-results", name="web:post-search")
 async def search_post(
     request_session: Request,
@@ -111,7 +111,7 @@ async def search_post(
     )
 
 
-# pylint: disable=too-many-arguments
+# pylint: disable=too-many-arguments,too-many-positional-arguments
 @router.post("/search-results-advanced", name="web:post-search")
 async def search_post_advanced(
     request_session: Request,

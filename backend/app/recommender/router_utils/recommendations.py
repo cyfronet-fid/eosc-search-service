@@ -1,3 +1,5 @@
+"""Recommendation router utils"""
+
 import datetime
 import random
 import uuid
@@ -23,6 +25,8 @@ async def get_recommended_uuids(
     collection: Collection,
     recommendation_visit_id: str,
 ):
+    """Returns recommended uuids for a given collection"""
+
     try:
         request_body = {
             "unique_id": session.session_uuid if session else str(uuid.uuid4()),
@@ -62,6 +66,7 @@ async def get_recommended_uuids(
 
 
 async def get_recommended_items(client: AsyncClient, uuids: list[str]):
+    """Returns recommended items for given uuids"""
     try:
         items = []
         for item_uuid in uuids:
@@ -72,11 +77,11 @@ async def get_recommended_items(client: AsyncClient, uuids: list[str]):
         raise SolrRetrieveError("Connection Error") from e
 
 
-# pylint: disable=unused-argument
 @alru_cache(maxsize=512)
 async def get_fixed_recommendations(
     collection: Collection, count: int = 3
 ) -> list[str]:
+    """Returns fixed recommendations for given collection"""
     rows = 100
     if collection == Collection.DATA_SOURCE:
         collection = "data source"

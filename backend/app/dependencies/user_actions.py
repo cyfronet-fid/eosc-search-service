@@ -1,3 +1,4 @@
+# pylint: disable=too-many-positional-arguments
 """UserActions-specific dependencies"""
 
 import datetime
