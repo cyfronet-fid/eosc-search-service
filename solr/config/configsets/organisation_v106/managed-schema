@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Solr managed schema - automatically generated - DO NOT EDIT -->
 <schema name="organisation" version="1.6">
   <uniqueKey>id</uniqueKey>
   <fieldType name="binary" class="solr.BinaryField"/>
@@ -100,20 +101,19 @@
       <filter class="solr.LowerCaseFilterFactory"/>
     </analyzer>
   </fieldType>
-
   <field name="_text_" type="text_general" indexed="true" stored="false"/>
   <field name="_version_" type="plong" indexed="false" stored="false"/>
-  <field name="abbreviation" type="text_general" indexed="true" stored="true" multiValued="false"/>
+  <field name="abbreviation" type="text_general" multiValued="false" indexed="true" stored="true"/>
   <field name="alternative_names" type="text_general" indexed="true" stored="true"/>
   <field name="country" type="strings" indexed="true" stored="true" useDocValuesAsStored="true"/>
-  <field name="id" type="string" required="true" indexed="true" stored="true"/>
-  <field name="title" type="text_general" indexed="true" stored="true" multiValued="false"/>
+  <field name="id" type="string" indexed="true" required="true" stored="true"/>
   <field name="pids" type="string" indexed="true" stored="true"/>
   <field name="related_dataset_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_other_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_project_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_publication_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="related_software_ids" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="title" type="text_general" termPositions="true" termVectors="true" termOffsets="true" required="false"/>
   <field name="type" type="string" indexed="true" stored="true"/>
   <field name="url" type="string" indexed="true" stored="true"/>
 </schema>
