@@ -2,7 +2,7 @@
 
 import asyncio
 import logging
-from typing import Dict, Tuple
+from typing import Dict, Tuple, Any, Coroutine
 
 from fastapi import APIRouter, Depends, Query
 from httpx import AsyncClient
@@ -73,22 +73,28 @@ async def _search(
         3, description="Row count per collection", gte=3, lt=10
     ),
     search=Depends(search_dep),
-) -> Tuple[str, Dict]:
+) -> tuple[Any, Any] | tuple[str | Any, list[Any]]:
     """Performs the search in a single collection"""
     if "provider" in collection:
         qf = PROVIDER_QF
-    async with AsyncClient() as client:
-        response = await search(
-            client,
-            collection,
-            q=q,
-            qf=qf,
-            fq=fq,
-            sort=DEFAULT_SORT,
-            rows=results_per_collection,
-            exact=exact,
-        )
 
-    res_json = response.data
-    collection = response.collection
-    return collection, res_json["response"]["docs"]
+    try:
+        async with AsyncClient() as client:
+            response = await search(
+                client,
+                collection,
+                q=q,
+                qf=qf,
+                fq=fq,
+                sort=DEFAULT_SORT,
+                rows=results_per_collection,
+                exact=exact,
+            )
+
+        res_json = response.data
+        collection = response.collection
+        return collection, res_json["response"]["docs"]
+
+    except Exception as e:
+        print(f"\t\tError in collection={collection}: {repr(e)}")
+        return collection, []

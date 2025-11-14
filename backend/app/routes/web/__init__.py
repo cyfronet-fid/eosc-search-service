@@ -25,5 +25,4 @@ web_api_router.include_router(rp_router)  # RP router needs to be before present
 web_api_router.include_router(presentable_router)
 web_api_router.include_router(recommendation_router, tags=["recommendations"])
 web_api_router.include_router(configuration_router, tags=["configuration"])
-web_api_router.include_router(suggestions_router)
 web_api_router.include_router(bibliography_router)
