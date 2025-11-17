@@ -2,7 +2,7 @@
 
 import asyncio
 import logging
-from typing import Dict, Tuple, Any, Coroutine
+from typing import Any, Dict
 
 from fastapi import APIRouter, Depends, Query
 from httpx import AsyncClient
@@ -95,6 +95,6 @@ async def _search(
         collection = response.collection
         return collection, res_json["response"]["docs"]
 
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-exception-caught
         print(f"\t\tError in collection={collection}: {repr(e)}")
         return collection, []
