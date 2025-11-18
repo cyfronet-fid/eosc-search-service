@@ -33,20 +33,6 @@
             </dd>
           </dl>
 
-          <!-- Keywords Section -->
-          <div *ngIf="adapter?.secondaryTags?.length" class="keywords-section mt-3">
-            <ng-container *ngFor="let tag of adapter?.secondaryTags">
-              <dl class="mb-1 d-flex" *ngIf="tag?.values?.length">
-                <dt>{{ tag.label || 'Tag' }}</dt>
-                <dd class="keywords-list">
-                  <span *ngFor="let value of tag.values; let last = last" class="keyword-tag">
-                    {{ value.label }}<span *ngIf="!last">, </span>
-                  </span>
-                </dd>
-              </dl>
-            </ng-container>
-          </div>
-
         </div>
       </div>
     </div>
@@ -126,6 +112,22 @@
           </div>
         </div>
 
+        <div class="col-md-3" *ngIf="hasAnyKeywords">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="card-title">
+                <div class="card-title-icon">
+                  <img src="assets/icon-classification.svg" alt="Keywords"/>
+                </div>
+                <h6 class="card-title fw-bold">Keywords</h6>
+              </div>
+
+              <ul class="list-unstyled small mb-0">
+                <li>{{ keywordString }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 

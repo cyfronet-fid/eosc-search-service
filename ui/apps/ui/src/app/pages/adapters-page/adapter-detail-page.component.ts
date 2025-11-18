@@ -94,4 +94,13 @@ export class AdapterDetailPageComponent implements OnInit {
     const str = Array.isArray(html) ? html.join(' ') : html;
     return str.replace(/<[^>]*>/g, ''); // remove all HTML tags
   }
+
+  get hasAnyKeywords(): boolean {
+    return (this.adapter?.secondaryTags?.[0].values.length ?? 0) > 0;
+  }
+
+  get keywordString(): string {
+    const firstTag = this.adapter?.secondaryTags?.[0];
+    return firstTag?.values?.[0]?.label ?? '';
+  }
 }
