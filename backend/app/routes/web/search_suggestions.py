@@ -9,6 +9,7 @@ from httpx import AsyncClient
 
 from app.consts import ALL_COLLECTION_LIST, DEFAULT_SORT, PROVIDER_QF
 from app.schemas.solr_response import Collection
+from app.solr.error_handling import SolrCollectionEmptyError
 from app.solr.operations import search_dep
 
 router = APIRouter()
@@ -73,7 +74,7 @@ async def _search(
         3, description="Row count per collection", gte=3, lt=10
     ),
     search=Depends(search_dep),
-) -> tuple[Any, Any] | tuple[str | Any, list[Any]]:
+) -> tuple[str, list[Any]]:
     """Performs the search in a single collection"""
     if "provider" in collection:
         qf = PROVIDER_QF
@@ -95,6 +96,7 @@ async def _search(
         collection = response.collection
         return collection, res_json["response"]["docs"]
 
-    except Exception as e:  # pylint: disable=broad-exception-caught
-        print(f"\t\tError in collection={collection}: {repr(e)}")
+    except SolrCollectionEmptyError as e:
+        # print(f"\t\tError in collection={collection}: {repr(e)}")
+        logger.error(f"Search suggestion request failure, {collection}: {repr(e)}")
         return collection, []
