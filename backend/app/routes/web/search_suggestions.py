@@ -2,13 +2,14 @@
 
 import asyncio
 import logging
-from typing import Dict, Tuple
+from typing import Any, Dict
 
 from fastapi import APIRouter, Depends, Query
 from httpx import AsyncClient
 
 from app.consts import ALL_COLLECTION_LIST, DEFAULT_SORT, PROVIDER_QF
 from app.schemas.solr_response import Collection
+from app.solr.error_handling import SolrCollectionEmptyError
 from app.solr.operations import search_dep
 
 router = APIRouter()
@@ -73,22 +74,28 @@ async def _search(
         3, description="Row count per collection", gte=3, lt=10
     ),
     search=Depends(search_dep),
-) -> Tuple[str, Dict]:
+) -> tuple[str, list[Any]]:
     """Performs the search in a single collection"""
     if "provider" in collection:
         qf = PROVIDER_QF
-    async with AsyncClient() as client:
-        response = await search(
-            client,
-            collection,
-            q=q,
-            qf=qf,
-            fq=fq,
-            sort=DEFAULT_SORT,
-            rows=results_per_collection,
-            exact=exact,
-        )
 
-    res_json = response.data
-    collection = response.collection
-    return collection, res_json["response"]["docs"]
+    try:
+        async with AsyncClient() as client:
+            response = await search(
+                client,
+                collection,
+                q=q,
+                qf=qf,
+                fq=fq,
+                sort=DEFAULT_SORT,
+                rows=results_per_collection,
+                exact=exact,
+            )
+
+        res_json = response.data
+        collection = response.collection
+        return collection, res_json["response"]["docs"]
+
+    except SolrCollectionEmptyError as e:
+        logger.error("Search suggestion request failure, %s: %r", collection, e)
+        return collection, []

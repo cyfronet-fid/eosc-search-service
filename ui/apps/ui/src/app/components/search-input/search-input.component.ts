@@ -540,10 +540,13 @@ export class SearchInputComponent implements OnInit {
   getLabel(label: string): string {
     switch (label) {
       case 'guideline':
-        return 'INTEROPERABILITY GUIDELINES';
+        return 'Interoperability Guidelines';
         break;
       case 'bundle':
-        return 'BUNDLES';
+        return 'Bundle';
+        break;
+      case 'other rp':
+        return 'Other Research Product';
         break;
       default:
         return label;

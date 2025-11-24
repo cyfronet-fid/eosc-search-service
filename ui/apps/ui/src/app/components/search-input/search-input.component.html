@@ -98,7 +98,7 @@
       *ngIf="suggestedResults.length > 0 && focused"
     >
       <ng-container *ngFor="let group of suggestedResults">
-        <div class="list-group-item">
+        <div class="list-group-item list-group-title">
           <span class="group">{{ getLabel(group.label) }}</span>
           &nbsp;<a
             [routerLink]="['/search', group.link]"
