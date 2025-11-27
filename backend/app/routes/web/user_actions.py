@@ -72,18 +72,29 @@ async def register_navigation_user_action(
         session = await verifier(request)
 
         response = await _create_redirect_response(
-            return_path, search_params, session.session_uuid, str(target_id), url
+            return_path,
+            search_params,
+            session.session_uuid,
+            str(target_id),
+            url,
         )
     except HTTPException:
         cookie_session_id = uuid.uuid4()
         new_session_uuid = uuid.uuid4()
         session = SessionData(
-            username=None, aai_state=None, aai_id="", session_uuid=str(new_session_uuid)
+            username=None,
+            aai_state=None,
+            aai_id="",
+            session_uuid=str(new_session_uuid),
         )
         await backend.create(cookie_session_id, session)
 
         response = await _create_redirect_response(
-            return_path, search_params, str(new_session_uuid), str(target_id), url
+            return_path,
+            search_params,
+            str(new_session_uuid),
+            str(target_id),
+            url,
         )
         cookie.attach_to_response(response, cookie_session_id)
 
@@ -111,7 +122,11 @@ async def register_navigation_user_action(
 
 
 async def _create_redirect_response(
-    return_path: str, search_params: str, client_uid: str, target_id: str, url: str
+    return_path: str,
+    search_params: str,
+    client_uid: str,
+    target_id: str,
+    url: str,
 ):
     id_params = ["?id", "?projectId", "?organizationId"]
     redirect_response = RedirectResponse(

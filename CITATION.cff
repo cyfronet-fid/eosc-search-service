@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+title: EOSC Search Service
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - {}
+repository-code: 'https://github.com/cyfronet-fid/eosc-search-service'
+abstract: >-
+  EOSC Search Service is a backend and frontend system
+  designed to support discovery and recommendation of
+  research resources within the European Open Science Cloud.
+  It integrates with Solr for metadata indexing, provides an
+  API and user interface, and can be deployed using Docker.
+  The system also supports an optional recommender engine
+  and offers configurable deployment options for production
+  and development environments.
+keywords:
+  - eosc
+  - management
+  - marketplace
+license: GPL-3.0

@@ -1,41 +1,41 @@
 {
   "responseHeader": {
     "zkConnected": "True",
-      "status": 0,
-      "QTime": 25,
-      "params": {
-        "json": "{\"params\": {\"defType\": \"edismax\", \"lowercaseOperators\": \"false\", \"mm\": \"80%\", \"tie\": \"0.1\", \"qs\": \"5\", \"hl\": \"on\", \"hl.method\": \"fastVector\", \"q\": \"*\", \"qf\": \"title^100 author_names_tg^120 description^10 keywords_tg^10\", \"pf\": \"title^100 author_names_tg^120 description^10 keywords_tg^10\", \"fq\": [], \"rows\": 0, \"cursorMark\": \"*\", \"sort\": \"score desc, id asc\", \"wt\": \"json\"}, \"facet\": {\"best_access_right\": {\"type\": \"terms\", \"field\": \"best_access_right\", \"offset\": null, \"limit\": -1, \"sort\": null, \"mincount\": null, \"missing\": null, \"prefix\": null, \"contains\": null, \"containsIgnoreCase\": null}}}"
-      }
-      },
-      "response": {
-        "numFound": 10465,
-          "start": 0,
-          "numFoundExact": "True",
-          "docs": []
-      },
-      "nextCursorMark": "*",
-      "facets": {
-        "count": 10465,
-        "best_access_right": {
-          "buckets": [
-            {
-              "val": "Open access",
-                    "count": 10172
-            },
-            {
-              "val": "Closed",
-                    "count": 264
-            },
-            {
-              "val": "Restricted",
-                    "count": 24
-            },
-            {
-              "val": "Embargo",
-                    "count": 5
-            }
-          ]
+    "status": 0,
+    "QTime": 25,
+    "params": {
+      "json": "{\"params\": {\"defType\": \"edismax\", \"lowercaseOperators\": \"false\", \"mm\": \"80%\", \"tie\": \"0.1\", \"qs\": \"5\", \"hl\": \"on\", \"hl.method\": \"fastVector\", \"q\": \"*\", \"qf\": \"title^100 author_names_tg^120 description^10 keywords_tg^10\", \"pf\": \"title^100 author_names_tg^120 description^10 keywords_tg^10\", \"fq\": [], \"rows\": 0, \"cursorMark\": \"*\", \"sort\": \"score desc, id asc\", \"wt\": \"json\"}, \"facet\": {\"best_access_right\": {\"type\": \"terms\", \"field\": \"best_access_right\", \"offset\": null, \"limit\": -1, \"sort\": null, \"mincount\": null, \"missing\": null, \"prefix\": null, \"contains\": null, \"containsIgnoreCase\": null}}}"
+    }
+  },
+  "response": {
+    "numFound": 10465,
+    "start": 0,
+    "numFoundExact": "True",
+    "docs": []
+  },
+  "nextCursorMark": "*",
+  "facets": {
+    "count": 10465,
+    "best_access_right": {
+      "buckets": [
+        {
+          "val": "Open access",
+          "count": 10172
+        },
+        {
+          "val": "Closed",
+          "count": 264
+        },
+        {
+          "val": "Restricted",
+          "count": 24
+        },
+        {
+          "val": "Embargo",
+          "count": 5
         }
-      },
+      ]
+    }
+  },
   "highlighting": {}
 }

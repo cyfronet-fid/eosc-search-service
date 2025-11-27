@@ -18,7 +18,8 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-arguments,too-many-positional-arguments,too-many-locals
+# pylint: disable=too-many-arguments,too-many-positional-arguments
+# pylint: disable=too-many-locals
 @router.post("/search-filters", name="web:post-search-filters")
 async def search_filters(
     collection: Collection = Query(..., description="Collection"),
@@ -54,7 +55,19 @@ async def search_filters(
 
     client = make_async_http_client()
     coroutines = [
-        _search(collection, q, qf, fq, rows, cursor, key, value, exact, search, client)
+        _search(
+            collection,
+            q,
+            qf,
+            fq,
+            rows,
+            cursor,
+            key,
+            value,
+            exact,
+            search,
+            client,
+        )
         for key, value in request.facets.items()
     ]
 

@@ -23,8 +23,12 @@ def parse_providers_filters(fq):
     Function changing fq form AND to OR
     """
     valid_providers_fields = ["providers", "resource_organisation"]
-    providers_fq = [item for item in fq if item.split(":")[0] in valid_providers_fields]
-    other_fq = [item for item in fq if item.split(":")[0] not in valid_providers_fields]
+    providers_fq = [
+        item for item in fq if item.split(":")[0] in valid_providers_fields
+    ]
+    other_fq = [
+        item for item in fq if item.split(":")[0] not in valid_providers_fields
+    ]
     other_fq.append(" OR ".join(providers_fq))
     return other_fq
 
@@ -53,8 +57,8 @@ def parse_project_filters(fq):
 
 def parse_organisation_filters(fq):
     """
-    Function creating a separate fq item for each of provided related_resource and maps it
-    to existing solr fields
+    Function creating a separate fq item for each of provided
+    related_resource and maps it to existing solr fields
     """
     key_to_parse = "related_resources"
     regular_fq = [item for item in fq if item.split(":")[0] != key_to_parse]

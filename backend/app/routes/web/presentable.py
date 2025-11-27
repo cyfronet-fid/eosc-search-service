@@ -25,7 +25,9 @@ async def read_item(
     async with AsyncClient() as client:
         response = await get_item(client, collection, item_id)
         if collection == Collection.GUIDELINE:
-            await extend_ig_with_related_services(client=client, docs=[response["doc"]])
+            await extend_ig_with_related_services(
+                client=client, docs=[response["doc"]]
+            )
     return {
         **response["doc"],
         "facets": response["facets"] if "facets" in response else {},

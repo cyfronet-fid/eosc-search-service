@@ -1,4 +1,5 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring,unused-argument,too-many-arguments
+# pylint: disable=missing-module-docstring,missing-function-docstring
+# pylint: disable=unused-argument, too-many-arguments
 from unittest.mock import AsyncMock
 
 import pytest
@@ -21,11 +22,15 @@ async def test_get_rp_by_id_success(
     ]
 
     url = RESEARCH_PRODUCT_PATH.format(
-        type="publication", rp_id="50|dedup_wf_001::553fcef019776e6a6081c436faf76c3b"
+        type="publication",
+        rp_id="50|dedup_wf_001::553fcef019776e6a6081c436faf76c3b",
     )
     response = await client.get(url=url)
     expected_result = ResearchProductResponse(
-        title="CO2 en afvalbeleid. Resultaten monitoring 1991/1992  en knelpunten",
+        title=(
+            "CO2 en afvalbeleid. Resultaten monitoring "
+            "1991/1992  en knelpunten"
+        ),
         links=links,
         author=["Oh KMM", "Joosten JM", "Martens WG"],
         type="publication",
@@ -36,6 +41,7 @@ async def test_get_rp_by_id_success(
     assert response.json() == expected_result.dict()
 
 
+# pylint: disable=too-many-positional-arguments
 @pytest.mark.parametrize(
     "collection, http_status",
     [
@@ -51,8 +57,6 @@ async def test_get_rp_by_id_success(
         # ("bundle", status.HTTP_422_UNPROCESSABLE_ENTITY),
     ],
 )
-
-# pylint: disable=too-many-positional-arguments
 async def test_get_rp_by_id_accepts_only_valid_types(
     collection: str,
     http_status: status,
@@ -62,7 +66,8 @@ async def test_get_rp_by_id_accepts_only_valid_types(
     mocker,
 ) -> None:
     url = RESEARCH_PRODUCT_PATH.format(
-        type=collection, rp_id="50|dedup_wf_001::553fcef019776e6a6081c436faf76c3b"
+        type=collection,
+        rp_id="50|dedup_wf_001::553fcef019776e6a6081c436faf76c3b",
     )
     response = await client.get(url=url)
     assert response.status_code == http_status
