@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 class UserActionClient:
     """Wrapper for the STOMP client which sends valid user action to the databus"""
 
-    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments, too-many-positional-arguments
     def __init__(
         self, host: str, port: int, username: str, password: str, topic: str, ssl: bool
     ):
@@ -147,7 +147,7 @@ def user_actions_client() -> UserActionClient | None:
         return None
 
 
-# pylint: disable=too-many-arguments
+# pylint: disable=too-many-arguments, too-many-positional-arguments
 def send_user_action_bg_task(
     client: UserActionClient,
     session: SessionData,

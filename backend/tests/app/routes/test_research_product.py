@@ -1,4 +1,4 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring,unused-argument,too-many-arguments
+# pylint: disable=missing-module-docstring,missing-function-docstring,unused-argument
 from unittest.mock import AsyncMock
 
 import pytest
@@ -57,7 +57,6 @@ async def test_get_rp_by_id_accepts_only_valid_types(
     app: FastAPI,
     client: AsyncClient,
     mock_solr_get: AsyncMock,
-    mocker,
 ) -> None:
     url = RESEARCH_PRODUCT_PATH.format(
         type=collection, rp_id="50|dedup_wf_001::553fcef019776e6a6081c436faf76c3b"

@@ -1,5 +1,6 @@
 """The UI Search endpoint"""
 
+# pylint: disable=too-many-arguments, too-many-positional-arguments
 import asyncio
 import logging
 from typing import Dict, Tuple
@@ -16,7 +17,6 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-arguments
 @router.post("/search-suggestions", name="web:post-search-suggestions")
 async def search_suggestions(
     collection: Collection = Query(..., description="Collection"),

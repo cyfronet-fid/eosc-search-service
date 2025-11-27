@@ -4,7 +4,7 @@ from unittest.mock import ANY, AsyncMock
 import pytest
 from fastapi import FastAPI
 from httpx import AsyncClient
-from starlette.status import HTTP_200_OK, HTTP_422_UNPROCESSABLE_ENTITY
+from starlette.status import HTTP_200_OK, HTTP_422_UNPROCESSABLE_CONTENT
 
 from app.schemas.search_request import StatFacet, TermsFacet
 
@@ -15,7 +15,7 @@ async def test_post_empty(
 ) -> None:
     res = await client.post(app.url_path_for("apis:post-search"), json={})
 
-    assert res.status_code == HTTP_422_UNPROCESSABLE_ENTITY
+    assert res.status_code == HTTP_422_UNPROCESSABLE_CONTENT
     mock_post_search.assert_not_called()
 
 

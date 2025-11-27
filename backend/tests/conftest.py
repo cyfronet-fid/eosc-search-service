@@ -37,7 +37,6 @@ def app() -> FastAPI:
 async def client(app: FastAPI) -> AsyncClient:
     """Get lifecycle-managed AsyncClient"""
     async with AsyncClient(
-        app=app,
         base_url="http://testserver",
         headers={"Content-Type": "application/json"},
     ) as client:
@@ -67,7 +66,6 @@ async def auth_client(app: FastAPI, user_session: UserSession) -> AsyncClient:
     }
 
     async with AsyncClient(
-        app=app,
         base_url="http://testserver",
         headers={"Content-Type": "application/json"},
         cookies=cookies,

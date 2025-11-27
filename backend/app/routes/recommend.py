@@ -14,7 +14,7 @@ from app.solr.operations import search_dep
 from ..schemas.recommend_request import RecommendRequest
 
 
-# pylint: disable=too-many-arguments
+# pylint: disable=too-many-arguments, too-many-positional-arguments
 @internal_api_router.post("/recommend")
 async def recommend_post(
     collection: str = Query(..., description="Collection"),

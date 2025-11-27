@@ -18,7 +18,7 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-arguments,too-many-locals
+# pylint:disable=too-many-positional-arguments,too-many-locals,too-many-arguments
 @router.post("/search-filters", name="web:post-search-filters")
 async def search_filters(
     collection: Collection = Query(..., description="Collection"),
@@ -73,6 +73,7 @@ async def search_filters(
     return results
 
 
+# pylint: disable=too-many-positional-arguments
 async def _search(
     collection: Collection,
     q: str,
