@@ -9,7 +9,9 @@ from app.settings import settings
 router = APIRouter()
 
 
-@router.get("/config", name="web:configuration", response_model=ConfigurationResponse)
+@router.get(
+    "/config", name="web:configuration", response_model=ConfigurationResponse
+)
 async def config():
     return ConfigurationResponse(
         marketplace_url=settings.MARKETPLACE_BASE_URL,

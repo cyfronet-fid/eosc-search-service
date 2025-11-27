@@ -7,10 +7,14 @@ from urllib.parse import urljoin, urlparse
 from pydantic import BeforeValidator, HttpUrl, PostgresDsn, TypeAdapter
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# In pydantic v2 http annotations are not strings themselves which may cause code to crash.
+# In pydantic v2 http annotations are not strings themselves
+# which may cause code to crash.
 # Therefore, let's annotate it as str and validate http "manually"
 Url = Annotated[
-    str, BeforeValidator(lambda value: str(TypeAdapter(HttpUrl).validate_python(value)))
+    str,
+    BeforeValidator(
+        lambda value: str(TypeAdapter(HttpUrl).validate_python(value))
+    ),
 ]
 EnvironmentType = Literal["dev", "test", "production"]
 
@@ -26,7 +30,9 @@ class GlobalSettings(BaseSettings):
     # Operational
     BACKEND_BASE_URL: Url = "http://localhost:8000/"
     UI_BASE_URL: Url = "http://localhost:4200/"
-    DATABASE_URI: PostgresDsn = "postgresql+psycopg2://ess:ess@localhost:5442/ess"
+    DATABASE_URI: PostgresDsn = (
+        "postgresql+psycopg2://ess:ess@localhost:5442/ess"
+    )
     MAX_RESULTS_BY_PAGE: int = 20
     SHOW_BETA_COLLECTIONS: bool = False
     SHOW_KNOWLEDGE_BASE: bool = True
@@ -88,7 +94,9 @@ class GlobalSettings(BaseSettings):
     USER_DOCUMENTATION_URL: Url = "https://docs.sandbox.eosc-beyond.eu/"
 
     # Get config from .env
-    model_config = SettingsConfigDict(env_file="../.env", env_file_encoding="utf-8")
+    model_config = SettingsConfigDict(
+        env_file="../.env", env_file_encoding="utf-8"
+    )
 
 
 class DevSettings(GlobalSettings):
@@ -123,14 +131,22 @@ class EnvironmentConfig(GlobalSettings):
     def make_settings(self) -> GlobalSettings:
         """Make and return final settings"""
         s = self.TYPES_TO_SETTINGS_MAP[self.ENVIRONMENT]()
-        if s.OIDC_AAI_NEW_API:  # Adjust OIDC integration params for the new API
+        if (
+            s.OIDC_AAI_NEW_API
+        ):  # Adjust OIDC integration params for the new API
             s.OIDC_ISSUER = urljoin(s.OIDC_HOST, "/auth/realms/core")
-            s.OIDC_JWKS_ENDPOINT = "/auth/realms/core/protocol/openid-connect/certs"
+            s.OIDC_JWKS_ENDPOINT = (
+                "/auth/realms/core/protocol/openid-connect/certs"
+            )
             s.OIDC_USERINFO_ENDPOINT = (
                 "/auth/realms/core/protocol/openid-connect/userinfo"
             )
-            s.OIDC_TOKEN_ENDPOINT = "/auth/realms/core/protocol/openid-connect/token"
-            s.OIDC_AUTH_ENDPOINT = "/auth/realms/core/protocol/openid-connect/auth"
+            s.OIDC_TOKEN_ENDPOINT = (
+                "/auth/realms/core/protocol/openid-connect/token"
+            )
+            s.OIDC_AUTH_ENDPOINT = (
+                "/auth/realms/core/protocol/openid-connect/auth"
+            )
 
         return s
 
@@ -149,15 +165,28 @@ OIDC_CLIENT_OPTIONS = client_options = dict(
         application_type="web",
         response_types=["code"],
         scope=["openid", "profile", "email"],
-        token_endpoint_auth_method=["client_secret_basic", "client_secret_post"],
+        token_endpoint_auth_method=[
+            "client_secret_basic",
+            "client_secret_post",
+        ],
     ),
     provider_info=dict(
-        authorization_endpoint=urljoin(settings.OIDC_HOST, settings.OIDC_AUTH_ENDPOINT),
-        token_endpoint=urljoin(settings.OIDC_HOST, settings.OIDC_TOKEN_ENDPOINT),
-        userinfo_endpoint=urljoin(settings.OIDC_HOST, settings.OIDC_USERINFO_ENDPOINT),
+        authorization_endpoint=urljoin(
+            settings.OIDC_HOST, settings.OIDC_AUTH_ENDPOINT
+        ),
+        token_endpoint=urljoin(
+            settings.OIDC_HOST, settings.OIDC_TOKEN_ENDPOINT
+        ),
+        userinfo_endpoint=urljoin(
+            settings.OIDC_HOST, settings.OIDC_USERINFO_ENDPOINT
+        ),
     ),
-    redirect_uris=[urljoin(settings.BACKEND_BASE_URL, "/api/web/auth/checkin")],
-    post_logout_redirect_uri=urljoin(settings.BACKEND_BASE_URL, "/auth/logout"),
+    redirect_uris=[
+        urljoin(settings.BACKEND_BASE_URL, "/api/web/auth/checkin")
+    ],
+    post_logout_redirect_uri=urljoin(
+        settings.BACKEND_BASE_URL, "/auth/logout"
+    ),
     backchannel_logout_uri=urljoin(settings.BACKEND_BASE_URL, "/auth/logout"),
     backchannel_logout_session_required=True,
 )
@@ -169,17 +198,28 @@ OIDC_CONFIG = dict(
     httpc_params=dict(verify=False),
     services=dict(
         discovery={
-            "class": "oidcrp.oidc.provider_info_discovery.ProviderInfoDiscovery",
+            "class": (
+                "oidcrp.oidc.provider_info_discovery" ".ProviderInfoDiscovery"
+            ),
             "kwargs": {},
         },
-        registration={"class": "oidcrp.oidc.registration.Registration", "kwargs": {}},
+        registration={
+            "class": "oidcrp.oidc.registration.Registration",
+            "kwargs": {},
+        },
         authorization={
             "class": "oidcrp.oidc.authorization.Authorization",
             "kwargs": {},
         },
-        accesstoken={"class": "oidcrp.oidc.access_token.AccessToken", "kwargs": {}},
+        accesstoken={
+            "class": "oidcrp.oidc.access_token.AccessToken",
+            "kwargs": {},
+        },
         userinfo={"class": "oidcrp.oidc.userinfo.UserInfo", "kwargs": {}},
-        end_session={"class": "oidcrp.oidc.end_session.EndSession", "kwargs": {}},
+        end_session={
+            "class": "oidcrp.oidc.end_session.EndSession",
+            "kwargs": {},
+        },
     ),
 )
 

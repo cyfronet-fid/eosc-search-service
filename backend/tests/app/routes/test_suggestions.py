@@ -1,4 +1,5 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring,unused-argument
+# pylint: disable=missing-module-docstring,missing-function-docstring
+# pylint: disable=unused-argument
 from unittest.mock import ANY, AsyncMock
 
 import pytest

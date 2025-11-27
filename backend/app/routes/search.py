@@ -38,7 +38,8 @@ async def search_post(
     Paging is cursor-based, see
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
 
-    Facets can be specified in the request body, they allow a subset of functionality from
+    Facets can be specified in the request body,
+    they allow a subset of functionality from
     https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
     async with AsyncClient() as client:

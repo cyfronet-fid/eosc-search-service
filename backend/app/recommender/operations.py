@@ -24,8 +24,9 @@ async def recommendations(
     Retrieve recommendations from RS based on candidates.
 
     The q, qf, fq, sort are passed to RS as search_data.
-    See https://solr.apache.org/guide/8_11/query-syntax-and-parsing.html subsections for their
-    meaning, they may not be used directly by the RS though.
+    See https://solr.apache.org/guide/8_11/query-syntax-and-parsing.html
+    subsections for their meaning,
+    they may not be used directly by the RS though.
     """
     payload = {
         "unique_id": context.unique_id,
@@ -43,7 +44,9 @@ async def recommendations(
             "fq": fq,
         },
     }
-    return await client.post(urljoin(settings.RS_URL, "/recommendations"), json=payload)
+    return await client.post(
+        urljoin(settings.RS_URL, "/recommendations"), json=payload
+    )
 
 
 def doc_to_candidate(doc):

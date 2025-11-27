@@ -60,7 +60,10 @@ ALL_COLLECTION_LIST = [
 ]
 
 ResearchProductCollection: TypeAlias = Literal[
-    Collection.PUBLICATION, Collection.DATASET, Collection.SOFTWARE, Collection.OTHER_RP
+    Collection.PUBLICATION,
+    Collection.DATASET,
+    Collection.SOFTWARE,
+    Collection.OTHER_RP,
 ]
 
 RP_AND_ALL_COLLECTIONS_LIST: list = [
@@ -71,7 +74,9 @@ RP_AND_ALL_COLLECTIONS_LIST: list = [
     Collection.ALL_COLLECTION,
 ]
 
-ResearchProductType: TypeAlias = Literal["publication", "dataset", "software", "other"]
+ResearchProductType: TypeAlias = Literal[
+    "publication", "dataset", "software", "other"
+]
 
 
 class PanelId(str, Enum):
@@ -129,7 +134,9 @@ ORGANISATION_QF = "alternative_names title abbreviation"
 
 DEFAULT_QF = "title^100 author_names_tg^120 description^10 keywords_tg^10"
 
-SortUi: TypeAlias = Literal["pdmr", "pdlr", "dmr", "dlr", "mp", "r", "default", ""]
+SortUi: TypeAlias = Literal[
+    "pdmr", "pdlr", "dmr", "dlr", "mp", "r", "default", ""
+]
 
 DEFAULT_SORT = ["score desc", "id asc"]
 DEFAULT_SPECIAL_COL_SORT = ["eosc_score desc", "score desc", "id asc"]

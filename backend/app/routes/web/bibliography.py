@@ -26,9 +26,10 @@ logger = logging.getLogger(__name__)
 @router.get("/bibliography-export-all-formats", name="web:export_all_formats")
 async def bibliography_export_all_formats(pid: str):
     """
-    Main function responsible for fetching 3 bibliography formats for a given DOI.
+    Main function responsible for fetching 3 bibliography
+    formats for a given DOI.
     Args:
-        pid(str): PID of a document (currently only DOI) to fetch the data for.
+        pid(str): PID of a document (currently only DOI) to fetch the data for
     """
     gathered_results = await asyncio.gather(
         *[
@@ -51,7 +52,8 @@ async def _get_bibliography_record(
     pid: str, entry_format: EntryFormat
 ) -> [BibliographyRecordResponse | BibliographyRecordErrorResponse]:
     """
-    Helper function fetching bibliography data in a given format for a requested document.
+    Helper function fetching bibliography data
+    in a given format for a requested document.
     Args:
         pid: PID of the document (currently only DOI)
         entry_format: requested format (BibTeX, RIS or JSON-LD)
@@ -61,7 +63,9 @@ async def _get_bibliography_record(
         headers = {"Accept": content_type}
         url = f"{DOI_BASE_URL}/{pid}"
         try:
-            response = await client.get(url=url, headers=headers, follow_redirects=True)
+            response = await client.get(
+                url=url, headers=headers, follow_redirects=True
+            )
         except HTTPError as err:
             return BibliographyRecordErrorResponse(
                 pid=pid, type=entry_format, record=repr(err)
@@ -84,7 +88,8 @@ async def _get_bibliography_record(
 @router.get("/bibliography-cite", name="web:cite")
 async def get_citation(pid: str, style: CitationStyle):
     """
-    Main function responsible for returning the citation for a document in a given style.
+    Main function responsible for returning the citation
+    for a document in a given style.
     Logs error responses and returns only successful ones.
     Args:
         PID of the document (currently only DOI)
@@ -106,7 +111,8 @@ async def get_citation(pid: str, style: CitationStyle):
 
 async def _get_citation(pid: str, style: CitationStyle):
     """
-    Helper function responsible for fetching the citation for a document in the requested style.
+    Helper function responsible for fetching the citation
+    for a document in the requested style.
     Args:
         PID of the document (currently only DOI)
         style: one of the supported citation formats

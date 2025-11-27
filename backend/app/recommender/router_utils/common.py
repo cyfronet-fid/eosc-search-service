@@ -5,14 +5,21 @@ import random
 from fastapi import HTTPException
 from starlette.requests import Request
 
-from app.consts import COLLECTION_TO_PANEL_ID_MAP, PANEL_ID_OPTIONS, Collection, PanelId
+from app.consts import (
+    COLLECTION_TO_PANEL_ID_MAP,
+    PANEL_ID_OPTIONS,
+    Collection,
+    PanelId,
+)
 from app.utils.cookie_validators import backend, cookie
 
 
 class RecommendationHttpError(Exception):
     """Error with external services used during recommendation serving"""
 
-    def __init__(self, message: str, http_status: int | None = None, data: dict = ...):
+    def __init__(
+        self, message: str, http_status: int | None = None, data: dict = ...
+    ):
         self.message = message
         self.http_status = http_status
         self.data = {} if data is ... else data
@@ -43,7 +50,9 @@ class SolrRetrieveError(RecommendationHttpError):
         return self.__repr__()
 
 
-def _get_panel(collection: Collection, sort_by_relevance: bool = False) -> PanelId:
+def _get_panel(
+    collection: Collection, sort_by_relevance: bool = False
+) -> PanelId:
     if not sort_by_relevance and collection == Collection.ALL_COLLECTION:
         return random.choice(PANEL_ID_OPTIONS).value
     return COLLECTION_TO_PANEL_ID_MAP[collection].value

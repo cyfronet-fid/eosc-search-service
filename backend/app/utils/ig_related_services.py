@@ -1,4 +1,7 @@
-"""Helper module to inject related services data into interoperability guileliens response"""
+"""
+Helper module to inject related services data into
+interoperability guidelines response
+"""
 
 import asyncio
 import copy
@@ -16,7 +19,9 @@ from app.solr.operations import get_item_by_pid
 logger = logging.getLogger(__name__)
 
 
-def _parse_categories(categories: list, unified_categories: Optional[list]) -> list:
+def _parse_categories(
+    categories: list, unified_categories: Optional[list]
+) -> list:
     categories_set = set()
     for item in categories:
         try:
@@ -30,14 +35,17 @@ def _parse_categories(categories: list, unified_categories: Optional[list]) -> l
 
 async def _get_related_records_pids(client, ig_pid):
     try:
-        response = await client.get(f"{settings.RELATED_SERVICES_ENDPOINT}/{ig_pid}")
+        response = await client.get(
+            f"{settings.RELATED_SERVICES_ENDPOINT}/{ig_pid}"
+        )
         response.raise_for_status()
 
         try:
             json_data = response.json()
         except ValueError as exc:
             logger.error(
-                "Error parsing JSON response from Provider Component's API for guideline %s. "
+                "Error parsing JSON response from Provider Component's"
+                " API for guideline %s. "
                 "Response content: %s",
                 ig_pid,
                 response.text,
@@ -50,7 +58,8 @@ async def _get_related_records_pids(client, ig_pid):
 
     except (ConnectError, ConnectTimeout) as conn_err:
         logger.error(
-            "Connection error while fetching related services for guideline %s: %s",
+            "Connection error while fetching related services "
+            "for guideline %s: %s",
             ig_pid,
             conn_err,
         )
@@ -72,16 +81,19 @@ async def _get_related_records_pids(client, ig_pid):
 
     except Exception as exc:
         logger.error(
-            "Unexpected error while fetching related services for guideline %s: %s",
+            "Unexpected error while fetching related services "
+            "for guideline %s: %s",
             ig_pid,
             exc,
         )
         raise RelatedServicesError(detail="Unexpected error") from exc
 
 
-async def extend_ig_with_related_services(client: AsyncClient, docs: list[dict]):
-    """Main function responsible for extending iteroperability guideline response
-    with related services data
+async def extend_ig_with_related_services(
+    client: AsyncClient, docs: list[dict]
+):
+    """Main function responsible for extending interoperability
+    guideline response with related services data
     """
     new_docs = []
     for doc in docs:
@@ -92,7 +104,9 @@ async def extend_ig_with_related_services(client: AsyncClient, docs: list[dict])
                     client, doc["id"]
                 )
             except RelatedServicesError:
-                logger.exception("Exception happened during _get_related_records_pids")
+                logger.exception(
+                    "Exception happened during _get_related_records_pids"
+                )
                 related_services_pids = []
             finally:
                 if related_services_pids:
@@ -108,7 +122,9 @@ async def extend_ig_with_related_services(client: AsyncClient, docs: list[dict])
     return new_docs
 
 
-async def _get_related_services(client: AsyncClient, related_services_pids: list[str]):
+async def _get_related_services(
+    client: AsyncClient, related_services_pids: list[str]
+):
     gathered_result = await asyncio.gather(
         *[_get_related_service(client, pid) for pid in related_services_pids]
     )

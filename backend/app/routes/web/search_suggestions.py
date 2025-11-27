@@ -97,5 +97,7 @@ async def _search(
         return collection, res_json["response"]["docs"]
 
     except SolrCollectionEmptyError as e:
-        logger.error("Search suggestion request failure, %s: %r", collection, e)
+        logger.error(
+            "Search suggestion request failure, %s: %r", collection, e
+        )
         return collection, []
