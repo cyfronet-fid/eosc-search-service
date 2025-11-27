@@ -2,7 +2,6 @@
 
 Tools for data loading.
 
-
 ## Prerequisites
 
 You need to have a python installed from the root directory `.tool-versions` (preferably using asdf).
@@ -24,7 +23,6 @@ Refer to `../README.md` for exact instructions.
 You will also need read access to Ceph, configure an [aws-cli](https://github.com/aws/aws-cli/) with appropriate
 credentials. Save the credentials in profile `loader_user`.
 
-
 ## How to use
 
 (Bear in mind that the commands must be run in the folder this README is placed in and all the repo should be in place.)
@@ -34,6 +32,7 @@ For example, to generate chunk names from `000000_0` to `000010_0` run `bin/gen_
 (Refer to the tool's help for other options.)
 
 Then, dry-run the actual loader:
+
 ```
 bin/load_chunks.sh --dry-run \
                    --collection test-pubs \
@@ -51,6 +50,7 @@ the loader will take.
 Remove the `--dry-run` and execute the command again. The loader will perform the actual loading now.
 It is normal to get a bunch of `Incorrect length` error during transformation from TSV to JSONL.
 However, the Solr POST tool's output should look similar to this:
+
 ```
 docker run --rm -v [redacted]/loader/tmp/stage-1/001092_0.jsonl:/data.jsonl --network=host solr:8.11 post -url http://solr:8983/solr/test-pubs/update /data.jsonl
 /usr/local/openjdk-11/bin/java -classpath /opt/solr/dist/solr-core-8.11.1.jar -Dauto=yes -Durl=http://solr:8983/solr/test-pubs/update -Dc= -Ddata=files org.apache.solr.util.SimplePostTool /data.jsonl
@@ -63,10 +63,10 @@ COMMITting Solr index changes to http://solr:8983/solr/test-pubs/update...
 Time spent: 0:01:20.960
 ```
 
-
 ## Useful commands
 
 To investigate the memory and disk used by Solr container you can use a script similar to the following:
+
 ```bash
 #!/usr/bin/env bash
 

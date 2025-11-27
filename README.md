@@ -40,7 +40,7 @@ Run `docker-compose up --build`.
 
 UI uses [ng-node-environment](https://github.com/kopz9999/ng-node-environment) to generate variables.
 Please consult the documentation of the package for details, but TLDR is following:
-every environmental variable prefixed by `NG_` is put into object `sharedEnvironment` in `/ui/apps/ui/src/environments/environment.generated.ts`. As for the names `NG_` prefix 
+every environmental variable prefixed by `NG_` is put into object `sharedEnvironment` in `/ui/apps/ui/src/environments/environment.generated.ts`. As for the names `NG_` prefix
 is removed and rest of the name is converted from `UNDERSCORE_CASE` into `UnderscoreCase`.
 Example: when only variable provided is `NG_COLLECTIONS_PREFIX='beta_'` then created
 `environment.generated.ts` will look as follows:
@@ -84,12 +84,14 @@ It registers all configsets from `/solr/config/configsets/`.
 To access the web interface go to http://localhost:8983/solr.
 
 To upload an additional configset:
+
 ```shell
 docker run --rm -v "$PWD/solr/config/configsets:/configsets" --network=host solr:8.11 \
        solr zk upconfig -n "<name>" -d "/configsets/<name>" -z localhost:2181
 ```
 
 To create a new collection, run
+
 ```shell
 solr/create-collection.sh --name ess --config-name base-1
 ```
@@ -106,6 +108,7 @@ is forwarded to host network.
 3) Now schema is available for everyone. Use: `docker compose build`
 ### Solr collection seeding
 Add data to already existing collection
+
 ```
 curl --location --request POST '<address>:<port>/solr/<collection_name>/update/json/docs' --header 'Content-Type: application/json' -T '<data_file>'
 ```
@@ -116,15 +119,16 @@ Check-out the code from
 https://git.man.poznan.pl/stash/scm/eosc-rs/online-ml-ai-engine.git
 (commit ea3545a6fc3 at the time of writing) to a separate directory, and
 build the image:
+
 ```shell
 docker build -t "omae:0.0.1" .
 ```
 
 Then, run the image:
+
 ```shell
 docker run -p 9080:80 omae:0.0.1
 ```
-
 
 ## Deployment
 
@@ -139,7 +143,7 @@ See docker-compose.yml for components.
 - `LOG_LEVEL`: `str = "info"` - Logging level.
 
 #### Operational:
-- `BACKEND_BASE_URL`: `Url = "http://localhost:8000/"` - your backend URL. 
+- `BACKEND_BASE_URL`: `Url = "http://localhost:8000/"` - your backend URL.
 - `UI_BASE_URL`: `Url = "http://localhost:4200/"` - your UI URL.
 - `DATABASE_URI`: `PostgresDsn = "postgresql+psycopg2://ess:ess@localhost:5442/ess"` - your database URI.
 - `MAX_RESULTS_BY_PAGE`: `int = 50` - how many results to fetch with a single call to SOLR backend.
@@ -154,12 +158,12 @@ See docker-compose.yml for components.
 - `RS_URL`: `Url = "http://localhost:9080/"` - your Recommender System URL.
 - `RECOMMENDER_ENDPOINT`: `Url = "http://localhost:8081/recommendations"` - your endpoint that returns recommendations.
 - `SHOW_RECOMMENDATIONS`: `bool = True` - Show recommendations?
-- `SHOW_RANDOM_RECOMMENDATIONS`: `bool = True` - Show random recommendations on failure? 
+- `SHOW_RANDOM_RECOMMENDATIONS`: `bool = True` - Show random recommendations on failure?
 - `IS_SORT_BY_RELEVANCE`: `bool = True` - Enable sort by relevance?
 - `MAX_ITEMS_SORT_RELEVANCE`: `int = 250` - Max items send to sort by relevance endpoint.
 
 ##### STOMP
-- `STOMP_HOST`: `str = "127.0.0.1"` - STOMP host. 
+- `STOMP_HOST`: `str = "127.0.0.1"` - STOMP host.
 - `STOMP_PORT`: `int = 61613`- STOMP port.
 - `STOMP_LOGIN`: `str = "guest"` - STOMP login.
 - `STOMP_PASS`: `str = "guest"`- STOMP password.
@@ -214,10 +218,10 @@ docker run --rm \
            pipenv run alembic upgrade head
 ```
 
-
 ### DB seed
 
 Add the new dump content by running:
+
 ```shell
 docker run --rm \
            --network "<ess-local_network>" \
@@ -225,7 +229,6 @@ docker run --rm \
            -it $(docker build -q ./backend) \
            pipenv run python -m app.manager db seed-oag-2
 ```
-
 
 ### Solr seed
 
@@ -249,8 +252,8 @@ Procedure:
   , when action is finished, a new `Pull Request` should occur in
   [Pull requests](https://github.com/cyfronet-fid/eosc-search-service/pulls)
 3. Go to `Pull Request` with name format: `chore(master): release x.y.z`, at this level you can customize release data:
-    - release version is build based on `x.y.z` version in commit format `chore(master): release x.y.z`,
-    - on `x.y.z` version change in commit, update also properly `CHANGELOG.md` section and `version.txt`
-    - list of changes that will occur in release is written in `CHANGELOG.md`
-    - the changes should land in one commit (squashed or amended) in format `chore(master): release x.y.z`
+   - release version is build based on `x.y.z` version in commit format `chore(master): release x.y.z`,
+   - on `x.y.z` version change in commit, update also properly `CHANGELOG.md` section and `version.txt`
+   - list of changes that will occur in release is written in `CHANGELOG.md`
+   - the changes should land in one commit (squashed or amended) in format `chore(master): release x.y.z`
 4. Choose merge option `Rebase and merge`

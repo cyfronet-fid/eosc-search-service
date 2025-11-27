@@ -4,7 +4,8 @@ import sys
 
 def usage() -> None:
     print(
-        f"Usage: {sys.argv[0]} (sample|range) [start, inclusive] [end, exclusive] [count, if sample]"
+        f"Usage: {sys.argv[0]} (sample|range) [start, inclusive]"
+        f"[end, exclusive] [count, if sample]"
     )
 
 
@@ -23,22 +24,25 @@ def do_range(start: int, end: int) -> None:
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4 or len(sys.argv) > 5:
+    args = sys.argv
+    argc = len(args)
+
+    if argc < 4 or argc > 5:
         usage()
         exit(1)
 
-    strategy_name = sys.argv[1]
-    match sys.argv[1]:
-        case "sample":
-            if len(sys.argv) < 5:
-                usage()
-                exit(1)
-            do_sample(int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))
-        case "range":
-            if len(sys.argv) == 5:
-                usage()
-                exit(1)
-            do_range(int(sys.argv[2]), int(sys.argv[3]))
-        case _:
+    strategy_name = args[1]
+
+    if strategy_name == "sample":
+        if argc < 5:
             usage()
             exit(1)
+        do_sample(int(args[2]), int(args[3]), int(args[4]))
+    elif strategy_name == "range":
+        if argc == 5:
+            usage()
+            exit(1)
+        do_range(int(args[2]), int(args[3]))
+    else:
+        usage()
+        exit(1)

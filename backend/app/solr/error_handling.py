@@ -8,7 +8,9 @@ from starlette import status
 
 
 class SolrDocumentNotFoundError(HTTPException):
-    """Error raised if requested document is not found in a given Solr collection"""
+    """
+    Error raised if requested document is not found in a given Solr collection
+    """
 
     status_code: status = status.HTTP_404_NOT_FOUND
     detail: str = "Requested document does not exist."
@@ -18,7 +20,10 @@ class SolrDocumentNotFoundError(HTTPException):
 
 
 class SolrCollectionNotFoundError(HTTPException):
-    """Error raised if requested collection is not present in a configured Solr instance"""
+    """
+    Error raised if requested collection is not present
+    in a configured Solr instance
+    """
 
     status_code: status = status.HTTP_404_NOT_FOUND
     detail: str = "Possible mismatch in collection name."
@@ -44,7 +49,9 @@ class SolrUnknownError(HTTPException):
         super().__init__(status_code=status_code, detail=detail)
 
 
-async def handle_solr_detail_response_errors(solr_request_coroutine) -> Response:
+async def handle_solr_detail_response_errors(
+    solr_request_coroutine,
+) -> Response:
     """Wrap solr detail requests to handle errors"""
     try:
         response = await solr_request_coroutine

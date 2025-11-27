@@ -1,8 +1,11 @@
-{"userProps":{
-    "_designer.disabled":false,
-    "update.autoCreateFields":true,
-    "_designer.enableDynamicFields":true,
-    "_designer.copyFrom":"all_collection_oag56_v205",
-    "_designer.enableNestedDocs":false,
-    "_designer.languages":[],
-    "_designer.publishedVersion":3}}
+{
+  "userProps": {
+    "_designer.disabled": false,
+    "update.autoCreateFields": true,
+    "_designer.enableDynamicFields": true,
+    "_designer.copyFrom": "all_collection_oag56_v205",
+    "_designer.enableNestedDocs": false,
+    "_designer.languages": [],
+    "_designer.publishedVersion": 3
+  }
+}

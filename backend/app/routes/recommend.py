@@ -69,7 +69,9 @@ async def recommend_post(
                 sort=sort,
             )
         except TransportError as e:
-            raise HTTPException(status_code=500, detail="Try again later") from e
+            raise HTTPException(
+                status_code=500, detail="Try again later"
+            ) from e
     if rs_response.is_error:
         try:
             detail = rs_response.json()["detail"]

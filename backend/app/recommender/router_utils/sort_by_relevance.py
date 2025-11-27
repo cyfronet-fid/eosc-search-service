@@ -7,7 +7,11 @@ import uuid
 import httpx
 from httpx import AsyncClient
 
-from app.recommender.router_utils.common import Collection, RecommenderError, _get_panel
+from app.recommender.router_utils.common import (
+    Collection,
+    RecommenderError,
+    _get_panel,
+)
 from app.schemas.session_data import SessionData
 from app.settings import settings
 
@@ -51,7 +55,9 @@ async def perform_sort_by_relevance(
     """Returns recommendations sorted by relevance"""
     try:
         request_body = {
-            "unique_id": session.session_uuid if session else str(uuid.uuid4()),
+            "unique_id": (
+                session.session_uuid if session else str(uuid.uuid4())
+            ),
             "timestamp": datetime.datetime.utcnow().isoformat()[:-3] + "Z",
             "visit_id": str(uuid.uuid4()),
             "client_id": "search_service",
@@ -84,7 +90,9 @@ async def perform_sort_by_relevance(
         if sum(len(v) for v in candidates_ids.values()) != len(
             parsed_response["recommendations"]
         ):
-            logger.warning("Not all candidates were returned by 'sort by relevance'")
+            logger.warning(
+                "Not all candidates were returned by 'sort by relevance'"
+            )
 
         return parsed_response["recommendations"]
 

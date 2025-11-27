@@ -1,4 +1,5 @@
-# pylint: disable=missing-module-docstring,missing-class-docstring, too-few-public-methods
+# pylint: disable=missing-module-docstring,missing-class-docstring
+# pylint: disable=too-few-public-methods
 
 from __future__ import annotations
 
@@ -21,7 +22,8 @@ class TermsFacet(BaseModel, _ISolrSerializable):
     """
     The TermsFacet schema.
 
-    It includes selected fields from https://solr.apache.org/guide/8_11/json-facet-api.html.
+    It includes selected fields from
+    https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
 
     type: Literal["terms"]
@@ -33,7 +35,9 @@ class TermsFacet(BaseModel, _ISolrSerializable):
     missing: Optional[bool] = None
     prefix: Optional[str] = None
     contains: Optional[str] = None
-    containsIgnoreCase: Optional[str] = Field(alias="contains.ignoreCase", default=None)
+    containsIgnoreCase: Optional[str] = Field(
+        alias="contains.ignoreCase", default=None
+    )
 
     def serialize_to_solr_format(self) -> dict:
         return self.dict()
