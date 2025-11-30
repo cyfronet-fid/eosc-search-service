@@ -18,7 +18,6 @@ import {
   constructAdvancedSearchMetadata,
   constructStandardSearchMetadata,
 } from '@pages/search-page/utils';
-import { SPECIAL_COLLECTIONS } from '@collections/data/config';
 import { ConfigService } from '../../services/config.service';
 
 @UntilDestroy()
@@ -78,7 +77,6 @@ export class SearchPageComponent implements OnInit {
   public showCollections = false;
   response: ISearchResults<IResult> | null = null;
   public clearAll = false;
-  isSpecialCollection = false;
   knowledgeHubUrl = this._configService.get().knowledge_hub_url;
   marketplaceUrl = this._configService.get().marketplace_url;
   userDocumentationUrl = this._configService.get().user_documentation_url;
@@ -95,10 +93,6 @@ export class SearchPageComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._customRoute.collection$.subscribe((val) => {
-      this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(val);
-    });
-
     combineLatest([
       this._route.paramMap.pipe(map((paramMap) => paramMap.get('collection'))),
       this._route.queryParamMap,

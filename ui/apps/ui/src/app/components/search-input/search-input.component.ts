@@ -34,7 +34,6 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { RedirectService } from '@collections/services/redirect.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { SPECIAL_COLLECTIONS } from '@collections/data/config';
 
 export interface Tags {
   narrow: string;
@@ -78,7 +77,6 @@ export class SearchInputComponent implements OnInit {
     { name: 'None of' },
   ];
   optionsDropdownSelectedValue: ICollectionTagsConfig = this.collectionFcAdv[2];
-  isSpecialCollection = false;
   isDOISelected = false;
 
   faMagnifyingGlass = faMagnifyingGlass;
@@ -288,12 +286,6 @@ export class SearchInputComponent implements OnInit {
         filter((q) => q !== this.formControl.value)
       )
       .subscribe((q) => this.formControl.setValue(q));
-    this._customRoute.collection$.subscribe((val) => {
-      this.isSpecialCollection = SPECIAL_COLLECTIONS.includes(val);
-      if (this.isSpecialCollection) {
-        this.backToStandard();
-      }
-    });
     this._customRoute.collection$
       .pipe(untilDestroyed(this))
       .subscribe((collection) => {

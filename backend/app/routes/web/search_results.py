@@ -174,6 +174,16 @@ async def search_post_advanced(
     )
 
 
+def _first_or_empty(value, default: str = "") -> str:
+    """
+    Helper to extract the first element from a list or return the value as-is.
+    Returns default if value is an empty list or None.
+    """
+    if isinstance(value, list):
+        return value[0] if value else default
+    return value if value is not None else default
+
+
 async def _extract_doi_from_url(url_string):
     """Function extracting doi from url"""
     try:
@@ -217,14 +227,14 @@ async def parse_single_export(doc) -> list:
     return data
 
 
-async def parse_single_organisation(doc) -> dict:
+def parse_single_organisation(doc) -> OrganisationResponse:
     """Creates an output for a single document"""
     return OrganisationResponse(
         id=doc["id"],
-        title=doc.get("title", ""),
+        title=_first_or_empty(doc.get("title", "")),
         abbreviation=doc.get("abbreviation", ""),
-        country=doc.get("country", [""])[0],
-        url=doc.get("url", ""),
+        country=_first_or_empty(doc.get("country", "")),
+        url=_first_or_empty(doc.get("url", "")),
         type=doc["type"],
         alternative_names=doc.get("alternative_names", [""]),
         related_publication_number=len(doc.get("related_publication_ids", [])),
@@ -232,7 +242,7 @@ async def parse_single_organisation(doc) -> dict:
         related_dataset_number=len(doc.get("related_dataset_ids", [])),
         related_other_number=len(doc.get("related_other_ids", [])),
         related_project_number=len(doc.get("related_project_ids", [])),
-    ).dict()
+    )
 
 
 async def create_parsed_docs_for_export_data(docs):
@@ -250,14 +260,14 @@ async def create_parsed_docs_for_organisation(docs):
     parsed_docs = []
     for doc in docs:
         try:
-            new_doc = await parse_single_organisation(doc)
+            new_doc = parse_single_organisation(doc)
         except (ValueError, KeyError) as err:
             doc_id = doc.get("id", "Unknown")
             logger.exception(
                 "Organisation %s is not conform to the schema: %s.", doc_id, err
             )
         else:
-            parsed_docs.append(new_doc)
+            parsed_docs.append(new_doc.dict())
     return parsed_docs
 
 
