@@ -163,4 +163,8 @@ export class ResultsWithPaginationComponent implements OnInit {
   getCollectionName(): string {
     return this._customRoute.params()['collection'] as string;
   }
+
+  redirectToRoot() {
+    this._router.navigate(['/search']);
+  }
 }

@@ -26,7 +26,7 @@ export const SPECIAL_COLLECTIONS = [
   'catalogue',
 ];
 
-export const BETA_ONLY_COLLECTIONS = ['organisation', 'project'];
+export const BETA_ONLY_COLLECTIONS: string[] = [];
 
 export const NO_RECOMMENDATIONS_COLLECTIONS = [
   'guideline',
