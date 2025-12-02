@@ -168,7 +168,7 @@ See docker-compose.yml for components.
 - `STOMP_SSL`: `bool = False` - enable SSL?
 
 ##### OIDC
-- `OIDC_HOST`: `Url = "https://aai-demo.eosc-portal.eu"` - OIDC host.
+- `OIDC_HOST`: `Url = "https://core-proxy.sandbox.eosc-beyond.eu"` - OIDC host.
 - `OIDC_CLIENT_ID`: `str = "NO_CLIENT_ID"` - The service ID stored in AAI for auth purposes.
 - `OIDC_CLIENT_SECRET`: `str = "NO_CLIENT_SECRET"` - Private key of the service needed in AAI auth process.
 - `OIDC_AAI_NEW_API`: `bool = False` - A param switching between new kind of endpoints and old one (AAI changed endpoints between instances)
@@ -177,15 +177,15 @@ See docker-compose.yml for components.
 - `SENTRY_DSN`: endpoint for Sentry logged errors. For development leave this variable unset.
 
 ##### Other
-- `RELATED_SERVICES_ENDPOINT`: `Url = "https://beta.providers.eosc-portal.eu/api/public/interoperabilityRecord/relatedResources"` - base URL to get related services for interoperability guidelines.
+- `RELATED_SERVICES_ENDPOINT`: `Url = "https://providers.sandbox.eosc-beyond.eu/api/public/interoperabilityRecord/relatedResources"` - base URL to get related services for interoperability guidelines.
 
 ##### Redirections
-- `MARKETPLACE_BASE_URL`: `Url = "https://marketplace.eosc-portal.eu/"` - marketplace base url (used to generate links back to MP).
+- `MARKETPLACE_BASE_URL`: `Url = "https://userspace.sandbox.eosc-beyond.eu/"` - marketplace base url (used to generate links back to MP).
 - `EOSC_COMMONS_URL`: `Url = "https://s3.cloud.cyfronet.pl/eosc-portal-common/"` - Base URL to eosc commons.
 - `EOSC_COMMONS_ENV`: `enum: 'production' | 'beta'` - Environment used to load eosc commons. Together with `EOSC_COMMONS_URL` two assets are loaded:
   > `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.js` and `<EOSC_COMMONS_URL>index.<EOSC_COMMONS_ENV>.min.css`
 
-- `EOSC_EXPLORE_URL`: `Url = "https://explore.eosc-portal.eu/"` - base URL to OpenAire Explore - used when constructing links for publications, datasets ETC.
+- `EOSC_EXPLORE_URL`: `Url = "https://explore.sandbox.eosc-beyond.eu/"` - base URL to OpenAire Explore - used when constructing links for publications, datasets ETC.
 - `KNOWLEDGE_HUB_URL`: `Url = "https://knowledge-hub.sandbox.eosc-beyond.eu/"` - base URL to Knowledge Hub.
 
 ### `db` envs:

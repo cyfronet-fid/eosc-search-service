@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name, use-dict-literal, fixme
+# pylint: disable=invalid-name, use-dict-literal, line-too-long, fixme
 """Backend Settings"""
 import logging
 from typing import Annotated, Literal, Optional
@@ -73,8 +73,7 @@ class GlobalSettings(BaseSettings):
 
     # - Other
     RELATED_SERVICES_ENDPOINT: Url = (
-        "https://integration.providers.sandbox.eosc-beyond.eu/"
-        + "api/public/interoperabilityRecord/relatedResources"
+        "https://providers.sandbox.eosc-beyond.eu/api/public/interoperabilityRecord/relatedResources"
     )
 
     # Redirections
