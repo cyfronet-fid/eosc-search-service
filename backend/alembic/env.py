@@ -1,3 +1,5 @@
+"""Migration script for alembic"""
+
 # pylint: disable=no-member
 
 from logging.config import fileConfig
@@ -30,6 +32,7 @@ target_metadata = models.Base.metadata
 
 
 def get_url():
+    """Returns database url"""
     return settings.DATABASE_URI.unicode_string()
 
 

@@ -1,4 +1,4 @@
-# pylint: disable=invalid-name, use-dict-literal, fixme
+# pylint: disable=invalid-name, use-dict-literal, line-too-long, fixme
 """Backend Settings"""
 import logging
 from typing import Annotated, Literal, Optional
@@ -27,7 +27,7 @@ class GlobalSettings(BaseSettings):
     BACKEND_BASE_URL: Url = "http://localhost:8000/"
     UI_BASE_URL: Url = "http://localhost:4200/"
     DATABASE_URI: PostgresDsn = "postgresql+psycopg2://ess:ess@localhost:5442/ess"
-    MAX_RESULTS_BY_PAGE: int = 50
+    MAX_RESULTS_BY_PAGE: int = 20
     SHOW_BETA_COLLECTIONS: bool = False
     SHOW_KNOWLEDGE_BASE: bool = True
 
@@ -73,12 +73,11 @@ class GlobalSettings(BaseSettings):
 
     # - Other
     RELATED_SERVICES_ENDPOINT: Url = (
-        "https://integration.providers.sandbox.eosc-beyond.eu/"
-        + "api/public/interoperabilityRecord/relatedResources"
+        "https://providers.sandbox.eosc-beyond.eu/api/public/interoperabilityRecord/relatedResources"
     )
 
     # Redirections
-    MARKETPLACE_BASE_URL: Url = "https://marketplace.sandbox.eosc-beyond.eu/"
+    MARKETPLACE_BASE_URL: Url = "https://userspace.sandbox.eosc-beyond.eu/"
     EOSC_COMMONS_URL: Url = (  # Without / at the end it doesn't work
         "https://s3.cloud.cyfronet.pl/eosc-portal-common/"
     )

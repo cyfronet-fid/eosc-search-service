@@ -1,3 +1,5 @@
+"""Sorting response data by relevance"""
+
 import datetime
 import logging
 import uuid
@@ -46,6 +48,7 @@ async def perform_sort_by_relevance(
     panel_id: Collection,
     candidates_ids: dict,
 ):
+    """Returns recommendations sorted by relevance"""
     try:
         request_body = {
             "unique_id": session.session_uuid if session else str(uuid.uuid4()),
@@ -81,7 +84,7 @@ async def perform_sort_by_relevance(
         if sum(len(v) for v in candidates_ids.values()) != len(
             parsed_response["recommendations"]
         ):
-            logger.warning(f"Not all candidates were returned by 'sort by relevance'")
+            logger.warning("Not all candidates were returned by 'sort by relevance'")
 
         return parsed_response["recommendations"]
 
