@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.34.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.33.2...v2.34.0) (2025-12-02)
+
+
+### Features
+
+* [[#1659](https://github.com/cyfronet-fid/eosc-search-service/issues/1659)] adjust keywords for adapters ([87914ab](https://github.com/cyfronet-fid/eosc-search-service/commit/87914ab564278f215b348926b93dd2be9f872c3a))
+* [[#1711](https://github.com/cyfronet-fid/eosc-search-service/issues/1711)] decreased paging from 50 to 20 ([56529e7](https://github.com/cyfronet-fid/eosc-search-service/commit/56529e7587e9c5d38c75db74fabfe44eee0bcb49))
+* [[#1745](https://github.com/cyfronet-fid/eosc-search-service/issues/1745)] Fix navigation bugs ([0b1b33f](https://github.com/cyfronet-fid/eosc-search-service/commit/0b1b33f0189e59b25916b1c3d6850fdcd42501ae))
+
+
+### Bug Fixes
+
+* [[#1715](https://github.com/cyfronet-fid/eosc-search-service/issues/1715)] add search results info ([ab4c8c7](https://github.com/cyfronet-fid/eosc-search-service/commit/ab4c8c7b4bfafc97ce3d0aebc7a3d8369f9e582e))
+* [[#1730](https://github.com/cyfronet-fid/eosc-search-service/issues/1730)] fix suggestions ([#1736](https://github.com/cyfronet-fid/eosc-search-service/issues/1736)) ([225a474](https://github.com/cyfronet-fid/eosc-search-service/commit/225a47415fedaf67162ff765b82866e696714877))
+* [[#1753](https://github.com/cyfronet-fid/eosc-search-service/issues/1753)] change marketplace default url ([85498be](https://github.com/cyfronet-fid/eosc-search-service/commit/85498be8d47d8dabc0cbc6c57c5808daa4e19ff8))
+* default readme values ([04c3e18](https://github.com/cyfronet-fid/eosc-search-service/commit/04c3e1870d91b37b6b91b530d26995f016b3cd01))
+
 ## [2.33.2](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.33.1...v2.33.2) (2025-11-03)
 
 
