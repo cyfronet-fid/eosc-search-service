@@ -1,4 +1,5 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring,unused-argument
+# pylint: disable=missing-module-docstring,missing-function-docstring
+# pylint: disable=unused-argument
 import datetime
 from unittest import mock
 
@@ -37,7 +38,8 @@ class MockedDate(datetime.date):
                     ' Scientific Research")'
                 ),
                 (
-                    'funding_stream_title:("Horizon 2020 Framework Programme \\-'
+                    'funding_stream_title:("Horizon 2020 '
+                    "Framework Programme \\-"
                     ' Research and Innovation action")'
                 ),
             ],
@@ -47,7 +49,8 @@ class MockedDate(datetime.date):
                     ' Scientific Research")'
                 ),
                 (
-                    'funding_stream_title:("Horizon 2020 Framework Programme \\-'
+                    'funding_stream_title:("Horizon 2020 '
+                    "Framework Programme \\-"
                     ' Research and Innovation action")'
                 ),
             ],
@@ -55,14 +58,16 @@ class MockedDate(datetime.date):
         (
             [
                 (
-                    'funding_stream_title:("Horizon 2020 Framework Programme \\-'
+                    'funding_stream_title:("Horizon 2020 '
+                    "Framework Programme \\-"
                     ' Research and Innovation action")'
                 ),
                 'project_status:("ongoing")',
             ],
             [
                 (
-                    'funding_stream_title:("Horizon 2020 Framework Programme \\-'
+                    'funding_stream_title:("Horizon 2020 '
+                    "Framework Programme \\-"
                     ' Research and Innovation action")'
                 ),
                 "{!field f=date_range op=Contains}[2024-02-06 TO 2024-02-06]",
@@ -85,8 +90,14 @@ def test_parse_project_filters(monkeypatch, original_fq, expected):
             ['country:("United Kingdom" OR "India")'],
         ),
         (
-            ['related_resources:("dataset")', 'country:("United Kingdom" OR "India")'],
-            ['country:("United Kingdom" OR "India")', "related_dataset_ids:(*)"],
+            [
+                'related_resources:("dataset")',
+                'country:("United Kingdom" OR "India")',
+            ],
+            [
+                'country:("United Kingdom" OR "India")',
+                "related_dataset_ids:(*)",
+            ],
         ),
         (
             [

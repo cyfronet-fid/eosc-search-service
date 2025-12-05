@@ -18,11 +18,19 @@ logger = logging.getLogger(__name__)
 
 
 class UserActionClient:
-    """Wrapper for the STOMP client which sends valid user action to the databus"""
+    """
+    Wrapper for the STOMP client which sends valid user action to the databus
+    """
 
     # pylint: disable=too-many-arguments
     def __init__(
-        self, host: str, port: int, username: str, password: str, topic: str, ssl: bool
+        self,
+        host: str,
+        port: int,
+        username: str,
+        password: str,
+        topic: str,
+        ssl: bool,
     ):
         self.host = host
         self.port = port
@@ -36,7 +44,10 @@ class UserActionClient:
             self.client.set_ssl(hosts_and_ports)
 
     def connect(self) -> None:
-        """Connect stomp internal client, this function must be called before using `send`"""
+        """
+        Connect stomp internal client, this function must be called
+        before using `send`
+        """
         self.client.connect(self.username, self.password, wait=True)
 
     # pylint: disable=too-many-arguments
@@ -51,7 +62,10 @@ class UserActionClient:
         target_id: str,
         recommendation_visit_id: Optional[str],
     ) -> None:
-        """Send user data to databus. Ensure that `.connect()` method has been called before."""
+        """
+        Send user data to databus.
+        Ensure that `.connect()` method has been called before.
+        """
 
         # this hack is required for legacy purposes.
         message = json.dumps(
@@ -91,7 +105,9 @@ class UserActionClient:
         """Create valid user action json dict"""
 
         visit_id = (
-            recommendation_visit_id if recommendation_visit_id else str(uuid.uuid4())
+            recommendation_visit_id
+            if recommendation_visit_id
+            else str(uuid.uuid4())
         )
 
         user_action = {
@@ -101,13 +117,12 @@ class UserActionClient:
             "source": {
                 "visit_id": visit_id,
                 # "search/data", "search/publications", "search/software",
-                # "search/services", "search/trainings", - user dashboard - "dashboard"
                 "page_id": page_id,
                 "root": (
                     {
-                        "type": "recommendation_panel",  # "other" - from normal list
+                        "type": "recommendation_panel",
                         "panel_id": "v1",
-                        "resource_id": resource_id,  # id of the clicked resource
+                        "resource_id": resource_id,
                         # publication, dataset, software, service, training
                         "resource_type": resource_type,
                     }
@@ -165,7 +180,10 @@ def send_user_action_bg_task(
     target_id: str,
     recommendation_visit_id: Optional[str],
 ):
-    """Simple wrapper function which can be used 'as is' in fastapi's BackgroundTask"""
+    """
+    Simple wrapper function which can be used 'as is'
+    in fastapi's BackgroundTask
+    """
     client.send(
         session,
         url,

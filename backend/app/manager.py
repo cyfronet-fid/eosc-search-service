@@ -85,7 +85,10 @@ def seed_oag_2():
                 DumpElement(
                     name=f"file_{el_name}",
                     reference_type="s3:v1",
-                    reference=f"{s3_prefix}/oag-2/openaire_prod_20211208/v2/{el_name}",
+                    reference=(
+                        f"{s3_prefix}/oag-2/openaire_prod_20211208/"
+                        f"v2/{el_name}"
+                    ),
                 )
                 for el_name in [
                     "dataset/000550_0",

@@ -6,7 +6,9 @@ from starlette.status import HTTP_200_OK
 
 
 @pytest.mark.asyncio
-async def test_return_backend_config(app: FastAPI, client: AsyncClient) -> None:
+async def test_return_backend_config(
+    app: FastAPI, client: AsyncClient
+) -> None:
     response = await client.get(app.url_path_for("web:configuration"))
 
     assert response.status_code == HTTP_200_OK

@@ -1,4 +1,5 @@
-# pylint: disable=missing-module-docstring,broad-except,missing-function-docstring,cyclic-import,use-dict-literal
+# pylint: disable=missing-module-docstring,broad-except
+# pylint: disable=missing-function-docstring,cyclic-import,use-dict-literal
 import uuid
 from uuid import UUID, uuid4
 
@@ -47,7 +48,9 @@ async def auth_checkin(code: str, state: str):
             session_uuid=str(uuid.uuid4()),
         )
         await backend.create(session_id, session_data)
-        auth_response = RedirectResponse(status_code=303, url=settings.UI_BASE_URL)
+        auth_response = RedirectResponse(
+            status_code=303, url=settings.UI_BASE_URL
+        )
         cookie.attach_to_response(auth_response, session_id)
         return auth_response
     except Exception:
@@ -59,9 +62,13 @@ async def auth_checkin(code: str, state: str):
 
 
 @router.get(
-    "/userinfo", dependencies=[Depends(cookie)], response_model=UserInfoResponse
+    "/userinfo",
+    dependencies=[Depends(cookie)],
+    response_model=UserInfoResponse,
 )
-async def user_info(session_data: SessionData = Depends(verifier)) -> UserInfoResponse:
+async def user_info(
+    session_data: SessionData = Depends(verifier),
+) -> UserInfoResponse:
     if session_data.username is None:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     return UserInfoResponse(username=session_data.username)

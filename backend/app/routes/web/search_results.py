@@ -22,7 +22,11 @@ from app.consts import (
 )
 from app.routes.web.recommendation import sort_by_relevance
 from app.schemas.search_request import SearchRequest
-from app.schemas.solr_response import Collection, ExportData, OrganisationResponse
+from app.schemas.solr_response import (
+    Collection,
+    ExportData,
+    OrganisationResponse,
+)
 from app.settings import settings
 from app.solr.error_handling import SolrDocumentNotFoundError
 from app.solr.operations import get, search_advanced_dep, search_dep
@@ -35,7 +39,8 @@ logger = logging.getLogger(__name__)
 DOWNLOAD_RESULT_FIELDS = ["title", "type", "description", "best_access_right"]
 
 
-# pylint: disable=too-many-arguments,too-many-positional-arguments, too-many-locals
+# pylint: disable=too-many-arguments,too-many-positional-arguments
+# pylint: disable=too-many-locals
 @router.post("/search-results", name="web:post-search")
 async def search_post(
     request_session: Request,
@@ -97,7 +102,9 @@ async def search_post(
                 )
                 res_json["response"]["docs"] = copy.deepcopy(new_docs)
             except (Exception,):  # pylint: disable=broad-except
-                logger.exception("Exception happened during related services extension")
+                logger.exception(
+                    "Exception happened during related services extension"
+                )
 
     collection = response.collection
     out = await create_output(request_session, res_json, collection, sort_ui)
@@ -264,7 +271,9 @@ async def create_parsed_docs_for_organisation(docs):
         except (ValueError, KeyError) as err:
             doc_id = doc.get("id", "Unknown")
             logger.exception(
-                "Organisation %s is not conform to the schema: %s.", doc_id, err
+                "Organisation %s is not conform to the schema: %s.",
+                doc_id,
+                err,
             )
         else:
             parsed_docs.append(new_doc.dict())
@@ -272,7 +281,10 @@ async def create_parsed_docs_for_organisation(docs):
 
 
 async def create_output(
-    request_session: Request, res_json: dict, collection: Collection, sort_ui: str
+    request_session: Request,
+    res_json: dict,
+    collection: Collection,
+    sort_ui: str,
 ) -> dict:
     """Create an output"""
     docs = res_json["response"]["docs"]
@@ -288,7 +300,9 @@ async def create_output(
 
     if sort_ui == "r":
         # Sort by relevance
-        rel_sorted_items = await sort_by_relevance(request_session, collection, docs)
+        rel_sorted_items = await sort_by_relevance(
+            request_session, collection, docs
+        )
         out["results"] = rel_sorted_items["recommendations"]
         out["numFound"] = len(out["results"])
         if not out["numFound"]:
@@ -305,12 +319,18 @@ async def create_output(
     return out
 
 
-# pylint: disable=logging-fstring-interpolation, too-many-locals, useless-suppression
+# pylint: disable=logging-fstring-interpolation, too-many-locals,
+# pylint: disable=useless-suppression
 async def extend_results_with_bundles(client, res_json):
-    """Extend bundles in search results with information about offers and services"""
+    """
+    Extend bundles in search results
+    with information about offers and services
+    """
 
     bundle_results = list(
-        filter(lambda doc: doc["type"] == "bundle", res_json["response"]["docs"])
+        filter(
+            lambda doc: doc["type"] == "bundle", res_json["response"]["docs"]
+        )
     )
     if bundle_results:
         # Combine main offer with other offers
@@ -347,7 +367,9 @@ async def extend_results_with_bundles(client, res_json):
             service_results = []
             for service_id in services_ids:
                 with suppress(SolrDocumentNotFoundError):
-                    response = await get(client, Collection.SERVICE, service_id)
+                    response = await get(
+                        client, Collection.SERVICE, service_id
+                    )
                     item = response["doc"]
                     if item is None:
                         logger.warning(f"No service with id={service_id}")
@@ -361,7 +383,8 @@ async def extend_results_with_bundles(client, res_json):
                 bundle["offers"] = [
                     offers.get(str(offer_id))
                     for offer_id in (
-                        [bundle.get("main_offer_id")] + (bundle.get("offer_ids") or [])
+                        [bundle.get("main_offer_id")]
+                        + (bundle.get("offer_ids") or [])
                     )
                 ]
     else:
@@ -380,7 +403,9 @@ async def define_sorting(
         if sort_ui == "dlr":
             return ["publication_year asc"] + DEFAULT_SORT
     default_sort = (
-        DEFAULT_SPECIAL_COL_SORT if collection == Collection.PROJECT else DEFAULT_SORT
+        DEFAULT_SPECIAL_COL_SORT
+        if collection == Collection.PROJECT
+        else DEFAULT_SORT
     )
     additional_sorts = SORT_UI_TO_SORT_MAP.get(sort_ui)
     final_sorting = (

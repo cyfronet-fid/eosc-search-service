@@ -1,4 +1,5 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring,redefined-outer-name
+# pylint: disable=missing-module-docstring,missing-function-docstring
+# pylint: disable=redefined-outer-name
 from datetime import datetime
 
 import pytest
@@ -76,7 +77,9 @@ def test_create_dump(db: Session, dumps_repo: DumpsRepository, new_dump: Dump):
 
 
 # pylint: disable=unused-argument
-def test_list_all_dumps(db: Session, dumps_repo: DumpsRepository, create_dumps: None):
+def test_list_all_dumps(
+    db: Session, dumps_repo: DumpsRepository, create_dumps: None
+):
     assert db.query(Dump).count() == 2
 
     dumps = dumps_repo.list_all_dumps()

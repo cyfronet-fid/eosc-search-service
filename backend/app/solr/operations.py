@@ -41,11 +41,11 @@ async def search(
     cursor: str = "*",
     facets: dict[str, TermsFacet | StatFacet] = None,
 ) -> SolrResponse:
-    # pylint: disable=line-too-long
     """
     Retrieve search results for a specified collection.
 
-    Expect an AsyncClient to execute the request against. This allows the calling party to control the lifecycle
+    Expect an AsyncClient to execute the request against.
+    This allows the calling party to control the lifecycle
     of the client.
 
     The q, qf, fq, sort params correspond to
@@ -53,7 +53,8 @@ async def search(
     Paging is cursor-based, see
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
 
-    Facets support a subset of parameters from: https://solr.apache.org/guide/8_11/json-facet-api.html.
+    Facets support a subset of parameters from:
+    https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
 
     q = q.replace("(", r"").replace(")", r"")
@@ -78,7 +79,8 @@ async def search(
             # Split query on white space before search
             # https://solr.apache.org/guide/6_6/the-extended-dismax-query-parser.html#TheExtendedDisMaxQueryParser-ThesowParameter
             # "sow": "false",
-            # `and`, and `or` operators in query should be used as SOLR commands?
+            # `and`, and `or` operators in query should be used
+            # as SOLR commands?
             "lowercaseOperators": "false",
             # Minimum match, minimum clauses that should match
             # https://solr.apache.org/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Themm_MinimumShouldMatch_Parameter
@@ -90,8 +92,10 @@ async def search(
             # when "AND" === all clauses should match
             # "q.op": "AND",
             "mm": mm_param,
-            # How much lower weights fields score is taken against high weights fields score
-            # 0.0 === lower weight field score is treated as high weight field score
+            # How much lower weights fields score is taken
+            # against high weights fields score
+            # 0.0 === lower weight field score is treated
+            # as high weight field score
             # 1.0 === only highest weighted fields score will be taken
             # https://solr.apache.org/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Thetie_TieBreaker_Parameter
             "tie": "0.1",
@@ -149,11 +153,11 @@ async def search_advanced(
     cursor: str = "*",
     facets: dict[str, TermsFacet] | None,
 ) -> SolrResponse:
-    # pylint: disable=line-too-long
     """
     Retrieve search results for a specified collection.
 
-    Expect an AsyncClient to execute the request against. This allows the calling party to control the lifecycle
+    Expect an AsyncClient to execute the request against.
+    This allows the calling party to control the lifecycle
     of the client.
 
     The q, qf, fq, sort params correspond to
@@ -161,7 +165,8 @@ async def search_advanced(
     Paging is cursor-based, see
     https://solr.apache.org/guide/8_11/pagination-of-results.html#fetching-a-large-number-of-sorted-results-cursors.
 
-    Facets support a subset of parameters from: https://solr.apache.org/guide/8_11/json-facet-api.html.
+    Facets support a subset of parameters from:
+    https://solr.apache.org/guide/8_11/json-facet-api.html.
     """
     q = q.replace("(", r"").replace(")", r"")
     q = q.replace("[", r"").replace("]", r"")
@@ -184,7 +189,8 @@ async def search_advanced(
             # Split query on white space before search
             # https://solr.apache.org/guide/6_6/the-extended-dismax-query-parser.html#TheExtendedDisMaxQueryParser-ThesowParameter
             # "sow": "false",
-            # `and`, and `or` operators in query should be used as SOLR commands?
+            # `and`, and `or` operators in query should be used
+            # as SOLR commands?
             "lowercaseOperators": "false",
             # Minimum match, minimum clauses that should match
             # https://solr.apache.org/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Themm_MinimumShouldMatch_Parameter
@@ -196,8 +202,10 @@ async def search_advanced(
             # when "AND" === all clauses should match
             # "q.op": "AND",
             "mm": mm_param,
-            # How much lower weights fields score is taken against high weights fields score
-            # 0.0 === lower weight field score is treated as high weight field score
+            # How much lower weights fields score is taken against
+            # high weights fields score
+            # 0.0 === lower weight field score is treated as
+            # high weight field score
             # 1.0 === only highest weighted fields score will be taken
             # https://solr.apache.org/guide/6_6/the-dismax-query-parser.html#TheDisMaxQueryParser-Thetie_TieBreaker_Parameter
             "tie": "0.1",
@@ -243,8 +251,8 @@ async def search_advanced(
 
 async def _check_collection_sanity(client, collection):
     """
-    Helper function checking if the solr collection is not empty in case of solr data request
-    returns a response with no data.
+    Helper function checking if the solr collection is not empty
+    in case of solr data request returns a response with no data.
     """
     if collection == Collection.PROVIDER:
         qf = PROVIDER_QF

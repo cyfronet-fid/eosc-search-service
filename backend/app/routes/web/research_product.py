@@ -9,7 +9,10 @@ from httpx import AsyncClient
 from pydantic import ValidationError
 
 from app.consts import ResearchProductCollection
-from app.schemas.research_product_response import ResearchProductResponse, RPUrlPath
+from app.schemas.research_product_response import (
+    ResearchProductResponse,
+    RPUrlPath,
+)
 from app.solr.operations import get_dep
 
 router = APIRouter()
@@ -19,7 +22,9 @@ logger = logging.getLogger(__name__)
 
 @router.get("/research-product/{resource_type}/{rp_id:path}")
 async def get_rp_by_id(
-    resource_type: ResearchProductCollection, rp_id: str, solr_get=Depends(get_dep)
+    resource_type: ResearchProductCollection,
+    rp_id: str,
+    solr_get=Depends(get_dep),
 ) -> Optional[ResearchProductResponse]:
     """
     Main function responsible for getting details for a given Solr document.
@@ -32,7 +37,9 @@ async def get_rp_by_id(
         response = await solr_get(async_client, resource_type, rp_id)
         response = response["doc"]
     if response is None:
-        raise HTTPException(status_code=404, detail="Research product not found")
+        raise HTTPException(
+            status_code=404, detail="Research product not found"
+        )
     urls = []
     for url in response.get("url", []):
         with suppress(ValidationError):

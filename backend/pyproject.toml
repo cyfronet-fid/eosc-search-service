@@ -18,3 +18,12 @@ addopts = "--strict-markers"
 markers = ["integration: mark the test as an integration test for easier exclusion"]
 # new versions of pytest / pytest asyncio have different default which crashes most tests
 asyncio_mode = "auto"
+
+
+[tool.black]
+line-length = 79
+
+[tool.ruff]
+line-length = 79
+select = ["E", "F", "W", "I", "C90"]
+#select = ["E"]
