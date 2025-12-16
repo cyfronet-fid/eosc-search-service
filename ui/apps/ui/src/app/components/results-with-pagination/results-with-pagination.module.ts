@@ -17,6 +17,7 @@ import { DescriptionModule } from '../../layouts/description/description.module'
 import { InteroperabilityGuidelinesPipeModule } from '../../pipe/interoperability-guidelines.pipe.module';
 import { BibliographyModule } from '@components/bibliography/bibliography.module';
 import { PinComponent } from '@components/results-with-pagination/result-ui-controls/pin.component';
+import { FavouriteComponent } from '@components/results-with-pagination/result-ui-controls/favourite.component';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { SourcesComponent } from './result-ui-controls/sources.component';
 import { ShowRelatedResourceComponent } from './result-ui-controls/show-related-resources';
@@ -35,6 +36,7 @@ import { RepositoryComponent } from '@components/repository/repository.component
     OrganisationResultComponent,
     ProjectResultComponent,
     PinComponent,
+    FavouriteComponent,
     ShowRelatedResourceComponent,
     SourcesComponent,
     RepositoryComponent,

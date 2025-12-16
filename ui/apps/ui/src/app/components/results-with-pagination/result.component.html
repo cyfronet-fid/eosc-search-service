@@ -359,6 +359,10 @@
       style="border-right: none !important"
       class="bottom-action-link"
     ></ess-pin>
+    <ess-favourite
+      [pid]="this.pid ?? ''"
+      [resourceType]="type.value"
+    ></ess-favourite>
     <div *ngIf="collection === 'provider' || collection === 'organisation' || collection === 'catalogue' ">
       <ess-related-resources
         [pid]="this.pid ?? ''"
