@@ -168,15 +168,21 @@ async def test_sends_aai_uid_in_user_action_for_signed_in_user(
 
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_user_actions_not_sent_when_disabled(app: FastAPI, client: AsyncClient):
+async def test_user_actions_not_sent_when_disabled(
+    app: FastAPI, client: AsyncClient
+):
     # Disable user actions
     settings.UA_ENABLED_INSTANCE_SCOPE = False
-    conn = stomp.Connection(host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)])
+    conn = stomp.Connection(
+        host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)]
+    )
     listener = MockListener(timeout=2)  # short timeout
     conn.set_listener("test_listener", listener)
     conn.connect(settings.STOMP_LOGIN, settings.STOMP_PASS, wait=True)
     conn.subscribe(
-        settings.STOMP_USER_ACTIONS_TOPIC, settings.STOMP_CLIENT_NAME, ack="auto"
+        settings.STOMP_USER_ACTIONS_TOPIC,
+        settings.STOMP_CLIENT_NAME,
+        ack="auto",
     )
 
     await call_navigate_api(app, client)
