@@ -895,9 +895,9 @@ h6 {
 
   .bottom-action-link {
     float: left;
-    border-right: 1px solid #d9d9d9;
     margin: 0 10px 0 0;
     padding-right: 10px;
+    border-right: 1px solid #d9d9d9;
   }
 
   a {
@@ -939,6 +939,13 @@ h6 {
       border: none;
     }
   }
+}
+
+/* single-action case */
+.bottom-actions .share-link:first-child:last-child {
+  border-right: none;
+  margin-right: 0;
+  padding-right: 0;
 }
 
 .share-popover {
