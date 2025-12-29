@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { UserProfileService } from '../../../auth/user-profile.service';
+import { FavouriteService } from '@components/results-with-pagination/result-ui-controls/favourite.service';
 import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 
 // @UntilDestroy()
@@ -39,6 +40,12 @@ import {UntilDestroy, untilDestroyed} from "@ngneat/until-destroy";
 })
 
 export class FavouriteComponent implements OnInit{
+  @Input() pid!: string;
+
+  //one of those
+  @Input() type!: string;
+  @Input() resourceType!: string;
+
   isActive = false;
 
   private _svgAdd: SafeHtml = '';
@@ -51,7 +58,8 @@ export class FavouriteComponent implements OnInit{
     private _http: HttpClient,
     private _sanitizer: DomSanitizer,
     private _cdr: ChangeDetectorRef,
-    private _userProfileService: UserProfileService
+    private _userProfileService: UserProfileService,
+    private _favouriteService: FavouriteService,
   ) {
     this.isLogged = false;
   }
@@ -71,20 +79,32 @@ export class FavouriteComponent implements OnInit{
       .subscribe((profile) => (
             this.isLogged = !(profile.aai_id === '' || profile === null || profile === undefined)
       ));
+    //if logged in then check if this resource is in favs and set isActive
+    // GET FAV
+    // this._favouriteService.getFavourites$().subscribe((favs) => {
+    //     this.isActive = !!favs?length && favs.some(fav => fav.pid === this.pid && fav.resourceType === this.resourceType);
+    //     console.log("favs: ", favs);
+    // });
 
+    if (this.isLogged){
+      this._favouriteService.getFavourites$().subscribe(favs => {
+        this.isActive = !!favs?.length &&
+          favs.some(fav => fav.pid === this.pid && fav.resourceType === this.resourceType);
+        console.log("favs: ", favs);
+      });
+    }
+    console.log('pid: ', this.pid);
+    console.log('resource_type: ', this.resourceType);
   };
 
   toggle() {
     if (this.isLogged) {
-      this.isActive = !this.isActive;
+      // this.isActive = !this.isActive;
       this.updateSvg();
       this.updateFavourites();
     }
 
-    console.log(this.isActive);
-    console.log(this.svgContent);
-
-    console.log(this.isLogged)
+    console.log("active:", this.isActive);
   }
   private updateSvg() {
     this.svgContent = this.isActive? this._svgAdded : this._svgAdd;
@@ -93,12 +113,22 @@ export class FavouriteComponent implements OnInit{
 
   private updateFavourites() {
     if (this.isActive) {
-      // remove from favourites
-      console.log('lets remove')
-    }
-    else {
       // add to favourites
       console.log('lets add')
+      this._favouriteService.addToFavourites$(this.pid, this.resourceType).subscribe( response => {
+        console.log("response add: ", response.body);
+        this.isActive = true
+      });
+    }
+    else {
+      // remove from favourites
+      console.log('lets remove')
+      this._favouriteService.deleteFromFavourites$(this.pid, this.resourceType).subscribe( response => {
+        console.log("response delete: ", response.body);
+        this.isActive = false
+      });
     }
   }
+
+
 }

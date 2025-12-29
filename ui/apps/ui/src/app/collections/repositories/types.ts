@@ -291,3 +291,25 @@ export interface Pids {
   pmc: string[];
   pmid: string[];
 }
+
+export interface IFavouriteResourceInfo {
+  resourceType:
+    | 'adapter'
+    | 'service'
+    | 'publication'
+    | 'dataset'
+    | 'training'
+    | 'software'
+    | 'data source'
+    | 'data-source'
+    | 'other'
+    | 'guideline'
+    | 'bundle'
+    | 'provider'
+    | 'project'
+    | 'organisation'
+    | 'catalogue'
+    | 'deployable service'
+    | 'deployable-service';
+  pid: string;
+}
