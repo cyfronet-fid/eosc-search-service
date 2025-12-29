@@ -75,6 +75,7 @@ class GlobalSettings(BaseSettings):
     OIDC_USERINFO_ENDPOINT: str = "/oidc/userinfo"
     OIDC_JWKS_ENDPOINT: str = "/oidc/jwk"
 
+
     # - Sentry
     SENTRY_DSN: Optional[str] = None
 
@@ -92,12 +93,13 @@ class GlobalSettings(BaseSettings):
     EOSC_EXPLORE_URL: Url = "https://explore.sandbox.eosc-beyond.eu/"
     KNOWLEDGE_HUB_URL: Url = "https://knowledge-hub.sandbox.eosc-beyond.eu/"
     USER_DOCUMENTATION_URL: Url = "https://docs.sandbox.eosc-beyond.eu/"
+    FAVOURITE_API_URL: Url = "https://marketplace-5.docker-fid.grid.cyf-kr.edu.pl/api/v1/favourites"
+    # FAVOURITE_API_URL: Url = "https://marketplace-5.docker-fid.grid.cyf-kr.edu.pl/api_docs/swagger/index.html?urls.primaryName=EOSC%20Marketplace%20Favourites%20API"
 
     # Get config from .env
     model_config = SettingsConfigDict(
         env_file="../.env", env_file_encoding="utf-8"
     )
-
 
 class DevSettings(GlobalSettings):
     """Dev Settings"""
