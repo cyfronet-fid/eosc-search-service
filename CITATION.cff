@@ -5,7 +5,39 @@ message: >-
   metadata from this file.
 type: software
 authors:
-  - {}
+  - given-names: Michał
+    family-names: Kołomański
+    url: https://github.com/Michal-Kolomanski
+  - given-names: Daniel
+    family-names: Kryska
+    url: https://github.com/danielkryska
+  - given-names: Maria
+    family-names: Kowalska
+    url: https://github.com/maria-j-k
+  - given-names: Jakub
+    family-names: Sawicki
+    url: https://github.com/jswk
+  - given-names: Jarosław
+    family-names: Zbozien
+    url: https://github.com/jarekzet
+  - given-names: Michał
+    family-names: Szostak
+    url: https://github.com/michal-szostak
+  - given-names: Wiktor
+    family-names: Florian
+    url: https://github.com/wiktorflorian
+  - given-names: Patryk
+    family-names: Wójtowicz
+    url: https://github.com/wujuu
+  - given-names: Szymon
+    family-names: Figura
+    url: https://github.com/sqrasdf
+  - given-names: Joanna
+    family-names: Rogóż
+    url: https://github.com/jrogoz
+  - given-names: Paweł
+    family-names: Gorczyca
+    url: https://github.com/goreck888
 repository-code: 'https://github.com/cyfronet-fid/eosc-search-service'
 abstract: >-
   EOSC Search Service is a backend and frontend system
