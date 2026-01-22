@@ -4,13 +4,16 @@ import logging
 from stat import FILE_ATTRIBUTE_VIRTUAL
 
 from typing import Literal
+
+import httpx
+import requests
 from starlette import status
 
 from fastapi import APIRouter, Depends, HTTPException, Request
 from httpx import AsyncClient
 
-from app.dependencies.user_actions import (
-    user_actions_client,
+from app.dependencies.favourites import (
+    get_favourites_client, FavouritesClient
 )
 from app.settings import settings
 from app.utils.cookie_validators import cookie, verifier
@@ -34,34 +37,26 @@ logger = logging.getLogger(__name__)
 )
 async def get_favourites_list(
     request: Request,
-    client: AsyncClient | None = Depends(user_actions_client),
+    client: FavouritesClient | None = Depends(get_favourites_client),
 ):
     """Get all user's favourites list"""
 
     try:
-        #cookie(request)
+        cookie(request)
         session = await verifier(request)
-        access_token = request.session.get("access_token")
-        access_token = request.headers.get("Authorization")
+
+        access_token = session.access_token
 
         if not access_token:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-        headers = {
-            "Authorization": f"Bearer {access_token}"
-        }
-
-        async with client:
-            response = await client.get(
-                settings.FAVOURITE_API_URL,
-                headers=headers,
-                params={}
-            )
-
-        response.raise_for_status()
-        return response.json()
+        response = await client.get_fav(access_token)
+        return response
 
     except HTTPException:
+        raise
+    except httpx.ConnectTimeout as e:
+        print(e)
         raise
     except Exception as ex:
         print(ex)
@@ -96,31 +91,19 @@ async def add_to_the_favourites(
         "deployable-service",
     ],
     pid: str,
-    client: AsyncClient | None = Depends(user_actions_client),
-    session_data: SessionData = Depends(verifier)
+    client: FavouritesClient | None = Depends(get_favourites_client),
 ):
     try:
-        access_token = session_data.access_token
+        cookie(request)
+        session = await verifier(request)
+
+        access_token = session.access_token
 
         if not access_token:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-        headers = {
-            "Authorization": f"Bearer {access_token}"
-        }
-
-        async with client:
-            response = await client.post(
-                settings.FAVOURITE_API_URL,
-                headers=headers,
-                json={
-                    "pid":pid,
-                    "resource_type":resource_type
-                },
-            )
-
-        response.raise_for_status()
-        return response.json()
+        response = await client.add_fav(access_token, pid, resource_type)
+        return response
 
     except HTTPException:
         raise
@@ -155,32 +138,18 @@ async def remove_from_the_favourites(
         "deployable-service",
     ],
     pid : str,
-    client: AsyncClient | None = Depends(user_actions_client),
-    session_data: SessionData = Depends(verifier)
+    client: FavouritesClient | None = Depends(get_favourites_client),
 ):
     try:
-
-        access_token = session_data.access_token
+        cookie(request)
+        session = await verifier(request)
+        access_token = session.access_token
 
         if not access_token:
             raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-        headers = {
-            "Authorization": f"Bearer {access_token}"
-        }
-
-        async with client:
-            response = await client.delete(
-                settings.FAVOURITE_API_URL,
-                headers=headers,
-                params={
-                    "pid": pid,
-                    "resource_type": resource_type
-                },
-            )
-
-        response.raise_for_status()
-        return response.json()
+        response = await client.remove_fav(access_token, pid, resource_type)
+        return response
 
     except HTTPException:
         raise

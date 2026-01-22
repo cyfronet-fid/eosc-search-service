@@ -81,10 +81,15 @@ export class FavouriteComponent implements OnInit{
       ));
     //if logged in then check if this resource is in favs and set isActive
     // GET FAV
-    // this._favouriteService.getFavourites$().subscribe((favs) => {
-    //     this.isActive = !!favs?length && favs.some(fav => fav.pid === this.pid && fav.resourceType === this.resourceType);
-    //     console.log("favs: ", favs);
-    // });
+    console.log("before getting favourites");
+    this._favouriteService.getFavourites$().subscribe((favs) => {
+      console.log("inside before getting if active");
+      this.isActive =
+        !!favs?.length &&
+        favs.some(fav => fav.pid === this.pid && fav.resourceType === this.resourceType);
+
+      console.log('favs:', favs);
+    });
 
     if (this.isLogged){
       this._favouriteService.getFavourites$().subscribe(favs => {
