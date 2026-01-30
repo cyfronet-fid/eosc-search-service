@@ -5,6 +5,7 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
 import { toNavigationLink } from './utils';
 import { Observable, map } from 'rxjs';
 import { ConfigService } from '../../services/config.service';
+import { LABEL as DEPLOYABLE_SERVICES_LABEL } from '@collections/data/deployable-services/nav-config.data';
 
 @Component({
   selector: 'ess-collections-navigation',
@@ -107,7 +108,7 @@ import { ConfigService } from '../../services/config.service';
                   }"
                   class="item"
                 >
-                  <div class="title">Ready-to-run services</div>
+                  <div class="title">${DEPLOYABLE_SERVICES_LABEL}</div>
                   <div class="desc">
                     Deploy open-source services automatically on cloud via TOSCA
                     templates.
