@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.35.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.34.0...v2.35.0) (2026-02-02)
+
+
+### Features
+
+* [[#1600](https://github.com/cyfronet-fid/eosc-search-service/issues/1600)] create env var for managing ua sending ([591111a](https://github.com/cyfronet-fid/eosc-search-service/commit/591111a19039389492183fce2d40d41e495721ed))
+
+
+### Bug Fixes
+
+* [[#1628](https://github.com/cyfronet-fid/eosc-search-service/issues/1628)] add CITATION.cff, fix styles of python, json and markdown files ([d36e83d](https://github.com/cyfronet-fid/eosc-search-service/commit/d36e83d393d27092d9680aac79d62e4de196f3f1))
+* [[#1788](https://github.com/cyfronet-fid/eosc-search-service/issues/1788)] change ready-to-run to deployable services ([0890322](https://github.com/cyfronet-fid/eosc-search-service/commit/08903222c5ac0d34aa5f85c14e70c1b2723b7a8b))
+* add authors and change contact mail ([52a115e](https://github.com/cyfronet-fid/eosc-search-service/commit/52a115e86253dd02fc57ef290164afc0e6c890a3))
+* delete not necessary separation after share button ([dde3f4a](https://github.com/cyfronet-fid/eosc-search-service/commit/dde3f4ac3ea099e1c3ae26d107a0fd68446fda95))
+
 ## [2.34.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.33.2...v2.34.0) (2025-12-02)
 
 
