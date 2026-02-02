@@ -64,7 +64,9 @@ async def user_session() -> UserSession:
 async def auth_client(app: FastAPI, user_session: UserSession) -> AsyncClient:
     """Get authorized lifecycle-managed AsyncClient"""
     cookies = {
-        cookie.model.name: str(cookie.signer.dumps(user_session.backend_session_id.hex))
+        cookie.model.name: str(
+            cookie.signer.dumps(user_session.backend_session_id.hex)
+        )
     }
 
     transport = ASGITransport(app=app)

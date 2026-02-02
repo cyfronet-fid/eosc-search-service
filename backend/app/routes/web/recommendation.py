@@ -51,11 +51,20 @@ async def get_recommendations(panel_id: Collection, request: Request):
                     client, session, panel_id, recommendation_visit_id
                 )
                 items = await get_recommended_items(client, uuids)
-                resp = JSONResponse({"recommendations": items, "isRand": False})
-                # Let's store the recommendation visit id for retrieval in the user actions
-                resp.set_cookie("recommendation_visit_id", recommendation_visit_id)
+                resp = JSONResponse(
+                    {"recommendations": items, "isRand": False}
+                )
+                # Let's store the recommendation visit id
+                # for retrieval in the user actions
+                resp.set_cookie(
+                    "recommendation_visit_id", recommendation_visit_id
+                )
                 return resp
-            except (RecommenderError, ReadTimeout, SolrDocumentNotFoundError) as error:
+            except (
+                RecommenderError,
+                ReadTimeout,
+                SolrDocumentNotFoundError,
+            ) as error:
                 items = []
                 if settings.SHOW_RANDOM_RECOMMENDATIONS:
                     uuids = await get_fixed_recommendations(panel_id)
@@ -67,12 +76,18 @@ async def get_recommendations(panel_id: Collection, request: Request):
                         "isRand": bool(items),
                         "message": (
                             str(error)
-                            or "Solr or external recommender service read timeout"
+                            or (
+                                "Solr or external recommender service"
+                                "read timeout"
+                            )
                         ),
                     }
                 )
-                # We're storing the visit id for fixed recommendations just in case as well
-                resp.set_cookie("recommendation_visit_id", recommendation_visit_id)
+                # We're storing the visit id for fixed recommendations
+                # just in case as well
+                resp.set_cookie(
+                    "recommendation_visit_id", recommendation_visit_id
+                )
                 return resp
 
     except (RecommenderError, SolrRetrieveError) as e:

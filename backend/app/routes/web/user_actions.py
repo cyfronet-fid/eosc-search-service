@@ -72,23 +72,34 @@ async def register_navigation_user_action(
         session = await verifier(request)
 
         response = await _create_redirect_response(
-            return_path, search_params, session.session_uuid, str(target_id), url
+            return_path,
+            search_params,
+            session.session_uuid,
+            str(target_id),
+            url,
         )
     except HTTPException:
         cookie_session_id = uuid.uuid4()
         new_session_uuid = uuid.uuid4()
         session = SessionData(
-            username=None, aai_state=None, aai_id="", session_uuid=str(new_session_uuid)
+            username=None,
+            aai_state=None,
+            aai_id="",
+            session_uuid=str(new_session_uuid),
         )
         await backend.create(cookie_session_id, session)
 
         response = await _create_redirect_response(
-            return_path, search_params, str(new_session_uuid), str(target_id), url
+            return_path,
+            search_params,
+            str(new_session_uuid),
+            str(target_id),
+            url,
         )
         cookie.attach_to_response(response, cookie_session_id)
 
-    if not client:
-        logger.debug("No mqtt client, user action not sent")
+    if not settings.UA_ENABLED_INSTANCE_SCOPE or not client:
+        logger.debug("User actions disabled or jms client not available")
         return response
 
     # For now, the recommendation visit id will be stored in cookies by itself,
@@ -111,7 +122,11 @@ async def register_navigation_user_action(
 
 
 async def _create_redirect_response(
-    return_path: str, search_params: str, client_uid: str, target_id: str, url: str
+    return_path: str,
+    search_params: str,
+    client_uid: str,
+    target_id: str,
+    url: str,
 ):
     id_params = ["?id", "?projectId", "?organizationId"]
     redirect_response = RedirectResponse(

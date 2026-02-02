@@ -39,7 +39,9 @@ class ExportData(BaseModel):
     def serialize_to_camel_case(self):
         """Serializes response to the format expected by front-end"""
         data_dict = self.dict()
-        data_dict = {self.snake_to_camel(key): val for key, val in data_dict.items()}
+        data_dict = {
+            self.snake_to_camel(key): val for key, val in data_dict.items()
+        }
         return data_dict
 
     def snake_to_camel(self, key):

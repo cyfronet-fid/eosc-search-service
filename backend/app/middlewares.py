@@ -32,11 +32,15 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
         # REQUEST
         uuid = uuid4()
         if settings.LOG_LEVEL == logging.getLevelName(logging.DEBUG):
-            referer = request.headers["referer"] if "referer" in request.headers else ""
+            referer = (
+                request.headers["referer"]
+                if "referer" in request.headers
+                else ""
+            )
             logger.debug(
                 (
-                    "\n\nREQUEST:\n\n id=%s\n path=%s\n referer=%s\n cookies=%s\n"
-                    " headers=%s\n\n"
+                    "\n\nREQUEST:\n\n id=%s\n path=%s\n referer=%s\n"
+                    "cookies=%s\n headers=%s\n\n"
                 ),
                 uuid,
                 request.url.path,
@@ -48,12 +52,19 @@ class LogRequestsMiddleware(BaseHTTPMiddleware):
         # RESPONSE
         response = await call_next(request)
         if settings.LOG_LEVEL == logging.getLevelName(logging.DEBUG):
-            response_body = [section async for section in response.body_iterator]
+            response_body = [
+                section async for section in response.body_iterator
+            ]
             response.body_iterator = iterate_in_threadpool(iter(response_body))
 
-            body = response_body[0].decode() if len(response_body) > 0 else "''"
+            body = (
+                response_body[0].decode() if len(response_body) > 0 else "''"
+            )
             logger.debug(
-                "\n\nRESPONSE:\n\n id=%s\n status_code=%s\n body=%s\n headers=%s\n\n",
+                (
+                    "\n\nRESPONSE:\n\n id=%s\n status_code=%s\n"
+                    "body=%s\n headers=%s\n\n"
+                ),
                 uuid,
                 response.status_code,
                 body,

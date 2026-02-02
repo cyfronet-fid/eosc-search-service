@@ -1,4 +1,5 @@
-# pylint: disable=missing-module-docstring,missing-function-docstring,missing-class-docstring
+# pylint: disable=missing-module-docstring,missing-function-docstring
+# pylint: disable=missing-class-docstring
 import json
 import urllib.parse
 from time import sleep
@@ -14,6 +15,8 @@ from stomp.utils import Frame
 from app.settings import settings
 from tests.utils import UserSession
 
+# Enable user actions
+settings.UA_ENABLED_INSTANCE_SCOPE = True
 Seconds = float
 
 
@@ -99,13 +102,19 @@ async def test_redirects_does_not_set_cookie_for_authorized_user(
 @pytest.mark.parametrize("client_", (lazy_fixture(("client", "auth_client"))))
 @pytest.mark.integration
 @pytest.mark.asyncio
-async def test_sends_user_action_after_response(app: FastAPI, client_: AsyncClient):
-    conn = stomp.Connection(host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)])
+async def test_sends_user_action_after_response(
+    app: FastAPI, client_: AsyncClient
+):
+    conn = stomp.Connection(
+        host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)]
+    )
     listener = MockListener()
     conn.set_listener("test_listener", listener)
     conn.connect(settings.STOMP_LOGIN, settings.STOMP_PASS, wait=True)
     conn.subscribe(
-        settings.STOMP_USER_ACTIONS_TOPIC, settings.STOMP_CLIENT_NAME, ack="auto"
+        settings.STOMP_USER_ACTIONS_TOPIC,
+        settings.STOMP_CLIENT_NAME,
+        ack="auto",
     )
 
     await call_navigate_api(app, client_)
@@ -113,7 +122,11 @@ async def test_sends_user_action_after_response(app: FastAPI, client_: AsyncClie
     message = listener.last_message
     message = json.loads(message)
 
-    assert message["action"] == {"order": False, "text": "", "type": "browser action"}
+    assert message["action"] == {
+        "order": False,
+        "text": "",
+        "type": "browser action",
+    }
     assert message["client_id"] == "search_service"
     assert message["source"]["page_id"] == "/search/all"
     assert message["source"]["root"] == {
@@ -133,12 +146,16 @@ async def test_sends_user_action_after_response(app: FastAPI, client_: AsyncClie
 async def test_sends_aai_uid_in_user_action_for_signed_in_user(
     app: FastAPI, auth_client: AsyncClient, user_session: UserSession
 ):
-    conn = stomp.Connection(host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)])
+    conn = stomp.Connection(
+        host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)]
+    )
     listener = MockListener()
     conn.set_listener("test_listener", listener)
     conn.connect(settings.STOMP_LOGIN, settings.STOMP_PASS, wait=True)
     conn.subscribe(
-        settings.STOMP_USER_ACTIONS_TOPIC, settings.STOMP_CLIENT_NAME, ack="auto"
+        settings.STOMP_USER_ACTIONS_TOPIC,
+        settings.STOMP_CLIENT_NAME,
+        ack="auto",
     )
 
     await call_navigate_api(app, auth_client)
@@ -147,3 +164,29 @@ async def test_sends_aai_uid_in_user_action_for_signed_in_user(
     message = json.loads(message)
 
     assert message["aai_uid"] == user_session.session_data.aai_id
+
+
+@pytest.mark.integration
+@pytest.mark.asyncio
+async def test_user_actions_not_sent_when_disabled(
+    app: FastAPI, client: AsyncClient
+):
+    # Disable user actions
+    settings.UA_ENABLED_INSTANCE_SCOPE = False
+    conn = stomp.Connection(
+        host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)]
+    )
+    listener = MockListener(timeout=2)  # short timeout
+    conn.set_listener("test_listener", listener)
+    conn.connect(settings.STOMP_LOGIN, settings.STOMP_PASS, wait=True)
+    conn.subscribe(
+        settings.STOMP_USER_ACTIONS_TOPIC,
+        settings.STOMP_CLIENT_NAME,
+        ack="auto",
+    )
+
+    await call_navigate_api(app, client)
+
+    # Attempt to read message – we expect TimeoutException
+    with pytest.raises(TimeoutException):
+        _ = listener.last_message

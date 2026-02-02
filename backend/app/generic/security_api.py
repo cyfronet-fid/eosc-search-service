@@ -1,23 +1,12 @@
-# pylint: disable=missing-module-docstring,unused-import
-
+# pylint: disable=missing-module-docstring
 
 # coding: utf-8
 
-from typing import List
-
-from fastapi import Depends, Security
-from fastapi.openapi.models import OAuthFlowImplicit, OAuthFlows
+from fastapi import Depends
 from fastapi.security import (
     HTTPAuthorizationCredentials,
-    HTTPBasic,
-    HTTPBasicCredentials,
     HTTPBearer,
-    OAuth2,
-    OAuth2AuthorizationCodeBearer,
-    OAuth2PasswordBearer,
-    SecurityScopes,
 )
-from fastapi.security.api_key import APIKeyCookie, APIKeyHeader, APIKeyQuery
 
 from app.generic.models.extra_models import TokenModel
 

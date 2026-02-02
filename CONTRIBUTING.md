@@ -34,7 +34,7 @@ for all involved. The community looks forward to your contributions.
 This project and everyone participating in it is governed by the
 [CONTRIBUTING.md Code of Conduct](blob/master/CODE_OF_CONDUCT.md).
 By participating, you are expected to uphold this code.
-Please report unacceptable behavior to [our email](mailto:marketplace.fid@gmail.com).
+Please report unacceptable behavior to [our email](mailto:contact@eosc.pl).
 
 ## I Have a Question
 
@@ -42,7 +42,7 @@ Please report unacceptable behavior to [our email](mailto:marketplace.fid@gmail.
 
 Before you ask a question, it is best to search
 for existing [Issues](/issues) that might help you.
-In case you have found a suitable issue and still need clarification,
+In case you have found a suitable issue and still need clarification, 
 you can write your question in this issue. It is also advisable to search
 the internet for answers first.
 
@@ -99,7 +99,7 @@ potential bug as fast as possible.
 
 > You must never report security related issues, vulnerabilities or bugs
 > including sensitive information to the issue tracker, or elsewhere in public.
-> Instead sensitive bugs must be sent by email to [our email](mailto:marketplace.fid@gmail.com).
+> Instead sensitive bugs must be sent by email to [our email](mailto:contact@eosc.pl).
 
 We use GitHub issues to track bugs and errors.
 If you run into an issue with the project:

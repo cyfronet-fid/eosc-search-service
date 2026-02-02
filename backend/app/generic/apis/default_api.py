@@ -1,27 +1,16 @@
-# pylint: disable=missing-module-docstring,unused-import
+# pylint: disable=missing-module-docstring
 # coding: utf-8
-
-from typing import Dict, List
 
 from fastapi import (
     APIRouter,
-    Body,
-    Cookie,
     Depends,
-    Form,
-    Header,
-    Path,
     Query,
-    Response,
     Security,
-    status,
 )
 
 from app.db.repositories.dumps import DumpsRepository
 from app.dependencies.database import get_repo
 from app.generic.models.bad_request import BadRequest
-from app.generic.models.dump import Dump
-from app.generic.models.dump_elements import DumpElements
 from app.generic.models.dump_results import DumpResults
 from app.generic.models.extra_models import TokenModel
 from app.generic.models.forbidden import Forbidden
@@ -46,7 +35,9 @@ router = APIRouter()
 async def dumps_get(
     cursor: str = Query(None, description=""),
     rows: int = Query(None, description="", ge=0, le=100),
-    token_main_security_scheme: TokenModel = Security(get_token_main_security_scheme),
+    token_main_security_scheme: TokenModel = Security(
+        get_token_main_security_scheme
+    ),
     dumps_repo: DumpsRepository = Depends(get_repo(DumpsRepository)),
 ) -> DumpResults:
     """Returns available dumps"""
