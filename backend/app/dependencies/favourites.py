@@ -95,7 +95,7 @@ class FavouritesClient:
 
 async def get_favourites_client() -> AsyncGenerator[FavouritesClient, None]:
 
-    async with httpx.AsyncClient() as client:
+    async with httpx.AsyncClient(timeout=100.0) as client:
         yield FavouritesClient(
             url=settings.FAVOURITE_API_URL,
             httpx_client=client
