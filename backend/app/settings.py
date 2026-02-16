@@ -33,7 +33,7 @@ class GlobalSettings(BaseSettings):
     DATABASE_URI: PostgresDsn = (
         "postgresql+psycopg2://ess:ess@localhost:5442/ess"
     )
-    MAX_RESULTS_BY_PAGE: int = 20
+    MAX_RESULTS_BY_PAGE: int = 50
     SHOW_BETA_COLLECTIONS: bool = False
     SHOW_KNOWLEDGE_BASE: bool = True
     UA_ENABLED_INSTANCE_SCOPE: bool = False
