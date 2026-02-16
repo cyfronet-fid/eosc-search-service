@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.36.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.35.0...v2.36.0) (2026-02-16)
+
+
+### Features
+
+* [[#1795](https://github.com/cyfronet-fid/eosc-search-service/issues/1795)] fix pagination error ([dcc636b](https://github.com/cyfronet-fid/eosc-search-service/commit/dcc636b9fde306f89c89f722c28c2df345826aa0))
+
 ## [2.35.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.34.0...v2.35.0) (2026-02-02)
 
 
