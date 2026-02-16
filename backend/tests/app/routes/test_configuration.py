@@ -20,7 +20,7 @@ async def test_return_backend_config(
         "knowledge_hub_url": "https://knowledge-hub.sandbox.eosc-beyond.eu/",
         "user_documentation_url": "https://docs.sandbox.eosc-beyond.eu/",
         "is_sort_by_relevance": True,
-        "max_results_by_page": 20,
+        "max_results_by_page": 50,
         "max_items_sort_relevance": 250,
         "show_beta_collections": False,
         "show_knowledge_base": True,
