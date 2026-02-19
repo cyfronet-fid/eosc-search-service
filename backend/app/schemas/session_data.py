@@ -10,3 +10,4 @@ class SessionData(BaseModel):
     aai_id: Optional[str] = None
     rp_handler: Any = None
     session_uuid: str
+    access_token: str = None
