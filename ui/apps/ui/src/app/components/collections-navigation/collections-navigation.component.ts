@@ -234,25 +234,6 @@ import { LABEL as DEPLOYABLE_SERVICES_LABEL } from '@collections/data/deployable
                     Browse list of providers offering platform services.
                   </div>
                 </a>
-                <a
-                  [routerLink]="['/search', 'organisation']"
-                  [queryParams]="{
-                    q: (q$ | async),
-                    standard: (st$ | async),
-                    exact: (ex$ | async),
-                    radioValueAuthor: (radioValueAuthor$ | async),
-                    radioValueExact: (radioValueExact$ | async),
-                    radioValueTitle: (radioValueTitle$ | async),
-                    radioValueKeyword: (radioValueKeyword$ | async)
-                  }"
-                  class="item"
-                >
-                  <div class="title">Organisations</div>
-                  <div class="desc">
-                    Discover universities, institutes, or research bodies
-                    contributing to EOSC.
-                  </div>
-                </a>
               </div>
               <div class="right">
                 <div class="title">Providers & Data Sources</div>
