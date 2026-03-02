@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.37.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.36.0...v2.37.0) (2026-03-02)
+
+
+### Features
+
+* [[#1794](https://github.com/cyfronet-fid/eosc-search-service/issues/1794)] hide organisations collection in navigation ([867b133](https://github.com/cyfronet-fid/eosc-search-service/commit/867b1337267d4f2f4921a0294365de31f486af52))
+
 ## [2.36.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.35.0...v2.36.0) (2026-02-16)
 
 
