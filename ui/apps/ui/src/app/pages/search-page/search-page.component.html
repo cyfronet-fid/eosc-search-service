@@ -64,6 +64,10 @@
             [response]="response"
             (clearSearchInput)="searchBar.clearInput($event)"
           ></ess-results-with-pagination>
+          <ess-loading-message
+            [show]="loadingMessageView"
+            class="loading-massage"
+          ></ess-loading-message>
         </div>
         <div class="col-sm-3 col-12 right-column pl-0">
           <a href="{{ userDocumentationUrl }}" class="right-media-link">
