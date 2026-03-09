@@ -180,6 +180,16 @@ export const transformCatalogueNames = (
     }));
 };
 
+export const transformDeployableServicesName = (
+  nodes: IFilterNode[]
+): IFilterNode[] => {
+  return nodes.map((node) => ({
+    ...node,
+    name:
+      node.name === 'deployable service' ? 'deployable application' : node.name,
+  }));
+};
+
 export const transformCountryNames = (nodes: IFilterNode[]): IFilterNode[] => {
   return nodes.map((node) => ({
     ...node,
