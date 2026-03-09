@@ -171,10 +171,10 @@ import { LABEL as DEPLOYABLE_SERVICES_LABEL } from '@collections/data/deployable
             <a class="menu-top-level">
               <img
                 src="assets/main-menu-03.svg"
-                alt="Providers & Data Sources"
+                alt="Organisations & Data Sources"
                 class="icon"
               />
-              Providers & Data Sources
+              Organisations & Data Sources
             </a>
             <div class="submenu">
               <div class="left">
@@ -229,15 +229,16 @@ import { LABEL as DEPLOYABLE_SERVICES_LABEL } from '@collections/data/deployable
                   }"
                   class="item"
                 >
-                  <div class="title">Providers</div>
+                  <div class="title">Organisations</div>
                   <div class="desc">
-                    Browse list of providers offering platform services.
+                    Browse list of organisations offering platform services.
                   </div>
                 </a>
               </div>
               <div class="right">
-                <div class="title">Providers & Data Sources</div>
-                Explore service providers and data repositories or endpoints.
+                <div class="title">Organisations & Data Sources</div>
+                Explore organisations providing services and data repositories
+                or endpoints.
               </div>
             </div>
           </li>
