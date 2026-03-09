@@ -76,7 +76,7 @@ export const guidelinesFilters: IFiltersConfig = {
     {
       id: 'providers',
       filter: 'providers',
-      label: 'Provider',
+      label: 'Organisation',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',

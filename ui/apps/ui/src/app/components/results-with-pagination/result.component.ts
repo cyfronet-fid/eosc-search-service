@@ -404,7 +404,7 @@ export class ResultComponent implements OnInit {
         bundles: 'Service Bundle',
         training: 'Training',
         other: 'Other Research Product',
-        provider: 'Provider',
+        provider: 'Organisation',
         project: 'Project',
         organisation: 'Organisation',
         catalogue: 'Catalogue',
