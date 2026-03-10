@@ -27,7 +27,7 @@ import { FeedbackPanelModule } from '@components/feedback-panel/feedback-panel.m
 import { SearchPageComponent } from './search-page.component';
 import { ArticlesModule } from '@components/articles/articles.module';
 
-import { LoadingMessageComponent } from "@components/results-with-pagination/loading-message.component";
+import { LoadingMessageComponent } from '@components/results-with-pagination/loading-message.component';
 
 @NgModule({
   declarations: [SearchPageComponent, LoadingMessageComponent],

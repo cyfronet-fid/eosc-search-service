@@ -2934,9 +2934,9 @@ h6 {
 }
 
 .loading-massage {
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  top: 65vh;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 10;
+  z-index: 9999;
 }

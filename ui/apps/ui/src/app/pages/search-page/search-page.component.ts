@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { combineLatest, filter, forkJoin, map, switchMap, tap, timer, of } from 'rxjs';
-import { takeUntil, delay } from 'rxjs/operators';
+import {
+  combineLatest,
+  filter,
+  forkJoin,
+  map,
+  switchMap,
+  tap,
+  timer,
+} from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { FetchDataService } from '@collections/services/fetch-data.service';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
@@ -140,7 +148,7 @@ export class SearchPageComponent implements OnInit {
           });
         }),
         tap(({ response }) => {
-          this.response = response
+          this.response = response;
           this.loadingMessageView = false;
         }),
         untilDestroyed(this)
