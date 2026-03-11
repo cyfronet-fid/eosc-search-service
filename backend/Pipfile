@@ -21,6 +21,7 @@ async-lru = "*"
 pydantic-settings = "*"
 sentry-sdk = "*"
 psycopg2-binary = "==2.9.9"
+setuptools = "<82,>=65"
 
 [dev-packages]
 black = "*"

@@ -23,20 +23,22 @@ async def recommend_post(
     fq: list[str] = Query(
         [],
         description="Filter query",
-        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+        examples=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
     sort: list[str] = Query(
-        [], description="Sort order", example=["description asc", "name desc"]
+        [], description="Sort order", examples=["description asc", "name desc"]
     ),
     request: RecommendRequest = Body(
         ...,
-        example={
-            "unique_id": "string",
-            "timestamp": "2021-12-03T12:08:27.728Z",
-            "visit_id": "string",
-            "page_id": "string",
-            "panel_id": "string",
-        },
+        examples=[
+            {
+                "unique_id": "string",
+                "timestamp": "2021-12-03T12:08:27.728Z",
+                "visit_id": "string",
+                "page_id": "string",
+                "panel_id": "string",
+            }
+        ],
     ),
     search=Depends(search_dep),
 ):
