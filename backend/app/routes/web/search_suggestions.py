@@ -26,7 +26,7 @@ async def search_suggestions(
     fq: list[str] = Query(
         [],
         description="Filter query",
-        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+        examples=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
     exact: str = Query(..., description="Exact match"),
     results_per_collection: int = Query(
@@ -68,7 +68,7 @@ async def _search(
     fq: list[str] = Query(
         [],
         description="Filter query",
-        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+        examples=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
     results_per_collection: int = Query(
         3, description="Row count per collection", gte=3, lt=10

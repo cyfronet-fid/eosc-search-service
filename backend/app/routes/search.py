@@ -19,11 +19,11 @@ async def search_post(
     fq: list[str] = Query(
         [],
         description="Filter query",
-        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+        examples=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
     exact: str = Query(..., description="Exact match"),
     sort: list[str] = Query(
-        [], description="Sort order", example=["description asc", "name desc"]
+        [], description="Sort order", examples=["description asc", "name desc"]
     ),
     rows: int = Query(10, description="Row count", gte=3, le=100),
     cursor: str = Query("*", description="Cursor"),

@@ -1,6 +1,7 @@
 #  pylint: disable=too-many-locals, too-many-arguments
 
 """Operations on Solr"""
+
 from typing import Dict
 
 from httpx import AsyncClient, Response

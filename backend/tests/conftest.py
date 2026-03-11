@@ -1,6 +1,7 @@
 # pylint: disable=redefined-outer-name,unused-argument,wrong-import-order
 
 """Test config"""
+
 import uuid
 
 import pytest
