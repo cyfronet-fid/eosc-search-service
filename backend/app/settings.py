@@ -1,5 +1,6 @@
 # pylint: disable=invalid-name, use-dict-literal, line-too-long, fixme
 """Backend Settings"""
+
 import logging
 from typing import Annotated, Literal, Optional
 from urllib.parse import urljoin, urlparse

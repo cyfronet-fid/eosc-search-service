@@ -28,7 +28,7 @@ async def search_filters(
     fq: list[str] = Query(
         [],
         description="Filter query",
-        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+        examples=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
     rows: int = Query(10, description="Row count", gte=3, le=100),
     cursor: str = Query("*", description="Cursor"),

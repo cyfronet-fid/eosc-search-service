@@ -50,12 +50,12 @@ async def search_post(
     fq: list[str] = Query(
         [],
         description="Filter query",
-        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+        examples=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
     exact: str = Query(..., description="Exact match"),
     sort_ui: SortUi = "default",
     sort: list[str] = Query(
-        [], description="Solr sort", example=["description asc", "name desc"]
+        [], description="Solr sort", examples=["description asc", "name desc"]
     ),
     rows: int = Query(10, description="Row count", gte=3, le=2000),
     cursor: str = Query("*", description="Cursor"),
@@ -128,12 +128,12 @@ async def search_post_advanced(
     fq: list[str] = Query(
         [],
         description="Filter query",
-        example=["journal:Geonomos", 'journal:"Solar Energy"'],
+        examples=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
     exact: str = Query(..., description="Exact match"),
     sort_ui: SortUi = "default",
     sort: list[str] = Query(
-        [], description="Solr sort", example=["description asc", "name desc"]
+        [], description="Solr sort", examples=["description asc", "name desc"]
     ),
     rows: int = Query(10, description="Row count", gte=3, le=2000),
     cursor: str = Query("*", description="Cursor"),

@@ -1,6 +1,7 @@
 # pylint: disable=missing-function-docstring
 
 """Presentable items UI endpoint"""
+
 import logging
 import uuid
 

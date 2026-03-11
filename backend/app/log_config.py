@@ -15,7 +15,7 @@ class LogConfig(BaseModel):
     LOG_LEVEL: str = settings.LOG_LEVEL
 
     # Logging config
-    version: str = 1
+    version: int = 1
     disable_existing_loggers: bool = False
     formatters: dict = {
         "default": {

@@ -2,6 +2,7 @@
 """
 API middlewares on different hooks
 """
+
 import logging
 from typing import Awaitable, Callable
 from uuid import uuid4
