@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.38.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.37.0...v2.38.0) (2026-03-11)
+
+
+### Features
+
+* [[#1569](https://github.com/cyfronet-fid/eosc-search-service/issues/1569)] change meta descriptions ([543e88b](https://github.com/cyfronet-fid/eosc-search-service/commit/543e88b7748b480be50b5cc76866bba9237d3425))
+
 ## [2.37.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.36.0...v2.37.0) (2026-03-02)
 
 
