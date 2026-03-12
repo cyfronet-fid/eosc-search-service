@@ -32,12 +32,16 @@ export class ResultsWithPaginationComponent implements OnInit {
   isError = false;
   marketplaceUrl = '';
   public specialCollections = SPECIAL_COLLECTIONS;
+  resultsCount = 0;
 
   @Input()
   set response(response: ISearchResults<IResult> | null) {
     if (response === null) {
       return;
     }
+
+    this.resultsCount = response.numFound ?? 0;
+
     if (response.isError) {
       this.isError = true;
     } else {
@@ -65,6 +69,7 @@ export class ResultsWithPaginationComponent implements OnInit {
       this.highlights = response.highlighting ?? {};
       return;
     }
+
     this._paginationService.setLoading(true);
     this._paginationService.updatePagination(
       params,

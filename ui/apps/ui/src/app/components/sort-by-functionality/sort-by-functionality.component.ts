@@ -85,7 +85,9 @@ import { NavConfigsRepository } from '@collections/repositories/nav-configs.repo
       .sort_container {
         width: 18rem;
         display: flex;
-        margin-top: 5px;
+        margin-left: auto;
+        margin-right: 30px;
+        margin-top: 0;
         align-items: center;
         flex-direction: row;
         justify-content: flex-end;
