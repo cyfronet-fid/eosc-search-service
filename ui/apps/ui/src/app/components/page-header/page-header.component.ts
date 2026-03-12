@@ -2,7 +2,7 @@
 import { Component, Input } from '@angular/core';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import { NavConfigsRepository } from '@collections/repositories/nav-configs.repository';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   IFilterConfig,
   IFilterConfigUI,
@@ -11,7 +11,6 @@ import {
 } from '@collections/repositories/types';
 import { FiltersConfigsRepository } from '@collections/repositories/filters-configs.repository';
 import { Observable, combineLatest, debounceTime, filter, map } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 import { selectEntities } from '@ngneat/elf-entities';
 
 @UntilDestroy()
@@ -34,12 +33,6 @@ import { selectEntities } from '@ngneat/elf-entities';
         </ng-container>
       </ng-container>
     </div>
-    <div id="container-lower" class="page-heading">
-      <div>
-        <span id="results-count" i18n>{{ resultsCount }} search results</span>
-      </div>
-      <ess-download-results-button></ess-download-results-button>
-    </div>
   `,
   styles: [
     `
@@ -49,12 +42,6 @@ import { selectEntities } from '@ngneat/elf-entities';
         justify-content: left;
         align-items: flex-start;
       }
-
-      #container-lower {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
     `,
   ],
 })
@@ -63,9 +50,7 @@ export class PageHeaderComponent {
   resultsCount!: number;
 
   activeNavConfig$ = this._navConfigsRepository.activeEntity$;
-
   filtersConfigs$ = this.selectActiveFilters$();
-
   isLoading$: Observable<boolean> = this._filtersConfigsRepository.isLoading$;
 
   constructor(
