@@ -1,6 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { combineLatest, filter, forkJoin, map, switchMap, tap } from 'rxjs';
+import {
+  combineLatest,
+  filter,
+  forkJoin,
+  map,
+  switchMap,
+  tap,
+  timer,
+} from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { FetchDataService } from '@collections/services/fetch-data.service';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
@@ -80,6 +89,7 @@ export class SearchPageComponent implements OnInit {
   knowledgeHubUrl = this._configService.get().knowledge_hub_url;
   marketplaceUrl = this._configService.get().marketplace_url;
   userDocumentationUrl = this._configService.get().user_documentation_url;
+  loadingMessageView = false;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -118,6 +128,16 @@ export class SearchPageComponent implements OnInit {
             routerParams.standard.toString() === 'true'
               ? this._fetchStandardResults$(routerParams, metadata, adapter)
               : this._fetchAdvancedResults$(routerParams, metadata, adapter);
+
+          timer(60 * 1000) // 60 sec
+            .pipe(
+              takeUntil(resultsRequest$),
+              tap(() => {
+                this.loadingMessageView = true;
+              })
+            )
+            .subscribe();
+
           return forkJoin({
             response: resultsRequest$,
             filters: this._customRoute.fetchFilters$(
@@ -127,7 +147,10 @@ export class SearchPageComponent implements OnInit {
             ),
           });
         }),
-        tap(({ response }) => (this.response = response)),
+        tap(({ response }) => {
+          this.response = response;
+          this.loadingMessageView = false;
+        }),
         untilDestroyed(this)
       )
       .subscribe();
@@ -160,6 +183,7 @@ export class SearchPageComponent implements OnInit {
       routerParams,
       metadata
     );
+
     return this._fetchDataService.fetchResultsAdv$(
       searchMetadata,
       metadata.facets,
