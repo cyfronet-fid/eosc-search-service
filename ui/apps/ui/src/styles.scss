@@ -722,8 +722,7 @@ h3,
 }
 
 .dashboard .center-column {
-  padding: 0 20px 0 20px;
-  width: 57%;
+  padding: 0 0 0 20px;
 }
 
 .dashboard .right-column {
@@ -870,11 +869,22 @@ h6 {
 
 .usage {
   padding: 7px 0;
+
+  .tag-label {
+    display: flex;
+    color: #4C505A;
+    font-size: 12px;
+    margin: 0 0 4px;
+    column-gap: 5px;
+  }
 }
 
+
+
 .bottom-actions {
-  border-top: 1px dotted #d9dee2;
+  border-top: 1px dashed #d9dee2;
   padding-top: 16px;
+  margin-top: 10px;
 
   .sources-box {
     a {
@@ -908,8 +918,8 @@ h6 {
   }
 
   .link-cite {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 13px;
+    font-weight: 400;
     line-height: 18px;
     display: flex;
   }
@@ -921,8 +931,8 @@ h6 {
     border-right: 1px solid #d9d9d9;
 
     a {
-      font-size: 14px;
-      font-weight: 500;
+      font-size: 13px;
+      font-weight: 400;
       line-height: 18px;
       cursor: pointer;
       color: #040f81;
@@ -938,6 +948,30 @@ h6 {
     .share-link {
       border: none;
     }
+  }
+}
+
+.learn-more-btn {
+  width: 100%;
+  height: 32px;
+  padding: var(--Spacing-Spacing2, 12px) var(--Spacing-Spacing-Bootstrap, 30px);
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: var(--Corners-Corners, 8px);
+  border: 1px solid var(--Buttons-Primary-button, #010E87);
+  background: var(--Buttons-Secondary-Button, #EDF4FF);
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #010e87;
+  margin: 15px 0;
+
+  &:hover {
+    color: #fff;
+    background: #010e87;
   }
 }
 
@@ -1018,10 +1052,22 @@ h6 {
   margin: 0 0 20px;
   overflow: hidden;
   background: #fff;
+
+  .search-box-center {
+    flex: 0 0 calc((100% - 120px) * 0.6);
+    width: calc((100% - 120px) * 0.6);
+  }
+
+  .search-box-right {
+    flex: 0 0 calc((100% - 120px) * 0.4);
+    width: calc((100% - 120px) * 0.4);
+    padding-right: 20px;
+  }
 }
 
 .results .type-icon-holder {
-  flex: 90px 0 0;
+  flex: 0 0 120px;
+  width: 120px;
   border-left: 3px solid #eee;
 
   .type-icon {
@@ -1174,9 +1220,8 @@ h6 {
   }
 
   #container {
-    padding: 10px 0 20px 0;
+    padding: 10px 20px 20px 0;
     position: relative;
-    width: 85%;
 
     .usage {
       .open-access {
@@ -1251,8 +1296,8 @@ h6 {
     }
 
     .description {
-      font-size: 13px;
-      line-height: 23px;
+      font-size: 12px;
+      line-height: 150%;
       margin-bottom: 0;
       margin-top: 5px;
       color: #233d4c;
@@ -1316,12 +1361,12 @@ h6 {
   margin-bottom: 5px;
   display: flex;
   color: #233d4c;
+  column-gap: 8px;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
 
   .tag-title {
-    flex: 0 0 120px;
     margin-top: 3px;
   }
 
@@ -1471,7 +1516,7 @@ h6 {
 .pagination-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-content: flex-start;
   align-items: flex-start;
 }
