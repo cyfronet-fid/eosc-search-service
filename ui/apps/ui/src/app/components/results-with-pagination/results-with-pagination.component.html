@@ -76,10 +76,15 @@
     *ngIf="$any(results$ | async)?.length > 0 && (isLoading$ | async) === false"
   >
     <div class="pagination-wrapper">
+      <div>
+        <span id="results-count">{{ resultsCount }} search results</span>
+      </div>
 
       <ess-sort-by-functionality
         *ngIf="this.getCollectionName() !== 'organisation'"
       ></ess-sort-by-functionality>
+
+      <ess-download-results-button></ess-download-results-button>
     </div>
     <ng-container *ngIf="this.getCollectionName() === 'training'">
       <a [href]="getKnowledgeHubUrl()">

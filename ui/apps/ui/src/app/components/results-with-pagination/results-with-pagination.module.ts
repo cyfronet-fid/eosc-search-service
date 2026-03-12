@@ -26,6 +26,7 @@ import { ShareModule } from '../../layouts/share/share.module';
 import { PageHeaderModule } from '@components/page-header/page-header.module';
 import { IgServicesCardModule } from '../../layouts/ig-services-card/ig-services-card.module';
 import { RepositoryComponent } from '@components/repository/repository.component';
+import {DownloadResultsModule} from "@components/download-results/download-results.module";
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { RepositoryComponent } from '@components/repository/repository.component
     NzCardModule,
     NzDropDownModule,
     PageHeaderModule,
+    DownloadResultsModule,
   ],
   exports: [ResultsWithPaginationComponent],
 })

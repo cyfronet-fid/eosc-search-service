@@ -707,6 +707,8 @@ btn-primary.disabled,
 h3,
 #results-count {
   display: inline;
+  color: #4C505A;
+  font-size: 14px;
 }
 
 .dashboard {
@@ -1516,9 +1518,10 @@ h6 {
 .pagination-wrapper {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-content: flex-start;
   align-items: flex-start;
+  margin-bottom: 19px;
 }
 
 .page-item.active {
