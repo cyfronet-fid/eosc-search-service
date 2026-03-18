@@ -69,7 +69,7 @@ export const servicesFilters: IFiltersConfig = {
     {
       id: 'providers',
       filter: 'providers',
-      label: 'Provider',
+      label: 'Organisation',
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',

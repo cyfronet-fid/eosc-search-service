@@ -9,6 +9,7 @@ import {
   alphanumericFilterSort,
   transformBoolean,
   transformDataSourceNames,
+  transformDeployableServicesName,
 } from '@collections/data/utils';
 
 export const allCollectionsFilters: IFiltersConfig = {
@@ -56,6 +57,7 @@ export const allCollectionsFilters: IFiltersConfig = {
       type: 'multiselect',
       defaultCollapsed: false,
       tooltipText: '',
+      transformNodes: transformDeployableServicesName,
       expandArrow: true,
     },
 

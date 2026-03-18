@@ -404,13 +404,13 @@ export class ResultComponent implements OnInit {
         bundles: 'Service Bundle',
         training: 'Training',
         other: 'Other Research Product',
-        provider: 'Provider',
+        provider: 'Organisation',
         project: 'Project',
         organisation: 'Organisation',
         catalogue: 'Catalogue',
         'data source': 'Data Source',
         'interoperability guideline': 'Interoperability Guideline',
-        'deployable service': 'Deployable Service',
+        'deployable service': 'Deployable Application',
         adapter: 'Adapter',
       };
       return type in humanReadableDict
