@@ -54,27 +54,18 @@
             [isError]="response?.isError"
           ></ess-filters>
         </div>
-        <div class="col-sm-7 col-12 center-column">
+        <div class="col-sm-9 col-12 center-column">
+          <ess-active-filters></ess-active-filters>
           <ess-page-header
             *ngIf="!response?.isError"
             [resultsCount]="response?.numFound ?? 0"
           ></ess-page-header>
-          <ess-active-filters></ess-active-filters>
           <ess-results-with-pagination
             [response]="response"
             (clearSearchInput)="searchBar.clearInput($event)"
           ></ess-results-with-pagination>
         </div>
-        <div class="col-sm-3 col-12 right-column pl-0">
-          <a href="{{ userDocumentationUrl }}" class="right-media-link">
-            <div class="media-title">Check Our User Documentation</div>
-            <div class="media-desc">
-              Browse our guides for useful EOSC insights
-            </div>
-            <div class="media-arrow"></div>
-          </a>
-        </div>
-      </div>
+
     </div>
   </div>
   <div class="suggested" style="background-color: #eff1ff">
