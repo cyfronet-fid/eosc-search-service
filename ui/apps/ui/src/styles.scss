@@ -1737,6 +1737,7 @@ h6 {
 }
 
 @media (max-width: 768px) {
+
   body {
     font-size: 0.8rem;
     line-height: 1.4;
@@ -1922,15 +1923,40 @@ h6 {
   }
 
   .results {
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    .type-icon-holder {
+      flex: 0 0 90px;
+      width: 100%;
+
+      .type-icon {
+        background-position: top center;
+      }
+    }
+
     #container {
       padding: 15px 10px 15px;
-      margin: 0 0 25px;
+      margin: 0;
+      flex-direction: column;
 
       h6 {
         a {
           font-size: 15px;
         }
       }
+    }
+
+    .search-box-center {
+      flex: 0 0 100%;
+      width: 100%;
+    }
+
+    .search-box-right {
+      flex: 0 0 100%;
+      width: 100%;
+      padding: 0 10px 10px;
+      border-top: 1px dashed #d9dee2;
     }
   }
 
