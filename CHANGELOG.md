@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.39.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.38.0...v2.39.0) (2026-03-18)
+
+
+### Features
+
+* [[#1807](https://github.com/cyfronet-fid/eosc-search-service/issues/1807)] rename deployable services to applications ([bbad3cb](https://github.com/cyfronet-fid/eosc-search-service/commit/bbad3cb96b7cbda358a1c9d8f3bdc2194d974ae9))
+* [[#1808](https://github.com/cyfronet-fid/eosc-search-service/issues/1808)] rename providers to organisations ([2e5ea12](https://github.com/cyfronet-fid/eosc-search-service/commit/2e5ea12e5a46466425dee7a76f8518bbaa823f75))
+
 ## [2.38.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.37.0...v2.38.0) (2026-03-11)
 
 
