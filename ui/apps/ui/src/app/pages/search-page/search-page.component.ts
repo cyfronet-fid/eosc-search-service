@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import {
+  EMPTY,
+  catchError,
   combineLatest,
   filter,
   forkJoin,
@@ -90,6 +92,7 @@ export class SearchPageComponent implements OnInit {
   marketplaceUrl = this._configService.get().marketplace_url;
   userDocumentationUrl = this._configService.get().user_documentation_url;
   loadingMessageView = false;
+  private readonly SLOW_LOADING_DELAY_MS = 60000;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -129,7 +132,7 @@ export class SearchPageComponent implements OnInit {
               ? this._fetchStandardResults$(routerParams, metadata, adapter)
               : this._fetchAdvancedResults$(routerParams, metadata, adapter);
 
-          timer(60 * 1000) // 60 sec
+          timer(this.SLOW_LOADING_DELAY_MS) // 60 sec
             .pipe(
               takeUntil(resultsRequest$),
               tap(() => {
@@ -150,6 +153,10 @@ export class SearchPageComponent implements OnInit {
         tap(({ response }) => {
           this.response = response;
           this.loadingMessageView = false;
+        }),
+        catchError(() => {
+          this.loadingMessageView = false;
+          return EMPTY;
         }),
         untilDestroyed(this)
       )
