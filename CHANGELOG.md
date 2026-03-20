@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.39.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.39.0...v2.39.1) (2026-03-20)
+
+
+### Bug Fixes
+
+* [[#1827](https://github.com/cyfronet-fid/eosc-search-service/issues/1827)] change provider to organisation - ig detail page ([f0bfbf7](https://github.com/cyfronet-fid/eosc-search-service/commit/f0bfbf79565928fc16ddb44b077fb443a5dc5ab9))
+
 ## [2.39.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.38.0...v2.39.0) (2026-03-18)
 
 
