@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.39.2](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.39.1...v2.39.2) (2026-03-20)
+
+
+### Bug Fixes
+
+* fix provider redirection ([17258bf](https://github.com/cyfronet-fid/eosc-search-service/commit/17258bf1171d9611a77b85240f3845aab4641470))
+
 ## [2.39.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.39.0...v2.39.1) (2026-03-20)
 
 
