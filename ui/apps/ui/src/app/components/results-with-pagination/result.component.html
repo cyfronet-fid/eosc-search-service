@@ -9,7 +9,7 @@
     else elseTypeIcon
   "
 >
-  <div class="type-icon-holder {{  type.label }}" style="flex: 115px 0 0">
+  <div class="type-icon-holder {{  type.label }}">
     <div
       class="type-icon"
       [ngStyle]="this.logoUrl && !this.logoLoadFailed ? {
@@ -35,6 +35,7 @@
   </div>
 </ng-template>
 <div
+  class="search-box-center"
   id="container"
   [ngClass]="type.value === 'bundle' ? 'bundle_container' : 'nobundle'"
 >
@@ -218,16 +219,10 @@
     </ng-container>
   </div>
 
-  <div *ngIf="this.type.value === 'organisation' || 'project'" style="border-bottom: 1px dotted #d9dee2;" class="mb-3"></div>
+  <div *ngIf="this.type.value === 'organisation' || 'project'" style="border-bottom: 1px dashed #d9dee2;" class="mb-2"></div>
 
   <div *ngIf="type.value !== 'bundle'; else bundleBlock">
-    <ess-tags
-      [tags]="tags"
-      [highlights]="highlightsreal"
-      (activeFilter)="setActiveFilter($event.filter, $event.value)"
-      [providerName]="providerName"
-    >
-    </ess-tags>
+
     <ess-organisation-result
       *ngIf="this.type.value === 'organisation'"
       [id]="this.id"
@@ -241,8 +236,6 @@
       [relatedProjectNumber]="this.relatedProjectNumber"
     >
     </ess-organisation-result>
-
-    <div *ngIf="this.type.value !== 'organisation'" style="border-bottom: 1px dotted #d9dee2; margin: 12px 0;"></div>
 
     <ess-project-result
     *ngIf="this.type.value === 'project'"
@@ -273,7 +266,7 @@
       [highlights]="highlightsreal['description'] ?? []"
     ></ess-description>
 
-    <div style="border-bottom: 1px dotted #d9dee2;"></div>
+    <div style="border-bottom: 1px dashed #d9dee2;"></div>
 
     <ess-tags
       [tags]="tags"
@@ -282,13 +275,7 @@
     >
     </ess-tags>
   </ng-template>
-  <ess-secondary-tags
-    *ngIf="type.value !== 'bundle'"
-    [highlights]="highlightsreal"
-    [tags]="secondaryTags"
-    (activeFilter)="setActiveFilter($event.filter, $event.value)"
-  >
-  </ess-secondary-tags>
+
 
   <div>
     <div>
@@ -368,4 +355,24 @@
     </div>
 
   </div>
+</div>
+
+<div class="search-box-right">
+  <ess-secondary-tags
+    *ngIf="type.value !== 'bundle'"
+    [highlights]="highlightsreal"
+    [tags]="secondaryTags"
+    (activeFilter)="setActiveFilter($event.filter, $event.value)"
+  >
+  </ess-secondary-tags>
+
+  <ess-tags
+    [tags]="tags"
+    [highlights]="highlightsreal"
+    (activeFilter)="setActiveFilter($event.filter, $event.value)"
+    [providerName]="providerName"
+  >
+  </ess-tags>
+
+  <a [href]="redirectUrl" class="learn-more-btn">Learn more</a>
 </div>
