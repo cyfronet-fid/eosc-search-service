@@ -52,13 +52,7 @@
               </div>
               <div class="ig-buttons-container col-md-3 col-12">
                 <a
-                  href="{{
-                    this.interoperabilityGuidelineItem?.doi !== undefined
-                      ? this.interoperabilityGuidelineItem?.doi ??
-                        'javascript:void(0)'
-                      : this.interoperabilityGuidelineItem?.uri ??
-                        'javascript:void(0)'
-                  }}"
+                  href="{{getIdentifierLink}}"
                 >
                   <div class="button" i18n>Read the Guideline</div>
                 </a>
@@ -384,16 +378,9 @@
                     >
                       Identifier<br /><span class="section-description"
                         ><a
-                          href="{{
-                            this.interoperabilityGuidelineItem?.doi !==
-                            undefined
-                              ? this.interoperabilityGuidelineItem?.doi ??
-                                'javascript:void(0)'
-                              : this.interoperabilityGuidelineItem?.uri ??
-                                'javascript:void(0)'
-                          }}"
+                          href="{{getIdentifierLink}}"
                           >{{
-                            this.interoperabilityGuidelineItem?.doi ??
+                            getDoiLink() ??
                               this.interoperabilityGuidelineItem?.uri ??
                               ''
                           }}</a
