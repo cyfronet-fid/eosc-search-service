@@ -69,4 +69,33 @@ export class GuidelineDetailPageComponent implements OnInit {
   getValue(value: string[] | undefined, index: number) {
     return value && value.length ? value[index] : '';
   }
+
+  getIdentifierLink() {
+    return this.interoperabilityGuidelineItem?.doi !== undefined
+      ? this.getDoiLink() ?? 'javascript:void(0)'
+      : this.interoperabilityGuidelineItem?.uri ?? 'javascript:void(0)';
+  }
+
+  getDoiLink(): string | null {
+    const dois = this.interoperabilityGuidelineItem?.doi;
+
+    if (!dois?.length) {
+      return null;
+    }
+
+    const normalized = this.normalizeDoi(dois[0]);
+
+    return normalized ? `https://doi.org/${normalized}` : null;
+  }
+
+  private normalizeDoi(raw: string) {
+    const doi = raw
+      .trim()
+      .replace(/^doi:/i, '')
+      .replace(/^https?:\/\/(dx\.)?doi\.org\//i, '');
+
+    const doiRegex = /^10\.\d{4,9}\/[-._;()/:A-Z0-9]+$/i;
+
+    return doiRegex.test(doi) ? doi : null;
+  }
 }
