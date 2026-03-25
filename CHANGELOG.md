@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.40.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.39.2...v2.40.0) (2026-03-25)
+
+
+### Features
+
+* [[#1573](https://github.com/cyfronet-fid/eosc-search-service/issues/1573)] add loading info ([#1809](https://github.com/cyfronet-fid/eosc-search-service/issues/1809)) ([9ba352c](https://github.com/cyfronet-fid/eosc-search-service/commit/9ba352cc5d47104d62bd4c7a08e6b89155a50f2a))
+
 ## [2.39.2](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.39.1...v2.39.2) (2026-03-20)
 
 
