@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.41.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.40.0...v2.41.0) (2026-03-26)
+
+
+### Features
+
+* [[#1817](https://github.com/cyfronet-fid/eosc-search-service/issues/1817)] fix read the guideline btn link ([8a68c06](https://github.com/cyfronet-fid/eosc-search-service/commit/8a68c06ddbaa3836fce134a21561af93675cf42a))
+
 ## [2.40.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.39.2...v2.40.0) (2026-03-25)
 
 
