@@ -37,15 +37,18 @@ async def auth_checkin(code: str, state: str):
             settings.OIDC_ISSUER, dict(code=code, state=state)
         )
 
+
         session_id = uuid4()
         username = aai_response["userinfo"]["name"]
         aai_id = aai_response["userinfo"]["sub"]
+        access_token = aai_response["token"]
 
         session_data = SessionData(
             username=username,
             aai_state=state,
             aai_id=aai_id,
             session_uuid=str(uuid.uuid4()),
+            access_token=access_token,
         )
         await backend.create(session_id, session_data)
         auth_response = RedirectResponse(
