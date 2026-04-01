@@ -481,6 +481,8 @@ export const DATASOURCE_PID_MAPPING: Record<string, string> = {
     'CeR - Central Repository of the Institute of Chemistry, Technology and Metallurgy',
   'ni4os.sanu.dais':
     'DAIS - Digital Archive of the Serbian Academy of Sciences and Arts',
+  '21.15132/jN8exO': 'LifeWatch ERIC Metadata Catalogue',
+  '21.15132/CWCmGM': 'ENES Thematic Data Catalogue',
 };
 export const CATALOGUE_NAME_MAPPING: Record<string, string> = {
   eosc: 'EOSC',
