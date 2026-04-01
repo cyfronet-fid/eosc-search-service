@@ -50,7 +50,7 @@ class GlobalSettings(BaseSettings):
         "http://localhost:8081/recommendations"
     )
     RS_ROWS: int = 1000  # TODO deprecated?
-    SHOW_RECOMMENDATIONS: bool = True
+    SHOW_RECOMMENDATIONS: bool = False
     SHOW_RANDOM_RECOMMENDATIONS: bool = True
     IS_SORT_BY_RELEVANCE: bool = True
     MAX_ITEMS_SORT_RELEVANCE: int = 250
