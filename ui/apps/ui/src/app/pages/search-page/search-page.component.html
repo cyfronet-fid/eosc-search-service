@@ -52,6 +52,7 @@
           <ess-filters
             [results]="response?.results"
             [isError]="response?.isError"
+            [resultsCount]="response?.numFound ?? 0"
           ></ess-filters>
         </div>
         <div class="col-sm-9 col-12 center-column">

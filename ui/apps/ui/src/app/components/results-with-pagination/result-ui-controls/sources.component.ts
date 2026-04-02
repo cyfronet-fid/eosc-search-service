@@ -13,7 +13,7 @@ import { InstanceExportData } from '@collections/data/openair.model';
         color: #040f81;
         font-size: 14px;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 400;
         line-height: 18px;
       }
     `,
