@@ -54,7 +54,14 @@ import { IFqMap } from '@collections/services/custom-route.type';
     `
       #dropdown-filter-title {
         display: flex;
+        font-weight: 600;
+        margin-bottom: 5px;
+        font-size: 14px;
         flex-direction: row;
+
+        b {
+          font-weight: 600;
+        }
       }
 
       #container {

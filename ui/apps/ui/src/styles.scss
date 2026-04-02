@@ -721,6 +721,24 @@ h3,
 
 .dashboard .left-column #filters {
   padding: 0;
+
+  h5 {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+}
+
+ess-filter-multiselect-dropdown {
+  padding: 10px 10px 13px;
+  background: #EDF4FF;
+  margin: 0 0 20px !important;
+  border-radius: 8px;
+  width: 100%;
+  display: inline-block;
+
+  .global-select {
+    width: 100%;
+  }
 }
 
 .dashboard .center-column {
@@ -2355,7 +2373,7 @@ h6 {
 
 .ant-select-dropdown.ant-select-tree-dropdown {
   top: 100%;
-  width: 240px;
+  width: 251px;
   border-radius: 0 0 8px 8px;
   margin-top: -6px;
   padding: 20px 12px 15px;
