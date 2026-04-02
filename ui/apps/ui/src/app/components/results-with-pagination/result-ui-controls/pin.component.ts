@@ -15,7 +15,7 @@ import { RedirectService } from '@collections/services/redirect.service';
   template: `
     <a style="display: flex;" [attr.href]="pinUrl" target="_blank">
       <span class="pin-icon"></span>
-      <span class="pin-icon-text">Pin to the Marketplace Project</span>
+      <span class="pin-icon-text">Pin</span>
     </a>
   `,
   styles: [
@@ -38,7 +38,7 @@ import { RedirectService } from '@collections/services/redirect.service';
         font-family: Inter;
         font-size: 14px;
         font-style: normal;
-        font-weight: 500;
+        font-weight: 400;
         line-height: 18px;
         margin-right: 10px;
       }

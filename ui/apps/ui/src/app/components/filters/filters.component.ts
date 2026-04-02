@@ -24,6 +24,21 @@ import { selectEntities } from '@ngneat/elf-entities';
       <ng-template #showResultsRef>
         <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
           <ng-container [ngSwitch]="filterConfig.type">
+            <ess-filter-multiselect-dropdown
+              class="multiselect-dropdown"
+              *ngSwitchCase="'dropdown'"
+              [label]="filterConfig.label"
+              [filterId]="filterConfig.id"
+              [data]="filterConfig.options"
+              [isLoading]="!!(isLoading$ | async)"
+              [show]="resultsCount > 0 && filterConfig.options.length > 0"
+              [tooltipText]="filterConfig.tooltipText"
+            ></ess-filter-multiselect-dropdown>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
+          <ng-container [ngSwitch]="filterConfig.type">
             <ess-filter-multiselect
               *ngSwitchCase="'multiselect'"
               [isLoading]="!!(isLoading$ | async)"
@@ -84,6 +99,7 @@ import { selectEntities } from '@ngneat/elf-entities';
               [expandArrow]="filterConfig.expandArrow"
             >
             </ess-filter-date-year>
+
             <ess-filter-date-calendar
               *ngSwitchCase="'date-calendar'"
               [label]="filterConfig.label"
@@ -113,6 +129,7 @@ import { selectEntities } from '@ngneat/elf-entities';
 export class FiltersComponent {
   @Input() results?: unknown[] = undefined;
   @Input() isError?: unknown = undefined;
+  @Input() resultsCount!: number;
 
   public emptyFiltersMessage = '';
 
@@ -156,7 +173,7 @@ export class FiltersComponent {
   }
 
   constructor(
-    private _filtersConfigsRepository: FiltersConfigsRepository, // If needed
+    private _filtersConfigsRepository: FiltersConfigsRepository,
     private _route: ActivatedRoute
   ) {}
 }

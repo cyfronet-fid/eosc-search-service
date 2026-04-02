@@ -8,7 +8,6 @@ import {
 import { trainingsNavConfig } from './trainings/nav-config.data';
 import { guidelinesNavConfig } from './guidelines/nav-config.data';
 import { providersNavConfig } from '@collections/data/providers/nav-config.data';
-import { projectNavConfig } from './projects/nav-config.data';
 import { cataloguesNavConfig } from './catalogues/nav-config.data';
 import {
   URL_PARAM_NAME as ALL_COLLECTIONS_URL_PARAM_NAME,
@@ -19,8 +18,6 @@ import { datasetsNavConfig } from './datasets/nav-config.data';
 import { softwareNavConfig } from './software/nav-config.data';
 import { dataSourcesNavConfig } from './data-sources/nav-config.data';
 import { servicesNavConfig } from '@collections/data/services/nav-config.data';
-import { othersResourcesProductsNavConfig } from '@collections/data/other-resources-products/nav-config.data';
-import { bundlesNavConfig } from '@collections/data/bundles/nav-config.data';
 import { adapterNavConfig } from '@collections/data/adapters/nav-config.data';
 import { deployableServiceNavConfig } from '@collections/data/deployable-services/nav-config.data';
 
@@ -32,10 +29,7 @@ import { datasetsAdapter } from './datasets/adapter.data';
 import { softwareAdapter } from './software/adapter.data';
 import { dataSourcesAdapter } from './data-sources/adapter.data';
 import { providersAdapter } from '@collections/data/providers/adapter.data';
-import { projectsAdapter } from './projects/adapter.data';
 import { servicesAdapter } from '@collections/data/services/adapter.data';
-import { otherResourcesProductsAdapter } from '@collections/data/other-resources-products/adapter.data';
-import { bundlesAdapter } from '@collections/data/bundles/adapter.data';
 import { cataloguesAdapter } from './catalogues/adapter.data';
 import { adaptersAdapter } from './adapters/adapter.data';
 import { deployableServiceAdapter } from '@collections/data/deployable-services/adapter.data';
@@ -43,15 +37,12 @@ import { deployableServiceAdapter } from '@collections/data/deployable-services/
 import { trainingsSearchMetadata } from './trainings/search-metadata.data';
 import { guidelinesSearchMetadata } from './guidelines/search-metadata.data';
 import { providersSearchMetadata } from './providers/search-metadata.data';
-import { projectsSearchMetadata } from './projects/search-metadata.data';
 import { allCollectionsSearchMetadata } from './all/search-metadata.data';
 import { publicationsSearchMetadata } from './publications/search-metadata.data';
 import { datasetsSearchMetadata } from './datasets/search-metadata.data';
 import { softwareSearchMetadata } from './software/search-metadata.data';
 import { dataSourcesSearchMetadata } from './data-sources/search-metadata.data';
 import { servicesSearchMetadata } from '@collections/data/services/search-metadata.data';
-import { otherResourcesProductsSearchMetadata } from '@collections/data/other-resources-products/search-metadata.data';
-import { bundlesSearchMetadata } from '@collections/data/bundles/search-metadata.data';
 import { cataloguesSearchMetadata } from './catalogues/search-metadata.data';
 import { adapterSearchMetadata } from './adapters/search-metadata.data';
 import { deployableServiceSearchMetadata } from '@collections/data/deployable-services/search-metadata.data';
@@ -65,9 +56,6 @@ import { trainingsFilters } from './trainings/filters.data';
 import { guidelinesFilters } from './guidelines/filters.data';
 import { servicesFilters } from '@collections/data/services/filters.data';
 import { providersFilters } from '@collections/data/providers/filters.data';
-import { projectsFilters } from './projects/filters.data';
-import { otherResourcesProductsFilters } from '@collections/data/other-resources-products/filters.data';
-import { bundlesFilters } from '@collections/data/bundles/filters.data';
 import { catalogueFilters } from './catalogues/filters.data';
 import { adapterFilters } from './adapters/filters.data';
 import { deployableServiceFilters } from './deployable-services/filters.data';
@@ -79,11 +67,8 @@ import { excludedSoftwareFilters } from '@collections/data/software/excluded.dat
 import { excludedServicesFilters } from '@collections/data/services/excluded.data';
 import { excludedDataSourcesFilters } from '@collections/data/data-sources/excluded.data';
 import { excludedTrainingsFilters } from '@collections/data/trainings/excluded.data';
-import { excludedOtherResourcesProductsFilters } from '@collections/data/other-resources-products/excluded.data';
 import { excludedGuidelinesFilters } from '@collections/data/guidelines/excluded.data';
-import { excludedBundlesFilters } from '@collections/data/bundles/excluded.data';
 import { excludedProvidersFilters } from '@collections/data/providers/excluded.data';
-import { excludedProjectFilters } from './projects/excluded.data';
 import { excludedCatalogueFilters } from './catalogues/excluded.data';
 import { excludedAdapterFilters } from './adapters/excluded.data';
 import { excludedDeployableServiceFilters } from '@collections/data/deployable-services/excluded.data';
@@ -93,92 +78,77 @@ import { validateCollections } from '@collections/data/validators';
 export const DEFAULT_COLLECTION_ID = ALL_COLLECTIONS_URL_PARAM_NAME;
 export const ADAPTERS: IAdapter[] = [
   allCollectionsAdapter,
-  publicationsAdapter,
   datasetsAdapter,
+  publicationsAdapter,
   softwareAdapter,
-  otherResourcesProductsAdapter,
+  deployableServiceAdapter,
   servicesAdapter,
   dataSourcesAdapter,
-  bundlesAdapter,
-  trainingsAdapter,
-  guidelinesAdapter,
-  providersAdapter,
-  projectsAdapter,
   cataloguesAdapter,
+  providersAdapter,
   adaptersAdapter,
-  deployableServiceAdapter,
+  guidelinesAdapter,
+  trainingsAdapter,
 ];
 export const FILTERS: IFiltersConfig[] = [
   allCollectionsFilters,
-  publicationsFilters,
   datasetsFilters,
+  publicationsFilters,
   softwareFilters,
-  otherResourcesProductsFilters,
+  deployableServiceFilters,
   servicesFilters,
   dataSourcesFilters,
-  bundlesFilters,
-  trainingsFilters,
-  guidelinesFilters,
-  providersFilters,
-  projectsFilters,
   catalogueFilters,
+  providersFilters,
   adapterFilters,
-  deployableServiceFilters,
+  guidelinesFilters,
+  trainingsFilters,
 ];
 
 // Excluded filters according to adjustments in
 // https://github.com/cyfronet-fid/eosc-search-service/issues/597
 export const EXCLUDED_FILTERS: IExcludedFiltersConfig[] = [
   excludedAllCollectionsFilters,
-  excludedPublicationsFilters,
   excludedDatasetsFilters,
+  excludedPublicationsFilters,
   excludedSoftwareFilters,
-  excludedOtherResourcesProductsFilters,
+  excludedDeployableServiceFilters,
   excludedServicesFilters,
   excludedDataSourcesFilters,
-  excludedBundlesFilters,
-  excludedTrainingsFilters,
-  excludedGuidelinesFilters,
-  excludedProvidersFilters,
-  excludedProjectFilters,
   excludedCatalogueFilters,
+  excludedProvidersFilters,
   excludedAdapterFilters,
-  excludedDeployableServiceFilters,
+  excludedGuidelinesFilters,
+  excludedTrainingsFilters,
 ];
 
 export const NAV_CONFIGS: ICollectionNavConfig[] = [
   allCollectionsNavConfig,
-  publicationsNavConfig,
   datasetsNavConfig,
+  publicationsNavConfig,
   softwareNavConfig,
-  othersResourcesProductsNavConfig,
+  deployableServiceNavConfig,
   servicesNavConfig,
   dataSourcesNavConfig,
-  bundlesNavConfig,
-  trainingsNavConfig,
-  guidelinesNavConfig,
-  providersNavConfig,
-  projectNavConfig,
   cataloguesNavConfig,
+  providersNavConfig,
   adapterNavConfig,
-  deployableServiceNavConfig,
+  guidelinesNavConfig,
+  trainingsNavConfig,
 ];
 export const SEARCH_METADATA: ICollectionSearchMetadata[] = [
   allCollectionsSearchMetadata,
-  publicationsSearchMetadata,
   datasetsSearchMetadata,
+  publicationsSearchMetadata,
   softwareSearchMetadata,
-  otherResourcesProductsSearchMetadata,
+  deployableServiceSearchMetadata,
   servicesSearchMetadata,
   dataSourcesSearchMetadata,
-  bundlesSearchMetadata,
-  trainingsSearchMetadata,
-  guidelinesSearchMetadata,
-  providersSearchMetadata,
-  projectsSearchMetadata,
   cataloguesSearchMetadata,
+  providersSearchMetadata,
   adapterSearchMetadata,
-  deployableServiceSearchMetadata,
+  guidelinesSearchMetadata,
+  trainingsSearchMetadata,
 ];
 
 validateCollections(
