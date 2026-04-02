@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.41.2](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.1...v2.41.2) (2026-04-02)
+
+
+### Bug Fixes
+
+* [[#1847](https://github.com/cyfronet-fid/eosc-search-service/issues/1847)] hide recommendation section ([5e8c546](https://github.com/cyfronet-fid/eosc-search-service/commit/5e8c546596b22e8e08602e1b87d1f2a48e0cf909))
+
 ## [2.41.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.0...v2.41.1) (2026-04-01)
 
 
