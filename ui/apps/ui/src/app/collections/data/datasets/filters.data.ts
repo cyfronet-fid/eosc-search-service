@@ -107,8 +107,8 @@ export const datasetsFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'source',
-      filter: 'source',
+      id: 'publisher',
+      filter: 'publisher',
       label: 'Publisher',
       type: 'multiselect',
       defaultCollapsed: true,
