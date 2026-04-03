@@ -14,6 +14,7 @@ import {
   CATALOGUE_NAME_MAPPING,
   COUNTRY_CODE_TO_NAME,
   DATASOURCE_PID_MAPPING,
+  RESEARCH_COMMUNITY_NAME_MAPPING,
 } from '@collections/data/config';
 import moment from 'moment';
 
@@ -196,6 +197,18 @@ export const transformCountryNames = (nodes: IFilterNode[]): IFilterNode[] => {
     name:
       node.id in COUNTRY_CODE_TO_NAME
         ? COUNTRY_CODE_TO_NAME[node.id]
+        : node.name,
+  }));
+};
+
+export const transformRawResearchCommunityNames = (
+  nodes: IFilterNode[]
+): IFilterNode[] => {
+  return nodes.map((node) => ({
+    ...node,
+    name:
+      node.id in RESEARCH_COMMUNITY_NAME_MAPPING
+        ? RESEARCH_COMMUNITY_NAME_MAPPING[node.id]
         : node.name,
   }));
 };

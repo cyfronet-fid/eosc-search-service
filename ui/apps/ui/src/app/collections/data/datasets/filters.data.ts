@@ -9,6 +9,7 @@ import {
   alphanumericFilterSort,
   transformCountryNames,
   transformDataSourceNames,
+  transformRawResearchCommunityNames,
 } from '@collections/data/utils';
 
 export const datasetsFilters: IFiltersConfig = {
@@ -107,8 +108,8 @@ export const datasetsFilters: IFiltersConfig = {
       expandArrow: true,
     },
     {
-      id: 'source',
-      filter: 'source',
+      id: 'publisher',
+      filter: 'publisher',
       label: 'Publisher',
       type: 'multiselect',
       defaultCollapsed: true,
@@ -123,6 +124,7 @@ export const datasetsFilters: IFiltersConfig = {
       defaultCollapsed: true,
       tooltipText: '',
       expandArrow: true,
+      transformNodes: transformRawResearchCommunityNames,
     },
     {
       id: 'funder',
