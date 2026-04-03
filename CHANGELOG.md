@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.41.3](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.2...v2.41.3) (2026-04-03)
+
+
+### Bug Fixes
+
+* [[#1844](https://github.com/cyfronet-fid/eosc-search-service/issues/1844)] fix research community filter mapping ([973f330](https://github.com/cyfronet-fid/eosc-search-service/commit/973f330777b116a1f90a89bb1756bd78591b7312))
+* [[#1845](https://github.com/cyfronet-fid/eosc-search-service/issues/1845)] fix publisher filter for datasets ([20319f2](https://github.com/cyfronet-fid/eosc-search-service/commit/20319f250a542653f7e40b9479499d552931e2ee))
+
 ## [2.41.2](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.1...v2.41.2) (2026-04-02)
 
 
