@@ -491,3 +491,6 @@ export const CATALOGUE_NAME_MAPPING: Record<string, string> = {
     'National Initiatives for Open Science in Europe – NI4OS Europe  Catalogue',
   'eosc-nordic': 'EOSC Nordic Service Gateway',
 };
+export const RESEARCH_COMMUNITY_NAME_MAPPING: Record<string, string> = {
+  'north-american-studies': 'North American Studies',
+};
