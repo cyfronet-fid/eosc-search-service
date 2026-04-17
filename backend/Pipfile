@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-fastapi = {extras = ["all"], version = "*"}
+fastapi = {extras = ["all"], version = ">=0.100.0,<0.109.0"}
 pydantic = "*"
 sqlalchemy = "*"
 alembic = "*"
@@ -24,7 +24,7 @@ psycopg2-binary = "==2.9.9"
 setuptools = "<82,>=65"
 
 [dev-packages]
-black = "*"
+black = ">=22.10.0"
 pylint = "*"
 isort = "*"
 pytest-mock = "*"
