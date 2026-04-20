@@ -171,7 +171,6 @@ export const transformCatalogueNames = (
   nodes: IFilterNode[]
 ): IFilterNode[] => {
   return nodes
-    .filter((node) => node.id !== 'eosc')
     .map((node) => ({
       ...node,
       name:
