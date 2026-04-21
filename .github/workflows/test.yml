@@ -15,7 +15,7 @@ jobs:
         cache: 'pipenv'
         cache-dependency-path: backend/Pipfile.lock
     - name: Install pipenv
-      run: pipx install pipenv
+      run: pipx install pipenv --python python3.10
     - name: Install dependencies
       run: pipenv sync --dev
       working-directory: ./backend
@@ -42,7 +42,7 @@ jobs:
         cache: 'pipenv'
         cache-dependency-path: backend/Pipfile.lock
     - name: Install pipenv
-      run: pipx install pipenv
+      run: pipx install pipenv --python python3.10
     - name: Install dependencies
       run: pipenv sync --dev
       working-directory: ./backend
