@@ -23,10 +23,10 @@ import { selectEntities } from '@ngneat/elf-entities';
       </ng-container>
       <ng-template #showResultsRef>
         <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
-          <ng-container [ngSwitch]="filterConfig.type">
+          <ng-container *ngIf="filterConfig.type === 'dropdown'">
             <ess-filter-multiselect-dropdown
               class="multiselect-dropdown"
-              *ngSwitchCase="'dropdown'"
+              *ngIf="filterConfig.options.length > 0"
               [label]="filterConfig.label"
               [filterId]="filterConfig.id"
               [data]="filterConfig.options"
