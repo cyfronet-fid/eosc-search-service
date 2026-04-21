@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.41.6](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.5...v2.41.6) (2026-04-21)
+
+
+### Bug Fixes
+
+* docker dependencies installation ([6c6c3ed](https://github.com/cyfronet-fid/eosc-search-service/commit/6c6c3ed134ce87962a74cd5944611bd28447aaf0))
+
 ## [2.41.5](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.4...v2.41.5) (2026-04-21)
 
 
