@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.41.7](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.6...v2.41.7) (2026-04-21)
+
+
+### Bug Fixes
+
+* fix guideline btn link ([fded49b](https://github.com/cyfronet-fid/eosc-search-service/commit/fded49bb68acfa8ecb3fcc8531daebca6ff12c38))
+* fix guideline dropdown filter ([bb356ff](https://github.com/cyfronet-fid/eosc-search-service/commit/bb356ff305c8ae46fc164d10efa6b85becd8c7da))
+
 ## [2.41.6](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.5...v2.41.6) (2026-04-21)
 
 
