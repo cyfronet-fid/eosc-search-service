@@ -10,7 +10,7 @@ ENV PYTHONUNBUFFERED 1
 COPY Pipfile Pipfile.lock /app/
 
 RUN pip install --upgrade pip pipenv
-RUN pipenv install --deploy --system
+RUN pipenv install --ignore-pipfile --system
 
 COPY alembic alembic
 COPY alembic.ini .
