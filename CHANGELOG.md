@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.41.5](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.4...v2.41.5) (2026-04-21)
+
+
+### Bug Fixes
+
+* update dependencies ([54162ee](https://github.com/cyfronet-fid/eosc-search-service/commit/54162ee8209433398be208314e7760e6890878f1))
+
 ## [2.41.4](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.3...v2.41.4) (2026-04-17)
 
 
