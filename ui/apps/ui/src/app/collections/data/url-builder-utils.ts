@@ -172,6 +172,9 @@ export const getEntityLogoUrl = (
     case 'catalogue':
       return buildCatalogueUrl(entity, '/logo');
 
+    case 'deployable service':
+      return buildDeployableServiceUrl(entity, '/logo');
+
     case 'adapter':
       return buildAdapterUrl({
         logoUrl: logoUrl,
