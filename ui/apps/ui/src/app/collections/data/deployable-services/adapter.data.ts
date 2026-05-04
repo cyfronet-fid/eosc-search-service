@@ -27,6 +27,7 @@ export const deployableServiceAdapter: IAdapter = {
     date: formatPublicationDate(deployableService.publication_date),
     node: deployableService?.node,
     url: buildDeployableServiceUrl(deployableService),
+    logoUrl: buildDeployableServiceUrl(deployableService, '/logo'),
     license: deployableService?.license,
     collection: COLLECTION,
     type: {
