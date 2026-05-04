@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.41.8](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.7...v2.41.8) (2026-05-04)
+
+
+### Bug Fixes
+
+* [[#1863](https://github.com/cyfronet-fid/eosc-search-service/issues/1863)] fix logo for deployable applications ([9b70325](https://github.com/cyfronet-fid/eosc-search-service/commit/9b7032527e61f67bbd8b392fd18115a053700da7))
+
 ## [2.41.7](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.6...v2.41.7) (2026-04-21)
 
 
