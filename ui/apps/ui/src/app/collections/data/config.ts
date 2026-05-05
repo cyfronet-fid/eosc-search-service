@@ -494,3 +494,8 @@ export const CATALOGUE_NAME_MAPPING: Record<string, string> = {
 export const RESEARCH_COMMUNITY_NAME_MAPPING: Record<string, string> = {
   'north-american-studies': 'North American Studies',
 };
+export const SQA_BADGES_MAPPING: Record<string, string> = {
+  'sqa_badge-bronze': 'Bronze',
+  'sqa_badge-silver': 'Silver',
+  'sqa_badge-gold': 'Gold',
+};

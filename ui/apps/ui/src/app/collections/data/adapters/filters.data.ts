@@ -3,6 +3,9 @@ import { URL_PARAM_NAME } from './nav-config.data';
 import {
   transformLicense,
   transformProgrammingLanguages,
+  transformRelatedGuidelinesFromBackend,
+  transformRelatedServicesFromBackend,
+  transformSQABadges,
 } from '@collections/data/utils';
 
 export const adapterFilters: IFiltersConfig = {
@@ -61,6 +64,36 @@ export const adapterFilters: IFiltersConfig = {
       type: 'tag',
       defaultCollapsed: false,
       tooltipText: '',
+    },
+    {
+      id: 'related_services',
+      filter: 'related_services',
+      label: 'Related Services',
+      type: 'multiselect',
+      defaultCollapsed: true,
+      tooltipText: '',
+      expandArrow: true,
+      asyncTransformNodes: transformRelatedServicesFromBackend,
+    },
+    {
+      id: 'related_guidelines',
+      filter: 'related_guidelines',
+      label: 'Related Interoperability Guidelines',
+      type: 'multiselect',
+      defaultCollapsed: true,
+      tooltipText: '',
+      expandArrow: true,
+      asyncTransformNodes: transformRelatedGuidelinesFromBackend,
+    },
+    {
+      id: 'sqa_badge',
+      filter: 'sqa_badge',
+      label: 'SQA Badge',
+      type: 'multiselect',
+      defaultCollapsed: true,
+      tooltipText: '',
+      expandArrow: true,
+      transformNodes: transformSQABadges,
     },
   ],
 };

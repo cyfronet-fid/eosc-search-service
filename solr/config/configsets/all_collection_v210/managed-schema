@@ -509,6 +509,7 @@
   <field name="funding_programs" type="strings" required="false"/>
   <field name="geographical_availabilities" type="strings" required="false"/>
   <field name="grant_project_names" type="strings" required="false"/>
+  <field name="guidelines" type="text_general"/>
   <field name="helpdesk_email" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="helpdesk_url" type="text_general" sortMissingLast="true" required="false"/>
   <field name="horizontal" type="boolean" uninvertible="true" docValues="true" indexed="true" stored="true"/>
@@ -523,6 +524,7 @@
   <field name="last_update" type="pdate" sortMissingLast="true" required="false"/>
   <field name="learning_outcomes" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="learning_resource_types" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
+  <field name="legal_status" type="text_general"/>
   <field name="level_of_expertise" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="license" type="string" required="false" useDocValuesAsStored="true"/>
   <field name="life_cycle_status" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
@@ -596,6 +598,8 @@
   <field name="sla_url" type="text_general" sortMissingLast="true" required="false"/>
   <field name="slug" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="source" type="strings" required="false"/>
+  <field name="sqa_badge" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="sqa_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="standards" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="status" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="status_monitoring_url" type="text_general" sortMissingLast="true" required="false"/>
@@ -707,4 +711,6 @@
   <copyField source="catalogues" dest="catalogues_str" maxChars="256"/>
   <copyField source="eosc_if_tg" dest="eosc_if_tg_str" maxChars="256"/>
   <copyField source="alternative_ids" dest="alternative_ids_str" maxChars="256"/>
+  <copyField source="guidelines" dest="guidelines_str" maxChars="256"/>
+  <copyField source="legal_status" dest="legal_status_str" maxChars="256"/>
 </schema>

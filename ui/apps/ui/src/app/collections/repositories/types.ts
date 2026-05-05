@@ -75,6 +75,7 @@ export interface IResult {
   public_contacts?: string[];
   releases?: string[];
   version?: string;
+  sqaBadge?: string | string[];
 }
 
 export interface RelatedService {
@@ -203,6 +204,7 @@ export interface IFilterConfig {
 
   customSort?: (a: IFilterNode, b: IFilterNode) => number;
   transformNodes?: (nodes: IFilterNode[]) => IFilterNode[];
+  asyncTransformNodes?: (nodes: IFilterNode[]) => Promise<IFilterNode[]>;
   global?: boolean;
 }
 

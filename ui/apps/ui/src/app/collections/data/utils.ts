@@ -15,7 +15,9 @@ import {
   COUNTRY_CODE_TO_NAME,
   DATASOURCE_PID_MAPPING,
   RESEARCH_COMMUNITY_NAME_MAPPING,
+  SQA_BADGES_MAPPING,
 } from '@collections/data/config';
+import { environment } from '@environment/environment';
 import moment from 'moment';
 
 export const toKeywordsSecondaryTag = (
@@ -235,5 +237,87 @@ export const transformLicense = (nodes: IFilterNode[]): IFilterNode[] => {
   return nodes.map((node) => ({
     ...node,
     name: formatLicense(node.name),
+  }));
+};
+
+type RelatedResourceField = 'related_services' | 'related_guidelines';
+
+interface RelatedResourceNamesResponse {
+  names: Record<string, string>;
+}
+
+const RELATED_RESOURCE_NAMES_URL = `/${environment.backendApiPath}/related-resources/names`;
+const relatedResourceNamesCache: Record<
+  RelatedResourceField,
+  Record<string, string>
+> = {
+  related_services: {},
+  related_guidelines: {},
+};
+
+const fetchRelatedResourceNames = async (
+  field: RelatedResourceField,
+  ids: string[]
+): Promise<Record<string, string>> => {
+  const uniqueIds = [...new Set(ids.filter(Boolean))];
+  const missingIds = uniqueIds.filter(
+    (id) => relatedResourceNamesCache[field][id] === undefined
+  );
+
+  if (missingIds.length > 0) {
+    try {
+      const response = await fetch(RELATED_RESOURCE_NAMES_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ field, ids: missingIds }),
+      });
+
+      if (response.ok) {
+        const { names } =
+          (await response.json()) as RelatedResourceNamesResponse;
+        relatedResourceNamesCache[field] = {
+          ...relatedResourceNamesCache[field],
+          ...names,
+        };
+      }
+    } catch (error) {
+      console.error('Failed to fetch related resource names', error);
+      return relatedResourceNamesCache[field];
+    }
+  }
+
+  return relatedResourceNamesCache[field];
+};
+
+const transformRelatedResourceNamesFromBackend = async (
+  nodes: IFilterNode[],
+  field: RelatedResourceField
+): Promise<IFilterNode[]> => {
+  const names = await fetchRelatedResourceNames(
+    field,
+    nodes.map((node) => node.id)
+  );
+
+  return nodes.map((node) => ({
+    ...node,
+    name: names[node.id] ?? node.name,
+  }));
+};
+
+export const transformRelatedServicesFromBackend = (
+  nodes: IFilterNode[]
+): Promise<IFilterNode[]> =>
+  transformRelatedResourceNamesFromBackend(nodes, 'related_services');
+
+export const transformRelatedGuidelinesFromBackend = (
+  nodes: IFilterNode[]
+): Promise<IFilterNode[]> =>
+  transformRelatedResourceNamesFromBackend(nodes, 'related_guidelines');
+
+export const transformSQABadges = (nodes: IFilterNode[]): IFilterNode[] => {
+  return nodes.map((node) => ({
+    ...node,
+    name:
+      node.id in SQA_BADGES_MAPPING ? SQA_BADGES_MAPPING[node.id] : node.name,
   }));
 };
