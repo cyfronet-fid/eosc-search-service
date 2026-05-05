@@ -12,21 +12,36 @@ from app.consts import (
     ORGANISATION_QF,
     PROJECT_QF,
     PROVIDER_QF,
+    Collection,
+    ResourceType,
 )
+from app.schemas.related_resources import RelatedResourceField
 from app.schemas.search_request import StatFacet, TermsFacet
-from app.schemas.solr_response import Collection, SolrResponse
+from app.schemas.solr_response import SolrResponse
 from app.settings import settings
 
 from .error_handling import (
     SolrCollectionEmptyError,
+    SolrCollectionNotFoundError,
     handle_solr_detail_response_errors,
     handle_solr_list_response_errors,
 )
 from .utils import (
+    first_solr_value,
     parse_organisation_filters,
     parse_project_filters,
     parse_providers_filters,
 )
+
+RELATED_RESOURCE_COLLECTIONS: dict[RelatedResourceField, Collection] = {
+    "related_services": Collection.SERVICE,
+    "related_guidelines": Collection.GUIDELINE,
+}
+
+RELATED_RESOURCE_TYPES: dict[RelatedResourceField, ResourceType] = {
+    "related_services": ResourceType.SERVICE,
+    "related_guidelines": ResourceType.GUIDELINE,
+}
 
 
 async def search(
@@ -321,6 +336,79 @@ async def get_item_by_pid(
     return await handle_solr_list_response_errors(client.get(url))
 
 
+async def get_related_resource_names(
+    client: AsyncClient,
+    field: RelatedResourceField,
+    ids: list[str],
+) -> dict[str, str]:
+    """Resolve related service/guideline PIDs to titles."""
+    unique_ids = list(dict.fromkeys([item_id for item_id in ids if item_id]))
+    if not unique_ids:
+        return {}
+
+    names: dict[str, str] = {}
+    for collection in [
+        RELATED_RESOURCE_COLLECTIONS[field],
+        Collection.ALL_COLLECTION,
+    ]:
+        for id_field in ["pid", "id"]:
+            missing_ids = [
+                item_id for item_id in unique_ids if item_id not in names
+            ]
+            if not missing_ids:
+                return names
+
+            try:
+                names.update(
+                    await _query_related_resource_names(
+                        client, collection, field, id_field, missing_ids
+                    )
+                )
+            except SolrCollectionNotFoundError:
+                if collection != Collection.ALL_COLLECTION:
+                    continue
+                raise
+
+    return names
+
+
+async def _query_related_resource_names(
+    client: AsyncClient,
+    collection: Collection,
+    field: RelatedResourceField,
+    id_field: str,
+    ids: list[str],
+) -> dict[str, str]:
+    solr_collection = f"{settings.COLLECTIONS_PREFIX}{collection}"
+    filter_query = [f"{{!terms f={id_field}}}{','.join(ids)}"]
+    if collection == Collection.ALL_COLLECTION:
+        filter_query.append(f'type:"{RELATED_RESOURCE_TYPES[field]}"')
+
+    request_body = {
+        "params": {
+            "q": "*:*",
+            "fq": filter_query,
+            "fl": f"{id_field},title",
+            "rows": len(ids),
+            "wt": "json",
+        }
+    }
+    response = await handle_solr_list_response_errors(
+        client.post(
+            f"{settings.SOLR_URL}{solr_collection}/select",
+            json=request_body,
+        )
+    )
+
+    names = {}
+    for doc in response.json()["response"]["docs"]:
+        if doc.get(id_field) and doc.get("title"):
+            names[str(first_solr_value(doc[id_field]))] = first_solr_value(
+                doc["title"]
+            )
+    return names
+
+
 def search_dep():
     """FastAPI search method dependency"""
     return search
@@ -334,3 +422,8 @@ def search_advanced_dep():
 def get_dep():
     """get method dependency"""
     return get
+
+
+def get_related_resource_names_dep():
+    """FastAPI related resource name resolver dependency"""
+    return get_related_resource_names

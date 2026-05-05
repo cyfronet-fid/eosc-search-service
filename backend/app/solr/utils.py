@@ -18,6 +18,13 @@ TYPE_TO_FIELD_MAP = {
 }
 
 
+def first_solr_value(value, default: str = "") -> str:
+    """Return first value for Solr multi-valued fields or the value itself."""
+    if isinstance(value, list):
+        return value[0] if value else default
+    return value if value is not None else default
+
+
 def parse_providers_filters(fq):
     """
     Function changing fq form AND to OR

@@ -34,6 +34,7 @@ export const adaptersAdapter: IAdapter = {
     ),
     documentationUrl: rawAdapter?.documentation_url,
     repository: rawAdapter?.repository,
+    sqaBadge: rawAdapter?.sqa_badge,
     logoUrl: rawAdapter?.logo,
     relatedServiceUrl:
       rawAdapter?.related_services && rawAdapter?.related_services?.length > 0
@@ -67,6 +68,12 @@ export const adaptersAdapter: IAdapter = {
           label: formatProgrammingLanguage(lang), // Formatted label for display
         })),
         filter: 'programming_language',
+        showMoreThreshold: 4,
+      },
+      {
+        label: 'SQA Badge',
+        values: toValueWithLabel(toArray(rawAdapter.sqa_badge)),
+        filter: 'sqa_badge',
         showMoreThreshold: 4,
       },
     ],
