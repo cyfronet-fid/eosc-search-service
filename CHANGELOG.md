@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.42.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.8...v2.42.0) (2026-05-13)
+
+
+### Features
+
+* add filtering by sqa badge, services and guidelines and display sqa badge value ([907e7d7](https://github.com/cyfronet-fid/eosc-search-service/commit/907e7d73be22a8c7b0a87ec2790c1af7ce906faf))
+
 ## [2.41.8](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.7...v2.41.8) (2026-05-04)
 
 
