@@ -18,4 +18,5 @@ export interface IAdapterModel {
   type: string;
   version: string;
   keywords?: string[];
+  sqa_badge?: string | string[];
 }

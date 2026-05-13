@@ -126,18 +126,22 @@ export class FilterService {
             });
           }
 
-          return filters.map((filter) => {
-            const id = filter.filter;
-            const filterFacets = fetchedFacets[id] as ITermsFacetResponse;
-            const options = facetToFlatNodes(filterFacets?.buckets ?? [], id);
+          return Promise.all(
+            filters.map(async (filter) => {
+              const id = filter.filter;
+              const filterFacets = fetchedFacets[id] as ITermsFacetResponse;
+              const options = facetToFlatNodes(filterFacets?.buckets ?? [], id);
 
-            return {
-              id,
-              options: filter.transformNodes
-                ? filter.transformNodes(options)
-                : options,
-            };
-          });
+              return {
+                id,
+                options: filter.asyncTransformNodes
+                  ? await filter.asyncTransformNodes(options)
+                  : filter.transformNodes
+                  ? filter.transformNodes(options)
+                  : options,
+              };
+            })
+          );
         })
       );
   }

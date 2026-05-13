@@ -33,6 +33,11 @@
             </dd>
           </dl>
 
+          <dl *ngIf="adapter?.sqaBadge" class="mb-1 d-flex">
+            <dt>SQA Badge:</dt>
+            <dd>{{ adapter?.sqaBadge }}</dd>
+          </dl>
+
         </div>
       </div>
     </div>
