@@ -24,7 +24,7 @@ export const adaptersAdapter: IAdapter = {
     description: rawAdapter?.description?.join(' ') || '',
     license: formatLicense(rawAdapter?.license),
     catalogue: rawAdapter?.catalogues,
-    releases: rawAdapter?.releases,
+    package: rawAdapter?.package ?? rawAdapter?.releases,
     version: rawAdapter?.version,
     date: formatPublicationDate(rawAdapter.publication_date),
     changelog: rawAdapter?.changelog,
@@ -36,6 +36,9 @@ export const adaptersAdapter: IAdapter = {
     repository: rawAdapter?.repository,
     sqaBadge: rawAdapter?.sqa_badge,
     logoUrl: rawAdapter?.logo,
+    creator_names: rawAdapter?.creator_names,
+    creator_identifiers: rawAdapter?.creator_identifiers,
+    creator_affiliations: rawAdapter?.creator_affiliations,
     relatedServiceUrl:
       rawAdapter?.related_services && rawAdapter?.related_services?.length > 0
         ? `${

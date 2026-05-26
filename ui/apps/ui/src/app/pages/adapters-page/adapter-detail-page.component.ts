@@ -103,4 +103,12 @@ export class AdapterDetailPageComponent implements OnInit {
     const firstTag = this.adapter?.secondaryTags?.[0];
     return firstTag?.values?.[0]?.label ?? '';
   }
+
+  get hasAnyCreators(): boolean {
+    return (this.adapter?.creator_names?.length ?? 0) > 0;
+  }
+
+  get creatorNamesString(): string {
+    return this.adapter?.creator_names?.join(', ') ?? '';
+  }
 }
