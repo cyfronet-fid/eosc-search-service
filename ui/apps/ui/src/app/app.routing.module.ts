@@ -66,6 +66,14 @@ const appRoutes: Routes = [
       ),
   },
   {
+    path: 'documentation',
+    pathMatch: 'full',
+    loadChildren: () =>
+      import('./pages/documentation/documentation.module').then(
+        (m) => m.DocumentationModule
+      ),
+  },
+  {
     path: '**',
     pathMatch: 'full',
     redirectTo: 'error/404',
