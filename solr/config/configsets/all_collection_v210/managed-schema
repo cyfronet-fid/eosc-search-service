@@ -540,6 +540,7 @@
   <field name="open_access" type="boolean" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="open_source_technologies" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="order_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="package" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="payment_model_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="persistent_identity_systems_entity_type" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="persistent_identity_systems_entity_type_schemes" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -556,6 +557,8 @@
   <field name="provider" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="providerId" type="text_general"/>
   <field name="providers" type="strings" required="false"/>
+  <field name="public_contact" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="public_contacts" type="text_general" sortMissingLast="true" required="false"/>
   <field name="publication_date" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="publication_year" type="pint" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="publisher" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
@@ -584,6 +587,7 @@
   <field name="resource_geographic_locations" type="strings" required="false"/>
   <field name="resource_level_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="resource_organisation" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="resource_owner" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="resource_type" type="strings" required="false"/>
   <field name="restrictions" type="string" required="false"/>
   <field name="right_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>

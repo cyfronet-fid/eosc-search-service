@@ -55,16 +55,15 @@
       <div class="description-content mb-4">
         {{ stripHtml(adapter?.description) }}
       </div>
-
-      <div class="row description-blocks mb-5">
-        <div class="col-md-3">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-3 mb-5">
+        <div class="col" *ngIf="adapter">
           <div class="card h-100">
             <div class="card-body">
-              <div class="card-title">
+              <div class="card-title d-flex align-items-center gap-2">
                 <div class="card-title-icon">
                   <img src="assets/icon-management.svg" alt="Management" />
                 </div>
-                <h6 class="card-title fw-bold">Management</h6>
+                <h6 class="fw-bold mb-0">Management</h6>
               </div>
 
               <ul class="list-unstyled small mb-0">
@@ -79,18 +78,16 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col" *ngIf="adapter">
           <div class="card h-100">
             <div class="card-body">
-              <div class="card-title">
+              <div class="card-title d-flex align-items-center gap-2">
                 <div class="card-title-icon">
-                  <img
-                    src="assets/icon-classification.svg"
-                    alt="Classification"
-                  />
+                  <img src="assets/icon-classification.svg" alt="Classification" />
                 </div>
-                <h6 class="card-title fw-bold">Classification</h6>
+                <h6 class="fw-bold mb-0">Classification</h6>
               </div>
+
               <ul class="list-unstyled small mb-0">
                 <li><strong>Node</strong></li>
                 <li>{{ adapter?.node }}</li>
@@ -101,15 +98,16 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col" *ngIf="adapter">
           <div class="card h-100">
             <div class="card-body">
-              <div class="card-title">
+              <div class="card-title d-flex align-items-center gap-2">
                 <div class="card-title-icon">
                   <img src="assets/icon-changelog.svg" alt="Change Log" />
                 </div>
-                <h6 class="card-title fw-bold">Change Log</h6>
+                <h6 class="fw-bold mb-0">Change Log</h6>
               </div>
+
               <ul class="list-unstyled small mb-0">
                 <li *ngFor="let change of adapter?.changelog">{{ change }}</li>
               </ul>
@@ -117,18 +115,35 @@
           </div>
         </div>
 
-        <div class="col-md-3" *ngIf="hasAnyKeywords">
+        <div class="col" *ngIf="hasAnyKeywords">
           <div class="card h-100">
             <div class="card-body">
-              <div class="card-title">
+              <div class="card-title d-flex align-items-center gap-2">
                 <div class="card-title-icon">
-                  <img src="assets/icon-classification.svg" alt="Keywords"/>
+                  <img src="assets/icon-classification.svg" alt="Keywords" />
                 </div>
-                <h6 class="card-title fw-bold">Keywords</h6>
+                <h6 class="fw-bold mb-0">Keywords</h6>
               </div>
 
               <ul class="list-unstyled small mb-0">
                 <li>{{ keywordString }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col" *ngIf="hasAnyCreators">
+          <div class="card h-100">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-center gap-2">
+                <div class="card-title-icon">
+                  <img src="assets/icon-person.svg" alt="Creator" />
+                </div>
+                <h6 class="fw-bold mb-0"> Creator{{ adapter?.creator_names?.length === 1 ? '' : 's' }} </h6>
+              </div>
+
+              <ul class="list-unstyled small mb-0">
+                <li>{{ creatorNamesString }}</li>
               </ul>
             </div>
           </div>
@@ -147,9 +162,9 @@
           </li>
           <li class="repository_url">
             <span class="list-group-item">Releases</span>
-            <ul *ngIf="adapter?.releases?.length" class="releases-list">
-              <li *ngFor="let release of adapter?.releases">
-                <a [href]="release" target="_blank">{{ release | sliceRelease }}</a>
+            <ul *ngIf="adapter?.package?.length" class="releases-list">
+              <li *ngFor="let item of adapter?.package">
+                <a [href]="item" target="_blank">{{ item | sliceRelease }}</a>
               </li>
             </ul>
           </li>
