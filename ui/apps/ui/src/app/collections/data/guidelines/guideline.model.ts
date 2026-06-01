@@ -9,6 +9,7 @@ export interface IGuideline {
   id: string | number;
   publication_date?: string;
   publication_year?: number;
+  license?: string | string[];
   right_id?: string[];
   right_title?: string[];
   right_uri?: string[];

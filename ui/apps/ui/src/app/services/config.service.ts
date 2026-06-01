@@ -17,6 +17,7 @@ export interface BackendConfig {
   show_beta_collections: boolean;
   show_knowledge_base: boolean;
   user_documentation_url: string;
+  related_services_endpoint: string;
 }
 
 @Injectable({

@@ -5,10 +5,12 @@ import { Observable } from 'rxjs';
 import { IGuideline } from '@collections/data/guidelines/guideline.model';
 import { COLLECTION } from '@collections/data/guidelines/search-metadata.data';
 import { IService } from '@collections/data/services/service.model';
+import { ConfigService } from '../../services/config.service';
 
 @Injectable({ providedIn: 'root' })
 export class GuidelinesService {
   endpointUrl = `/${environment.backendApiPath}/${COLLECTION}`;
+  relatedResourcesEndpointUrl = ConfigService.config?.related_services_endpoint;
   constructor(private _http: HttpClient) {}
 
   get$(id: number | string): Observable<IGuideline> {
@@ -21,5 +23,11 @@ export class GuidelinesService {
   getFromProviderById$(id: number | string): Observable<any> {
     const endpoint = `/${environment.backendApiPath}/related_services?guideline_id=`;
     return this._http.get<IService[]>(`${endpoint}${encodeURIComponent(id)}`);
+  }
+
+  getRelatedResourceIds$(id: number | string): Observable<string[]> {
+    return this._http.get<string[]>(
+      `${this.relatedResourcesEndpointUrl}/${encodeURIComponent(id)}`
+    );
   }
 }
