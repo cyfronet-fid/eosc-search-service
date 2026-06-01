@@ -16,3 +16,4 @@ class ConfigurationResponse(BaseModel):
     show_beta_collections: bool
     show_knowledge_base: bool
     user_documentation_url: Url
+    related_services_endpoint: Url

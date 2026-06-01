@@ -6,12 +6,21 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ConfigService } from '../services/config.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  intercept = (
+  intercept(
     req: HttpRequest<object>,
     next: HttpHandler
-  ): Observable<HttpEvent<object>> =>
-    next.handle(req.clone({ withCredentials: true }));
+  ): Observable<HttpEvent<object>> {
+    if (req.url.startsWith(ConfigService.config?.related_services_endpoint)) {
+      return next.handle(req);
+    }
+    return next.handle(
+      req.clone({
+        withCredentials: true,
+      })
+    );
+  }
 }

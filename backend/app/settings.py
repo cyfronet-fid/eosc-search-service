@@ -103,6 +103,10 @@ class GlobalSettings(BaseSettings):
 class DevSettings(GlobalSettings):
     """Dev Settings"""
 
+    RELATED_SERVICES_ENDPOINT: Url = (
+        "https://integration.providers.sandbox.eosc-beyond.eu/api/public/interoperabilityRecord/relatedResources"
+    )
+
 
 class TestSettings(GlobalSettings):
     """Test Settings"""
