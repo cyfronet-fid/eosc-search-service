@@ -527,6 +527,7 @@
   <field name="legal_status" type="text_general"/>
   <field name="level_of_expertise" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="license" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="license_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="life_cycle_status" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="link_research_product_metadata_license_urls" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="logo" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
