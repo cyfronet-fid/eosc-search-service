@@ -479,6 +479,7 @@
   <field name="contactperson" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="content_type" type="strings" required="false"/>
   <field name="country" type="strings" required="false"/>
+  <field name="created_at" type="pdate" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="creator_affiliations" type="text_general" uninvertible="false" docValues="false" multiValued="true" indexed="true" stored="true"/>
   <field name="creator_identifiers" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="creator_names" type="text_general" uninvertible="false" docValues="false" multiValued="true" indexed="true" stored="true"/>
@@ -585,6 +586,7 @@
   <field name="research_product_licensing_urls" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_product_metadata_access_policies" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_product_metadata_license_urls" type="text_general"/>
+  <field name="research_product_types" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="resource_geographic_locations" type="strings" required="false"/>
   <field name="resource_level_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="resource_organisation" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
