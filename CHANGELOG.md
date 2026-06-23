@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.42.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.42.0...v2.42.1) (2026-06-23)
+
+
+### Bug Fixes
+
+* change displayed data on adapter detail page and update solr files ([c9fad55](https://github.com/cyfronet-fid/eosc-search-service/commit/c9fad5561972780505e0b0bdc2e99cfc122d21d3))
+* fix guidelines after profile changes ([ad6956f](https://github.com/cyfronet-fid/eosc-search-service/commit/ad6956f7db919900d322be06c5aaa59e44ea32d8))
+
 ## [2.42.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.41.8...v2.42.0) (2026-05-13)
 
 
