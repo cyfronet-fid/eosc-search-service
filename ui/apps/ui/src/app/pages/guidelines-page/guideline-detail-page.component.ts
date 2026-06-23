@@ -10,8 +10,9 @@ import {
   IGuideline,
 } from '@collections/data/guidelines/guideline.model';
 import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
-import { IService } from '../../collections/data/services/service.model';
+import { IService } from '@collections/data/services/service.model';
 import { ConfigService } from '../../services/config.service';
+import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 
 @UntilDestroy()
 @Component({
@@ -24,6 +25,7 @@ export class GuidelineDetailPageComponent implements OnInit {
   interoperabilityGuidelineItem?: IGuideline;
   currentTab = 'about';
   services$: Observable<IService[]> | undefined;
+  relatedServicesLink?: string;
 
   type = DICTIONARY_TYPE_FOR_PIPE;
 
@@ -59,6 +61,7 @@ export class GuidelineDetailPageComponent implements OnInit {
         this.guideline = guidelinesAdapter.adapter(
           item as Partial<IGuideline> & { id: string }
         );
+        this.setRelatedServicesLink((item as IGuideline).id);
       });
   }
 
@@ -97,5 +100,63 @@ export class GuidelineDetailPageComponent implements OnInit {
     const doiRegex = /^10\.\d{4,9}\/[-._;()/:A-Z0-9]+$/i;
 
     return doiRegex.test(doi) ? doi : null;
+  }
+
+  private setRelatedServicesLink(id: string | number) {
+    this.relatedServicesLink = undefined;
+    this.guidelinesService
+      .getRelatedResourceIds$(id)
+      .pipe(untilDestroyed(this))
+      .subscribe({
+        next: (ids) => {
+          this.relatedServicesLink = this.buildRelatedServicesLink(ids);
+        },
+        error: () => {
+          this.relatedServicesLink = undefined;
+        },
+      });
+  }
+
+  private buildRelatedServicesLink(ids: string[]): string | undefined {
+    const pids = [
+      ...new Set(ids.filter((id) => id?.trim()).map((id) => id.trim())),
+    ];
+
+    if (!pids.length) {
+      return undefined;
+    }
+
+    const pidFilter = pids
+      .map((id) => encodeURIComponent(`"${this.escapeSolrValue(id)}"`))
+      .join(',');
+
+    return `/${SEARCH_PAGE_PATH}/service?q=*&fq=pid:(${pidFilter})`;
+  }
+
+  private escapeSolrValue(value: string): string {
+    return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+  }
+
+  hasRights(): boolean {
+    return !!(
+      this.interoperabilityGuidelineItem?.right_title?.some((x) => x?.trim()) ||
+      this.interoperabilityGuidelineItem?.right_uri?.some((x) => x?.trim()) ||
+      this.interoperabilityGuidelineItem?.right_id?.some((x) => x?.trim())
+    );
+  }
+
+  hasRelatedStandards(): boolean {
+    return !!(
+      this.interoperabilityGuidelineItem?.related_standards_uri?.some((x) =>
+        x?.trim()
+      ) ||
+      this.interoperabilityGuidelineItem?.related_standards_id?.some((x) =>
+        x?.trim()
+      )
+    );
+  }
+
+  hasRightsSectionData(): boolean {
+    return this.hasRights() || this.hasRelatedStandards();
   }
 }

@@ -173,13 +173,13 @@
                 </div>
               </div>
 
-              <div class="ig-provider-information-wrapper">
+              <div class="ig-provider-information-wrapper" *ngIf="hasRightsSectionData()">
                 <div class="ig-header">
                   <img src="assets/icon-rights.svg" alt="Rights" />
                   <p>Rights</p>
                 </div>
                 <div class="ig-content-inner row">
-                  <div class="col-md-6 col-12 rights-container">
+                  <div class="col-md-6 col-12 rights-container" *ngIf="hasRights()">
                     <ng-container
                       *ngFor="
                         let right of this.interoperabilityGuidelineItem
@@ -270,16 +270,12 @@
             </div>
 
             <div class="ig-right-col-desc col-md-3 col-12">
-              <div
-                *ngIf="
-                  this.guideline.relatedServices &&
-                  this.guideline.relatedServices.length > 0
-                "
-                i18n
-              >
+              <div *ngIf="relatedServicesLink" i18n>
                 <a
-                  href="{{ this.currentUrl }}#related-resources"
+                  [href]="relatedServicesLink"
                   class="btn btn-extra-option explore mb-4"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   >Explore Related Services</a
                 >
               </div>

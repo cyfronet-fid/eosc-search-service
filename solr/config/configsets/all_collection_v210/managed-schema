@@ -479,6 +479,7 @@
   <field name="contactperson" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="content_type" type="strings" required="false"/>
   <field name="country" type="strings" required="false"/>
+  <field name="created_at" type="pdate" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="creator_affiliations" type="text_general" uninvertible="false" docValues="false" multiValued="true" indexed="true" stored="true"/>
   <field name="creator_identifiers" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="creator_names" type="text_general" uninvertible="false" docValues="false" multiValued="true" indexed="true" stored="true"/>
@@ -527,6 +528,7 @@
   <field name="legal_status" type="text_general"/>
   <field name="level_of_expertise" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="license" type="string" required="false" useDocValuesAsStored="true"/>
+  <field name="license_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="life_cycle_status" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="link_research_product_metadata_license_urls" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="logo" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
@@ -540,6 +542,7 @@
   <field name="open_access" type="boolean" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="open_source_technologies" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="order_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
+  <field name="package" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="payment_model_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="persistent_identity_systems_entity_type" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="persistent_identity_systems_entity_type_schemes" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
@@ -556,6 +559,8 @@
   <field name="provider" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="providerId" type="text_general"/>
   <field name="providers" type="strings" required="false"/>
+  <field name="public_contact" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="public_contacts" type="text_general" sortMissingLast="true" required="false"/>
   <field name="publication_date" type="pdate" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="publication_year" type="pint" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="publisher" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
@@ -581,9 +586,11 @@
   <field name="research_product_licensing_urls" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_product_metadata_access_policies" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="research_product_metadata_license_urls" type="text_general"/>
+  <field name="research_product_types" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="resource_geographic_locations" type="strings" required="false"/>
   <field name="resource_level_url" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="resource_organisation" type="string" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
+  <field name="resource_owner" type="string" uninvertible="true" docValues="true" indexed="true" stored="true"/>
   <field name="resource_type" type="strings" required="false"/>
   <field name="restrictions" type="string" required="false"/>
   <field name="right_id" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>

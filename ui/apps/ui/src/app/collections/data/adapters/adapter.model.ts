@@ -19,4 +19,8 @@ export interface IAdapterModel {
   version: string;
   keywords?: string[];
   sqa_badge?: string | string[];
+  creator_names?: string[];
+  creator_identifiers?: string;
+  creator_affiliations?: string[];
+  package?: string[];
 }

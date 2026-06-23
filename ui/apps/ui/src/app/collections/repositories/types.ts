@@ -76,6 +76,10 @@ export interface IResult {
   releases?: string[];
   version?: string;
   sqaBadge?: string | string[];
+  package?: string[];
+  creator_names?: string[];
+  creator_identifiers?: string;
+  creator_affiliations?: string[];
 }
 
 export interface RelatedService {

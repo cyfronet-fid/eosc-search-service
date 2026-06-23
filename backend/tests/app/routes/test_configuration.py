@@ -24,4 +24,8 @@ async def test_return_backend_config(
         "max_items_sort_relevance": 250,
         "show_beta_collections": False,
         "show_knowledge_base": True,
+        "related_services_endpoint": (
+            "https://providers.sandbox.eosc-beyond.eu/api/public/"
+            "interoperabilityRecord/relatedResources"
+        ),
     }
