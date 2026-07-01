@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.42.2](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.42.1...v2.42.2) (2026-07-01)
+
+
+### Bug Fixes
+
+* make guideline detail page work again ([517b5da](https://github.com/cyfronet-fid/eosc-search-service/commit/517b5daf74e11fbe4edcb651865f7fecdaaa3783))
+
 ## [2.42.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.42.0...v2.42.1) (2026-06-23)
 
 
