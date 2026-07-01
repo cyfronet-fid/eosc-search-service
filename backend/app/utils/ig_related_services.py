@@ -138,17 +138,11 @@ async def _get_related_service(client, pid):
 
     if response and response.json()["response"]["docs"]:
         service = response.json()["response"]["docs"][0]
-        unified_categories = service.get("unified_categories")
         service_obj = RelatedService(
             pid=service["pid"],
             best_access_right=service["best_access_right"],
             title=service["title"][0],
             resource_organisation=service["resource_organisation"],
-            tagline=service["tagline"],
-            joined_categories=_parse_categories(
-                service["categories"],
-                unified_categories,
-            ),
             type=service["type"],
         )
         return service_obj

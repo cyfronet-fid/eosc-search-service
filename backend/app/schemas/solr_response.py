@@ -21,8 +21,6 @@ class RelatedService(BaseModel):
     best_access_right: str
     title: str
     resource_organisation: str
-    tagline: str
-    joined_categories: list
     type: str
 
 
