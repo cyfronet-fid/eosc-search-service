@@ -79,10 +79,9 @@
                   <div class="col-6">
                     <p class="section" i18n>
                       Duration<br />
-                      <span *ngIf="!myTraining.duration" class="section-description" > -</span>
-                      <span class="section-description">{{
-                        myTraining.duration
-                      }}</span>
+                      <span class="section-description">
+                        {{ formatDuration(myTraining.duration) }}
+                      </span>
                     </p>
                     <p class="section" i18n>
                       Learning Resource Type<br />
@@ -130,22 +129,22 @@
                   <p>Basic Details</p>
                 </div>
                 <div class="ig-content-inner">
-                  <p class="section" i18n>
+                  <p class="section" i18n *ngIf="myTraining.publication_date">
                     Version Date<br /><span class="section-description">{{
                       myTraining.publication_date | transformDatePipe
                     }}</span>
                   </p>
-                  <p class="section" i18n>
+                  <p class="section" i18n *ngIf="myTraining.license">
                     License<br /><span class="section-description">{{
                       myTraining.license
                     }}</span>
                   </p>
-                  <p class="section" i18n>
+                  <p class="section" i18n *ngIf="myTraining.url_type">
                     Resource URL type<br /><span class="section-description">{{
                       myTraining.url_type ?? '-' | filterPipe: 'url_type'
                     }}</span>
                   </p>
-                  <p class="section" i18n>
+                  <p class="section" i18n *ngIf="myTraining.author_names">
                     Authors<br />
                     <ng-container
                       *ngFor="
@@ -161,7 +160,7 @@
                       }}
                     </ng-container>
                   </p>
-                  <p class="section mb-2" i18n>Scientific Categorisation</p>
+                  <p class="section mb-2" i18n *ngIf="myTraining.scientific_domains">Scientific Categorisation</p>
                   <div class="category-box">
                     <div class="category-icon ico">
                       <span class="helper"></span>
@@ -179,7 +178,7 @@
                     </ng-container>
                   </ul>
 
-                  <p class="section mb-2" i18n>Target group</p>
+                  <p class="section mb-2" i18n *ngIf="myTraining.target_group">Target group</p>
                   <ul class="details-list">
                     <ng-container
                       *ngFor="let target of myTraining.target_group"

@@ -142,4 +142,38 @@ export class TrainingDetailPageComponent implements OnInit {
     const index = str.indexOf('>');
     return str.substring(index + 1);
   }
+
+  formatDuration(seconds: number | null | undefined): string {
+    if (!seconds || seconds <= 0) {
+      return '-';
+    }
+
+    const days = Math.floor(seconds / (24 * 60 * 60));
+    seconds %= 24 * 60 * 60;
+
+    const hours = Math.floor(seconds / (60 * 60));
+    seconds %= 60 * 60;
+
+    const minutes = Math.floor(seconds / 60);
+
+    const parts: string[] = [];
+
+    if (days > 0) {
+      parts.push(`${days} day${days !== 1 ? 's' : ''}`);
+    }
+
+    if (hours > 0) {
+      parts.push(`${hours} hour${hours !== 1 ? 's' : ''}`);
+    }
+
+    if (minutes > 0) {
+      parts.push(`${minutes} minute${minutes !== 1 ? 's' : ''}`);
+    }
+
+    if (parts.length === 0) {
+      parts.push('0 minutes');
+    }
+
+    return parts.join(', ');
+  }
 }

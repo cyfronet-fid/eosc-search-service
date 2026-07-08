@@ -15,7 +15,7 @@ export interface ITraining {
   level_of_expertise: string;
   target_group: string;
   qualification: string;
-  duration: string;
+  duration: number;
   type: string;
   usage_counts_views: string;
   usage_counts_downloads: string;
