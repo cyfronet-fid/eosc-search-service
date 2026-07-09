@@ -24,7 +24,7 @@ export const adaptersAdapter: IAdapter = {
     description: rawAdapter?.description?.join(' ') || '',
     license: formatLicense(rawAdapter?.license),
     catalogue: rawAdapter?.catalogues,
-    package: rawAdapter?.package ?? rawAdapter?.releases,
+    package: rawAdapter?.package,
     version: rawAdapter?.version,
     date: formatPublicationDate(rawAdapter.publication_date),
     changelog: rawAdapter?.changelog,
