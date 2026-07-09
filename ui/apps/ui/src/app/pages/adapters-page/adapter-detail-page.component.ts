@@ -111,4 +111,10 @@ export class AdapterDetailPageComponent implements OnInit {
   get creatorNamesString(): string {
     return this.adapter?.creator_names?.join(', ') ?? '';
   }
+
+  get packageUrl(): string | undefined {
+    const value = this.adapter?.package;
+
+    return Array.isArray(value) ? value[0] : value;
+  }
 }
