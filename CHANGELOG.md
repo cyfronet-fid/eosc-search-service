@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.43.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.42.1...v2.43.0) (2026-07-16)
+
+
+### Features
+
+* [[#1926](https://github.com/cyfronet-fid/eosc-search-service/issues/1926)] change package to string ([4391c30](https://github.com/cyfronet-fid/eosc-search-service/commit/4391c30f4908ee77113eb472aeeca13a4016be8a))
+
+
+### Bug Fixes
+
+* fix after training profile changes ([04565d7](https://github.com/cyfronet-fid/eosc-search-service/commit/04565d71bcfc81bdfa35eccd51384e4ef01ed524))
+* make guideline detail page work again ([517b5da](https://github.com/cyfronet-fid/eosc-search-service/commit/517b5daf74e11fbe4edcb651865f7fecdaaa3783))
+
 ## [2.42.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.42.0...v2.42.1) (2026-06-23)
 
 
