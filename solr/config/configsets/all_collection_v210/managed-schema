@@ -542,7 +542,7 @@
   <field name="open_access" type="boolean" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="open_source_technologies" type="strings" docValues="true" indexed="true" stored="false" useDocValuesAsStored="true"/>
   <field name="order_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
-  <field name="package" type="strings" uninvertible="true" docValues="true" indexed="true" stored="true"/>
+  <field name="package" type="string" required="false"/>
   <field name="payment_model_url" type="text_general" sortMissingLast="true" multiValued="false" required="false"/>
   <field name="persistent_identity_systems_entity_type" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>
   <field name="persistent_identity_systems_entity_type_schemes" type="strings" uninvertible="true" docValues="true" multiValued="true" indexed="true" stored="true"/>

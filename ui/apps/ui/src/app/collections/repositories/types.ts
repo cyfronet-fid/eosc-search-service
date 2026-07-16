@@ -73,10 +73,9 @@ export interface IResult {
   keywords?: string[];
   catalogue?: string[];
   public_contacts?: string[];
-  releases?: string[];
   version?: string;
   sqaBadge?: string | string[];
-  package?: string[];
+  package?: string;
   creator_names?: string[];
   creator_identifiers?: string;
   creator_affiliations?: string[];

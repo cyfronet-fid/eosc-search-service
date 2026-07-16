@@ -12,7 +12,6 @@ export interface IAdapterModel {
   repository: string;
   related_guidelines?: string[];
   related_services?: string[];
-  releases: string[];
   tagline?: string;
   title: string[];
   type: string;
@@ -22,5 +21,5 @@ export interface IAdapterModel {
   creator_names?: string[];
   creator_identifiers?: string;
   creator_affiliations?: string[];
-  package?: string[];
+  package?: string;
 }
