@@ -13,6 +13,7 @@ import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
 import { IService } from '@collections/data/services/service.model';
 import { ConfigService } from '../../services/config.service';
 import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
+import {FALLBACK_LOGO} from "@pages/adapters-page/config";
 
 @UntilDestroy()
 @Component({
@@ -159,4 +160,6 @@ export class GuidelineDetailPageComponent implements OnInit {
   hasRightsSectionData(): boolean {
     return this.hasRights() || this.hasRelatedStandards();
   }
+
+  protected readonly FALLBACK_LOGO = FALLBACK_LOGO;
 }
