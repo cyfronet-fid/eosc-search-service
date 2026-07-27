@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.43.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.43.0...v2.43.1) (2026-07-27)
+
+
+### Bug Fixes
+
+* [[#1938](https://github.com/cyfronet-fid/eosc-search-service/issues/1938)] da logo in all collection ([5aaec17](https://github.com/cyfronet-fid/eosc-search-service/commit/5aaec177cb74de166913b1422840400046426c63))
+
 ## [2.43.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.42.1...v2.43.0) (2026-07-16)
 
 
