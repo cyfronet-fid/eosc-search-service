@@ -125,7 +125,7 @@
 
     <div class="col-md-3 pt-5">
 
-      <a href="#" class="linked-resource">
+      <a href="{{adapter?.relatedGuidelineUrl || adapter?.relatedServiceUrl}}" class="linked-resource" *ngIf="adapter?.relatedGuidelineUrl || adapter?.relatedServiceUrl">
         <img src="assets/icon-bolt.svg" alt="Linked resource" />
         Linked resource
       </a>
