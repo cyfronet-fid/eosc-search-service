@@ -43,7 +43,6 @@ export class AdapterDetailPageComponent implements OnInit {
       .subscribe((item) => {
         this.adapter = adaptersAdapter.adapter(item);
         this.validateLogoUrl(this.adapter?.logoUrl);
-        console.log('Adapter', this.adapter);
       });
   }
 

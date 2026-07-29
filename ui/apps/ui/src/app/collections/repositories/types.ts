@@ -31,6 +31,7 @@ export interface IResult {
   secondaryTags?: ISecondaryTag[];
   accessRight?: AccessRight;
   license?: string | string[];
+  license_url?: string;
   languages?: string[];
   views?: number;
   downloads?: number;

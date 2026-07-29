@@ -43,10 +43,9 @@
                     let i = index
                   "
                 >
-                  <div class="doi">DOI: <a href="#">10509585.2015.1092083</a></div>
-                  <div class="mx-4">Published: {{
-                    this.interoperabilityGuidelineItem?.publication_date ??
-                    '' | transformDatePipe
+                  <div *ngIf="interoperabilityGuidelineItem?.doi" class="doi">DOI: {{ interoperabilityGuidelineItem?.doi }}</div>
+                  <div *ngIf="interoperabilityGuidelineItem?.publication_date" [class.mx-4]="interoperabilityGuidelineItem?.doi ">Published: {{
+                      interoperabilityGuidelineItem?.publication_date
                     }}</div>
                 </ng-container>
               </div>
@@ -55,11 +54,15 @@
                 <span class="pin-value resource-type">Interoperability guideline</span>
               </div>
 
-              <dl class="mb-1 d-flex">
+              <dl class="mb-1 d-flex" *ngIf="interoperabilityGuidelineItem?.node">
                 <dt>Node:</dt>
-                <dd><a href="#">{{
-                  this.interoperabilityGuidelineItem?.node ?? ''
-                  }}</a></dd>
+                <dd>
+<!--                  depends what we want to show, from all collection or only guidelines-->
+<!--                  <a href='search/all_collection?q=*&fq=node:("{{this.interoperabilityGuidelineItem?.node}}")'>-->
+                  <a href='search/guideline?q=*&fq=node:("{{this.interoperabilityGuidelineItem?.node}}")'>
+                    {{ this.interoperabilityGuidelineItem?.node }}
+                  </a>
+                </dd>
               </dl>
 
               <dl class="mb-1 d-flex">
@@ -108,7 +111,7 @@
 
                   <ul class="list-unstyled small mb-0">
                     <li><strong>License name</strong></li>
-                    <li><a href="#">Link CC0 1.0 Universal</a></li>
+                    <li><a href="{{interoperabilityGuidelineItem?.license_url}}">{{ interoperabilityGuidelineItem?.license }}</a></li>
                   </ul>
                 </div>
               </div>
@@ -137,7 +140,7 @@
 
         <div class="col-md-3 pt-5">
 
-          <a [href]="getIdentifierLink()" class="linked-resource">
+          <a *ngIf="relatedServicesLink" [href]="relatedServicesLink" class="linked-resource" target="_blank">
             <img src="assets/icon-bolt.svg" alt="Linked resource" />
             Linked resource
           </a>
