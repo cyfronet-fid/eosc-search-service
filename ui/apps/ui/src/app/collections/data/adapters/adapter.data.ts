@@ -26,7 +26,7 @@ export const adaptersAdapter: IAdapter = {
     catalogue: rawAdapter?.catalogues,
     package: rawAdapter?.package,
     version: rawAdapter?.version,
-    date: formatPublicationDate(rawAdapter.publication_date),
+    date: formatPublicationDate(rawAdapter.publication_date, 'DD.MM.YYYY'),
     changelog: rawAdapter?.changelog,
     node: rawAdapter?.node,
     programmingLanguage: formatProgrammingLanguage(
@@ -35,10 +35,12 @@ export const adaptersAdapter: IAdapter = {
     documentationUrl: rawAdapter?.documentation_url,
     repository: rawAdapter?.repository,
     sqaBadge: rawAdapter?.sqa_badge,
+    sqaUrl: rawAdapter?.sqa_url,
     logoUrl: rawAdapter?.logo,
     creator_names: rawAdapter?.creator_names,
     creator_identifiers: rawAdapter?.creator_identifiers,
     creator_affiliations: rawAdapter?.creator_affiliations,
+    public_contacts: rawAdapter?.public_contacts,
     relatedServiceUrl:
       rawAdapter?.related_services && rawAdapter?.related_services?.length > 0
         ? `${

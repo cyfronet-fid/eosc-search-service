@@ -75,10 +75,12 @@ export interface IResult {
   public_contacts?: string[];
   version?: string;
   sqaBadge?: string | string[];
+  sqaUrl?: string;
   package?: string;
   creator_names?: string[];
   creator_identifiers?: string;
   creator_affiliations?: string[];
+  doi?: string;
 }
 
 export interface RelatedService {

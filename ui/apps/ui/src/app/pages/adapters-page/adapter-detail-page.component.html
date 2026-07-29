@@ -11,8 +11,8 @@
           <h2 class="font-weight-bolder mb-3">{{ adapter?.title }}</h2>
 
           <div class="date-info d-flex mb-2">
-            <div class="doi">DOI: <a href="#">10509585.2015.1092083</a></div>
-            <div class="mx-4">Published: 27 may 2026</div>
+            <div *ngIf="adapter?.doi" class="doi">DOI: {{ adapter?.doi }}</div>
+            <div *ngIf="adapter?.date" [class.ms-4]="adapter?.doi">Published: {{ adapter?.date }}</div>
           </div>
 
           <div class="resource-row row mb-2">
@@ -20,7 +20,9 @@
           </div>
 
           <div class="short-description mb-2">
-            Cloud Compute gives you the ability to deploy and scale virtual machines on-demand.
+<!--                there should be the tagline i think-->
+<!--            Cloud Compute gives you the ability to deploy and scale virtual machines on-demand.-->
+<!--            {{ adapter?.description }}-->
           </div>
 
           <dl class="mb-1 d-flex">
@@ -74,7 +76,7 @@
                 <li class="mt-2"><strong>Last update</strong></li>
                 <li>{{ adapter?.date }}</li>
                 <li *ngFor="let change of adapter?.changelog" class="mt-2"><strong>Change Log</strong></li>
-                <li *ngFor="let change of adapter?.changelog">{{ change }}</li>
+                <li *ngFor="let change of adapter?.changelog"><a href="{{ change }}">{{ change }}</a></li>
                 <li class="mt-2"><strong>Programming language</strong></li>
                 <li>{{ adapter?.programmingLanguage }}</li>
               </ul>
@@ -112,9 +114,9 @@
                 <h6 class="mb-0">SQA</h6>
               </div>
 
-              <ul class="list-unstyled small mb-0">
-                <li class="mt-2"><strong>License name</strong></li>
-                <li><a href="#">Apache License 2.0</a></li>
+              <ul *ngIf="adapter?.sqaBadge" class="list-unstyled small mb-0">
+                <li class="mt-2"><strong>Badge level</strong></li>
+                <li><a href="{{ adapter?.sqaUrl }}"> {{ adapter?.sqaBadge}}</a></li>
               </ul>
             </div>
           </div>
@@ -134,7 +136,7 @@
 
         <ul>
           <li class="contact_url">
-            <a class="list-group-item" href="#">Contact</a>
+            <a class="list-group-item" href="mailto:{{adapter?.public_contacts}}">Contact</a>
           </li>
           <li class="documentation_url">
             <a class="list-group-item" href="{{ adapter?.documentationUrl }}">Documentation</a>
@@ -165,9 +167,9 @@
             <dt>ORCID</dt>
             <dd>0000-0001-2345-6789</dd>
           </dl>
-          <dl>
-            <dt>Afiliation</dt>
-            <dd>ACC Cyfronet AGH</dd>
+          <dl *ngIf="adapter?.creator_affiliations">
+            <dt>Affiliation</dt>
+            <dd> {{ adapter?.creator_affiliations }}</dd>
           </dl>
         </div>
       </div>
@@ -186,7 +188,7 @@
           </dl>
           <dl>
             <dt>E-mail</dt>
-            <dd>contact&#64;cyfronet.pl</dd>
+            <dd>{{ adapter?.public_contacts }}</dd>
           </dl>
           <dl>
             <dt>Organisation</dt>
