@@ -160,11 +160,11 @@
         <div class="card-body">
 
           <dl>
-            <dt>Maintainers</dt>
+            <dt>Name</dt>
             <dd>{{ creatorNamesString }}</dd>
           </dl>
           <dl>
-            <dt>ORCID</dt>
+            <dt *ngIf="adapter?.creator_identifiers">ORCID</dt>
             <dd>{{ adapter?.creator_identifiers }}</dd>
           </dl>
           <dl *ngIf="adapter?.creator_affiliations">
