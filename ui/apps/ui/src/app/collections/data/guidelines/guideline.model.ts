@@ -36,6 +36,9 @@ export interface IGuideline {
   creators: string | '';
   related_services: Record<string, string>[];
   node: string;
+  public_contacts?: string[];
+  alternative_ids?: string[];
+  providerId?: string;
 }
 
 export interface ICreators {
@@ -53,6 +56,7 @@ export interface ICreators {
 export interface IAuthorAffiliationInfo {
   affiliation: string;
   affiliationIdentifier: string;
+  author_affiliations: string;
 }
 
 export interface IAuthorNameTypeInfo {

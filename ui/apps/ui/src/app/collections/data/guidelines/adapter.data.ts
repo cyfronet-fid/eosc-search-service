@@ -8,6 +8,7 @@ import {
   toValueWithLabel,
 } from '@collections/filters-serializers/utils';
 import {
+  formatPublicationDate,
   parseStatistics,
   toKeywordsSecondaryTag,
 } from '@collections/data/utils';
@@ -22,10 +23,15 @@ export const guidelinesAdapter: IAdapter = {
     license: guideline['license'] ?? guideline['right_id'],
     license_url: guideline['license_url'],
     providerName: guideline['providers'],
+    providerId: guideline['providerId'],
     relatedServices: toRelatedService(guideline.related_services ?? []),
     date: guideline['publication_year']
       ? guideline['publication_year'].toString()
       : '',
+    publication_date: formatPublicationDate(
+      guideline['publication_date'],
+      'DD.MM.YYYY'
+    ),
     type: {
       label: guideline['type'] || '',
       value: 'guideline',

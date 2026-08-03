@@ -1,4 +1,5 @@
 export interface IAdapterModel {
+  alternative_ids?: string[];
   catalogues: string[];
   changelog: string[];
   description: string[];

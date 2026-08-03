@@ -20,6 +20,7 @@ export const adaptersAdapter: IAdapter = {
   adapter: (rawAdapter: Partial<IAdapterModel> & { id: string }): IResult => ({
     isResearchProduct: false,
     id: rawAdapter.id,
+    alternative_ids: rawAdapter.alternative_ids,
     title: rawAdapter?.title?.join(' ') || '',
     description: rawAdapter?.description?.join(' ') || '',
     license: formatLicense(rawAdapter?.license),
@@ -85,6 +86,7 @@ export const adaptersAdapter: IAdapter = {
     secondaryTags: [
       toKeywordsSecondaryTag(rawAdapter.keywords ?? [], 'keywords'),
     ],
+    tagline: rawAdapter?.tagline,
     ...parseStatistics(rawAdapter),
   }),
 };

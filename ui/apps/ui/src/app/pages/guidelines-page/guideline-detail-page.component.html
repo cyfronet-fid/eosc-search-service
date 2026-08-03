@@ -43,9 +43,9 @@
                     let i = index
                   "
                 >
-                  <div *ngIf="interoperabilityGuidelineItem?.doi" class="doi">DOI: {{ interoperabilityGuidelineItem?.doi }}</div>
-                  <div *ngIf="interoperabilityGuidelineItem?.publication_date" [class.mx-4]="interoperabilityGuidelineItem?.doi ">Published: {{
-                      interoperabilityGuidelineItem?.publication_date
+                  <div *ngIf="interoperabilityGuidelineItem?.alternative_ids" class="doi">DOI: {{ interoperabilityGuidelineItem?.alternative_ids }}</div>
+                  <div *ngIf="interoperabilityGuidelineItem?.publication_date" [class.mx-4]="interoperabilityGuidelineItem?.alternative_ids ">Published: {{
+                      guideline?.publication_date
                     }}</div>
                 </ng-container>
               </div>
@@ -57,9 +57,7 @@
               <dl class="mb-1 d-flex" *ngIf="interoperabilityGuidelineItem?.node">
                 <dt>Node:</dt>
                 <dd>
-<!--                  depends what we want to show, from all collection or only guidelines-->
-<!--                  <a href='search/all_collection?q=*&fq=node:("{{this.interoperabilityGuidelineItem?.node}}")'>-->
-                  <a href='search/guideline?q=*&fq=node:("{{this.interoperabilityGuidelineItem?.node}}")'>
+                  <a href='search/all_collection?q=*&fq=node:("{{this.interoperabilityGuidelineItem?.node}}")'>
                     {{ this.interoperabilityGuidelineItem?.node }}
                   </a>
                 </dd>
@@ -68,7 +66,7 @@
               <dl class="mb-1 d-flex">
                 <dt>Organisation:</dt>
                 <dd>
-                  <a href="#">{{
+                  <a href="{{ marketplaceUrl + '/providers/' + guideline?.providerId }}">{{
                   this.interoperabilityGuidelineItem?.providers ?? ''
                     }}</a>
                 </dd>
@@ -116,25 +114,6 @@
                 </div>
               </div>
             </div>
-
-            <div class="col">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="card-title d-flex align-items-center gap-2">
-                    <div class="card-title-icon">
-                      <img src="assets/icon-dns.svg" alt="Configuration template" />
-                    </div>
-                    <h6 class="mb-0">Configuration template</h6>
-                  </div>
-
-                  <ul class="list-unstyled small mb-0">
-                    <li class="mt-2"><strong>Configuration template PID</strong></li>
-                    <li><a href="#">eosc.ct.fair.assess.v1</a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
           </div>
         </div>
 
@@ -149,7 +128,7 @@
 
             <ul>
               <li class="contact_url">
-                <a class="list-group-item" href="#">Contact</a>
+                <a class="list-group-item" href="mailto:{{ interoperabilityGuidelineItem?.public_contacts }}">Contact</a>
               </li>
             </ul>
           </div>
@@ -166,7 +145,8 @@
                 *ngFor="
                           let creator of parseCreators(
                             this.interoperabilityGuidelineItem?.creators || ''
-                          )
+                          );
+                          let last = last
                         "
               >
                 <dl>
@@ -175,17 +155,18 @@
                     }}</dd>
                 </dl>
                 <dl>
-                  <dt>ORCID</dt>
-                  <dd>0000-0001-2345-6789</dd>
+                  <dt *ngIf="creator?.author_names_id">ORCID</dt>
+                  <dd> {{ creator?.author_names_id }}</dd>
                 </dl>
                 <dl>
                   <dt *ngIf="
-                  creator?.author_affiliation_info?.affiliation
-                  ">Afiliation</dt>
+                  creator?.author_affiliation_info?.author_affiliations
+                  ">Affiliation</dt>
                   <dd>{{
-                    creator?.author_affiliation_info?.affiliation
+                    creator?.author_affiliation_info?.author_affiliations
                     }}</dd>
                 </dl>
+                <hr *ngIf="!last" />
               </ng-container>
             </div>
           </div>
