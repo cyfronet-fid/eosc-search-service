@@ -27,7 +27,7 @@
       font-weight: 400;
       font-size: 15px;
       padding: 5px 10px;
-      background: rgb(237, 244, 255);
+      background: #D9E4F9;
     }
   }
 
@@ -116,6 +116,10 @@
           font-size: 14px;
 
           line-height: 1.55;
+        }
+
+        a {
+          text-decoration: underline;
         }
       }
 
