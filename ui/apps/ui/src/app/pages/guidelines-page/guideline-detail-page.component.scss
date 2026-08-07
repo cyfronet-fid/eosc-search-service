@@ -332,6 +332,11 @@
   .description-placeholder {
     width: 155px;
     margin-right: 35px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
   }
 
   .resource-row {
