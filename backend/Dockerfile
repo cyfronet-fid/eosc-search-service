@@ -7,6 +7,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 # Don't buffer stdout and stderr
 ENV PYTHONUNBUFFERED 1
 
+# Update system packages and refresh CA certificates (fixes stale/expired
+# root CAs that can cause slow/failing TLS handshakes on pip/apt installs)
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y --no-install-recommends ca-certificates \
+    && update-ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
 COPY Pipfile Pipfile.lock /app/
 
 RUN pip install --upgrade pip pipenv
