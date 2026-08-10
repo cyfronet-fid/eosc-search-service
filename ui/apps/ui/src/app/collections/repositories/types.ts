@@ -31,6 +31,7 @@ export interface IResult {
   secondaryTags?: ISecondaryTag[];
   accessRight?: AccessRight;
   license?: string | string[];
+  license_url?: string;
   languages?: string[];
   views?: number;
   downloads?: number;
@@ -40,6 +41,7 @@ export interface IResult {
   horizontal?: boolean;
   pids?: Pids;
   providerName?: string[];
+  providerId?: string;
   orderUrl?: string;
   exportData?: InstanceExportData[];
   relatedServices?: RelatedService[];
@@ -75,10 +77,15 @@ export interface IResult {
   public_contacts?: string[];
   version?: string;
   sqaBadge?: string | string[];
+  sqaUrl?: string;
   package?: string;
   creator_names?: string[];
   creator_identifiers?: string;
   creator_affiliations?: string[];
+  doi?: string;
+  alternative_ids?: string[];
+  tagline?: string;
+  publication_date?: string;
 }
 
 export interface RelatedService {
