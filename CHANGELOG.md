@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.44.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.44.0...v2.44.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **docker:** refresh CA certificates in backend image ([2ffbdee](https://github.com/cyfronet-fid/eosc-search-service/commit/2ffbdee22502868b413f8c1fe82ca85c8dc13816))
+
 ## [2.44.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.43.1...v2.44.0) (2026-08-10)
 
 
