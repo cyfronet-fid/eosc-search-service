@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.44.0](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.43.1...v2.44.0) (2026-08-10)
+
+
+### Features
+
+* [[#1933](https://github.com/cyfronet-fid/eosc-search-service/issues/1933)] profiles v6 detail pages ([#1941](https://github.com/cyfronet-fid/eosc-search-service/issues/1941)) ([c192dd4](https://github.com/cyfronet-fid/eosc-search-service/commit/c192dd4310bacbea410ee378939c77fb8be413d4))
+
 ## [2.43.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.43.0...v2.43.1) (2026-07-27)
 
 
