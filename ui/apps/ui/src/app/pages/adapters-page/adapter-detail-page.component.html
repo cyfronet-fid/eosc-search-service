@@ -10,26 +10,30 @@
         <div class="description-details">
           <h2 class="font-weight-bolder mb-3">{{ adapter?.title }}</h2>
 
-          <div class="resource-row row mb-3">
+          <div class="date-info d-flex mb-2">
+            <div *ngIf="adapter?.alternative_ids" class="doi">DOI: {{ adapter?.alternative_ids }}</div>
+            <div *ngIf="adapter?.date" [class.ms-4]="adapter?.alternative_ids">Published: {{ adapter?.date }}</div>
+          </div>
+
+          <div class="resource-row row mb-2">
             <span class="pin-value resource-type">Adapter</span>
           </div>
 
-          <dl class="mb-1 d-flex">
-            <dt>Programming language:</dt>
-            <dd>{{ adapter?.programmingLanguage }}</dd>
-          </dl>
+          <div class="short-description mb-2">
+            {{ adapter?.tagline }}
+          </div>
 
-          <dl *ngIf="adapter?.relatedGuidelineUrl" class="mb-1 d-flex">
-            <dt>Guideline:</dt>
+          <dl class="mb-1 d-flex">
+            <dt>Node:</dt>
             <dd>
-              <a href="{{ redirectUrl(adapter?.relatedGuidelineUrl) }}">Link</a>
+              <a href='search/all_collection?q=*&fq=node:("{{adapter?.node}}")'>{{ adapter?.node }}</a>
             </dd>
           </dl>
 
-          <dl *ngIf="adapter?.relatedServiceUrl" class="mb-1 d-flex">
-            <dt>Service:</dt>
+          <dl *ngIf="adapter?.relatedOrganisations"  class="mb-1 d-flex">
+            <dt>Organisation:</dt>
             <dd>
-              <a href="{{ redirectUrl(adapter?.relatedServiceUrl) }}"> Link</a>
+              {{ adapter?.relatedOrganisations }}
             </dd>
           </dl>
 
@@ -55,140 +59,118 @@
       <div class="description-content mb-4">
         {{ stripHtml(adapter?.description) }}
       </div>
-      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-5 g-3 mb-5">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-5 description-blocks">
         <div class="col" *ngIf="adapter">
-          <div class="card h-100">
+          <div class="card">
             <div class="card-body">
               <div class="card-title d-flex align-items-center gap-2">
                 <div class="card-title-icon">
-                  <img src="assets/icon-management.svg" alt="Management" />
+                  <img src="assets/icon-version.svg" alt="Management" />
                 </div>
-                <h6 class="fw-bold mb-0">Management</h6>
+                <h6 class="mb-0">Version & release</h6>
               </div>
 
               <ul class="list-unstyled small mb-0">
                 <li class="mt-2"><strong>Version</strong></li>
                 <li>{{ adapter?.version }}</li>
-                <li class="mt-2"><strong>License</strong></li>
-                <li>{{ adapter?.license }}</li>
                 <li class="mt-2"><strong>Last update</strong></li>
                 <li>{{ adapter?.date }}</li>
+                <li *ngFor="let change of adapter?.changelog" class="mt-2"><strong>Change Log</strong></li>
+                <li *ngFor="let change of adapter?.changelog"><a href="{{ change }}">{{ change }}</a></li>
+                <li class="mt-2"><strong>Programming language</strong></li>
+                <li>{{ adapter?.programmingLanguage }}</li>
               </ul>
             </div>
           </div>
         </div>
 
         <div class="col" *ngIf="adapter">
-          <div class="card h-100">
+          <div class="card">
             <div class="card-body">
               <div class="card-title d-flex align-items-center gap-2">
                 <div class="card-title-icon">
-                  <img src="assets/icon-classification.svg" alt="Classification" />
+                  <img src="assets/icon-balance.svg" alt="License" />
                 </div>
-                <h6 class="fw-bold mb-0">Classification</h6>
+                <h6 class="mb-0">License</h6>
               </div>
 
               <ul class="list-unstyled small mb-0">
-                <li><strong>Node</strong></li>
-                <li>{{ adapter?.node }}</li>
-                <li class="mt-2"><strong>Catalogue</strong></li>
-                <li>{{ adapter?.catalogue }}</li>
+                <li><strong>License name</strong></li>
+                <li>{{ adapter?.license }}</li>
+                <li *ngIf="adapter?.catalogue" class="mt-2"><strong>Catalogue</strong></li>
+                <li *ngIf="adapter?.catalogue">{{ adapter?.catalogue }}</li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div class="col" *ngIf="adapter">
-          <div class="card h-100">
+        <div class="col" *ngIf="adapter?.sqaBadge">
+          <div class="card">
             <div class="card-body">
               <div class="card-title d-flex align-items-center gap-2">
                 <div class="card-title-icon">
-                  <img src="assets/icon-changelog.svg" alt="Change Log" />
+                  <img src="assets/icon-shield.svg" alt="SQA" />
                 </div>
-                <h6 class="fw-bold mb-0">Change Log</h6>
+                <h6 class="mb-0">SQA</h6>
               </div>
 
               <ul class="list-unstyled small mb-0">
-                <li *ngFor="let change of adapter?.changelog">{{ change }}</li>
+                <li class="mt-2"><strong>Badge level</strong></li>
+                <li><a href="{{ adapter?.sqaUrl }}"> {{ adapter?.sqaBadge}}</a></li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div class="col" *ngIf="hasAnyKeywords">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="card-title d-flex align-items-center gap-2">
-                <div class="card-title-icon">
-                  <img src="assets/icon-classification.svg" alt="Keywords" />
-                </div>
-                <h6 class="fw-bold mb-0">Keywords</h6>
-              </div>
-
-              <ul class="list-unstyled small mb-0">
-                <li>{{ keywordString }}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="col" *ngIf="hasAnyCreators">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="card-title d-flex align-items-center gap-2">
-                <div class="card-title-icon">
-                  <img src="assets/icon-person.svg" alt="Creator" />
-                </div>
-                <h6 class="fw-bold mb-0"> Creator{{ adapter?.creator_names?.length === 1 ? '' : 's' }} </h6>
-              </div>
-
-              <ul class="list-unstyled small mb-0">
-                <li>{{ creatorNamesString }}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
 
     <div class="col-md-3 pt-5">
+
+      <a href="{{adapter?.relatedGuidelineUrl || adapter?.relatedServiceUrl}}" class="linked-resource" *ngIf="adapter?.relatedGuidelineUrl || adapter?.relatedServiceUrl">
+        <img src="assets/icon-bolt.svg" alt="Linked resource" />
+        Linked resource
+      </a>
+
       <div class="right-panel-links">
+
         <ul>
-          <li class="package_url">
-            <a class="list-group-item" href="{{ adapter?.repository }}">Repository</a>
+          <li class="contact_url">
+            <a class="list-group-item" href="mailto:{{adapter?.public_contacts}}">Contact</a>
           </li>
           <li class="documentation_url">
             <a class="list-group-item" href="{{ adapter?.documentationUrl }}">Documentation</a>
           </li>
           <li class="repository_url">
-            <a class="list-group-item" [href]="packageUrl" target="_blank">Release</a>
+            <a class="list-group-item" href="{{ adapter?.repository }}">Repository</a>
+          </li>
+          <li class="package_url">
+            <a class="list-group-item" [href]="packageUrl" target="_blank">Package</a>
           </li>
         </ul>
       </div>
 
-      <div class="contact-panel mb-5" *ngIf="adapter?.public_contacts">
+      <div class="contact-panel mb-5" *ngIf="hasAnyCreators">
         <div class="card-title">
           <div class="card-title-icon">
-            <img src="assets/icon-eye.svg" alt="Contact" />
+            <img src="assets/icon-creators-black.svg" alt="Contact" />
           </div>
-          <h6 class="card-title fw-bold">Contact</h6>
+          <h6 class="card-title">Creator{{ adapter?.creator_names?.length === 1 ? '' : 's' }} </h6>
         </div>
         <div class="card-body">
+
           <dl>
-            <dt>Maintainers</dt>
-            <dd>Monika Kowalska</dd>
+            <dt>Name</dt>
+            <dd>{{ creatorNamesString }}</dd>
           </dl>
           <dl>
-            <dt>E-mail</dt>
-            <dd>contact&#64;cyfronet.pl</dd>
+            <dt *ngIf="adapter?.creator_identifiers">ORCID</dt>
+            <dd>{{ adapter?.creator_identifiers }}</dd>
           </dl>
-          <dl>
-            <dt>Organisation</dt>
-            <dd>ACC Cyfronet AGH</dd>
+          <dl *ngIf="adapter?.creator_affiliations">
+            <dt>Affiliation</dt>
+            <dd> {{ adapter?.creator_affiliations }}</dd>
           </dl>
-          <a href="#" class="organisation-link" target="_blank">
-            Organisation URL ->
-          </a>
         </div>
       </div>
     </div>

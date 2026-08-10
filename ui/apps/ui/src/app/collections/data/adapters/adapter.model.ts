@@ -1,4 +1,5 @@
 export interface IAdapterModel {
+  alternative_ids?: string[];
   catalogues: string[];
   changelog: string[];
   description: string[];
@@ -18,8 +19,10 @@ export interface IAdapterModel {
   version: string;
   keywords?: string[];
   sqa_badge?: string | string[];
+  sqa_url?: string;
   creator_names?: string[];
   creator_identifiers?: string;
   creator_affiliations?: string[];
   package?: string;
+  public_contacts?: string[];
 }

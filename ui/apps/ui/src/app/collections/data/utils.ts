@@ -66,9 +66,10 @@ export const countFilterSort = (a: IFilterNode, b: IFilterNode) => {
 };
 
 export const formatPublicationDate = (
-  publication_date: string[] | string | undefined
+  publication_date: string[] | string | undefined,
+  format = 'YYYY'
 ) => {
-  return publication_date ? moment(publication_date).format('YYYY') : '';
+  return publication_date ? moment(publication_date).format(format) : '';
 };
 
 const resolveDoiLink = (rawDoi: string): string | undefined => {
