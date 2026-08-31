@@ -23,6 +23,7 @@ def get_app():
         description="EOSC Search Service",
         version="1.0.0-alpha1",
     )
+
     if settings.SENTRY_DSN:
         app.add_middleware(SentryAsgiMiddleware)
     app.add_middleware(
