@@ -34,6 +34,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { RedirectService } from '@collections/services/redirect.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { DEFAULT_COLLECTION_ID } from '@collections/data';
 
 export interface Tags {
   narrow: string;
@@ -95,6 +96,13 @@ export class SearchInputComponent implements OnInit {
     this.collectionFcAdv[2],
     { nonNullable: true }
   );
+
+  sortedCollections = [...this.searchCollections].sort((a, b) => {
+    if (a.id === DEFAULT_COLLECTION_ID) return -1;
+    if (b.id === DEFAULT_COLLECTION_ID) return 1;
+
+    return a.title.localeCompare(b.title);
+  });
 
   setPlaceholderText(collection: string): string {
     switch (collection) {
