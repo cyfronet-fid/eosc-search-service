@@ -8,7 +8,12 @@ import {
   shareReplay,
   tap,
 } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpContext,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import {
   IFacetBucket,
   IResult,
@@ -60,7 +65,24 @@ export class FetchDataService {
   private _postShared<T>(
     url: string,
     body: unknown,
-    options?: { params?: unknown; [key: string]: unknown }
+    options?: {
+      headers?: HttpHeaders | { [header: string]: string | string[] };
+      context?: HttpContext;
+      observe?: 'body';
+      params?:
+        | HttpParams
+        | {
+            [param: string]:
+              | string
+              | number
+              | boolean
+              | ReadonlyArray<string | number | boolean>;
+          };
+      reportProgress?: boolean;
+      responseType?: 'json';
+      withCredentials?: boolean;
+      transferCache?: { includeHeaders?: string[] } | boolean;
+    }
   ): Observable<T> {
     const key = `${url}|${JSON.stringify(body)}|${JSON.stringify(
       options?.params ?? {}
@@ -70,14 +92,18 @@ export class FetchDataService {
       return inFlight as Observable<T>;
     }
 
-    const request$ = (
-      this._http.post(url, body, options as any) as Observable<T>
-    ).pipe(
-      shareReplay({ bufferSize: 1, refCount: true }),
-      finalize(() => {
-        this._inFlightPosts.delete(key);
+    const request$ = this._http
+      .post<T>(url, body, {
+        ...options,
+        responseType: 'json',
+        observe: 'body',
       })
-    );
+      .pipe(
+        shareReplay({ bufferSize: 1, refCount: true }),
+        finalize(() => {
+          this._inFlightPosts.delete(key);
+        })
+      );
 
     this._inFlightPosts.set(key, request$ as Observable<unknown>);
     return request$;
