@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import {
   EMPTY,
+  Subscription,
   catchError,
   combineLatest,
+  distinctUntilChanged,
   filter,
   forkJoin,
   map,
+  shareReplay,
   switchMap,
   tap,
   timer,
 } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { isEqual } from 'lodash-es';
 import { FetchDataService } from '@collections/services/fetch-data.service';
 import { CustomRoute } from '@collections/services/custom-route.service';
 import { SearchMetadataRepository } from '@collections/repositories/search-metadata.repository';
@@ -83,7 +87,7 @@ import { ConfigService } from '../../services/config.service';
     `,
   ],
 })
-export class SearchPageComponent implements OnInit {
+export class SearchPageComponent implements OnInit, OnDestroy {
   public showFilters = false;
   public showCollections = false;
   response: ISearchResults<IResult> | null = null;
@@ -93,6 +97,7 @@ export class SearchPageComponent implements OnInit {
   userDocumentationUrl = this._configService.get().user_documentation_url;
   loadingMessageView = false;
   private readonly SLOW_LOADING_DELAY_MS = 60000;
+  private _slowTimerSubscription: Subscription | null = null;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -119,6 +124,7 @@ export class SearchPageComponent implements OnInit {
           )
         ),
         filter(({ collection }) => !!collection),
+        distinctUntilChanged(isEqual),
         switchMap((routerParams) => {
           const { collection, q, fq } = routerParams;
           const metadata = this._searchMetadataRepository.get(
@@ -127,14 +133,19 @@ export class SearchPageComponent implements OnInit {
           const adapter = this._adaptersRepository.get(collection)
             ?.adapter as adapterType;
           this.response = null;
-          const resultsRequest$ =
+          this.loadingMessageView = false;
+          this._slowTimerSubscription?.unsubscribe();
+
+          const resultsRequest$ = (
             routerParams.standard.toString() === 'true'
               ? this._fetchStandardResults$(routerParams, metadata, adapter)
-              : this._fetchAdvancedResults$(routerParams, metadata, adapter);
+              : this._fetchAdvancedResults$(routerParams, metadata, adapter)
+          ).pipe(shareReplay({ bufferSize: 1, refCount: true }));
 
-          timer(this.SLOW_LOADING_DELAY_MS) // 60 sec
+          this._slowTimerSubscription = timer(this.SLOW_LOADING_DELAY_MS) // 60 sec
             .pipe(
               takeUntil(resultsRequest$),
+              untilDestroyed(this),
               tap(() => {
                 this.loadingMessageView = true;
               })
@@ -151,16 +162,22 @@ export class SearchPageComponent implements OnInit {
           });
         }),
         tap(({ response }) => {
+          this._slowTimerSubscription?.unsubscribe();
           this.response = response;
           this.loadingMessageView = false;
         }),
         catchError(() => {
+          this._slowTimerSubscription?.unsubscribe();
           this.loadingMessageView = false;
           return EMPTY;
         }),
         untilDestroyed(this)
       )
       .subscribe();
+  }
+
+  ngOnDestroy(): void {
+    this._slowTimerSubscription?.unsubscribe();
   }
 
   private _fetchStandardResults$(
@@ -185,8 +202,7 @@ export class SearchPageComponent implements OnInit {
     metadata: ICollectionSearchMetadata,
     adapter: adapterType
   ) {
-    const searchMetadata = constructAdvancedSearchMetadata.call(
-      this,
+    const searchMetadata = constructAdvancedSearchMetadata(
       routerParams,
       metadata
     );
