@@ -22,7 +22,12 @@ import { selectEntities } from '@ngneat/elf-entities';
         <i class="text-muted text-sm" i18n>{{ emptyFiltersMessage }}</i>
       </ng-container>
       <ng-template #showResultsRef>
-        <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
+        <ng-container
+          *ngFor="
+            let filterConfig of filtersConfigs$ | async;
+            trackBy: trackById
+          "
+        >
           <ng-container *ngIf="filterConfig.type === 'dropdown'">
             <ess-filter-multiselect-dropdown
               class="multiselect-dropdown"
@@ -37,7 +42,12 @@ import { selectEntities } from '@ngneat/elf-entities';
           </ng-container>
         </ng-container>
 
-        <ng-container *ngFor="let filterConfig of filtersConfigs$ | async">
+        <ng-container
+          *ngFor="
+            let filterConfig of filtersConfigs$ | async;
+            trackBy: trackById
+          "
+        >
           <ng-container [ngSwitch]="filterConfig.type">
             <ess-filter-multiselect
               *ngSwitchCase="'multiselect'"
@@ -170,6 +180,10 @@ export class FiltersComponent {
       return false;
     }
     return true;
+  }
+
+  trackById(index: number, item: IFilterConfig): string {
+    return item.id;
   }
 
   constructor(

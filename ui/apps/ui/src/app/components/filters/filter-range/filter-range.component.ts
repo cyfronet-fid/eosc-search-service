@@ -60,7 +60,6 @@ import { DEFAULT_MAX_DURATION } from '@components/filters/filter-range/utils';
       }
     `,
   ],
-  providers: [FilterRangeService],
 })
 export class FilterRangeComponent implements OnInit {
   @Input()
