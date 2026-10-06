@@ -43,6 +43,21 @@ import {
   SuggestionResponse,
 } from '@components/search-input/types';
 
+function stableStringify(obj: unknown): string {
+  if (obj === null || typeof obj !== 'object') {
+    return JSON.stringify(obj);
+  }
+  if (Array.isArray(obj)) {
+    return `[${obj.map((item) => stableStringify(item) ?? 'null').join(',')}]`;
+  }
+  const record = obj as Record<string, unknown>;
+  const sortedKeys = Object.keys(record).sort();
+  const entries = sortedKeys
+    .filter((key) => record[key] !== undefined)
+    .map((key) => `${JSON.stringify(key)}:${stableStringify(record[key])}`);
+  return `{${entries.join(',')}}`;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -84,7 +99,7 @@ export class FetchDataService {
       transferCache?: { includeHeaders?: string[] } | boolean;
     }
   ): Observable<T> {
-    const key = `${url}|${JSON.stringify(body)}|${JSON.stringify(
+    const key = `${url}|${stableStringify(body)}|${stableStringify(
       options?.params ?? {}
     )}`;
     const inFlight = this._inFlightPosts.get(key);
@@ -99,10 +114,10 @@ export class FetchDataService {
         observe: 'body',
       })
       .pipe(
-        shareReplay({ bufferSize: 1, refCount: true }),
         finalize(() => {
           this._inFlightPosts.delete(key);
-        })
+        }),
+        shareReplay({ bufferSize: 1, refCount: true })
       );
 
     this._inFlightPosts.set(key, request$ as Observable<unknown>);
