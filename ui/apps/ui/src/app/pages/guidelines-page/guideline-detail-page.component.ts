@@ -62,7 +62,10 @@ export class GuidelineDetailPageComponent implements OnInit {
         this.guideline = guidelinesAdapter.adapter(
           item as Partial<IGuideline> & { id: string }
         );
-        this.setRelatedServicesLink((item as IGuideline).id);
+        this.setRelatedServicesLink(
+          (item as IGuideline).id,
+          (item as IGuideline).title?.join(' ') ?? ''
+        );
       });
   }
 
@@ -101,14 +104,14 @@ export class GuidelineDetailPageComponent implements OnInit {
     return doiRegex.test(doi) ? doi : null;
   }
 
-  private setRelatedServicesLink(id: string | number) {
+  private setRelatedServicesLink(id: string | number, title: string) {
     this.relatedServicesLink = undefined;
     this.guidelinesService
       .getRelatedResourceIds$(id)
       .pipe(untilDestroyed(this))
       .subscribe({
         next: (ids) => {
-          this.relatedServicesLink = this.buildRelatedServicesLink(ids);
+          this.relatedServicesLink = this.buildRelatedServicesLink(ids, title);
         },
         error: () => {
           this.relatedServicesLink = undefined;
@@ -116,7 +119,10 @@ export class GuidelineDetailPageComponent implements OnInit {
       });
   }
 
-  private buildRelatedServicesLink(ids: string[]): string | undefined {
+  private buildRelatedServicesLink(
+    ids: string[],
+    guidelineTitle: string
+  ): string | undefined {
     const pids = [
       ...new Set(ids.filter((id) => id?.trim()).map((id) => id.trim())),
     ];
@@ -128,8 +134,11 @@ export class GuidelineDetailPageComponent implements OnInit {
     const pidFilter = pids
       .map((id) => encodeURIComponent(`"${this.escapeSolrValue(id)}"`))
       .join(',');
+    const guidelineContext = guidelineTitle.trim()
+      ? `&guideline=${encodeURIComponent(guidelineTitle.trim())}`
+      : '';
 
-    return `/${SEARCH_PAGE_PATH}/service?q=*&fq=pid:(${pidFilter})`;
+    return `/${SEARCH_PAGE_PATH}/service?q=*&fq=pid:(${pidFilter})${guidelineContext}`;
   }
 
   private escapeSolrValue(value: string): string {
