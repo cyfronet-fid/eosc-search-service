@@ -77,8 +77,12 @@
           </div>
         </div>
 
-        <div *ngIf="this.interoperabilityGuidelineItem?.url" class="ig-buttons-container col-md-3 col-12">
-          <a [href]="getIdentifierLink()">
+        <div *ngIf="getIdentifierLink() as url" class="ig-buttons-container col-md-3 col-12">
+            <a
+              [href]="url"
+              target="_blank"
+              rel="noopener"
+            >
             <div class="button" i18n>Read the Guideline</div>
           </a>
         </div>
@@ -103,8 +107,8 @@
           </div>
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-5 description-blocks">
 
-            <div class="col">
-              <div *ngIf="interoperabilityGuidelineItem?.license" class="card">
+            <div *ngIf="interoperabilityGuidelineItem?.license" class="col">
+              <div class="card">
                 <div class="card-body">
                   <div class="card-title d-flex align-items-center gap-2">
                     <div class="card-title-icon">
@@ -119,7 +123,9 @@
                   </ul>
                 </div>
               </div>
+            </div>
 
+            <div class="col">
               <div *ngIf="hasRelatedStandards()" class="card">
                 <div class="card-body">
                   <div class="card-title d-flex align-items-center gap-2">

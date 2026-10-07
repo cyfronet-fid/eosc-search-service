@@ -12,8 +12,8 @@ import {
 import { DICTIONARY_TYPE_FOR_PIPE } from '../../dictionary/dictionaryType';
 import { IService } from '@collections/data/services/service.model';
 import { ConfigService } from '../../services/config.service';
-import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
 import { FALLBACK_LOGO } from '@pages/adapters-page/config';
+import { buildRelatedServicesLink } from '@collections/data/guidelines/related-services-link.utils';
 
 @UntilDestroy()
 @Component({
@@ -77,31 +77,8 @@ export class GuidelineDetailPageComponent implements OnInit {
     return value && value.length ? value[index] : '';
   }
 
-  getIdentifierLink() {
-    return this.interoperabilityGuidelineItem?.url ?? 'javascript:void(0)';
-  }
-
-  getDoiLink(): string | null {
-    const dois = this.interoperabilityGuidelineItem?.doi;
-
-    if (!dois?.length) {
-      return null;
-    }
-
-    const normalized = this.normalizeDoi(dois[0]);
-
-    return normalized ? `https://doi.org/${normalized}` : null;
-  }
-
-  private normalizeDoi(raw: string) {
-    const doi = raw
-      .trim()
-      .replace(/^doi:/i, '')
-      .replace(/^https?:\/\/(dx\.)?doi\.org\//i, '');
-
-    const doiRegex = /^10\.\d{4,9}\/[-._;()/:A-Z0-9]+$/i;
-
-    return doiRegex.test(doi) ? doi : null;
+  getIdentifierLink(): string | undefined {
+    return this.interoperabilityGuidelineItem?.url?.[0];
   }
 
   private setRelatedServicesLink(id: string | number, title: string) {
@@ -111,38 +88,12 @@ export class GuidelineDetailPageComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe({
         next: (ids) => {
-          this.relatedServicesLink = this.buildRelatedServicesLink(ids, title);
+          this.relatedServicesLink = buildRelatedServicesLink(ids, title);
         },
         error: () => {
           this.relatedServicesLink = undefined;
         },
       });
-  }
-
-  private buildRelatedServicesLink(
-    ids: string[],
-    guidelineTitle: string
-  ): string | undefined {
-    const pids = [
-      ...new Set(ids.filter((id) => id?.trim()).map((id) => id.trim())),
-    ];
-
-    if (!pids.length) {
-      return undefined;
-    }
-
-    const pidFilter = pids
-      .map((id) => encodeURIComponent(`"${this.escapeSolrValue(id)}"`))
-      .join(',');
-    const guidelineContext = guidelineTitle.trim()
-      ? `&guideline=${encodeURIComponent(guidelineTitle.trim())}`
-      : '';
-
-    return `/${SEARCH_PAGE_PATH}/service?q=*&fq=pid:(${pidFilter})${guidelineContext}`;
-  }
-
-  private escapeSolrValue(value: string): string {
-    return value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
   }
 
   hasRights(): boolean {
