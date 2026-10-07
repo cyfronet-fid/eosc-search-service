@@ -1,6 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, of, tap } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {
+  Observable,
+  catchError,
+  finalize,
+  map,
+  of,
+  shareReplay,
+  tap,
+} from 'rxjs';
+import {
+  HttpClient,
+  HttpContext,
+  HttpHeaders,
+  HttpParams,
+} from '@angular/common/http';
 import {
   IFacetBucket,
   IResult,
@@ -30,6 +43,21 @@ import {
   SuggestionResponse,
 } from '@components/search-input/types';
 
+function stableStringify(obj: unknown): string {
+  if (obj === null || typeof obj !== 'object') {
+    return JSON.stringify(obj);
+  }
+  if (Array.isArray(obj)) {
+    return `[${obj.map((item) => stableStringify(item) ?? 'null').join(',')}]`;
+  }
+  const record = obj as Record<string, unknown>;
+  const sortedKeys = Object.keys(record).sort();
+  const entries = sortedKeys
+    .filter((key) => record[key] !== undefined)
+    .map((key) => `${JSON.stringify(key)}:${stableStringify(record[key])}`);
+  return `{${entries.join(',')}}`;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -47,32 +75,79 @@ export class FetchDataService {
     private _paginationRepository: PaginationRepository
   ) {}
 
+  private _inFlightPosts = new Map<string, Observable<unknown>>();
+
+  private _postShared<T>(
+    url: string,
+    body: unknown,
+    options?: {
+      headers?: HttpHeaders | { [header: string]: string | string[] };
+      context?: HttpContext;
+      observe?: 'body';
+      params?:
+        | HttpParams
+        | {
+            [param: string]:
+              | string
+              | number
+              | boolean
+              | ReadonlyArray<string | number | boolean>;
+          };
+      reportProgress?: boolean;
+      responseType?: 'json';
+      withCredentials?: boolean;
+      transferCache?: { includeHeaders?: string[] } | boolean;
+    }
+  ): Observable<T> {
+    const key = `${url}|${stableStringify(body)}|${stableStringify(
+      options?.params ?? {}
+    )}`;
+    const inFlight = this._inFlightPosts.get(key);
+    if (inFlight) {
+      return inFlight as Observable<T>;
+    }
+
+    const request$ = this._http
+      .post<T>(url, body, {
+        ...options,
+        responseType: 'json',
+        observe: 'body',
+      })
+      .pipe(
+        finalize(() => {
+          this._inFlightPosts.delete(key);
+        }),
+        shareReplay({ bufferSize: 1, refCount: true })
+      );
+
+    this._inFlightPosts.set(key, request$ as Observable<unknown>);
+    return request$;
+  }
+
   fetchResults$<T extends { id: string }>(
     params: ISolrCollectionParams & ISolrQueryParams,
     facets: { [field: string]: ITermsFacetParam | IStatFacetParam },
     adapter: adapterType
   ): Observable<ISearchResults<IResult>> {
     this._paginationRepository.setLoading(true);
-    return this._http
-      .post<ISearchResults<T>>(
-        this._urlResults,
-        { facets },
-        { params: params as never }
-      )
-      .pipe(
-        catchError(() => of(_EMPTY_RESPONSE)),
-        tap(() => {
-          // this._paginationRepository.setLoading(false);
-        }),
-        map((response: ISearchResults<T>) => ({
-          results: response.results.map((result) => adapter(result)),
-          numFound: response.numFound,
-          nextCursorMark: response.nextCursorMark,
-          facets: response.facets,
-          highlighting: response.highlighting,
-          isError: response.isError,
-        }))
-      );
+    return this._postShared<ISearchResults<T>>(
+      this._urlResults,
+      { facets },
+      { params: params as never }
+    ).pipe(
+      catchError(() => of(_EMPTY_RESPONSE as ISearchResults<T>)),
+      tap(() => {
+        // this._paginationRepository.setLoading(false);
+      }),
+      map((response: ISearchResults<T>) => ({
+        results: response.results.map((result) => adapter(result)),
+        numFound: response.numFound,
+        nextCursorMark: response.nextCursorMark,
+        facets: response.facets,
+        highlighting: response.highlighting,
+        isError: response.isError,
+      }))
+    );
   }
 
   downloadResults$(
@@ -96,26 +171,24 @@ export class FetchDataService {
     adapter: adapterType
   ): Observable<ISearchResults<IResult>> {
     this._paginationRepository.setLoading(true);
-    return this._http
-      .post<ISearchResults<T>>(
-        this._urladv,
-        { facets },
-        { params: params as never }
-      )
-      .pipe(
-        catchError(() => of(_EMPTY_RESPONSE)),
-        tap(() => {
-          // this._paginationRepository.setLoading(false);
-        }),
-        map((response: ISearchResults<T>) => ({
-          results: response.results.map((result) => adapter(result)),
-          numFound: response.numFound,
-          nextCursorMark: response.nextCursorMark,
-          facets: response.facets,
-          highlighting: response.highlighting,
-          isError: response.isError,
-        }))
-      );
+    return this._postShared<ISearchResults<T>>(
+      this._urladv,
+      { facets },
+      { params: params as never }
+    ).pipe(
+      catchError(() => of(_EMPTY_RESPONSE as ISearchResults<T>)),
+      tap(() => {
+        // this._paginationRepository.setLoading(false);
+      }),
+      map((response: ISearchResults<T>) => ({
+        results: response.results.map((result) => adapter(result)),
+        numFound: response.numFound,
+        nextCursorMark: response.nextCursorMark,
+        facets: response.facets,
+        highlighting: response.highlighting,
+        isError: response.isError,
+      }))
+    );
   }
 
   fetchSuggestions$(
@@ -149,24 +222,21 @@ export class FetchDataService {
       {}
     );
 
-    return this._http
-      .post<FacetsResponse>(
-        this._urlFilters,
-        { facets: mergedFacets },
-        { params: params as never }
-      )
-      .pipe(
-        catchError(() => of(_EMPTY_FACETS_RESPONSE)),
-        map((results: { [field: string]: IFacetBucket[] }) => {
-          const convertedResponse: { [field: string]: ITermsFacetResponse } =
-            {};
+    return this._postShared<FacetsResponse>(
+      this._urlFilters,
+      { facets: mergedFacets },
+      { params: params as never }
+    ).pipe(
+      catchError(() => of(_EMPTY_FACETS_RESPONSE)),
+      map((results: { [field: string]: IFacetBucket[] }) => {
+        const convertedResponse: { [field: string]: ITermsFacetResponse } = {};
 
-          for (const field of Object.keys(results)) {
-            convertedResponse[field] = { buckets: results[field] };
-          }
-          return convertedResponse;
-        })
-      );
+        for (const field of Object.keys(results)) {
+          convertedResponse[field] = { buckets: results[field] };
+        }
+        return convertedResponse;
+      })
+    );
   }
 
   fetchFacets$<T extends { id: string }>(
@@ -175,16 +245,14 @@ export class FetchDataService {
   ): Observable<{
     [field: string]: ITermsFacetResponse | IStatFacetResponse;
   }> {
-    return this._http
-      .post<ISearchResults<T>>(
-        this._urlResults,
-        { facets: facets[0] },
-        { params: params as never }
-      )
-      .pipe(
-        catchError(() => of(_EMPTY_RESPONSE)),
-        map((results: ISearchResults<T>) => results.facets)
-      );
+    return this._postShared<ISearchResults<T>>(
+      this._urlResults,
+      { facets: facets[0] },
+      { params: params as never }
+    ).pipe(
+      catchError(() => of(_EMPTY_RESPONSE as ISearchResults<T>)),
+      map((results: ISearchResults<T>) => results.facets)
+    );
   }
 
   fetchExport$(pid: string): Observable<BibliographyRecord[]> {
