@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.44.2](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.44.1...v2.44.2) (2026-10-07)
+
+
+### Bug Fixes
+
+* [[#1952](https://github.com/cyfronet-fid/eosc-search-service/issues/1952)] sort resources alphabetically ([#2003](https://github.com/cyfronet-fid/eosc-search-service/issues/2003)) ([418316c](https://github.com/cyfronet-fid/eosc-search-service/commit/418316c680f3e49e74a7b9ed863f54a82463a23b))
+* stop sending multiple search-result requests ([#2012](https://github.com/cyfronet-fid/eosc-search-service/issues/2012)) ([ec38742](https://github.com/cyfronet-fid/eosc-search-service/commit/ec38742f6fe947f5e8c395688eb6daac930892a7))
+
 ## [2.44.1](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.44.0...v2.44.1) (2026-08-10)
 
 
