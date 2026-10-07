@@ -8,6 +8,7 @@ import {
   debounceTime,
   distinctUntilChanged,
   map,
+  shareReplay,
   skip,
   switchMap,
   tap,
@@ -59,7 +60,6 @@ import { DEFAULT_MAX_DURATION } from '@components/filters/filter-range/utils';
       }
     `,
   ],
-  providers: [FilterRangeService],
 })
 export class FilterRangeComponent implements OnInit {
   @Input()
@@ -79,7 +79,9 @@ export class FilterRangeComponent implements OnInit {
 
   step = 60;
 
-  newMax$ = this._filterRangeService._fetchMaxDuration();
+  newMax$ = this._filterRangeService
+    ._fetchMaxDuration()
+    .pipe(shareReplay({ bufferSize: 1, refCount: true }));
 
   range$ = new BehaviorSubject<[number, number]>([0, DEFAULT_MAX_DURATION]);
 
@@ -91,7 +93,7 @@ export class FilterRangeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.newMax$.subscribe((max) => {
+    this.newMax$.pipe(untilDestroyed(this)).subscribe((max) => {
       this.range$
         .pipe(
           untilDestroyed(this),
