@@ -76,6 +76,16 @@
             </div>
           </div>
         </div>
+
+        <div *ngIf="getIdentifierLink() as url" class="ig-buttons-container col-md-3 col-12">
+            <a
+              [href]="url"
+              target="_blank"
+              rel="noopener"
+            >
+            <div class="button" i18n>Read the Guideline</div>
+          </a>
+        </div>
         <div class="col-md-3"></div>
       </div>
 
@@ -97,7 +107,7 @@
           </div>
           <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-5 description-blocks">
 
-            <div class="col">
+            <div *ngIf="interoperabilityGuidelineItem?.license" class="col">
               <div class="card">
                 <div class="card-body">
                   <div class="card-title d-flex align-items-center gap-2">
@@ -114,6 +124,35 @@
                 </div>
               </div>
             </div>
+
+            <div class="col">
+              <div *ngIf="hasRelatedStandards()" class="card">
+                <div class="card-body">
+                  <div class="card-title d-flex align-items-center gap-2">
+                    <div class="card-title-icon">
+                      <img src="assets/standards.svg" alt="License" />
+                    </div>
+                    <h6 class="mb-0">Related standards</h6>
+                  </div>
+
+                  <ul *ngFor="
+                        let uri of this.interoperabilityGuidelineItem
+                          ?.related_standards_uri;
+                        let i = index
+                      " class="list-unstyled small mb-0">
+                    <li><a class="related-standard-link" href="{{ uri ?? 'javascript:void(0)' }}">
+                      {{
+                        getValue(
+                          this.interoperabilityGuidelineItem
+                            ?.related_standards_id,
+                          i
+                        )
+                      }}
+                      </a> </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -125,7 +164,6 @@
           </a>
 
           <div class="right-panel-links">
-
             <ul>
               <li class="contact_url">
                 <a class="list-group-item" href="mailto:{{ interoperabilityGuidelineItem?.public_contacts }}">Contact</a>
@@ -138,7 +176,9 @@
               <div class="card-title-icon">
                 <img src="assets/icon-creators-black.svg" alt="Contact" />
               </div>
-              <h6 class="card-title">Creators </h6>
+              <h6 class="card-title">Creator{{ parseCreators(
+                this.interoperabilityGuidelineItem?.creators || ''
+              ).length === 1 ? '' : 's' }}  </h6>
             </div>
             <div class="card-body">
               <ng-container
@@ -177,12 +217,5 @@
     </div>
 
   </div>
-  <ess-ig-services-detail-card
-    *ngIf="this.guideline"
-    id="related-resources"
-    [relatedServices]="this.guideline.relatedServices"
-    [marketplaceUrl]="this.marketplaceUrl"
-    [title]="this.guideline.title"
-  ></ess-ig-services-detail-card>
   <!-- <ess-feedback-panel class="feedback-panel"></ess-feedback-panel> -->
 </div>

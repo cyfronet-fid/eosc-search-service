@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RelatedService } from '@collections/repositories/types';
-import { DEFAULT_COLLECTION_ID } from '@collections/data';
-import { SEARCH_PAGE_PATH } from '@collections/services/custom-route.type';
+import { buildRelatedServicesLink } from '@collections/data/guidelines/related-services-link.utils';
 import { ConfigService } from '../../services/config.service';
 
 @Component({
@@ -18,8 +17,13 @@ export class IgServicesCardComponent {
     window.open(url);
   }
   showAll(): void {
-    const fqs = `fq=guidelines:"${this.title}"`;
-    const url = `${SEARCH_PAGE_PATH}/${DEFAULT_COLLECTION_ID}?q=*&${fqs}`;
-    window.open(url);
+    const url = buildRelatedServicesLink(
+      this.relatedServices?.map(({ pid }) => pid) ?? [],
+      this.title
+    );
+
+    if (url) {
+      window.open(url);
+    }
   }
 }

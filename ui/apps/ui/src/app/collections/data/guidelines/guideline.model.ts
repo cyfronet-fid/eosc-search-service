@@ -31,7 +31,7 @@ export interface IGuideline {
   related_standards_uri?: string[];
   related_standards_id?: string[];
   type_general: string[];
-  uri?: string[];
+  url?: string[];
   keywords?: string[];
   creators: string | '';
   related_services: Record<string, string>[];
