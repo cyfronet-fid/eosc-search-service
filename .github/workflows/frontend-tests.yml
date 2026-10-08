@@ -1,0 +1,23 @@
+name: Frontend tests
+
+on: push
+
+jobs:
+  frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ui
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.9.0
+          cache: npm
+          cache-dependency-path: ui/package-lock.json
+      - name: Install dependencies
+        run: npm ci
+      - name: Generate environment
+        run: npm run make:requirements
+      - name: Run tests
+        run: npm test -- --runInBand
