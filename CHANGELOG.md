@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.44.3](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.44.2...v2.44.3) (2026-10-08)
+
+
+### Bug Fixes
+
+* [[#2008](https://github.com/cyfronet-fid/eosc-search-service/issues/2008)] fix guideline detail page ([#2013](https://github.com/cyfronet-fid/eosc-search-service/issues/2013)) ([352d7d5](https://github.com/cyfronet-fid/eosc-search-service/commit/352d7d5626ddae86760f4d3714acca430ca2588c))
+
 ## [2.44.2](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.44.1...v2.44.2) (2026-10-07)
 
 
