@@ -9,6 +9,8 @@ import { toActiveFilters } from './utils';
 import { Router } from '@angular/router';
 import { removeFilterValue } from '@collections/filters-serializers/filters-serializers.utils';
 
+const GUIDELINE_CONTEXT_FILTER = 'guideline-context';
+
 @UntilDestroy()
 @Component({
   selector: 'ess-active-filters',
@@ -41,13 +43,32 @@ import { removeFilterValue } from '@collections/filters-serializers/filters-seri
   `,
 })
 export class ActiveFiltersComponent {
-  activeFilters$: Observable<IActiveFilter[]> = this._customRoute.fqMap$.pipe(
-    filter(() => !!this._customRoute.collection()),
-    map((fqsMap) => {
-      const collection = this._customRoute.collection();
+  activeFilters$: Observable<IActiveFilter[]> = this._customRoute.params$.pipe(
+    filter(({ collection }) => !!collection),
+    map(({ collection, fq, guideline }) => {
       const filtersConfigs =
         this._filtersConfigsRepository.get(collection).filters;
-      return toActiveFilters(fqsMap, filtersConfigs);
+      const activeFilters = toActiveFilters(
+        this._customRoute.fqMap(),
+        filtersConfigs
+      );
+      const guidelineTitle =
+        typeof guideline === 'string' ? guideline.trim() : '';
+
+      if (
+        collection === 'service' &&
+        guidelineTitle &&
+        fq.some((value) => value.startsWith('pid:'))
+      ) {
+        activeFilters.push({
+          filter: GUIDELINE_CONTEXT_FILTER,
+          label: 'Guideline',
+          uiValue: guidelineTitle,
+          value: guidelineTitle,
+        });
+      }
+
+      return activeFilters;
     })
   );
 
@@ -58,6 +79,17 @@ export class ActiveFiltersComponent {
   ) {}
 
   async removeFilter(filter: string, value: string) {
+    if (filter === GUIDELINE_CONTEXT_FILTER) {
+      await this._router.navigate([], {
+        queryParams: {
+          fq: this._customRoute.fqWithExcludedFilter('pid:'),
+          guideline: null,
+        },
+        queryParamsHandling: 'merge',
+      });
+      return;
+    }
+
     await this._router.navigate([], {
       queryParams: {
         fq: removeFilterValue(
@@ -75,6 +107,7 @@ export class ActiveFiltersComponent {
     await this._router.navigate([], {
       queryParams: {
         fq: [],
+        guideline: null,
       },
       queryParamsHandling: 'merge',
     });

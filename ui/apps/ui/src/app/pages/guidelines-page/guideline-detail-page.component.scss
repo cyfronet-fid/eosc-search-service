@@ -168,6 +168,16 @@
   overflow-wrap: anywhere;
 }
 
+.related-standard-link::after {
+  content: '';
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  margin-left: 4px;
+  background: url('/assets/arrow-right.svg') no-repeat center;
+  vertical-align: middle;
+}
+
 .left-column {
   /*padding: 24px 0 0 48px;*/
 }
@@ -665,4 +675,3 @@
 
   }
 }
-
