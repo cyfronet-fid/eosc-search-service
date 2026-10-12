@@ -10,6 +10,12 @@ import { RedirectService } from '@collections/services/redirect.service';
 import { HttpClient } from '@angular/common/http';
 import { ALLOWED_EXTENSIONS, FALLBACK_LOGO } from './config';
 
+interface CreatorDetails {
+  name?: string;
+  identifiers?: string[];
+  affiliations?: string[];
+}
+
 @UntilDestroy()
 @Component({
   selector: 'ess-adapter-detail-page',
@@ -18,6 +24,7 @@ import { ALLOWED_EXTENSIONS, FALLBACK_LOGO } from './config';
 })
 export class AdapterDetailPageComponent implements OnInit {
   adapter?: IResult;
+  creatorDetails: CreatorDetails[] = [];
   currentUrl: string = this._router.url;
   validatedLogoUrl: string = FALLBACK_LOGO;
 
@@ -42,6 +49,7 @@ export class AdapterDetailPageComponent implements OnInit {
       )
       .subscribe((item) => {
         this.adapter = adaptersAdapter.adapter(item);
+        this.creatorDetails = this.getCreatorDetails(item.creators);
         this.validateLogoUrl(this.adapter?.logoUrl);
       });
   }
@@ -105,11 +113,20 @@ export class AdapterDetailPageComponent implements OnInit {
   }
 
   get hasAnyCreators(): boolean {
-    return (this.adapter?.creator_names?.length ?? 0) > 0;
+    return this.creatorDetails.length > 0;
   }
 
-  get creatorNamesString(): string {
-    return this.adapter?.creator_names?.join(', ') ?? '';
+  private getCreatorDetails(value?: string): CreatorDetails[] {
+    if (!value) {
+      return [];
+    }
+
+    try {
+      const creators = JSON.parse(value);
+      return Array.isArray(creators) ? creators : [];
+    } catch {
+      return [];
+    }
   }
 
   get packageUrl(): string | undefined {
