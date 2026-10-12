@@ -80,8 +80,7 @@ export interface IResult {
   sqaUrl?: string;
   package?: string;
   creator_names?: string[];
-  creator_identifiers?: string;
-  creator_affiliations?: string[];
+  creators?: string;
   doi?: string;
   alternative_ids?: string[];
   tagline?: string;

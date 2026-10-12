@@ -38,9 +38,6 @@ export const adaptersAdapter: IAdapter = {
     sqaBadge: rawAdapter?.sqa_badge,
     sqaUrl: rawAdapter?.sqa_url,
     logoUrl: rawAdapter?.logo,
-    creator_names: rawAdapter?.creator_names,
-    creator_identifiers: rawAdapter?.creator_identifiers,
-    creator_affiliations: rawAdapter?.creator_affiliations,
     public_contacts: rawAdapter?.public_contacts,
     relatedServiceUrl:
       rawAdapter?.related_services && rawAdapter?.related_services?.length > 0
