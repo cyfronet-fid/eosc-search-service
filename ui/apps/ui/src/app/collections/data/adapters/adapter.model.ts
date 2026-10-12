@@ -21,7 +21,7 @@ export interface IAdapterModel {
   sqa_badge?: string | string[];
   sqa_url?: string;
   creator_names?: string[];
-  creator_identifiers?: string;
+  creator_identifiers?: string | string[];
   creator_affiliations?: string[];
   package?: string;
   public_contacts?: string[];
