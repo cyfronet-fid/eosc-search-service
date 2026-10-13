@@ -5,7 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { trainingsAdapter } from '@collections/data/trainings/adapter.data';
 import isArray from 'lodash-es/isArray';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { ITraining } from '@collections/data/trainings/training.model';
+import {
+  ITraining,
+  ITrainingCreator,
+} from '@collections/data/trainings/training.model';
 import { toArray } from '@collections/filters-serializers/utils';
 import { deserializeAll } from '@collections/filters-serializers/filters-serializers.utils';
 import { CustomRoute } from '@collections/services/custom-route.service';
@@ -29,6 +32,7 @@ export class TrainingDetailPageComponent implements OnInit {
   currentTab = 'about';
   isArray = isArray;
   myTraining?: ITraining;
+  creators: ITrainingCreator[] = [];
   type = DICTIONARY_TYPE_FOR_PIPE;
   providersNames = '';
 
@@ -54,6 +58,7 @@ export class TrainingDetailPageComponent implements OnInit {
           this.providersNames = item['providers']?.join(', ');
         }
         this.myTraining = { ...item } as ITraining;
+        this.creators = this.parseCreators(item.creators);
         this.training = trainingsAdapter.adapter(item);
         this.originUrl = this.myTraining.url ? this.myTraining.url[0] : '';
         this.keywords = item.keywords;
@@ -61,6 +66,19 @@ export class TrainingDetailPageComponent implements OnInit {
         this.detailsTags = this.training.tags;
         this.sidebarTags = this.training.tags;
       });
+  }
+
+  private parseCreators(value?: string): ITrainingCreator[] {
+    if (!value) {
+      return [];
+    }
+
+    try {
+      const creators = JSON.parse(value);
+      return Array.isArray(creators) ? creators : [];
+    } catch {
+      return [];
+    }
   }
 
   _addFilter(filter: string, value: string): string[] {
