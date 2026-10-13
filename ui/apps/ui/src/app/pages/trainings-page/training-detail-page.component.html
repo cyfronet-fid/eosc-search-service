@@ -190,6 +190,47 @@
                   </ul>
                 </div>
               </div>
+              <div
+                class="contact-panel mb-5"
+                *ngIf="myTraining.author_names?.length"
+              >
+                <div class="card-title">
+                  <div class="card-title-icon">
+                    <img
+                      src="assets/icon-creators-black.svg"
+                      alt="Creators"
+                    />
+                  </div>
+                  <h6 class="card-title">
+                    Creator{{
+                      myTraining.author_names?.length === 1 ? '' : 's'
+                    }}
+                  </h6>
+                </div>
+                <div class="card-body">
+                  <ng-container
+                    *ngFor="
+                      let creator of myTraining.author_names;
+                      index as i;
+                      last as isLast
+                    "
+                  >
+                    <dl>
+                      <dt>Name</dt>
+                      <dd>{{ creator }}</dd>
+                    </dl>
+                    <dl *ngIf="myTraining.author_names_id?.[i]">
+                      <dt>ORCID</dt>
+                      <dd>{{ myTraining.author_names_id?.[i] }}</dd>
+                    </dl>
+                    <dl *ngIf="myTraining.author_affiliations?.[i]">
+                      <dt>Affiliation</dt>
+                      <dd>{{ myTraining.author_affiliations?.[i] }}</dd>
+                    </dl>
+                    <hr *ngIf="!isLast" />
+                  </ng-container>
+                </div>
+              </div>
             </div>
           </div>
         </div>
