@@ -65,9 +65,12 @@ export class GuidelineDetailPageComponent implements OnInit {
         this.relatedServicesLink = (() => {
           const services = this.guideline?.relatedServices;
           if (!services?.length) return '';
-          const pidFilter = services.map(({ pid }) => `%22${pid}%22`).join(',');
+          const pidFilter = services
+            .map(({ pid }) => `%22${encodeURIComponent(pid)}%22`)
+            .join(',');
           return `/search/service?q=*&fq=pid:(${pidFilter})`;
         })();
+
         // this.setRelatedServicesLink(
         //   (item as IGuideline).id,
         //   (item as IGuideline).title?.join(' ') ?? ''

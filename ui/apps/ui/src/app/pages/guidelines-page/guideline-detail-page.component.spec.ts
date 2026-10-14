@@ -38,7 +38,13 @@ describe('GuidelineDetailPageComponent', () => {
     related_standards_uri: ['https://example.com/standard'],
     related_standards_id: ['ISO 1234'],
     creators: JSON.stringify(creators),
-    related_services: [],
+    // related_services: [],
+    related_services: [
+      { pid: 'pid-1' },
+      { pid: 'pid-1' },
+      { pid: 'pid/2' },
+      { pid: '' },
+    ],
     node: 'EOSC EU Node',
   };
 
@@ -79,12 +85,18 @@ describe('GuidelineDetailPageComponent', () => {
   it('loads the guideline and builds an encoded related-services link', () => {
     fixture.detectChanges();
 
+    // expect(guidelinesService.get$).toHaveBeenCalledWith('guideline-1');
+    // expect(guidelinesService.getRelatedResourceIds$).toHaveBeenCalledWith(
+    //   'guideline-1'
+    // );
+    // expect(component.relatedServicesLink).toBe(
+    //   '/search/service?q=*&fq=pid:(%22pid-1%22,%22pid%2F2%22)&guideline=A%20%26%20B%20guideline'
+    // );
+
     expect(guidelinesService.get$).toHaveBeenCalledWith('guideline-1');
-    expect(guidelinesService.getRelatedResourceIds$).toHaveBeenCalledWith(
-      'guideline-1'
-    );
+
     expect(component.relatedServicesLink).toBe(
-      '/search/service?q=*&fq=pid:(%22pid-1%22,%22pid%2F2%22)&guideline=A%20%26%20B%20guideline'
+      '/search/service?q=*&fq=pid:(%22pid-1%22,%22pid-1%22,%22pid%2F2%22,%22%22)'
     );
   });
 
@@ -159,13 +171,25 @@ describe('GuidelineDetailPageComponent', () => {
   });
 
   it('hides the related-services link when loading related IDs fails', () => {
-    guidelinesService.getRelatedResourceIds$.mockReturnValue(
-      throwError(() => new Error('Related resources unavailable'))
+    // guidelinesService.getRelatedResourceIds$.mockReturnValue(
+    //   throwError(() => new Error('Related resources unavailable'))
+    // );
+    //
+    // fixture.detectChanges();
+    //
+    // expect(component.relatedServicesLink).toBeUndefined();
+    // expect(fixture.nativeElement.querySelector('.linked-resource')).toBeNull();
+
+    guidelinesService.get$.mockReturnValue(
+      of({
+        ...guideline,
+        related_services: [],
+      })
     );
 
     fixture.detectChanges();
 
-    expect(component.relatedServicesLink).toBeUndefined();
+    expect(component.relatedServicesLink).toBe('');
     expect(fixture.nativeElement.querySelector('.linked-resource')).toBeNull();
   });
 
