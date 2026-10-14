@@ -63,7 +63,21 @@ async def _get_related_records_pids(
                 detail="Invalid JSON received from the related services API."
             ) from exc
 
-        return json_data or []
+        # return json_data or []
+        if json_data is None:
+            return []
+
+        if not isinstance(json_data, list):
+            raise RelatedServicesError(
+                detail="Invalid response format from the related services API."
+            )
+
+        if not all(isinstance(pid, str) for pid in json_data):
+            raise RelatedServicesError(
+                detail="Invalid PID format in related services API response."
+            )
+
+        return json_data
 
     except (ConnectError, ConnectTimeout) as conn_err:
         logger.error(
@@ -154,26 +168,6 @@ async def _fetch_services_from_solr(
     return services
 
 
-async def _get_related_services(
-    client: AsyncClient,
-    related_services_pids: list[str],
-) -> list[RelatedService]:
-    """Helper to resolve a list of PIDs to RelatedService objects."""
-    unique_pids = list(dict.fromkeys(related_services_pids))
-    if not unique_pids:
-        return []
-    services_map = await _fetch_services_from_solr(client, unique_pids)
-    return [services_map[pid] for pid in unique_pids if pid in services_map]
-
-
-async def _get_related_service(
-    client: AsyncClient, pid: str
-) -> Optional[RelatedService]:
-    """Helper to fetch a single service by PID."""
-    services_map = await _fetch_services_from_solr(client, [pid])
-    return services_map.get(pid)
-
-
 async def extend_ig_with_related_services(
     client: AsyncClient, docs: list[dict]
 ) -> list[dict]:
@@ -192,7 +186,7 @@ async def extend_ig_with_related_services(
         try:
             pids = await _get_related_records_pids(client, doc_id)
             return doc, pids
-        except RelatedServicesError:
+        except Exception:  # pylint: disable=broad-except
             logger.exception(
                 "Exception happened during _get_related_records_pids for guideline %s",
                 doc_id,
