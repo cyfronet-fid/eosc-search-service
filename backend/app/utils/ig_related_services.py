@@ -4,19 +4,28 @@ interoperability guidelines response
 """
 
 import asyncio
-import copy
 import logging
 from typing import Optional
 
-from httpx import AsyncClient, ConnectError, ConnectTimeout, HTTPStatusError
+from fastapi import HTTPException
+from httpx import (
+    AsyncClient,
+    ConnectError,
+    ConnectTimeout,
+    HTTPError,
+    HTTPStatusError,
+)
 
 from app.consts import ResourceType
 from app.error_handling.exceptions import RelatedServicesError
 from app.schemas.solr_response import Collection, RelatedService
 from app.settings import settings
-from app.solr.operations import get_item_by_pid
+from app.solr.error_handling import handle_solr_list_response_errors
+from app.solr.utils import first_solr_value
 
 logger = logging.getLogger(__name__)
+
+CHUNK_SIZE = 200  # maximum number of pids sent to solr in one request
 
 
 def _parse_categories(
@@ -33,7 +42,9 @@ def _parse_categories(
     return list(categories_set)
 
 
-async def _get_related_records_pids(client, ig_pid):
+async def _get_related_records_pids(
+    client: AsyncClient, ig_pid: str
+) -> list[str]:
     try:
         response = await client.get(
             f"{settings.RELATED_SERVICES_ENDPOINT}/{ig_pid}"
@@ -54,7 +65,21 @@ async def _get_related_records_pids(client, ig_pid):
                 detail="Invalid JSON received from the related services API."
             ) from exc
 
-        return json_data or []
+        # return json_data or []
+        if json_data is None:
+            return []
+
+        if not isinstance(json_data, list):
+            raise RelatedServicesError(
+                detail="Invalid response format from the related services API."
+            )
+
+        if not all(isinstance(pid, str) for pid in json_data):
+            raise RelatedServicesError(
+                detail="Invalid PID format in related services API response."
+            )
+
+        return json_data
 
     except (ConnectError, ConnectTimeout) as conn_err:
         logger.error(
@@ -79,71 +104,114 @@ async def _get_related_records_pids(client, ig_pid):
             ),
         ) from http_err
 
-    except Exception as exc:
+    except HTTPError as exc:
         logger.error(
-            "Unexpected error while fetching related services "
+            "HTTP transport error while fetching related services "
             "for guideline %s: %s",
             ig_pid,
             exc,
         )
-        raise RelatedServicesError(detail="Unexpected error") from exc
+        raise RelatedServicesError(detail="HTTP transport error") from exc
+
+
+async def _fetch_services_from_solr(
+    client: AsyncClient,
+    pids: list[str],
+) -> dict[str, RelatedService]:
+    """Fetch related services from Solr in batch queries instead of one by one."""
+    unique_pids = list(dict.fromkeys(pids))
+    if not unique_pids:
+        return {}
+
+    solr_collection = (
+        f"{settings.COLLECTIONS_PREFIX}{Collection.ALL_COLLECTION}"
+    )
+    url = f"{settings.SOLR_URL}{solr_collection}/select"
+    services: dict[str, RelatedService] = {}
+
+    for i in range(0, len(unique_pids), CHUNK_SIZE):
+        chunk = unique_pids[i : i + CHUNK_SIZE]
+        request_body = {
+            "params": {
+                "q": "*:*",
+                "fq": [f"{{!terms f=pid}}{','.join(chunk)}"],
+                "fl": "pid,best_access_right,title,resource_organisation,type",
+                "rows": len(chunk),
+                "wt": "json",
+            }
+        }
+        try:
+            response = await handle_solr_list_response_errors(
+                client.post(url, json=request_body)
+            )
+            docs = response.json().get("response", {}).get("docs", [])
+            for doc in docs:
+                pid_val = first_solr_value(doc.get("pid"))
+                if pid_val:
+                    services[pid_val] = RelatedService(
+                        pid=pid_val,
+                        best_access_right=first_solr_value(
+                            doc.get("best_access_right")
+                        ),
+                        title=first_solr_value(doc.get("title")),
+                        resource_organisation=first_solr_value(
+                            doc.get("resource_organisation")
+                        ),
+                        type=first_solr_value(doc.get("type")),
+                    )
+        except (HTTPException, HTTPError, ValueError) as exc:
+            logger.exception(
+                "Error during Solr batch fetch for %d PIDs: %s",
+                len(chunk),
+                exc,
+            )
+
+    return services
 
 
 async def extend_ig_with_related_services(
     client: AsyncClient, docs: list[dict]
-):
+) -> list[dict]:
     """Main function responsible for extending interoperability
     guideline response with related services data
     """
-    new_docs = []
-    for doc in docs:
-        if doc["type"] == ResourceType.GUIDELINE:
-            related_services_pids = []
-            try:
-                related_services_pids = await _get_related_records_pids(
-                    client, doc["id"]
-                )
-            except RelatedServicesError:
-                logger.exception(
-                    "Exception happened during _get_related_records_pids"
-                )
-                related_services_pids = []
-            finally:
-                if related_services_pids:
-                    doc["related_services"] = await _get_related_services(
-                        client, related_services_pids
-                    )
-                else:
-                    doc["related_services"] = []
-                new_docs.append(copy.deepcopy(doc))
-        else:
-            new_docs.append(copy.deepcopy(doc))
+    guideline_docs = [
+        doc for doc in docs if doc.get("type") == ResourceType.GUIDELINE
+    ]
 
-    return new_docs
+    if not guideline_docs:
+        return docs
 
+    async def _safe_get_pids(doc: dict) -> tuple[dict, list[str]]:
+        doc_id = doc.get("id")
+        try:
+            pids = await _get_related_records_pids(client, doc_id)
+            return doc, pids
+        except Exception:  # pylint: disable=broad-except
+            logger.exception(
+                "Exception happened during _get_related_records_pids for guideline %s",
+                doc_id,
+            )
+            return doc, []
 
-async def _get_related_services(
-    client: AsyncClient, related_services_pids: list[str]
-):
-    gathered_result = await asyncio.gather(
-        *[_get_related_service(client, pid) for pid in related_services_pids]
-    )
-    return [result for result in gathered_result if result]
-
-
-async def _get_related_service(client, pid):
-    response = await get_item_by_pid(
-        client=client, collection=Collection.ALL_COLLECTION, item_pid=pid
+    doc_pids_pairs: list[tuple[dict, list[str]]] = await asyncio.gather(
+        *[_safe_get_pids(doc) for doc in guideline_docs]
     )
 
-    if response and response.json()["response"]["docs"]:
-        service = response.json()["response"]["docs"][0]
-        service_obj = RelatedService(
-            pid=service["pid"],
-            best_access_right=service["best_access_right"],
-            title=service["title"][0],
-            resource_organisation=service["resource_organisation"],
-            type=service["type"],
-        )
-        return service_obj
-    return None
+    all_pids = list(
+        dict.fromkeys(pid for _, pids in doc_pids_pairs for pid in pids if pid)
+    )
+
+    services_by_pid: dict[str, RelatedService] = {}
+    if all_pids:
+        services_by_pid = await _fetch_services_from_solr(client, all_pids)
+
+    for doc, pids in doc_pids_pairs:
+        unique_pids = list(dict.fromkeys(pids))
+        doc["related_services"] = [
+            services_by_pid[pid]
+            for pid in unique_pids
+            if pid in services_by_pid
+        ]
+
+    return docs
