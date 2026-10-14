@@ -62,10 +62,19 @@ export class GuidelineDetailPageComponent implements OnInit {
         this.guideline = guidelinesAdapter.adapter(
           item as Partial<IGuideline> & { id: string }
         );
-        this.setRelatedServicesLink(
-          (item as IGuideline).id,
-          (item as IGuideline).title?.join(' ') ?? ''
-        );
+        this.relatedServicesLink = (() => {
+          const services = this.guideline?.relatedServices;
+          if (!services?.length) return '';
+          const pidFilter = services
+            .map(({ pid }) => `%22${encodeURIComponent(pid)}%22`)
+            .join(',');
+          return `/search/service?q=*&fq=pid:(${pidFilter})`;
+        })();
+
+        // this.setRelatedServicesLink(
+        //   (item as IGuideline).id,
+        //   (item as IGuideline).title?.join(' ') ?? ''
+        // );
       });
   }
 
