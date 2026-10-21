@@ -87,7 +87,7 @@ describe('GuidelineDetailPageComponent', () => {
     expect(guidelinesService.get$).toHaveBeenCalledWith('guideline-1');
 
     expect(component.relatedServicesLink).toBe(
-      '/search/service?q=*&fq=pid:(%22pid-1%22,%22pid%2F2%22,%22%22)'
+      '/search/service?q=*&fq=pid:(%22pid-1%22,%22pid%2F2%22)'
     );
   });
 

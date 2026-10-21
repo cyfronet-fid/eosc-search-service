@@ -66,7 +66,13 @@ export class GuidelineDetailPageComponent implements OnInit {
           const services = this.guideline?.relatedServices;
           if (!services?.length) return '';
 
-          const pidFilter = [...new Set(services.map(({ pid }) => pid))]
+          const pidFilter = [
+            ...new Set(
+              services
+                .map(({ pid }) => pid)
+                .filter((pid) => pid != null && pid !== '')
+            ),
+          ]
             .map((pid) => `%22${encodeURIComponent(pid)}%22`)
             .join(',');
           return `/search/service?q=*&fq=pid:(${pidFilter})`;
