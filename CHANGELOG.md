@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.44.4](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.44.3...v2.44.4) (2026-10-21)
+
+
+### Bug Fixes
+
+* make requests faster - related services ([#2021](https://github.com/cyfronet-fid/eosc-search-service/issues/2021)) ([f42ef4b](https://github.com/cyfronet-fid/eosc-search-service/commit/f42ef4bc179436a10d6b084f1019f27798154aed))
+
 ## [2.44.3](https://github.com/cyfronet-fid/eosc-search-service/compare/v2.44.2...v2.44.3) (2026-10-08)
 
 
