@@ -10,6 +10,12 @@ import { RedirectService } from '@collections/services/redirect.service';
 import { HttpClient } from '@angular/common/http';
 import { ALLOWED_EXTENSIONS, FALLBACK_LOGO } from './config';
 
+interface CreatorDetails {
+  name?: string;
+  identifier?: string;
+  affiliation?: string;
+}
+
 @UntilDestroy()
 @Component({
   selector: 'ess-adapter-detail-page',
@@ -18,6 +24,7 @@ import { ALLOWED_EXTENSIONS, FALLBACK_LOGO } from './config';
 })
 export class AdapterDetailPageComponent implements OnInit {
   adapter?: IResult;
+  creatorDetails: CreatorDetails[] = [];
   currentUrl: string = this._router.url;
   validatedLogoUrl: string = FALLBACK_LOGO;
 
@@ -42,6 +49,7 @@ export class AdapterDetailPageComponent implements OnInit {
       )
       .subscribe((item) => {
         this.adapter = adaptersAdapter.adapter(item);
+        this.creatorDetails = this.getCreatorDetails(this.adapter);
         this.validateLogoUrl(this.adapter?.logoUrl);
       });
   }
@@ -105,11 +113,30 @@ export class AdapterDetailPageComponent implements OnInit {
   }
 
   get hasAnyCreators(): boolean {
-    return (this.adapter?.creator_names?.length ?? 0) > 0;
+    return this.creatorDetails.length > 0;
   }
 
-  get creatorNamesString(): string {
-    return this.adapter?.creator_names?.join(', ') ?? '';
+  private getCreatorDetails(adapter: IResult): CreatorDetails[] {
+    const identifiers = Array.isArray(adapter.creator_identifiers)
+      ? adapter.creator_identifiers
+      : [adapter.creator_identifiers];
+    const creatorCount = Math.max(
+      adapter.creator_names?.length ?? 0,
+      identifiers.length,
+      adapter.creator_affiliations?.length ?? 0
+    );
+
+    return Array.from({ length: creatorCount }, (_, index) => ({
+      name: this.getOptionalValue(adapter.creator_names?.[index]),
+      identifier: this.getOptionalValue(identifiers[index]),
+      affiliation: this.getOptionalValue(adapter.creator_affiliations?.[index]),
+    })).filter(
+      ({ name, identifier, affiliation }) => name || identifier || affiliation
+    );
+  }
+
+  private getOptionalValue(value: string | undefined): string | undefined {
+    return value?.trim() || undefined;
   }
 
   get packageUrl(): string | undefined {
