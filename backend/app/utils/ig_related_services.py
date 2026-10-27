@@ -174,6 +174,48 @@ async def _get_related_service(
     return services_map.get(pid)
 
 
+async def get_related_services_for_guidelines(
+    client: AsyncClient, guideline_ids: list[str]
+) -> dict[str, list[RelatedService]]:
+    """Fetch related services without coupling them to a search response."""
+    unique_guideline_ids = list(dict.fromkeys(guideline_ids))
+    if not unique_guideline_ids:
+        return {}
+
+    async def _safe_get_pids(guideline_id: str) -> tuple[str, list[str]]:
+        try:
+            pids = await _get_related_records_pids(client, guideline_id)
+            return guideline_id, pids
+        except RelatedServicesError:
+            logger.exception(
+                "Exception happened during _get_related_records_pids for guideline %s",
+                guideline_id,
+            )
+            return guideline_id, []
+
+    guideline_pids = await asyncio.gather(
+        *[
+            _safe_get_pids(guideline_id)
+            for guideline_id in unique_guideline_ids
+        ]
+    )
+    all_pids = list(
+        dict.fromkeys(pid for _, pids in guideline_pids for pid in pids if pid)
+    )
+    services_by_pid = (
+        await _fetch_services_from_solr(client, all_pids) if all_pids else {}
+    )
+
+    return {
+        guideline_id: [
+            services_by_pid[pid]
+            for pid in dict.fromkeys(pids)
+            if pid in services_by_pid
+        ]
+        for guideline_id, pids in guideline_pids
+    }
+
+
 async def extend_ig_with_related_services(
     client: AsyncClient, docs: list[dict]
 ) -> list[dict]:
@@ -187,36 +229,11 @@ async def extend_ig_with_related_services(
     if not guideline_docs:
         return docs
 
-    async def _safe_get_pids(doc: dict) -> tuple[dict, list[str]]:
-        doc_id = doc.get("id")
-        try:
-            pids = await _get_related_records_pids(client, doc_id)
-            return doc, pids
-        except RelatedServicesError:
-            logger.exception(
-                "Exception happened during _get_related_records_pids for guideline %s",
-                doc_id,
-            )
-            return doc, []
-
-    doc_pids_pairs: list[tuple[dict, list[str]]] = await asyncio.gather(
-        *[_safe_get_pids(doc) for doc in guideline_docs]
+    related_services = await get_related_services_for_guidelines(
+        client,
+        [doc["id"] for doc in guideline_docs if doc.get("id")],
     )
-
-    all_pids = list(
-        dict.fromkeys(pid for _, pids in doc_pids_pairs for pid in pids if pid)
-    )
-
-    services_by_pid: dict[str, RelatedService] = {}
-    if all_pids:
-        services_by_pid = await _fetch_services_from_solr(client, all_pids)
-
-    for doc, pids in doc_pids_pairs:
-        unique_pids = list(dict.fromkeys(pids))
-        doc["related_services"] = [
-            services_by_pid[pid]
-            for pid in unique_pids
-            if pid in services_by_pid
-        ]
+    for doc in guideline_docs:
+        doc["related_services"] = related_services.get(doc.get("id"), [])
 
     return docs

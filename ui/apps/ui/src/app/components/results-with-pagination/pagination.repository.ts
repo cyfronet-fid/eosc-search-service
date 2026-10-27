@@ -3,6 +3,7 @@ import { createStore, select, withProps } from '@ngneat/elf';
 import {
   addEntities,
   deleteAllEntities,
+  updateEntities,
   withEntities,
 } from '@ngneat/elf-entities';
 import {
@@ -16,7 +17,11 @@ import {
   updatePaginationData,
   withPagination,
 } from '@ngneat/elf-pagination';
-import { IResult, ISearchResults } from '@collections/repositories/types';
+import {
+  IResult,
+  ISearchResults,
+  RelatedService,
+} from '@collections/repositories/types';
 
 export const RESULTS_PER_PAGE = 10;
 
@@ -78,6 +83,22 @@ export class PaginationRepository {
     }
 
     this.lastLoadedPage += newPagesLen;
+  };
+
+  updateRelatedServices = (
+    relatedServices: Record<string, RelatedService[]>
+  ) => {
+    const guidelineIds = Object.keys(relatedServices);
+    if (!guidelineIds.length) {
+      return;
+    }
+
+    this._store$.update(
+      updateEntities(guidelineIds, (result) => ({
+        ...result,
+        relatedServices: relatedServices[result.id] ?? [],
+      }))
+    );
   };
 
   setNextCursor = (cursor: string) =>
