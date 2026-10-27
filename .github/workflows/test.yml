@@ -4,7 +4,7 @@ on: push
 
 jobs:
   backend:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v3
     - name: Start containers
@@ -31,7 +31,7 @@ jobs:
       if: always()
       run: docker compose -f dc-test.yml down
   backend-integration:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
     - uses: actions/checkout@v3
     - name: Start containers
