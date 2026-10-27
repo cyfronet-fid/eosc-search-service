@@ -24,6 +24,7 @@ export const commonEnvironment = {
     apiPathAdv: 'search-results-advanced',
     bibExportPath: 'bibliography-export-all-formats',
     bibCitationPath: 'bibliography-cite',
+    guidelineRelatedServicesPath: 'related-resources/guideline-services',
   },
 
   /*
