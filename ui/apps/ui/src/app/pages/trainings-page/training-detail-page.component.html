@@ -154,9 +154,7 @@
                     >
                       <span class="section-description">{{ author }}</span
                       >{{
-                        i === (myTraining.author_names?.length ?? 0) - 1
-                          ? ''
-                          : ','
+                        i === myTraining.author_names.length - 1 ? '' : ','
                       }}
                     </ng-container>
                   </p>
@@ -188,6 +186,50 @@
                       </li>
                     </ng-container>
                   </ul>
+                </div>
+              </div>
+              <div
+                class="contact-panel mb-5"
+                *ngIf="creators.length"
+              >
+                <div class="card-title">
+                  <div class="card-title-icon">
+                    <img
+                      src="assets/icon-creators-black.svg"
+                      alt="Creators"
+                    />
+                  </div>
+                  <h6 class="card-title">
+                    Creator{{
+                      creators.length === 1 ? '' : 's'
+                    }}
+                  </h6>
+                </div>
+                <div class="card-body">
+                  <ng-container
+                    *ngFor="
+                      let creator of creators;
+                      last as isLast
+                    "
+                  >
+                    <dl>
+                      <dt>Name</dt>
+                      <dd>{{ creator.name }}</dd>
+                    </dl>
+                    <dl *ngIf="creator.identifiers?.length">
+                      <dt>PID</dt>
+                      <dd *ngFor="let identifier of creator.identifiers">
+                        {{ identifier }}
+                      </dd>
+                    </dl>
+                    <dl *ngIf="creator.affiliations?.length">
+                      <dt>Affiliation</dt>
+                      <dd *ngFor="let affiliation of creator.affiliations">
+                        {{ affiliation }}
+                      </dd>
+                    </dl>
+                    <hr *ngIf="!isLast" />
+                  </ng-container>
                 </div>
               </div>
             </div>
