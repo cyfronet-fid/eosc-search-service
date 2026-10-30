@@ -16,7 +16,6 @@ from httpx import (
     HTTPStatusError,
 )
 
-from app.consts import ResourceType
 from app.error_handling.exceptions import RelatedServicesError
 from app.schemas.solr_response import Collection, RelatedService
 from app.settings import settings
@@ -209,26 +208,3 @@ async def get_related_services_for_guidelines(
         ]
         for guideline_id, pids in guideline_pids
     }
-
-
-async def extend_ig_with_related_services(
-    client: AsyncClient, docs: list[dict]
-) -> list[dict]:
-    """Main function responsible for extending interoperability
-    guideline response with related services data
-    """
-    guideline_docs = [
-        doc for doc in docs if doc.get("type") == ResourceType.GUIDELINE
-    ]
-
-    if not guideline_docs:
-        return docs
-
-    related_services = await get_related_services_for_guidelines(
-        client,
-        [doc["id"] for doc in guideline_docs if doc.get("id")],
-    )
-    for doc in guideline_docs:
-        doc["related_services"] = related_services.get(doc.get("id"), [])
-
-    return docs
