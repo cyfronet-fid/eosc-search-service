@@ -99,6 +99,10 @@ export interface RelatedService {
   logoUrl: string;
 }
 
+export interface IGuidelineRelatedServicesResponse {
+  related_services: Record<string, RelatedService[]>;
+}
+
 export interface ISecondaryTag {
   iconPath?: string;
   label?: string;

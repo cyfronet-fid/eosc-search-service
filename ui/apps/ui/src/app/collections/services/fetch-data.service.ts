@@ -16,6 +16,7 @@ import {
 } from '@angular/common/http';
 import {
   IFacetBucket,
+  IGuidelineRelatedServicesResponse,
   IResult,
   ISearchResults,
   ISolrCollectionParams,
@@ -69,6 +70,7 @@ export class FetchDataService {
   _export_url = `/${environment.backendApiPath}/${environment.search.bibExportPath}`;
   _cite_url = `/${environment.backendApiPath}/${environment.search.bibCitationPath}`;
   _urladv = `/${environment.backendApiPath}/${environment.search.apiPathAdv}`;
+  _guidelineRelatedServicesUrl = `/${environment.backendApiPath}/${environment.search.guidelineRelatedServicesPath}`;
 
   constructor(
     private _http: HttpClient,
@@ -147,6 +149,22 @@ export class FetchDataService {
         highlighting: response.highlighting,
         isError: response.isError,
       }))
+    );
+  }
+
+  fetchGuidelineRelatedServices$(guidelineIds: string[]) {
+    if (!guidelineIds.length) {
+      return of({} as IGuidelineRelatedServicesResponse['related_services']);
+    }
+
+    return this._postShared<IGuidelineRelatedServicesResponse>(
+      this._guidelineRelatedServicesUrl,
+      { guideline_ids: guidelineIds }
+    ).pipe(
+      map((response) => response.related_services),
+      catchError(() =>
+        of({} as IGuidelineRelatedServicesResponse['related_services'])
+      )
     );
   }
 

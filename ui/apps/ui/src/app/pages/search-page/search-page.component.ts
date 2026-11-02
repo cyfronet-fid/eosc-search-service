@@ -34,6 +34,7 @@ import {
   constructStandardSearchMetadata,
 } from '@pages/search-page/utils';
 import { ConfigService } from '../../services/config.service';
+import { PaginationRepository } from '@components/results-with-pagination/pagination.repository';
 
 @UntilDestroy()
 @Component({
@@ -98,6 +99,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
   loadingMessageView = false;
   private readonly SLOW_LOADING_DELAY_MS = 60000;
   private _slowTimerSubscription: Subscription | null = null;
+  private _relatedServicesSubscription: Subscription | null = null;
 
   constructor(
     private _customRoute: CustomRoute,
@@ -107,7 +109,8 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     private _searchMetadataRepository: SearchMetadataRepository,
     private _adaptersRepository: AdaptersRepository,
     private _filterConfigsRepository: FiltersConfigsRepository,
-    private _configService: ConfigService
+    private _configService: ConfigService,
+    private _paginationRepository: PaginationRepository
   ) {}
 
   ngOnInit() {
@@ -135,6 +138,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this.response = null;
           this.loadingMessageView = false;
           this._slowTimerSubscription?.unsubscribe();
+          this._relatedServicesSubscription?.unsubscribe();
 
           const resultsRequest$ = (
             routerParams.standard.toString() === 'true'
@@ -165,6 +169,7 @@ export class SearchPageComponent implements OnInit, OnDestroy {
           this._slowTimerSubscription?.unsubscribe();
           this.response = response;
           this.loadingMessageView = false;
+          this._loadGuidelineRelatedServices(response.results);
         }),
         catchError(() => {
           this._slowTimerSubscription?.unsubscribe();
@@ -178,6 +183,20 @@ export class SearchPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._slowTimerSubscription?.unsubscribe();
+    this._relatedServicesSubscription?.unsubscribe();
+  }
+
+  private _loadGuidelineRelatedServices(results: IResult[]): void {
+    if (this._customRoute.params()['collection'] !== 'guideline') {
+      return;
+    }
+
+    this._relatedServicesSubscription = this._fetchDataService
+      .fetchGuidelineRelatedServices$(results.map(({ id }) => id))
+      .pipe(untilDestroyed(this))
+      .subscribe((relatedServices) => {
+        this._paginationRepository.updateRelatedServices(relatedServices);
+      });
   }
 
   private _fetchStandardResults$(
