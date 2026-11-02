@@ -20,6 +20,7 @@ export interface ITraining {
   usage_counts_views: string;
   usage_counts_downloads: string;
   author_names?: string[];
+  creators?: string;
   author_names_tg: string[];
   catalogue: string;
   resource_organisation?: string;
@@ -29,4 +30,10 @@ export interface ITraining {
   geographical_availabilities?: string[];
   scientific_domains: string[];
   node: string;
+}
+
+export interface ITrainingCreator {
+  name: string;
+  identifiers?: string[];
+  affiliations?: string[];
 }

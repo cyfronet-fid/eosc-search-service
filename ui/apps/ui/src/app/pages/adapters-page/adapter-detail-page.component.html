@@ -155,22 +155,33 @@
           <div class="card-title-icon">
             <img src="assets/icon-creators-black.svg" alt="Contact" />
           </div>
-          <h6 class="card-title">Creator{{ adapter?.creator_names?.length === 1 ? '' : 's' }} </h6>
+          <h6 class="card-title">Creator{{ creatorDetails.length === 1 ? '' : 's' }} </h6>
         </div>
         <div class="card-body">
-
-          <dl>
-            <dt>Name</dt>
-            <dd>{{ creatorNamesString }}</dd>
-          </dl>
-          <dl>
-            <dt *ngIf="adapter?.creator_identifiers">ORCID</dt>
-            <dd>{{ adapter?.creator_identifiers }}</dd>
-          </dl>
-          <dl *ngIf="adapter?.creator_affiliations">
-            <dt>Affiliation</dt>
-            <dd> {{ adapter?.creator_affiliations }}</dd>
-          </dl>
+          <ng-container
+            *ngFor="
+              let creator of creatorDetails;
+              last as isLast
+            "
+          >
+            <dl *ngIf="creator.name">
+              <dt>Name</dt>
+              <dd>{{ creator.name }}</dd>
+            </dl>
+            <dl *ngIf="creator.identifiers?.length">
+              <dt>PID</dt>
+              <dd *ngFor="let identifier of creator.identifiers">
+                {{ identifier }}
+              </dd>
+            </dl>
+            <dl *ngIf="creator.affiliations?.length">
+              <dt>Affiliation</dt>
+              <dd *ngFor="let affiliation of creator.affiliations">
+                {{ affiliation }}
+              </dd>
+            </dl>
+            <hr *ngIf="!isLast" />
+          </ng-container>
         </div>
       </div>
     </div>
