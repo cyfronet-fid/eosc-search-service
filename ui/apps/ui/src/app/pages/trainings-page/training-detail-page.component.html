@@ -144,20 +144,6 @@
                       myTraining.url_type ?? '-' | filterPipe: 'url_type'
                     }}</span>
                   </p>
-                  <p class="section" i18n *ngIf="myTraining.author_names">
-                    Authors<br />
-                    <ng-container
-                      *ngFor="
-                        let author of myTraining.author_names;
-                        let i = index
-                      "
-                    >
-                      <span class="section-description">{{ author }}</span
-                      >{{
-                        i === myTraining.author_names.length - 1 ? '' : ','
-                      }}
-                    </ng-container>
-                  </p>
                   <p class="section mb-2" i18n *ngIf="myTraining.scientific_domains">Scientific Categorisation</p>
                   <div class="category-box">
                     <div class="category-icon ico">
