@@ -216,7 +216,7 @@ docker run --rm \
            --network "<ess-local_network>" \
            -e "DATABASE_URI=<as_for_api_above>" \
            -it $(docker build -q ./backend) \
-           pipenv run alembic upgrade head
+           alembic upgrade head
 ```
 
 ### DB seed
@@ -228,7 +228,7 @@ docker run --rm \
            --network "<ess-local_network>" \
            -e "DATABASE_URI=<as_for_api_above>" \
            -it $(docker build -q ./backend) \
-           pipenv run python -m app.manager db seed-oag-2
+           python -m app.manager db seed-oag-2
 ```
 
 ### Solr seed
