@@ -1,5 +1,7 @@
 """The FastAPI server"""
 
+from contextlib import asynccontextmanager
+
 import sentry_sdk
 from fastapi import FastAPI
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
@@ -15,13 +17,22 @@ if settings.SENTRY_DSN:
     sentry_sdk.init(dsn=settings.SENTRY_DSN)
 
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Run startup and shutdown tasks"""
+    await create_start_app_handler(app)()
+    yield
+    await create_stop_app_handler(app)()
+
+
 def get_app():
-    """Create an application with event handlers and routers"""
+    """Create an application with lifespan handler and routers"""
 
     app = FastAPI(
         title="Search Service",
         description="EOSC Search Service",
         version="1.0.0-alpha1",
+        lifespan=lifespan,
     )
     if settings.SENTRY_DSN:
         app.add_middleware(SentryAsgiMiddleware)
@@ -33,9 +44,6 @@ def get_app():
         allow_headers=["*"],
     )
     app.add_middleware(LogRequestsMiddleware)
-
-    app.add_event_handler("startup", create_start_app_handler(app))
-    app.add_event_handler("shutdown", create_stop_app_handler(app))
 
     app.include_router(router=web_api_router, prefix="/api/web")
     app.include_router(router=generic_router, prefix="/v1")

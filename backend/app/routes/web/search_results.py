@@ -56,7 +56,7 @@ async def search_post(
     sort: list[str] = Query(
         [], description="Solr sort", examples=["description asc", "name desc"]
     ),
-    rows: int = Query(10, description="Row count", gte=3, le=2000),
+    rows: int = Query(10, description="Row count", ge=3, le=2000),
     cursor: str = Query("*", description="Cursor"),
     return_csv: bool = False,
     request: SearchRequest = Body(..., description="Request body"),
@@ -134,7 +134,7 @@ async def search_post_advanced(
     sort: list[str] = Query(
         [], description="Solr sort", examples=["description asc", "name desc"]
     ),
-    rows: int = Query(10, description="Row count", gte=3, le=2000),
+    rows: int = Query(10, description="Row count", ge=3, le=2000),
     cursor: str = Query("*", description="Cursor"),
     return_csv: bool = False,
     request: SearchRequest = Body(..., description="Request body"),

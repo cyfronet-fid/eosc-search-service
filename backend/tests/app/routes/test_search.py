@@ -16,7 +16,7 @@ async def test_post_empty(
 ) -> None:
     res = await client.post(app.url_path_for("apis:post-search"), json={})
 
-    assert res.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert res.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
     mock_post_search.assert_not_called()
 
 

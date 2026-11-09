@@ -30,7 +30,7 @@ async def search_suggestions(
     ),
     exact: str = Query(..., description="Exact match"),
     results_per_collection: int = Query(
-        3, description="Row count per collection", gte=3, lt=10
+        3, description="Row count per collection", ge=3, lt=10
     ),
     search=Depends(search_dep),
 ) -> Dict[str, list[Dict]]:
@@ -71,7 +71,7 @@ async def _search(
         examples=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
     results_per_collection: int = Query(
-        3, description="Row count per collection", gte=3, lt=10
+        3, description="Row count per collection", ge=3, lt=10
     ),
     search=Depends(search_dep),
 ) -> tuple[str, list[Any]]:
