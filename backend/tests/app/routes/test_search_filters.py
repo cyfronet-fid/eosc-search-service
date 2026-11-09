@@ -14,7 +14,7 @@ async def test_post_empty(
 ) -> None:
     res = await client.post(SEARCH_FILTERS_PATH, json={})
 
-    assert res.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert res.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
     mock_post_search_filters.assert_not_called()
 
 
@@ -36,7 +36,7 @@ async def test_post_no_facets(
 
     mock_post_search_filters.assert_not_called()
 
-    assert res.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert res.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
 
 
 @pytest.mark.asyncio
