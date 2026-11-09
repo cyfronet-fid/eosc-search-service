@@ -8,7 +8,6 @@ import pytest
 import stomp
 from fastapi import FastAPI
 from httpx import AsyncClient, Response
-from pytest_lazyfixture import lazy_fixture
 from starlette.status import HTTP_303_SEE_OTHER
 from stomp.utils import Frame
 
@@ -99,12 +98,13 @@ async def test_redirects_does_not_set_cookie_for_authorized_user(
     assert res.headers.get("set-cookie", {}) == {}
 
 
-@pytest.mark.parametrize("client_", (lazy_fixture(("client", "auth_client"))))
+@pytest.mark.parametrize("client_name", ("client", "auth_client"))
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_sends_user_action_after_response(
-    app: FastAPI, client_: AsyncClient
+    app: FastAPI, client_name: str, request: pytest.FixtureRequest
 ):
+    client_: AsyncClient = request.getfixturevalue(client_name)
     conn = stomp.Connection(
         host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)]
     )

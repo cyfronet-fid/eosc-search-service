@@ -16,7 +16,7 @@ async def test_suggestion_empty(
 ) -> None:
     res = await client.post(SEARCH_SUGGESTION_PATH, json={})
 
-    assert res.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert res.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
     mock_post_search.assert_not_called()
 
 
@@ -70,7 +70,7 @@ async def test_suggestions_dispatch_collections(
     [
         ("3", status.HTTP_200_OK),
         ("9", status.HTTP_200_OK),
-        ("10", status.HTTP_422_UNPROCESSABLE_ENTITY),
+        ("10", status.HTTP_422_UNPROCESSABLE_CONTENT),
     ],
 )
 @pytest.mark.asyncio
