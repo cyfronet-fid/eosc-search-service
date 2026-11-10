@@ -25,7 +25,7 @@ async def search_post(
     sort: list[str] = Query(
         [], description="Sort order", examples=["description asc", "name desc"]
     ),
-    rows: int = Query(10, description="Row count", ge=3, le=100),
+    rows: int = Query(10, description="Row count", le=100),
     cursor: str = Query("*", description="Cursor"),
     request: SearchRequest = Body(..., description="Request body"),
     search=Depends(search_dep),
