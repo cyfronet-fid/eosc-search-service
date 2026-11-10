@@ -15,6 +15,9 @@ Always commit the updated `uv.lock`.
 
 > `Pipfile` / `Pipfile.lock` are kept temporarily but are no longer the source of truth.
 
+Unlike pipenv, uv does **not** load `backend/.env` automatically. Pass it explicitly
+(`uv run --env-file .env ...`) or set `export UV_ENV_FILE=.env` in your shell.
+
 ## Database
 
 The DB can be run using docker-compose in the root directory.
@@ -52,13 +55,13 @@ To run in console, ensure you have spun up required services
 (e.g. migrated db, Solr, etc.) and execute:
 
 ```shell
-uv run uvicorn app.main:app
+uv run --env-file .env uvicorn app.main:app
 ```
 
 To reload on changes:
 
 ```shell
-uv run uvicorn app.main:app --reload
+uv run --env-file .env uvicorn app.main:app --reload
 ```
 
 ## Styles
