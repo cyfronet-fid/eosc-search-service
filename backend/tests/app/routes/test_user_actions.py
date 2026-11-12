@@ -98,13 +98,12 @@ async def test_redirects_does_not_set_cookie_for_authorized_user(
     assert res.headers.get("set-cookie", {}) == {}
 
 
-@pytest.mark.parametrize("client_name", ("client", "auth_client"))
 @pytest.mark.integration
 @pytest.mark.asyncio
 async def test_sends_user_action_after_response(
-    app: FastAPI, client_name: str, request: pytest.FixtureRequest
+    app: FastAPI, any_client: AsyncClient
 ):
-    client_: AsyncClient = request.getfixturevalue(client_name)
+    client_ = any_client
     conn = stomp.Connection(
         host_and_ports=[(settings.STOMP_HOST, settings.STOMP_PORT)]
     )
