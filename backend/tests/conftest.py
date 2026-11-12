@@ -92,3 +92,9 @@ def db(managed_app) -> Session:
     """Extract Session from app state"""
     # pylint: disable=protected-access
     return managed_app.state._db
+
+
+@pytest.fixture(params=["client", "auth_client"])
+def any_client(request: pytest.FixtureRequest) -> AsyncClient:
+    """Anonymous or authenticated client, resolved during test setup"""
+    return request.getfixturevalue(request.param)
