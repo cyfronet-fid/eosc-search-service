@@ -6,27 +6,26 @@ jobs:
   backend:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v5
+    - uses: actions/checkout@v4
+    - uses: astral-sh/setup-uv@v6
       with:
-        python-version: '3.10.9'
-        cache: 'pipenv'
-        cache-dependency-path: backend/Pipfile.lock
-    - name: Install pipenv
-      run: pipx install pipenv --python python3.10
+        version: '0.11.32'
+        python-version: '3.14.3'
+        enable-cache: true
+        cache-dependency-glob: backend/uv.lock
     - name: Install dependencies
-      run: pipenv sync --dev
+      run: uv sync --locked --dev
       working-directory: ./backend
     - name: Check with black
       run: |
-        pipenv run black --version
-        pipenv run black --check alembic app tests
+        uv run black --version
+        uv run black --check alembic app tests
       working-directory: ./backend
     - name: Check with isort
       run: |
-        pipenv run isort . --check --diff
+        uv run isort . --check --diff
       working-directory: ./backend
     - name: Lint with pylint
       run: |
-        pipenv run pylint app tests
+        uv run pylint app tests
       working-directory: ./backend

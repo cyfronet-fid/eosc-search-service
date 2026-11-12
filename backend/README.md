@@ -13,8 +13,6 @@ To create `.venv` and install all dependencies (incl. the `dev` group): `uv sync
 To add / upgrade a dependency: `uv add <package>` / `uv lock --upgrade-package <package>`.
 Always commit the updated `uv.lock`.
 
-> `Pipfile` / `Pipfile.lock` are kept temporarily but are no longer the source of truth.
-
 Unlike pipenv, uv does **not** load `backend/.env` automatically. Pass it explicitly
 (`uv run --env-file .env ...`) or set `export UV_ENV_FILE=.env` in your shell.
 

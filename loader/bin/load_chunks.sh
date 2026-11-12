@@ -99,9 +99,9 @@ for chunk_name; do
   # process data
   echo "pushd transform"
   pushd ../transform
-  echo "pipenv run python transform/v3/tsv_to_jsonl.py ../loader/$work_dir/stage-0/$chunk_name > ../loader/$work_dir/stage-1/$chunk_name.jsonl"
+  echo "uv run python transform/v3/tsv_to_jsonl.py ../loader/$work_dir/stage-0/$chunk_name > ../loader/$work_dir/stage-1/$chunk_name.jsonl"
   if [[ -z "$dry_run" ]]; then
-    pipenv run python transform/v3/tsv_to_jsonl.py ../loader/$work_dir/stage-0/$chunk_name > ../loader/$work_dir/stage-1/$chunk_name.jsonl
+    uv run python transform/v3/tsv_to_jsonl.py ../loader/$work_dir/stage-0/$chunk_name > ../loader/$work_dir/stage-1/$chunk_name.jsonl
   fi
   echo "popd"
   popd
