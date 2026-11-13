@@ -6,21 +6,20 @@ jobs:
   backend:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Start containers
       run: docker compose -f dc-test.yml up -d db_test
-    - uses: actions/setup-python@v5
+    - uses: astral-sh/setup-uv@v6
       with:
-        python-version: '3.10.9'
-        cache: 'pipenv'
-        cache-dependency-path: backend/Pipfile.lock
-    - name: Install pipenv
-      run: pipx install pipenv --python python3.10
+        version: '0.11.32'
+        python-version: '3.14.3'
+        enable-cache: true
+        cache-dependency-glob: backend/uv.lock
     - name: Install dependencies
-      run: pipenv sync --dev
+      run: uv sync --locked --dev
       working-directory: ./backend
     - name: Run tests
-      run: ENVIRONMENT=test pipenv run pytest -m "not integration"
+      run: ENVIRONMENT=test uv run pytest -m "not integration"
       working-directory: ./backend
       env:
         TESTING: 1
@@ -33,23 +32,22 @@ jobs:
   backend-integration:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Start containers
       run: docker compose -f dc-test.yml up -d
-    - uses: actions/setup-python@v5
+    - uses: astral-sh/setup-uv@v6
       with:
-        python-version: '3.10.9'
-        cache: 'pipenv'
-        cache-dependency-path: backend/Pipfile.lock
-    - name: Install pipenv
-      run: pipx install pipenv --python python3.10
+        version: '0.11.32'
+        python-version: '3.14.3'
+        enable-cache: true
+        cache-dependency-glob: backend/uv.lock
     - name: Install dependencies
-      run: pipenv sync --dev
+      run: uv sync --locked --dev
       working-directory: ./backend
     - name: Wait for SOLR
       run: timeout 500 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:8993/solr/)" != "200" ]]; do sleep 5; done' || false
     - name: Run tests
-      run: ENVIRONMENT=test pipenv run pytest -m "integration"
+      run: ENVIRONMENT=test uv run pytest -m "integration"
       working-directory: ./backend
       env:
         TESTING: 1

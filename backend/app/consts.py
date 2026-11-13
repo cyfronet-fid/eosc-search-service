@@ -1,10 +1,10 @@
 """Common routes constants"""
 
-from enum import Enum
+from enum import StrEnum
 from typing import Literal, TypeAlias
 
 
-class ResourceType(str, Enum):
+class ResourceType(StrEnum):
     """Resource type as the value of solr document `type` key"""
 
     PUBLICATION = "publication"
@@ -23,7 +23,7 @@ class ResourceType(str, Enum):
     DEPLOYABLE_SERVICE = "deployable service"
 
 
-class Collection(str, Enum):
+class Collection(StrEnum):
     """Collection names in Solr"""
 
     ALL_COLLECTION = "all_collection"
@@ -79,7 +79,7 @@ ResearchProductType: TypeAlias = Literal[
 ]
 
 
-class PanelId(str, Enum):
+class PanelId(StrEnum):
     """Recommender collection names"""
 
     ALL = "all"

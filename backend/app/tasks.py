@@ -26,8 +26,7 @@ def connect_to_db(app: FastAPI, session_local: sessionmaker) -> None:
     try:
         # pylint: disable=protected-access
         app.state._db = session_local()
-    # pylint: disable=broad-except
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-exception-caught
         logger.warning("--- DB CONNECTION ERROR ---")
         logger.warning(e)
         logger.warning("--- DB CONNECTION ERROR ---")
@@ -38,8 +37,7 @@ def close_db_connection(app: FastAPI) -> None:
     try:
         # pylint: disable=protected-access
         app.state._db.close()
-    # pylint: disable=broad-except
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-exception-caught
         logger.warning("--- DB DISCONNECT ERROR ---")
         logger.warning(e)
         logger.warning("--- DB DISCONNECT ERROR ---")
