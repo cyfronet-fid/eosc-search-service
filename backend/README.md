@@ -13,8 +13,9 @@ To create `.venv` and install all dependencies (incl. the `dev` group): `uv sync
 To add / upgrade a dependency: `uv add <package>` / `uv lock --upgrade-package <package>`.
 Always commit the updated `uv.lock`.
 
-Unlike pipenv, uv does **not** load `backend/.env` automatically. Pass it explicitly
-(`uv run --env-file .env ...`) or set `export UV_ENV_FILE=.env` in your shell.
+Configuration is read from the root `.env` file (based on `.env.template`).
+If you keep a `backend/.env` file, pass it with `uv run --env-file .env ...`
+or set `UV_ENV_FILE=.env`.
 
 ## Database
 
@@ -53,13 +54,13 @@ To run in console, ensure you have spun up required services
 (e.g. migrated db, Solr, etc.) and execute:
 
 ```shell
-uv run --env-file .env uvicorn app.main:app
+uv run uvicorn app.main:app
 ```
 
 To reload on changes:
 
 ```shell
-uv run --env-file .env uvicorn app.main:app --reload
+uv run uvicorn app.main:app --reload
 ```
 
 ## Styles
