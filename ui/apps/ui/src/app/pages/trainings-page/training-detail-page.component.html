@@ -141,7 +141,7 @@
                   </p>
                   <p class="section" i18n *ngIf="myTraining.url_type">
                     Resource URL type<br /><span class="section-description">{{
-                      myTraining.url_type ?? '-' | filterPipe: 'url_type'
+                      myTraining.url_type | filterPipe: 'url_type'
                     }}</span>
                   </p>
                   <p class="section mb-2" i18n *ngIf="myTraining.scientific_domains">Scientific Categorisation</p>
