@@ -11,6 +11,7 @@
   - [Solr schema](#solr-schema)
   - [Solr collection seeding](#solr-collection-seeding)
 - [Running Recommender System locally](#running-recommender-system-locally)
+- [Running Matomo locally](#running-matomo-locally)
 - [Deployment](#deployment)
   - [API env variables](#api-env-variables)
     - [General](#general)
@@ -20,6 +21,7 @@
       - [Recommender System](#recommender-system)
       - [STOMP](#stomp)
       - [OIDC](#oidc)
+      - [Matomo](#matomo)
       - [Other](#other)
     - [Redirections](#redirections)
   - [DB env variables](#db-envs)
@@ -130,6 +132,35 @@ Then, run the image:
 docker run -p 9080:80 omae:0.0.1
 ```
 
+## Running Matomo locally
+
+When the backend has [Matomo](#matomo) switched on, the UI sends Matomo a page
+view per page, a site search per search and a `ClickThrough` event per result
+opened, without cookies. To see them on your machine:
+
+1. Start the local Matomo of the Marketplace, `docker-compose-matomo.yml` in
+   [cyfronet-fid/marketplace](https://github.com/cyfronet-fid/marketplace)
+   (it arrives on `development` with cyfronet-fid/marketplace#3848):
+
+   ```shell
+   docker compose -f docker-compose-matomo.yml up -d
+   ```
+
+   Matomo runs on http://localhost:8080. Finish its installer on the first run.
+2. In Matomo, add a second website for the UI dev server, `https://localhost:4200`
+   (Administration → Websites → Manage → Add a new website), and note its ID.
+   The first website is the Marketplace's.
+3. Set the three variables in `<root>/.env` and restart the backend:
+
+   ```
+   MATOMO_ENABLED=true
+   MATOMO_URL=http://localhost:8080/
+   MATOMO_SITE_ID=<the ID of the new website>
+   ```
+
+4. Open the UI, search, open a result, and look at Visitors → Visits Log in
+   Matomo. Other reports show up once the archiver has run (every 5 minutes).
+
 ## Deployment
 
 There are to be two machines:
@@ -180,6 +211,12 @@ See docker-compose.yml for components.
 
 ##### Sentry
 - `SENTRY_DSN`: endpoint for Sentry logged errors. For development leave this variable unset.
+
+##### Matomo
+The UI reads these from `/api/web/config` at runtime, so one UI image serves every Node. The backend never calls Matomo and holds no Matomo token.
+- `MATOMO_ENABLED`: `bool = False` - send page views, site searches and click-throughs to Matomo? The backend refuses to start when it is `true` and `MATOMO_URL` or `MATOMO_SITE_ID` is missing.
+- `MATOMO_URL`: `Url = None` - the Node's Matomo, e.g. `https://matomo.example.org/`. A trailing `/` is added when missing.
+- `MATOMO_SITE_ID`: `int = None` - the ID of the Discovery Hub's site in that Matomo, separate from the Marketplace's site. There is no default, so a Node's traffic can't land in another Node's site.
 
 ##### Other
 - `RELATED_SERVICES_ENDPOINT`: `Url = "https://providers.sandbox.eosc-beyond.eu/api/public/interoperabilityRecord/relatedResources"` - base URL to get related services for interoperability guidelines.

@@ -20,6 +20,7 @@ export const deployableServiceAdapter: IAdapter = {
   ): IResult => ({
     isResearchProduct: false,
     id: deployableService.id,
+    pid: deployableService.pid,
     title: deployableService?.title?.join(' ') || '',
     description: deployableService?.description?.join(' ') || '',
     catalogue: deployableService?.catalogues,

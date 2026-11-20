@@ -5,7 +5,13 @@ import logging
 from typing import Annotated, Literal, Optional
 from urllib.parse import urljoin, urlparse
 
-from pydantic import BeforeValidator, HttpUrl, PostgresDsn, TypeAdapter
+from pydantic import (
+    BeforeValidator,
+    HttpUrl,
+    PostgresDsn,
+    TypeAdapter,
+    model_validator,
+)
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # In pydantic v2 http annotations are not strings themselves
@@ -16,6 +22,18 @@ Url = Annotated[
     BeforeValidator(
         lambda value: str(TypeAdapter(HttpUrl).validate_python(value))
     ),
+]
+
+
+def _absolute_url_with_trailing_slash(value: str) -> str:
+    url = str(TypeAdapter(HttpUrl).validate_python(value))
+    return url if url.endswith("/") else url + "/"
+
+
+# An absolute http(s) URL that always ends with "/", so that relative
+# paths can be appended to it
+UrlWithTrailingSlash = Annotated[
+    str, BeforeValidator(_absolute_url_with_trailing_slash)
 ]
 EnvironmentType = Literal["dev", "test", "production"]
 
@@ -79,6 +97,11 @@ class GlobalSettings(BaseSettings):
     # - Sentry
     SENTRY_DSN: Optional[str] = None
 
+    # - Matomo (browser-side tracking only, the backend never calls Matomo)
+    MATOMO_ENABLED: bool = False
+    MATOMO_URL: Optional[UrlWithTrailingSlash] = None
+    MATOMO_SITE_ID: Optional[int] = None
+
     # - Other
     RELATED_SERVICES_ENDPOINT: Url = (
         "https://providers.sandbox.eosc-beyond.eu/api/public/interoperabilityRecord/relatedResources"
@@ -98,6 +121,22 @@ class GlobalSettings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file="../.env", env_file_encoding="utf-8"
     )
+
+    @model_validator(mode="after")
+    def _require_matomo_target_when_enabled(self) -> "GlobalSettings":
+        if self.MATOMO_ENABLED:
+            missing = [
+                name
+                for name in ("MATOMO_URL", "MATOMO_SITE_ID")
+                if getattr(self, name) is None
+            ]
+            if missing:
+                raise ValueError(
+                    "MATOMO_ENABLED is true, but these are not set: "
+                    f"{', '.join(missing)}. Set them, or set "
+                    "MATOMO_ENABLED=false."
+                )
+        return self
 
 
 class DevSettings(GlobalSettings):

@@ -19,7 +19,8 @@ export class RedirectService {
     id: string,
     type: string,
     offerId: string,
-    recommendation: boolean = false
+    recommendation: boolean = false,
+    eventName: string = ''
   ): string | null {
     if (externalUrl === null) {
       return null;
@@ -35,7 +36,7 @@ export class RedirectService {
 
     const destinationUrl = `${environment.backendApiPath}/${environment.navigationApiPath}`;
 
-    const queryParams = {
+    const queryParams: Record<string, string> = {
       url: encodeURIComponent(externalUrl),
       collection: this._customRoute.collection() ?? '',
       resource_id: id,
@@ -45,6 +46,11 @@ export class RedirectService {
       return_path: encodedPv,
       search_params: originalQueryParams,
     };
+    // Only read in the browser, to name the Matomo click-through event.
+    // The backend ignores it.
+    if (eventName !== '') {
+      queryParams['event_name'] = eventName;
+    }
 
     const encodedQueryParams = new URLSearchParams(queryParams);
     return offerId === ''

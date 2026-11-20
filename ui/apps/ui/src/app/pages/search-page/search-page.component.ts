@@ -35,6 +35,7 @@ import {
 } from '@pages/search-page/utils';
 import { ConfigService } from '../../services/config.service';
 import { PaginationRepository } from '@components/results-with-pagination/pagination.repository';
+import { MatomoService } from '../../matomo/matomo.service';
 
 @UntilDestroy()
 @Component({
@@ -110,7 +111,8 @@ export class SearchPageComponent implements OnInit, OnDestroy {
     private _adaptersRepository: AdaptersRepository,
     private _filterConfigsRepository: FiltersConfigsRepository,
     private _configService: ConfigService,
-    private _paginationRepository: PaginationRepository
+    private _paginationRepository: PaginationRepository,
+    private _matomoService: MatomoService
   ) {}
 
   ngOnInit() {
@@ -163,7 +165,11 @@ export class SearchPageComponent implements OnInit, OnDestroy {
               fq,
               collection as string
             ),
-          });
+          }).pipe(
+            tap(({ response }) =>
+              this._matomoService.trackSearch(routerParams, response)
+            )
+          );
         }),
         tap(({ response }) => {
           this._slowTimerSubscription?.unsubscribe();

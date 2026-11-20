@@ -16,6 +16,7 @@ import { CustomRoute } from '@collections/services/custom-route.service';
 import { paramType } from '@collections/services/custom-route.type';
 import { Router } from '@angular/router';
 import { SPECIAL_COLLECTIONS } from '@collections/data/config';
+import { clickThroughName } from '../../matomo/click-through';
 
 @UntilDestroy()
 @Component({
@@ -85,6 +86,7 @@ export class ResultsWithPaginationComponent implements OnInit {
   isLoading$ = this._paginationService.isLoading$;
   paginationData$ = this._paginationService.paginationData$;
   range = range;
+  readonly clickThroughName = clickThroughName;
   trackByResultId: TrackByFunction<IResult> = (
     index: number,
     entity: IResult

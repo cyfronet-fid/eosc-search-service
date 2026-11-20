@@ -19,6 +19,7 @@ export const providersAdapter: IAdapter = {
   adapter: (provider: Partial<IProvider> & { id: string }): IResult => ({
     isResearchProduct: false,
     id: provider.id,
+    pid: provider.pid,
     title: provider['title'] ? provider['title'].toString() : '',
     abbreviation: provider['abbreviation']
       ? provider['abbreviation'].toString()

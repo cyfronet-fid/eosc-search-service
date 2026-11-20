@@ -89,7 +89,8 @@ describe('SearchPageComponent', () => {
       } as never,
       {} as never,
       configService as never,
-      paginationRepository as never
+      paginationRepository as never,
+      { trackSearch: jest.fn() } as never
     );
 
     return {

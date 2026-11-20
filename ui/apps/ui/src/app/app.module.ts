@@ -15,14 +15,11 @@ import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { MainHeaderModule } from '@components/main-header/main-header.module';
 import { UserProfileService } from './auth/user-profile.service';
-import {
-  NgxGoogleAnalyticsModule,
-  NgxGoogleAnalyticsRouterModule,
-} from 'ngx-google-analytics';
-import { environment } from '@environment/environment';
 import { ConfigService } from './services/config.service';
+import { MatomoService, provideMatomoTracking } from './matomo/matomo.service';
 import { WINDOW } from './app.providers';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { tap } from 'rxjs';
 
 registerLocaleData(en);
 
@@ -32,13 +29,16 @@ export const getUserProfileFactory$ = (
   return () => userProfileService.get$();
 };
 
-export const getConfigFactory$ = (configBootstrapService: ConfigService) => {
-  return () => configBootstrapService.load$();
+export const getConfigFactory$ = (
+  configBootstrapService: ConfigService,
+  matomoService: MatomoService
+) => {
+  return () =>
+    configBootstrapService.load$().pipe(
+      // Matomo settings come from /config, so one image serves every Node
+      tap(() => matomoService.start(configBootstrapService.get()))
+    );
 };
-
-const googleAnalyticsId = (
-  environment as unknown as { googleAnalyticsId: string }
-)['googleAnalyticsId'];
 
 @NgModule({
   declarations: [AppComponent],
@@ -49,18 +49,12 @@ const googleAnalyticsId = (
     AppRoutingModule,
     MainHeaderModule,
     NgbModule,
-
-    ...(googleAnalyticsId == null
-      ? []
-      : [
-          NgxGoogleAnalyticsModule.forRoot(googleAnalyticsId),
-          NgxGoogleAnalyticsRouterModule,
-        ]),
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: WINDOW, useValue: window },
+    provideMatomoTracking(),
     {
       provide: APP_INITIALIZER,
       useFactory: getUserProfileFactory$,
@@ -71,7 +65,7 @@ const googleAnalyticsId = (
       provide: APP_INITIALIZER,
       useFactory: getConfigFactory$,
       multi: true,
-      deps: [ConfigService],
+      deps: [ConfigService, MatomoService],
     },
   ],
   bootstrap: [AppComponent],
