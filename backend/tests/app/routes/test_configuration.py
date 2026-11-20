@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from httpx import AsyncClient
 from starlette.status import HTTP_200_OK
 
+from app.settings import settings
+
 
 @pytest.mark.asyncio
 async def test_return_backend_config(
@@ -28,4 +30,34 @@ async def test_return_backend_config(
             "https://providers.sandbox.eosc-beyond.eu/api/public/"
             "interoperabilityRecord/relatedResources"
         ),
+        "matomo_url": None,
+        "matomo_site_id": None,
     }
+
+
+@pytest.mark.asyncio
+async def test_config_has_no_matomo_target_when_matomo_is_off(
+    app: FastAPI, client: AsyncClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(settings, "MATOMO_ENABLED", False)
+    monkeypatch.setattr(settings, "MATOMO_URL", "https://matomo.example.org/")
+    monkeypatch.setattr(settings, "MATOMO_SITE_ID", 7)
+
+    response = await client.get(app.url_path_for("web:configuration"))
+
+    assert response.json()["matomo_url"] is None
+    assert response.json()["matomo_site_id"] is None
+
+
+@pytest.mark.asyncio
+async def test_config_has_matomo_target_when_matomo_is_on(
+    app: FastAPI, client: AsyncClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(settings, "MATOMO_ENABLED", True)
+    monkeypatch.setattr(settings, "MATOMO_URL", "https://matomo.example.org/")
+    monkeypatch.setattr(settings, "MATOMO_SITE_ID", 7)
+
+    response = await client.get(app.url_path_for("web:configuration"))
+
+    assert response.json()["matomo_url"] == "https://matomo.example.org/"
+    assert response.json()["matomo_site_id"] == 7

@@ -18,6 +18,9 @@ export interface BackendConfig {
   show_knowledge_base: boolean;
   user_documentation_url: string;
   related_services_endpoint: string;
+  // Both are null unless the Node has switched Matomo on
+  matomo_url?: string | null;
+  matomo_site_id?: number | null;
 }
 
 @Injectable({

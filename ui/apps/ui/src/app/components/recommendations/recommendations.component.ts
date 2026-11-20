@@ -17,6 +17,7 @@ import {
 } from '@collections/data/config';
 import { UserProfileService } from '../../auth/user-profile.service';
 import { NO_RECOMMENDATIONS_COLLECTIONS } from '@collections/data/config';
+import { clickThroughName } from '../../matomo/click-through';
 
 @UntilDestroy()
 @Component({
@@ -26,6 +27,7 @@ import { NO_RECOMMENDATIONS_COLLECTIONS } from '@collections/data/config';
 })
 export class RecommendationsComponent implements OnInit {
   recommendations: IResult[] = [];
+  readonly clickThroughName = clickThroughName;
   highlightsreal: { [field: string]: string[] | undefined } = {};
   tooltipText: string = RECOMMENDATIONS_TOOLTIP_TEXT_LOGGED;
   tooltipTextN: string = RECOMMENDATIONS_TOOLTIP_TEXT_NOTLOGGED;

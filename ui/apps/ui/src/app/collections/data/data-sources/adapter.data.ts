@@ -19,6 +19,7 @@ export const dataSourcesAdapter: IAdapter = {
   adapter: (dataSource: Partial<IDataSource> & { id: string }): IResult => ({
     isResearchProduct: false,
     id: dataSource.id,
+    pid: dataSource.pid,
     // basic information
     title: dataSource.title?.join(' ') || '',
     description: dataSource.description?.join(' ') || '',
