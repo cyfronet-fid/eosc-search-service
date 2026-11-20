@@ -113,7 +113,9 @@ class UserActionClient:
         user_action = {
             "unique_id": session_uuid,
             "client_id": "search_service",
-            "timestamp": datetime.datetime.utcnow().isoformat(),
+            "timestamp": datetime.datetime.now(datetime.UTC)
+            .replace(tzinfo=None)
+            .isoformat(),
             "source": {
                 "visit_id": visit_id,
                 # "search/data", "search/publications", "search/software",

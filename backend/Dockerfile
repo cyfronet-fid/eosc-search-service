@@ -1,4 +1,6 @@
-FROM python:3.10
+FROM python:3.14
+
+COPY --from=ghcr.io/astral-sh/uv:0.11.32 /uv /uvx /bin/
 
 WORKDIR /app
 
@@ -6,6 +8,13 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE 1
 # Don't buffer stdout and stderr
 ENV PYTHONUNBUFFERED 1
+# uv: copy packages instead of hardlinking (cache is a separate mount),
+# never download a different interpreter, use the image's python
+ENV UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_COMPILE_BYTECODE=0
+# Make the project venv the default environment (e.g. for docker-compose `command: uvicorn ...`)
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Update system packages and refresh CA certificates (fixes stale/expired
 # root CAs that can cause slow/failing TLS handshakes on pip/apt installs)
@@ -15,13 +24,13 @@ RUN apt-get update \
     && update-ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-COPY Pipfile Pipfile.lock /app/
+COPY pyproject.toml uv.lock /app/
 
-RUN pip install --upgrade pip pipenv
-RUN pipenv install --ignore-pipfile --system
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev --no-install-project
 
 COPY alembic alembic
 COPY alembic.ini .
 COPY app app
 
-CMD pipenv run uvicorn --host 0.0.0.0 --port 8000 app.main:app
+CMD ["uvicorn", "--host", "0.0.0.0", "--port", "8000", "app.main:app"]

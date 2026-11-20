@@ -45,7 +45,7 @@
                 >
                   <div *ngIf="interoperabilityGuidelineItem?.alternative_ids" class="doi">DOI: {{ interoperabilityGuidelineItem?.alternative_ids }}</div>
                   <div *ngIf="interoperabilityGuidelineItem?.publication_date" [class.mx-4]="interoperabilityGuidelineItem?.alternative_ids ">Published: {{
-                      guideline?.publication_date
+                      guideline.publication_date
                     }}</div>
                 </ng-container>
               </div>
@@ -66,7 +66,7 @@
               <dl class="mb-1 d-flex">
                 <dt>Organisation:</dt>
                 <dd>
-                  <a href="{{ marketplaceUrl + '/providers/' + guideline?.providerId }}">{{
+                  <a href="{{ marketplaceUrl + '/providers/' + guideline.providerId }}">{{
                   this.interoperabilityGuidelineItem?.providers ?? ''
                     }}</a>
                 </dd>
