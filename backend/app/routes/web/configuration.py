@@ -30,5 +30,9 @@ async def config():
         show_knowledge_base=settings.SHOW_KNOWLEDGE_BASE,
         user_documentation_url=settings.USER_DOCUMENTATION_URL,
         related_services_endpoint=settings.RELATED_SERVICES_ENDPOINT,
+        matomo_url=settings.MATOMO_URL if settings.MATOMO_ENABLED else None,
+        matomo_site_id=(
+            settings.MATOMO_SITE_ID if settings.MATOMO_ENABLED else None
+        ),
         sentry=SentryConfigurationResponse.from_context(sentry_context),
     )

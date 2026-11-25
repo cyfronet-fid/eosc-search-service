@@ -114,6 +114,9 @@ export const allCollectionsAdapter: IAdapter = {
   ): IResult => ({
     isResearchProduct: setIsResearchProduct(data),
     id: data.id,
+    pid: data.pid,
+    serviceId: data.service_id,
+    iid: data.iid?.[0],
     title: data?.title?.join(' ') || '',
     description: data?.description?.join(' ') || '',
     documentType: data?.document_type,

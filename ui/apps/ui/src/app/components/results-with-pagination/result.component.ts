@@ -43,6 +43,7 @@ export class ResultComponent implements OnInit {
   logoLoadFailed = false;
 
   @Input() id!: string;
+  @Input() clickThroughName = '';
   @Input() date?: string;
   @Input() pid?: string = '';
   @Input() urls: string[] = [];
@@ -98,14 +99,18 @@ export class ResultComponent implements OnInit {
         this.type.value,
         this.offers[0]?.main_offer_id
           ? '#offer-' + this.offers[0].main_offer_id.toString().substring(2)
-          : ''
+          : '',
+        false,
+        this.clickThroughName
       );
     }
     return this.redirectService.internalUrl(
       this.url,
       this.id,
       this.type.value,
-      ''
+      '',
+      false,
+      this.clickThroughName
     );
   }
 
@@ -120,14 +125,18 @@ export class ResultComponent implements OnInit {
         this.type.value,
         this.offers[0]?.main_offer_id
           ? '#offer-' + this.offers[0].main_offer_id.toString().substring(2)
-          : ''
+          : '',
+        false,
+        this.clickThroughName
       );
     }
     return this.redirectService.internalUrl(
       this.orderUrl,
       this.id,
       this.type.value,
-      ''
+      '',
+      false,
+      this.clickThroughName
     );
   }
 

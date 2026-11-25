@@ -48,7 +48,7 @@
     "lodash-es": "^4.17.21",
     "moment": "^2.29.4",
     "ng-zorro-antd": "^17.0.1",
-    "ngx-google-analytics": "^14.0.1",
+    "ngx-matomo-client": "6.4.1",
     "ngx-sharebuttons": "^13.0.0",
     "object-hash": "^3.0.0",
     "rxjs": "~7.4.0",

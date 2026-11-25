@@ -46,4 +46,7 @@ class ConfigurationResponse(BaseModel):
     show_knowledge_base: bool
     user_documentation_url: Url
     related_services_endpoint: Url
+    # Both are None unless Matomo is enabled
+    matomo_url: Optional[Url] = None
+    matomo_site_id: Optional[int] = None
     sentry: Optional[SentryConfigurationResponse] = None

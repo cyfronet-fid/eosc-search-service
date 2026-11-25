@@ -33,6 +33,8 @@ export const bundlesAdapter: IAdapter = {
   ): IResult & { offers: IOffer[] } => ({
     isResearchProduct: false,
     id: uuidv4(),
+    serviceId: bundle.service_id,
+    iid: bundle.iid?.[0],
     title: bundle['title']?.join(' ') || '',
     description: bundle['description']?.join(' ') || '',
     type: {
