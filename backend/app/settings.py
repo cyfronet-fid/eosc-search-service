@@ -10,8 +10,10 @@ from pydantic import (
     HttpUrl,
     PostgresDsn,
     TypeAdapter,
+    field_validator,
     model_validator,
 )
+from pydantic_core import PydanticUseDefault
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # In pydantic v2 http annotations are not strings themselves
@@ -121,6 +123,17 @@ class GlobalSettings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file="../.env", env_file_encoding="utf-8"
     )
+
+    @field_validator(
+        "MATOMO_ENABLED", "MATOMO_URL", "MATOMO_SITE_ID", mode="before"
+    )
+    @classmethod
+    def _empty_matomo_setting_is_not_set(cls, value):
+        # Deployment templates may pass a variable that isn't set as "",
+        # which must not stop the backend, so "" means the default
+        if value == "":
+            raise PydanticUseDefault()
+        return value
 
     @model_validator(mode="after")
     def _require_matomo_target_when_enabled(self) -> "GlobalSettings":
