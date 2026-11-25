@@ -97,7 +97,14 @@ class GlobalSettings(BaseSettings):
     OIDC_JWKS_ENDPOINT: str = "/oidc/jwk"
 
     # - Sentry
+    # All hubs and all instances use the DSN of one Sentry project. The tags
+    # `variant` (SENTRY_VARIANT: `ess` or `dh`), `instance` (host of
+    # UI_BASE_URL) and `component` tell the events apart.
     SENTRY_DSN: Optional[str] = None
+    SENTRY_ENVIRONMENT: Optional[str] = None
+    SENTRY_RELEASE: Optional[str] = None
+    SENTRY_VARIANT: Literal["ess", "dh"] = "ess"
+    SENTRY_TRACES_SAMPLE_RATE: float = 0.01
 
     # - Matomo (browser-side tracking only, the backend never calls Matomo)
     MATOMO_ENABLED: bool = False

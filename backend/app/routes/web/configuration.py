@@ -3,7 +3,11 @@
 
 from fastapi import APIRouter
 
-from app.schemas.configuration_response import ConfigurationResponse
+from app.schemas.configuration_response import (
+    ConfigurationResponse,
+    SentryConfigurationResponse,
+)
+from app.sentry import sentry_context
 from app.settings import settings
 
 router = APIRouter()
@@ -30,4 +34,5 @@ async def config():
         matomo_site_id=(
             settings.MATOMO_SITE_ID if settings.MATOMO_ENABLED else None
         ),
+        sentry=SentryConfigurationResponse.from_context(sentry_context),
     )

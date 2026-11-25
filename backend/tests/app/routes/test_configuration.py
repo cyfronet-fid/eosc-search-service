@@ -32,6 +32,32 @@ async def test_return_backend_config(
         ),
         "matomo_url": None,
         "matomo_site_id": None,
+        "sentry": None,
+    }
+
+
+@pytest.mark.asyncio
+async def test_return_sentry_config_when_sentry_is_on(
+    app: FastAPI, client: AsyncClient, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(settings, "SENTRY_DSN", "https://key@sentry.test/1")
+    monkeypatch.setattr(settings, "SENTRY_ENVIRONMENT", "staging")
+    monkeypatch.setattr(settings, "SENTRY_RELEASE", "abc123")
+    monkeypatch.setattr(settings, "SENTRY_VARIANT", "dh")
+    monkeypatch.setattr(settings, "UI_BASE_URL", "https://search.test/")
+
+    response = await client.get(app.url_path_for("web:configuration"))
+
+    assert response.status_code == HTTP_200_OK
+    assert response.json()["sentry"] == {
+        "dsn": "https://key@sentry.test/1",
+        "environment": "staging",
+        "release": "abc123",
+        "tags": {
+            "variant": "dh",
+            "instance": "search.test",
+            "component": "ui",
+        },
     }
 
 
