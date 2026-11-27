@@ -72,13 +72,13 @@
 
               <ul class="list-unstyled small mb-0">
                 <li class="mt-2"><strong>Version</strong></li>
-                <li>{{ adapter?.version }}</li>
+                <li>{{ adapter.version }}</li>
                 <li class="mt-2"><strong>Last update</strong></li>
-                <li>{{ adapter?.date }}</li>
+                <li>{{ adapter.date }}</li>
                 <li *ngFor="let change of adapter?.changelog" class="mt-2"><strong>Change Log</strong></li>
                 <li *ngFor="let change of adapter?.changelog"><a href="{{ change }}">{{ change }}</a></li>
                 <li class="mt-2"><strong>Programming language</strong></li>
-                <li>{{ adapter?.programmingLanguage }}</li>
+                <li>{{ adapter.programmingLanguage }}</li>
               </ul>
             </div>
           </div>
@@ -96,9 +96,9 @@
 
               <ul class="list-unstyled small mb-0">
                 <li><strong>License name</strong></li>
-                <li>{{ adapter?.license }}</li>
+                <li>{{ adapter.license }}</li>
                 <li *ngIf="adapter?.catalogue" class="mt-2"><strong>Catalogue</strong></li>
-                <li *ngIf="adapter?.catalogue">{{ adapter?.catalogue }}</li>
+                <li *ngIf="adapter?.catalogue">{{ adapter.catalogue }}</li>
               </ul>
             </div>
           </div>

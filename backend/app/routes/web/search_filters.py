@@ -30,7 +30,7 @@ async def search_filters(
         description="Filter query",
         examples=["journal:Geonomos", 'journal:"Solar Energy"'],
     ),
-    rows: int = Query(10, description="Row count", gte=3, le=100),
+    rows: int = Query(10, description="Row count", le=100),
     cursor: str = Query("*", description="Cursor"),
     exact: str = Query(..., description="Exact match"),
     request: SearchRequest = Body(..., description="Request body"),
