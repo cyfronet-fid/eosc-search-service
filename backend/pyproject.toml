@@ -40,6 +40,9 @@ profile = "black"
 src_paths = ["alembic", "app", "tests"]
 skip_gitignore = true
 
+[tool.pylint.main]
+ignore = [".venv"]
+
 [tool.pylint.'messages control']
 enable=["useless-suppression"]
 disable=["similarities"]

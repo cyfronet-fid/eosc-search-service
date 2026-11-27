@@ -2,7 +2,6 @@
 
 from contextlib import asynccontextmanager
 
-import sentry_sdk
 from fastapi import FastAPI
 from sentry_sdk.integrations.asgi import SentryAsgiMiddleware
 from starlette.middleware.cors import CORSMiddleware
